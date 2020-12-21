@@ -1,0 +1,44 @@
+diff --git a/node_modules/next-mdx-remote/hydrate.js b/node_modules/next-mdx-remote/hydrate.js
+index 83e826d..273cfa6 100644
+--- a/node_modules/next-mdx-remote/hydrate.js
++++ b/node_modules/next-mdx-remote/hydrate.js
+@@ -1,5 +1,6 @@
+ require('./idle-callback-polyfill')
+ const React = require('react')
++const { useRouter } = require('next/router')
+ const { mdx, MDXProvider } = require('@mdx-js/react')
+ const { useEffect } = require('react')
+ 
+@@ -27,6 +28,11 @@ module.exports = function hydrate(
+   //
+   // once the hydration is complete, we update the state/memo value and
+   // react re-renders for us
++  
++  const router = useRouter();
++  
++  const [, hash] = router.asPath.split("#");
++  
+   useEffect(() => {
+     const handle = window.requestIdleCallback(() => {
+       // first we set up the scope which has to include the mdx custom
+@@ -59,6 +65,20 @@ module.exports = function hydrate(
+       // and cancel the idle callback since we don't need it anymore
+       setResult(wrappedWithMdxProvider)
+       window.cancelIdleCallback(handle)
++      
++      if (hash) {
++          const idEl = document.getElementById(hash);
++          if (idEl) {
++            idEl.scrollIntoView();
++  
++            return;
++          }
++  
++          const nameEl = document.getElementsByName(hash)[0];
++          if (nameEl) {
++            nameEl.scrollIntoView();
++          }
++      }  
+     })
+   }, [compiledSource])
+ 

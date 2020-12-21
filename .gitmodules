@@ -1,0 +1,3 @@
+[submodule "content"]
+	path = content/teleport
+	url = https://github.com/gravitational/teleport/
