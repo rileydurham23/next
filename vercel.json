@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    {
+      "source": "/teleport/docs/kubernetes-ssh",
+      "destination": "/teleport/docs/kubernetes-access"
+    }
+  ]
+}
