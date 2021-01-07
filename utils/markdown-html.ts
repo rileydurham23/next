@@ -34,7 +34,10 @@ const fixKnowJSXTags = (html: string) => {
   return result;
 };
 
-export default async ({ document, options }: MarkdownHtml): Promise<string> => {
+export default async function markdown2html({
+  document,
+  options,
+}: MarkdownHtml): Promise<string> {
   const { remarkPlugins, rehypePlugins } = getPlugins(options);
 
   try {
@@ -59,4 +62,4 @@ export default async ({ document, options }: MarkdownHtml): Promise<string> => {
   } catch (e) {
     console.log(e);
   }
-};
+}

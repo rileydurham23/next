@@ -18,7 +18,10 @@ const includeRegexp = /{!([^!]+)!}/;
 const isNodeWithInclude = (node: MdxastNode) =>
   ["text", "code"].includes(node.type) && node.value.match(includeRegexp);
 
-export default ({ filesDir, ...options }: RemakIncludeOptions): Transformer => {
+export default function remarkInclude({
+  filesDir,
+  ...options
+}: RemakIncludeOptions): Transformer {
   return async (root: MdxastNode, vfile: VFile) => {
     const markdownNodes = [];
 
@@ -56,4 +59,4 @@ export default ({ filesDir, ...options }: RemakIncludeOptions): Transformer => {
       })
     );
   };
-};
+}

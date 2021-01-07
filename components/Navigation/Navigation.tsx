@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "components/Link";
 
 export interface NavigationItem {
   title: string;
@@ -23,10 +23,7 @@ const Navigation = ({ data }: NavigationProps) => {
           <ul>
             {entries.map(({ title, slug }) => (
               <li key={slug}>
-                <Link href={slug}>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a>{title}</a>
-                </Link>
+                <Link href={slug}>{title}</Link>
               </li>
             ))}
           </ul>

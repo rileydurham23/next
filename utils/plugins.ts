@@ -4,6 +4,7 @@ import { Settings, PluggableList } from "unified";
 import rehypeHeaders, { HeaderMeta } from "utils/rehype-headers";
 import rehypeLinks from "utils/rehype-links";
 import rehypeSlug from "rehype-slug";
+import rehypeTOC from "utils/rehype-toc";
 import remarkAdmonitions from "utils/remark-admonitions";
 import remarkTabbed from "utils/remark-tabbed";
 import rehypeHighlight from "rehype-highlight";
@@ -53,6 +54,8 @@ export const getPlugins = ({
   if (withMdx) {
     rehypePlugins.push([rehypeHeaders, { callback: headersCallback }]);
   }
+
+  rehypePlugins.push(rehypeTOC); // need to use this one after rehypeTitle;
 
   return {
     rehypePlugins,

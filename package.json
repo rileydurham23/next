@@ -1,6 +1,7 @@
 {
   "name": "teleport-docs-next",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -26,6 +27,7 @@
     "@emotion/styled": "^11.0.0",
     "@next/mdx": "^10.0.3",
     "@styled-system/css": "^5.1.5",
+    "hastscript": "^6.0.0",
     "next": "10.0.3",
     "next-mdx-remote": "^1.0.1",
     "react": "17.0.0",

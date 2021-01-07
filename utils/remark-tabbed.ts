@@ -65,7 +65,9 @@ const convertTabNodeToJsx = async (
   }
 };
 
-export default (options: MarkdownHtmlOptions): Transformer => {
+export default function remarkTabbed(
+  options: MarkdownHtmlOptions
+): Transformer {
   return async (root: Node, vfile: VFile) => {
     const allTabNodes = [];
 
@@ -123,4 +125,4 @@ export default (options: MarkdownHtmlOptions): Transformer => {
       console.log(e);
     }
   };
-};
+}

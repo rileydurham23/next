@@ -6,10 +6,10 @@ import { HeaderMeta } from "utils/rehype-headers";
 
 import { getPostBySlug, getSlugList, SerializedMdx } from "server/docs";
 
-import Admonition from "components/admonition";
-import Link from "components/link";
-import Navigation, { NavigationCategory } from "components/navigation";
-import { Tabs, TabItem } from "components/tabs";
+import Admonition from "components/Admonition";
+import Link from "components/Link";
+import Navigation, { NavigationCategory } from "components/Navigation";
+import { Tabs, TabItem } from "components/Tabs";
 
 const components = { a: Link, Admonition, Tabs, TabItem };
 

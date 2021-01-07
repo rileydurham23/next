@@ -88,7 +88,9 @@ const modifyAdmonitionNode = async (
   }
 };
 
-export default (options: MarkdownHtmlOptions): Transformer => {
+export default function remarkAdmonitions(
+  options: MarkdownHtmlOptions
+): Transformer {
   return async (root: Node, vfile: VFile) => {
     const allAdmonitionNodes = [];
 
@@ -114,4 +116,4 @@ export default (options: MarkdownHtmlOptions): Transformer => {
       allAdmonitionNodes.map((node) => modifyAdmonitionNode(node, options))
     );
   };
-};
+}

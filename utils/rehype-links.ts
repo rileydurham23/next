@@ -1,31 +1,30 @@
 import { Transformer } from "unified";
+import { Element, Root } from "hast";
 import visit from "unist-util-visit";
 
 import { generateSlugFromFilename } from "utils/url";
 import { RehypeNode } from "utils/unist-types";
 
-interface RehypeLinksOptions {
+export interface RehypeLinksOptions {
   currentPublicDir: string;
 }
 
 const isMdLink = (node: RehypeNode): boolean => {
-  const { type, tagName, properties } = node;
-
   return (
-    type === "element" &&
-    tagName === "a" &&
-    !!properties.href &&
-    properties.href.includes(".md")
+    node.type === "element" &&
+    node.tagName === "a" &&
+    typeof node.properties.href === "string" &&
+    node.properties.href.includes(".md")
   );
 };
 
-export default (options: RehypeLinksOptions): Transformer => {
-  return (root: RehypeNode) => {
-    visit<RehypeNode>(root, [isMdLink], (node) => {
+export default function rehypeLinks(options: RehypeLinksOptions): Transformer {
+  return (root: Root) => {
+    visit<Element>(root, [isMdLink], (node) => {
       node.properties.href = generateSlugFromFilename(
         options.currentPublicDir,
-        node.properties.href
+        node.properties.href as string
       );
     });
   };
-};
+}

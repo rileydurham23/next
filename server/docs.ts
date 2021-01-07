@@ -10,7 +10,7 @@ import {
 import { HeaderMeta } from "utils/rehype-headers";
 import { getPlugins } from "utils/plugins";
 
-import { NavigationCategory } from "components/navigation";
+import { NavigationCategory } from "components/Navigation";
 
 export interface SerializedMdx {
   compiledSource: string;

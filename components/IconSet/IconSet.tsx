@@ -1,4 +1,4 @@
-import * as icons from "./svg";
+import * as icons from "./icons";
 import styled from "@emotion/styled";
 import { compose, space, color, variant } from "styled-system";
 

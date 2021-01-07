@@ -6,7 +6,7 @@ import matter from "gray-matter";
 
 import { joinExisting } from "utils/join-existing";
 
-import { NavigationCategory } from "components/navigation";
+import { NavigationCategory } from "components/Navigation";
 
 import { versions, latest } from "content/meta/docs/config";
 

@@ -3,9 +3,9 @@ import markdown from "remark-parse";
 import remark2rehype from "remark-rehype";
 import html from "rehype-stringify";
 
-import rehypeLinks from "./rehype-links";
+import rehypeLinks, { RehypeLinksOptions } from "./rehype-links";
 
-const transformer = (document: string, options: Record<string, string>) =>
+const transformer = (document: string, options: RehypeLinksOptions) =>
   unified()
     .use(markdown)
     .use(remark2rehype)
