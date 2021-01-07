@@ -5,9 +5,9 @@ import {
   getNavigation,
   getSlugListForVersion,
   versions,
+  PageMeta,
 } from "utils/data-fetcher-docs";
 
-import { HeaderMeta } from "utils/rehype-headers";
 import { getPlugins } from "utils/plugins";
 
 import { NavigationCategory } from "components/Navigation";
@@ -18,15 +18,10 @@ export interface SerializedMdx {
   scope?: Scope;
 }
 
-interface PageData {
+export interface PageData {
   navigation: NavigationCategory[];
-  meta: Record<string, string>;
-  mdx: {
-    compiledSource: string;
-    renderedOutput: string;
-    scope?: Scope;
-  };
-  headers: HeaderMeta[];
+  meta: PageMeta;
+  mdx: SerializedMdx;
 }
 
 export const getPostBySlug = async (
@@ -52,13 +47,18 @@ export const getPostBySlug = async (
 
   const navigation = getNavigation(version);
 
-  let headers: HeaderMeta[] = [];
-
   const { remarkPlugins, rehypePlugins } = getPlugins({
     currentPublicDir: publicDir,
     withMdx: true,
-    headersCallback: (returnedHeaders: HeaderMeta[]) => {
-      headers = returnedHeaders;
+    headersCallback: (result) => {
+      meta.headers = result;
+    },
+    titleCallback: (result) => {
+      meta.h1 = result;
+
+      if (!meta.title) {
+        meta.title = result;
+      }
     },
   });
 
@@ -71,7 +71,7 @@ export const getPostBySlug = async (
     },
   });
 
-  return { navigation, meta, headers, mdx };
+  return { navigation, meta, mdx };
 };
 
 // Generating list of possible slugs

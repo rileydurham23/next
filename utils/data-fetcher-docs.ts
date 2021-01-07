@@ -5,6 +5,7 @@ import glob from "glob";
 import matter from "gray-matter";
 
 import { joinExisting } from "utils/join-existing";
+import { HeaderMeta } from "utils/rehype-headers";
 
 import { NavigationCategory } from "components/Navigation";
 
@@ -14,7 +15,21 @@ const DOCS_DIRECTIORY = join(process.cwd(), "content", "teleport", "docs");
 const DOCS_PUBLIC_URI = "/teleport/docs";
 const DOCS_META_DIRECTORY = join(process.cwd(), "content", "meta", "docs"); // tmp solution, until migration
 
-export const getPageContent = (slug: string, version?: string) => {
+export interface PageMeta {
+  title?: string;
+  description?: string;
+  h1?: string;
+  headers: HeaderMeta[];
+}
+
+interface PageContent {
+  content: string;
+  meta: PageMeta;
+  publicDir: string;
+  filepath: string;
+}
+
+export const getPageContent = (slug: string, version?: string): PageContent => {
   const filepath = getMdFileNameBySlug(version, slug);
 
   if (!filepath) return;
@@ -29,7 +44,10 @@ export const getPageContent = (slug: string, version?: string) => {
 
   const { data: meta, content } = matter(fileContents);
 
-  return { meta, content, publicDir, filepath };
+  meta.headers = [];
+  meta.h1 = meta.title || "";
+
+  return { meta, content, publicDir, filepath } as PageContent;
 };
 
 export const getMdFileNameBySlug = (
