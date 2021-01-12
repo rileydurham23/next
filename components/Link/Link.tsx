@@ -1,55 +1,71 @@
-import NextLink from "next/link";
-import { AnchorHTMLAttributes } from "react";
+import styled from "styled-components";
+import { ComponentProps } from "react";
+import NextLink, { LinkProps as NextLinkProps } from "next/link";
 
-const isExternalLink = (href?: string): boolean =>
-  typeof href === "string" && (href.startsWith("//") || href.includes("://"));
+import { all, StyledSystemProps } from "components/system";
 
-const isHash = (href?: string): boolean =>
-  typeof href === "string" && href.startsWith("#");
+const isExternalLink = (href: string): boolean =>
+  href.startsWith("//") || href.includes("://");
 
-interface LinkProps
-  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
-  href: string;
-  replace?: boolean;
-  scroll?: boolean;
-  shallow?: boolean;
-  passHref?: boolean;
-}
+const isHash = (href: string): boolean => href.startsWith("#");
+
+const BaseLink = styled("a")<StyledSystemProps>(
+  {
+    boxSizing: "border-box",
+    minWidth: 0,
+  },
+  all
+);
+
+type LinkProps = {
+  passthrough?: boolean;
+} & Omit<NextLinkProps, "href"> &
+  ComponentProps<typeof BaseLink>;
 
 const Link = ({
   children,
   href,
+  as,
   replace,
   scroll,
   shallow,
-  passHref,
+  passthrough,
+  prefetch,
+  locale,
   ...linkProps
 }: LinkProps) => {
-  if (isExternalLink(href)) {
+  if (passthrough || (typeof href === "string" && isHash(href))) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" {...linkProps}>
+      <BaseLink href={href} {...linkProps}>
         {children}
-      </a>
+      </BaseLink>
     );
-  } else if (isHash(href)) {
+  } else if (typeof href === "string" && isExternalLink(href)) {
     return (
-      <a href={href} {...linkProps}>
+      <BaseLink
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...linkProps}
+      >
         {children}
-      </a>
+      </BaseLink>
     );
   }
 
-  const nextProps = {
+  const nextProps: NextLinkProps = {
+    href,
+    as,
     replace,
     scroll,
     shallow,
-    passHref,
-    href,
+    prefetch,
+    locale,
   };
 
   return (
-    <NextLink {...nextProps}>
-      <a {...linkProps}>{children}</a>
+    <NextLink {...nextProps} passHref={true}>
+      <BaseLink {...linkProps}>{children}</BaseLink>
     </NextLink>
   );
 };

@@ -5,12 +5,31 @@ import {
   getNavigation,
   getSlugListForVersion,
   versions,
+  latest,
   PageMeta,
 } from "utils/data-fetcher-docs";
 
 import { getPlugins } from "utils/plugins";
 
-import { NavigationCategory } from "components/Navigation";
+import { NavigationCategory } from "components/DocNavigation";
+
+interface Version {
+  title: string;
+  href: string;
+  isLatest: boolean;
+  isCurrent: boolean;
+}
+
+const getVersions = (current: string): Version[] => {
+  const root = "/teleport/docs/";
+
+  return versions.map((version) => ({
+    title: version,
+    href: version === latest ? root : root + version,
+    isLatest: latest === version,
+    isCurrent: (current || latest) === version,
+  }));
+};
 
 export interface SerializedMdx {
   compiledSource: string;
@@ -22,6 +41,8 @@ export interface PageData {
   navigation: NavigationCategory[];
   meta: PageMeta;
   mdx: SerializedMdx;
+  versions: Version[];
+  isLatestVersion: boolean;
 }
 
 export const getPostBySlug = async (
@@ -71,7 +92,13 @@ export const getPostBySlug = async (
     },
   });
 
-  return { navigation, meta, mdx };
+  return {
+    navigation,
+    meta,
+    mdx,
+    versions: getVersions(version),
+    isLatestVersion: version === latest,
+  };
 };
 
 // Generating list of possible slugs

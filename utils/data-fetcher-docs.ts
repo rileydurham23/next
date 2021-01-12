@@ -7,19 +7,22 @@ import matter from "gray-matter";
 import { joinExisting } from "utils/join-existing";
 import { HeaderMeta } from "utils/rehype-headers";
 
-import { NavigationCategory } from "components/Navigation";
+import { NavigationCategory } from "components/DocNavigation";
 
 import { versions, latest } from "content/meta/docs/config";
 
-const DOCS_DIRECTIORY = join(process.cwd(), "content", "teleport", "docs");
+const DOCS_REPO_ROOT = join(process.cwd(), "content", "teleport");
+const DOCS_DIRECTIORY = join(DOCS_REPO_ROOT, "docs");
 const DOCS_PUBLIC_URI = "/teleport/docs";
 const DOCS_META_DIRECTORY = join(process.cwd(), "content", "meta", "docs"); // tmp solution, until migration
+const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
 export interface PageMeta {
   title?: string;
   description?: string;
   h1?: string;
   headers: HeaderMeta[];
+  githubUrl: string;
 }
 
 interface PageContent {
@@ -46,6 +49,10 @@ export const getPageContent = (slug: string, version?: string): PageContent => {
 
   meta.headers = [];
   meta.h1 = meta.title || "";
+  meta.githubUrl = filepath.replace(
+    DOCS_REPO_ROOT,
+    `${NEXT_PUBLIC_GITHUB_DOCS}/edit/master`
+  );
 
   return { meta, content, publicDir, filepath } as PageContent;
 };

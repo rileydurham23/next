@@ -1,6 +1,7 @@
 {
   "navigation": [
     {
+      "icon": "stack",
       "title": "Documentation",
       "entries": [
         { "title": "Introduction", "slug": "/" },
@@ -12,6 +13,7 @@
       ]
     },
     {
+      "icon": "book",
       "title": "Infrastructure Guides",
       "entries": [
         { "title": "AWS", "slug": "/aws-oss-guide/" },
@@ -19,6 +21,7 @@
       ]
     },
     {
+      "icon": "building",
       "title": "Enterprise Guides",
       "entries": [
         { "title": "Introduction", "slug": "/enterprise/" },
@@ -32,6 +35,7 @@
       ]
     },
     {
+      "icon": "bolt",
       "title": "SSO Guides",
       "entries": [
         { "title": "Active Directory (ADFS)", "slug": "/ssh-adfs/" },
@@ -42,6 +46,7 @@
       ]
     },
     {
+      "icon": "integrations",
       "title": "Architecture",
       "entries": [
         {
@@ -56,6 +61,7 @@
       ]
     },
     {
+      "icon": "list",
       "title": "CLI Reference",
       "entries": [{ "title": "CLI Reference", "slug": "/cli-docs/" }]
     }

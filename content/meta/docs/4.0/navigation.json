@@ -1,6 +1,7 @@
 {
   "navigation": [
     {
+      "icon": "stack",
       "title": "Documentation",
       "entries": [
         { "title": "Introduction", "slug": "/" },
@@ -12,6 +13,7 @@
       ]
     },
     {
+      "icon": "building",
       "title": "Teleport Enterprise",
       "entries": [
         { "title": "Introduction", "slug": "/enterprise/" },
@@ -21,6 +23,7 @@
       ]
     },
     {
+      "icon": "book",
       "title": "Guides",
       "entries": [
         { "title": "AWS", "slug": "/aws-oss-guide/" },

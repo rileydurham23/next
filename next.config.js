@@ -12,6 +12,14 @@ module.exports = withMDX({
       },
     });
 
+    config.module.rules.push({
+      test: /\.(png|jpg|woff2)$/i,
+      exclude: /node_modules/,
+      use: {
+        loader: "url-loader",
+      },
+    });
+
     return config;
   },
 });

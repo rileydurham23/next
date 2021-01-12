@@ -1,6 +1,7 @@
 {
   "navigation": [
     {
+      "icon": "stack",
       "title": "Documentation",
       "entries": [
         { "title": "Introduction", "slug": "/" },
@@ -13,6 +14,7 @@
       ]
     },
     {
+      "icon": "book",
       "title": "Infrastructure Guides",
       "entries": [
         { "title": "AWS", "slug": "/aws-oss-guide/" },
@@ -23,6 +25,7 @@
       ]
     },
     {
+      "icon": "building",
       "title": "Teleport Enterprise",
       "entries": [
         { "title": "Introduction", "slug": "/enterprise/" },
@@ -36,6 +39,7 @@
       ]
     },
     {
+      "icon": "integrations",
       "title": "Architecture",
       "entries": [
         {
@@ -50,6 +54,7 @@
       ]
     },
     {
+      "icon": "bolt",
       "title": "Teleport Advanced Features",
       "entries": [
         {
@@ -60,6 +65,7 @@
       ]
     },
     {
+      "icon": "list",
       "title": "CLI Reference",
       "entries": [{ "title": "CLI Reference", "slug": "/cli-docs/" }]
     }

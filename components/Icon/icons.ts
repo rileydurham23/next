@@ -1,0 +1,17 @@
+export { default as bolt } from "./svg/bolt.svg";
+export { default as book } from "./svg/book.svg";
+export { default as building } from "./svg/building.svg";
+export { default as calendar } from "./svg/calendar.svg";
+export { default as clock } from "./svg/clock.svg";
+export { default as code } from "./svg/code.svg";
+export { default as earth } from "./svg/earth.svg";
+export { default as flag } from "./svg/flag.svg";
+export { default as gamepad } from "./svg/gamepad.svg";
+export { default as help } from "./svg/help.svg";
+export { default as home } from "./svg/home.svg";
+export { default as integrations } from "./svg/integrations.svg";
+export { default as list } from "./svg/list.svg";
+export { default as wand } from "./svg/magic-wand.svg";
+export { default as note } from "./svg/note.svg";
+export { default as presentation } from "./svg/presentation.svg";
+export { default as stack } from "./svg/stack.svg";

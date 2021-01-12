@@ -1,15 +1,22 @@
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
-
 import hydrate from "next-mdx-remote/hydrate";
-
 import { getPostBySlug, getSlugList, PageData } from "server/docs";
+import {
+  Admonition,
+  AnchorNavigation,
+  Box,
+  DocHeader,
+  DocNavigation,
+  Flex,
+  Head,
+  Layout,
+  Link,
+  Tabs,
+  TabItem,
+} from "components";
 
-import Admonition from "components/Admonition";
-import Head from "components/Head";
-import Link from "components/Link";
-import Navigation, { NavigationCategory } from "components/Navigation";
-import { Tabs, TabItem } from "components/Tabs";
+import { getCurrentCategoryIndex } from "components/DocNavigation";
 
 const mdxHydrateOptions = {
   components: { a: Link, Admonition, Tabs, TabItem },
@@ -18,7 +25,8 @@ const mdxHydrateOptions = {
 const DocsPage = ({
   navigation,
   mdx,
-  meta: { description, h1, headers, title },
+  meta: { description, h1, headers, title, githubUrl },
+  versions,
 }: PageData) => {
   const router = useRouter();
 
@@ -26,37 +34,34 @@ const DocsPage = ({
     return <div>Loading...</div>;
   }
 
+  const categoryId = getCurrentCategoryIndex(navigation, router.asPath);
+  const icon = navigation[categoryId]?.icon;
+
   const content = hydrate(mdx, mdxHydrateOptions);
 
   return (
-    <>
+    <Layout>
       <Head title={title} description={description} />
-      <table>
-        <tbody>
-          <tr>
-            <td valign="top">
-              <Navigation data={navigation} />
-            </td>
-            <td valign="top">
-              <h1>{h1}</h1>
-              <div>{content}</div>
-            </td>
-            <td valign="top">
-              {headers.map(({ id, title, rank }) => {
-                return (
-                  <div key={id}>
-                    {Array(rank).fill("* ")}
-                    <a href={`#${id}`} style={{ whiteSpace: "nowrap" }}>
-                      {title}
-                    </a>
-                  </div>
-                );
-              })}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </>
+      <Flex alignItems="stretch">
+        <Box flexShrink={0}>
+          <DocNavigation data={navigation} />
+        </Box>
+        <Flex flexGrow={1} flexDirection="column">
+          <DocHeader
+            title={h1}
+            versions={versions}
+            githubUrl={githubUrl}
+            icon={icon}
+          />
+          <Flex>
+            <Box flexGrow={1} px={6} py={4}>
+              {content}
+            </Box>
+            {!!headers.length && <AnchorNavigation headers={headers} />}
+          </Flex>
+        </Flex>
+      </Flex>
+    </Layout>
   );
 };
 
