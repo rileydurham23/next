@@ -128,6 +128,7 @@ const CategoryButton = styled(HeadlessButton)(
       borderLeftColor: active ? "light-purple" : "white",
       color: active ? "dark-purple" : "gray",
       "&:focus, &:hover, &:active": {
+        cursor: "pointer",
         outline: "none",
         color: "light-purple",
       },

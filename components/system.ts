@@ -1,3 +1,4 @@
+import { CssFunctionReturnType } from "@styled-system/css";
 import {
   background,
   BackgroundProps,
@@ -20,7 +21,7 @@ import {
   TypographyProps,
   variant,
 } from "styled-system";
-import { TextStyle } from "components/theme";
+import theme, { TextStyle } from "components/theme";
 
 interface TextProps {
   text?: TextStyle;
@@ -36,7 +37,9 @@ export interface StyledSystemProps
     ShadowProps,
     SpaceProps,
     TextProps,
-    TypographyProps {}
+    TypographyProps {
+  css?: CssFunctionReturnType | string;
+}
 
 export const all = compose(
   background,
@@ -50,6 +53,32 @@ export const all = compose(
   typography,
   variant({
     prop: "text",
-    scale: "textStyles",
+    variants: theme.textStyles,
   })
 );
+
+export {
+  background,
+  border,
+  color,
+  compose,
+  flexbox,
+  layout,
+  position,
+  shadow,
+  space,
+  typography,
+  variant,
+};
+
+export type {
+  BackgroundProps,
+  BorderProps,
+  ColorProps,
+  FlexboxProps,
+  LayoutProps,
+  PositionProps,
+  ShadowProps,
+  SpaceProps,
+  TypographyProps,
+};

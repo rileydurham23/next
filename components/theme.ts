@@ -9,6 +9,10 @@ const theme = {
     "dark-gray": "#455A64",
     darkest: "#37474F",
     black: "#000000",
+    warning: "#FFB400",
+    danger: "#F80061",
+    tip: "#00C7AE",
+    note: "#009CF1",
   },
   fonts: {
     body: "'Lato', sans-serif",

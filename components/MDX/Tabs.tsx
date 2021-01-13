@@ -1,3 +1,5 @@
+import styled from "styled-components";
+import css from "@styled-system/css";
 import {
   isValidElement,
   Children,
@@ -5,6 +7,9 @@ import {
   useCallback,
   useState,
 } from "react";
+import { variant } from "components/system";
+import Box from "components/Box";
+import HeadlessButton from "components/HeadlessButton";
 
 const getSelectedLabel = (
   tabs: React.ReactComponentElement<typeof TabItem>[]
@@ -21,7 +26,7 @@ interface TabItemProps {
 }
 
 export const TabItem = ({ children }: TabItemProps) => {
-  return <div>{children}</div>;
+  return <Box p={4}>{children}</Box>;
 };
 
 interface TabsLabel {
@@ -34,9 +39,20 @@ const TabLabel = ({ selected, label, onClick }: TabsLabel) => {
   const onClickButton = useCallback(() => onClick(label), [label, onClick]);
 
   return (
-    <button disabled={selected} onClick={onClickButton}>
+    <Label
+      disabled={selected}
+      onClick={onClickButton}
+      variant={selected ? "selected" : "default"}
+      px={5}
+      py={2}
+      borderTopLeftRadius="default"
+      borderTopRightRadius="default"
+      fontSize="text-md"
+      fontWeight="bold"
+      lineHeight="md"
+    >
       {label}
-    </button>
+    </Label>
   );
 };
 
@@ -58,8 +74,13 @@ export const Tabs = ({ children }: TabsProps) => {
   );
 
   return (
-    <div>
-      <div>
+    <Box
+      bg="white"
+      boxShadow="0 1px 4px rgba(0,0,0,.24)"
+      borderRadius="default"
+      my={4}
+    >
+      <Box bg="lightest-gray" height="40px">
         {labels.map((label) => (
           <TabLabel
             key={label}
@@ -68,9 +89,30 @@ export const Tabs = ({ children }: TabsProps) => {
             selected={label === currentLabel}
           />
         ))}
-      </div>
-      <br />
-      <div>{currentTab}</div>
-    </div>
+      </Box>
+      {currentTab}
+    </Box>
   );
 };
+
+const Label = styled(HeadlessButton)<{ variant: "default" | "selected" }>(
+  css({
+    "&:hover, &:active, &:focus": {
+      color: "dark-gray",
+      outline: "none",
+    },
+  }),
+  variant({
+    variants: {
+      default: {
+        color: "gray",
+        cursor: "pointer",
+      },
+      selected: {
+        pointerEvents: "none",
+        bg: "white",
+        color: "dark-purple",
+      },
+    },
+  })
+);

@@ -1,4 +1,3 @@
-export { default as Admonition } from "components/Admonition";
 export { default as AnchorNavigation } from "components/AnchorNavigation";
 export { default as Box } from "components/Box";
 export { default as Button } from "components/Button";
@@ -13,5 +12,5 @@ export { default as Image } from "components/Image";
 export { default as Layout } from "components/Layout";
 export { default as Link } from "components/Link";
 export { default as Logo } from "components/Logo";
+export { default as MDX } from "components/MDX";
 export { default as Menu } from "components/Menu";
-export { Tabs, TabItem } from "components/Tabs";

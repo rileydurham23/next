@@ -12,11 +12,20 @@ const isAdmonitionHeaderNode = (node: MdxastNode): boolean =>
   node.children[0].type === "text" &&
   node.children[0].value.startsWith("!!!");
 
+const types = ["warning", "tip", "note", "danger"];
+
 const parseHeader = (node: MdxastNode) => {
   const header = node.children[0].value;
-  const [, type, , title, colon] = /^!!!\s?([a-zA-Z]+)(\s"([^"]+)")?(:$)?/.exec(
+  let [, type, , title, colon] = /^!!!\s?([a-zA-Z]+)(\s"([^"]+)")?(:$)?/.exec(
     header
   );
+
+  if (!types.includes(type)) {
+    const originalType = type;
+
+    type = "tip";
+    title = title || originalType;
+  }
 
   return { type, title, hasColon: Boolean(colon) };
 };

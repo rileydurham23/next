@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
-import { variant } from "styled-system";
-import { all, StyledSystemProps } from "components/system";
+import { all, StyledSystemProps, variant } from "components/system";
 
 interface ButtonProps extends StyledSystemProps {
   type: "primary" | "secondary" | "secondary-white";
