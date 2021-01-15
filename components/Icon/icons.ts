@@ -11,6 +11,7 @@ export { default as help } from "./svg/help.svg";
 export { default as home } from "./svg/home.svg";
 export { default as integrations } from "./svg/integrations.svg";
 export { default as list } from "./svg/list.svg";
+export { default as magnify } from "./svg/magnify.svg";
 export { default as wand } from "./svg/magic-wand.svg";
 export { default as note } from "./svg/note.svg";
 export { default as presentation } from "./svg/presentation.svg";

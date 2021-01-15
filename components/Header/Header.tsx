@@ -1,11 +1,28 @@
+import { useEffect } from "react";
 import css from "@styled-system/css";
+import styled from "styled-components";
+import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
+import Icon from "components/Icon";
 import Link from "components/Link";
 import Logo from "components/Logo";
 import Menu from "components/Menu";
+import "docsearch.js/dist/cdn/docsearch.min.css";
 
 const Header = () => {
+  // docsearch.js is using "window" inside, so it will break ssr if we import it directly
+  useEffect(() => {
+    import("docsearch.js").then(({ default: docsearch }) => {
+      docsearch({
+        apiKey: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY,
+        indexName: "goteleport",
+        inputSelector: "[data-docsearch-input]",
+        debug: false,
+      });
+    });
+  }, []);
+
   return (
     <Flex
       position="absolute"
@@ -37,12 +54,34 @@ const Header = () => {
         <Logo width={121} height={24} color="dark-purple" />
       </Link>
       <Menu />
+      <Box
+        display="flex"
+        alignItems="center"
+        width="380px"
+        height="32px"
+        ml="auto"
+        border="1px solid"
+        borderColor="light-gray"
+        borderRadius="default"
+        css={css({
+          "&:focus-within": {
+            borderColor: "dark-purple",
+          },
+        })}
+      >
+        <Icon name="magnify" color="gray" mx="6px" />
+        <StyledInput
+          type="text"
+          placeholder="Search documentation..."
+          data-docsearch-input
+        />
+      </Box>
       <Button
         as="a"
         href="https://dashboard.gravitational.com/web/"
         shape="sm"
         type="secondary"
-        ml="auto"
+        ml={4}
       >
         Sign In
       </Button>
@@ -54,3 +93,23 @@ const Header = () => {
 };
 
 export default Header;
+
+const StyledInput = styled("input")(
+  css({
+    display: "block",
+    flexGrow: 1,
+    width: "342px",
+    fontSize: "text-md",
+    lineHeight: "30px",
+    color: "black",
+    bg: "transparent",
+    p: 0,
+    border: "none",
+    "&:placeholder": {
+      color: "gray",
+    },
+    "&:focus": {
+      outline: "none",
+    },
+  })
+);
