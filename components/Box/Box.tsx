@@ -1,3 +1,4 @@
+import { ComponentProps } from "react";
 import styled from "styled-components";
 
 import { all, StyledSystemProps } from "components/system";
@@ -11,5 +12,7 @@ export const Box = styled("div")<StyledSystemProps>(
   },
   all
 );
+
+export type BoxProps = ComponentProps<typeof Box>;
 
 export default Box;

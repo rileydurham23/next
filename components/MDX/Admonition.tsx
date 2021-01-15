@@ -11,7 +11,7 @@ const Admonition = ({ type, title, children }: AdmonitionProps) => {
   return (
     <Box border="1px solid" borderColor={type} borderRadius="default" my={4}>
       <Box
-        color="white"
+        color={type === "warning" ? "black" : "white"}
         bg={type}
         height="24px"
         px={3}
