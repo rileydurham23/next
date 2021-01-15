@@ -26,6 +26,7 @@
     "@next/mdx": "^10.0.3",
     "@reach/listbox": "^0.12.1",
     "@styled-system/css": "^5.1.5",
+    "fathom-client": "^3.0.0",
     "docsearch.js": "^2.6.3",
     "next": "10.0.3",
     "next-mdx-remote": "^1.0.1",
