@@ -22,9 +22,9 @@ const MenuItem = ({ icon, image, title, description, href }: MenuItemProps) => {
       px={3}
       py={2}
       borderRadius="sm"
-      textDecoration="none"
       transition="all 0.3s"
       css={{
+        textDecoration: "none",
         "&:focus, &:hover": {
           bg: "lightest-gray",
         },

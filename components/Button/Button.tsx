@@ -15,7 +15,7 @@ const Button = styled("button")<ButtonProps>(
     alignItems: "center",
     boxSizing: "border-box",
     borderStyle: "solid",
-    borderWidth: "1px",
+
     borderRadius: "default",
     overflow: "hidden",
     fontWeight: 600,
@@ -81,16 +81,19 @@ const Button = styled("button")<ButtonProps>(
         px: 2,
         fontSize: "text-xs",
         textTransform: "uppercase",
+        borderWidth: "1px",
       },
       sm: {
         height: "32px",
         px: 4,
         fontSize: "text-md",
+        borderWidth: "1px",
       },
       md: {
         height: "48px",
         px: 7,
         fontSize: "text-lg",
+        borderWidth: "2px",
       },
     },
   })

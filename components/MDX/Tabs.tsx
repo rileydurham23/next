@@ -26,7 +26,19 @@ interface TabItemProps {
 }
 
 export const TabItem = ({ children }: TabItemProps) => {
-  return <Box p={4}>{children}</Box>;
+  return (
+    <Box
+      p={3}
+      overflowX="auto"
+      css={css({
+        "*:last-child": {
+          mb: 0,
+        },
+      })}
+    >
+      {children}
+    </Box>
+  );
 };
 
 interface TabsLabel {
@@ -78,7 +90,7 @@ export const Tabs = ({ children }: TabsProps) => {
       bg="white"
       boxShadow="0 1px 4px rgba(0,0,0,.24)"
       borderRadius="default"
-      my={4}
+      mb={3}
     >
       <Box bg="lightest-gray" height="40px">
         {labels.map((label) => (

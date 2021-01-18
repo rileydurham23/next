@@ -5,10 +5,13 @@ const Link = (props) => {
   return (
     <BaseLink
       {...props}
-      color="light-purple"
+      color="note"
       css={css({
-        "&:hover, &:active, &:focus": {
+        "&:visited": {
           color: "dark-purple",
+        },
+        "&:hover, &:active, &:focus": {
+          color: "light-purple",
         },
       })}
     />

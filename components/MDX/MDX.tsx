@@ -1,4 +1,6 @@
+import css from "@styled-system/css";
 import hydrate from "next-mdx-remote/hydrate";
+import Box from "components/Box";
 import Admonition from "./Admonition";
 import Code from "./Code";
 import { H1, H2, H3, H4, H5 } from "./Headers";
@@ -15,6 +17,7 @@ export const mdxHydrateOptions = {
   components: {
     a: Link,
     code: Code,
+    inlineCode: Code,
     img: Image,
     h1: H1,
     h2: H2,
@@ -45,7 +48,17 @@ export interface MDXProps {
 const MDX = ({ raw }: MDXProps) => {
   const content = hydrate(raw, mdxHydrateOptions);
 
-  return <>{content}</>;
+  return (
+    <Box
+      css={css({
+        "& *:first-child": {
+          marginTop: 0,
+        },
+      })}
+    >
+      {content}
+    </Box>
+  );
 };
 
 export default MDX;

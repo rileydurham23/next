@@ -11,7 +11,7 @@ import {
 } from "@reach/listbox";
 import "@reach/listbox/styles.css";
 import Box, { BoxProps } from "components/Box";
-import ArrorwSVG from "./assets/arrow.svg";
+import { ReactComponent as ArrorwSVG } from "./assets/arrow.svg";
 
 export interface VersionsItem {
   title: string;

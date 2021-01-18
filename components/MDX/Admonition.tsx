@@ -9,7 +9,7 @@ interface AdmonitionProps {
 
 const Admonition = ({ type, title, children }: AdmonitionProps) => {
   return (
-    <Box border="1px solid" borderColor={type} borderRadius="default" my={4}>
+    <Box border="1px solid" borderColor={type} borderRadius="default" mb={3}>
       <Box
         color={type === "warning" ? "black" : "white"}
         bg={type}

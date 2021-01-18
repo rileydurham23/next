@@ -7,9 +7,7 @@ module.exports = withMDX({
     config.module.rules.push({
       test: /\.svg$/,
       exclude: /node_modules/,
-      use: {
-        loader: "@svgr/webpack",
-      },
+      use: ["@svgr/webpack", "url-loader"],
     });
 
     config.module.rules.push({

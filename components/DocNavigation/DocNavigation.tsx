@@ -40,28 +40,24 @@ const DocNavigationCategory = ({
   return (
     <Box key={title}>
       <CategoryButton active={opened} onClick={toggleOpened}>
-        <Icon
-          name={icon}
-          ml="12px"
-          mr={2}
-          color={opened ? "light-purple" : "gray"}
-        />
+        <Icon name={icon} ml="12px" mr={2} />
         <Box text="text-md">{title}</Box>
       </CategoryButton>
       {opened && (
         <Box
           bg="lightest-gray"
-          fontSize="text-md"
-          lineHeight="lg"
-          px={3}
+          px={2}
+          py={1}
           boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.24)"
         >
           {entries.map(({ title, slug }) => (
-            <Box key={slug}>
-              <NavigationLink href={slug} active={slug === `${router.asPath}/`}>
-                {title}
-              </NavigationLink>
-            </Box>
+            <NavigationLink
+              href={slug}
+              active={slug === `${router.asPath}/`}
+              key={slug}
+            >
+              {title}
+            </NavigationLink>
           ))}
         </Box>
       )}
@@ -137,12 +133,18 @@ const CategoryButton = styled(HeadlessButton)(
 
 const NavigationLink = styled(Link)(({ active }: { active?: boolean }) =>
   css({
+    display: "block",
+    width: "100%",
+    px: 2,
+    borderRadius: "default",
+    fontSize: "text-md",
+    lineHeight: "lg",
     color: active ? "dark-purple" : "gray",
     fontWeight: active ? "bold" : "regular",
     textDecoration: "none",
     "&:focus, &:hover, &:active": {
       outline: "none",
-      color: "light-purple",
+      bg: "white",
     },
   })
 );

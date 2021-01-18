@@ -97,7 +97,7 @@ export const getPostBySlug = async (
     meta,
     mdx,
     versions: getVersions(version),
-    isLatestVersion: version === latest,
+    isLatestVersion: !version,
   };
 };
 

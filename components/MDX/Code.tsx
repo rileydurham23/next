@@ -1,7 +1,24 @@
 import Box from "components/Box";
 
+const isHLJSNode = ({ className }) =>
+  Boolean(className) && className.indexOf("hljs") !== -1;
+
 const Code = (props) => {
-  return <Box as="code" {...props} />;
+  if (isHLJSNode(props)) {
+    return <code {...props} />;
+  }
+
+  return (
+    <Box
+      as="code"
+      {...props}
+      px={1}
+      bg="lightest-gray"
+      border="1px solid"
+      borderColor="light-gray"
+      borderRadius="sm"
+    />
+  );
 };
 
 export default Code;

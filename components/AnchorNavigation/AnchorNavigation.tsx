@@ -17,6 +17,8 @@ const AnchorNavigation = ({ headers }: AnchorNavigationProps) => {
     <Box width="240px" p={4} flexShrink={0} position="sticky" top="0">
       <Box
         text="text-sm"
+        mx={1}
+        mb={1}
         py={1}
         fontWeight="bold"
         color="darkest"
@@ -27,25 +29,28 @@ const AnchorNavigation = ({ headers }: AnchorNavigationProps) => {
       </Box>
       {headers.map(({ id, title }) => {
         return (
-          <Box key={id} pt={2}>
-            <Link
-              href={`#${id}`}
-              fontSize="text-sm"
-              lineHeight="sm"
-              textDecoration="none"
-              color="dark-gray"
-              css={css({
-                "&:focus, &:hover": {
-                  color: "dark-purple",
-                },
-                "& + &": {
-                  mt: 2,
-                },
-              })}
-            >
-              {title}
-            </Link>
-          </Box>
+          <Link
+            key={id}
+            href={`#${id}`}
+            display="block"
+            fontSize="text-sm"
+            lineHeight="sm"
+            color="dark-gray"
+            p={1}
+            css={css({
+              textDecoration: "none",
+              maxWidth: "100%",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              "&:focus, &:hover, &:active": {
+                bg: "lightest-gray",
+                borderRadius: "default",
+              },
+            })}
+          >
+            {title}
+          </Link>
         );
       })}
     </Box>

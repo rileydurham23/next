@@ -7,10 +7,13 @@ import {
   Box,
   DocHeader,
   DocNavigation,
+  Footer,
   Flex,
   Head,
   Layout,
+  Link,
   MDX,
+  Notice,
 } from "components";
 
 import { mdxHydrateOptions } from "components/MDX";
@@ -21,6 +24,7 @@ const DocsPage = ({
   mdx,
   meta: { description, h1, headers, title, githubUrl },
   versions,
+  isLatestVersion,
 }: PageData) => {
   const router = useRouter();
 
@@ -30,6 +34,11 @@ const DocsPage = ({
 
   const categoryId = getCurrentCategoryIndex(navigation, router.asPath);
   const icon = navigation[categoryId]?.icon;
+
+  const { href: latestVersionHref } = versions.find(({ isLatest }) => isLatest);
+  const { title: currentVersionTitle } = versions.find(
+    ({ isCurrent }) => isCurrent
+  );
 
   return (
     <Layout>
@@ -47,10 +56,20 @@ const DocsPage = ({
           />
           <Flex>
             <Box flexGrow={1} px={6} py={4}>
-              <MDX raw={mdx} />
+              {!isLatestVersion && (
+                <Notice mb={4}>
+                  This chapter covers {currentVersionTitle}. We highly recommend
+                  evaluating the <Link href={latestVersionHref}>latest</Link>{" "}
+                  version instead.
+                </Notice>
+              )}
+              <Box maxWidth="900px">
+                <MDX raw={mdx} />
+              </Box>
             </Box>
             {!!headers.length && <AnchorNavigation headers={headers} />}
           </Flex>
+          <Footer />
         </Flex>
       </Flex>
     </Layout>

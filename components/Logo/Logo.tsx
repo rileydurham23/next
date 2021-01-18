@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { space, color, SpaceProps, ColorProps } from "components/system";
-import LogoSvg from "./logo.svg";
+import { ReactComponent as LogoSvg } from "./logo.svg";
 
 interface LogoProps extends SpaceProps, ColorProps {}
 

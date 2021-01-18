@@ -1,3 +1,4 @@
+import { ComponentProps } from "react";
 import styled from "styled-components";
 
 import { all, StyledSystemProps } from "components/system";
@@ -10,5 +11,7 @@ export const Flex = styled("div")<StyledSystemProps>(
   },
   all
 );
+
+export type FlexProps = ComponentProps<typeof Flex>;
 
 export default Flex;

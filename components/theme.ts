@@ -32,7 +32,7 @@ const theme = {
   fontWeights: {
     regular: 400,
     bold: 700,
-    boldest: 900,
+    black: 900,
   },
   lineHeights: {
     sm: "16px",

@@ -3,7 +3,7 @@ import Button from "components/Button";
 import Flex from "components/Flex";
 import Icon, { IconName } from "components/Icon";
 import Versions, { VersionsItem } from "./Versions";
-import bgUrl from "./assets/bg.jpg";
+import bgUrl from "./assets/bg.svg";
 
 interface DocHeaderProps {
   title: string;
@@ -45,7 +45,7 @@ const DocHeader = ({
           <Box text="text-sm" color="white">
             Teleport
           </Box>
-          <Box as="h1" pr={6} color="white" fontWeight="regular">
+          <Box as="h1" m={0} pr={6} color="white" fontWeight="regular">
             {title}
           </Box>
           <Versions items={versions} mt={1} />

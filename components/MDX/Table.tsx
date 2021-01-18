@@ -6,7 +6,7 @@ const Table = (props) => {
     <Box
       as="table"
       width={1}
-      my={4}
+      mb={3}
       boxShadow="0 1px 4px rgba(0,0,0,.24)"
       borderRadius="default"
       css={css({
