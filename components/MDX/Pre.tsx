@@ -69,11 +69,12 @@ const Pre = ({ children }: CodeProps) => {
         ref={codeRef}
         display="block"
         overflowX="auto"
+        m={0}
         px={3}
         py={2}
         color="#ddd"
         fontFamily="monospace"
-        fontSize="text-md"
+        fontSize={["text-sm", "text-md"]}
         lineHeight="md"
         css={`
           & code {

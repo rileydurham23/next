@@ -37,12 +37,12 @@ export const mdxHydrateOptions = {
   },
 };
 
+export interface RawMDX {
+  compiledSource: string;
+  renderedOutput: string;
+}
 export interface MDXProps {
-  raw: {
-    compiledSource: string;
-    renderedOutput: string;
-    scope?: Scope;
-  };
+  raw: RawMDX;
 }
 
 const MDX = ({ raw }: MDXProps) => {

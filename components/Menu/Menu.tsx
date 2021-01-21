@@ -5,9 +5,8 @@ import structure from "./structure";
 
 const Menu = () => {
   const [openedCategoryId, setOpenedCategoryId] = useState<number>(null);
-
   return (
-    <Flex alignItems="stretch" height={80}>
+    <Flex flexDirection={["column", "row"]} width={["100%", "auto"]}>
       {structure.map((props, id) => (
         <MenuCategory
           key={id}

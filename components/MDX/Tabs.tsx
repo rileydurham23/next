@@ -9,6 +9,7 @@ import {
 } from "react";
 import { variant } from "components/system";
 import Box from "components/Box";
+import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 
 const getSelectedLabel = (
@@ -28,7 +29,7 @@ interface TabItemProps {
 export const TabItem = ({ children }: TabItemProps) => {
   return (
     <Box
-      p={3}
+      p={[2, 3]}
       overflowX="auto"
       css={css({
         "*:last-child": {
@@ -55,7 +56,7 @@ const TabLabel = ({ selected, label, onClick }: TabsLabel) => {
       disabled={selected}
       onClick={onClickButton}
       variant={selected ? "selected" : "default"}
-      px={5}
+      px={[3, 5]}
       py={2}
       borderTopLeftRadius="default"
       borderTopRightRadius="default"
@@ -90,9 +91,9 @@ export const Tabs = ({ children }: TabsProps) => {
       bg="white"
       boxShadow="0 1px 4px rgba(0,0,0,.24)"
       borderRadius="default"
-      mb={3}
+      mb={[2, 3]}
     >
-      <Box bg="lightest-gray" height="40px">
+      <Flex bg="lightest-gray" overflowX="scroll" height="40px">
         {labels.map((label) => (
           <TabLabel
             key={label}
@@ -101,7 +102,7 @@ export const Tabs = ({ children }: TabsProps) => {
             selected={label === currentLabel}
           />
         ))}
-      </Box>
+      </Flex>
       {currentTab}
     </Box>
   );
@@ -109,6 +110,8 @@ export const Tabs = ({ children }: TabsProps) => {
 
 const Label = styled(HeadlessButton)<{ variant: "default" | "selected" }>(
   css({
+    whiteSpace: "nowrap",
+    flexShrink: 0,
     "&:hover, &:active, &:focus": {
       color: "dark-gray",
       outline: "none",

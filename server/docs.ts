@@ -1,5 +1,7 @@
 import renderToString from "next-mdx-remote/render-to-string";
-
+import { ThemeProvider } from "styled-components";
+import { Settings, Attacher } from "unified";
+import theme from "components/theme";
 import {
   getPageContent,
   getNavigation,
@@ -8,9 +10,7 @@ import {
   latest,
   PageMeta,
 } from "utils/data-fetcher-docs";
-
 import { getPlugins } from "utils/plugins";
-
 import { NavigationCategory } from "components/DocNavigation";
 
 interface Version {
@@ -34,7 +34,6 @@ const getVersions = (current: string): Version[] => {
 export interface SerializedMdx {
   compiledSource: string;
   renderedOutput: string;
-  scope?: Scope;
 }
 
 export interface PageData {
@@ -83,11 +82,17 @@ export const getPostBySlug = async (
     },
   });
 
+  const provider = {
+    component: ThemeProvider,
+    props: { theme },
+  };
+
   const mdx = await renderToString(content, {
     components,
+    provider,
     mdxOptions: {
-      rehypePlugins,
-      remarkPlugins,
+      rehypePlugins: rehypePlugins as Attacher<[Settings?], Settings>[],
+      remarkPlugins: remarkPlugins as Attacher<[Settings?], Settings>[],
       filepath,
     },
   });

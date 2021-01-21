@@ -1,5 +1,6 @@
 import { MenuCategoryProps } from "./Category";
 import accessDropdownPngPath from "./assets/access-dropdown.png";
+import accessPngPath from "./assets/access-plane.png";
 import applicationPngPath from "./assets/application.png";
 import kubernetesPngPath from "./assets/kubernetes.png";
 import serverPngPath from "./assets/server.png";
@@ -11,6 +12,14 @@ const menu: MenuCategoryProps[] = [
     href: "/teleport/",
     cover: accessDropdownPngPath,
     children: [
+      {
+        mobileOnly: true,
+        image: accessPngPath,
+        title: "Unified Access Plane",
+        description:
+          "Consolidates access controls and auditing across all environments - infrastructure, applications and data",
+        href: "/teleport/",
+      },
       {
         image: serverPngPath,
         title: "Teleport Server Access",

@@ -1,5 +1,5 @@
 import css from "@styled-system/css";
-import Box from "components/Box";
+import Box, { BoxProps } from "components/Box";
 import Link from "components/Link";
 
 export interface HeaderMeta {
@@ -12,9 +12,19 @@ interface AnchorNavigationProps {
   headers: HeaderMeta[];
 }
 
-const AnchorNavigation = ({ headers }: AnchorNavigationProps) => {
+const AnchorNavigation = ({
+  headers,
+  ...props
+}: AnchorNavigationProps & BoxProps) => {
   return (
-    <Box width="240px" p={4} flexShrink={0} position="sticky" top="0">
+    <Box
+      width="240px"
+      p={4}
+      flexShrink={0}
+      position="sticky"
+      top="0"
+      {...props}
+    >
       <Box
         text="text-sm"
         mx={1}

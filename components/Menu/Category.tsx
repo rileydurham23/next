@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import css from "@styled-system/css";
 import { useClickAway } from "react-use";
 import { useCallback, useRef } from "react";
+import { css, media } from "components/system";
 import Box from "components/Box";
 import Button from "components/Button";
 import Image from "components/Image";
@@ -59,23 +59,19 @@ const MenuCategory = ({
         </MainLink>
         <Dropdown opened={opened} large={hasCover}>
           {hasCover && (
-            <Flex
-              flex="0 0 240px"
-              flexDirection="column"
-              background="linear-gradient(125deg,#f0f2f4,#fff)"
-            >
+            <DropdownCover>
               <DropdownHeader>{description}</DropdownHeader>
               <CoverLink href={href}>
                 <Image src={cover} width="180" height="144" />
-                <Button shape="sm" type="secondary" as="div">
+                <Button variant="secondary" as="div">
                   Learn more
                 </Button>
               </CoverLink>
-            </Flex>
+            </DropdownCover>
           )}
           <Box flexGrow={1}>
             {!hasCover && <DropdownHeader>{description}</DropdownHeader>}
-            <Box pt={1} px={4} py={2}>
+            <Box px={[3, 4]} pt={2} pb={[3, 2]}>
               {children.map((props) => (
                 <MenuItem key={props.href} {...props} />
               ))}
@@ -111,50 +107,75 @@ const CoverLink = styled("a")(
   })
 );
 
-const MainLink = styled("a")(({ active }: { active: boolean }) =>
+const MainLink = styled("a")(({ active }: { active: boolean }) => [
   css({
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    height: "100%",
-    px: 3,
-    border: "0 solid dark-purple",
-    borderBottomWidth: active ? "2px" : "0",
-    cursor: "pointer",
-    fontSize: "text-md",
-    fontWeight: "bold",
+    boxSizing: "border-box",
     color: "darkest",
-    textDecoration: "none",
+    cursor: "pointer",
+    display: "block",
+    fontSize: "15px",
+    borderBottomColor: "dark-purple",
+    borderBottomStyle: "solid",
+    borderBottomWidth: active ? "2px" : 0,
+    fontWeight: 500,
+    float: "left",
+    lineHeight: "80px",
     outline: "none",
+    padding: "0 16px",
+    position: "relative",
+    textDecoration: "none",
     transition: "background 0.3s",
     "&:focus, &:hover": {
       color: "dark-purple",
       background: "rgba(240, 242, 244, 0.56)",
     },
-  })
-);
+  }),
+  media("sm", {
+    bg: "lightest-gray",
+    borderRadius: "default",
+    borderBottomWidth: 0,
+    float: "none",
+    fontSize: "text-lg",
+    mb: 2,
+    lineHeight: "56px",
+    textAlign: "left",
+    width: "100%",
+  }),
+]);
 
 const Dropdown = styled("div")(
-  ({ opened, large }: { opened: boolean; large: boolean }) =>
+  ({ opened, large }: { opened: boolean; large: boolean }) => [
     css({
-      display: opened ? "flex" : "none",
-      position: "absolute",
-      top: "80px",
-      left: 0,
-      zIndex: "3000",
-      overflow: "hidden",
-      minWidth: large ? "740px" : "540px",
-      ml: large ? "-180px" : "-80px",
-      p: 0,
+      background: "white",
       borderRadius: "default",
       boxShadow: "0 4px 40px rgba(0, 0, 0, 0.24)",
-      background: "white",
       color: "black",
-    })
+      display: opened ? "block" : "none",
+      left: "0",
+      ml: large ? "-180px" : "-80px",
+      overflow: "hidden",
+      p: 0,
+      position: "absolute",
+      minWidth: large ? "740px" : "540px",
+      top: "80px",
+      zIndex: 3000,
+    }),
+    media("sm", {
+      borderRadius: 0,
+      ml: 0,
+      minWidth: "auto",
+      position: "relative",
+      left: 0,
+      top: 0,
+      boxShadow: "none",
+      width: "100%",
+    }),
+  ]
 );
 
 const DropdownHeader = styled("h3")(({ center }: { center?: boolean }) =>
   css({
+    display: ["none", "block"],
     alignItems: "center",
     textAlign: center ? "center" : "left",
     mx: 5,
@@ -166,6 +187,24 @@ const DropdownHeader = styled("h3")(({ center }: { center?: boolean }) =>
   })
 );
 
+const DropdownCover = styled(Flex)(
+  css({
+    border: "1px solid",
+    borderColor: "transparent",
+    borderRadius: "default",
+    display: ["none", "block"],
+    lineHeight: "24px",
+    p: "0 16px 16px",
+    textAlign: "center",
+    textDecoration: "none",
+    transition: "all 0.3s",
+    "&:focus, &:hover": {
+      bg: "white",
+      borderColor: "dark-purple",
+    },
+  })
+);
+
 const Overlay = styled("div")(
   css({
     position: "fixed",
@@ -174,6 +213,9 @@ const Overlay = styled("div")(
     bottom: 0,
     left: 0,
     zIndex: 1000,
-    background: "hsla(0, 0%, 100%, .7)",
+    background: "blur(60px)",
+  }),
+  media("sm", {
+    display: "none",
   })
 );

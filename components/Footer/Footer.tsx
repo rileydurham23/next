@@ -6,22 +6,29 @@ import landscapeSvgUrl from "./assets/landscape.svg";
 const Footer = () => {
   return (
     <Flex width="100%" flexDirection="column" alignItems="center" mt={6}>
-      <Box fontSize="text-xl" lineHeight="xl" color="gray" mb={3}>
+      <Box
+        textAlign="center"
+        fontSize={["text-l", "text-xl"]}
+        lineHeight={["md", "xl"]}
+        color="gray"
+        px={3}
+        mb={3}
+      >
         Have a suggestion or can’t find something?
       </Box>
       <Button
         as="a"
-        type="primary"
-        shape="md"
         href="https://github.com/gravitational/teleport/tree/master/docs"
         target="_blank"
         rel="noopener noreferrer"
+        shape="lg"
+        variant="secondary"
       >
         IMPROVE THE DOCS
       </Button>
       <Box
         width="100%"
-        height="280px"
+        height={["50px", "280px"]}
         mt={3}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"

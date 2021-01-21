@@ -4,6 +4,7 @@ import styled from "styled-components";
 import css from "@styled-system/css";
 import Box from "components/Box";
 import HeadlessButton from "components/HeadlessButton";
+import Search from "components/Search";
 import Link from "components/Link";
 import Icon, { IconName } from "components/Icon";
 
@@ -22,12 +23,14 @@ interface DocNavigationCategoryProps extends NavigationCategory {
   id: number;
   opened: boolean;
   onToggleOpened: (value: number) => void;
+  onClick: () => void;
 }
 
 const DocNavigationCategory = ({
   id,
   opened,
   onToggleOpened,
+  onClick,
   icon,
   title,
   entries,
@@ -55,6 +58,7 @@ const DocNavigationCategory = ({
               href={slug}
               active={slug === `${router.asPath}/`}
               key={slug}
+              onClick={onClick}
             >
               {title}
             </NavigationLink>
@@ -85,22 +89,51 @@ const DocNavigation = ({ data }: DocNavigationProps) => {
   const [openedId, setOpenedId] = useState<number>(
     getCurrentCategoryIndex(data, router.asPath)
   );
+  const [visible, setVisible] = useState<boolean>(false);
+  const toggleMenu = useCallback(() => setVisible((visible) => !visible), []);
 
   return (
     <Box
-      width="240px"
-      height="100%"
-      borderRight="1px solid"
-      borderColor="lightest-gray"
-      overflow="auto"
+      width={["auto", "240px"]}
+      height={["48px", "100%"]}
+      borderRight={["none", "1px solid"]}
+      borderColor={["none", "lightest-gray"]}
+      overflow={["none", "auto"]}
+      bg={["light-gray", "white"]}
+      position="relative"
+      css={css({ zIndex: "1000" })}
+      py={[2, 0]}
     >
-      <Box>
+      <Search id="mobile" display={["block", "none"]} ml={3} mr="62px" />
+      <HeadlessButton
+        onClick={toggleMenu}
+        position="absolute"
+        right="16px"
+        top="12px"
+        color="gray"
+        display={["block", "none"]}
+        css={css({
+          "&:focus": {
+            outline: "none",
+          },
+        })}
+      >
+        <Icon name={visible ? "close" : "hamburger"} size="md" />
+      </HeadlessButton>
+      <Box
+        position={["absolute", "static"]}
+        display={[visible ? "block" : "none", "block"]}
+        top="48px"
+        bg="white"
+        width="100%"
+      >
         {data.map((props, index) => (
           <DocNavigationCategory
             key={index}
             id={index}
             opened={index === openedId}
             onToggleOpened={setOpenedId}
+            onClick={toggleMenu}
             {...props}
           />
         ))}

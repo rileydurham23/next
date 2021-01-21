@@ -16,7 +16,7 @@ const Table = (props) => {
         },
         "& tbody": {},
         "& th": {
-          fontSize: "text-lg",
+          fontSize: ["text-md", "text-lg"],
           lineHeight: "md",
           fontWeight: "bold",
           textAlign: "left",
@@ -25,7 +25,7 @@ const Table = (props) => {
         },
         "& td": {
           color: "darkest",
-          fontSize: "text-lg",
+          fontSize: ["text-md", "text-lg"],
           lineHeight: "md",
           px: 3,
           py: 2,

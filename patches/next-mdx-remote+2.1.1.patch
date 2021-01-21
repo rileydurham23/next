@@ -1,0 +1,44 @@
+diff --git a/node_modules/next-mdx-remote/hydrate.js b/node_modules/next-mdx-remote/hydrate.js
+index 7a8d00b..479e766 100644
+--- a/node_modules/next-mdx-remote/hydrate.js
++++ b/node_modules/next-mdx-remote/hydrate.js
+@@ -2,6 +2,7 @@
+ 
+ require('./idle-callback-polyfill')
+ var React = require('react')
++const { useRouter } = require('next/router')
+ var MDX = require('@mdx-js/react')
+ 
+ module.exports = function hydrate(params, options) {
+@@ -26,6 +27,10 @@ module.exports = function hydrate(params, options) {
+   // if we're server-side, we can return the raw output early
+   if (typeof window === 'undefined') return result
+ 
++  const router = useRouter();
++
++  const [, hash] = router.asPath.split("#");
++
+   // if we're on the client side, we hydrate the mdx content inside
+   // requestIdleCallback, since we can be fairly confident that
+   // markdown - embedded components are not a high priority to get
+@@ -72,6 +77,20 @@ module.exports = function hydrate(params, options) {
+         // and cancel the idle callback since we don't need it anymore
+         setResult(result)
+         window.cancelIdleCallback(handle)
++
++        if (hash) {
++          const idEl = document.getElementById(hash);
++          if (idEl) {
++            idEl.scrollIntoView();
++  
++            return;
++          }
++  
++          const nameEl = document.getElementsByName(hash)[0];
++          if (nameEl) {
++            nameEl.scrollIntoView();
++          }
++        }  
+       })
+     },
+     [compiledSource]

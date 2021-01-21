@@ -2,9 +2,12 @@ import styled from "styled-components";
 import css from "@styled-system/css";
 import { all, StyledSystemProps, variant } from "components/system";
 
+type variant = "primary" | "secondary" | "secondary-white";
+type shape = "sm" | "md" | "lg";
+
 interface ButtonProps extends StyledSystemProps {
-  type: "primary" | "secondary" | "secondary-white";
-  shape: "xs" | "sm" | "md";
+  variant?: variant | variant[];
+  shape?: shape | shape[];
 }
 
 const Button = styled("button")<ButtonProps>(
@@ -40,7 +43,6 @@ const Button = styled("button")<ButtonProps>(
   all,
 
   variant({
-    prop: "type",
     variants: {
       primary: {
         backgroundColor: "dark-purple",
@@ -76,20 +78,20 @@ const Button = styled("button")<ButtonProps>(
   variant({
     prop: "shape",
     variants: {
-      xs: {
+      sm: {
         height: "24px",
         px: 2,
         fontSize: "text-xs",
         textTransform: "uppercase",
         borderWidth: "1px",
       },
-      sm: {
+      md: {
         height: "32px",
         px: 4,
         fontSize: "text-md",
         borderWidth: "1px",
       },
-      md: {
+      lg: {
         height: "48px",
         px: 7,
         fontSize: "text-lg",
@@ -98,5 +100,10 @@ const Button = styled("button")<ButtonProps>(
     },
   })
 );
+
+Button.defaultProps = {
+  variant: "primary",
+  shape: "md",
+};
 
 export default Button;

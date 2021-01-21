@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import css from "@styled-system/css";
-import Box from "components/Box";
+import { css, media } from "components/system";
 import Image from "components/Image";
 import Link from "components/Link";
 import Icon, { IconName } from "components/Icon";
@@ -11,29 +10,20 @@ export interface MenuItemProps {
   href: string;
   icon?: IconName;
   image?: string;
+  mobileOnly?: boolean;
 }
 
-const MenuItem = ({ icon, image, title, description, href }: MenuItemProps) => {
+const MenuItem = ({
+  icon,
+  image,
+  title,
+  description,
+  href,
+  mobileOnly,
+}: MenuItemProps) => {
   return (
-    <Link
-      href={href}
-      passthrough
-      display="block"
-      px={3}
-      py={2}
-      borderRadius="sm"
-      transition="all 0.3s"
-      css={{
-        textDecoration: "none",
-        "&:focus, &:hover": {
-          bg: "lightest-gray",
-        },
-        "& + &": {
-          mt: 2,
-        },
-      }}
-    >
-      {image && <StyledImage size="80px" mr={2} src={image} />}
+    <StyledWrapper href={href} passthrough mobileOnly={mobileOnly}>
+      {image && <StyledImage src={image} />}
       {icon && (
         <Icon
           name={icon}
@@ -43,23 +33,69 @@ const MenuItem = ({ icon, image, title, description, href }: MenuItemProps) => {
           css={css({ float: "left" })}
         />
       )}
-      <Box
-        as="strong"
-        display="block"
-        fontSize="text-lg"
-        lineHeight="lg"
-        fontWeight="bold"
-        color="dark-purple"
-      >
-        {title}
-      </Box>
-      <Box as="span" text="text-md" color="darkest">
-        {description}
-      </Box>
-    </Link>
+      <StyledTitle>{title}</StyledTitle>
+      <StyledDescription>{description}</StyledDescription>
+    </StyledWrapper>
   );
 };
 
 export default MenuItem;
 
-const StyledImage = styled(Image)(css({ float: "left" }));
+const StyledImage = styled(Image)(
+  css({
+    float: "left",
+    mr: 2,
+    width: "80px",
+    height: "80px",
+  }),
+  media("sm", {
+    width: "90px",
+    height: "90px",
+    mt: 2,
+  })
+);
+
+const StyledWrapper = styled(Link)(
+  ({ mobileOnly }: { mobileOnly?: boolean }) => [
+    css({
+      display: mobileOnly ? ["block", "none"] : "block",
+      overflow: "hidden",
+      px: 3,
+      py: 2,
+      borderRadius: "sm",
+      transition: "all 0.3s",
+      lineHeight: "24px",
+      textAlign: "left",
+      textDecoration: "none",
+      "&:focus, &:hover": {
+        bg: "lightest-gray",
+      },
+      "& + &": {
+        mt: 2,
+      },
+    }),
+    media("sm", {
+      border: "1px solid",
+      borderColor: "lightest-gray",
+    }),
+  ]
+);
+
+const StyledTitle = styled("strong")(
+  css({
+    display: "block",
+    fontSize: "text-lg",
+    lineHeight: "lg",
+    fontWeight: "bold",
+    color: "dark-purple",
+  })
+);
+
+const StyledDescription = styled("span")(
+  css({
+    display: "block",
+    fontSize: "text-md",
+    lineHeight: "md",
+    color: "darkest",
+  })
+);

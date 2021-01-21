@@ -1,115 +1,161 @@
-import { useEffect } from "react";
-import css from "@styled-system/css";
+import { useState, useCallback } from "react";
 import styled from "styled-components";
-import Box from "components/Box";
+import { css, media } from "components/system";
 import Button from "components/Button";
 import Flex from "components/Flex";
 import Icon from "components/Icon";
 import Link from "components/Link";
 import Logo from "components/Logo";
 import Menu from "components/Menu";
-import "docsearch.js/dist/cdn/docsearch.min.css";
+import HeadlessButton from "components/HeadlessButton";
+import Search from "components/Search";
 
 const Header = () => {
-  // docsearch.js is using "window" inside, so it will break ssr if we import it directly
-  useEffect(() => {
-    import("docsearch.js").then(({ default: docsearch }) => {
-      docsearch({
-        apiKey: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY,
-        indexName: "goteleport",
-        inputSelector: "[data-docsearch-input]",
-        debug: false,
-      });
-    });
-  }, []);
+  const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
+    false
+  );
+  const toggleNavigaton = useCallback(
+    () => setIsNavigationVisible((isNavigationVisible) => !isNavigationVisible),
+    []
+  );
 
   return (
-    <Flex
-      position="absolute"
-      top={0}
-      left={0}
-      right={0}
-      zIndex={2000}
-      alignItems="center"
-      height="80px"
-      pr={5}
-      borderBottom="1px solid"
-      borderColor="lightest-gray"
-    >
-      <Link
-        href="/"
-        boxSizing="border-box"
-        display="flex"
-        alignItems="center"
-        width="240px"
-        height="100%"
-        pl={5}
-        css={css({
-          "&:focus, &:hover": {
-            outline: "none",
-            background: "rgba(240, 242, 244, 0.56)",
-          },
-        })}
-      >
+    <StyledHeader>
+      <StyledLogoLink href="/">
         <Logo width={121} height={24} color="dark-purple" />
-      </Link>
-      <Menu />
-      <Box
-        display="flex"
-        alignItems="center"
-        width="380px"
-        height="32px"
-        ml="auto"
-        border="1px solid"
-        borderColor="light-gray"
-        borderRadius="default"
-        css={css({
-          "&:focus-within": {
-            borderColor: "dark-purple",
-          },
-        })}
-      >
-        <Icon name="magnify" color="gray" mx="6px" />
-        <StyledInput
-          type="text"
-          placeholder="Search documentation..."
-          data-docsearch-input
-        />
-      </Box>
-      <Button
-        as="a"
-        href="https://dashboard.gravitational.com/web/"
-        shape="sm"
-        type="secondary"
-        ml={4}
-      >
-        Sign In
-      </Button>
-      <Button as="a" href="/get-started/" shape="sm" type="primary" ml={4}>
-        Get Started
-      </Button>
-    </Flex>
+      </StyledLogoLink>
+      <StyledHamburger onClick={toggleNavigaton}>
+        <Icon name={isNavigationVisible ? "close" : "hamburger"} size="md" />
+      </StyledHamburger>
+      <StyledContentWrapper isNavigationVisible={isNavigationVisible}>
+        <Menu />
+        <Search ml="auto" display={["none", "none", "flex"]} id="desktop" />
+        <StyledCTAs>
+          <StyledCTA
+            as="a"
+            href="https://dashboard.gravitational.com/web/"
+            variant="secondary"
+          >
+            Sign In
+          </StyledCTA>
+          <StyledCTA as="a" href="/get-started/">
+            Get Started
+          </StyledCTA>
+        </StyledCTAs>
+      </StyledContentWrapper>
+    </StyledHeader>
   );
 };
 
 export default Header;
 
-const StyledInput = styled("input")(
+const StyledHeader = styled(Flex)(
   css({
-    display: "block",
-    flexGrow: 1,
-    width: "342px",
-    fontSize: "text-md",
-    lineHeight: "30px",
-    color: "black",
-    bg: "transparent",
-    p: 0,
-    border: "none",
-    "&:placeholder": {
-      color: "gray",
+    alignItems: "center",
+    borderBottom: "1px solid",
+    borderColor: "lightest-gray",
+    height: "80px",
+    left: 0,
+    position: "absolute",
+    right: 0,
+    top: 0,
+    zIndex: 2000,
+  }),
+  media("sm", {
+    background: "white",
+    boxShadow: "0 1px 4px rgba(0, 0, 0, 0.24)",
+    height: "48px",
+    position: "fixed",
+  })
+);
+
+const StyledLogoLink = styled(Link)(
+  css({
+    color: "dark-purple",
+    fontSize: "text-xl",
+    fontWeight: "700",
+    lineHeight: "80px",
+    margin: "0 40px 0 0",
+    px: "32px",
+    textDecoration: "none",
+    transition: "all 0.3s",
+    display: "flex",
+    alignItems: "center",
+    height: "80px",
+    width: "200px",
+    minWidth: "200px",
+    "&:focus, &:hover": {
+      background: "rgba(240, 242, 244, 0.56)",
     },
-    "&:focus": {
-      outline: "none",
-    },
+  }),
+  media("sm", {
+    height: "48px",
+    lineHeight: "48px",
+    px: "16px",
+  })
+);
+
+const StyledContentWrapper = styled(Flex)(
+  ({ isNavigationVisible }: { isNavigationVisible: boolean }) => [
+    css({
+      width: "100%",
+      alignItems: "center",
+    }),
+    media("sm", {
+      flexDirection: "column",
+      position: "fixed",
+      zIndex: 2000,
+      top: "48px",
+      right: 0,
+      bottom: 0,
+      left: 0,
+      display: isNavigationVisible ? "flex" : "none",
+      overflow: "auto",
+      width: "auto",
+      p: 2,
+      bg: "white",
+    }),
+  ]
+);
+
+const StyledCTAs = styled(Flex)(
+  css({
+    flexGrow: 0,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    pr: [0, 3],
+    ml: [0, "auto", 3],
+  }),
+  media("sm", {
+    mt: 5,
+    width: "100%",
+    flexDirection: "column",
+  })
+);
+
+const StyledCTA = styled(Button)(
+  css({
+    mr: 3,
+    flexShrink: 0,
+  }),
+  media("sm", {
+    fontSize: "text-lg",
+    height: "56px",
+    mt: 2,
+    mr: 0,
+    width: "100%",
+  })
+);
+
+const StyledHamburger = styled(HeadlessButton)(
+  css({
+    color: "dark-purple",
+    display: ["block", "none"],
+    height: "48px",
+    outline: "none",
+    padding: "12px 16px",
+    position: "absolute",
+    right: 0,
+    top: 0,
   })
 );

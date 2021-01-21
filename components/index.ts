@@ -16,3 +16,4 @@ export { default as Logo } from "components/Logo";
 export { default as MDX } from "components/MDX";
 export { default as Menu } from "components/Menu";
 export { default as Notice } from "components/Notice";
+export { default as PageContent } from "components/PageContent";

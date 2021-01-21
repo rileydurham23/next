@@ -58,10 +58,12 @@ export default Versions;
 const StyledListboxInput = styled(ListboxInput)(
   css({
     display: "inline-flex",
-    border: "1px solid transparent",
+    height: ["32px", "36px"],
+    border: "1px solid",
+    borderColor: ["white", "transparent"],
     borderRadius: "default",
     "&:hover, &:active, &:focus": {
-      border: "1px solid white",
+      borderColor: "white",
     },
   })
 );
@@ -70,7 +72,7 @@ const StyledListboxButton = styled(ListboxButton)(
   css({
     display: "flex",
     alignItems: "center",
-    fontSize: "text-sm",
+    fontSize: ["text-md", "text-sm"],
     fontWeight: "bold",
     lineHeight: "lg",
     color: "white",

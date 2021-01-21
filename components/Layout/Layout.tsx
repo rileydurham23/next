@@ -7,7 +7,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <Flex pt={80} flexDirection="column">
+    <Flex pt={["48px", "80px"]} flexDirection="column">
       <Header />
       {children}
     </Flex>

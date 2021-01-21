@@ -5,7 +5,8 @@ import * as icons from "./icons";
 const sizes = {
   sm: 12,
   md: 24,
-  lg: 40,
+  lg: 32,
+  xl: 40,
 };
 
 export type IconName = keyof typeof icons;

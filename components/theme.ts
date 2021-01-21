@@ -1,4 +1,7 @@
+const breakpoints = ["900px", "1200px"];
+
 const theme = {
+  breakpoints,
   colors: {
     "dark-purple": "#512FC9",
     "light-purple": "#651FFF",
@@ -80,6 +83,12 @@ const theme = {
     },
   },
   space: [0, 4, 8, 16, 24, 32, 40, 48],
+
+  media: {
+    sm:
+      "@media screen and (max-device-width: 900px), screen and (max-width: 900px)",
+  },
+
   radii: {
     sm: 2,
     default: 4,

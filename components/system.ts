@@ -1,4 +1,4 @@
-import { CssFunctionReturnType } from "@styled-system/css";
+import css, { CssFunctionReturnType } from "@styled-system/css";
 import {
   background,
   BackgroundProps,
@@ -57,7 +57,26 @@ export const all = compose(
   })
 );
 
+export interface StyledSystemWrapperProps
+  extends FlexboxProps,
+    LayoutProps,
+    PositionProps,
+    ShadowProps,
+    SpaceProps,
+    TextProps {}
+
+export const wrapper = compose(flexbox, layout, position, shadow, space);
+
+const media = (mediaKey = "", styles: any) => ({ /* props,  */ theme }) => {
+  const key = theme.media[mediaKey];
+  return {
+    [key]: css(styles)(theme),
+  };
+};
+
 export {
+  media,
+  css,
   background,
   border,
   color,

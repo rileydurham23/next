@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import theme from "components/theme";
 import * as Fathom from "fathom-client";
 import "components/global-styles.css";
+import "components/Search/search.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();

@@ -1,20 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
-
 import { getPostBySlug, getSlugList, PageData } from "server/docs";
-import {
-  AnchorNavigation,
-  Box,
-  DocHeader,
-  DocNavigation,
-  Footer,
-  Flex,
-  Head,
-  Layout,
-  Link,
-  MDX,
-  Notice,
-} from "components";
+import { Head, PageContent } from "components";
 
 import { mdxHydrateOptions } from "components/MDX";
 import { getCurrentCategoryIndex } from "components/DocNavigation";
@@ -41,38 +28,21 @@ const DocsPage = ({
   );
 
   return (
-    <Layout>
+    <>
       <Head title={title} description={description} />
-      <Flex alignItems="stretch">
-        <Box flexShrink={0}>
-          <DocNavigation data={navigation} />
-        </Box>
-        <Flex flexGrow={1} flexDirection="column">
-          <DocHeader
-            title={h1}
-            versions={versions}
-            githubUrl={githubUrl}
-            icon={icon}
-          />
-          <Flex>
-            <Box flexGrow={1} px={6} py={4}>
-              {!isLatestVersion && (
-                <Notice mb={4}>
-                  This chapter covers {currentVersionTitle}. We highly recommend
-                  evaluating the <Link href={latestVersionHref}>latest</Link>{" "}
-                  version instead.
-                </Notice>
-              )}
-              <Box maxWidth="900px">
-                <MDX raw={mdx} />
-              </Box>
-            </Box>
-            {!!headers.length && <AnchorNavigation headers={headers} />}
-          </Flex>
-          <Footer />
-        </Flex>
-      </Flex>
-    </Layout>
+      <PageContent
+        navigation={navigation}
+        versions={versions}
+        h1={h1}
+        githubUrl={githubUrl}
+        icon={icon}
+        mdx={mdx}
+        isLatestVersion={isLatestVersion}
+        currentVersionTitle={currentVersionTitle}
+        latestVersionHref={latestVersionHref}
+        headers={headers}
+      />
+    </>
   );
 };
 

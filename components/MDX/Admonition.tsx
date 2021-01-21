@@ -9,12 +9,17 @@ interface AdmonitionProps {
 
 const Admonition = ({ type, title, children }: AdmonitionProps) => {
   return (
-    <Box border="1px solid" borderColor={type} borderRadius="default" mb={3}>
+    <Box
+      border="1px solid"
+      borderColor={type}
+      borderRadius="default"
+      mb={[2, 3]}
+    >
       <Box
         color={type === "warning" ? "black" : "white"}
         bg={type}
         height="24px"
-        px={3}
+        px={[2, 3]}
         text="text-sm"
         css={`
           text-transform: uppercase;
@@ -23,7 +28,8 @@ const Admonition = ({ type, title, children }: AdmonitionProps) => {
         {title || capitalize(type)}
       </Box>
       <Box
-        p={3}
+        p={[2, 3]}
+        fontSize={["text-md", "text-lg"]}
         css={css({
           "& *:first-child": {
             mt: 0,
