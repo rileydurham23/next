@@ -2,6 +2,8 @@ import renderToString from "next-mdx-remote/render-to-string";
 import { ThemeProvider } from "styled-components";
 import { Settings, Attacher } from "unified";
 import theme from "components/theme";
+import { mdxHydrateOptions } from "components/MDX";
+import { NavigationCategory } from "components/DocNavigation";
 import {
   getPageContent,
   getNavigation,
@@ -11,7 +13,6 @@ import {
   PageMeta,
 } from "utils/data-fetcher-docs";
 import { getPlugins } from "utils/plugins";
-import { NavigationCategory } from "components/DocNavigation";
 
 interface Version {
   title: string;
@@ -21,11 +22,9 @@ interface Version {
 }
 
 const getVersions = (current: string): Version[] => {
-  const root = "/teleport/docs/";
-
   return versions.map((version) => ({
     title: version,
-    href: version === latest ? root : root + version,
+    href: version === latest ? "/" : `/ver/${version}/`,
     isLatest: latest === version,
     isCurrent: (current || latest) === version,
   }));
@@ -45,16 +44,15 @@ export interface PageData {
 }
 
 export const getPostBySlug = async (
-  slug: string | string[] = "",
-  components: Record<string, React.ReactNode>
+  slug: string | string[] = ""
 ): Promise<PageData | undefined> => {
   let version: string;
   let slugString = slug as string;
 
   if (Array.isArray(slug)) {
-    if (versions.includes(slug[0])) {
-      version = slug[0];
-      slugString = slug.slice(1).join("/");
+    if (slug[0] === "ver" && versions.includes(slug[1])) {
+      version = slug[1];
+      slugString = slug.slice(2).join("/");
     } else {
       slugString = slug.join("/");
     }
@@ -82,14 +80,12 @@ export const getPostBySlug = async (
     },
   });
 
-  const provider = {
-    component: ThemeProvider,
-    props: { theme },
-  };
-
   const mdx = await renderToString(content, {
-    components,
-    provider,
+    provider: {
+      component: ThemeProvider,
+      props: { theme },
+    },
+    components: mdxHydrateOptions.components,
     mdxOptions: {
       rehypePlugins: rehypePlugins as Attacher<[Settings?], Settings>[],
       remarkPlugins: remarkPlugins as Attacher<[Settings?], Settings>[],

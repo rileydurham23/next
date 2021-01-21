@@ -2,8 +2,6 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { getPostBySlug, getSlugList, PageData } from "server/docs";
 import { Head, PageContent } from "components";
-
-import { mdxHydrateOptions } from "components/MDX";
 import { getCurrentCategoryIndex } from "components/DocNavigation";
 
 const DocsPage = ({
@@ -49,7 +47,7 @@ const DocsPage = ({
 export default DocsPage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const props = await getPostBySlug(params.slug, mdxHydrateOptions.components);
+  const props = await getPostBySlug(params.slug);
 
   if (!props) {
     return { notFound: true };

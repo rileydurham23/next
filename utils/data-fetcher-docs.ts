@@ -13,7 +13,6 @@ import { versions, latest } from "content/meta/docs/config";
 
 const DOCS_REPO_ROOT = join(process.cwd(), "content", "teleport");
 const DOCS_DIRECTIORY = join(DOCS_REPO_ROOT, "docs");
-const DOCS_PUBLIC_URI = "/teleport/docs";
 const DOCS_META_DIRECTORY = join(process.cwd(), "content", "meta", "docs"); // tmp solution, until migration
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
@@ -40,7 +39,7 @@ export const getPageContent = (slug: string, version?: string): PageContent => {
   const base = !version ? join(DOCS_DIRECTIORY, latest) : DOCS_DIRECTIORY;
 
   const publicDir = filepath
-    .replace(base, DOCS_PUBLIC_URI)
+    .replace(base, !version ? "" : "/ver")
     .replace(/\/[^/]+.md$/, "");
 
   const fileContents = readFileSync(filepath, "utf8");
@@ -92,7 +91,11 @@ export const getNavigation = (version?: string) => {
 
       (navigation as NavigationCategory[]).forEach((c) => {
         c.entries.forEach((i) => {
-          i.slug = joinExisting(DOCS_PUBLIC_URI, version, i.slug);
+          i.slug = joinExisting(
+            "/",
+            version ? `ver/${version}` : version,
+            i.slug
+          );
         });
       });
 
@@ -105,8 +108,7 @@ export const getNavigation = (version?: string) => {
 
 export const getSlugListForVersion = (version: string) => {
   const path = join(DOCS_DIRECTIORY, version);
-  const root =
-    version === latest ? DOCS_PUBLIC_URI : join(DOCS_PUBLIC_URI, version);
+  const root = version === latest ? "" : join("/ver", version);
 
   return glob
     .sync(join(path, "**/*.md"))

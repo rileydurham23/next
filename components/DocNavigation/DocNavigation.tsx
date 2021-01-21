@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import css from "@styled-system/css";
 import Box from "components/Box";
@@ -56,7 +56,7 @@ const DocNavigationCategory = ({
           {entries.map(({ title, slug }) => (
             <NavigationLink
               href={slug}
-              active={slug === `${router.asPath}/`}
+              active={slug === router.asPath.split("#")[0]}
               key={slug}
               onClick={onClick}
             >
@@ -74,7 +74,7 @@ export const getCurrentCategoryIndex = (
   href: string
 ) => {
   const index = categories.findIndex(({ entries }) =>
-    entries.some(({ slug }) => slug === `${href}/`)
+    entries.some(({ slug }) => slug === href)
   );
 
   return index !== -1 ? index : null;
@@ -86,11 +86,17 @@ interface DocNavigationProps {
 
 const DocNavigation = ({ data }: DocNavigationProps) => {
   const router = useRouter();
+  const route = router.asPath.split("#")[0];
+
   const [openedId, setOpenedId] = useState<number>(
-    getCurrentCategoryIndex(data, router.asPath)
+    getCurrentCategoryIndex(data, route)
   );
   const [visible, setVisible] = useState<boolean>(false);
   const toggleMenu = useCallback(() => setVisible((visible) => !visible), []);
+
+  useEffect(() => {
+    setOpenedId(getCurrentCategoryIndex(data, route));
+  }, [route]);
 
   return (
     <Box

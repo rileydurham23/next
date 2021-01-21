@@ -34,7 +34,7 @@ export const getPlugins = ({
       remarkCopyLinkedFiles,
       {
         destinationDir: join(process.cwd(), "public/assets"),
-        staticPath: "/assets/",
+        staticPath: process.env.NEXT_PUBLIC_ROOT_DIR + "/assets/",
         ignoreFileExtensions: [".md"],
       },
     ],
