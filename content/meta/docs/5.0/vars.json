@@ -1,0 +1,12 @@
+{
+  "version": "5.0",
+  "teleport": {
+    "version": "5.1.0",
+    "golang": "1.15",
+    "plugin": {
+      "version": "0.2.0"
+    },
+    "latest_oss_docker_image": "quay.io/gravitational/teleport:5",
+    "latest_ent_docker_image": "quay.io/gravitational/teleport-ent:5"
+  }
+}

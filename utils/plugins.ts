@@ -8,8 +8,6 @@ import remarkAdmonitions from "utils/remark-admonitions";
 import remarkTabbed from "utils/remark-tabbed";
 import rehypeHighlight from "rehype-highlight";
 import remarkCopyLinkedFiles from "remark-copy-linked-files";
-import remarkInclude from "utils/remark-include";
-import { filesDir } from "content/meta/docs/config";
 
 interface GetPluginsOptions {
   currentPublicDir: string;
@@ -39,7 +37,6 @@ export const getPlugins = ({
     ],
     [remarkAdmonitions, settings],
     [remarkTabbed, settings],
-    [remarkInclude, { filesDir, ...settings }],
   ];
 
   const rehypePlugins: PluggableList = [

@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import glob from "glob";
-
+import template from "utils/template";
 import matter from "gray-matter";
 
 import { joinExisting } from "utils/join-existing";
@@ -53,7 +53,12 @@ export const getPageContent = (slug: string, version?: string): PageContent => {
     `${NEXT_PUBLIC_GITHUB_DOCS}/edit/master`
   );
 
-  return { meta, content, publicDir, filepath } as PageContent;
+  return {
+    meta,
+    content: template(content, getVars(version)),
+    publicDir,
+    filepath,
+  } as PageContent;
 };
 
 export const getMdFileNameBySlug = (
@@ -79,6 +84,22 @@ export const getMdFileNameBySlug = (
   }
 
   return "";
+};
+
+const getVars = (version?: string) => {
+  const path = join(DOCS_META_DIRECTORY, version || latest, "vars.json");
+
+  if (existsSync(path)) {
+    try {
+      const content = readFileSync(path, "utf-8");
+
+      return JSON.parse(content);
+    } catch {
+      throw Error(`File ${path} is not a valid json.`);
+    }
+  }
+
+  return {};
 };
 
 export const getNavigation = (version?: string) => {
