@@ -1,7 +1,7 @@
 import css from "@styled-system/css";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useCallback, useState, useMemo } from "react";
+import { useCallback, useState, useMemo, useEffect } from "react";
 import {
   ListboxInput,
   ListboxButton,
@@ -35,6 +35,10 @@ const Versions = ({ items, ...props }: VersionsProps & BoxProps) => {
     setCurrent(value);
     router.push(href);
   }, []);
+
+  useEffect(() => {
+    setCurrent(title);
+  }, [title]);
 
   return (
     <Box {...props}>
