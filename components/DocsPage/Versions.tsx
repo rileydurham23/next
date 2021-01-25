@@ -1,7 +1,7 @@
 import css from "@styled-system/css";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo } from "react";
 import {
   ListboxInput,
   ListboxButton,
@@ -27,6 +27,7 @@ const Versions = ({ items, ...props }: VersionsProps & BoxProps) => {
   const router = useRouter();
   const { title } = items.find(({ isCurrent }) => isCurrent);
   const [current, setCurrent] = useState<string>(title);
+  const reversedItems = useMemo(() => [...items].reverse(), [items]);
 
   const navigateToVersion = useCallback((value: string) => {
     const { href } = items.find(({ title }) => value === title);
@@ -41,7 +42,7 @@ const Versions = ({ items, ...props }: VersionsProps & BoxProps) => {
         <StyledListboxButton arrow={<StyledArrow />} />
         <StyledListboxPopover>
           <ListboxList>
-            {items.map(({ title }) => (
+            {reversedItems.map(({ title }) => (
               <StyledListboxOption key={title} value={title}>
                 Version {title}
               </StyledListboxOption>

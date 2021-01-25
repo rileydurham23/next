@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 import { Settings, Attacher } from "unified";
 import theme from "components/theme";
 import { mdxHydrateOptions } from "components/MDX";
-import { NavigationCategory } from "components/DocNavigation";
+import { NavigationCategory } from "components/DocsPage";
 import {
   getPageContent,
   getNavigation,

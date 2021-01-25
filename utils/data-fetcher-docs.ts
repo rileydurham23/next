@@ -7,7 +7,7 @@ import matter from "gray-matter";
 import { joinExisting } from "utils/join-existing";
 import { HeaderMeta } from "utils/rehype-headers";
 
-import { NavigationCategory } from "components/DocNavigation";
+import { NavigationCategory } from "components/DocsPage";
 
 import { versions, latest } from "content/meta/docs/config";
 

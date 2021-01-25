@@ -1,10 +1,9 @@
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { getPostBySlug, getSlugList, PageData } from "server/docs";
-import { Head, PageContent } from "components";
-import { getCurrentCategoryIndex } from "components/DocNavigation";
+import { Head, DocsPage } from "components";
 
-const DocsPage = ({
+const DocsPageWrapper = ({
   navigation,
   mdx,
   meta: { description, h1, headers, title, githubUrl },
@@ -17,9 +16,6 @@ const DocsPage = ({
     return <div>Loading...</div>;
   }
 
-  const categoryId = getCurrentCategoryIndex(navigation, router.asPath);
-  const icon = navigation[categoryId]?.icon;
-
   const { href: latestVersionHref } = versions.find(({ isLatest }) => isLatest);
   const { title: currentVersionTitle } = versions.find(
     ({ isCurrent }) => isCurrent
@@ -28,12 +24,11 @@ const DocsPage = ({
   return (
     <>
       <Head title={title} description={description} />
-      <PageContent
+      <DocsPage
         navigation={navigation}
         versions={versions}
         h1={h1}
         githubUrl={githubUrl}
-        icon={icon}
         mdx={mdx}
         isLatestVersion={isLatestVersion}
         currentVersionTitle={currentVersionTitle}
@@ -44,7 +39,7 @@ const DocsPage = ({
   );
 };
 
-export default DocsPage;
+export default DocsPageWrapper;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const props = await getPostBySlug(params.slug);
