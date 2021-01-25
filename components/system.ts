@@ -24,7 +24,7 @@ import {
 import theme, { TextStyle } from "components/theme";
 
 interface TextProps {
-  text?: TextStyle;
+  text?: TextStyle | TextStyle[];
 }
 
 export interface StyledSystemProps
