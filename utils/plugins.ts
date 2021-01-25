@@ -4,7 +4,6 @@ import rehypeHeaders, { HeaderMeta } from "utils/rehype-headers";
 import rehypeLinks from "utils/rehype-links";
 import rehypeSlug from "rehype-slug";
 import rehypeTitle from "utils/rehype-title";
-import rehypeTOC from "utils/rehype-toc";
 import remarkAdmonitions from "utils/remark-admonitions";
 import remarkTabbed from "utils/remark-tabbed";
 import rehypeHighlight from "rehype-highlight";
@@ -54,10 +53,11 @@ export const getPlugins = ({
 
   if (withMdx) {
     rehypePlugins.push([rehypeTitle, { callback: titleCallback }]);
-    rehypePlugins.push([rehypeHeaders, { callback: headersCallback }]);
+    rehypePlugins.push([
+      rehypeHeaders,
+      { callback: headersCallback, maxLevel: 2 },
+    ]);
   }
-
-  rehypePlugins.push(rehypeTOC); // need to use this one after rehypeTitle;
 
   return {
     rehypePlugins,

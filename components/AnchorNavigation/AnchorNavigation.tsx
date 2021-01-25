@@ -17,52 +17,49 @@ const AnchorNavigation = ({
   ...props
 }: AnchorNavigationProps & BoxProps) => {
   return (
-    <Box
-      width="240px"
-      p={4}
-      flexShrink={0}
-      position="sticky"
-      top="0"
-      {...props}
-    >
-      <Box
-        text="text-sm"
-        mx={1}
-        mb={1}
-        py={1}
-        fontWeight="bold"
-        color="darkest"
-        borderBottom="1px solid"
-        borderColor="lightest-gray"
-      >
-        Table of Contents
+    <Box flexShrink={0} position="relative">
+      <Box width="240px" p={4} position="sticky" top="0" {...props}>
+        <Box
+          text="text-sm"
+          maxHeight="100%"
+          overflowY="auto"
+          mx={1}
+          mb={1}
+          py={1}
+          fontWeight="bold"
+          color="darkest"
+          borderBottom="1px solid"
+          borderColor="lightest-gray"
+        >
+          Table of Contents
+        </Box>
+        {headers.map(({ id, title }) => {
+          return (
+            <Link
+              key={id}
+              href={`#${id}`}
+              display="block"
+              fontSize="text-sm"
+              lineHeight="sm"
+              color="dark-gray"
+              p={1}
+              css={css({
+                textDecoration: "none",
+                maxWidth: "100%",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                "&:focus, &:hover, &:active": {
+                  bg: "lightest-gray",
+                  borderRadius: "default",
+                },
+              })}
+            >
+              {title}
+            </Link>
+          );
+        })}
       </Box>
-      {headers.map(({ id, title }) => {
-        return (
-          <Link
-            key={id}
-            href={`#${id}`}
-            display="block"
-            fontSize="text-sm"
-            lineHeight="sm"
-            color="dark-gray"
-            p={1}
-            css={css({
-              textDecoration: "none",
-              maxWidth: "100%",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-              "&:focus, &:hover, &:active": {
-                bg: "lightest-gray",
-                borderRadius: "default",
-              },
-            })}
-          >
-            {title}
-          </Link>
-        );
-      })}
     </Box>
   );
 };

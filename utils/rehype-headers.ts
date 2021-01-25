@@ -12,17 +12,19 @@ export interface HeaderMeta {
 }
 
 interface RehypeHeadersOptions {
+  maxLevel: number;
   callback: (results: HeaderMeta[]) => void;
 }
 
 export default function rehypeHeaders({
+  maxLevel,
   callback,
 }: RehypeHeadersOptions): Transformer {
   const headerMeta: HeaderMeta[] = [];
 
   return (root: Root) => {
     visit<Element>(root, "element", function (node) {
-      if (rank(node)) {
+      if (rank(node) && rank(node) <= maxLevel) {
         headerMeta.push({
           rank: rank(node),
           id: node.properties.id as string,
