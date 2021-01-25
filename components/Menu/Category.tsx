@@ -109,13 +109,11 @@ const CoverLink = styled("a")(
 const MainLink = styled("a")(({ active }: { active: boolean }) => [
   css({
     boxSizing: "border-box",
-    color: "darkest",
+    color: active ? "dark-purple" : "darkest",
     cursor: "pointer",
     display: "block",
     fontSize: "15px",
-    borderBottomColor: "dark-purple",
-    borderBottomStyle: "solid",
-    borderBottomWidth: active ? "2px" : 0,
+    bg: active ? "rgba(240, 242, 244, 0.56)" : "white",
     fontWeight: 500,
     float: "left",
     lineHeight: "80px",
@@ -126,13 +124,13 @@ const MainLink = styled("a")(({ active }: { active: boolean }) => [
     transition: "background 0.3s",
     "&:focus, &:hover": {
       color: "dark-purple",
-      background: "rgba(240, 242, 244, 0.56)",
+      bg: "rgba(240, 242, 244, 0.56)",
     },
   }),
   media("sm", {
+    color: "darkest",
     bg: "lightest-gray",
     borderRadius: "default",
-    borderBottomWidth: 0,
     float: "none",
     fontSize: "text-lg",
     mb: 2,
