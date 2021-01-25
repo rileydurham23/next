@@ -8,7 +8,6 @@ import Link from "components/Link";
 import Logo from "components/Logo";
 import Menu from "components/Menu";
 import HeadlessButton from "components/HeadlessButton";
-import Search from "components/Search";
 
 const Header = () => {
   const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
@@ -29,7 +28,6 @@ const Header = () => {
       </StyledHamburger>
       <StyledContentWrapper isNavigationVisible={isNavigationVisible}>
         <Menu />
-        <Search ml="auto" display={["none", "none", "flex"]} id="desktop" />
         <StyledCTAs>
           <StyledCTA
             as="a"
@@ -124,7 +122,7 @@ const StyledCTAs = styled(Flex)(
     alignItems: "center",
     justifyContent: "flex-end",
     pr: [0, 3],
-    ml: [0, "auto", 3],
+    ml: [0, "auto"],
   }),
   media("sm", {
     mt: 5,

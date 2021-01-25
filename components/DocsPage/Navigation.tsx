@@ -3,10 +3,18 @@ import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import css from "@styled-system/css";
 import Box from "components/Box";
+import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 import Search from "components/Search";
 import Link from "components/Link";
 import Icon, { IconName } from "components/Icon";
+
+const getRoute = (asPath: string) => {
+  const route = asPath.split("#")[0];
+
+  // Next removes "/"" from the href of the last segment if it contains ".". E. g. "4.4".
+  return route.match(/\/$/) ? route : `${route}/`;
+};
 
 export interface NavigationItem {
   title: string;
@@ -56,7 +64,7 @@ const DocNavigationCategory = ({
           {entries.map(({ title, slug }) => (
             <NavigationLink
               href={slug}
-              active={slug === router.asPath.split("#")[0]}
+              active={slug === getRoute(router.asPath)}
               key={slug}
               onClick={onClick}
             >
@@ -86,7 +94,7 @@ interface DocNavigationProps {
 
 const DocNavigation = ({ data }: DocNavigationProps) => {
   const router = useRouter();
-  const route = router.asPath.split("#")[0];
+  const route = getRoute(router.asPath);
 
   const [openedId, setOpenedId] = useState<number>(
     getCurrentCategoryIndex(data, route)
@@ -104,34 +112,32 @@ const DocNavigation = ({ data }: DocNavigationProps) => {
       height={["48px", "100%"]}
       borderRight={["none", "1px solid"]}
       borderColor={["none", "lightest-gray"]}
-      overflow={["none", "auto"]}
-      bg={["light-gray", "white"]}
       position="relative"
       css={css({ zIndex: "1000" })}
-      py={[2, 0]}
     >
-      <Search id="mobile" display={["block", "none"]} ml={3} mr="62px" />
-      <HeadlessButton
-        onClick={toggleMenu}
-        position="absolute"
-        right="16px"
-        top="12px"
-        color="gray"
-        display={["block", "none"]}
-        css={css({
-          "&:focus": {
-            outline: "none",
-          },
-        })}
-      >
-        <Icon name={visible ? "close" : "hamburger"} size="md" />
-      </HeadlessButton>
+      <Flex height="48px" py={2} bg="light-gray" alignItems="center">
+        <Search id="mobile" mx={2} width="100%" />
+        <HeadlessButton
+          onClick={toggleMenu}
+          mr={3}
+          color="gray"
+          display={["block", "none"]}
+          css={css({
+            "&:focus": {
+              outline: "none",
+            },
+          })}
+        >
+          <Icon name={visible ? "close" : "hamburger"} size="md" />
+        </HeadlessButton>
+      </Flex>
       <Box
         position={["absolute", "static"]}
         display={[visible ? "block" : "none", "block"]}
         top="48px"
         bg="white"
         width="100%"
+        overflow={["none", "auto"]}
       >
         {data.map((props, index) => (
           <DocNavigationCategory

@@ -5,7 +5,6 @@ import { css, media } from "components/system";
 import Box from "components/Box";
 import Button from "components/Button";
 import Image from "components/Image";
-import Flex from "components/Flex";
 import MenuItem, { MenuItemProps } from "./Item";
 
 export interface MenuCategoryProps {
@@ -150,7 +149,7 @@ const Dropdown = styled("div")(
       borderRadius: "default",
       boxShadow: "0 4px 40px rgba(0, 0, 0, 0.24)",
       color: "black",
-      display: opened ? "block" : "none",
+      display: opened ? "flex" : "none",
       left: "0",
       ml: large ? "-180px" : "-80px",
       overflow: "hidden",
@@ -187,21 +186,19 @@ const DropdownHeader = styled("h3")(({ center }: { center?: boolean }) =>
   })
 );
 
-const DropdownCover = styled(Flex)(
+const DropdownCover = styled("div")(
   css({
+    flex: "0 0 240px",
     border: "1px solid",
     borderColor: "transparent",
     borderRadius: "default",
-    display: ["none", "block"],
+    display: ["none", "flex"],
+    flexDirection: "column",
     lineHeight: "24px",
-    p: "0 16px 16px",
     textAlign: "center",
     textDecoration: "none",
     transition: "all 0.3s",
-    "&:focus, &:hover": {
-      bg: "white",
-      borderColor: "dark-purple",
-    },
+    background: "linear-gradient(125deg,#f0f2f4,#fff)",
   })
 );
 

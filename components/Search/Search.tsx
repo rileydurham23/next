@@ -39,7 +39,7 @@ const Search = ({
         flex="0 0 24px"
         display={["none", "block"]}
       />
-      <Box flex="1 1 auto" position="relative">
+      <Box flex="1 1 auto">
         <StyledInput
           type="text"
           placeholder="Search docs..."
@@ -54,7 +54,6 @@ export default Search;
 
 const StyledWrapper = styled("div")<StyledSystemWrapperProps>(
   css({
-    width: ["auto", "200px"],
     bg: "white",
     display: "flex",
     boxSizing: "border-box",
@@ -63,13 +62,10 @@ const StyledWrapper = styled("div")<StyledSystemWrapperProps>(
     height: "32px",
     border: "1px solid",
     borderColor: "light-gray",
-    borderRadius: "default",
+    borderRadius: "circle",
     "&:focus-within": {
       borderColor: "dark-purple",
     },
-  }),
-  media("sm", {
-    borderRadius: "circle",
   }),
   wrapper
 );
@@ -77,12 +73,7 @@ const StyledWrapper = styled("div")<StyledSystemWrapperProps>(
 const StyledInput = styled("input")(
   css({
     display: "block",
-    position: "absolute",
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    width: ["auto", "162px"],
+    width: ["100%", "183px"],
     fontSize: ["text-xl", "text-md"],
     lineHeight: "30px",
     color: "black",

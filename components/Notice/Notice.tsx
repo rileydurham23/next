@@ -16,7 +16,7 @@ const Notice = ({ children, ...props }: NoticeProps & FlexProps) => {
       alignItems="center"
       {...props}
     >
-      <Icon name="error" mr={2} color="danger" />
+      <Icon name="error" mr={2} color="danger" flexShrink="0" />
       <Box fontSize="text-lg" lineHeight="md">
         {children}
       </Box>
