@@ -54,9 +54,7 @@ export default async function markdown2html({
       .use(html, { allowDangerousHtml: true })
       .process(document);
 
-    const resultString = converter.convert(
-      result.toString().replace("\n", " ")
-    );
+    const resultString = converter.convert(result.toString());
 
     return fixKnowJSXTags(resultString);
   } catch (e) {
