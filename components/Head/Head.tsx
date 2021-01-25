@@ -19,11 +19,11 @@ const Head = (meta: HeadProps) => {
       <title>{title}</title>
       <link
         rel="icon"
-        href={`${process.env.NEXT_PUBLIC_ROOT_DIR}favicon.ico`}
+        href={`${process.env.NEXT_PUBLIC_ROOT_DIR}/favicon.ico`}
       />
       <link
         rel="icon"
-        href={`${process.env.NEXT_PUBLIC_ROOT_DIR}favicon.svg`}
+        href={`${process.env.NEXT_PUBLIC_ROOT_DIR}/favicon.svg`}
         type="image/svg+xml"
       />
       <link
