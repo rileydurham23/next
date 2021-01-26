@@ -10,7 +10,7 @@ const Head = (meta: HeadProps) => {
   const router = useRouter();
 
   const host = process.env.NEXT_PUBLIC_HOST;
-  const url = `${host}${router.asPath}`;
+  const url = `${host}${router.basePath}${router.asPath}`;
   const title = meta.title || "Teleport Documentation";
   const description = meta.description || "";
 
