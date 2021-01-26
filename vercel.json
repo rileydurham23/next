@@ -1,8 +1,13 @@
 {
+  "trailingSlash": true,
   "redirects": [
     {
-      "source": "/teleport/docs/kubernetes-ssh",
-      "destination": "/teleport/docs/kubernetes-access"
+      "source": "/teleport/docs/kubernetes-ssh/",
+      "destination": "/teleport/docs/kubernetes-access/"
+    },
+    {
+      "source": "/teleport/docs/admin-guide/metrics-logs-reference/",
+      "destination": "/teleport/docs/metrics-logs-reference/"
     }
   ]
 }
