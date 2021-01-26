@@ -20,7 +20,6 @@ const Search = ({
         indexName: "goteleport",
         inputSelector: `[data-docsearch-input="${id}"]`,
         debug: false,
-        layout: "simple",
       });
     });
   }, []);
@@ -30,17 +29,16 @@ const Search = ({
       <Icon
         name="magnify"
         color="gray"
-        mx="6px"
-        flex="0 0 24px"
+        ml="6px"
         display={["none", "block"]}
+        position="absolute"
       />
-      <Box flex="1 1 auto">
-        <StyledInput
-          type="text"
-          placeholder="Search docs..."
-          data-docsearch-input={id}
-        />
-      </Box>
+
+      <StyledInput
+        type="text"
+        placeholder="Search docs..."
+        data-docsearch-input={id}
+      />
     </StyledWrapper>
   );
 };
@@ -67,14 +65,16 @@ const StyledWrapper = styled("div")<StyledSystemWrapperProps>(
 
 const StyledInput = styled("input")(
   css({
+    boxSizing: "border-box",
     display: "block",
-    width: ["100%", "183px"],
+    width: "100%",
     fontSize: ["text-xl", "text-md"],
     lineHeight: "30px",
     color: "black",
     bg: "transparent",
     py: 0,
-    px: [3, 0],
+    pl: [3, "36px"],
+    pr: 3,
     border: "none",
     "&:placeholder": {
       color: "gray",
