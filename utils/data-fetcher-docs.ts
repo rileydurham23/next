@@ -39,7 +39,7 @@ export const getPageContent = (slug: string, version?: string): PageContent => {
   const base = !version ? join(DOCS_DIRECTIORY, latest) : DOCS_DIRECTIORY;
 
   const publicDir = filepath
-    .replace(base, !version ? "" : "/ver")
+    .replace(base, !version ? "/" : "/ver")
     .replace(/\/[^/]+.md$/, "");
 
   const fileContents = readFileSync(filepath, "utf8");
