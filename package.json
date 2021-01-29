@@ -4,9 +4,10 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "dev": "yarn build-loaders && next dev",
-    "build": "yarn build-loaders && next build",
+    "git-update": "git submodule update --remote",
     "build-loaders": "rm -rf __build && ttsc --build tsconfig.loaders.json",
+    "dev": "yarn git-update && yarn build-loaders && next dev",
+    "build": "yarn git-update && yarn build-loaders && next build",
     "start": "next start",
     "test": "jest --runInBand",
     "base:eslint": "eslint --cache --cache-location node_modules/.cache/eslint '{components,server,pages,utils}/**/*.{js,jsx,ts,tsx}'",

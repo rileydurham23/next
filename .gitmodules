@@ -1,3 +1,4 @@
-[submodule "content"]
+[submodule "teleport"]
 	path = content/teleport
 	url = https://github.com/gravitational/teleport/
+	branch = master
