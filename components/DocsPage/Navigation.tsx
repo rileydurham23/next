@@ -10,13 +10,6 @@ import Link from "components/Link";
 import Icon from "components/Icon";
 import { NavigationCategory } from "./types";
 import { getPath } from "utils/url";
-
-const getRoute = (asPath: string) => {
-  const route = getPath(asPath);
-
-  // Next removes "/"" from the href of the last segment if it contains ".". E. g. "4.4".
-  return route.match(/\/$/) ? route : `${route}/`;
-};
 interface DocNavigationCategoryProps extends NavigationCategory {
   id: number;
   opened: boolean;
@@ -54,7 +47,7 @@ const DocNavigationCategory = ({
           {entries.map(({ title, slug }) => (
             <NavigationLink
               href={slug}
-              active={slug === getRoute(router.asPath)}
+              active={slug === getPath(router.asPath)}
               key={slug}
               onClick={onClick}
             >
@@ -84,7 +77,7 @@ interface DocNavigationProps {
 
 const DocNavigation = ({ data }: DocNavigationProps) => {
   const router = useRouter();
-  const route = getRoute(router.asPath);
+  const route = getPath(router.asPath);
 
   const [openedId, setOpenedId] = useState<number>(
     getCurrentCategoryIndex(data, route)
