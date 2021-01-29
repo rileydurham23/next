@@ -40,8 +40,10 @@ const validateTab = (
   }
 
   if (error) {
-    throw new Error(error + getErrorLocationString(vfile, node.position));
+    console.error(error + getErrorLocationString(vfile, node.position));
   }
+
+  return !error;
 };
 
 const createBlankTabsNode = () => {
@@ -72,7 +74,9 @@ export default function remarkTabbed(): Transformer {
     let startIndex: number;
 
     visit<MdxastNode>(root, [isTabHeaderNode], (node, index, parent) => {
-      validateTab(node, index, parent, vfile);
+      if (!validateTab(node, index, parent, vfile)) {
+        return;
+      }
 
       const { label } = parseHeader(node);
       const children = parent.children[index + 1].value;

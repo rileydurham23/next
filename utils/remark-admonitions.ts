@@ -53,8 +53,10 @@ const validateAdmonition = (
   }
 
   if (error) {
-    throw new Error(error + getErrorLocationString(vfile, node.position));
+    console.error(error + getErrorLocationString(vfile, node.position));
   }
+
+  return !error;
 };
 
 const createAdmonitionNode = (
@@ -104,7 +106,9 @@ export default function remarkAdmonitions(): Transformer {
       root,
       [isAdmonitionHeaderNode],
       (node, index, parent: MdxastNode) => {
-        validateAdmonition(node, index, parent, vfile);
+        if (!validateAdmonition(node, index, parent, vfile)) {
+          return;
+        }
 
         const admonitionNode = createAdmonitionNode(node, index, parent);
 
