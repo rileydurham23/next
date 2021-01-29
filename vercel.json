@@ -92,8 +92,8 @@
       "permanent": false
     },
     {
-      "source": "/teleport/docs/enterprise/sso/oidc/",
-      "destination": "/teleport/docs/enterprise/sso/",
+      "source": "/teleport/docs/enterprise/sso/",
+      "destination": "/teleport/docs/enterprise/sso/oidc/",
       "permanent": false
     },
     {
