@@ -1,3 +1,1 @@
-export { default, mdxHydrateOptions } from "./MDX";
-
-export type { RawMDX } from "./MDX";
+export { default, components } from "./MDX";

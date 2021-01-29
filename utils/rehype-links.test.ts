@@ -1,59 +1,79 @@
+import vfile, { VFileOptions } from "vfile";
 import unified from "unified";
 import markdown from "remark-parse";
 import remark2rehype from "remark-rehype";
 import html from "rehype-stringify";
 
-import rehypeLinks, { RehypeLinksOptions } from "./rehype-links";
+import rehypeLinks from "./rehype-links";
 
-const transformer = (document: string, options: RehypeLinksOptions) =>
+const transformer = (options: VFileOptions) =>
   unified()
     .use(markdown)
     .use(remark2rehype)
-    .use(rehypeLinks, options)
+    .use(rehypeLinks)
     .use(html)
-    .processSync(document)
+    .processSync(vfile(options))
     .toString();
 
 describe("utils/rehype-links", () => {
-  it("Removes .md and and adds current dir", () => {
-    const result = transformer("[Some link](workflow.md)", {
-      currentPublicDir: "/docs/enterprize/",
+  it("Removes .md and and adds './'", () => {
+    const result = transformer({
+      contents: "[Some link](workflow.md)",
+      path: "/docs/enterprize/index.md",
     });
 
-    expect(result).toEqual(
-      '<p><a href="/docs/enterprize/workflow/">Some link</a></p>'
-    );
+    expect(result).toEqual('<p><a href="./workflow/">Some link</a></p>');
   });
 
-  it("Replaces index.md with the folder name", () => {
-    const result = transformer("[Some link](workflow/index.md)", {
-      currentPublicDir: "/docs/enterprize/",
+  it("Removes .md and and adds '../'", () => {
+    const result = transformer({
+      contents: "[Some link](workflow.md)",
+      path: "/docs/enterprize.md",
     });
 
-    expect(result).toEqual(
-      '<p><a href="/docs/enterprize/workflow/">Some link</a></p>'
-    );
+    expect(result).toEqual('<p><a href="../workflow/">Some link</a></p>');
+  });
+
+  it("Replaces index.md with the '/'", () => {
+    const result = transformer({
+      contents: "[Some link](workflow/index.md)",
+      path: "/docs/enterprize/index.md",
+    });
+
+    expect(result).toEqual('<p><a href="./workflow/">Some link</a></p>');
   });
 
   it("Correctly resolves parent folder", () => {
-    const result = transformer("[Some link](../workflow.md)", {
-      currentPublicDir: "/docs/enterprize/",
+    const result = transformer({
+      contents: "[Some link](../workflow.md)",
+      path: "/docs/enterprize.md",
     });
 
-    expect(result).toEqual('<p><a href="/docs/workflow/">Some link</a></p>');
+    expect(result).toEqual('<p><a href="../../workflow/">Some link</a></p>');
   });
 
   it("Correctly resolves root paths", () => {
-    const result = transformer("[Some link](/workflow.md)", {
-      currentPublicDir: "/docs/enterprize/",
+    const result = transformer({
+      contents: "[Some link](/workflow.md)",
+      path: "/docs/enterprize.md",
     });
 
     expect(result).toEqual('<p><a href="/workflow/">Some link</a></p>');
   });
 
+  it("Correctly resolves non .md paths", () => {
+    const result = transformer({
+      contents: "[Some link](image.png)",
+      path: "/docs/enterprize.md",
+    });
+
+    expect(result).toEqual('<p><a href="../image.png">Some link</a></p>');
+  });
+
   it("Leave external links as is", () => {
-    const result = transformer("[Some link](https://yandex.ru/workflow.md)", {
-      currentPublicDir: "/docs/enterprize/",
+    const result = transformer({
+      contents: "[Some link](https://yandex.ru/workflow.md)",
+      currentPublicDir: "/docs/enterprize.md",
     });
 
     expect(result).toEqual(

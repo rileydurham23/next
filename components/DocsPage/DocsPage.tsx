@@ -6,13 +6,11 @@ import Footer from "components/Footer";
 import Flex from "components/Flex";
 import Layout from "components/Layout";
 import Link from "components/Link";
-import MDX, { RawMDX } from "components/MDX";
+import MDX from "components/MDX";
 import Notice from "components/Notice";
 import Header from "./Header";
-import Navigation, {
-  NavigationCategory,
-  getCurrentCategoryIndex,
-} from "./Navigation";
+import Navigation, { getCurrentCategoryIndex } from "./Navigation";
+import { NavigationCategory } from "./types";
 
 interface Version {
   title: string;
@@ -26,7 +24,7 @@ interface PageContentProps {
   versions: Version[];
   h1: string;
   githubUrl: string;
-  mdx: RawMDX;
+  children: React.ReactNode;
   isLatestVersion: boolean;
   currentVersionTitle: string;
   latestVersionHref: string;
@@ -38,11 +36,11 @@ const PageContent = ({
   versions,
   h1,
   githubUrl,
-  mdx,
   isLatestVersion,
   currentVersionTitle,
   latestVersionHref,
   headers,
+  children,
 }: PageContentProps) => {
   const router = useRouter();
 
@@ -72,7 +70,7 @@ const PageContent = ({
                 </Notice>
               )}
               <Box maxWidth="900px">
-                <MDX raw={mdx} />
+                <MDX>{children}</MDX>
               </Box>
             </Box>
             {!!headers.length && (

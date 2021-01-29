@@ -1,5 +1,5 @@
 import css from "@styled-system/css";
-import hydrate from "next-mdx-remote/hydrate";
+import { MDXProvider } from "@mdx-js/react";
 import Box from "components/Box";
 import Admonition from "./Admonition";
 import Code from "./Code";
@@ -13,41 +13,33 @@ import { Tabs, TabItem } from "./Tabs";
 import Table from "./Table";
 import Video from "./Video";
 
-export const mdxHydrateOptions = {
-  components: {
-    a: Link,
-    code: Code,
-    inlineCode: Code,
-    img: Image,
-    h1: H1,
-    h2: H2,
-    h3: H3,
-    h4: H4,
-    h5: H5,
-    ul: UL,
-    ol: OL,
-    li: LI,
-    p: Paragraph,
-    pre: Pre,
-    video: Video,
-    Admonition,
-    Tabs,
-    TabItem,
-    table: Table,
-  },
+export const components = {
+  a: Link,
+  code: Code,
+  inlineCode: Code,
+  img: Image,
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
+  ul: UL,
+  ol: OL,
+  li: LI,
+  p: Paragraph,
+  pre: Pre,
+  video: Video,
+  Admonition,
+  Tabs,
+  TabItem,
+  table: Table,
 };
 
-export interface RawMDX {
-  compiledSource: string;
-  renderedOutput: string;
-}
 export interface MDXProps {
-  raw: RawMDX;
+  children: React.ReactNode;
 }
 
-const MDX = ({ raw }: MDXProps) => {
-  const content = hydrate(raw, mdxHydrateOptions);
-
+const MDX = ({ children }: MDXProps) => {
   return (
     <Box
       css={css({
@@ -56,7 +48,7 @@ const MDX = ({ raw }: MDXProps) => {
         },
       })}
     >
-      {content}
+      <MDXProvider components={components}>{children}</MDXProvider>
     </Box>
   );
 };

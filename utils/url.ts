@@ -1,15 +1,8 @@
-import { join } from "path";
+export const isExternalLink = (href: string): boolean =>
+  href.startsWith("//") || href.includes("://");
 
-export const generateSlugFromFilename = (
-  dir = "/",
-  filename: string
-): string => {
-  if (filename.match(/^http/)) return filename;
+export const isHash = (href: string): boolean => href.startsWith("#");
 
-  const base = filename.match(/^\//) ? filename : join(dir, filename);
+export const getPath = (href: string) => href.split("#")[0];
 
-  return base
-    .replace(/\.md/, "/")
-    .replace(/\/index\//, "/")
-    .replace("/#", "#");
-};
+export const getHash = (href: string) => href.split("#")[1];

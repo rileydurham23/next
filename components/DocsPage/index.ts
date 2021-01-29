@@ -1,3 +1,4 @@
 export { default } from "./DocsPage";
+export { default as Loading } from "./Loading";
 
-export type { NavigationCategory } from "./Navigation";
+export type { NavigationCategory } from "./types";

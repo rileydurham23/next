@@ -1,3 +1,4 @@
+import { VFile } from "vfile";
 import unified from "unified";
 import markdown from "remark-parse";
 import remark2rehype from "remark-rehype";
@@ -13,15 +14,6 @@ const converter = new HtmlToJsx({
 
 const knownHtmlTags = ["Admonition", "Tabs", "TabItem", "Link", "Image"];
 
-export interface MarkdownHtmlOptions {
-  currentPublicDir: string;
-}
-
-interface MarkdownHtml {
-  document: string;
-  options: MarkdownHtmlOptions;
-}
-
 const fixKnowJSXTags = (html: string) => {
   let result = html;
 
@@ -34,11 +26,8 @@ const fixKnowJSXTags = (html: string) => {
   return result;
 };
 
-export default async function markdown2html({
-  document,
-  options,
-}: MarkdownHtml): Promise<string> {
-  const { remarkPlugins, rehypePlugins } = getPlugins(options);
+export default async function markdown2html(document: VFile): Promise<string> {
+  const { remarkPlugins, rehypePlugins } = getPlugins();
 
   try {
     const result = await unified()

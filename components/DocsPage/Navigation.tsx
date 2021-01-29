@@ -7,26 +7,16 @@ import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 import Search from "components/Search";
 import Link from "components/Link";
-import Icon, { IconName } from "components/Icon";
+import Icon from "components/Icon";
+import { NavigationCategory } from "./types";
+import { getPath } from "utils/url";
 
 const getRoute = (asPath: string) => {
-  const route = asPath.split("#")[0];
+  const route = getPath(asPath);
 
   // Next removes "/"" from the href of the last segment if it contains ".". E. g. "4.4".
   return route.match(/\/$/) ? route : `${route}/`;
 };
-
-export interface NavigationItem {
-  title: string;
-  slug: string;
-}
-
-export interface NavigationCategory {
-  icon: IconName;
-  title: string;
-  entries: NavigationItem[];
-}
-
 interface DocNavigationCategoryProps extends NavigationCategory {
   id: number;
   opened: boolean;

@@ -1,13 +1,11 @@
+// eslint-disable-next-line node/no-deprecated-api
+import { resolve } from "url";
 import styled from "styled-components";
 import { ComponentProps } from "react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
-
+import { useRouter } from "next/router";
+import { isHash, isExternalLink, getPath } from "utils/url";
 import { all, StyledSystemProps } from "components/system";
-
-const isExternalLink = (href: string): boolean =>
-  href.startsWith("//") || href.includes("://");
-
-const isHash = (href: string): boolean => href.startsWith("#");
 
 const BaseLink = styled("a")<StyledSystemProps>(
   {
@@ -34,7 +32,13 @@ const Link = ({
   locale,
   ...linkProps
 }: LinkProps) => {
-  if (passthrough || (typeof href === "string" && isHash(href))) {
+  const router = useRouter();
+
+  if (
+    /\/assets\//.test(href) ||
+    passthrough ||
+    (typeof href === "string" && isHash(href))
+  ) {
     return (
       <BaseLink href={href} {...linkProps}>
         {children}
@@ -54,7 +58,7 @@ const Link = ({
   }
 
   const nextProps: NextLinkProps = {
-    href,
+    href: resolve(getPath(router.asPath), href),
     as,
     replace,
     scroll,

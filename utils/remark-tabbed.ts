@@ -1,11 +1,11 @@
-import { VFile } from "vfile";
+import vfile, { VFile } from "vfile";
 import { Node } from "unist";
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
 
 import { MdxastNode } from "utils/unist-types";
 
-import markdown2html, { MarkdownHtmlOptions } from "utils/markdown-html";
+import markdown2html from "utils/markdown-html";
 import getErrorLocationString from "utils/unist-error-location";
 
 const isTabHeaderNode = (node: MdxastNode): boolean =>
@@ -53,21 +53,18 @@ const createBlankTabsNode = () => {
 
 const convertTabNodeToJsx = async (
   node: MdxastNode,
-  options: MarkdownHtmlOptions
+  path: string
 ): Promise<void> => {
+  const file = vfile({ contents: node.data.children as string, path });
+
   try {
-    node.data.children = await markdown2html({
-      document: node.data.children as string,
-      options,
-    });
+    node.data.children = await markdown2html(file);
   } catch (e) {
     console.log(e);
   }
 };
 
-export default function remarkTabbed(
-  options: MarkdownHtmlOptions
-): Transformer {
+export default function remarkTabbed(): Transformer {
   return async (root: Node, vfile: VFile) => {
     const allTabNodes = [];
 
@@ -108,7 +105,7 @@ export default function remarkTabbed(
 
     try {
       await Promise.all(
-        allTabNodes.map((node) => convertTabNodeToJsx(node, options))
+        allTabNodes.map((node) => convertTabNodeToJsx(node, vfile.path))
       );
 
       visit<MdxastNode>(root, "tabs", (node) => {

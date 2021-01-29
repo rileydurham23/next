@@ -64,7 +64,7 @@ const TabLabel = ({ selected, label, onClick }: TabsLabel) => {
 };
 
 interface TabsProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export const Tabs = ({ children }: TabsProps) => {

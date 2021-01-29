@@ -1,7 +1,6 @@
 import { useEffect, ComponentProps } from "react";
 import styled from "styled-components";
 import { css, wrapper, StyledSystemWrapperProps } from "components/system";
-import Box from "components/Box";
 import Icon from "components/Icon";
 
 interface SearchProps {

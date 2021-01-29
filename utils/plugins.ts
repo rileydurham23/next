@@ -1,31 +1,18 @@
 import { join } from "path";
-import { Settings, PluggableList } from "unified";
-import rehypeHeaders, { HeaderMeta } from "utils/rehype-headers";
+import { PluggableList } from "unified";
+import rehypeHeaders from "utils/rehype-headers";
 import rehypeLinks from "utils/rehype-links";
 import rehypeSlug from "rehype-slug";
-import rehypeTitle from "utils/rehype-title";
 import remarkAdmonitions from "utils/remark-admonitions";
 import remarkTabbed from "utils/remark-tabbed";
 import rehypeHighlight from "rehype-highlight";
 import remarkCopyLinkedFiles from "remark-copy-linked-files";
 
 interface GetPluginsOptions {
-  currentPublicDir: string;
-  titleCallback?: (title: string) => void;
-  headersCallback?: (headers: HeaderMeta[]) => void;
-  withMdx?: boolean;
+  removeTitle?: boolean;
 }
 
-export const getPlugins = ({
-  currentPublicDir,
-  headersCallback,
-  titleCallback,
-  withMdx,
-}: GetPluginsOptions) => {
-  const settings: Settings = {
-    currentPublicDir,
-  };
-
+export const getPlugins = ({ removeTitle }: GetPluginsOptions = {}) => {
   const remarkPlugins: PluggableList = [
     [
       remarkCopyLinkedFiles,
@@ -35,25 +22,21 @@ export const getPlugins = ({
         ignoreFileExtensions: [".md"],
       },
     ],
-    [remarkAdmonitions, settings],
-    [remarkTabbed, settings],
+    remarkAdmonitions,
+    remarkTabbed,
   ];
 
   const rehypePlugins: PluggableList = [
     rehypeSlug,
-    [rehypeLinks, settings],
+    rehypeLinks,
     [
       rehypeHighlight,
       { aliases: { bash: ["bsh", "systemd"], yaml: ["conf", "toml"] } },
     ],
   ];
 
-  if (withMdx) {
-    rehypePlugins.push([rehypeTitle, { callback: titleCallback }]);
-    rehypePlugins.push([
-      rehypeHeaders,
-      { callback: headersCallback, maxLevel: 2 },
-    ]);
+  if (removeTitle) {
+    rehypePlugins.push([rehypeHeaders, { maxLevel: 2 }]);
   }
 
   return {

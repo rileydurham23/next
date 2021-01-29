@@ -2,10 +2,10 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { getPostBySlug, getSlugList, PageData } from "server/docs";
 import { Head, DocsPage } from "components";
+import getComponent from "md-import-mapping";
 
 const DocsPageWrapper = ({
   navigation,
-  mdx,
   meta: { description, h1, headers, title, githubUrl },
   versions,
   isLatestVersion,
@@ -21,6 +21,8 @@ const DocsPageWrapper = ({
     ({ isCurrent }) => isCurrent
   );
 
+  const Content = getComponent(router.asPath);
+
   return (
     <>
       <Head title={title} description={description} />
@@ -29,12 +31,13 @@ const DocsPageWrapper = ({
         versions={versions}
         h1={h1}
         githubUrl={githubUrl}
-        mdx={mdx}
         isLatestVersion={isLatestVersion}
         currentVersionTitle={currentVersionTitle}
         latestVersionHref={latestVersionHref}
         headers={headers}
-      />
+      >
+        <Content />
+      </DocsPage>
     </>
   );
 };

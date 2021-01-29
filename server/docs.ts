@@ -1,18 +1,13 @@
-import renderToString from "next-mdx-remote/render-to-string";
-import { ThemeProvider } from "styled-components";
-import { Settings, Attacher } from "unified";
-import theme from "components/theme";
-import { mdxHydrateOptions } from "components/MDX";
 import { NavigationCategory } from "components/DocsPage";
 import {
-  getPageContent,
+  getPageMeta,
   getNavigation,
   getSlugListForVersion,
+  getMdFileNameBySlug,
   versions,
   latest,
   PageMeta,
 } from "utils/data-fetcher-docs";
-import { getPlugins } from "utils/plugins";
 
 interface Version {
   title: string;
@@ -29,16 +24,9 @@ const getVersions = (current: string): Version[] => {
     isCurrent: (current || latest) === version,
   }));
 };
-
-export interface SerializedMdx {
-  compiledSource: string;
-  renderedOutput: string;
-}
-
 export interface PageData {
   navigation: NavigationCategory[];
   meta: PageMeta;
-  mdx: SerializedMdx;
   versions: Version[];
   isLatestVersion: boolean;
 }
@@ -58,45 +46,16 @@ export const getPostBySlug = async (
     }
   }
 
-  const { publicDir, filepath, meta, content } = getPageContent(
-    slugString,
-    version
-  );
+  const filepath = getMdFileNameBySlug(version, slugString);
+
+  if (!filepath) return;
 
   const navigation = getNavigation(version);
-
-  const { remarkPlugins, rehypePlugins } = getPlugins({
-    currentPublicDir: publicDir,
-    withMdx: true,
-    headersCallback: (result) => {
-      meta.headers = result;
-    },
-    titleCallback: (result) => {
-      meta.h1 = result;
-
-      if (!meta.title) {
-        meta.title = result;
-      }
-    },
-  });
-
-  const mdx = await renderToString(content, {
-    provider: {
-      component: ThemeProvider,
-      props: { theme },
-    },
-    components: mdxHydrateOptions.components,
-    mdxOptions: {
-      rehypePlugins: rehypePlugins as Attacher<[Settings?], Settings>[],
-      remarkPlugins: remarkPlugins as Attacher<[Settings?], Settings>[],
-      filepath,
-    },
-  });
+  const meta = getPageMeta(filepath);
 
   return {
     navigation,
     meta,
-    mdx,
     versions: getVersions(version),
     isLatestVersion: !version,
   };

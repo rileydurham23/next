@@ -1,10 +1,10 @@
-import { VFile } from "vfile";
+import vfile, { VFile } from "vfile";
 import { Node } from "unist";
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
 
 import { AdmonitionNode, MdxastNode } from "utils/unist-types";
-import markdown2html, { MarkdownHtmlOptions } from "utils/markdown-html";
+import markdown2html from "utils/markdown-html";
 import getErrorLocationString from "utils/unist-error-location";
 
 const isAdmonitionHeaderNode = (node: MdxastNode): boolean =>
@@ -74,17 +74,16 @@ const createAdmonitionNode = (
 
 const modifyAdmonitionNode = async (
   node: MdxastNode,
-  options: MarkdownHtmlOptions
+  path: string
 ): Promise<void> => {
   const {
     data: { type, title, content },
   } = node;
 
+  const file = vfile({ contents: content as string, path });
+
   try {
-    const jsxString = await markdown2html({
-      document: content as string,
-      options,
-    });
+    const jsxString = await markdown2html(file);
 
     // To prevent second tree traversal we just modify existing node in place
     node.type = "jsx";
@@ -97,9 +96,7 @@ const modifyAdmonitionNode = async (
   }
 };
 
-export default function remarkAdmonitions(
-  options: MarkdownHtmlOptions
-): Transformer {
+export default function remarkAdmonitions(): Transformer {
   return async (root: Node, vfile: VFile) => {
     const allAdmonitionNodes = [];
 
@@ -122,7 +119,7 @@ export default function remarkAdmonitions(
     );
 
     await Promise.all(
-      allAdmonitionNodes.map((node) => modifyAdmonitionNode(node, options))
+      allAdmonitionNodes.map((node) => modifyAdmonitionNode(node, vfile.path))
     );
   };
 }

@@ -1,20 +1,38 @@
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import glob from "glob";
-import template from "utils/template";
 import matter from "gray-matter";
+import unified from "unified";
+import markdown from "remark-parse";
+import remark2rehype from "remark-rehype";
+import rehypeSlug from "rehype-slug";
+import html from "rehype-stringify";
+import template from "utils/template";
+import rehypeHeaders, { HeaderMeta } from "utils/rehype-headers";
 
 import { joinExisting } from "utils/join-existing";
-import { HeaderMeta } from "utils/rehype-headers";
 
-import { NavigationCategory } from "components/DocsPage";
+import { NavigationCategory } from "components/DocsPage/types";
 
-import { versions, latest } from "content/meta/docs/config";
+import { versions, latest, filesDir } from "config";
 
-const DOCS_REPO_ROOT = join(process.cwd(), "content", "teleport");
+const DOCS_REPO_ROOT = join(process.cwd(), filesDir);
 const DOCS_DIRECTIORY = join(DOCS_REPO_ROOT, "docs");
 const DOCS_META_DIRECTORY = join(process.cwd(), "content", "meta", "docs"); // tmp solution, until migration
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
+interface getPageContentOptions {
+  content: string;
+  filepath: string;
+}
+
+export const getPageContent = ({
+  content: fileContents,
+  filepath,
+}: getPageContentOptions): string => {
+  const version: string = filepath.replace(DOCS_DIRECTIORY, "").split("/")[1];
+
+  return template(fileContents, getVars(version));
+};
 
 export interface PageMeta {
   title?: string;
@@ -24,41 +42,38 @@ export interface PageMeta {
   githubUrl: string;
 }
 
-interface PageContent {
-  content: string;
-  meta: PageMeta;
-  publicDir: string;
-  filepath: string;
-}
+export const getPageMeta = (filepath: string) => {
+  const { data: meta, content } = matter(readFileSync(filepath, "utf8"));
 
-export const getPageContent = (slug: string, version?: string): PageContent => {
-  const filepath = getMdFileNameBySlug(version, slug);
-
-  if (!filepath) return;
-
-  const base = !version ? join(DOCS_DIRECTIORY, latest) : DOCS_DIRECTIORY;
-
-  const publicDir = filepath
-    .replace(base, !version ? "/" : "/ver")
-    .replace(/\/[^/]+.md$/, "");
-
-  const fileContents = readFileSync(filepath, "utf8");
-
-  const { data: meta, content } = matter(fileContents);
+  if (meta.title) {
+    meta.h1 = meta.title;
+  }
 
   meta.headers = [];
-  meta.h1 = meta.title || "";
   meta.githubUrl = filepath.replace(
     DOCS_REPO_ROOT,
     `${NEXT_PUBLIC_GITHUB_DOCS}/edit/master`
   );
 
-  return {
-    meta,
-    content: template(content, getVars(version)),
-    publicDir,
-    filepath,
-  } as PageContent;
+  const vfile = unified()
+    .use(markdown)
+    .use(remark2rehype)
+    .use(rehypeSlug)
+    .use(rehypeHeaders, { maxLevel: 2 })
+    .use(html)
+    .processSync(content);
+
+  const data = vfile.data as { h1?: string; headers: HeaderMeta[] };
+
+  if (data?.h1) {
+    meta.h1 = data?.h1;
+
+    if (!meta.title) meta.title = data?.h1;
+  }
+
+  meta.headers = data.headers;
+
+  return meta as PageMeta;
 };
 
 export const getMdFileNameBySlug = (
@@ -110,7 +125,7 @@ export const getNavigation = (version?: string) => {
       const content = readFileSync(path, "utf-8");
       const { navigation } = JSON.parse(content);
 
-      (navigation as NavigationCategory[]).forEach((c) => {
+      navigation.forEach((c) => {
         c.entries.forEach((i) => {
           i.slug = joinExisting(
             "/",
@@ -120,7 +135,7 @@ export const getNavigation = (version?: string) => {
         });
       });
 
-      return navigation;
+      return navigation as NavigationCategory[];
     } catch {
       throw Error(`File ${path} didn't include 'navigation' field.`);
     }
@@ -134,7 +149,7 @@ export const getSlugListForVersion = (version: string) => {
   return glob
     .sync(join(path, "**/*.md"))
     .filter((filename) => !/README.md$/.exec(filename))
-    .map((filename) => filename.replace(/(\/index)?.md$/, "/"))
+    .map((filename) => filename.replace(/\/?(index)?.md$/, "/"))
     .map((filename) => filename.replace(path, root));
 };
 

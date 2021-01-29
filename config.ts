@@ -1,5 +1,3 @@
-import { join } from "path";
-
 export const versions = [
   "3.1",
   "3.2",
@@ -13,4 +11,4 @@ export const versions = [
 
 export const latest = versions[versions.length - 1];
 
-export const filesDir = join(process.cwd(), "content", "teleport");
+export const filesDir = "content/teleport";

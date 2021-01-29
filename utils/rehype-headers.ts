@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
+import { VFile } from "vfile";
 import { Transformer } from "unified";
 import { Element, Root } from "hast";
 import visit from "unist-util-visit";
@@ -13,26 +16,32 @@ export interface HeaderMeta {
 
 interface RehypeHeadersOptions {
   maxLevel: number;
-  callback: (results: HeaderMeta[]) => void;
 }
 
 export default function rehypeHeaders({
   maxLevel,
-  callback,
 }: RehypeHeadersOptions): Transformer {
-  const headerMeta: HeaderMeta[] = [];
+  return (root: Root, vfile: VFile) => {
+    const firstChild = root.children && root.children[0];
 
-  return (root: Root) => {
+    if (rank(firstChild) === 1) {
+      // @ts-ignore
+      vfile.data.h1 = toString(firstChild);
+      root.children.splice(0, 1);
+    }
+
+    // @ts-ignore
+    vfile.data.headers = [];
+
     visit<Element>(root, "element", function (node) {
       if (rank(node) && rank(node) <= maxLevel) {
-        headerMeta.push({
+        // @ts-ignore
+        vfile.data.headers.push({
           rank: rank(node),
           id: node.properties.id as string,
           title: toString(node),
         });
       }
     });
-
-    callback(headerMeta);
   };
 }

@@ -7,7 +7,7 @@
 import crypto from "crypto";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
-import { filesDir } from "content/meta/docs/config";
+import { filesDir } from "config";
 
 type VarValue = string | number | boolean;
 
@@ -62,7 +62,7 @@ const includeRegexp = /(?:^|\n)(\s*)\{!([^!]+)!\}/g;
 
 const includeFileContent = (value: string, vars: VarsObject) => {
   return value.replace(includeRegexp, (_, spaces, filePath) => {
-    const fullPath = join(filesDir, filePath);
+    const fullPath = join(process.cwd(), filesDir, filePath);
 
     if (existsSync(fullPath)) {
       const content = readFileSync(fullPath, "utf-8");
@@ -102,7 +102,7 @@ const replaceVars = (value: string, vars: VarsObject) =>
 
 // General logic
 
-const template = (value: string, vars: VarsObject) => {
+const template = (value: string, vars: VarsObject): string => {
   const { result, matches } = insertRawPlaceholders(value);
 
   return removeRawPlaceholders(
