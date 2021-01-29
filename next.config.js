@@ -7,14 +7,7 @@ const mdxOptions = getPlugins({ removeTitle: true });
 
 module.exports = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
-  async rewrites() {
-    return [
-      {
-        source: "/:path*",
-        destination: "/_docs/:path*",
-      },
-    ];
-  },
+
   basePath: "/teleport/docs",
   trailingSlash: true,
   webpack: (config, options) => {
