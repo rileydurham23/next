@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
-import {
-  isValidElement,
-  Children,
-  ReactNode,
-  useCallback,
-  useState,
-} from "react";
+import { isValidElement, Children, useCallback, useState } from "react";
 import { variant } from "components/system";
 import Box from "components/Box";
 import Flex from "components/Flex";
@@ -23,7 +17,7 @@ const getSelectedLabel = (
 interface TabItemProps {
   selected?: boolean;
   label: string;
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export const TabItem = ({ children }: TabItemProps) => {
@@ -93,7 +87,7 @@ export const Tabs = ({ children }: TabsProps) => {
       borderRadius="default"
       mb={[2, 3]}
     >
-      <Flex bg="lightest-gray" overflowX="scroll" height="40px">
+      <Flex bg="lightest-gray" overflowX="auto" height="40px">
         {labels.map((label) => (
           <TabLabel
             key={label}
