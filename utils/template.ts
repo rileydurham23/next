@@ -7,7 +7,6 @@
 import crypto from "crypto";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
-import { filesDir } from "config";
 
 type VarValue = string | number | boolean;
 
@@ -24,14 +23,23 @@ interface RawPlaceholder {
 
 const rawRegExp = /(?:\{%\s?raw\s?%\})(.*?)(?:\{%\s?endraw\s?%\})/g; // Ignoring multiline cases for now
 
-const generateRawPlaceholder = (value: string) =>
+const generatePlaceholder = (value: string) =>
   `[${crypto.createHash("md5").update(value).digest("hex")}]`;
+
+const removePlaceholders = (value: string, placeholders: RawPlaceholder[]) => {
+  return placeholders.reduce(
+    (result, { placeholder, value }) => result.replace(placeholder, value),
+    value
+  );
+};
+
+// Raw related logic
 
 const insertRawPlaceholders = (value: string) => {
   const matches: RawPlaceholder[] = [];
 
   const result = value.replace(rawRegExp, (_, value) => {
-    const placeholder = generateRawPlaceholder(value);
+    const placeholder = generatePlaceholder(value);
 
     matches.push({ value, placeholder });
 
@@ -41,16 +49,6 @@ const insertRawPlaceholders = (value: string) => {
   return { result, matches };
 };
 
-const removeRawPlaceholders = (
-  value: string,
-  placeholders: RawPlaceholder[]
-) => {
-  return placeholders.reduce(
-    (result, { placeholder, value }) => result.replace(placeholder, value),
-    value
-  );
-};
-
 interface GeneratedRegexp {
   regexp: RegExp;
   value: VarValue;
@@ -58,23 +56,37 @@ interface GeneratedRegexp {
 
 // File content import logic
 
-const includeRegexp = /(?:^|\n)(\s*)\{!([^!]+)!\}/g;
+const includeRegexp = /(?:^|\n)([ \t]*)\{!([^!]+)!\}/g;
 
-const includeFileContent = (value: string, vars: VarsObject) => {
-  return value.replace(includeRegexp, (_, spaces, filePath) => {
-    const fullPath = join(process.cwd(), filesDir, filePath);
+const insertFileContentPlaholders = (
+  value: string,
+  rootDir: string,
+  vars: VarsObject
+) => {
+  const matches: RawPlaceholder[] = [];
+
+  const result = value.replace(includeRegexp, (_, spaces, filePath) => {
+    const fullPath = join(process.cwd(), rootDir, filePath);
+    const placeholder = generatePlaceholder(fullPath);
 
     if (existsSync(fullPath)) {
       const content = readFileSync(fullPath, "utf-8");
 
-      return template(content, vars)
-        .split("\n")
-        .map((s: string) => `\n${spaces}${s}`) // need \n before first line too
-        .join("");
+      matches.push({
+        placeholder,
+        value: template(content, rootDir, vars)
+          .split("\n")
+          .map((s: string) => `\n${spaces}${s}`) // need \n before first line too
+          .join(""),
+      });
     } else {
-      return `{!${filePath}!}`;
+      matches.push({ placeholder, value: `{!${filePath}!}` });
     }
+
+    return placeholder;
   });
+
+  return { result, matches };
 };
 
 // Variable replacement related logic
@@ -102,12 +114,18 @@ const replaceVars = (value: string, vars: VarsObject) =>
 
 // General logic
 
-const template = (value: string, vars: VarsObject): string => {
-  const { result, matches } = insertRawPlaceholders(value);
+const template = (value: string, rootDir: string, vars: VarsObject): string => {
+  const { result: rawResult, matches: rawMatches } = insertRawPlaceholders(
+    value
+  );
+  const {
+    result: includeResult,
+    matches: includeMatches,
+  } = insertFileContentPlaholders(rawResult, rootDir, vars);
 
-  return removeRawPlaceholders(
-    replaceVars(includeFileContent(result, vars), vars),
-    matches
+  return removePlaceholders(
+    removePlaceholders(replaceVars(includeResult, vars), includeMatches),
+    rawMatches
   );
 };
 

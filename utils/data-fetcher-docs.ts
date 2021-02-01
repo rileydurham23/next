@@ -23,15 +23,17 @@ const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 interface getPageContentOptions {
   content: string;
   filepath: string;
+  rootDir: string;
 }
 
 export const getPageContent = ({
   content: fileContents,
   filepath,
+  rootDir
 }: getPageContentOptions): string => {
   const version: string = filepath.replace(DOCS_DIRECTIORY, "").split("/")[1];
 
-  return template(fileContents, getVars(version));
+  return template(fileContents, rootDir, getVars(version));
 };
 
 export interface PageMeta {
