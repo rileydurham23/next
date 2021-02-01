@@ -14,7 +14,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     if (process.env.NODE_ENV !== "production") return;
 
     Fathom.load(process.env.NEXT_PUBLIC_FATHOM_ID, {
-      includedDomains: [process.env.NEXT_PUBLIC_HOST],
+      includedDomains: [process.env.NEXT_PUBLIC_DOMAIN],
     });
 
     const onRouteChangeComplete = () => Fathom.trackPageview();
