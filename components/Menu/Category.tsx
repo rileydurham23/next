@@ -61,7 +61,7 @@ const MenuCategory = ({
             <DropdownCover>
               <DropdownHeader>{description}</DropdownHeader>
               <CoverLink href={href}>
-                <Image src={cover} width="180" height="144" />
+                <Image src={cover} width="180" height="144" alt="" />
                 <Button variant="secondary" as="div">
                   Learn more
                 </Button>

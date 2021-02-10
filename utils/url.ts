@@ -1,13 +1,29 @@
+import { NextRouter } from "next/router";
+import { latest } from "config";
+
+export const host = process.env.NEXT_PUBLIC_HOST;
+
 export const isExternalLink = (href: string): boolean =>
   href.startsWith("//") || href.startsWith("mailto:") || href.includes("://");
 
 export const isHash = (href: string): boolean => href.startsWith("#");
 
+export const getVersionAsPath = (href: string) => {
+  return href.replace(`/ver/${latest}`, "");
+};
+
 export const getPath = (href: string) => {
-  const base = href.split("#")[0];
+  const base = getVersionAsPath(href.split("#")[0]);
 
   // In SSR mode next ignores trailingSlsh option in asPath
   return base.endsWith("/") ? base : `${base}/`;
 };
 
 export const getHash = (href: string) => href.split("#")[1];
+
+export const buildCanonicalUrl = (router: NextRouter) => {
+  const { asPath, basePath } = router;
+  const path = getVersionAsPath(asPath);
+
+  return `${host}${basePath}${path}`;
+};

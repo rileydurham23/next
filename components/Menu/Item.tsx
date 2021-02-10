@@ -23,7 +23,7 @@ const MenuItem = ({
 }: MenuItemProps) => {
   return (
     <StyledWrapper href={href} passthrough mobileOnly={mobileOnly}>
-      {image && <StyledImage src={image} />}
+      {image && <StyledImage src={image} alt="" />}
       {icon && (
         <Icon
           name={icon}

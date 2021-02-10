@@ -1,6 +1,8 @@
 import NextHead from "next/head";
 import { useRouter } from "next/router";
 
+import { buildCanonicalUrl, host } from "utils/url";
+
 const defaultTitle = "Teleport Docs";
 
 const formatTitle = (title?: string) => {
@@ -8,7 +10,6 @@ const formatTitle = (title?: string) => {
 
   return base + defaultTitle;
 };
-
 interface HeadProps {
   title: string;
   description?: string;
@@ -16,9 +17,7 @@ interface HeadProps {
 
 const Head = (meta: HeadProps) => {
   const router = useRouter();
-
-  const host = process.env.NEXT_PUBLIC_HOST;
-  const url = `${host}${router.basePath}${router.asPath}`;
+  const url = buildCanonicalUrl(router);
   const title = formatTitle(meta.title);
   const description = meta.description || "";
 
