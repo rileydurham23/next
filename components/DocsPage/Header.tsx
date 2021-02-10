@@ -2,13 +2,14 @@ import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
 import Icon, { IconName } from "components/Icon";
-import Versions, { VersionsItem } from "./Versions";
+import Versions from "./Versions";
+import { VersionsInfo } from "./types";
 import bgUrl from "./assets/bg.svg";
 
 interface DocHeaderProps {
   title: string;
   icon?: IconName;
-  versions: VersionsItem[];
+  versions: VersionsInfo;
   githubUrl: string;
 }
 
@@ -65,7 +66,7 @@ const DocHeader = ({
             {title}
           </Box>
           <Versions
-            items={versions}
+            {...versions}
             position={["absolute", "static"]}
             left="16px"
             bottom="16px"

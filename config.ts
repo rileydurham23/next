@@ -11,4 +11,8 @@ export const versions = [
 
 export const latest = versions[versions.length - 1];
 
-export const filesDir = "content/teleport";
+export const contentRoot = "content/teleport";
+
+export const docsSourcesRoot = `${contentRoot}/docs`;
+
+export const docsPagesRoot = "pages/ver";

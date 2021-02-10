@@ -1,8 +1,0 @@
-{
-  "version": "4.2",
-  "teleport": {
-    "version": "4.2.12",
-    "golang": "1.13",
-    "sha": "20e0bc3b8a37271191e0db4086835f10c555f40349e56cd38f8945fd674943e1"
-  }
-}

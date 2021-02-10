@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "fs";
-import { join } from "path";
+import { join, resolve } from "path";
 import glob from "glob";
 import matter from "gray-matter";
 import unified from "unified";
@@ -14,12 +14,36 @@ import { joinExisting } from "utils/join-existing";
 
 import { NavigationCategory } from "components/DocsPage/types";
 
-import { versions, latest, filesDir } from "config";
+import { versions, latest, contentRoot, docsSourcesRoot } from "config";
 
-const DOCS_REPO_ROOT = join(process.cwd(), filesDir);
-const DOCS_DIRECTIORY = join(DOCS_REPO_ROOT, "docs");
-const DOCS_META_DIRECTORY = join(process.cwd(), "content", "meta", "docs"); // tmp solution, until migration
+const DOCS_REPO_ROOT = resolve(contentRoot);
+const DOCS_DIRECTIORY = resolve(docsSourcesRoot);
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
+
+const versionRegExp = /\/teleport\/docs\/([^/]+)\//;
+
+export const getVersion = (filepath: string) => {
+  return versionRegExp.exec(filepath)[1];
+};
+
+const getVars = (filepath: string) => {
+  const version = getVersion(filepath);
+
+  const path = join(DOCS_DIRECTIORY, version, "config.json");
+
+  if (existsSync(path)) {
+    try {
+      const content = readFileSync(path, "utf-8");
+
+      return JSON.parse(content).variables || {};
+    } catch {
+      throw Error(`File ${path} is not a valid json.`);
+    }
+  }
+
+  return {};
+};
+
 interface getPageContentOptions {
   content: string;
   filepath: string;
@@ -29,11 +53,9 @@ interface getPageContentOptions {
 export const getPageContent = ({
   content: fileContents,
   filepath,
-  rootDir
+  rootDir,
 }: getPageContentOptions): string => {
-  const version: string = filepath.replace(DOCS_DIRECTIORY, "").split("/")[1];
-
-  return template(fileContents, rootDir, getVars(version));
+  return template(fileContents, rootDir, getVars(filepath));
 };
 
 export interface PageMeta {
@@ -44,8 +66,14 @@ export interface PageMeta {
   githubUrl: string;
 }
 
-export const getPageMeta = (filepath: string) => {
-  const { data: meta, content } = matter(readFileSync(filepath, "utf8"));
+export const getPageMeta = ({
+  content: originalContent,
+  filepath,
+}: {
+  content: string;
+  filepath: string;
+}) => {
+  const { data: meta, content } = matter(originalContent);
 
   if (meta.title) {
     meta.h1 = meta.title;
@@ -78,49 +106,8 @@ export const getPageMeta = (filepath: string) => {
   return meta as PageMeta;
 };
 
-export const getMdFileNameBySlug = (
-  version?: string,
-  slug?: string
-): string => {
-  const pathAsFile = join(
-    DOCS_DIRECTIORY,
-    version || latest,
-    `${slug || "index"}.md`
-  );
-
-  const pathAsDir = join(
-    DOCS_DIRECTIORY,
-    version || latest,
-    `${slug ? `${slug}/` : ""}index.md`
-  );
-
-  if (existsSync(pathAsFile)) {
-    return pathAsFile;
-  } else if (existsSync(pathAsDir)) {
-    return pathAsDir;
-  }
-
-  return "";
-};
-
-const getVars = (version?: string) => {
-  const path = join(DOCS_META_DIRECTORY, version || latest, "vars.json");
-
-  if (existsSync(path)) {
-    try {
-      const content = readFileSync(path, "utf-8");
-
-      return JSON.parse(content);
-    } catch {
-      throw Error(`File ${path} is not a valid json.`);
-    }
-  }
-
-  return {};
-};
-
-export const getNavigation = (version?: string) => {
-  const path = join(DOCS_META_DIRECTORY, version || latest, "navigation.json");
+export const getNavigation = (version: string) => {
+  const path = join(DOCS_DIRECTIORY, version, "config.json");
 
   if (existsSync(path)) {
     try {
@@ -131,7 +118,7 @@ export const getNavigation = (version?: string) => {
         c.entries.forEach((i) => {
           i.slug = joinExisting(
             "/",
-            version ? `ver/${version}` : version,
+            version !== latest ? `ver/${version}` : "",
             i.slug
           );
         });
@@ -143,16 +130,52 @@ export const getNavigation = (version?: string) => {
     }
   }
 };
+interface ParseMdxContentProps {
+  content: string;
+  filepath: string;
+}
+
+export const parseMdxContent = ({
+  content: originalContent,
+  filepath,
+}: ParseMdxContentProps) => {
+  const current = getVersion(filepath);
+
+  const content = getPageContent({
+    content: matter(originalContent).content,
+    filepath,
+    rootDir: contentRoot,
+  });
+
+  const meta = getPageMeta({ content, filepath });
+
+  const navigation = getNavigation(current);
+
+  return {
+    content,
+    meta,
+    navigation,
+    versions: {
+      current,
+      latest,
+      available: versions,
+    },
+  };
+};
 
 export const getSlugListForVersion = (version: string) => {
-  const path = join(DOCS_DIRECTIORY, version);
-  const root = version === latest ? "" : join("/ver", version);
+  const path = join(DOCS_DIRECTIORY, version, "pages");
+  const root = join("/ver", version);
 
   return glob
     .sync(join(path, "**/*.md"))
-    .filter((filename) => !/README.md$/.exec(filename))
     .map((filename) => filename.replace(/\/?(index)?.md$/, "/"))
     .map((filename) => filename.replace(path, root));
 };
 
-export { versions, latest };
+export const getLatestVersionRewirites = () => {
+  return getSlugListForVersion(latest).map((destination) => ({
+    source: destination.replace(`/ver/${latest}`, ""),
+    destination,
+  }));
+};

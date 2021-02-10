@@ -1,7 +1,7 @@
 import css from "@styled-system/css";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { useCallback, useState, useMemo, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   ListboxInput,
   ListboxButton,
@@ -12,41 +12,40 @@ import {
 import "@reach/listbox/styles.css";
 import Box, { BoxProps } from "components/Box";
 import { ReactComponent as ArrorwSVG } from "./assets/arrow.svg";
+import type { VersionsInfo } from "./types";
 
-export interface VersionsItem {
-  title: string;
-  href: string;
-  isLatest: boolean;
-  isCurrent: boolean;
-}
-interface VersionsProps {
-  items: VersionsItem[];
-}
-
-const Versions = ({ items, ...props }: VersionsProps & BoxProps) => {
+const Versions = ({
+  current,
+  latest,
+  available,
+  ...props
+}: VersionsInfo & BoxProps) => {
   const router = useRouter();
-  const { title } = items.find(({ isCurrent }) => isCurrent);
-  const [current, setCurrent] = useState<string>(title);
-  const reversedItems = useMemo(() => [...items].reverse(), [items]);
+  const [currentItem, setCurrentItem] = useState<string>(current);
 
-  const navigateToVersion = useCallback((value: string) => {
-    const { href } = items.find(({ title }) => value === title);
+  const versions = useMemo(() => [...available].reverse(), [available]);
 
-    setCurrent(value);
-    router.push(href);
-  }, []);
+  const navigateToVersion = useCallback(
+    (version: string) => {
+      const href = version === latest ? "/" : `/ver/${version}/`;
+
+      setCurrentItem(version);
+      router.push(href);
+    },
+    [latest]
+  );
 
   useEffect(() => {
-    setCurrent(title);
-  }, [title]);
+    setCurrentItem(current);
+  }, [current]);
 
   return (
     <Box {...props}>
-      <StyledListboxInput value={current} onChange={navigateToVersion}>
+      <StyledListboxInput value={currentItem} onChange={navigateToVersion}>
         <StyledListboxButton arrow={<StyledArrow />} />
         <StyledListboxPopover>
           <ListboxList>
-            {reversedItems.map(({ title }) => (
+            {versions.map((title) => (
               <StyledListboxOption key={title} value={title}>
                 Version {title}
               </StyledListboxOption>

@@ -17,8 +17,7 @@
   "include": ["@types/**/*.d.ts"],
   "files": [
     "utils/plugins.ts",
-    "loaders/liquid-loader.ts",
-    "loaders/md-import-mapping-loader.ts"
+    "loaders/mdx-loader.ts"
   ],
   "exclude": ["node_modules"]
 }

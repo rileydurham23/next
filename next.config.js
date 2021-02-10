@@ -1,14 +1,23 @@
 /* eslint-env node */
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
 const path = require("path");
 const { getPlugins } = require("./__build/utils/plugins");
-
+const {
+  getLatestVersionRewirites,
+} = require("./__build/utils/data-fetcher-docs");
 const mdxOptions = getPlugins({ removeTitle: true });
 
-module.exports = {
-  pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+const basePath = "/teleport/docs";
 
-  basePath: "/teleport/docs",
+module.exports = withBundleAnalyzer({
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  rewrites: async () => {
+    return getLatestVersionRewirites();
+  },
+  basePath,
   trailingSlash: true,
   webpack: (config, options) => {
     config.module.rules.push({
@@ -21,27 +30,27 @@ module.exports = {
       exclude: /node_modules/,
       use: {
         loader: "url-loader",
+        options: {
+          limit: 1 * 1024,
+          noquotes: true,
+          fallback: "file-loader",
+          publicPath: `${basePath}/_next/static/images/`,
+          outputPath: "static/images/",
+          name: "[hash].[ext]",
+        },
       },
-    });
-    config.module.rules.push({
-      test: /md-import-mapping/,
-      use: [
-        options.defaultLoaders.babel,
-        path.resolve("__build/loaders/md-import-mapping-loader.js"),
-      ],
     });
     config.module.rules.push({
       test: /\.(md|mdx)$/,
       use: [
         options.defaultLoaders.babel,
         {
-          loader: "@mdx-js/loader",
+          loader: path.resolve("__build/loaders/mdx-loader.js"),
           options: mdxOptions,
         },
-        path.resolve("__build/loaders/liquid-loader.js"),
       ],
     });
 
     return config;
   },
-};
+});

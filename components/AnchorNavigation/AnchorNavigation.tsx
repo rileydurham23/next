@@ -1,12 +1,7 @@
 import css from "@styled-system/css";
 import Box, { BoxProps } from "components/Box";
 import Link from "components/Link";
-
-export interface HeaderMeta {
-  rank: number;
-  id: string;
-  title: string;
-}
+import { HeaderMeta } from "./types";
 
 interface AnchorNavigationProps {
   headers: HeaderMeta[];
