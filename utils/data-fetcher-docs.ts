@@ -142,7 +142,7 @@ export const parseMdxContent = ({
   const current = getVersion(filepath);
 
   const content = getPageContent({
-    content: matter(originalContent).content,
+    content: originalContent,
     filepath,
     rootDir: contentRoot,
   });
@@ -152,7 +152,7 @@ export const parseMdxContent = ({
   const navigation = getNavigation(current);
 
   return {
-    content,
+    content: matter(content).content,
     meta,
     navigation,
     versions: {
