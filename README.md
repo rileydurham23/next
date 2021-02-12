@@ -1,30 +1,58 @@
-# teleport-docs-next
+# Getting started
 
-## Getting Started
+### Installation
 
-First, run the development server:
+Prerequisites:
 
-```bash
-npm run dev
-# or
-yarn dev
+- Nodejs 12+ is installed in the system.
+- `yarn` is installed in the system as a package manager.
+
+Clone the repo and init submodules with the actual docs:
+
+```
+git clone git@github.com:gravitational/next.git
+git submodule init
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To update docs to the latest version form master run:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+git submodule update
+```
 
-## Learn More
+Install dependencies with:
 
-To learn more about Next.js, take a look at the following resources:
+```
+yarn
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Running docs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Now run one of the following commands:
 
-## Deploy on Vercel
+- `yarn dev` - will run development server at `localhost:3000` that will autorefresh pages in real time then you edit markdown documents.
+- `yarn build` - will build static production version.
+- `yarn start` - will display documentation built with `npm run build` at `localhost:3000`.
+- `yarn update-and-build` - shortcut for submodule update and build (this command is used on deploy to vercel). Do not use this command if you plan to edit docs locally - on run it will switch you branch to latest commit in `master` that can cause conflicts with your locally edited files.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Development related commands
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `yarn test` - run tests. Used on CI.
+- `yarn lint` - checks JS and TS files for errors and automatically fixes them.
+- `yarn lint-check` - checks JS and TS files for errors, but didn't fix them. Checked in CI and on commit.
+- `yarn typecheck` - validate TypeScript type-related errors. Used on CI.
+- `yarn git-update` - shortcut for submodule update, laso used as part of `yarn update-and-build`.
+- `yarn build-loaders` - command used to build custom webpack loaders.
+- `yarn add-symlinks` - this command creates symlinks from different versions of docs to `pages` directory.
+
+### Docs structure
+
+`content/teleport/docs` - is a docs folder. Inside of it we have docs for diffrent teleport version with the following structure:
+
+- `img/` - folder for images used inside the pages.
+- `pages/` - `.md` or `.mdx` files with actual page content. Every file in this folder will be rendered as a page.
+- `config.json` - docs version config. See below.
+
+### `config.json`
+
+TODO

@@ -1,4 +1,4 @@
-const { symlinkSync, rmSync, existsSync, mkdirSync } = require("fs");
+const { symlinkSync, rmdirSync, existsSync, mkdirSync } = require("fs");
 const { resolve } = require("path");
 const {
   versions,
@@ -6,7 +6,7 @@ const {
   docsPagesRoot,
 } = require("../__build/config");
 
-rmSync(docsPagesRoot, { recursive: true, force: true });
+rmdirSync(docsPagesRoot, { recursive: true });
 mkdirSync(docsPagesRoot);
 
 versions.forEach((version) => {
