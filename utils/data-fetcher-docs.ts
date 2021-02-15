@@ -29,7 +29,7 @@ export const getConfig = (version: string) => {
       config.navigation.forEach((c) => {
         c.entries.forEach((i) => {
           i.slug =
-            version === latest ? `/${i.slug}` : `/ver/${version}/${i.slug}`;
+            version === latest ? `${i.slug}` : `/ver/${version}${i.slug}`;
         });
       });
 

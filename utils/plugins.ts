@@ -16,8 +16,6 @@ interface GetPluginsOptions {
 
 export const getPlugins = ({ removeTitle }: GetPluginsOptions = {}) => {
   const remarkPlugins: PluggableList = [
-    remarkFrontmatter,
-    remarkImportFrontmatter,
     [
       remarkCopyLinkedFiles,
       {
@@ -40,6 +38,8 @@ export const getPlugins = ({ removeTitle }: GetPluginsOptions = {}) => {
   ];
 
   if (removeTitle) {
+    remarkPlugins.push(remarkFrontmatter);
+    remarkPlugins.push(remarkImportFrontmatter);
     rehypePlugins.push([rehypeHeaders, { maxLevel: 2 }]);
   }
 
