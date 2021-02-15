@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import AnchorNavigation from "components/AnchorNavigation";
+import AnchorNavigation, { HeaderMeta } from "components/AnchorNavigation";
 import Box from "components/Box";
 import Button from "components/Button";
 import Footer from "components/Footer";
@@ -17,13 +17,17 @@ interface PageContentProps {
   navigation: NavigationCategory[];
   versions: VersionsInfo;
   meta: PageMeta;
+  tableOfConents: HeaderMeta[];
+  githubUrl: string;
   children: React.ReactNode;
 }
 
 const PageContent = ({
   navigation,
   versions,
-  meta: { h1, githubUrl, headers, title, description },
+  githubUrl,
+  meta: { h1, title, description },
+  tableOfConents,
   children,
 }: PageContentProps) => {
   const router = useRouter();
@@ -41,7 +45,7 @@ const PageContent = ({
           </Box>
           <Flex flexGrow={1} flexDirection="column">
             <Header
-              title={h1}
+              title={h1 || title}
               versions={versions}
               githubUrl={githubUrl}
               icon={icon}
@@ -58,9 +62,9 @@ const PageContent = ({
                   <MDX>{children}</MDX>
                 </Box>
               </Box>
-              {!!headers.length && (
+              {!!tableOfConents.length && (
                 <AnchorNavigation
-                  headers={headers}
+                  headers={tableOfConents}
                   display={["none", "none", "block"]}
                 />
               )}

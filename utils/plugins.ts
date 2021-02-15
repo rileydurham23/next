@@ -3,6 +3,8 @@ import { PluggableList } from "unified";
 import rehypeHeaders from "utils/rehype-headers";
 import rehypeLinks from "utils/rehype-links";
 import rehypeSlug from "rehype-slug";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkImportFrontmatter from "utils/remark-import-frontmatter";
 import remarkAdmonitions from "utils/remark-admonitions";
 import remarkTabbed from "utils/remark-tabbed";
 import rehypeHighlight from "rehype-highlight";
@@ -14,6 +16,8 @@ interface GetPluginsOptions {
 
 export const getPlugins = ({ removeTitle }: GetPluginsOptions = {}) => {
   const remarkPlugins: PluggableList = [
+    remarkFrontmatter,
+    remarkImportFrontmatter,
     [
       remarkCopyLinkedFiles,
       {

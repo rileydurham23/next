@@ -1,6 +1,5 @@
 // Moved this types to separate file to simplyfy loaders build that requires them
 
-import { HeaderMeta } from "components/AnchorNavigation/types";
 import type { IconName } from "components/Icon/types";
 
 export interface NavigationItem {
@@ -24,6 +23,5 @@ export interface PageMeta {
   title?: string;
   description?: string;
   h1?: string;
-  headers: HeaderMeta[];
   githubUrl: string;
 }

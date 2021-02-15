@@ -11,7 +11,13 @@ import DocsPage from "components/DocsPage";
 
 const DEFAULT_EXPORT = `
 const Wrapper = () => (
-  <DocsPage meta={meta} navigation={navigation} versions={versions}>
+  <DocsPage
+    meta={meta}
+    navigation={navigation}
+    versions={versions}
+    tableOfConents={tableOfConents}
+    githubUrl={githubUrl}
+  >
     <MDXContent />
   </DocsPage>
 );
@@ -27,16 +33,10 @@ module.exports = async function (originalContent: string) {
     skipExport: true,
   });
 
-  const { content, meta, navigation, versions } = parseMdxContent({
+  const { content, navigation, versions, githubUrl } = parseMdxContent({
     filepath,
     content: originalContent,
   });
-
-  const metaStr = `export const meta = ${stringifyObject(meta)};`;
-  const navigationStr = `export const navigation = ${stringifyObject(
-    navigation
-  )};`;
-  const versionsStr = `export const versions = ${stringifyObject(versions)};`;
 
   let result: string;
 
@@ -46,6 +46,14 @@ module.exports = async function (originalContent: string) {
     return callback(err);
   }
 
-  const code = `${DEFAULT_IMPORTS}\n${metaStr}\n${navigationStr}\n${versionsStr}\n${result}\n${DEFAULT_EXPORT}`;
+  const code = [
+    DEFAULT_IMPORTS,
+    `export const navigation = ${stringifyObject(navigation)};`,
+    `export const versions = ${stringifyObject(versions)};`,
+    `export const githubUrl = "${githubUrl}";`,
+    result,
+    DEFAULT_EXPORT,
+  ].join("\n");
+
   return callback(null, code);
 };

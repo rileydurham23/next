@@ -13,6 +13,24 @@ export interface JsxNode extends MdxastNode {
   value: string;
 }
 
+export interface ImportNode extends Node {
+  type: "import";
+  value: string;
+}
+
+export interface ExportNode extends Node {
+  type: "export";
+  value: string;
+  default: boolean;
+}
+
+export type MdxhastNode = RehypeNode | JsxNode | ImportNode | ExportNode;
+
+export type MdxhastRootNode = {
+  type: "root";
+  children: MdxhastNode[];
+};
+
 export interface AdmonitionNode extends MdxastNode {
   type: "admonition";
   data: {

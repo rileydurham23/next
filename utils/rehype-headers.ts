@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* inspired by docusaurus-mdx-loader */
 
-import { VFile } from "vfile";
 import { Transformer } from "unified";
 import { Element, Root } from "hast";
 import visit from "unist-util-visit";
-
 import rank from "hast-util-heading-rank";
 import toString from "hast-util-to-string";
+import stringifyObject from "stringify-object";
+import { MdxhastRootNode } from "utils/unist-types";
 
 export interface HeaderMeta {
   rank: number;
@@ -14,34 +14,46 @@ export interface HeaderMeta {
   title: string;
 }
 
+const addExportNode = (
+  { children }: MdxhastRootNode,
+  headers: HeaderMeta[],
+  name: string
+) => {
+  const lastImportIndex = children
+    .map(({ type }) => type)
+    .lastIndexOf("import");
+
+  const targetIndex = lastImportIndex !== -1 ? 0 : lastImportIndex + 1;
+
+  children.splice(targetIndex, 0, {
+    default: false,
+    type: "export",
+    value: `export const ${name} = ${stringifyObject(headers)};`,
+  });
+};
+
 interface RehypeHeadersOptions {
+  name?: string;
   maxLevel: number;
 }
 
 export default function rehypeHeaders({
+  name = "tableOfConents",
   maxLevel,
 }: RehypeHeadersOptions): Transformer {
-  return (root: Root, vfile: VFile) => {
-    const firstChild = root.children && root.children[0];
-
-    if (rank(firstChild) === 1) {
-      // @ts-ignore
-      vfile.data.h1 = toString(firstChild);
-      root.children.splice(0, 1);
-    }
-
-    // @ts-ignore
-    vfile.data.headers = [];
+  return (root: Root) => {
+    const headers: HeaderMeta[] = [];
 
     visit<Element>(root, "element", function (node) {
       if (rank(node) && rank(node) <= maxLevel) {
-        // @ts-ignore
-        vfile.data.headers.push({
+        headers.push({
           rank: rank(node),
           id: node.properties.id as string,
           title: toString(node),
         });
       }
     });
+
+    addExportNode(root, headers, name);
   };
 }
