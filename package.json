@@ -13,8 +13,8 @@
     "update-and-build": "yarn git-update && yarn build",
     "start": "next start",
     "test": "jest --runInBand",
-    "base:eslint": "eslint --cache --cache-location node_modules/.cache/eslint '{components,loaders,pages,scripts,test,utils}/**/*.{js,jsx,ts,tsx}'",
-    "base:prettier": "prettier '{components,loaders,pages,scripts,test,utils}/**/*.{js,jsx,ts,tsx,json}'",
+    "base:eslint": "eslint --cache --cache-location node_modules/.cache/eslint '**/*.{js,jsx,ts,tsx}'",
+    "base:prettier": "prettier '**/*.{js,jsx,ts,tsx,json}'",
     "lint": "yarn base:eslint --fix && yarn base:prettier --write -l",
     "lint-check": "yarn base:eslint && yarn base:prettier --check",
     "typecheck": "tsc --noEmit --skipLibCheck --incremental --tsBuildInfoFile node_modules/.cache/tsc/tsbuildinfo --project ."

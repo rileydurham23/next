@@ -67,6 +67,7 @@ export interface StyledSystemWrapperProps
 
 export const wrapper = compose(flexbox, layout, position, shadow, space);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const media = (mediaKey = "", styles: any) => ({ /* props,  */ theme }) => {
   const key = theme.media[mediaKey];
   return {

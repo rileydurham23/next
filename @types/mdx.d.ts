@@ -29,6 +29,7 @@ declare module "@mdx-js/react" {
     | "ul";
 
   export type Components = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key in ComponentType]?: React.ComponentType<any>;
   };
 
@@ -41,6 +42,7 @@ declare module "@mdx-js/react" {
 }
 
 declare module "*.mdx" {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let MDXComponent: (props: any) => JSX.Element;
   export default MDXComponent;
 }

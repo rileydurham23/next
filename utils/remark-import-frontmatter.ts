@@ -10,6 +10,7 @@ export interface HeaderMeta {
   title: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const addExportNode = ({ children }: MdxastNode, meta: any, name: string) => {
   const lastImportIndex = children
     .map(({ type }) => type)
