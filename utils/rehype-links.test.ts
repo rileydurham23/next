@@ -18,8 +18,8 @@ const transformer = (options: VFileOptions) =>
 describe("utils/rehype-links", () => {
   it("Removes .md and and adds './'", () => {
     const result = transformer({
-      contents: "[Some link](workflow.md)",
-      path: "/docs/enterprize/index.md",
+      contents: "[Some link](workflow.mdx)",
+      path: "/docs/enterprize/index.mdx",
     });
 
     expect(result).toEqual('<p><a href="./workflow/">Some link</a></p>');
@@ -73,7 +73,7 @@ describe("utils/rehype-links", () => {
   it("Leave external links as is", () => {
     const result = transformer({
       contents: "[Some link](https://yandex.ru/workflow.md)",
-      currentPublicDir: "/docs/enterprize.md",
+      path: "/docs/enterprize.md",
     });
 
     expect(result).toEqual(

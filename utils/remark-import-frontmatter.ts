@@ -1,5 +1,4 @@
 import { Transformer } from "unified";
-import { Root } from "hast";
 import yaml from "js-yaml";
 import stringifyObject from "stringify-object";
 import { MdxastNode } from "utils/unist-types";

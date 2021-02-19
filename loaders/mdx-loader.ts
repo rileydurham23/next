@@ -4,7 +4,8 @@ import stringifyObject from "stringify-object";
 import { parseMdxContent } from "utils/data-fetcher-docs";
 
 const DEFAULT_IMPORTS = `
-import React from "react";
+/** @jsxRuntime classic */
+
 import { mdx } from "@mdx-js/react";
 import DocsPage from "components/DocsPage";
 `;
@@ -48,10 +49,10 @@ module.exports = async function (originalContent: string) {
 
   const code = [
     DEFAULT_IMPORTS,
+    result,
     `export const navigation = ${stringifyObject(navigation)};`,
     `export const versions = ${stringifyObject(versions)};`,
     `export const githubUrl = "${githubUrl}";`,
-    result,
     DEFAULT_EXPORT,
   ].join("\n");
 

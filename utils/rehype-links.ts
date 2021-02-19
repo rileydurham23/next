@@ -20,11 +20,11 @@ export default function rehypeLinks(): Transformer {
   return (root: Root, vfile: VFile) => {
     const { basename } = vfile;
 
-    const prefix = basename === "index.md" ? "./" : "../";
+    const prefix = basename.match(/^index.mdx?$/) ? "./" : "../";
 
     visit<Element>(root, [isLocalLink], (node) => {
       const { href } = node.properties;
-      const newHref = (href as string).replace(/(\/)?(index)?\.md/, "/");
+      const newHref = (href as string).replace(/(\/)?(index)?\.mdx?/, "/");
 
       node.properties.href = /^\//.test(newHref) ? newHref : prefix + newHref;
     });

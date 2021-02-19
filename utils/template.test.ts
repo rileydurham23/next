@@ -20,8 +20,6 @@ describe("utils/template", () => {
       teleport: { version: "1.0" },
     });
 
-    writeFileSync("./processed.md", processed);
-
     expect(processed).toEqual(result);
   });
 });

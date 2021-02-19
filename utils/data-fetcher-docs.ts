@@ -80,8 +80,8 @@ export const getSlugListForVersion = (version: string) => {
   const root = join("/ver", version);
 
   return glob
-    .sync(join(path, "**/*.md"))
-    .map((filename) => filename.replace(/\/?(index)?.md$/, "/"))
+    .sync(join(path, "**/*.mdx"))
+    .map((filename) => filename.replace(/\/?(index)?.mdx?$/, "/"))
     .map((filename) => filename.replace(path, root));
 };
 

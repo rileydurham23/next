@@ -12,8 +12,12 @@ export const getVersionAsPath = (href: string) => {
   return href.replace(`/ver/${latest}`, "");
 };
 
+export const extractPath = (href: string) => {
+  return href.split("#")[0].split("?")[0];
+};
+
 export const getPath = (href: string) => {
-  const base = getVersionAsPath(href.split("#")[0]);
+  const base = getVersionAsPath(extractPath(href));
 
   // In SSR mode next ignores trailingSlsh option in asPath
   return base.endsWith("/") ? base : `${base}/`;
