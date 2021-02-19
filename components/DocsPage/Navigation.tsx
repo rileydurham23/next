@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState, useCallback, useEffect } from "react";
+import { Fragment, useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import css from "@styled-system/css";
 import Box from "components/Box";
@@ -8,8 +8,46 @@ import HeadlessButton from "components/HeadlessButton";
 import Search from "components/Search";
 import Link from "components/Link";
 import Icon from "components/Icon";
-import { NavigationCategory } from "./types";
+import { NavigationItem, NavigationCategory } from "./types";
 import { getPath } from "utils/url";
+
+interface DocsNavigationItemsProps {
+  entries: NavigationItem[];
+  onClick: () => void;
+}
+
+const DocsNavigationItems = ({
+  entries,
+  onClick,
+}: DocsNavigationItemsProps) => {
+  const router = useRouter();
+
+  return (
+    <>
+      {!!entries.length &&
+        entries.map((entry) => (
+          <Fragment key={entry.slug}>
+            <NavigationLink
+              href={entry.slug}
+              active={entry.slug === getPath(router.asPath)}
+              onClick={onClick}
+            >
+              {entry.title}
+            </NavigationLink>
+            {!!entry.entries?.length && (
+              <Box ml="2">
+                <DocsNavigationItems
+                  entries={entry.entries}
+                  onClick={onClick}
+                />
+              </Box>
+            )}
+          </Fragment>
+        ))}
+    </>
+  );
+};
+
 interface DocNavigationCategoryProps extends NavigationCategory {
   id: number;
   opened: boolean;
@@ -26,7 +64,6 @@ const DocNavigationCategory = ({
   title,
   entries,
 }: DocNavigationCategoryProps) => {
-  const router = useRouter();
   const toggleOpened = useCallback(() => onToggleOpened(opened ? null : id), [
     opened,
   ]);
@@ -44,16 +81,7 @@ const DocNavigationCategory = ({
           py={1}
           boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.24)"
         >
-          {entries.map(({ title, slug }) => (
-            <NavigationLink
-              href={slug}
-              active={slug === getPath(router.asPath)}
-              key={slug}
-              onClick={onClick}
-            >
-              {title}
-            </NavigationLink>
-          ))}
+          <DocsNavigationItems entries={entries} onClick={onClick} />
         </Box>
       )}
     </Box>

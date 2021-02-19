@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "fs";
 import { join, resolve } from "path";
 import glob from "glob";
 import template from "utils/template";
-import { NavigationCategory } from "components/DocsPage/types";
+import { NavigationCategory, NavigationItem } from "components/DocsPage/types";
 import { versions, latest, contentRoot, docsSourcesRoot } from "config";
 
 const DOCS_REPO_ROOT = resolve(contentRoot);
@@ -15,8 +15,38 @@ export const getVersion = (filepath: string) => {
 
 interface Config {
   navigation: NavigationCategory[];
-  variables: never;
+  variables: Record<string, unknown>;
 }
+
+const normalizeUrls = (
+  version: string,
+  entries: NavigationItem[]
+): NavigationItem[] => {
+  return entries.map((entry) => {
+    const newEntry = Object.assign(entry);
+
+    const slugPrefix = version === latest ? "" : `/ver/${version}`;
+
+    newEntry.slug = slugPrefix + entry.slug;
+
+    if (entry.entries) {
+      newEntry.entries = normalizeUrls(version, entry.entries);
+    }
+
+    return newEntry;
+  });
+};
+
+const normalizeNavigation = (
+  version: string,
+  navigation: NavigationCategory[]
+): NavigationCategory[] =>
+  navigation.map((category) => {
+    return {
+      ...category,
+      entries: normalizeUrls(version, category.entries),
+    };
+  });
 
 export const getConfig = (version: string) => {
   const path = join(DOCS_DIRECTIORY, version, "config.json");
@@ -24,14 +54,9 @@ export const getConfig = (version: string) => {
   if (existsSync(path)) {
     try {
       const content = readFileSync(path, "utf-8");
-      const config = JSON.parse(content);
+      const config = JSON.parse(content) as Config;
 
-      config.navigation.forEach((c) => {
-        c.entries.forEach((i) => {
-          i.slug =
-            version === latest ? `${i.slug}` : `/ver/${version}${i.slug}`;
-        });
-      });
+      config.navigation = normalizeNavigation(version, config.navigation);
 
       if (!config.variables) {
         config.variables = {};

@@ -5,6 +5,7 @@ import type { IconName } from "components/Icon/types";
 export interface NavigationItem {
   title: string;
   slug: string;
+  entries?: NavigationItem[];
 }
 
 export interface NavigationCategory {

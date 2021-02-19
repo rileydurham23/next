@@ -8,12 +8,6 @@ import crypto from "crypto";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 
-type VarValue = string | number | boolean;
-
-interface VarsObject {
-  [key: string]: VarValue | VarsObject;
-}
-
 // Placeholders related logic
 
 interface RawPlaceholder {
@@ -51,7 +45,7 @@ const insertRawPlaceholders = (value: string) => {
 
 interface GeneratedRegexp {
   regexp: RegExp;
-  value: VarValue;
+  value: unknown;
 }
 
 // File content import logic
@@ -61,7 +55,7 @@ const includeRegexp = /(?:^|\n)([ \t]*)\{!([^!]+)!\}/g;
 const insertFileContentPlaholders = (
   value: string,
   rootDir: string,
-  vars: VarsObject
+  vars: Record<string, unknown>
 ) => {
   const matches: RawPlaceholder[] = [];
 
@@ -91,14 +85,17 @@ const insertFileContentPlaholders = (
 
 // Variable replacement related logic
 
-const generateRegexps = (vars: VarsObject, prefix?: string) => {
+const generateRegexps = (vars: Record<string, unknown>, prefix?: string) => {
   let result: GeneratedRegexp[] = [];
 
   Object.entries(vars).forEach(([key, value]) => {
     const path = prefix ? `${prefix}.${key}` : key;
 
     if (typeof value === "object") {
-      result = [...result, ...generateRegexps(value, path)];
+      result = [
+        ...result,
+        ...generateRegexps(value as Record<string, unknown>, path),
+      ];
     } else {
       result.push({ regexp: new RegExp(`{{\\s?${path}\\s?}}`, "g"), value });
     }
@@ -107,14 +104,18 @@ const generateRegexps = (vars: VarsObject, prefix?: string) => {
   return result;
 };
 
-const replaceVars = (value: string, vars: VarsObject) =>
+const replaceVars = (value: string, vars: Record<string, unknown>) =>
   generateRegexps(vars).reduce((result, { regexp, value }) => {
     return result.replace(regexp, value.toString());
   }, value);
 
 // General logic
 
-const template = (value: string, rootDir: string, vars: VarsObject): string => {
+const template = (
+  value: string,
+  rootDir: string,
+  vars: Record<string, unknown>
+): string => {
   const { result: rawResult, matches: rawMatches } = insertRawPlaceholders(
     value
   );
