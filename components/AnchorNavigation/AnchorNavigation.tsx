@@ -13,7 +13,15 @@ const AnchorNavigation = ({
 }: AnchorNavigationProps & BoxProps) => {
   return (
     <Box flexShrink={0} position="relative">
-      <Box width="240px" p={4} position="sticky" top="0" {...props}>
+      <Box
+        width="240px"
+        p={4}
+        position="sticky"
+        top="0"
+        maxHeight="100vh"
+        overflow="auto"
+        {...props}
+      >
         <Box
           text="text-sm"
           maxHeight="100%"
