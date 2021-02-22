@@ -88,13 +88,17 @@ const DocNavigationCategory = ({
   );
 };
 
+const hasSlug = (items: NavigationItem[], href: string) => {
+  return items.some(({ slug, entries }) => {
+    return slug === href || (!!entries && hasSlug(entries, href));
+  });
+};
+
 export const getCurrentCategoryIndex = (
   categories: NavigationCategory[],
   href: string
 ) => {
-  const index = categories.findIndex(({ entries }) =>
-    entries.some(({ slug }) => slug === href)
-  );
+  const index = categories.findIndex(({ entries }) => hasSlug(entries, href));
 
   return index !== -1 ? index : null;
 };
