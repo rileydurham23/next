@@ -6,6 +6,7 @@ export { ReactComponent as clock } from "./svg/clock.svg";
 export { ReactComponent as close } from "./svg/close.svg";
 export { ReactComponent as code } from "./svg/code.svg";
 export { ReactComponent as copy } from "./svg/copy.svg";
+export { ReactComponent as database } from "./svg/database.svg";
 export { ReactComponent as earth } from "./svg/earth.svg";
 export { ReactComponent as error } from "./svg/error.svg";
 export { ReactComponent as flag } from "./svg/flag.svg";
