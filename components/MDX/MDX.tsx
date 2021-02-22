@@ -5,6 +5,7 @@ import Admonition from "./Admonition";
 import Code from "./Code";
 import { H1, H2, H3, H4, H5 } from "./Headers";
 import Image from "./Image";
+import IFrame from "./IFrame";
 import Link from "./Link";
 import { UL, OL, LI } from "./Lists";
 import Paragraph from "./Paragraph";
@@ -18,6 +19,7 @@ export const components = {
   code: Code,
   inlineCode: Code,
   img: Image,
+  iframe: IFrame,
   h1: H1,
   h2: H2,
   h3: H3,
