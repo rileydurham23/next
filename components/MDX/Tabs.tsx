@@ -106,6 +106,7 @@ const Label = styled(HeadlessButton)<{ variant: "default" | "selected" }>(
   css({
     whiteSpace: "nowrap",
     flexShrink: 0,
+    m: 0,
     "&:hover, &:active, &:focus": {
       color: "dark-gray",
       outline: "none",
