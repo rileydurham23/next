@@ -1,6 +1,5 @@
 import { existsSync, readFileSync } from "fs";
 import { join, resolve } from "path";
-import glob from "glob";
 import template from "utils/template";
 import { NavigationCategory, NavigationItem } from "components/DocsPage/types";
 import { versions, latest, contentRoot, docsSourcesRoot } from "config";
@@ -98,21 +97,4 @@ export const parseMdxContent = ({
       available: versions,
     },
   };
-};
-
-export const getSlugListForVersion = (version: string) => {
-  const path = join(DOCS_DIRECTIORY, version, "pages");
-  const root = join("/ver", version);
-
-  return glob
-    .sync(join(path, "**/*.mdx"))
-    .map((filename) => filename.replace(/\/?(index)?.mdx?$/, "/"))
-    .map((filename) => filename.replace(path, root));
-};
-
-export const getLatestVersionRewirites = () => {
-  return getSlugListForVersion(latest).map((destination) => ({
-    source: destination.replace(`/ver/${latest}`, ""),
-    destination,
-  }));
 };

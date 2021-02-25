@@ -15,6 +15,6 @@
     ]
   },
   "include": ["@types/**/*.d.ts"],
-  "files": ["utils/plugins.ts", "loaders/mdx-loader.ts"],
+  "files": ["utils/plugins.ts", "loaders/mdx-loader.ts", "utils/paths.ts"],
   "exclude": ["node_modules"]
 }

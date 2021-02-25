@@ -12,6 +12,7 @@
 /public/assets
 /__build
 /pages/ver/*
+/public/sitemap.xml
 
 # misc
 .DS_Store

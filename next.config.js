@@ -7,7 +7,8 @@ const path = require("path");
 const mdxOptions = require("./__build/utils/plugins");
 const {
   getLatestVersionRewirites,
-} = require("./__build/utils/data-fetcher-docs");
+  generateSitemap,
+} = require("./__build/utils/paths");
 
 const basePath = "/teleport/docs";
 
@@ -19,6 +20,8 @@ module.exports = withBundleAnalyzer({
   basePath,
   trailingSlash: true,
   webpack: (config, options) => {
+    if (!options.dev) generateSitemap();
+
     config.module.rules.push({
       test: /\.svg$/,
       exclude: /node_modules/,
