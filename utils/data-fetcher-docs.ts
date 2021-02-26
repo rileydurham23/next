@@ -9,6 +9,12 @@ const DOCS_DIRECTIORY = resolve(docsSourcesRoot);
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
 export const getVersion = (filepath: string) => {
+  const newMatch = /\/content\/([^/]+)\/docs\//.exec(filepath)[1];
+
+  if (versions.includes(newMatch)) {
+    return newMatch;
+  }
+
   return /\/teleport\/docs\/([^/]+)\//.exec(filepath)[1];
 };
 
@@ -48,7 +54,13 @@ const normalizeNavigation = (
   });
 
 export const getConfig = (version: string) => {
-  const path = join(DOCS_DIRECTIORY, version, "config.json");
+  let path;
+
+  if (version === "6.0") {
+    path = resolve("content", version, "docs/config.json");
+  } else {
+    path = join(DOCS_DIRECTIORY, version, "config.json");
+  }
 
   if (existsSync(path)) {
     try {
@@ -80,7 +92,8 @@ export const parseMdxContent = ({
 }: ParseMdxContentProps) => {
   const current = getVersion(filepath);
   const { navigation, variables } = getConfig(current);
-  const content = template(originalContent, contentRoot, variables);
+  const root = current === "6.0" ? "content/6.0" : contentRoot;
+  const content = template(originalContent, root, variables);
 
   const githubUrl = filepath.replace(
     DOCS_REPO_ROOT,

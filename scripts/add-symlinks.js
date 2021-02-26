@@ -10,7 +10,14 @@ rmdirSync(docsPagesRoot, { recursive: true });
 mkdirSync(docsPagesRoot);
 
 versions.forEach((version) => {
-  const source = resolve(docsSourcesRoot, version, "pages");
+  let source;
+
+  if (version === "6.0") {
+    source = resolve("content", version, "docs/pages");
+  } else {
+    source = resolve(docsSourcesRoot, version, "pages");
+  }
+
   const destination = resolve(docsPagesRoot, version);
 
   if (existsSync(source)) {

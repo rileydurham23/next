@@ -7,9 +7,10 @@ export const versions = [
   "4.3",
   "4.4",
   "5.0",
+  "6.0",
 ];
 
-export const latest = versions[versions.length - 1];
+export const latest = "5.0";
 
 export const contentRoot = "content/teleport";
 
