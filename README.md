@@ -47,12 +47,52 @@ Now run one of the following commands:
 
 ### Docs structure
 
-`content/teleport/docs` - is a docs folder. Inside of it we have docs for diffrent teleport version with the following structure:
+`content/*.*/docs` - is a docs folder. Inside of it we have docs for diffrent teleport version with the following structure:
 
 - `img/` - folder for images used inside the pages.
 - `pages/` - `.md` or `.mdx` files with actual page content. Every file in this folder will be rendered as a page.
-- `config.json` - docs version config. See below.
+- `config.json` - docs version config.
 
 ### `config.json`
 
-TODO
+File that configures build options:
+
+- `versions` - array of the available options, should match the names of the folders inside `content` dir. Will be shouwn in the version select in the inverted order.
+- `latest` – name of the version that will be selected by default in the dropdown and rendered without `ver/*.*/` in the URLs.
+
+### Adding new docs version
+
+- Add new submodule: `git submodule add -b branch/*.* https://github.com/gravitational/teleport/ content/*.*` where `branch/*.*` is the name of the branch in the main Teleport repo and `content/*.*` is the name of the subfolder in the `content` folder there the docs will be stored. Name of the folder inside `content` should match the name of the version in the config. Folder name itself can contain any characters allowed in the URL. E.g. `6.0-rc`.
+- Add version to the `versions` array in `config.json`.
+- Change `latest` field to the new value if you want to make it default,
+
+### Changing the branch that the docs version is pointing to
+
+- Open `.gitmodules` file.
+- Find corresponding record. For example, for version `4.4` it will look like this:
+  ```
+  [submodule "content/4.4"]
+    path = content/4.4
+    url = https://github.com/gravitational/teleport/
+    branch = branch/4.4
+  ```
+- Change `branch` field to the new branch name.
+- Run `yarn git-update` – this will update all submodules to the HEAD commits
+  of the corresponding branches.
+
+### Removing exisitng docs version
+
+Correct way to remove submodule:
+
+```
+# Remove the submodule entry from .git/config
+git submodule deinit -f path/to/submodule
+
+# Remove the submodule directory from the superproject's .git/modules directory
+rm -rf .git/modules/path/to/submodule
+
+# Remove the entry in .gitmodules and remove the submodule directory located at path/to/submodule
+git rm -f path/to/submodule
+```
+
+[Source](https://stackoverflow.com/a/36593218/1008291).

@@ -1,22 +1,13 @@
 import { existsSync, readFileSync } from "fs";
-import { join, resolve } from "path";
+import { resolve } from "path";
 import template from "utils/template";
 import { NavigationCategory, NavigationItem } from "components/DocsPage/types";
-import { versions, latest, contentRoot, docsSourcesRoot } from "config";
+import { versions, latest } from "config.json";
 
-const DOCS_REPO_ROOT = resolve(contentRoot);
-const DOCS_DIRECTIORY = resolve(docsSourcesRoot);
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
-export const getVersion = (filepath: string) => {
-  const newMatch = /\/content\/([^/]+)\/docs\//.exec(filepath)[1];
-
-  if (versions.includes(newMatch)) {
-    return newMatch;
-  }
-
-  return /\/teleport\/docs\/([^/]+)\//.exec(filepath)[1];
-};
+export const getVersion = (filepath: string) =>
+  /\/content\/([^/]+)\/docs\//.exec(filepath)[1];
 
 interface Config {
   navigation: NavigationCategory[];
@@ -54,13 +45,7 @@ const normalizeNavigation = (
   });
 
 export const getConfig = (version: string) => {
-  let path;
-
-  if (version === "6.0") {
-    path = resolve("content", version, "docs/config.json");
-  } else {
-    path = join(DOCS_DIRECTIORY, version, "config.json");
-  }
+  const path = resolve("content", version, "docs/config.json");
 
   if (existsSync(path)) {
     try {
@@ -92,11 +77,11 @@ export const parseMdxContent = ({
 }: ParseMdxContentProps) => {
   const current = getVersion(filepath);
   const { navigation, variables } = getConfig(current);
-  const root = current === "6.0" ? "content/6.0" : contentRoot;
+  const root = resolve(`content/${current}`);
   const content = template(originalContent, root, variables);
 
   const githubUrl = filepath.replace(
-    DOCS_REPO_ROOT,
+    root,
     `${NEXT_PUBLIC_GITHUB_DOCS}/edit/master`
   );
 

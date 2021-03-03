@@ -1,18 +1,12 @@
 import glob from "glob";
 import { writeFileSync } from "fs";
 import { join, resolve } from "path";
-import { latest, docsSourcesRoot } from "config";
+import { latest } from "config.json";
 import { format } from "date-fns";
 
 const getSlugDataListForVersion = (version: string) => {
   const root = join("/ver", version);
-  let path;
-
-  if (version === "6.0") {
-    path = resolve("content", version, "docs/pages");
-  } else {
-    path = resolve(docsSourcesRoot, version, "pages");
-  }
+  const path = resolve("content", version, "docs/pages");
 
   return glob.sync(join(path, "**/*.mdx")).map((filename) => {
     return {

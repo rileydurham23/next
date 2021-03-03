@@ -60,7 +60,7 @@ const insertFileContentPlaholders = (
   const matches: RawPlaceholder[] = [];
 
   const result = value.replace(includeRegexp, (_, spaces, filePath) => {
-    const fullPath = join(process.cwd(), rootDir, filePath);
+    const fullPath = join(rootDir, filePath);
     const placeholder = generatePlaceholder(fullPath);
 
     if (existsSync(fullPath)) {
@@ -74,6 +74,7 @@ const insertFileContentPlaholders = (
           .join(""),
       });
     } else {
+      console.error(fullPath);
       matches.push({ placeholder, value: `{!${filePath}!}` });
     }
 
