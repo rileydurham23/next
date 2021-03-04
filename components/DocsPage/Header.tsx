@@ -74,19 +74,21 @@ const DocHeader = ({
           />
         </Box>
       </Flex>
-      <Flex position="absolute" bottom="16px" right={["16px", "48px"]}>
-        <Button
-          width="60px"
-          shape={["md", "sm"]}
-          variant="secondary-white"
-          as="a"
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Edit
-        </Button>
-      </Flex>
+      {!!githubUrl && (
+        <Flex position="absolute" bottom="16px" right={["16px", "48px"]}>
+          <Button
+            width="60px"
+            shape={["md", "sm"]}
+            variant="secondary-white"
+            as="a"
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Edit
+          </Button>
+        </Flex>
+      )}
     </Box>
   );
 };

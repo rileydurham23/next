@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
 import template from "utils/template";
 import { NavigationCategory, NavigationItem } from "components/DocsPage/types";
-import { versions, latest } from "config.json";
+import { versions, latest, branches } from "config.json";
 
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
@@ -80,10 +80,12 @@ export const parseMdxContent = ({
   const root = resolve(`content/${current}`);
   const content = template(originalContent, root, variables);
 
-  const githubUrl = filepath.replace(
-    root,
-    `${NEXT_PUBLIC_GITHUB_DOCS}/edit/master`
-  );
+  const githubUrl = branches[current]
+    ? filepath.replace(
+        root,
+        `${NEXT_PUBLIC_GITHUB_DOCS}/edit/${branches[current]}`
+      )
+    : "";
 
   return {
     content,

@@ -65,6 +65,7 @@ File that configures build options:
 - Add new submodule: `git submodule add -b branch/*.* https://github.com/gravitational/teleport/ content/*.*` where `branch/*.*` is the name of the branch in the main Teleport repo and `content/*.*` is the name of the subfolder in the `content` folder there the docs will be stored. Name of the folder inside `content` should match the name of the version in the config. Folder name itself can contain any characters allowed in the URL. E.g. `6.0-rc`.
 - Add version to the `versions` array in `config.json`.
 - Change `latest` field to the new value if you want to make it default,
+- Add branch name to the `branches` object to use for 'Edit' link.
 
 ### Changing the branch that the docs version is pointing to
 
