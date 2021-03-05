@@ -18,7 +18,10 @@
     "lint": "yarn base:eslint --fix && yarn base:prettier --write -l",
     "lint-check": "yarn base:eslint && yarn base:prettier --check",
     "typecheck": "tsc --noEmit --skipLibCheck --incremental --tsBuildInfoFile node_modules/.cache/tsc/tsbuildinfo --project .",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "markdown-lint": "remark 'content/**/docs/pages/**/*.mdx'",
+    "markdown-lint-external-links": "WITH_EXTERNAL_LINKS=true yarn markdown-lint",
+    "markdown-fix": "FIX=true yarn markdown-lint -o"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -84,10 +87,14 @@
     "rehype-highlight": "^4.0.0",
     "rehype-slug": "^4.0.1",
     "rehype-stringify": "^8.0.0",
-    "remark": "^13.0.0",
+    "remark-cli": "8.0.1",
     "remark-copy-linked-files": "^1.2.0",
     "remark-frontmatter": "^2.0.0",
+    "remark-lint-no-dead-urls": "^1.1.0",
+    "remark-mdx": "^2.0.0-next.8",
+    "remark-preset-lint-markdown-style-guide": "^4.0.0",
     "remark-rehype": "^8.0.0",
+    "remark-validate-links": "^10.0.3",
     "stringify-object": "^3.3.0",
     "ts-jest": "^26.4.4",
     "ts-transformer-imports": "^0.4.3",

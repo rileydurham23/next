@@ -37,13 +37,15 @@ Now run one of the following commands:
 
 ### Development related commands
 
-- `yarn test` - run tests. Used on CI.
-- `yarn lint` - checks JS and TS files for errors and automatically fixes them.
-- `yarn lint-check` - checks JS and TS files for errors, but didn't fix them. Checked in CI and on commit.
-- `yarn typecheck` - validate TypeScript type-related errors. Used on CI.
-- `yarn git-update` - shortcut for submodule update, laso used as part of `yarn update-and-build`.
-- `yarn build-loaders` - command used to build custom webpack loaders.
-- `yarn add-symlinks` - this command creates symlinks from different versions of docs to `pages` directory.
+- `yarn test` – run tests. Used on CI.
+- `yarn lint` – checks JS and TS files for errors and automatically fixes them.
+- `yarn lint-check` – checks JS and TS files for errors, but didn't fix them. Checked in CI and on commit.
+- `yarn typecheck` – validate TypeScript type-related errors. Used on CI.
+- `yarn git-update` – shortcut for submodule update, laso used as part of `yarn update-and-build`.
+- `yarn build-loaders` – command used to build custom webpack loaders.
+- `yarn add-symlinks` – this command creates symlinks from different versions of docs to `pages` directory.
+- `yarn markdown-lint` – lint `*.mdx` files inside `content/**/docs/pages/` folders for syntax errors.
+- `yarn markdown-lint-external-links` – same as `yarn markdown-lint` but checks that external links works. Separate command because of slowness.
 
 ### Docs structure
 

@@ -50,7 +50,7 @@ interface GeneratedRegexp {
 
 // File content import logic
 
-const includeRegexp = /(?:^|\n)([ \t]*)\{!([^!]+)!\}/g;
+const includeRegexp = /(?:^|\n)([ \t]*)`?\{!([^!]+)!\}`?/g;
 
 const insertFileContentPlaholders = (
   value: string,
