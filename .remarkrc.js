@@ -43,7 +43,10 @@ if (process.env.WITH_EXTERNAL_LINKS) {
     "lint-no-dead-urls",
     {
       skipLocalhost: true,
-      skipUrlPatterns: [/teleport\.example\.com/],
+      skipUrlPatterns: [
+        /teleport\.example\.com/,
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname",
+      ],
     },
   ]);
 }
