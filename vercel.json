@@ -2,6 +2,11 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/teleport/docs/quickstart/",
+      "destination": "/teleport/docs/getting-started/",
+      "permanent": true
+    },
+    {
       "source": "/teleport/docs/preview/database-access/",
       "destination": "/teleport/docs/database-access/",
       "permanent": true
