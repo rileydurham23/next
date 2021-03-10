@@ -1,0 +1,49 @@
+---
+kind: pipeline
+type: kubernetes
+name: build
+
+trigger:
+  branch:
+    - main
+  event:
+    include:
+      - push
+
+steps:
+  - name: Build and push Docker container
+    image: docker:stable-git
+    environment:
+      REPO: quay.io
+    settings:
+      username:
+        from_secret: QUAYIO_DOCKER_USERNAME
+      password:
+        from_secret: QUAYIO_DOCKER_PASSWORD
+    volumes:
+      - name: dockersock
+        path: /var/run
+    commands:
+    # wait for docker to start
+    - timeout 15s /bin/sh -c 'while [ ! -S /var/run/docker.sock ]; do sleep 1; done'
+    - apk add --no-cache make
+    - make docker-image
+    - docker login -u="$PLUGIN_USERNAME" -p="$PLUGIN_PASSWORD" $REPO
+    - make docker-push
+
+services:
+  - name: Start Docker
+    image: docker:dind
+    volumes:
+      - name: dockersock
+        path: /var/run
+
+volumes:
+  - name: dockersock
+    temp: {}
+
+---
+kind: signature
+hmac: e371b0cd6b42f9695a718507f0a1d071ef5b1cc2244f252349ef16b289fe528f
+
+...
