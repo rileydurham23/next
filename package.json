@@ -37,7 +37,7 @@
     "@styled-system/css": "^5.1.5",
     "docsearch.js": "^2.6.3",
     "fathom-client": "^3.0.0",
-    "next": "10.0.8",
+    "next": "10.0.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-use": "^17.2.1",

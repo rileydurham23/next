@@ -10,7 +10,7 @@ const {
   generateSitemap,
 } = require("./.build/utils/paths");
 
-const basePath = "/teleport/docs";
+const basePath = process.env.NEXT_PUBLIC_ROOT_DIR;
 
 module.exports = withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
