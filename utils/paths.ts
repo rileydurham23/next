@@ -3,8 +3,9 @@ import { writeFileSync } from "fs";
 import { join, resolve } from "path";
 import { format } from "date-fns";
 import config from "../config.json";
+import { getConfig } from "./data-fetcher-docs";
 
-const { latest } = config;
+const { latest, versions } = config;
 
 const getSlugDataListForVersion = (version: string) => {
   const root = join("/ver", version);
@@ -54,4 +55,12 @@ export const generateSitemap = () => {
     "</urlset>";
 
   writeFileSync(resolve("public", "sitemap.xml"), sourcemap);
+};
+
+export const getRedirects = () => {
+  return versions.flatMap((version) => {
+    const config = getConfig(version);
+
+    return config.redirects ? config.redirects : [];
+  });
 };

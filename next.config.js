@@ -6,6 +6,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 const path = require("path");
 const mdxOptions = require("./.build/utils/plugins");
 const {
+  getRedirects,
   getLatestVersionRewirites,
   generateSitemap,
 } = require("./.build/utils/paths");
@@ -14,9 +15,8 @@ const basePath = process.env.NEXT_PUBLIC_ROOT_DIR;
 
 module.exports = withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-  rewrites: async () => {
-    return getLatestVersionRewirites();
-  },
+  rewrites: async () => getLatestVersionRewirites(),
+  redirects: async () => getRedirects(),
   future: {
     webpack5: true,
   },
