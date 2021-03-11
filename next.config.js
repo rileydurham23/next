@@ -17,6 +17,9 @@ module.exports = withBundleAnalyzer({
   rewrites: async () => {
     return getLatestVersionRewirites();
   },
+  future: {
+    webpack5: true,
+  },
   basePath,
   trailingSlash: true,
   webpack: (config, options) => {

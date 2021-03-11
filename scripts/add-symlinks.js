@@ -1,6 +1,8 @@
 const { symlinkSync, rmdirSync, existsSync, mkdirSync } = require("fs");
 const { resolve } = require("path");
-const { versions } = require("../config.json");
+const config = require("../config.json");
+
+const { versions } = config;
 
 const docsPagesRoot = "pages/ver";
 

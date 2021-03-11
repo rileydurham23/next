@@ -2,7 +2,9 @@ import glob from "glob";
 import { writeFileSync } from "fs";
 import { join, resolve } from "path";
 import { format } from "date-fns";
-import { latest } from "../config.json";
+import config from "../config.json";
+
+const { latest } = config;
 
 const getSlugDataListForVersion = (version: string) => {
   const root = join("/ver", version);

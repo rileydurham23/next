@@ -5,7 +5,9 @@ import {
   NavigationCategory,
   NavigationItem,
 } from "../components/DocsPage/types";
-import { versions, latest, branches } from "../config.json";
+import config from "../config.json";
+
+const { versions, latest, branches } = config;
 
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
