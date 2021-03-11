@@ -1,8 +1,8 @@
 import glob from "glob";
 import { writeFileSync } from "fs";
 import { join, resolve } from "path";
-import { latest } from "config.json";
 import { format } from "date-fns";
+import { latest } from "../config.json";
 
 const getSlugDataListForVersion = (version: string) => {
   const root = join("/ver", version);

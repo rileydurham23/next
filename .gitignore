@@ -10,7 +10,7 @@
 # production
 /build
 /public/assets
-/__build
+/.build
 /pages/ver/*
 /public/sitemap.xml
 

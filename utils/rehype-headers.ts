@@ -6,7 +6,7 @@ import visit from "unist-util-visit";
 import rank from "hast-util-heading-rank";
 import toString from "hast-util-to-string";
 import stringifyObject from "stringify-object";
-import { MdxhastRootNode } from "utils/unist-types";
+import { MdxhastRootNode } from "./unist-types";
 
 export interface HeaderMeta {
   rank: number;

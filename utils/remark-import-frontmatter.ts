@@ -1,7 +1,7 @@
 import { Transformer } from "unified";
 import yaml from "js-yaml";
 import stringifyObject from "stringify-object";
-import { MdxastNode } from "utils/unist-types";
+import { MdxastNode } from "./unist-types";
 
 export interface HeaderMeta {
   rank: number;

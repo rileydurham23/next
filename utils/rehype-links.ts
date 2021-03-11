@@ -1,9 +1,9 @@
 import { Transformer } from "unified";
 import { Element, Root } from "hast";
 import visit from "unist-util-visit";
-import { RehypeNode } from "utils/unist-types";
 import { VFile } from "vfile";
-import { isExternalLink, isHash } from "utils/url";
+import { isExternalLink, isHash } from "./url";
+import { RehypeNode } from "./unist-types";
 
 const isLocalHref = (href: string) => !isExternalLink(href) && !isHash(href);
 

@@ -1,8 +1,11 @@
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
-import template from "utils/template";
-import { NavigationCategory, NavigationItem } from "components/DocsPage/types";
-import { versions, latest, branches } from "config.json";
+import template from "./template";
+import {
+  NavigationCategory,
+  NavigationItem,
+} from "../components/DocsPage/types";
+import { versions, latest, branches } from "../config.json";
 
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 

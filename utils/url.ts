@@ -1,5 +1,5 @@
 import { NextRouter } from "next/router";
-import { latest } from "config.json";
+import { latest } from "../config.json";
 
 export const host = process.env.NEXT_PUBLIC_HOST;
 

@@ -1,7 +1,7 @@
 import { getOptions } from "loader-utils";
 import mdx from "@mdx-js/mdx";
 import stringifyObject from "stringify-object";
-import { parseMdxContent } from "utils/data-fetcher-docs";
+import { parseMdxContent } from "../utils/data-fetcher-docs";
 
 const DEFAULT_IMPORTS = `
 /** @jsxRuntime classic */

@@ -4,11 +4,11 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 const path = require("path");
-const mdxOptions = require("./__build/utils/plugins");
+const mdxOptions = require("./.build/utils/plugins");
 const {
   getLatestVersionRewirites,
   generateSitemap,
-} = require("./__build/utils/paths");
+} = require("./.build/utils/paths");
 
 const basePath = "/teleport/docs";
 
@@ -47,7 +47,7 @@ module.exports = withBundleAnalyzer({
       use: [
         options.defaultLoaders.babel,
         {
-          loader: path.resolve("__build/loaders/mdx-loader.js"),
+          loader: path.resolve(".build/loaders/mdx-loader.js"),
           options: mdxOptions.default,
         },
       ],

@@ -1,7 +1,6 @@
 import { readFileSync } from "fs";
 import { join } from "path";
-
-import template from "utils/template";
+import template from "./template";
 
 const rootDir = "utils/fixtures/source";
 

@@ -1,10 +1,10 @@
 import { join } from "path";
 import { PluggableList } from "unified";
-import rehypeHeaders from "utils/rehype-headers";
-import rehypeLinks from "utils/rehype-links";
+import rehypeHeaders from "./rehype-headers";
+import rehypeLinks from "./rehype-links";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
-import remarkImportFrontmatter from "utils/remark-import-frontmatter";
+import remarkImportFrontmatter from "./remark-import-frontmatter";
 import rehypeHighlight from "rehype-highlight";
 import remarkCopyLinkedFiles from "remark-copy-linked-files";
 

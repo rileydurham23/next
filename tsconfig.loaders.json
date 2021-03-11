@@ -8,12 +8,7 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "outDir": "__build",
-    "plugins": [
-      {
-        "transform": "ts-transformer-imports"
-      }
-    ]
+    "outDir": ".build"
   },
   "include": ["@types/**/*.d.ts"],
   "files": ["utils/plugins.ts", "loaders/mdx-loader.ts", "utils/paths.ts"],
