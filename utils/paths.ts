@@ -2,8 +2,8 @@ import glob from "glob";
 import { writeFileSync } from "fs";
 import { join, resolve } from "path";
 import { format } from "date-fns";
-import config from "../config.json";
 import { getConfig } from "./data-fetcher-docs";
+import config from "../config.json";
 
 const { latest, versions } = config;
 

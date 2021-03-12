@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
 import template from "./template";
+import { isExternalLink, isHash, extractPath } from "./url";
 import {
   NavigationCategory,
   NavigationItem,
@@ -26,8 +27,22 @@ interface Config {
   redirects: Redirect[];
 }
 
-const normalizeDocsUrl = (version: string, url: string) =>
-  (latest === version ? "" : `/ver/${version}`) + url;
+const getConfigPath = (version: string) =>
+  resolve("content", version, "docs/config.json");
+
+const normalizeDocsUrl = (version: string, url: string) => {
+  if (isExternalLink(url) || isHash(url)) {
+    return url;
+  }
+
+  if (!extractPath(url).endsWith("/")) {
+    const configPath = getConfigPath(version);
+
+    throw Error(`File ${configPath} misses trailing slash in '${url}' path.`);
+  }
+
+  return (latest === version ? "" : `/ver/${version}`) + url;
+};
 
 const normalizeDocsUrls = (
   version: string,
@@ -57,7 +72,7 @@ const normalizeNavigation = (
     };
   });
 
-const normalizationRedirects = (
+const normalizeRedirects = (
   version: string,
   redirects: Redirect[]
 ): Redirect[] => {
@@ -71,27 +86,27 @@ const normalizationRedirects = (
 };
 
 export const getConfig = (version: string) => {
-  const path = resolve("content", version, "docs/config.json");
+  const path = getConfigPath(version);
 
   if (existsSync(path)) {
-    try {
-      const content = readFileSync(path, "utf-8");
-      const config = JSON.parse(content) as Config;
+    const content = readFileSync(path, "utf-8");
+    const config = JSON.parse(content) as Config;
 
-      config.navigation = normalizeNavigation(version, config.navigation);
-
-      if (config.redirects) {
-        config.redirects = normalizationRedirects(version, config.redirects);
-      }
-
-      if (!config.variables) {
-        config.variables = {};
-      }
-
-      return config as Config;
-    } catch {
+    if (!config.navigation) {
       throw Error(`File ${path} didn't include 'navigation' field.`);
     }
+
+    config.navigation = normalizeNavigation(version, config.navigation);
+
+    if (config.redirects) {
+      config.redirects = normalizeRedirects(version, config.redirects);
+    }
+
+    if (!config.variables) {
+      config.variables = {};
+    }
+
+    return config as Config;
   } else {
     throw Error(`File ${path} does not exists.`);
   }
