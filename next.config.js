@@ -17,9 +17,6 @@ module.exports = withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   rewrites: async () => getLatestVersionRewirites(),
   redirects: async () => getRedirects(),
-  future: {
-    webpack5: true,
-  },
   basePath,
   trailingSlash: true,
   webpack: (config, options) => {
