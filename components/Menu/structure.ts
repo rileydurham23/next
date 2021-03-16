@@ -61,6 +61,19 @@ const menu: MenuCategoryProps[] = [
         href: "/teleport/how-it-works/",
       },
       {
+        icon: "question",
+        title: "Community Forum",
+        description:
+          "Ask us a setup question, post your tutorial, feedback or idea on our forum",
+        href: "https://github.com/gravitational/teleport/discussions",
+      },
+      {
+        icon: "window",
+        title: "Teleport Slack Channel",
+        description: "Need help with set-up? Ping us in Slack channel",
+        href: "/slack",
+      },
+      {
         icon: "code",
         title: "Github",
         description: "View the open source respository on Github",
