@@ -1,11 +1,22 @@
 # Getting started
 
-### Installation
+## Prerequisites
 
-Prerequisites:
+**Node.js 12+ is installed in the system.**
 
-- Nodejs 12+ is installed in the system.
-- `yarn` is installed in the system as a package manager.
+If you don't have Node.js installed, ir it's version is smaller than 12, then follow
+[this guide](https://nodejs.org/en/download/package-manager/) to install it.
+
+**`yarn` is installed in the system as a package manager.**
+
+Yarn in an alternative package manager for Node.js. It needs to be installed separately.
+If you already have Node.js installed run the following command to add Yarn:
+
+```
+npm install --global yarn
+```
+
+## Installation
 
 Clone the repo and init submodules with the actual docs:
 
@@ -17,7 +28,7 @@ git submodule init
 To update docs to the latest version form master run:
 
 ```
-git submodule update
+yarn git-update
 ```
 
 Install dependencies with:
@@ -26,7 +37,7 @@ Install dependencies with:
 yarn
 ```
 
-### Running docs
+## Running docs
 
 Now run one of the following commands:
 
@@ -35,7 +46,7 @@ Now run one of the following commands:
 - `yarn start` - will display documentation built with `npm run build` at `localhost:3000`.
 - `yarn update-and-build` - shortcut for submodule update and build (this command is used on deploy to vercel). Do not use this command if you plan to edit docs locally - on run it will switch you branch to latest commit in `master` that can cause conflicts with your locally edited files.
 
-### Development related commands
+## Development related commands
 
 - `yarn test` – run tests. Used on CI.
 - `yarn lint` – checks JS and TS files for errors and automatically fixes them.
@@ -47,20 +58,22 @@ Now run one of the following commands:
 - `yarn markdown-lint` – lint `*.mdx` files inside `content/**/docs/pages/` folders for syntax errors.
 - `yarn markdown-lint-external-links` – same as `yarn markdown-lint` but checks that external links works. Separate command because of slowness.
 
-### Docs structure
+## `config.json`
+
+File that configures build options:
+
+- `versions` - array of the available options, should match the names of the folders inside `content` dir. Will be shouwn in the version select in the inverted order.
+- `latest` – name of the version that will be selected by default in the dropdown and rendered without `ver/*.*/` in the URLs.
+
+## Working with docs files
+
+### Docs folders structure
 
 `content/*.*/docs` - is a docs folder. Inside of it we have docs for diffrent teleport version with the following structure:
 
 - `img/` - folder for images used inside the pages.
 - `pages/` - `.md` or `.mdx` files with actual page content. Every file in this folder will be rendered as a page.
 - `config.json` - docs version config.
-
-### `config.json`
-
-File that configures build options:
-
-- `versions` - array of the available options, should match the names of the folders inside `content` dir. Will be shouwn in the version select in the inverted order.
-- `latest` – name of the version that will be selected by default in the dropdown and rendered without `ver/*.*/` in the URLs.
 
 ### Adding new docs version
 
@@ -83,7 +96,7 @@ File that configures build options:
 - Run `yarn git-update` – this will update all submodules to the HEAD commits
   of the corresponding branches.
 
-### Removing exisitng docs version
+### Removing existing docs version
 
 Correct way to remove submodule:
 
