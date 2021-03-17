@@ -4,10 +4,12 @@ const config = require("../config.json");
 
 const { versions } = config;
 
-const docsPagesRoot = "pages/ver";
+const docsPagesRoot = "pages/docs/ver";
 
-rmdirSync(docsPagesRoot, { recursive: true });
-mkdirSync(docsPagesRoot);
+if (existsSync(docsPagesRoot)) {
+  rmdirSync(docsPagesRoot, { recursive: true });
+}
+mkdirSync(docsPagesRoot, { recursive: true });
 
 versions.forEach((version) => {
   const source = resolve("content", version, "docs/pages");
