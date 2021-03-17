@@ -53,7 +53,7 @@ export const generateSitemap = () => {
       .join("") +
     "</urlset>";
 
-  writeFileSync(resolve("public", "sitemap.xml"), sourcemap);
+  writeFileSync(resolve("public", "static", "sitemap.xml"), sourcemap);
 };
 
 export const getRedirects = () => {
