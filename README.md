@@ -62,8 +62,13 @@ Now run one of the following commands:
 
 File that configures build options:
 
-- `versions` - array of the available options, should match the names of the folders inside `content` dir. Will be shouwn in the version select in the inverted order.
-- `latest` – name of the version that will be selected by default in the dropdown and rendered without `ver/*.*/` in the URLs.
+`versions` - array of the available options, should match the names of the folders inside `content` dir. Will be shouwn in the version select in the inverted order.
+
+Format of version entry:
+
+- `name` - required. Name of the folder in `content` and name of branch in versions dropdown on the site.
+- `branch` - required. Name of branch for this version. Will be used for `edit` links on the docs pages.
+- `latest` - not required. First entry with this field will be current version. If no entries has this field, then the last version in array will be considered the latest.
 
 ## Working with docs files
 
@@ -78,9 +83,8 @@ File that configures build options:
 ### Adding new docs version
 
 - Add new submodule: `git submodule add -b branch/*.* https://github.com/gravitational/teleport/ content/*.*` where `branch/*.*` is the name of the branch in the main Teleport repo and `content/*.*` is the name of the subfolder in the `content` folder there the docs will be stored. Name of the folder inside `content` should match the name of the version in the config. Folder name itself can contain any characters allowed in the URL. E.g. `6.0-rc`.
-- Add version to the `versions` array in `config.json`.
-- Change `latest` field to the new value if you want to make it default,
-- Add branch name to the `branches` object to use for 'Edit' link.
+- Add new entry to the `versions` array in `config.json` with name and branch field.
+- Change `latest` field to the new value if you want to make it default.
 
 ### Changing the branch that the docs version is pointing to
 

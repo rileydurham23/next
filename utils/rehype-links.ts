@@ -11,22 +11,24 @@ const isLocalLink = (node: RehypeNode): boolean => {
   return (
     node.type === "element" &&
     node.tagName === "a" &&
-    typeof node.properties.href === "string" &&
+    typeof node.properties?.href === "string" &&
     isLocalHref(node.properties.href)
   );
 };
 
 export default function rehypeLinks(): Transformer {
   return (root: Root, vfile: VFile) => {
-    const { basename } = vfile;
+    const basename = vfile?.basename || "";
 
     const prefix = basename.match(/^index.mdx?$/) ? "./" : "../";
 
     visit<Element>(root, [isLocalLink], (node) => {
-      const { href } = node.properties;
-      const newHref = (href as string).replace(/(\/)?(index)?\.mdx?/, "/");
+      if (node.properties) {
+        const href = node.properties.href as string;
+        const newHref = href.replace(/(\/)?(index)?\.mdx?/, "/");
 
-      node.properties.href = /^\//.test(newHref) ? newHref : prefix + newHref;
+        node.properties.href = /^\//.test(newHref) ? newHref : prefix + newHref;
+      }
     });
   };
 }

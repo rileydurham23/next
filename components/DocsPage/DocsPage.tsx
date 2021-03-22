@@ -33,7 +33,7 @@ const PageContent = ({
   const router = useRouter();
 
   const categoryId = getCurrentCategoryIndex(navigation, router.asPath);
-  const icon = navigation[categoryId]?.icon;
+  const icon = categoryId ? navigation[categoryId]?.icon : "book";
 
   return (
     <>

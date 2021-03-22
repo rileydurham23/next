@@ -1,7 +1,5 @@
 import { NextRouter } from "next/router";
-import config from "../config.json";
-
-const { latest } = config;
+import getConfig from "./config-site";
 
 export const host = process.env.NEXT_PUBLIC_HOST;
 
@@ -11,6 +9,8 @@ export const isExternalLink = (href: string): boolean =>
 export const isHash = (href: string): boolean => href.startsWith("#");
 
 export const getVersionAsPath = (href: string) => {
+  const { latest } = getConfig();
+
   return href.replace(`/ver/${latest}`, "");
 };
 

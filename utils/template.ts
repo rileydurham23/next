@@ -45,7 +45,7 @@ const insertRawPlaceholders = (value: string) => {
 
 interface GeneratedRegexp {
   regexp: RegExp;
-  value: unknown;
+  value: string;
 }
 
 // File content import logic
@@ -98,7 +98,10 @@ const generateRegexps = (vars: Record<string, unknown>, prefix?: string) => {
         ...generateRegexps(value as Record<string, unknown>, path),
       ];
     } else {
-      result.push({ regexp: new RegExp(`{{\\s?${path}\\s?}}`, "g"), value });
+      result.push({
+        regexp: new RegExp(`{{\\s?${path}\\s?}}`, "g"),
+        value: value as string,
+      });
     }
   });
 

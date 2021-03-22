@@ -2,10 +2,12 @@ import glob from "glob";
 import { writeFileSync } from "fs";
 import { join, resolve } from "path";
 import { format } from "date-fns";
-import { getConfig } from "./data-fetcher-docs";
-import config from "../config.json";
+import { loadSiteConfig, loadDocsConfig } from "./config";
 
-const { latest, versions } = config;
+const { latest, versions } = loadSiteConfig();
+
+const NEXT_PUBLIC_ROOT_DIR = process.env.NEXT_PUBLIC_ROOT_DIR as string;
+const NEXT_PUBLIC_HOST = process.env.NEXT_PUBLIC_HOST as string;
 
 const getSlugDataListForVersion = (version: string) => {
   const root = join("/ver", version);
@@ -27,13 +29,12 @@ const normalizeDocSlug = (slug: string, version: string) => {
 
 export const getLatestVersionRewirites = () =>
   getSlugDataListForVersion(latest).map(({ slug, version }) => ({
-    source: process.env.NEXT_PUBLIC_ROOT_DIR + normalizeDocSlug(slug, version),
-    destination: process.env.NEXT_PUBLIC_ROOT_DIR + slug,
+    source: NEXT_PUBLIC_ROOT_DIR + normalizeDocSlug(slug, version),
+    destination: NEXT_PUBLIC_ROOT_DIR + slug,
   }));
 
 export const generateSitemap = () => {
-  const prefix =
-    process.env.NEXT_PUBLIC_HOST + process.env.NEXT_PUBLIC_ROOT_DIR;
+  const prefix = NEXT_PUBLIC_HOST + NEXT_PUBLIC_ROOT_DIR;
   const lastmod = format(new Date(), "yyyy-MM-dd");
   const data = getSlugDataListForVersion(latest);
 
@@ -58,7 +59,7 @@ export const generateSitemap = () => {
 
 export const getRedirects = () => {
   return versions.flatMap((version) => {
-    const config = getConfig(version);
+    const config = loadDocsConfig(version);
 
     return config.redirects ? config.redirects : [];
   });

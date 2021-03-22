@@ -48,7 +48,7 @@ export default function rehypeHeaders({
       if (rank(node) && rank(node) <= maxLevel) {
         headers.push({
           rank: rank(node),
-          id: node.properties.id as string,
+          id: node.properties?.id as string,
           title: toString(node),
         });
       }

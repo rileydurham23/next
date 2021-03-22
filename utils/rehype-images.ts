@@ -12,7 +12,7 @@ const isLocalImg = (node: RehypeNode): boolean => {
   return (
     node.type === "element" &&
     node.tagName === "img" &&
-    typeof node.properties.src === "string" &&
+    typeof node.properties?.src === "string" &&
     isLocalSrc(node.properties.src)
   );
 };
@@ -26,9 +26,9 @@ export default function rehypeImages({
   destinationDir,
   staticPath,
 }: RehypeImagesProps): Transformer {
-  return (root: Root, vfile) => {
+  return (root: Root) => {
     visit<Element>(root, [isLocalImg], (node, ancestors) => {
-      const { src } = node.properties;
+      const src = node.properties?.src;
 
       const localSrc = (src as string).replace(
         staticPath,
@@ -41,8 +41,10 @@ export default function rehypeImages({
         try {
           const { width, height } = probe.sync(file);
 
-          node.properties.width = width;
-          node.properties.height = height;
+          if (node.properties) {
+            node.properties.width = width;
+            node.properties.height = height;
+          }
         } catch {}
       }
 
