@@ -25,10 +25,10 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "eslint",
+      "prettier --check"
     ],
-    "*.{css,json}": "prettier --write"
+    "*.{css,json}": "prettier --check"
   },
   "simple-git-hooks": {
     "pre-commit": "yarn lint-staged"
