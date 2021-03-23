@@ -12,7 +12,7 @@ const AnchorNavigation = ({
   ...props
 }: AnchorNavigationProps & BoxProps) => {
   return (
-    <Box flexShrink={0} position="relative">
+    <Box as="nav" flexShrink={0} position="relative">
       <Box
         width="240px"
         p={4}

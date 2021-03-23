@@ -45,8 +45,9 @@ const StyledImage = styled(Image)(
   css({
     float: "left",
     mr: 2,
-    width: "80px",
-    height: "80px",
+    border: "10px solid transparent",
+    width: "60px",
+    height: "60px",
   }),
   media("sm", {
     width: "90px",

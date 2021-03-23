@@ -36,7 +36,7 @@ const Header = () => {
           >
             Sign In
           </StyledCTA>
-          <StyledCTA as="a" href="/get-started/">
+          <StyledCTA as="a" href="/pricing/">
             Get Started
           </StyledCTA>
         </StyledCTAs>

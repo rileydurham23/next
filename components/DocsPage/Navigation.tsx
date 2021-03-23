@@ -69,7 +69,7 @@ const DocNavigationCategory = ({
   ]);
 
   return (
-    <Box key={title}>
+    <Box as="nav" key={title}>
       <CategoryButton active={opened} onClick={toggleOpened}>
         <Icon name={icon} ml="12px" mr={2} />
         <Box text="text-md">{title}</Box>

@@ -3,8 +3,6 @@ import { useClickAway } from "react-use";
 import { useCallback, useRef } from "react";
 import { css, media } from "components/system";
 import Box from "components/Box";
-import Button from "components/Button";
-import Image from "components/Image";
 import MenuItem, { MenuItemProps } from "./Item";
 
 export interface MenuCategoryProps {
@@ -12,13 +10,12 @@ export interface MenuCategoryProps {
   description: string;
   href: string;
   children: MenuItemProps[];
-  cover?: string;
 }
 
 interface MenuCategoryComponentProps extends MenuCategoryProps {
   id: number;
   opened: boolean;
-  onToggleOpened: (id: number) => void;
+  onToggleOpened: (id: number | null) => void;
 }
 
 const MenuCategory = ({
@@ -28,11 +25,9 @@ const MenuCategory = ({
   description,
   children,
   href,
-  cover,
   onToggleOpened,
 }: MenuCategoryComponentProps) => {
   const ref = useRef(null);
-  const hasCover = !!cover;
 
   useClickAway(ref, () => {
     if (opened) {
@@ -56,20 +51,9 @@ const MenuCategory = ({
         <MainLink href={href} onClick={toggleOpened} active={opened}>
           {title}
         </MainLink>
-        <Dropdown opened={opened} large={hasCover}>
-          {hasCover && (
-            <DropdownCover>
-              <DropdownHeader>{description}</DropdownHeader>
-              <CoverLink href={href}>
-                <Image src={cover} width="180" height="144" alt="" />
-                <Button variant="secondary" as="div">
-                  Learn more
-                </Button>
-              </CoverLink>
-            </DropdownCover>
-          )}
+        <Dropdown opened={opened}>
           <Box flexGrow={1}>
-            {!hasCover && <DropdownHeader>{description}</DropdownHeader>}
+            <DropdownHeader>{description}</DropdownHeader>
             <Box px={[3, 4]} pt={2} pb={[3, 2]}>
               {children.map((props) => (
                 <MenuItem key={props.href} {...props} />
@@ -83,28 +67,6 @@ const MenuCategory = ({
 };
 
 export default MenuCategory;
-
-const CoverLink = styled("a")(
-  css({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    flexGrow: 1,
-    border: "1px solid transparent",
-    borderRadius: "4px",
-    lineHeight: "24px",
-    m: 3,
-    px: 3,
-    pb: 3,
-    textAlign: "center",
-    textDecoration: "none",
-    transition: "all 0.3s",
-    "&:focus, &:hover": {
-      background: "white",
-      borderColor: "dark-purple",
-    },
-  })
-);
 
 const MainLink = styled("a")(({ active }: { active: boolean }) => [
   css({
@@ -140,35 +102,33 @@ const MainLink = styled("a")(({ active }: { active: boolean }) => [
   }),
 ]);
 
-const Dropdown = styled("div")(
-  ({ opened, large }: { opened: boolean; large: boolean }) => [
-    css({
-      background: "white",
-      borderRadius: "default",
-      boxShadow: "0 4px 40px rgba(0, 0, 0, 0.24)",
-      color: "black",
-      display: opened ? "flex" : "none",
-      left: "0",
-      ml: large ? "-180px" : "-80px",
-      overflow: "hidden",
-      p: 0,
-      position: "absolute",
-      minWidth: large ? "740px" : "540px",
-      top: "80px",
-      zIndex: 3000,
-    }),
-    media("sm", {
-      borderRadius: 0,
-      ml: 0,
-      minWidth: "auto",
-      position: "relative",
-      left: 0,
-      top: 0,
-      boxShadow: "none",
-      width: "100%",
-    }),
-  ]
-);
+const Dropdown = styled("div")(({ opened }: { opened: boolean }) => [
+  css({
+    background: "white",
+    borderRadius: "default",
+    boxShadow: "0 4px 40px rgba(0, 0, 0, 0.24)",
+    color: "black",
+    display: opened ? "flex" : "none",
+    left: "0",
+    ml: "-80px",
+    overflow: "hidden",
+    p: 0,
+    position: "absolute",
+    minWidth: "540px",
+    top: "80px",
+    zIndex: 3000,
+  }),
+  media("sm", {
+    borderRadius: 0,
+    ml: 0,
+    minWidth: "auto",
+    position: "relative",
+    left: 0,
+    top: 0,
+    boxShadow: "none",
+    width: "100%",
+  }),
+]);
 
 const DropdownHeader = styled("h3")(({ center }: { center?: boolean }) =>
   css({
@@ -181,22 +141,6 @@ const DropdownHeader = styled("h3")(({ center }: { center?: boolean }) =>
     borderColor: "lightest-gray",
     fontSize: "text-xl",
     lineHeight: "64px",
-  })
-);
-
-const DropdownCover = styled("div")(
-  css({
-    flex: "0 0 240px",
-    border: "1px solid",
-    borderColor: "transparent",
-    borderRadius: "default",
-    display: ["none", "flex"],
-    flexDirection: "column",
-    lineHeight: "24px",
-    textAlign: "center",
-    textDecoration: "none",
-    transition: "all 0.3s",
-    background: "linear-gradient(125deg,#f0f2f4,#fff)",
   })
 );
 

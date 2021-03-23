@@ -1,45 +1,42 @@
 import { MenuCategoryProps } from "./Category";
-import accessDropdownPngPath from "./assets/access-dropdown.png";
-import accessPngPath from "./assets/access-plane.png";
-import applicationPngPath from "./assets/application.png";
-import kubernetesPngPath from "./assets/kubernetes.png";
-import serverPngPath from "./assets/server.png";
+import databaseSvgPath from "./assets/database.svg";
+import applicationSvgPath from "./assets/application.svg";
+import kubernetesSvgPath from "./assets/kubernetes.svg";
+import serverSvgPath from "./assets/server.svg";
 
 const menu: MenuCategoryProps[] = [
   {
     title: "Products",
-    description: "Unified Access Plane",
+    description: "Teleport Products",
     href: "/teleport/",
-    cover: accessDropdownPngPath,
     children: [
       {
-        mobileOnly: true,
-        image: accessPngPath,
-        title: "Unified Access Plane",
-        description:
-          "Consolidates access controls and auditing across all environments - infrastructure, applications and data",
-        href: "/teleport/",
-      },
-      {
-        image: serverPngPath,
+        image: serverSvgPath,
         title: "Teleport Server Access",
         description:
           "SSH securely into Linux servers and smart devices with a complete audit trail",
         href: "/teleport/server/",
       },
       {
-        image: kubernetesPngPath,
+        image: kubernetesSvgPath,
         title: "Teleport Kubernetes Access",
         description:
           "Access Kubernetes clusters securely with complete visibility to access and behavior",
         href: "/teleport/kubernetes/",
       },
       {
-        image: applicationPngPath,
+        image: applicationSvgPath,
         title: "Teleport Application Access",
         description:
           "Access web applications running behind NAT and firewalls with security and compliance",
         href: "/teleport/application/",
+      },
+      {
+        image: databaseSvgPath,
+        title: "Teleport Database Access",
+        description:
+          "For PostgreSQL and MySQL databases behind NAT in multiple environments",
+        href: "/database-access/",
       },
     ],
   },
@@ -76,7 +73,7 @@ const menu: MenuCategoryProps[] = [
       {
         icon: "code",
         title: "Github",
-        description: "View the open source respository on Github",
+        description: "View the open source repository on Github",
         href: "https://github.com/gravitational/teleport",
       },
     ],
