@@ -34,12 +34,12 @@
     },
     {
       "name": "6.0",
-      "branch": "branch/6.0",
+      "branch": "branch/v6",
       "latest": true
     },
     {
       "name": "6.1",
-      "branch": "branch/6.1"
+      "branch": "master"
     }
   ]
 }
