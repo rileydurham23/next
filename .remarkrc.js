@@ -46,6 +46,7 @@ if (process.env.WITH_EXTERNAL_LINKS) {
       skipUrlPatterns: [
         /teleport\.example\.com/,
         "http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname",
+        "https://github.com/gravitational/teleport/blob/v{{teleport_version}}/examples/chart/teleport-cluster/templates/clusterrole.yaml",
       ],
     },
   ]);
