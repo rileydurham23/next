@@ -50,16 +50,42 @@ export default function rehypeImages({
 
       const parent = ancestors[ancestors.length - 1] as Element;
 
-      if (
-        parent.type === "element" &&
-        parent.tagName === "p" &&
-        parent.children.length === 1
-      ) {
+      if (parent.type === "element" && parent.tagName === "p") {
         const grandparent = ancestors[ancestors.length - 2] as Element;
         const parentIndex = grandparent.children.indexOf(parent);
 
-        if (parentIndex !== -1) {
+        if (parent.children.length === 1) {
           grandparent.children[parentIndex] = node;
+        } else {
+          const newNodes = [];
+          let currentParagraph: Element | undefined;
+
+          parent.children.forEach((node, index) => {
+            if (isLocalImg(node)) {
+              if (currentParagraph) {
+                newNodes.push(currentParagraph);
+                currentParagraph = undefined;
+              }
+
+              newNodes.push(node);
+            } else {
+              if (!currentParagraph) {
+                currentParagraph = {
+                  type: "element",
+                  tagName: "p",
+                  children: [node],
+                };
+              } else {
+                currentParagraph.children.push(node);
+              }
+
+              if (index === parent.children.length - 1) {
+                newNodes.push(currentParagraph);
+              }
+            }
+          });
+
+          grandparent.children.splice(parentIndex, 1, ...newNodes);
         }
 
         return visit.SKIP;
