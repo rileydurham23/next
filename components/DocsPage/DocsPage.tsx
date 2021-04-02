@@ -32,8 +32,13 @@ const PageContent = ({
 }: PageContentProps) => {
   const router = useRouter();
 
+  const { current, latest, available } = versions;
+
   const categoryId = getCurrentCategoryIndex(navigation, router.asPath);
   const icon = categoryId ? navigation[categoryId]?.icon : "book";
+
+  const isOldVersion = available.indexOf(current) < available.indexOf(latest);
+  const isBetaVersion = available.indexOf(current) > available.indexOf(latest);
 
   return (
     <>
@@ -52,10 +57,22 @@ const PageContent = ({
             />
             <Flex>
               <Box flexGrow={1} px={[3, 6]} py={[3, 4]}>
-                {versions.current !== versions.latest && (
+                {(isOldVersion || isBetaVersion) && (
                   <Notice mb={4}>
-                    This chapter covers {versions.current}. We highly recommend
-                    evaluating the <Link href="/">latest</Link> version instead.
+                    {isOldVersion && (
+                      <>
+                        This chapter covers release {versions.current}. We
+                        highly recommend evaluating the{" "}
+                        <Link href="/">latest</Link> version instead.
+                      </>
+                    )}
+                    {isBetaVersion && (
+                      <>
+                        This chapter covers upcoming release {versions.current}.
+                        We highly recommend evaluating the{" "}
+                        <Link href="/">latest</Link> version instead.
+                      </>
+                    )}
                   </Notice>
                 )}
                 <Box maxWidth="900px">
