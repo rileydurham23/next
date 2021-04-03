@@ -61,7 +61,7 @@ const PageContent = ({
                   <Notice mb={4}>
                     {isOldVersion && (
                       <>
-                        This chapter covers a past release: {versions.current}.
+                        This chapter covers a past release: {versions.current}.{" "}
                         We recommend the <Link href="/docs/">latest</Link>{" "}
                         version instead.
                       </>
