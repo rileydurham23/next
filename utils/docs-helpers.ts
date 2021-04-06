@@ -6,13 +6,18 @@ const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
 export const getVersion = (filepath: string) => {
   const result = /content\/([^/]+)\/docs\//.exec(filepath);
-  return (result && result[1]) as string;
+  return result ? result[1] : "";
 };
 
 export const getVersionRootPath = (filepath: string) => {
   const version = getVersion(filepath);
 
-  return resolve(`content/${version}`);
+  if (version) {
+    return resolve(`content/${version}`);
+  } else {
+    // CI task for linting stores files in the roor of the content folder
+    return resolve("content");
+  }
 };
 
 export const getVersionDocsPath = (filepath: string) => {
