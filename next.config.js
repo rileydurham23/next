@@ -2,8 +2,7 @@
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
-const path = require("path");
-const mdxOptions = require("./.build/utils/plugins");
+const mdxOptions = require("./.build/utils/mdx-config");
 const {
   getRedirects,
   getLatestVersionRewirites,
@@ -46,7 +45,7 @@ module.exports = withBundleAnalyzer({
       use: [
         options.defaultLoaders.babel,
         {
-          loader: path.resolve(".build/loaders/mdx-loader.js"),
+          loader: "@mdx-js/loader",
           options: mdxOptions.default,
         },
       ],

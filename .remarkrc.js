@@ -1,3 +1,6 @@
+const remarkVariables = require("./.build/utils/remark-variables");
+const remarkIncludes = require("./.build/utils/remark-includes");
+
 const configFix = {
   settings: {
     bullet: "-",
@@ -18,6 +21,8 @@ const configLint = {
   plugins: [
     "frontmatter",
     "mdx",
+    [remarkVariables.default, { resolve: true, lint: true }],
+    [remarkIncludes.default, { lint: true }],
     "preset-lint-markdown-style-guide",
     ["lint-table-pipe-alignment", false],
     ["lint-table-cell-padding", false],
@@ -27,12 +32,11 @@ const configLint = {
     ["lint-fenced-code-flag", { allowEmpty: true }],
     ["lint-file-extension", false],
     ["lint-no-duplicate-headings", false],
+    ["lint-list-item-spacing", { checkBlanks: true }],
     ["lint-no-shell-dollars", false],
-    ["lint-list-item-spacing", false],
     ["lint-list-item-indent", "space"],
     "lint-ordered-list-marker-value",
     ["lint-maximum-heading-length", false],
-    ["lint-table-pipes", false],
     ["lint-no-shortcut-reference-link", false],
     ["validate-links", { repository: false }],
   ],

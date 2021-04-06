@@ -57,6 +57,7 @@ Now run one of the following commands:
 - `yarn add-symlinks` – this command creates symlinks from different versions of docs to `pages` directory.
 - `yarn markdown-lint` – lint `*.mdx` files inside `content/**/docs/pages/` folders for syntax errors.
 - `yarn markdown-lint-external-links` – same as `yarn markdown-lint` but checks that external links works. Separate command because of slowness.
+- `yarn markdown-fix` – automatically fix syntax in `*.mdx` files inside `content/**/docs/pages/`.
 
 ## `config.json`
 
@@ -116,3 +117,8 @@ git rm -f path/to/submodule
 ```
 
 [Source](https://stackoverflow.com/a/36593218/1008291).
+
+## Custom syntaxes used in the docs
+
+- `(= variable =)` – will insert variable from `docs/config.json`'s `varaibles` field.
+- `(! path-to-file.yaml !)` - will insert files content in the docs. Path should be relative to submodule's root.

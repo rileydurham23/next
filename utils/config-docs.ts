@@ -13,10 +13,10 @@ interface Redirect {
   permanent?: boolean;
 }
 
-interface Config {
+export interface Config {
   navigation: NavigationCategory[];
-  variables: Record<string, unknown>;
-  redirects: Redirect[];
+  variables?: Record<string, unknown>;
+  redirects?: Redirect[];
 }
 
 const normalizeDocsUrl = (version: string, url: string, raw?: boolean) => {
@@ -95,7 +95,7 @@ export const load = (version: string) => {
   }
 };
 
-export const normalize = (config: Config, version: string) => {
+export const normalize = (config: Config, version: string): Config => {
   config.navigation = normalizeNavigation(version, config.navigation);
 
   if (config.redirects) {

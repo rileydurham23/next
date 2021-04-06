@@ -11,11 +11,6 @@
     "outDir": ".build"
   },
   "include": ["@types/**/*.d.ts"],
-  "files": [
-    "utils/plugins.ts",
-    "loaders/mdx-loader.ts",
-    "utils/paths.ts",
-    "utils/config.ts"
-  ],
+  "files": ["utils/mdx-config.ts", "utils/paths.ts", "utils/config.ts"],
   "exclude": ["node_modules"]
 }
