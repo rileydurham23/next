@@ -10,7 +10,7 @@
     "preflight": "yarn build-node && yarn add-symlinks",
     "dev": "yarn preflight && next dev",
     "build": "yarn preflight && next build",
-    "update-and-build": "yarn build",
+    "update-and-build": "yarn git-update && yarn build",
     "start": "next start",
     "test": "jest --runInBand",
     "base:eslint": "eslint --cache --cache-location node_modules/.cache/eslint '**/*.{js,jsx,ts,tsx}'",
