@@ -11,7 +11,7 @@ const Image = (props: ImageProps) => {
         {...props}
         width={width}
         height={height}
-        layout="responsive"
+        layout="intrinsic"
         sizes="(min-width: 1460px) 900px, 100vw"
       />
     </Box>
