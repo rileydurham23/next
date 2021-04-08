@@ -1,21 +1,23 @@
-import { join } from "path";
+import { resolve } from "path";
 import { PluggableList } from "unified";
+
+import rehypeFixTags from "./rehype-fix-tags";
 import rehypeHeaders from "./rehype-headers";
+import rehypeHighlight from "rehype-highlight";
 import rehypeImages from "./rehype-images";
 import rehypeLinks from "./rehype-links";
 import rehypeSlug from "rehype-slug";
+
+import remarkCopyLinkedFiles from "remark-copy-linked-files";
 import remarkFrontmatter from "remark-frontmatter";
+import remarkGFM from "remark-gfm";
 import remarkImportFrontmatter from "./remark-import-frontmatter";
 import remarkImportVariables from "./remark-import-variables";
 import remarkIncludes from "./remark-includes";
-import rehypeHighlight from "rehype-highlight";
-import rehypeFixTags from "./rehype-fix-tags";
-import remarkCopyLinkedFiles from "remark-copy-linked-files";
 import remarkVariables from "./remark-variables";
-import remarkGFM from "remark-gfm";
 
-const destinationDir = join(process.cwd(), "public/static/assets");
 const staticPath = "/static/assets/";
+const destinationDir = resolve(`public/${staticPath}`);
 
 const DEFAULT_RENDERER = `
 /** @jsxRuntime classic */

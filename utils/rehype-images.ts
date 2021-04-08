@@ -6,15 +6,26 @@ import visit from "unist-util-visit-parents";
 import { RehypeNode } from "./unist-types";
 import { isExternalLink, isHash } from "./url";
 
-const isLocalSrc = (href: string) => !isExternalLink(href) && !isHash(href);
+const isLocalImg = (node: RehypeNode): boolean =>
+  node.type === "element" &&
+  node.tagName === "img" &&
+  typeof node.properties.src === "string" &&
+  !isExternalLink(node.properties.src) &&
+  !isHash(node.properties.src);
 
-const isLocalImg = (node: RehypeNode): boolean => {
-  return (
-    node.type === "element" &&
-    node.tagName === "img" &&
-    typeof node.properties?.src === "string" &&
-    isLocalSrc(node.properties.src)
-  );
+const isParagraph = (node: RehypeNode) =>
+  node.type === "element" && node.tagName === "p";
+
+const imgSizeRegExp = /@([0-9.]+)x/; // E.g. image@2x.png
+
+const getScaleRatio = (src: string) => {
+  if (imgSizeRegExp.test(src)) {
+    const match = src.match(imgSizeRegExp);
+
+    return parseFloat(match[1]);
+  } else {
+    return 1;
+  }
 };
 
 interface RehypeImagesProps {
@@ -22,35 +33,42 @@ interface RehypeImagesProps {
   staticPath: string;
 }
 
+interface ImageElement extends Element {
+  properties: {
+    src: string;
+    width?: number;
+    height?: number;
+  };
+}
+
 export default function rehypeImages({
   destinationDir,
   staticPath,
 }: RehypeImagesProps): Transformer {
   return (root: Root) => {
-    visit<Element>(root, [isLocalImg], (node, ancestors) => {
-      const src = node.properties?.src;
+    visit<ImageElement>(root, [isLocalImg], (node, ancestors) => {
+      const src = node.properties.src.replace(staticPath, `${destinationDir}/`);
 
-      const localSrc = (src as string).replace(
-        staticPath,
-        `${destinationDir}/`
-      );
-
-      if (existsSync(localSrc)) {
-        const file = readFileSync(localSrc);
+      if (existsSync(src)) {
+        const file = readFileSync(src);
 
         try {
           const { width, height } = probe.sync(file);
+          const scaleRatio = getScaleRatio(src);
 
-          if (node.properties) {
-            node.properties.width = width;
-            node.properties.height = height;
-          }
+          node.properties.width = width / scaleRatio;
+          node.properties.height = height / scaleRatio;
         } catch {}
       }
 
+      /*
+        We will use next/image on the client that will wrap image inside <div>,
+        and placing <div> inside <p> will cause css bugs, so we remove this <p> here
+      */
+
       const parent = ancestors[ancestors.length - 1] as Element;
 
-      if (parent.type === "element" && parent.tagName === "p") {
+      if (isParagraph(parent)) {
         const grandparent = ancestors[ancestors.length - 2] as Element;
         const parentIndex = grandparent.children.indexOf(parent);
 
