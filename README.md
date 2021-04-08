@@ -122,3 +122,9 @@ git rm -f path/to/submodule
 
 - `(= variable =)` – will insert variable from `docs/config.json`'s `varaibles` field.
 - `(! path-to-file.yaml !)` - will insert files content in the docs. Path should be relative to submodule's root.
+
+## Working with images
+
+Suffix `@Nx` at the end of the image name will tell browser to scale image down by the number after the `@`.
+
+E. g. `filename@2x.png` mans that this image is retina-ready and should be rendered at half size. Same with `@3x`, `@1.5x`, etc.
