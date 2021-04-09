@@ -8,17 +8,19 @@ interface AdmonitionProps {
 }
 
 const Admonition = ({ type, title, children }: AdmonitionProps) => {
+  const finalType = type || "tip";
+
   return (
     <Box
       border="1px solid"
-      borderColor={type}
+      borderColor={finalType}
       borderRadius="default"
       mb={["16px", "16px"]}
       boxShadow="0 1px 4px rgba(0, 0, 0, 0.24)"
     >
       <Box
-        color={type === "warning" ? "black" : "white"}
-        bg={type}
+        color={finalType === "warning" ? "black" : "white"}
+        bg={finalType}
         height="24px"
         px={[2, "12px"]}
         text="text-sm"
@@ -26,7 +28,7 @@ const Admonition = ({ type, title, children }: AdmonitionProps) => {
           text-transform: uppercase;
         `}
       >
-        {title || capitalize(type)}
+        {title || capitalize(finalType)}
       </Box>
       <Box
         px={[2, 3]}
