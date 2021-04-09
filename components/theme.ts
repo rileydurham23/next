@@ -14,6 +14,8 @@ const theme = {
     black: "#000000",
     warning: "#FFB400",
     danger: "#F80061",
+    text: "#263238",
+    code: "#01172C",
     tip: "#00C7AE",
     note: "#009CF1",
   },
@@ -83,12 +85,10 @@ const theme = {
     },
   },
   space: [0, 4, 8, 16, 24, 32, 40, 48],
-
   media: {
     sm:
       "@media screen and (max-device-width: 900px), screen and (max-width: 900px)",
   },
-
   radii: {
     sm: 2,
     default: 4,

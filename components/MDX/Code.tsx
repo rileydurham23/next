@@ -17,6 +17,7 @@ const Code = (props) => {
       border="1px solid"
       borderColor="light-gray"
       borderRadius="sm"
+      fontSize="text-md"
     />
   );
 };

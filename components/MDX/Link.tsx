@@ -12,6 +12,7 @@ const Link = (props) => {
         },
         "&:hover, &:active, &:focus": {
           color: "light-purple",
+          transition: "all .3s",
         },
       })}
     />

@@ -34,10 +34,12 @@ const Pre = ({ children }: CodeProps) => {
   return (
     <Box
       position="relative"
-      bg="#272822"
+      bg="code"
       borderRadius="default"
-      mb={3}
+      mb={4}
+      mt="-4px"
       css={css({
+        boxShadow: "0 1px 4px rgba(0, 0, 0, .24)",
         "&:hover button": {
           display: "flex",
         },
@@ -53,7 +55,7 @@ const Pre = ({ children }: CodeProps) => {
         right={0}
         p={2}
         color="dark-gray"
-        bg="#272822"
+        bg="code"
         css={css({
           "&:hover, &:focus, &:active": {
             color: "lightest-gray",
@@ -69,7 +71,9 @@ const Pre = ({ children }: CodeProps) => {
         ref={codeRef}
         display="block"
         overflowX="auto"
-        m={0}
+        mx={0}
+        mt={0}
+        mb={3}
         px={3}
         py={2}
         color="#ddd"

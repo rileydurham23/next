@@ -3,16 +3,12 @@ import { MDXProvider } from "@mdx-js/react";
 import Box from "components/Box";
 import Admonition from "./Admonition";
 import Code from "./Code";
-import { H1, H2, H3, H4, H5 } from "./Headers";
+import { Header } from "./Headers";
 import Image from "./Image";
 import IFrame from "./IFrame";
 import Link from "./Link";
-import { UL, OL, LI } from "./Lists";
-import Paragraph from "./Paragraph";
 import Pre from "./Pre";
 import { Tabs, TabItem } from "./Tabs";
-import Table from "./Table";
-import Video from "./Video";
 
 export const components = {
   a: Link,
@@ -20,21 +16,25 @@ export const components = {
   inlineCode: Code,
   img: Image,
   iframe: IFrame,
-  h1: H1,
-  h2: H2,
-  h3: H3,
-  h4: H4,
-  h5: H5,
-  ul: UL,
-  ol: OL,
-  li: LI,
-  p: Paragraph,
+  h1: function H1(props) {
+    return <Header as="h1" {...props} />;
+  },
+  h2: function H2(props) {
+    return <Header as="h2" {...props} />;
+  },
+  h3: function H3(props) {
+    return <Header as="h3" {...props} />;
+  },
+  h4: function H4(props) {
+    return <Header as="h4" {...props} />;
+  },
+  h5: function H5(props) {
+    return <Header as="h5" {...props} />;
+  },
   pre: Pre,
-  video: Video,
   Admonition,
   Tabs,
   TabItem,
-  table: Table,
 };
 
 export interface MDXProps {
@@ -45,8 +45,100 @@ const MDX = ({ children }: MDXProps) => {
   return (
     <Box
       css={css({
+        lineHeight: ["26px"],
+        color: "text",
         "& *:first-child": {
-          marginTop: 0,
+          mt: 0,
+        },
+        "& *:last-child": {
+          mb: 0,
+        },
+        "& p": {
+          mt: 0,
+          mb: 3,
+          fontSize: ["text-lg", "text-lg"],
+          lineHeight: ["26px"],
+        },
+        "& video": {
+          mb: 3,
+          maxWidth: "100%",
+        },
+        "& ul, & ol": {
+          mt: 0,
+          mb: 3,
+          pl: "24px",
+        },
+        "& li": {
+          fontSize: ["text-lg", "text-lg"],
+          lineHeight: "26px",
+          mb: 2,
+        },
+        "& h1": {
+          fontSize: ["header-1", "40px"],
+          lineHeight: ["48px", "52px"],
+          fontWeight: "black",
+          mt: 4,
+          mb: 3,
+        },
+        "& h2": {
+          fontSize: ["header-2", "header-1"],
+          lineHeight: ["32px", "48px"],
+          fontWeight: "bold",
+          mt: 3,
+          mb: 2,
+        },
+        "& h3": {
+          fontSize: ["header-4", "header-3"],
+          lineHeight: ["md", "32px"],
+          fontWeight: "bold",
+          mt: 3,
+          mb: 2,
+        },
+        "& h4": {
+          fontSize: ["text-xl", "text-xl"],
+          lineHeight: "32px",
+          fontWeight: "bold",
+          mt: 3,
+          mb: 2,
+        },
+        "& h5": {
+          fontSize: "text-md",
+          lineHeight: "lg",
+          mt: 3,
+          mb: 2,
+          textTransform: "uppercase",
+        },
+        "& table": {
+          mb: 4,
+          boxShadow: "0 1px 4px rgba(0,0,0,.24)",
+          borderRadius: "default",
+          borderCollapse: "collapse",
+          boxSizing: "border-box",
+          width: "100%",
+        },
+        "& thead": {
+          borderBottom: "1px solid #D2DBDF",
+        },
+        "& th": {
+          fontSize: ["text-md", "text-lg"],
+          lineHeight: "26px",
+          fontWeight: "bold",
+          textAlign: "left",
+          px: 3,
+          py: 2,
+        },
+        "& td": {
+          color: "text",
+          fontSize: ["text-md", "text-lg"],
+          lineHeight: "md",
+          p: 3,
+        },
+        "& tbody tr:nth-child(even)": {
+          bg: "lightest-gray",
+        },
+        "tr:last-child": {
+          borderBottomLeftRadius: "default",
+          borderBottomRightRadius: "default",
         },
       })}
     >

@@ -13,13 +13,14 @@ const Admonition = ({ type, title, children }: AdmonitionProps) => {
       border="1px solid"
       borderColor={type}
       borderRadius="default"
-      mb={[2, 3]}
+      mb={["16px", "16px"]}
+      boxShadow="0 1px 4px rgba(0, 0, 0, 0.24)"
     >
       <Box
         color={type === "warning" ? "black" : "white"}
         bg={type}
         height="24px"
-        px={[2, 3]}
+        px={[2, "12px"]}
         text="text-sm"
         css={`
           text-transform: uppercase;
@@ -28,8 +29,10 @@ const Admonition = ({ type, title, children }: AdmonitionProps) => {
         {title || capitalize(type)}
       </Box>
       <Box
-        p={[2, 3]}
+        px={[2, 3]}
+        py={2}
         fontSize={["text-md", "text-lg"]}
+        lineHeight="26px"
         css={css({
           "& *:first-child": {
             mt: 0,
