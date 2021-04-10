@@ -10,11 +10,15 @@
     },
     {
       "name": "6.0",
-      "branch": "branch/v6.0",
-      "latest": true
+      "branch": "branch/v6.0"
     },
     {
       "name": "6.1",
+      "branch": "branch/v6.1",
+      "latest": true
+    },
+    {
+      "name": "6.2",
       "branch": "branch/v6"
     },
     {
