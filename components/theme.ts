@@ -9,6 +9,7 @@ const theme = {
     "lightest-gray": "#F0F2F4",
     "light-gray": "#D2DBDF",
     gray: "#607D8B",
+    green: "#00bfa5",
     "dark-gray": "#455A64",
     darkest: "#37474F",
     black: "#000000",
@@ -33,6 +34,7 @@ const theme = {
     "header-3": 24,
     "header-2": 28,
     "header-1": 32,
+    "hero-header": 54,
   },
   fontWeights: {
     regular: 400,
@@ -45,6 +47,7 @@ const theme = {
     lg: "32px",
     xl: "40px",
     xxl: "48px",
+    "hero-header": "60px",
   },
   textStyles: {
     "text-xs": {
@@ -83,19 +86,46 @@ const theme = {
       fontSize: "header-1",
       lineHeight: "xxl",
     },
+    "hero-header": {
+      fontSize: "hero-header",
+      lineHeight: "hero-header",
+      fontWeight: "black",
+    },
   },
-  space: [0, 4, 8, 16, 24, 32, 40, 48],
+  space: [0, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
   media: {
     sm:
       "@media screen and (max-device-width: 900px), screen and (max-width: 900px)",
   },
+  gradients: {
+    grayToWhite: {
+      background: "linear-gradient(125deg, rgba(240,242,244,.56), white)",
+    },
+  },
+  listStyles: {
+    none: {
+      "list-style": "none",
+    },
+  },
+  textDecorations: {
+    none: {
+      "text-decoration": "none",
+    },
+    underline: {
+      "text-decoration": "underline",
+    },
+  },
+  textTransforms: {
+    uppercase: {
+      "text-transform": "uppercase",
+    },
+  },
   radii: {
     sm: 2,
+    md: 8,
     default: 4,
     circle: 99999,
   },
 };
 
 export default theme;
-
-export type TextStyle = keyof typeof theme.textStyles;

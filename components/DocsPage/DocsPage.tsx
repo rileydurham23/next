@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import AnchorNavigation, { HeaderMeta } from "components/AnchorNavigation";
 import Box from "components/Box";
 import Button from "components/Button";
-import Footer from "components/Footer";
+import DocsFooter from "components/DocsFooter";
 import Flex from "components/Flex";
 import Head from "components/Head";
 import Layout from "components/Layout";
@@ -86,7 +86,7 @@ const PageContent = ({
                 />
               )}
             </Flex>
-            <Footer>
+            <DocsFooter>
               <Box
                 textAlign="center"
                 fontSize={["text-l", "text-xl"]}
@@ -107,7 +107,7 @@ const PageContent = ({
               >
                 IMPROVE THE DOCS
               </Button>
-            </Footer>
+            </DocsFooter>
           </Flex>
         </Flex>
       </Layout>

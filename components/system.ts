@@ -21,11 +21,11 @@ import {
   TypographyProps,
   variant,
 } from "styled-system";
-import theme, { TextStyle } from "components/theme";
+import theme from "components/theme";
 
-interface TextProps {
-  text?: TextStyle | TextStyle[];
-}
+type GenericProp<K extends string, T extends Record<string, unknown>> = {
+  [I in K]?: keyof T | Array<keyof T>;
+};
 
 export interface StyledSystemProps
   extends BackgroundProps,
@@ -36,8 +36,12 @@ export interface StyledSystemProps
     PositionProps,
     ShadowProps,
     SpaceProps,
-    TextProps,
-    TypographyProps {
+    TypographyProps,
+    GenericProp<"text", typeof theme.textStyles>,
+    GenericProp<"gradient", typeof theme.gradients>,
+    GenericProp<"listStyle", typeof theme.listStyles>,
+    GenericProp<"textDecoration", typeof theme.textDecorations>,
+    GenericProp<"textTransform", typeof theme.textTransforms> {
   css?: CssFunctionReturnType | string;
 }
 
@@ -54,6 +58,22 @@ export const all = compose(
   variant({
     prop: "text",
     variants: theme.textStyles,
+  }),
+  variant({
+    prop: "gradient",
+    variants: theme.gradients,
+  }),
+  variant({
+    prop: "listStyle",
+    variants: theme.listStyles,
+  }),
+  variant({
+    prop: "textDecoration",
+    variants: theme.textDecorations,
+  }),
+  variant({
+    prop: "textTransform",
+    variants: theme.textTransforms,
   })
 );
 
@@ -63,7 +83,7 @@ export interface StyledSystemWrapperProps
     PositionProps,
     ShadowProps,
     SpaceProps,
-    TextProps {}
+    GenericProp<"text", typeof theme.textStyles> {}
 
 export const wrapper = compose(flexbox, layout, position, shadow, space);
 

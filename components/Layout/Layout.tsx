@@ -1,13 +1,13 @@
 import Header from "components/Header";
-import Flex from "components/Flex";
+import Flex, { FlexProps } from "components/Flex";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, ...props }: LayoutProps & FlexProps) => {
   return (
-    <Flex pt={["48px", "80px"]} flexDirection="column">
+    <Flex pt={["48px", "80px"]} flexDirection="column" {...props}>
       <Header />
       {children}
     </Flex>

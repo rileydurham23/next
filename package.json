@@ -13,6 +13,7 @@
     "update-and-build": "yarn git-update && yarn build",
     "start": "next start",
     "test": "jest --runInBand",
+    "test:watch": "yarn test --watch",
     "base:eslint": "eslint --cache --cache-location node_modules/.cache/eslint '**/*.{js,jsx,ts,tsx}'",
     "base:prettier": "prettier '**/*.{js,jsx,ts,tsx,json}'",
     "lint": "yarn base:eslint --fix && yarn base:prettier --write -l",

@@ -1,25 +1,39 @@
 import Box from "components/Box";
 import Flex from "components/Flex";
-import landscapeSvgUrl from "./assets/landscape.svg";
+import { Launchpad } from "components/Launchpad";
+import { EmailSubscribe } from "components/EmailSubscribe";
+import theme from "components/theme";
+import { Copyright } from "./Copyright";
+import { LAUNCHPAD_DATA, COPYRIGHT_LINKS } from "./structure";
+import gridPngUrl from "./assets/grid-light.png";
 
-interface FooterProps {
-  children: React.ReactNode;
-}
+const BACKGROUND = [
+  `url(${gridPngUrl}) 100% 100% no-repeat`,
+  theme.gradients.grayToWhite.background,
+].join(",");
 
-const Footer = ({ children }: FooterProps) => {
+export default function Footer() {
   return (
-    <Flex width="100%" flexDirection="column" alignItems="center" mt={6}>
-      {children}
+    <Flex
+      as="footer"
+      width="100%"
+      flexDirection="column"
+      alignItems="stretch"
+      borderTop="1px solid"
+      borderTopColor="lightest-gray"
+    >
+      <EmailSubscribe px={[3, 9]} />
       <Box
-        width="100%"
-        height={["50px", "280px"]}
-        mt={3}
+        px={[3, 9]}
+        borderTop="1px solid"
+        borderTopColor="lightest-gray"
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
-        backgroundImage={`url(${landscapeSvgUrl})`}
-      ></Box>
+        background={BACKGROUND}
+      >
+        <Launchpad sections={LAUNCHPAD_DATA} />
+        <Copyright links={COPYRIGHT_LINKS} pt={[40, 54]} />
+      </Box>
     </Flex>
   );
-};
-
-export default Footer;
+}
