@@ -58,6 +58,8 @@ Now run one of the following commands:
 - `yarn markdown-lint` – lint `*.mdx` files inside `content/**/docs/pages/` folders for syntax errors.
 - `yarn markdown-lint-external-links` – same as `yarn markdown-lint` but checks that external links works. Separate command because of slowness.
 - `yarn markdown-fix` – automatically fix syntax in `*.mdx` files inside `content/**/docs/pages/`.
+- `yarn storybook` – run [Storybook](https://storybook.js.org/) instance at the `6006` port. You can check existing components here and try different options.
+- `yarn build-storybook` – build static version of Storybook.
 
 ## `config.json`
 
