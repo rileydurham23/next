@@ -9,6 +9,13 @@ module.exports = {
   ],
   webpackFinal: async (config) => {
     config.resolve.plugins.push(new TsconfigPathsPlugin({}));
+
+    config.module.rules.unshift({
+      test: /\.svg$/,
+      exclude: /node_modules/,
+      use: ["@svgr/webpack", "url-loader"],
+    });
+
     return config;
   },
 };
