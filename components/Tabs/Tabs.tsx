@@ -14,7 +14,7 @@ const getSelectedLabel = (
   return selectedTab ? selectedTab.props.label : tabs[0]?.props.label;
 };
 
-interface TabItemProps {
+export interface TabItemProps {
   selected?: boolean;
   label: string;
   children: React.ReactNode;
@@ -26,6 +26,9 @@ export const TabItem = ({ children }: TabItemProps) => {
       p={[2, 3]}
       overflowX="auto"
       css={css({
+        "*:first-child": {
+          mt: 0,
+        },
         "*:last-child": {
           mb: 0,
         },
@@ -63,7 +66,7 @@ const TabLabel = ({ selected, label, onClick }: TabsLabel) => {
   );
 };
 
-interface TabsProps {
+export interface TabsProps {
   children: React.ReactNode;
 }
 
@@ -85,9 +88,15 @@ export const Tabs = ({ children }: TabsProps) => {
       bg="white"
       boxShadow="0 1px 4px rgba(0,0,0,.24)"
       borderRadius="default"
-      mb={["24px", "24px"]}
+      mb="4"
     >
-      <Flex bg="lightest-gray" overflowX="auto" height="40px">
+      <Flex
+        bg="lightest-gray"
+        overflowX="auto"
+        height="40px"
+        borderTopLeftRadius="default"
+        borderTopRightRadius="default"
+      >
         {labels.map((label) => (
           <TabLabel
             key={label}
@@ -108,7 +117,7 @@ const Label = styled(HeadlessButton)<{ variant: "default" | "selected" }>(
     flexShrink: 0,
     m: 0,
     "&:hover, &:active, &:focus": {
-      color: "dark-gray",
+      color: "darkest",
       outline: "none",
     },
   }),

@@ -1,4 +1,5 @@
 import css, { CssFunctionReturnType } from "@styled-system/css";
+import { Property } from "csstype";
 import {
   background,
   BackgroundProps,
@@ -13,10 +14,13 @@ import {
   LayoutProps,
   position,
   PositionProps,
+  RequiredTheme,
+  ResponsiveValue,
   shadow,
   ShadowProps,
   space,
   SpaceProps,
+  system,
   typography,
   TypographyProps,
   variant,
@@ -38,11 +42,11 @@ export interface StyledSystemProps
     SpaceProps,
     TypographyProps,
     GenericProp<"text", typeof theme.textStyles>,
-    GenericProp<"gradient", typeof theme.gradients>,
-    GenericProp<"listStyle", typeof theme.listStyles>,
-    GenericProp<"textDecoration", typeof theme.textDecorations>,
-    GenericProp<"textTransform", typeof theme.textTransforms> {
+    GenericProp<"gradient", typeof theme.gradients> {
   css?: CssFunctionReturnType | string;
+  textDecoration?: ResponsiveValue<Property.TextAlign, RequiredTheme>;
+  textTransform?: ResponsiveValue<Property.TextTransform, RequiredTheme>;
+  listStyle?: ResponsiveValue<Property.ListStyle, RequiredTheme>;
 }
 
 export const all = compose(
@@ -55,6 +59,11 @@ export const all = compose(
   shadow,
   space,
   typography,
+  system({
+    textDecoration: true,
+    textTransform: true,
+    listStyle: true,
+  }),
   variant({
     prop: "text",
     variants: theme.textStyles,
@@ -62,18 +71,6 @@ export const all = compose(
   variant({
     prop: "gradient",
     variants: theme.gradients,
-  }),
-  variant({
-    prop: "listStyle",
-    variants: theme.listStyles,
-  }),
-  variant({
-    prop: "textDecoration",
-    variants: theme.textDecorations,
-  }),
-  variant({
-    prop: "textTransform",
-    variants: theme.textTransforms,
   })
 );
 

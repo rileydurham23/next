@@ -1,34 +1,41 @@
 import css from "@styled-system/css";
 import capitalize from "utils/capitalize";
 import Box from "components/Box";
-interface AdmonitionProps {
-  type: "warning" | "tip" | "note" | "danger";
-  title?: string;
+
+const types = ["warning", "tip", "note", "danger"] as const;
+
+export interface AdmonitionProps {
+  type: typeof types[number];
+  title: string;
   children: React.ReactNode;
 }
 
-const Admonition = ({ type, title, children }: AdmonitionProps) => {
-  const finalType = type || "tip";
+const Admonition = ({
+  type: baseType,
+  title: baseTitle,
+  children,
+}: AdmonitionProps) => {
+  const type = baseType && types.includes(baseType) ? baseType : "tip";
+  const title = baseTitle || capitalize(type);
 
   return (
     <Box
       border="1px solid"
-      borderColor={finalType}
+      bg="white"
+      borderColor={type}
       borderRadius="default"
-      mb={["16px", "16px"]}
+      mb="3"
       boxShadow="0 1px 4px rgba(0, 0, 0, 0.24)"
     >
       <Box
-        color={finalType === "warning" ? "black" : "white"}
-        bg={finalType}
+        color={type === "warning" ? "black" : "white"}
+        bg={type}
         height="24px"
-        px={[2, "12px"]}
+        px={[2, 3]}
         text="text-sm"
-        css={`
-          text-transform: uppercase;
-        `}
+        textTransform="uppercase"
       >
-        {title || capitalize(finalType)}
+        {title}
       </Box>
       <Box
         px={[2, 3]}
@@ -48,6 +55,10 @@ const Admonition = ({ type, title, children }: AdmonitionProps) => {
       </Box>
     </Box>
   );
+};
+
+Admonition.defaultProps = {
+  type: "tip",
 };
 
 export default Admonition;

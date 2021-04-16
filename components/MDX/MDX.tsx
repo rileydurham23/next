@@ -1,14 +1,14 @@
 import css from "@styled-system/css";
 import { MDXProvider } from "@mdx-js/react";
+import Admonition from "components/Admonition";
 import Box from "components/Box";
-import Admonition from "./Admonition";
+import { Tabs, TabItem } from "components/Tabs";
 import Code from "./Code";
 import { Header } from "./Headers";
 import Image from "./Image";
 import IFrame from "./IFrame";
 import Link from "./Link";
 import Pre from "./Pre";
-import { Tabs, TabItem } from "./Tabs";
 
 export const components = {
   a: Link,

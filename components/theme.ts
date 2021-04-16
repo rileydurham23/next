@@ -102,24 +102,6 @@ const theme = {
       background: "linear-gradient(125deg, rgba(240,242,244,.56), white)",
     },
   },
-  listStyles: {
-    none: {
-      "list-style": "none",
-    },
-  },
-  textDecorations: {
-    none: {
-      "text-decoration": "none",
-    },
-    underline: {
-      "text-decoration": "underline",
-    },
-  },
-  textTransforms: {
-    uppercase: {
-      "text-transform": "uppercase",
-    },
-  },
   radii: {
     sm: 2,
     md: 8,
