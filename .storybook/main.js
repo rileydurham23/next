@@ -10,7 +10,19 @@ module.exports = {
   webpackFinal: async (config) => {
     config.resolve.plugins.push(new TsconfigPathsPlugin({}));
 
-    config.module.rules.unshift({
+    config.module.rules = config.module.rules.map((rule) => {
+      if (rule.test.toString().includes("svg")) {
+        const test = rule.test
+          .toString()
+          .replace("svg|", "")
+          .replace(/\//g, "");
+        return { ...rule, test: new RegExp(test) };
+      } else {
+        return rule;
+      }
+    });
+
+    config.module.rules.push({
       test: /\.svg$/,
       exclude: /node_modules/,
       use: ["@svgr/webpack", "url-loader"],
