@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { css, media } from "components/system";
+import { css, media, transition } from "components/system";
 import Image from "components/Image";
 import Link from "components/Link";
 import Icon, { IconName } from "components/Icon";
@@ -64,7 +64,7 @@ const StyledWrapper = styled(Link)(
       px: 3,
       py: 2,
       borderRadius: "sm",
-      transition: "all 0.3s",
+      transition: transition([["background", "interaction"]]),
       lineHeight: "24px",
       textAlign: "left",
       textDecoration: "none",

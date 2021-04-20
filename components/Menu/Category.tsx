@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useClickAway } from "react-use";
 import { useCallback, useRef } from "react";
-import { css, media } from "components/system";
+import { css, media, transition } from "components/system";
 import Box from "components/Box";
 import MenuItem, { MenuItemProps } from "./Item";
 
@@ -83,7 +83,7 @@ const MainLink = styled("a")(({ active }: { active: boolean }) => [
     padding: "0 16px",
     position: "relative",
     textDecoration: "none",
-    transition: "background 0.3s",
+    transition: transition([["background", "interaction"]]),
     "&:focus, &:hover": {
       color: "dark-purple",
       bg: "rgba(240, 242, 244, 0.56)",

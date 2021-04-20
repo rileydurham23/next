@@ -1,4 +1,7 @@
-import css, { CssFunctionReturnType } from "@styled-system/css";
+import css, {
+  AllSystemCSSProperties,
+  CssFunctionReturnType,
+} from "@styled-system/css";
 import { Property } from "csstype";
 import {
   background,
@@ -26,6 +29,7 @@ import {
   variant,
 } from "styled-system";
 import theme from "components/theme";
+import { camelCaseToDash } from "utils/string";
 
 type GenericProp<K extends string, T extends Record<string, unknown>> = {
   [I in K]?: keyof T | Array<keyof T>;
@@ -91,6 +95,26 @@ const media = (mediaKey = "", styles: any) => ({ /* props,  */ theme }) => {
     [key]: css(styles)(theme),
   };
 };
+
+type Easing = string;
+
+type Item = [
+  keyof AllSystemCSSProperties,
+  keyof typeof theme.transitionTimings,
+  Easing?
+];
+
+export function transition(items: Item[]): string {
+  return items
+    .map((item) => {
+      const prop = camelCaseToDash(item[0]);
+      const timing = theme.transitionTimings[item[1]];
+      const easing = item[2] ? ` ${item}` : "";
+
+      return `${prop} ${timing}ms${easing}`;
+    })
+    .join(",");
+}
 
 export {
   media,

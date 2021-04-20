@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
-import { all, StyledSystemProps, variant } from "components/system";
+import { all, StyledSystemProps, transition, variant } from "components/system";
 
 type variant = "primary" | "secondary" | "secondary-white";
 type shape = "sm" | "md" | "lg";
@@ -25,7 +25,10 @@ const Button = styled("button")<ButtonProps>(
     whiteSpace: "nowrap",
     textDecoration: "none",
     cursor: "pointer",
-    transition: "background 0.3s, color 0.3s",
+    transition: transition([
+      ["background", "interaction"],
+      ["color", "interaction"],
+    ]),
     "&:focus": {
       outline: "none",
     },

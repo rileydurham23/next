@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import styled from "styled-components";
-import { css, media } from "components/system";
+import { css, media, transition } from "components/system";
 import Button from "components/Button";
 import Flex from "components/Flex";
 import Icon from "components/Icon";
@@ -76,7 +76,7 @@ const StyledLogoLink = styled(Link)(
     margin: "0 40px 0 0",
     px: "32px",
     textDecoration: "none",
-    transition: "all 0.3s",
+    transition: transition([["background", "interaction"]]),
     display: "flex",
     alignItems: "center",
     height: "80px",

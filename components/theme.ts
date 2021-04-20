@@ -102,6 +102,9 @@ const theme = {
       background: "linear-gradient(125deg, rgba(240,242,244,.56), white)",
     },
   },
+  transitionTimings: {
+    interaction: 300,
+  },
   radii: {
     sm: 2,
     md: 8,
