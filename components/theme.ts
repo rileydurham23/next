@@ -97,6 +97,9 @@ const theme = {
   media: {
     sm:
       "@media screen and (max-device-width: 900px), screen and (max-width: 900px)",
+    md:
+      "@media screen and (max-device-width: 1200px), screen and (max-width: 1200px)",
+    mdVertical: "@media screen and (max-height: 880px)",
   },
   gradients: {
     grayToWhite: {

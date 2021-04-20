@@ -53,6 +53,7 @@ export interface StyledSystemProps
   listStyle?: ResponsiveValue<Property.ListStyle, RequiredTheme>;
   whiteSpace?: ResponsiveValue<Property.WhiteSpace, RequiredTheme>;
   textOverflow?: ResponsiveValue<Property.TextOverflow, RequiredTheme>;
+  borderCollapse?: ResponsiveValue<Property.BorderCollapse, RequiredTheme>;
 }
 
 export const all = compose(
@@ -71,6 +72,7 @@ export const all = compose(
     textTransform: true,
     listStyle: true,
     whiteSpace: true,
+    borderCollapse: true,
   }),
   variant({
     prop: "text",

@@ -2,8 +2,8 @@ import Flex, { FlexProps } from "components/Flex";
 
 export function Centrator({ children, as = "div", ...props }: FlexProps) {
   return (
-    <Flex px="11" justifyContent="center" width="100%">
-      <Flex as={as} maxWidth={1240} {...props}>
+    <Flex justifyContent="center" width="100%" px={[3, 3, 11]}>
+      <Flex as={as} maxWidth={1240} width="100%" {...props}>
         {children}
       </Flex>
     </Flex>
