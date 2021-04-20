@@ -1,17 +1,20 @@
 import { Story } from "@storybook/react";
-import { Tile, TileSet, TileProps } from "./Tile";
+import TileComponent, { TileProps } from "./Tile";
+import TileSet from "./TileSet";
 
 export default {
-  component: Tile,
+  component: TileComponent,
   subcomponents: { TileSet },
-  title: "Tile",
+  title: "Tile/Tile",
 };
 
-const TileComponent: Story<TileProps> = (args) => <Tile {...args} />;
+const TileComponentWrapper: Story<TileProps> = (args) => (
+  <TileComponent {...args} />
+);
 
-export const Single = TileComponent.bind({});
+export const Tile = TileComponentWrapper.bind({});
 
-Single.args = {
+Tile.args = {
   children:
     "Learn the fundamental of Teleport for SSH using these step by step guides.",
   href: "https://goteleport.com",
@@ -19,7 +22,7 @@ Single.args = {
   title: "Step by Step Guides",
 };
 
-export const Group = () => {
+export const TileGroup = () => {
   return (
     <TileSet>
       <Tile href="https://goteleport.com" icon="bolt" title="Quickstart Guide">

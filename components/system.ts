@@ -51,6 +51,8 @@ export interface StyledSystemProps
   textDecoration?: ResponsiveValue<Property.TextAlign, RequiredTheme>;
   textTransform?: ResponsiveValue<Property.TextTransform, RequiredTheme>;
   listStyle?: ResponsiveValue<Property.ListStyle, RequiredTheme>;
+  whiteSpace?: ResponsiveValue<Property.WhiteSpace, RequiredTheme>;
+  textOverflow?: ResponsiveValue<Property.TextOverflow, RequiredTheme>;
 }
 
 export const all = compose(
@@ -65,8 +67,10 @@ export const all = compose(
   typography,
   system({
     textDecoration: true,
+    textOverflow: true,
     textTransform: true,
     listStyle: true,
+    whiteSpace: true,
   }),
   variant({
     prop: "text",
