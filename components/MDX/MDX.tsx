@@ -113,6 +113,7 @@ const MDX = ({ children }: MDXProps) => {
         },
         "& table": {
           mb: 4,
+          bg: "white",
           boxShadow: "0 1px 4px rgba(0,0,0,.24)",
           borderRadius: "default",
           borderCollapse: "collapse",

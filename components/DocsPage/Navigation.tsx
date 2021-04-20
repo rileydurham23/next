@@ -104,10 +104,11 @@ export const getCurrentCategoryIndex = (
 };
 
 interface DocNavigationProps {
+  section?: boolean;
   data: NavigationCategory[];
 }
 
-const DocNavigation = ({ data }: DocNavigationProps) => {
+const DocNavigation = ({ data, section }: DocNavigationProps) => {
   const router = useRouter();
   const route = getPath(router.asPath);
 
@@ -125,10 +126,11 @@ const DocNavigation = ({ data }: DocNavigationProps) => {
     <Box
       width={["auto", "240px"]}
       height={["48px", "100%"]}
-      borderRight={["none", "1px solid"]}
-      borderColor={["none", "lightest-gray"]}
       position="relative"
-      css={css({ zIndex: "1000" })}
+      zIndex={1000}
+      boxShadow={section ? ["none", "1px 0 4px rgba(0,0,0,.12)"] : "none"}
+      borderRight={section ? "none" : ["none", "1px solid"]}
+      borderColor="lightest-gray"
     >
       <Flex height="48px" py={2} bg="light-gray" alignItems="center">
         <Search id="mobile" mx={2} width="100%" />

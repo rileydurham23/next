@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import AnchorNavigation, { HeaderMeta } from "components/AnchorNavigation";
 import Box from "components/Box";
 import Button from "components/Button";
-import DocsFooter from "components/DocsFooter";
 import Flex from "components/Flex";
 import Head from "components/Head";
 import Layout from "components/Layout";
@@ -10,6 +9,7 @@ import Link from "components/Link";
 import MDX from "components/MDX";
 import Notice from "components/Notice";
 import Header from "./Header";
+import Footer from "./Footer";
 import Navigation, { getCurrentCategoryIndex } from "./Navigation";
 import { NavigationCategory, VersionsInfo, PageMeta } from "./types";
 
@@ -26,11 +26,13 @@ const PageContent = ({
   navigation,
   versions,
   githubUrl,
-  meta: { h1, title, description },
+  meta: { h1, title, description, layout },
   tableOfConents,
   children,
 }: PageContentProps) => {
   const router = useRouter();
+  const isDocLayout = !layout || layout === "doc";
+  const isSectionLayout = layout === "section";
 
   const { current, latest, available } = versions;
 
@@ -46,7 +48,7 @@ const PageContent = ({
       <Layout>
         <Flex alignItems="stretch" flexDirection={["column", "row"]}>
           <Box flexShrink={0}>
-            <Navigation data={navigation} />
+            <Navigation data={navigation} section={isSectionLayout} />
           </Box>
           <Flex flexGrow={1} flexDirection="column">
             <Header
@@ -55,7 +57,7 @@ const PageContent = ({
               githubUrl={githubUrl}
               icon={icon}
             />
-            <Flex>
+            <Flex bg={isSectionLayout ? "page-bg" : "white"}>
               <Box flexGrow={1} px={[3, 6]} py={[3, 4]}>
                 {(isOldVersion || isBetaVersion) && (
                   <Notice mb={4}>
@@ -75,18 +77,18 @@ const PageContent = ({
                     )}
                   </Notice>
                 )}
-                <Box maxWidth="900px">
+                <Box maxWidth={isDocLayout ? "900px" : "auto"}>
                   <MDX>{children}</MDX>
                 </Box>
               </Box>
-              {!!tableOfConents.length && (
+              {!!tableOfConents.length && isDocLayout && (
                 <AnchorNavigation
                   headers={tableOfConents}
                   display={["none", "none", "block"]}
                 />
               )}
             </Flex>
-            <DocsFooter>
+            <Footer section={isSectionLayout}>
               <Box
                 textAlign="center"
                 fontSize={["text-l", "text-xl"]}
@@ -107,7 +109,7 @@ const PageContent = ({
               >
                 IMPROVE THE DOCS
               </Button>
-            </DocsFooter>
+            </Footer>
           </Flex>
         </Flex>
       </Layout>

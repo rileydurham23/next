@@ -3,6 +3,7 @@ const breakpoints = ["900px", "1200px"];
 const theme = {
   breakpoints,
   colors: {
+    "page-bg": "#f6f8f9",
     "dark-purple": "#512FC9",
     "light-purple": "#651FFF",
     white: "#FFFFFF",

@@ -25,4 +25,5 @@ export interface PageMeta {
   description?: string;
   h1?: string;
   githubUrl: string;
+  layout?: "doc" | "section";
 }

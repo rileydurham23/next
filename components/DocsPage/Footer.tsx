@@ -3,12 +3,19 @@ import Flex from "components/Flex";
 import landscapeSvgUrl from "./assets/landscape.svg";
 
 interface DocsFooterProps {
+  section?: boolean;
   children: React.ReactNode;
 }
 
-const DocsFooter = ({ children }: DocsFooterProps) => {
+const DocsFooter = ({ children, section }: DocsFooterProps) => {
   return (
-    <Flex width="100%" flexDirection="column" alignItems="center" mt={6}>
+    <Flex
+      width="100%"
+      flexDirection="column"
+      alignItems="center"
+      pt={6}
+      bg={section ? "page-bg" : "white"}
+    >
       {children}
       <Box
         width="100%"
