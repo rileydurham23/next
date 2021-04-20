@@ -4,6 +4,7 @@ export { ReactComponent as building } from "./svg/building.svg";
 export { ReactComponent as calendar } from "./svg/calendar.svg";
 export { ReactComponent as clock } from "./svg/clock.svg";
 export { ReactComponent as close } from "./svg/close.svg";
+export { ReactComponent as check } from "./svg/check.svg";
 export { ReactComponent as code } from "./svg/code.svg";
 export { ReactComponent as copy } from "./svg/copy.svg";
 export { ReactComponent as database } from "./svg/database.svg";
