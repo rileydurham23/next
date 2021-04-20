@@ -1,3 +1,4 @@
+export { ReactComponent as arrow } from "./svg/arrow.svg";
 export { ReactComponent as bolt } from "./svg/bolt.svg";
 export { ReactComponent as book } from "./svg/book.svg";
 export { ReactComponent as building } from "./svg/building.svg";

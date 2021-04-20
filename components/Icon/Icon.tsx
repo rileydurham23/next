@@ -3,7 +3,8 @@ import Box from "components/Box";
 import * as icons from "./icons";
 
 const sizes = {
-  sm: 12,
+  xs: 12,
+  sm: 16,
   md: 24,
   lg: 32,
   xl: 40,
