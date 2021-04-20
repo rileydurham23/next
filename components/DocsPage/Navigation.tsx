@@ -130,7 +130,7 @@ const DocNavigation = ({ data, section }: DocNavigationProps) => {
       zIndex={1000}
       boxShadow={section ? ["none", "1px 0 4px rgba(0,0,0,.12)"] : "none"}
       borderRight={section ? "none" : ["none", "1px solid"]}
-      borderColor="lightest-gray"
+      borderColor={["none", "lightest-gray"]}
     >
       <Flex height="48px" py={2} bg="light-gray" alignItems="center">
         <Search id="mobile" mx={2} width="100%" />
