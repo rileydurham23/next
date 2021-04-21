@@ -1,6 +1,6 @@
 import css from "@styled-system/css";
 import styled from "styled-components";
-import { all, StyledSystemProps, variant } from "components/system";
+import { all, StyledSystemProps, transition, variant } from "components/system";
 import Link from "./Link";
 
 type variant = "copyright";
@@ -17,15 +17,19 @@ export const StyledLink = styled(Link)<StyledLinkProps>(
     lineHeight: ["xl", "lg"],
     borderRadius: "default",
     color: "darkest",
-    backgroundColor: ["lightest-gray", "transparent"],
+    transition: transition([
+      ["backgroundColor", "interaction"],
+      ["color", "interaction"],
+    ]),
+    bg: ["lightest-gray", "transparent"],
     textDecoration: "none",
     "&:hover, &:active, &:focus": {
-      backgroundColor: "white",
+      bg: "white",
       color: "dark-purple",
     },
     "&:active, &:focus": {
       outline: "none",
-      backgroundColor: "lightest-gray",
+      bg: "lightest-gray",
     },
   }),
   variant({
@@ -35,14 +39,14 @@ export const StyledLink = styled(Link)<StyledLinkProps>(
         lineHeight: ["lg", "xl"],
         "&:hover, &:active, &:focus": {
           color: "dark-purple",
-          backgroundColor: "transparent",
+          bg: "transparent",
         },
         "&:hover": {
           textDecoration: "underline",
         },
         "&:active, &:focus": {
           outline: "none",
-          backgroundColor: "lightest-gray",
+          bg: "lightest-gray",
         },
       },
     },
