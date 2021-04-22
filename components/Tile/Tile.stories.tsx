@@ -5,7 +5,7 @@ import TileSet from "./TileSet";
 export default {
   component: TileComponent,
   subcomponents: { TileSet },
-  title: "Tile/Tile",
+  title: "Docs/Tile/Tile",
 };
 
 const TileComponentWrapper: Story<TileProps> = (args) => (

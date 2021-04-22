@@ -16,7 +16,7 @@ const StyledWrapper = styled(Flex)(
     justifyContent: "stretch",
     alignItems: "stretch",
     maxWidth: ["100%", "calc((100% - 64px) / 3)"],
-    mb: [3, 5],
+    pb: [3, 5],
     "&:nth-child(3n+2), &:nth-child(3n)": {
       ml: [0, 5],
     },

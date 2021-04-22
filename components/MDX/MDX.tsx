@@ -3,7 +3,13 @@ import { MDXProvider } from "@mdx-js/react";
 import Admonition from "components/Admonition";
 import Box from "components/Box";
 import { Tabs, TabItem } from "components/Tabs";
-import { Tile, TileSet, TileList, TileListItem } from "components/Tile";
+import {
+  Tile,
+  TileSet,
+  TileList,
+  TileListItem,
+  TileImage,
+} from "components/Tile";
 import Code from "./Code";
 import { Header } from "./Headers";
 import Image from "./Image";
@@ -40,6 +46,7 @@ export const components = {
   TileSet,
   TileList,
   TileListItem,
+  TileImage,
 };
 
 export interface MDXProps {
