@@ -4,7 +4,7 @@ import Image from "components/Image";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Link from "components/Link";
-import TileWrapper from "./TileWrapper";
+import { TileWrapper } from "./TileSet";
 
 export interface TileImageProps {
   alt: string;

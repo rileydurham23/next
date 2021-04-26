@@ -5,7 +5,7 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import Icon, { IconName } from "components/Icon";
 import Link from "components/Link";
-import TileWrapper from "./TileWrapper";
+import { TileWrapper } from "./TileSet";
 import bgHref from "./assets/bg.svg";
 
 export interface TileProps {

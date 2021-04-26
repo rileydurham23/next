@@ -4,7 +4,7 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import Link from "components/Link";
 import Icon, { IconName } from "components/Icon";
-import TileWrapper from "./TileWrapper";
+import { TileWrapper } from "./TileSet";
 
 export interface TileListItemProps {
   href: string;
