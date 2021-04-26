@@ -1,36 +1,55 @@
-import { Node } from "unist";
+import { Parent, Node } from "unist";
 import { Root, Element, DocType, Comment, Text } from "hast";
+import { Content } from "mdast";
 
-export interface MdxastNode extends Node {
-  value?: string;
-  children?: MdxastNode[];
+export interface MdxJsxAttribute {
+  type: "mdxJsxAttribute";
+  name: string;
+  value: boolean | number | string | null | undefined | Array<string | number>;
 }
 
-export type RehypeNode = Root | Element | DocType | Comment | Text;
+export interface MdxElement extends Parent {
+  attributes: MdxJsxAttribute[];
+}
+export interface MdxBlockElement extends MdxElement {
+  type: "mdxBlockElement";
+}
 
-export interface JsxNode extends MdxastNode {
-  type: "jsx";
-  value: string;
+export interface MdxSpanElement extends MdxElement {
+  type: "mdxSpanElement";
+}
+
+export interface MdxJsxFlowElement extends MdxElement {
+  type: "mdxJsxFlowElement";
+}
+
+export interface MdxJsxTextElement extends MdxElement {
+  type: "mdxJsxTextElement";
 }
 
 export interface EsmNode extends Node {
   type: "mdxjsEsm";
   value: string;
-  default: boolean;
 }
 
-export type MdxhastNode = RehypeNode | JsxNode | EsmNode;
+export type MdxAnyElement =
+  | MdxBlockElement
+  | MdxSpanElement
+  | MdxJsxFlowElement
+  | MdxJsxTextElement;
 
-export type MdxhastRootNode = {
+export type RehypeNode = Root | Element | DocType | Comment | Text;
+
+export type MdxhastNode = RehypeNode | EsmNode | MdxAnyElement;
+
+export interface MdxhastRootNode extends Node {
   type: "root";
   children: MdxhastNode[];
-};
+}
 
-export interface AdmonitionNode extends MdxastNode {
-  type: "admonition";
-  data: {
-    type: string;
-    title?: string;
-    content: string;
-  };
+export type MdxastNode = Content | MdxAnyElement | EsmNode;
+
+export interface MdxastRootNode extends Node {
+  type: "root";
+  children?: MdxastNode[];
 }

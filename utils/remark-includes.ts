@@ -1,3 +1,4 @@
+import { Parent } from "unist";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import { VFile } from "vfile";
@@ -39,7 +40,7 @@ const resolveIncludes = ({ value, filePath }: ResolveIncludesProps) => {
 };
 
 const hasInclude = (node: MdxastNode) =>
-  !!node.value && includeRegexp.test(node.value);
+  typeof node.value === "string" && includeRegexp.test(node.value);
 
 export interface RemarkIncludesOptions {
   lint?: boolean;
@@ -90,7 +91,7 @@ export default function remarkIncludes(
                     ],
                   });
 
-                  const grandParent = ancestors[ancestors.length - 2];
+                  const grandParent = ancestors[ancestors.length - 2] as Parent;
                   const parentIndex = grandParent.children.indexOf(parent);
 
                   grandParent.children.splice(parentIndex, 1, ...tree.children);

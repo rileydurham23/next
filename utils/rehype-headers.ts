@@ -6,7 +6,7 @@ import visit from "unist-util-visit";
 import rank from "hast-util-heading-rank";
 import toString from "hast-util-to-string";
 import createMdxjsEsmNode from "./create-mdxjsesm-node";
-import { MdxastNode } from "./unist-types";
+import { MdxastRootNode } from "./unist-types";
 import { Value } from "estree-util-value-to-estree";
 
 interface RehypeHeadersOptions {
@@ -18,7 +18,7 @@ export default function rehypeHeaders({
   name = "tableOfConents",
   maxLevel,
 }: RehypeHeadersOptions): Transformer {
-  return (root: MdxastNode) => {
+  return (root: MdxastRootNode) => {
     const headers: Value[] = [];
 
     visit<Element>(root, "element", function (node) {

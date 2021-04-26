@@ -1,28 +1,19 @@
 import vfile, { VFileOptions } from "vfile";
-import unified from "unified";
-import markdown from "remark-parse";
-import remark2rehype from "remark-rehype";
-import html from "rehype-stringify";
-
-import rehypeLinks from "./rehype-links";
+import remark from "remark";
+import mdx from "remark-mdx";
+import remarkLinks from "./remark-links";
 
 const transformer = (options: VFileOptions) =>
-  unified()
-    .use(markdown)
-    .use(remark2rehype)
-    .use(rehypeLinks)
-    .use(html)
-    .processSync(vfile(options))
-    .toString();
+  remark().use(mdx).use(remarkLinks).processSync(vfile(options)).toString();
 
-describe("utils/rehype-links", () => {
+describe("utils/remark-links", () => {
   it("Removes .md and and adds './'", () => {
     const result = transformer({
       contents: "[Some link](workflow.mdx)",
       path: "/docs/enterprize/index.mdx",
     });
 
-    expect(result).toEqual('<p><a href="./workflow/">Some link</a></p>');
+    expect(result).toEqual("[Some link](./workflow/)\n");
   });
 
   it("Removes .md and and adds '../'", () => {
@@ -31,7 +22,7 @@ describe("utils/rehype-links", () => {
       path: "/docs/enterprize.md",
     });
 
-    expect(result).toEqual('<p><a href="../workflow/">Some link</a></p>');
+    expect(result).toEqual("[Some link](../workflow/)\n");
   });
 
   it("Replaces index.md with the '/'", () => {
@@ -40,7 +31,7 @@ describe("utils/rehype-links", () => {
       path: "/docs/enterprize/index.md",
     });
 
-    expect(result).toEqual('<p><a href="./workflow/">Some link</a></p>');
+    expect(result).toEqual("[Some link](./workflow/)\n");
   });
 
   it("Correctly resolves parent folder", () => {
@@ -49,7 +40,7 @@ describe("utils/rehype-links", () => {
       path: "/docs/enterprize.md",
     });
 
-    expect(result).toEqual('<p><a href="../../workflow/">Some link</a></p>');
+    expect(result).toEqual("[Some link](../../workflow/)\n");
   });
 
   it("Correctly resolves root paths", () => {
@@ -58,7 +49,7 @@ describe("utils/rehype-links", () => {
       path: "/docs/enterprize.md",
     });
 
-    expect(result).toEqual('<p><a href="/workflow/">Some link</a></p>');
+    expect(result).toEqual("[Some link](/workflow/)\n");
   });
 
   it("Correctly resolves non .md paths", () => {
@@ -67,7 +58,7 @@ describe("utils/rehype-links", () => {
       path: "/docs/enterprize.md",
     });
 
-    expect(result).toEqual('<p><a href="../image.png">Some link</a></p>');
+    expect(result).toEqual("[Some link](../image.png)\n");
   });
 
   it("Leave external links as is", () => {
@@ -76,8 +67,15 @@ describe("utils/rehype-links", () => {
       path: "/docs/enterprize.md",
     });
 
-    expect(result).toEqual(
-      '<p><a href="https://yandex.ru/workflow.md">Some link</a></p>'
-    );
+    expect(result).toEqual("[Some link](https://yandex.ru/workflow.md)\n");
+  });
+
+  it("Work width mdx components", () => {
+    const result = transformer({
+      contents: '<Component href="../workflow.mdx"/>',
+      path: "/docs/enterprize/index.mdx",
+    });
+
+    expect(result).toEqual('<Component href="../workflow/"/>\n');
   });
 });

@@ -1,6 +1,6 @@
 import { Transformer } from "unified";
 import { Value } from "estree-util-value-to-estree";
-import { MdxastNode } from "./unist-types";
+import { MdxastRootNode } from "./unist-types";
 import createMdxjsEsmNode from "./create-mdxjsesm-node";
 import { loadDocsConfig, loadSiteConfig } from "./config";
 import { getVersion, getGithubURL } from "./docs-helpers";
@@ -8,7 +8,7 @@ import { getVersion, getGithubURL } from "./docs-helpers";
 const { versions, latest } = loadSiteConfig();
 
 export default function remarkImportVariables(): Transformer {
-  return (root: MdxastNode, vfile) => {
+  return (root: MdxastRootNode, vfile) => {
     const current = getVersion(vfile.path);
     const { navigation } = loadDocsConfig(current);
 

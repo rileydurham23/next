@@ -1,7 +1,8 @@
 import { Value, valueToEstree } from "estree-util-value-to-estree";
 import stringifyObject from "stringify-object";
+import { EsmNode } from "./unist-types";
 
-const createMdxjsEsmNode = (name: string, data: Value) => {
+const createMdxjsEsmNode = (name: string, data: Value): EsmNode => {
   return {
     type: "mdxjsEsm",
     value: `export const ${name} = ${stringifyObject(data)};`,

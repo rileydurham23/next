@@ -82,11 +82,11 @@ export default function remarkVariables(
     visit<MdxastNode>(root, [nodeHasValue], (node) => {
       if (node.value) {
         if (resolve) {
-          node.value = replaceVars(node.value, regExps);
+          node.value = replaceVars(node.value as string, regExps);
         }
 
         if (lint) {
-          lintVars(vfile, node, node.value, varNames);
+          lintVars(vfile, node, node.value as string, varNames);
         }
       }
     });

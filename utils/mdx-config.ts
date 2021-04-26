@@ -1,19 +1,17 @@
 import { resolve } from "path";
 import { PluggableList } from "unified";
-
 import rehypeFixTags from "./rehype-fix-tags";
 import rehypeHeaders from "./rehype-headers";
 import rehypeHighlight from "rehype-highlight";
 import rehypeImages from "./rehype-images";
-import rehypeLinks from "./rehype-links";
 import rehypeSlug from "rehype-slug";
-
 import remarkCopyLinkedFiles from "remark-copy-linked-files";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkImportFrontmatter from "./remark-import-frontmatter";
 import remarkImportVariables from "./remark-import-variables";
 import remarkIncludes from "./remark-includes";
+import remarkLinks from "./remark-links";
 import remarkVariables from "./remark-variables";
 
 const staticPath = "/static/assets/";
@@ -54,6 +52,7 @@ const config: MdxConfig = {
     remarkIncludes,
     remarkVariables,
     remarkGFM,
+    remarkLinks,
     [
       remarkCopyLinkedFiles,
       {
@@ -66,7 +65,6 @@ const config: MdxConfig = {
   rehypePlugins: [
     rehypeFixTags,
     rehypeSlug,
-    rehypeLinks,
     [
       rehypeImages,
       {

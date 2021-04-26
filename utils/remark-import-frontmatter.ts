@@ -1,6 +1,6 @@
 import { Transformer } from "unified";
 import yaml from "js-yaml";
-import { MdxastNode } from "./unist-types";
+import { MdxastRootNode, MdxastNode } from "./unist-types";
 import createMdxjsEsmNode from "./create-mdxjsesm-node";
 
 export interface HeaderMeta {
@@ -20,7 +20,7 @@ interface RemarkImportFrontmatterOptions {
 export default function remarkImportFrontmatter({
   name,
 }: RemarkImportFrontmatterOptions = defaultOptions): Transformer {
-  return (root: MdxastNode) => {
+  return (root: MdxastRootNode) => {
     const children = root.children as MdxastNode[];
 
     const firstChild = children[0];
