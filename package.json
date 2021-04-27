@@ -10,7 +10,7 @@
     "preflight": "yarn build-node && yarn add-symlinks",
     "dev": "yarn preflight && next dev",
     "build": "yarn preflight && next build",
-    "update-and-build": "yarn git-update && yarn build",
+    "update-and-build": "yarn git-update; if [ \"${VERCEL_ENV}\" = \"preview\" ]; then yarn build-storybook; fi; yarn build",
     "start": "next start",
     "test": "jest --runInBand",
     "test:watch": "yarn test --watch",
@@ -23,7 +23,7 @@
     "markdown-lint-external-links": "WITH_EXTERNAL_LINKS=true yarn markdown-lint",
     "markdown-fix": "FIX=true yarn markdown-lint -o",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -o ./public/storybook/"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
