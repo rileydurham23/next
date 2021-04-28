@@ -1,21 +1,75 @@
-import NextImage, { ImageProps } from "next/image";
+import { Children, cloneElement, useMemo } from "react";
+import NextImage, { ImageProps as NextImageProps } from "next/image";
+import Box from "components/Box";
 import Flex from "components/Flex";
 
-const Image = (props: ImageProps) => {
-  const width = parseInt(props.width as string, 10);
-  const height = parseInt(props.height as string, 10);
+type AlignValue = "left" | "center" | "right";
+
+const getAlignItems = (align?: AlignValue) => {
+  switch (align) {
+    case "right":
+      return "flex-end";
+    case "left":
+      return "flex-start";
+    default:
+      return align;
+  }
+};
+
+interface SharedProps {
+  align?: AlignValue;
+  bordered?: boolean;
+  caption?: string;
+}
+
+export type ImageProps = SharedProps & NextImageProps;
+
+export const Image = ({ align, bordered, caption, ...props }: ImageProps) => {
+  const imageProps = useMemo((): NextImageProps => {
+    return {
+      ...props,
+      layout: "intrinsic",
+      sizes: "(min-width: 1460px) 900px, 100vw",
+      width: props.width ? parseFloat(props.width as string) : "auto",
+      height: props.height ? parseFloat(props.height as string) : "auto",
+    };
+  }, [props]);
 
   return (
-    <Flex my={3}>
-      <NextImage
-        {...props}
-        width={width}
-        height={height}
-        layout="intrinsic"
-        sizes="(min-width: 1460px) 900px, 100vw"
-      />
+    <Flex
+      as="figure"
+      my={3}
+      flexDirection="column"
+      alignItems={getAlignItems(align)}
+    >
+      {bordered ? (
+        <Box as="span" boxShadow="0 1px 4px rgba(0, 0, 0, 0.24)">
+          <NextImage {...imageProps} />
+        </Box>
+      ) : (
+        <NextImage {...imageProps} />
+      )}
+      {caption && (
+        <Box as="figcaption" mt="2" color="gray" fontStyle="italic">
+          {caption}
+        </Box>
+      )}
     </Flex>
   );
 };
 
-export default Image;
+Image.defaultProps = {
+  align: "left",
+};
+
+type ImageComponent = React.ReactElement<typeof Image>;
+
+export type FigureProps = ImageProps & {
+  children: ImageComponent;
+};
+
+export const Figure = ({ children, ...rest }: FigureProps) => {
+  const image = Children.only<ImageComponent>(children);
+
+  return cloneElement(image, rest);
+};

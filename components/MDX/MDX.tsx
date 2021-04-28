@@ -12,7 +12,7 @@ import {
 } from "components/Tile";
 import Code from "./Code";
 import { Header } from "./Headers";
-import Image from "./Image";
+import { Image, Figure } from "./Image";
 import IFrame from "./IFrame";
 import Link from "./Link";
 import Pre from "./Pre";
@@ -47,6 +47,7 @@ export const components = {
   TileList,
   TileListItem,
   TileImage,
+  Figure,
 };
 
 export interface MDXProps {
