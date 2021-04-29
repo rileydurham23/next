@@ -1,28 +1,25 @@
-import Box from "components/Box";
-import Button from "components/Button";
 import styled from "styled-components";
 import css from "@styled-system/css";
-import Icon from "components/Icon";
-import Flex, { FlexProps } from "components/Flex";
+import { Flex, FlexProps, Box, Button, Icon } from "components";
+import { StyledSystemProps } from "components/system";
 import { BillingKind, Plan, CardHeight } from "./types";
 import { Price } from "./Price";
-import { StyledSystemProps } from "components/system";
 
-export interface PlanCardProps {
-  data: Plan;
+export type Props = FlexProps & {
+  plan: Plan;
   hideBadge?: boolean;
   charge?: number;
   accented?: boolean;
-}
+};
 
-export function PlanCard({
-  data,
+export default function PlanCard({
+  plan,
   accented,
   charge,
   hideBadge,
   ...props
-}: PlanCardProps & FlexProps) {
-  const { title, billing, features, description, action, icon } = data;
+}: Props) {
+  const { title, billing, features, description, action, icon } = plan;
   const isMontlyTemplate =
     billing.kind === BillingKind.MONTHLY && typeof charge !== "number";
   const zeroMonthlyPayment = billing.kind === BillingKind.MONTHLY && !charge;
@@ -30,6 +27,7 @@ export function PlanCard({
   return (
     <Flex
       p={4}
+      as="article"
       flexDirection="column"
       borderRadius="md"
       border="1px solid"
@@ -62,20 +60,20 @@ export function PlanCard({
           isTemplate={isMontlyTemplate || zeroMonthlyPayment}
         />
       </Flex>
-      <Box text={["text-sm", "text-md"]} color="gray" mt="2">
+      <Box as="p" text={["text-sm", "text-md"]} color="gray" mt="2">
         {description}
       </Box>
       <Box as="ul" mt="3">
         {features.map((feature, index) => (
           <Flex
             as="li"
-            key={feature.id}
+            key={index}
             mt={index === 0 ? 0 : 2}
             alignItems="baseline"
           >
             <Icon name="checkmarkCircle" size="sm" color="green" />
             <Box as="p" text="text-lg" color="darkest" ml="2">
-              {feature.title}
+              {feature}
             </Box>
           </Flex>
         ))}

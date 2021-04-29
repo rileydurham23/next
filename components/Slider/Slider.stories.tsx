@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
 import Flex from "../Flex";
-import { Slider as Component, SliderProps } from "./Slider";
+import Component, { SliderProps } from "./Slider";
 
 const StoryComponent: Story<SliderProps> = (args) => (
   <Flex
@@ -17,7 +17,7 @@ const StoryComponent: Story<SliderProps> = (args) => (
 
 export default {
   component: Component,
-  title: "NumberPicker",
+  title: "Slider",
   argTypes: { onChange: { action: "changed" } },
 };
 

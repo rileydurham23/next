@@ -1,13 +1,18 @@
 /* eslint-env node */
+const { resolve } = require("path");
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 const mdxOptions = require("./.build/utils/mdx-config");
+const mdxDocsOptions = require("./.build/utils/mdx-docs-config");
 const {
   getRedirects,
   getLatestVersionRewirites,
   generateSitemap,
 } = require("./.build/utils/paths");
+
+const DOCS_DIRECTORY = resolve(__dirname, "pages/docs");
+const CONTENT_DIRECTORY = resolve(__dirname, "content");
 
 module.exports = withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
@@ -42,6 +47,18 @@ module.exports = withBundleAnalyzer({
     });
     config.module.rules.push({
       test: /\.(md|mdx)$/,
+      include: [DOCS_DIRECTORY, CONTENT_DIRECTORY],
+      use: [
+        options.defaultLoaders.babel,
+        {
+          loader: "@mdx-js/loader",
+          options: mdxDocsOptions.default,
+        },
+      ],
+    });
+    config.module.rules.push({
+      test: /\.(md|mdx)$/,
+      exclude: [DOCS_DIRECTORY, CONTENT_DIRECTORY],
       use: [
         options.defaultLoaders.babel,
         {

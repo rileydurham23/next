@@ -19,7 +19,7 @@ const Header = () => {
   );
 
   return (
-    <StyledHeader>
+    <StyledHeader as="header">
       <StyledLogoLink href="/">
         <Logo width={121} height={24} color="dark-purple" />
       </StyledLogoLink>

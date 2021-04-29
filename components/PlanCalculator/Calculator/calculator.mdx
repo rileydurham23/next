@@ -1,0 +1,58 @@
+---
+items:
+  - kind: option
+    title: Support Level
+    description: Enterprise support package comes with 24/7 support, response times SLAs and an account manager.
+    variants:
+      - title: Standard Support
+        selected: true
+      - title: Enterprise Support
+        enterpriseOnly: true
+
+  - kind: option
+    title: Hosting Options
+    description: Self-hosting option is only available with the Enterprise plan
+    variants:
+      - title: Cloud
+        selected: true
+      - title: Cloud or self-hosted
+        enterpriseOnly: true
+
+  - kind: access
+    title: Server Access
+    label: Nodes
+    price: 5
+    selected: true
+    description: A node can be a virtual machine, a bare metal server or any other SSH endpoint accessible via Teleport
+    maxQuantity: 300
+
+  - kind: access
+    title: Kubernetes Access
+    label: Clusters
+    price: 100
+    description: Pricing for Kubernetes access is based on the total number of clusters accessed via Teleport.
+    maxQuantity: 30
+
+  - kind: access
+    title: Application Access
+    label: Endpoints
+    price: 20
+    description: A web application is defined as a unique HTTP/TLS endpoint accessed via Teleport
+    maxQuantity: 100
+
+  - kind: access
+    title: Database Access
+    label: Endpoints
+    price: 100
+    description: Number of database instances accessed with Teleport
+    maxQuantity: 20
+---
+
+# Rules
+
+- **kind** is either "option" or "access";
+- **options** are dropdowns to the top part of calculator;
+- option variants can be **selected** or **enterpriseOnly**;
+- only one variant should be **selected** at the same time, it's a default selected variant;
+- **enterpriseOnly** variant instantly switches recommended plan to enterprise;
+- **access-items** can be selected by default via **selected** option. Multiple items can be selected at the same time.

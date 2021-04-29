@@ -60,7 +60,11 @@ const DocsPage = ({
 
   return (
     <>
-      <Head title={title} description={description} />
+      <Head
+        title={title}
+        description={description}
+        titleSuffix="Teleport Docs"
+      />
       <Layout>
         <Flex alignItems="stretch" flexDirection={["column", "row"]}>
           <Box flexShrink={0}>

@@ -1,4 +1,5 @@
 import Box from "components/Box";
+import { formatMoney } from "utils/formatMoney";
 import { Billing, BillingKind } from "./types";
 import { MonthlyLabel } from "./MonthlyLabel";
 
@@ -6,8 +7,6 @@ const BILLING_LABELS = {
   [BillingKind.CUSTOM]: "Custom",
   [BillingKind.FREE]: "Free",
 };
-
-const formatter = new Intl.NumberFormat("en-us");
 
 interface PriceProps {
   billing: Billing;
@@ -21,7 +20,7 @@ export function Price({ billing, charge, isTemplate }: PriceProps) {
 
   switch (billing.kind) {
     case BillingKind.MONTHLY: {
-      value = `$${formatter.format(charge || billing.defaultCharge)}`;
+      value = `$${formatMoney(charge || billing.defaultCharge)}`;
       break;
     }
     default: {

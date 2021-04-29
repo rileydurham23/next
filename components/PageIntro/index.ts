@@ -1,2 +1,1 @@
-export { PageIntro } from "./PageIntro";
-export type { Intro } from "./PageIntro";
+export { default } from "./PageIntro";

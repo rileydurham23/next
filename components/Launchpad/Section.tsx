@@ -3,15 +3,14 @@ import { StyledLink } from "components/Link";
 import { StyledHeading } from "./StyledHeading";
 import { SectionData } from "./types";
 
-interface SectionProps {
+interface Props {
   data: SectionData;
-
   embedded?: boolean;
 }
 
-function renderItem(item: SectionData["items"][number]) {
+function renderItem(item: SectionData["items"][number], index: number) {
   return (
-    <Box as="li" key={item.id} mt={[2, 0]}>
+    <Box as="li" key={index} mt={[2, 0]}>
       {"items" in item ? (
         <Section data={item} embedded />
       ) : (
@@ -23,7 +22,7 @@ function renderItem(item: SectionData["items"][number]) {
   );
 }
 
-export function Section({ data, embedded }: SectionProps) {
+export function Section({ data, embedded }: Props) {
   return (
     <>
       <StyledHeading

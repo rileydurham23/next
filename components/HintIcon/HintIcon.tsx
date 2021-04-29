@@ -62,14 +62,16 @@ const StyledButton = styled("button")<StyledSystemProps>(
     transition: transition([["color", "interaction"]]),
     "&:hover, &:focus": {
       color: "dark-purple",
-      [`& + ${StyledPopup}`]: css({
+      outline: "none",
+      [`& + ${StyledPopup}`]: {
         opacity: 1,
         visibility: "visible",
         transitionDelay: transition([["visibility", "interaction"]]),
         transform: ["translateY(-10vw)", "translateY(-115%) translateX(-50%)"],
-      }),
+      },
     },
-  })
+  }),
+  all
 );
 
 const StyledWrapper = styled(Box)<StyledSystemProps>(

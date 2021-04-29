@@ -1,8 +1,10 @@
 import css from "@styled-system/css";
 import { MDXProvider } from "@mdx-js/react";
 import Admonition from "components/Admonition";
+import PageIntro from "components/PageIntro";
 import Box from "components/Box";
 import { Tabs, TabItem } from "components/Tabs";
+import Layout, { Centrator } from "components/Layout";
 import {
   Tile,
   TileSet,
@@ -48,6 +50,9 @@ export const components = {
   TileListItem,
   TileImage,
   Figure,
+  Layout,
+  Centrator,
+  PageIntro,
 };
 
 export interface MDXProps {

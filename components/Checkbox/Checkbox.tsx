@@ -3,7 +3,7 @@ import css from "@styled-system/css";
 import styled from "styled-components";
 import Box, { BoxProps } from "components/Box";
 import Icon from "components/Icon";
-import { variant, transition, StyledSystemProps } from "components/system";
+import { all, variant, transition, StyledSystemProps } from "components/system";
 
 export interface CheckboxProps {
   checked: boolean;
@@ -86,7 +86,8 @@ const StyledSquare = styled("div")<StyledWrapperProps>(
         borderColor: "light-gray",
       },
     },
-  })
+  }),
+  all
 );
 
 const StyledWrapper = styled("label")<StyledSystemProps>(

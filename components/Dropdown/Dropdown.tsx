@@ -57,7 +57,7 @@ export function Dropdown<T>({
 
               return (
                 <StyledListboxOption key={value} value={value}>
-                  {renderOption ? renderOption(option) : option}
+                  {renderOption(option)}
                 </StyledListboxOption>
               );
             })}
@@ -72,7 +72,7 @@ const StyledListboxInput = styled(ListboxInput)<StyledSystemProps>(
   css({
     display: "inline-flex",
     width: "100%",
-    height: ["32px", "36px"],
+    minHeight: ["32px", "36px"],
     border: "1px solid",
     borderColor: ["white", "transparent"],
     borderRadius: "default",
@@ -120,8 +120,12 @@ const StyledListboxButton = styled(ListboxButton)(
     "& [data-reach-listbox-arrow]": {
       width: "16px",
       height: "16px",
-      mt: "-5px",
       ml: 3,
+      transition: transition([["transform", "interaction"]]),
+      transform: "rotate(0deg)",
+    },
+    [`& [data-reach-listbox-arrow][data-expanded]`]: {
+      transform: "rotate(180deg)",
     },
   }),
   all

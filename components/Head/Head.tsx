@@ -3,23 +3,30 @@ import { useRouter } from "next/router";
 
 import { buildCanonicalUrl, host } from "utils/url";
 
-const defaultTitle = "Teleport Docs";
+const DEFAULT_TITLE = "Teleport";
+const DEFAULT_DESCRIPTION =
+  "Teleport is available for free as an open source download. We also offer commercial subscription plans priced on the number of computing resources accessible via Teleport.";
 
-const formatTitle = (title?: string) => {
+const formatTitle = (suffix: string, title?: string) => {
   const base = title ? `${title} | ` : "";
 
-  return base + defaultTitle;
+  return base + suffix;
 };
 interface HeadProps {
   title: string;
   description?: string;
+  titleSuffix?: string;
 }
 
-const Head = (meta: HeadProps) => {
+const Head = ({
+  title: propsTitle,
+  description: propsDescription = DEFAULT_DESCRIPTION,
+  titleSuffix = DEFAULT_TITLE,
+}: HeadProps) => {
   const router = useRouter();
   const url = buildCanonicalUrl(router);
-  const title = formatTitle(meta.title);
-  const description = meta.description || "";
+  const title = formatTitle(titleSuffix, propsTitle);
+  const description = propsDescription || "";
 
   return (
     <NextHead>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { throttle } from "throttle-debounce";
 import { useCallback, ChangeEvent, ReactNode, useState } from "react";
 import Flex, { FlexProps } from "components/Flex";
-import { StyledSystemProps, transition } from "components/system";
+import { all, StyledSystemProps, transition } from "components/system";
 
 export interface SliderProps {
   onChange: (val: number) => void;
@@ -21,7 +21,7 @@ const DEFAULT_CHANGE_THROTTLE = 100;
 
 const echo = <T extends unknown>(thing: T): T => thing;
 
-export function Slider({
+export default function Slider({
   onChange,
   label,
   maxValue = 50,
@@ -55,7 +55,9 @@ export function Slider({
       alignItems={label ? "center" : "baseline"}
       {...props}
     >
-      <StyledSpan>{renderMin(minValue)}</StyledSpan>
+      <StyledSpan minWidth={10} textAlign="end">
+        {renderMin(minValue)}
+      </StyledSpan>
       <Flex flexDirection="column" alignItems="center" width="100%" px="2">
         {label && <StyledSpan>{label}</StyledSpan>}
         <StyledRange
@@ -69,7 +71,7 @@ export function Slider({
           {renderValue(innerValue)}
         </StyledSpan>
       </Flex>
-      <StyledSpan>{renderMax(maxValue)}</StyledSpan>
+      <StyledSpan minWidth={30}>{renderMax(maxValue)}</StyledSpan>
     </Flex>
   );
 }
@@ -79,7 +81,8 @@ const StyledSpan = styled("span")<StyledSystemProps>(
     color: "gray",
     fontSize: "text-sm",
     lineHeight: "12px",
-  })
+  }),
+  all
 );
 
 const thumbStyles = css({
@@ -119,6 +122,7 @@ const StyledRange = styled("input")<StyledSystemProps>(
       height: "100%",
     },
     ":active, :focus": {
+      outline: "none",
       "&::-webkit-slider-thumb": {
         bg: "lightest-gray",
       },

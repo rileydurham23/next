@@ -1,2 +1,2 @@
 export { Launchpad } from "./Launchpad";
-export type { SectionData } from "./types";
+export type { SectionData, Link } from "./types";

@@ -1,13 +1,4 @@
-interface Feature {
-  id: string;
-  title: string;
-}
-
-export enum PlanIcon {
-  DOWNLOAD = "download",
-  SHIELD = "shieldCheck",
-  BUSINESS = "apartment",
-}
+import { IconName } from "components/Icon";
 
 export enum BillingKind {
   MONTHLY = "monthly",
@@ -32,11 +23,10 @@ interface SpecialBilling {
 export type Billing = SpecialBilling | MonthlyBilling;
 
 export interface Plan {
-  id: string;
-  icon: PlanIcon;
+  icon: IconName;
   title: string;
   description: string;
-  features: Feature[];
+  features: string[];
   action: {
     title: string;
     url: string;

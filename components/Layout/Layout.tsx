@@ -7,10 +7,12 @@ interface LayoutProps {
 
 const Layout = ({ children, ...props }: LayoutProps & FlexProps) => {
   return (
-    <Flex pt={["48px", "80px"]} flexDirection="column" {...props}>
+    <>
       <Header />
-      {children}
-    </Flex>
+      <Flex as="main" pt={["48px", "80px"]} flexDirection="column" {...props}>
+        {children}
+      </Flex>
+    </>
   );
 };
 

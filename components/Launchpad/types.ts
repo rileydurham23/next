@@ -1,12 +1,9 @@
-interface BasicSectionItem {
-  id: string;
+export interface Link {
   title: string;
-}
-
-interface Link extends BasicSectionItem {
   url: string;
 }
 
-export interface SectionData extends BasicSectionItem {
+export interface SectionData {
+  title: string;
   items: Array<Link | SectionData>;
 }

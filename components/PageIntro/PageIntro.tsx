@@ -3,19 +3,18 @@ import css from "@styled-system/css";
 import { BoxProps } from "components/Box";
 import { media, StyledSystemProps } from "components/system";
 
-export interface Intro {
+export type Props = {
   title: string;
   subject: string;
   description: string;
-}
+} & BoxProps;
 
-export interface PageIntroProps {
-  data: Intro;
-}
-
-export function PageIntro({ data, ...props }: PageIntroProps & BoxProps) {
-  const { title, subject, description } = data;
-
+export default function PageIntro({
+  title,
+  subject,
+  description,
+  ...props
+}: Props) {
   return (
     <StyledWrapper {...props}>
       <StyledLeft>

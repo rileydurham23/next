@@ -19,10 +19,10 @@ export function Launchpad({ sections, ...props }: LaunchpadProps & BoxProps) {
         flexDirection={["column", "row"]}
         listStyle="none"
       >
-        {sections.map((section) => (
+        {sections.map((section, index) => (
           <Box
             as="li"
-            key={section.id}
+            key={index}
             width={["100%", `${partition}%`]}
             mx={[0, 2]}
             mt={[24, 0]}

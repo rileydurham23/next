@@ -3,15 +3,14 @@ import Flex, { FlexProps } from "components/Flex";
 import { StyledLink } from "components/Link";
 import { CURRENT_YEAR } from "utils/date";
 
-interface CopyrightProps {
+type Props = FlexProps & {
   links: {
-    id: string;
     url: string;
     title: string;
   }[];
-}
+};
 
-export function Copyright({ links, ...props }: CopyrightProps & FlexProps) {
+export function Copyright({ links, ...props }: Props) {
   return (
     <Flex
       width="100%"
@@ -31,8 +30,8 @@ export function Copyright({ links, ...props }: CopyrightProps & FlexProps) {
         ml={[0, 5]}
         flexDirection={["column", "row"]}
       >
-        {links.map((item) => (
-          <Box as="li" key={item.id} mt={[2, 0]}>
+        {links.map((item, index) => (
+          <Box as="li" key={index} mt={[2, 0]}>
             <StyledLink
               href={item.url}
               text="text-xs"

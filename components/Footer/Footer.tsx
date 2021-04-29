@@ -4,10 +4,10 @@ import { Launchpad } from "components/Launchpad";
 import { EmailSubscribe } from "components/EmailSubscribe";
 import theme from "components/theme";
 import { Copyright } from "./Copyright";
-import { LAUNCHPAD_DATA, COPYRIGHT_LINKS } from "./structure";
+import { launchpadData, copyrightLinks } from "./structure";
 import gridPngUrl from "./assets/grid-light.png";
 
-const BACKGROUND = [
+const background = [
   `url(${gridPngUrl}) 100% 100% no-repeat`,
   theme.gradients.grayToWhite.background,
 ].join(",");
@@ -29,10 +29,10 @@ export default function Footer() {
         borderTopColor="lightest-gray"
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
-        background={BACKGROUND}
+        background={background}
       >
-        <Launchpad sections={LAUNCHPAD_DATA} />
-        <Copyright links={COPYRIGHT_LINKS} pt={[40, 54]} />
+        <Launchpad sections={launchpadData} />
+        <Copyright links={copyrightLinks} pt={[40, 54]} />
       </Box>
     </Flex>
   );

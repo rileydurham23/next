@@ -61,6 +61,9 @@ const StyledFormFormWrapper = styled("form")(
     "& .mktoEmailField": {
       borderTopLeftRadius: "default",
       borderBottomLeftRadius: "default",
+      borderTopRightRadius: 0,
+      borderBottomRightRadius: 0,
+      appearance: "none",
       boxSizing: "border-box",
       border: "1px solid",
       borderColor: "light-gray",
