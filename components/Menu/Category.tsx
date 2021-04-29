@@ -75,7 +75,7 @@ const MainLink = styled("a")(({ active }: { active: boolean }) => [
     cursor: "pointer",
     display: "block",
     fontSize: "15px",
-    bg: active ? "rgba(240, 242, 244, 0.56)" : "white",
+    bg: active ? "rgba(240, 242, 244, 0.56)" : "transparent",
     fontWeight: 500,
     float: "left",
     lineHeight: "80px",
