@@ -20,10 +20,12 @@ export interface VersionsInfo {
   available: string[];
 }
 
+export type LayoutName = "doc" | "section" | "tocless-doc";
+
 export interface PageMeta {
   title?: string;
   description?: string;
   h1?: string;
   githubUrl: string;
-  layout?: "doc" | "section";
+  layout?: LayoutName;
 }

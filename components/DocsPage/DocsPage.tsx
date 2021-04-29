@@ -11,9 +11,25 @@ import Notice from "components/Notice";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navigation, { getCurrentCategoryIndex } from "./Navigation";
-import { NavigationCategory, VersionsInfo, PageMeta } from "./types";
+import {
+  NavigationCategory,
+  VersionsInfo,
+  PageMeta,
+  LayoutName,
+} from "./types";
 
-interface PageContentProps {
+const getContentWidth = (layout: LayoutName) => {
+  switch (layout) {
+    case "tocless-doc":
+      return "1164px";
+    case "section":
+      return "auto";
+    default:
+      return "900px";
+  }
+};
+
+interface DocsPageProps {
   navigation: NavigationCategory[];
   versions: VersionsInfo;
   meta: PageMeta;
@@ -22,17 +38,17 @@ interface PageContentProps {
   children: React.ReactNode;
 }
 
-const PageContent = ({
+const DocsPage = ({
   navigation,
   versions,
   githubUrl,
   meta: { h1, title, description, layout },
   tableOfConents,
   children,
-}: PageContentProps) => {
+}: DocsPageProps) => {
   const router = useRouter();
-  const isDocLayout = !layout || layout === "doc";
   const isSectionLayout = layout === "section";
+  const isTocVisible = !layout || layout === "doc";
 
   const { current, latest, available } = versions;
 
@@ -77,11 +93,11 @@ const PageContent = ({
                     )}
                   </Notice>
                 )}
-                <Box maxWidth={isDocLayout ? "900px" : "auto"}>
+                <Box maxWidth={getContentWidth(layout)}>
                   <MDX>{children}</MDX>
                 </Box>
               </Box>
-              {!!tableOfConents.length && isDocLayout && (
+              {!!tableOfConents.length && isTocVisible && (
                 <AnchorNavigation
                   headers={tableOfConents}
                   display={["none", "none", "block"]}
@@ -117,4 +133,4 @@ const PageContent = ({
   );
 };
 
-export default PageContent;
+export default DocsPage;
