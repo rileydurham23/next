@@ -14,6 +14,7 @@ export { default as Image } from "components/Image";
 export { default as Layout, Centrator } from "components/Layout";
 export { default as PlanCalculator } from "components/PlanCalculator";
 export { default as Link } from "components/Link";
+export { default as List, ListItem } from "components/List";
 export { default as Logo } from "components/Logo";
 export { default as MDX } from "components/MDX";
 export { default as ClientsList } from "components/ClientsList";

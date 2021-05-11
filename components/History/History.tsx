@@ -9,7 +9,9 @@ import pathUrl from "./assets/path.png";
 import waveLeftUrl from "./assets/wave_left.png";
 import waveRightUrl from "./assets/wave_right.png";
 
-type Props = { children: ReactNode };
+type Child = React.ReactElement<typeof Milestone>;
+
+type Props = { children: Child | Array<Child> };
 
 const pathBg = `url(${pathUrl}) center 200px no-repeat`;
 const waveLeftBg = `url(${waveLeftUrl}) -438px -660px no-repeat`;
@@ -47,12 +49,12 @@ export default function History({ children }: Props) {
   );
 }
 
-interface Milestone {
+interface MilestoneProps {
   icon: keyof typeof icons;
   children: ReactNode;
 }
 
-export function Milestone({ icon, children }: Milestone) {
+export function Milestone({ icon, children }: MilestoneProps) {
   return (
     <StyledItem backgroundImage={`url(${icons[icon]})`}>
       <StyledTextWrapper>{children}</StyledTextWrapper>

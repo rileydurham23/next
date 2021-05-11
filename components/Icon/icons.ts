@@ -33,4 +33,7 @@ export { ReactComponent as apartment } from "./svg/apartment.svg";
 export { ReactComponent as checkmarkCircle } from "./svg/checkmark-circle.svg";
 export { ReactComponent as helpCircle } from "./svg/help-circle.svg";
 export { ReactComponent as lock } from "./svg/lock.svg";
+export { ReactComponent as puzzle } from "./svg/puzzle.svg";
+export { ReactComponent as hearth } from "./svg/hearth.svg";
+export { ReactComponent as wellPaid } from "./svg/well-paid.svg";
 export { ReactComponent as server } from "./svg/server-access.svg";
