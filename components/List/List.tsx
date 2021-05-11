@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import css from "@styled-system/css";
 import { StyledSystemProps } from "components/system";
+import Heading from "components/Heading";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Icon, { IconName } from "components/Icon";
@@ -24,19 +25,7 @@ export default function List({ title, subtitle, children }: Props) {
   return (
     <Box as="section" background={waveBg} pt="10" pb="11">
       <Centrator flexDirection="column">
-        {subtitle && (
-          <Box as="p" mb="3" color="dark-purple" fontWeight="bold">
-            {subtitle}
-          </Box>
-        )}
-        <Box
-          as="h2"
-          fontSize="hero-header"
-          lineHeight="hero-header"
-          fontWeight="bold"
-        >
-          {title}
-        </Box>
+        <Heading title={title} subtitle={subtitle} />
         <Box
           background={["none", "none", terminalBg]}
           backgroundSize={["", "", "384px 320px"]}

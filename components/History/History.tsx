@@ -2,6 +2,7 @@ import styled from "styled-components";
 import css from "@styled-system/css";
 import { all, StyledSystemProps } from "components/system";
 import { Centrator } from "components/Layout";
+import Heading from "components/Heading";
 import Box from "components/Box";
 import { ReactNode } from "react";
 import * as icons from "./icons";
@@ -16,7 +17,6 @@ type Props = { children: Child | Array<Child> };
 const pathBg = `url(${pathUrl}) center 200px no-repeat`;
 const waveLeftBg = `url(${waveLeftUrl}) -438px -660px no-repeat`;
 const waveRightBg = `url(${waveRightUrl}) right -438px top -660px no-repeat`;
-
 const complexBg = [pathBg, waveLeftBg, waveRightBg].join(",");
 
 export default function History({ children }: Props) {
@@ -29,18 +29,7 @@ export default function History({ children }: Props) {
       background={["none", "none", complexBg]}
     >
       <Centrator flexDirection="column" alignItems="center">
-        <Box as="p" color="dark-purple" fontWeight="bold">
-          History
-        </Box>
-        <Box
-          as="h1"
-          mt="3"
-          fontSize="hero-header"
-          lineHeight="hero-header"
-          fontWeight="bold"
-        >
-          Our Story
-        </Box>
+        <Heading title="Our Story" subtitle="History" align="center" />
         <Box as="ul" listStyle="none">
           {children}
         </Box>
