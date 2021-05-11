@@ -1,47 +1,65 @@
+import { variant } from "styled-system";
 import styled from "styled-components";
 import css from "@styled-system/css";
 import { BoxProps } from "components/Box";
-import { media, StyledSystemProps } from "components/system";
+import { all, media, StyledSystemProps } from "components/system";
+
+type Theme = "light" | "dark";
 
 export type Props = {
   title: string;
   subject: string;
   description: string;
+  theme: Theme;
 } & BoxProps;
 
 export default function PageIntro({
   title,
   subject,
   description,
+  theme = "dark",
   ...props
 }: Props) {
   return (
     <StyledWrapper {...props}>
       <StyledLeft>
-        <StyledSubject>{subject}</StyledSubject>
-        <StyledHeading>{title}</StyledHeading>
+        <StyledSubject variant={theme}>{subject}</StyledSubject>
+        <StyledHeading variant={theme}>{title}</StyledHeading>
       </StyledLeft>
-      <StyledDescription>{description}</StyledDescription>
+      <StyledDescription variant={theme}>{description}</StyledDescription>
     </StyledWrapper>
   );
 }
 
-const StyledSubject = styled("p")<StyledSystemProps>(
+interface ThemedProps extends StyledSystemProps {
+  variant?: Theme | Theme[];
+}
+
+const StyledSubject = styled("p")<ThemedProps>(
   css({
     boxSizing: "border-box",
     fontSize: "text-xl",
     lineHeight: "md",
     fontWeight: "bold",
-    color: "dark-purple",
     m: 0,
   }),
   media("mdVertical", {
     fontSize: "text-md",
     lineHeight: "lg",
+  }),
+  variant({
+    variants: {
+      dark: {
+        color: "dark-purple",
+      },
+      light: {
+        color: "white",
+      },
+    },
   })
 );
 
-const StyledHeading = styled("h1")<StyledSystemProps>(
+const StyledHeading = styled("h1")<ThemedProps>(
   css({
     boxSizing: "border-box",
     fontSize: "hero-header",
@@ -60,15 +78,21 @@ const StyledHeading = styled("h1")<StyledSystemProps>(
     lineHeight: "lg",
     fontWeight: "bold",
     pt: 0,
+  }),
+  variant({
+    variants: {
+      light: {
+        color: "white",
+      },
+    },
   })
 );
 
-const StyledDescription = styled("p")<StyledSystemProps>(
+const StyledDescription = styled("p")<ThemedProps>(
   css({
     boxSizing: "border-box",
     fontSize: "text-xl",
     lineHeight: "lg",
-    color: "darkest",
     pt: 5,
     m: 0,
   }),
@@ -80,6 +104,16 @@ const StyledDescription = styled("p")<StyledSystemProps>(
   }),
   media("md", {
     ml: 0,
+  }),
+  variant({
+    variants: {
+      dark: {
+        color: "darkest",
+      },
+      light: {
+        color: "white",
+      },
+    },
   })
 );
 
@@ -104,5 +138,6 @@ const StyledWrapper = styled("div")<StyledSystemProps>(
     py: 4,
     display: "block",
     ml: [0, 3],
-  })
+  }),
+  all
 );

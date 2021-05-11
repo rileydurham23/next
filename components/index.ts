@@ -20,6 +20,7 @@ export { default as Menu } from "components/Menu";
 export { default as Notice } from "components/Notice";
 export { default as Slider } from "components/Slider";
 export { default as Box } from "components/Box";
+export { default as Cover } from "components/Cover";
 export type { BoxProps };
 export { default as Flex } from "components/Flex";
 export type { FlexProps };
