@@ -13,6 +13,16 @@ const {
 
 const DOCS_DIRECTORY = resolve(__dirname, "pages/docs");
 const CONTENT_DIRECTORY = resolve(__dirname, "content");
+const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "components/Company");
+
+const urlLoaderOptions = {
+  limit: 1 * 1024,
+  noquotes: true,
+  fallback: "file-loader",
+  publicPath: `/_next/static/images/`,
+  outputPath: "static/images/",
+  name: "[hash].[ext]",
+};
 
 module.exports = withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
@@ -27,22 +37,28 @@ module.exports = withBundleAnalyzer({
 
     config.module.rules.push({
       test: /\.svg$/,
-      exclude: /node_modules/,
+      exclude: [/node_modules/, COMPANY_LOGOS_DIRECTORY],
       use: ["@svgr/webpack", "url-loader"],
+    });
+    config.module.rules.push({
+      test: /\.svg$/,
+      include: [COMPANY_LOGOS_DIRECTORY],
+      use: [
+        {
+          loader: "url-loader",
+          options: {
+            ...urlLoaderOptions,
+            limit: 128,
+          },
+        },
+      ],
     });
     config.module.rules.push({
       test: /\.(png|jpg|woff2)$/i,
       exclude: /node_modules/,
       use: {
         loader: "url-loader",
-        options: {
-          limit: 1 * 1024,
-          noquotes: true,
-          fallback: "file-loader",
-          publicPath: `/_next/static/images/`,
-          outputPath: "static/images/",
-          name: "[hash].[ext]",
-        },
+        options: urlLoaderOptions,
       },
     });
     config.module.rules.push({
