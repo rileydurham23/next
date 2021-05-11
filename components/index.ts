@@ -5,6 +5,7 @@ export { default as Button } from "components/Button";
 export { default as DocsPage } from "components/DocsPage";
 export { default as SitePage } from "components/SitePage";
 export { default as Footer } from "components/Footer";
+export { default as History, Milestone } from "components/History";
 export { default as Head } from "components/Head";
 export { default as Header } from "components/Header";
 export { default as HeadlessButton } from "components/HeadlessButton";
