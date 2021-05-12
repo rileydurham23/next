@@ -110,6 +110,9 @@ const theme = {
       background:
         "linear-gradient(42deg, #ffffff 0%, #f4f5f7 81%, #f3f4f6 100%, #f0f2f4 100%)",
     },
+    purpleToBlack: {
+      background: "linear-gradient(54deg, #391c70 0%, #0c143d 100%);",
+    },
   },
   transitionTimings: {
     interaction: 300,

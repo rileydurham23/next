@@ -53,7 +53,7 @@ export default function Careers() {
           subtitle="Join Us"
           align="center"
         />
-        <Box as="p" mt="5" color="darkest" text="text-xl">
+        <Box as="p" mt="5" color="darkest" text="text-xl" textAlign="center">
           We are growing quickly. Join us to help move cloud computing into a
           brighter, and more secure, future.
         </Box>
@@ -67,7 +67,7 @@ export default function Careers() {
           Get Started
         </Button>
       </Centrator>
-      <Box mt="10" overflow="hidden">
+      <Box mt={[5, 10]} overflow="hidden">
         <StyledRowWrapper>
           <StyledRow
             height={["250px", "250px", "500px"]}
@@ -116,7 +116,7 @@ const StyledWrapper = styled("section")<StyledSystemProps>(
   css({
     boxSizing: "border-box",
     width: "100%",
-    pt: "10",
+    pt: [5, 10],
     pb: "4",
   }),
   all

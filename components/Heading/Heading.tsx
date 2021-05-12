@@ -1,13 +1,13 @@
 import Box from "components/Box";
-import Flex from "components/Flex";
+import Flex, { FlexProps } from "components/Flex";
 
 type Align = "left" | "center";
 
-export interface Props {
+export type Props = {
   title: string;
   align?: Align;
   subtitle?: string;
-}
+} & FlexProps;
 
 function getAlign(align: Align): "center" | "flex-start" {
   const map: Record<Align, "center" | "flex-start"> = {
@@ -18,9 +18,14 @@ function getAlign(align: Align): "center" | "flex-start" {
   return map[align];
 }
 
-export default function Heading({ title, subtitle, align = "left" }: Props) {
+export default function Heading({
+  title,
+  subtitle,
+  align = "left",
+  ...props
+}: Props) {
   return (
-    <Flex flexDirection="column" alignItems={getAlign(align)}>
+    <Flex flexDirection="column" alignItems={getAlign(align)} {...props}>
       {subtitle && (
         <Box as="p" mb="3" color="dark-purple" fontWeight="bold">
           {subtitle}
@@ -28,8 +33,8 @@ export default function Heading({ title, subtitle, align = "left" }: Props) {
       )}
       <Box
         as="h2"
-        fontSize="hero-header"
-        lineHeight="hero-header"
+        fontSize={["header-1", "hero-header"]}
+        lineHeight={["xxl", "hero-header"]}
         fontWeight="bold"
         textAlign={align}
       >

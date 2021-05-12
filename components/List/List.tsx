@@ -23,7 +23,7 @@ interface Props {
 
 export default function List({ title, subtitle, children }: Props) {
   return (
-    <Box as="section" background={waveBg} pt="10" pb="11">
+    <Box as="section" background={waveBg} pt={[5, 10]} pb={[6, 11]}>
       <Centrator flexDirection="column">
         <Heading title={title} subtitle={subtitle} />
         <Box

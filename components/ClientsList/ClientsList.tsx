@@ -11,7 +11,6 @@ type Props = { clients: CompanyId[] } & FlexProps;
 export default function ClientsList({ clients, ...props }: Props) {
   return (
     <Flex
-      as="section"
       flexDirection="column"
       alignItems="center"
       width="100%"
@@ -21,7 +20,7 @@ export default function ClientsList({ clients, ...props }: Props) {
       <Box as="h2" fontSize="0" color="white">
         Clients
       </Box>
-      <Box as="p" color="gray" fontWeight="bold">
+      <Box as="p" text="text-xl" color="gray" fontWeight="bold">
         Trusted by Leading Orgnizations
       </Box>
 
@@ -58,6 +57,6 @@ const StyledList = styled("ul")<StyledSystemProps>(
     listStyle: "none",
     m: 0,
     p: 0,
-    mt: 7,
+    mt: 6,
   })
 );

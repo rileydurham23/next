@@ -25,7 +25,7 @@ export default function History({ children }: Props) {
       as="section"
       width="100%"
       text="text-xl"
-      py="10"
+      py={[5, 10]}
       background={["none", "none", complexBg]}
     >
       <Centrator flexDirection="column" alignItems="center">
