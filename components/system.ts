@@ -55,6 +55,10 @@ export interface StyledSystemProps
   textOverflow?: ResponsiveValue<Property.TextOverflow, RequiredTheme>;
   borderCollapse?: ResponsiveValue<Property.BorderCollapse, RequiredTheme>;
   transition?: ResponsiveValue<Property.Transition, RequiredTheme>;
+  animationDuration?: ResponsiveValue<
+    Property.AnimationDuration,
+    RequiredTheme
+  >;
 }
 
 export const all = compose(
@@ -75,6 +79,7 @@ export const all = compose(
     whiteSpace: true,
     borderCollapse: true,
     transition: true,
+    animationDuration: true,
   }),
   variant({
     prop: "text",

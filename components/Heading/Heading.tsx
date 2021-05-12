@@ -31,6 +31,7 @@ export default function Heading({ title, subtitle, align = "left" }: Props) {
         fontSize="hero-header"
         lineHeight="hero-header"
         fontWeight="bold"
+        textAlign={align}
       >
         {title}
       </Box>

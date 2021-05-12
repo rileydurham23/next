@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
-import { Flex, FlexProps, Box, Button, Icon } from "components";
+import Button from "components/Button";
+import Icon from "components/Icon";
+import Box from "components/Box";
+import Flex, { FlexProps } from "components/Flex";
 import { StyledSystemProps } from "components/system";
 import { BillingKind, Plan, CardHeight } from "./types";
 import { Price } from "./Price";

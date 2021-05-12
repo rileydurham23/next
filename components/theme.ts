@@ -106,6 +106,10 @@ const theme = {
     grayToWhite: {
       background: "linear-gradient(125deg, rgba(240,242,244,.56), white)",
     },
+    lightGrayToDark: {
+      background:
+        "linear-gradient(42deg, #ffffff 0%, #f4f5f7 81%, #f3f4f6 100%, #f0f2f4 100%)",
+    },
   },
   transitionTimings: {
     interaction: 300,
