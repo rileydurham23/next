@@ -30,7 +30,7 @@ export default function History({ children }: Props) {
     >
       <Centrator flexDirection="column" alignItems="center">
         <Heading title="Our Story" subtitle="History" align="center" />
-        <Box as="ul" listStyle="none">
+        <Box as="ul" listStyle="none" maxWidth="100%">
           {children}
         </Box>
       </Centrator>

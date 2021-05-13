@@ -1,0 +1,114 @@
+---
+title: About Us
+h1: Teleport
+subject: About Us
+hideWave: true
+description: Teleport is a remote-first technology company with satellite offices in Oakland and Seattle. We enable engineers to quickly access any computing resource anywhere on the planet.
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+---
+
+import {
+  History,
+  Milestone,
+  ClientsList,
+  Cover,
+  List,
+  ListItem,
+  Careers,
+  Manifesto,
+} from "components";
+
+<Cover title={meta.h1} subject={meta.subject} description={meta.description} />
+
+<History>
+  <Milestone icon="pc">
+    Teleport founders **fell in love** with **programming** by giving a computer
+    some instructions and watching the magic happen. The **close relationship**
+    between a programmer, a machine, and code felt special.
+  </Milestone>
+  <Milestone icon="graduate">
+    We **went to college** and **joined the workforce**. We even launched our
+    own startups and witnessed the transition of programming from one machine to
+    many and eventually to cloud computing. This brought enormous complexities
+    into our lives. Half of our effort now goes towards erecting and
+    continuously maintaining complex "**cloud environments**" for our programs..
+  </Milestone>
+  <Milestone icon="security">
+    Each environment consists of numerous layers of computing resources, each
+    with its own trust model, often separated by network boundaries and
+    overburdened with excessive configuration. Not only is this complexity
+    **slowing us down**, but it is also prone to human errors, resulting in
+    **poor security**.
+  </Milestone>
+  <Milestone icon="laptop">
+    We started the company because we found this **mess** with
+    environments…**unpleasant**. We liked the simplicity of giving instructions
+    to a computer better. Can we have that in **the modern era of cloud
+    computing**?
+  </Milestone>
+  <Milestone icon="jet">
+    We believe the **answer is yes**, but we have to let go of environments and
+    leap into **environment-free computing**, i.e. fully embrace the promise of
+    the cloud and treat the entire planet as a single, multi-tenant computer.
+    That computer needs a simple and secure **unified access plane**.
+  </Milestone>
+</History>
+
+<Manifesto>
+  Today's **computing environments** have too much complexity, too many network
+  boundaries, and too little trust. Complexity slows engineers down and leads to
+  human errors. Complex systems can’t be secure despite the red tape of
+  bureaucracy. We make trusted computing **simple**. This gives engineers
+  **freedom to move and freedom to build a better future**.
+</Manifesto>
+
+<List
+  subtitle="Our Engineering Principles"
+  title="Product and Engineering Principles"
+>
+  <ListItem icon="wellPaid">
+    ## We believe in being paid for quality work
+
+    There's an incredible amount of software infrastructure that is under
+    funded and ignored. We believe our software needs to generate revenue to
+    employ the best minds.
+
+  </ListItem>
+  <ListItem icon="hearth">
+    ## We balance openness and transparency
+
+    We work as much as we can in the open; our commits, designs, and
+    comments are largely in public repositories for anyone to use and observe.
+    We strive to find balance in open-core and community friendly software
+    versus competing in a dynamic and evolving market segment. All our security
+    critical code is developed in the open. Our independent audits get
+    published, even the unflattering ones.
+
+  </ListItem>
+  <ListItem icon="puzzle">
+    ## We want to tackle and solve the hard problems
+
+    We want to minimize the theater in security products, and offer
+    meaningful improvements to security posture. We want to focus on the user,
+    having a product that users aren't trying to work around to get their jobs
+    done. We want to end passwords as a vehicle for trust, including passwords
+    in disguise such as tokens.
+
+  </ListItem>
+</List>
+
+<Careers />
+
+<Centrator wrapperAs="section">
+  <ClientsList clients={meta.clients} />
+</Centrator>

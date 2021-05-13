@@ -13,6 +13,7 @@ export default function Cover(props: Props) {
         <PageIntro
           theme={"light" as const}
           maxWidth={["100%", "41%"]}
+          verticalResponsive={false}
           {...props}
         />
       </Centrator>

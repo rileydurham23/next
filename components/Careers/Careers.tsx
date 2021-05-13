@@ -71,7 +71,7 @@ export default function Careers() {
         <StyledRowWrapper>
           <StyledRow
             height={["250px", "250px", "500px"]}
-            animationDuration={["140s", "140s", "100s"]}
+            animationDuration={["200s", "200s", "150s"]}
           >
             {group1.map((photo, index) => (
               <Photo key={index} photo={photo} />
@@ -79,7 +79,7 @@ export default function Careers() {
           </StyledRow>
           <StyledRow
             height={["190px", "190px", "380px"]}
-            animationDuration={["180s", "180s", "120s"]}
+            animationDuration={["250s", "250s", "200s"]}
             mt="3"
           >
             {group2.map((photo, index) => (
@@ -124,15 +124,13 @@ const StyledWrapper = styled("section")<StyledSystemProps>(
 
 const shiftAnimation = keyframes`
   0% {
-    transform: translateX(0%);
+    transform: translate3d(0, 0 , 0);
   }
-
   50% {
-    transform: translateX(calc(-100% + 100vw))
+    transform: translate3d(calc(-100% + 100vw), 0 , 0);
   }
-
   100% {
-    transform: translateX(0%);
+    transform: translate3d(0, 0 , 0);
   }
 `;
 

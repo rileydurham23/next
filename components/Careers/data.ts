@@ -14,7 +14,6 @@ import kafiPayne2 from "./crew/kafi_payne_2.jpg";
 import pierreBeaucamp from "./crew/pierre_beaucamp.jpg";
 import taylorWakefield from "./crew/taylor_wakefield.jpg";
 import taylorWakefield2 from "./crew/taylor_wakefield_2.jpg";
-import viragMody from "./crew/virag_mody.jpg";
 
 interface Member {
   firstName: string;
@@ -39,13 +38,13 @@ const crew: Member[] = [
   {
     firstName: "Alex",
     lastName: "Wolfe",
-    role: "VP of UX and design",
+    role: "VP of UX and Design",
     photos: [alexWolfe, alexWolfe2],
   },
   {
     firstName: "Alexandra",
     lastName: "Patane",
-    role: "Mid market account executive",
+    role: "Mid market Account Executive",
     photos: [alexandraPatane, alexandraPatane2],
   },
   {
@@ -57,11 +56,11 @@ const crew: Member[] = [
   {
     firstName: "Bardia",
     lastName: "Shahali",
-    role: "VP of sales",
+    role: "VP of Sales",
     photos: [bardiaShahali],
   },
   {
-    firstName: "Eugueny",
+    firstName: "Ev",
     lastName: "Kontsevoy",
     role: "CEO",
     photos: [euguenyKontsevoy],
@@ -69,13 +68,13 @@ const crew: Member[] = [
   {
     firstName: "Joshua",
     lastName: "Smith",
-    role: "Enterprise account executive",
+    role: "Enterprise Account Executive",
     photos: [joshuaSmith],
   },
   {
     firstName: "Kafi",
     lastName: "Payne",
-    role: "HR director",
+    role: "HR Director",
     photos: [kafiPayne, kafiPayne2],
   },
   {
@@ -89,12 +88,6 @@ const crew: Member[] = [
     lastName: "Wakefield",
     role: "COO",
     photos: [taylorWakefield, taylorWakefield2],
-  },
-  {
-    firstName: "Virag",
-    lastName: "Mody",
-    role: "Technical writer",
-    photos: [viragMody],
   },
 ];
 

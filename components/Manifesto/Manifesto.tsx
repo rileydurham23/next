@@ -9,7 +9,7 @@ import { Centrator } from "components/Layout";
 import Heading from "components/Heading";
 import theme from "components/theme";
 
-const SSRLessGlob = dynamic(() => import("./Glob"), {
+const SSRLessGlob = dynamic(() => import("./Globe"), {
   ssr: false,
 });
 
@@ -44,7 +44,7 @@ export default function Manifesto({ children }: Props) {
 const StyledContentContainer = styled("div")<StyledSystemProps>(
   css({
     fontSize: "header-4",
-    lineHeight: "xl",
+    lineHeight: "lg",
     width: ["100%", "100%", "50%"],
     "> p": {
       m: 0,

@@ -33,8 +33,8 @@ export default function Heading({
       )}
       <Box
         as="h2"
-        fontSize={["header-1", "hero-header"]}
-        lineHeight={["xxl", "hero-header"]}
+        fontSize={["header-1", "section-header"]}
+        lineHeight={["xxl", "section-header"]}
         fontWeight="bold"
         textAlign={align}
       >

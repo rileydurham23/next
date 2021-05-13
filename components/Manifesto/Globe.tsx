@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import ReactGlobe, { GlobeProps } from "react-globe.gl";
-import earthUrl from "./assets/earth-night.jpg";
+import earthUrl from "./assets/globe.png";
 
 export default function Globe(props: GlobeProps) {
   const ref = useRef(null);

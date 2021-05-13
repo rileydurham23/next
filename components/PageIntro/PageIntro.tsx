@@ -11,6 +11,7 @@ export type Props = {
   subject: string;
   description: string;
   theme: Theme;
+  verticalResponsive?: boolean;
 } & BoxProps;
 
 export default function PageIntro({
@@ -18,22 +19,32 @@ export default function PageIntro({
   subject,
   description,
   theme = "dark",
+  verticalResponsive: vr = true,
   ...props
 }: Props) {
   return (
-    <StyledWrapper {...props}>
-      <StyledLeft>
-        <StyledSubject variant={theme}>{subject}</StyledSubject>
-        <StyledHeading variant={theme}>{title}</StyledHeading>
+    <StyledWrapper vr={vr} {...props}>
+      <StyledLeft vr={vr}>
+        <StyledSubject variant={theme} vr={vr}>
+          {subject}
+        </StyledSubject>
+        <StyledHeading variant={theme} vr={vr}>
+          {title}
+        </StyledHeading>
       </StyledLeft>
-      <StyledDescription variant={theme}>{description}</StyledDescription>
+      <StyledDescription variant={theme} vr={vr}>
+        {description}
+      </StyledDescription>
     </StyledWrapper>
   );
 }
 
 interface ThemedProps extends StyledSystemProps {
   variant?: Theme | Theme[];
+  vr?: boolean | boolean[];
 }
+
+const pickTheme = (fn) => (theme) => fn({ theme });
 
 const StyledSubject = styled("p")<ThemedProps>(
   css({
@@ -43,9 +54,16 @@ const StyledSubject = styled("p")<ThemedProps>(
     fontWeight: "bold",
     m: 0,
   }),
-  media("mdVertical", {
-    fontSize: "text-md",
-    lineHeight: "lg",
+  variant({
+    prop: "vr",
+    variants: {
+      true: pickTheme(
+        media("mdVertical", {
+          fontSize: "text-md",
+          lineHeight: "lg",
+        })
+      ),
+    },
   }),
   variant({
     variants: {
@@ -73,11 +91,18 @@ const StyledHeading = styled("h1")<ThemedProps>(
     lineHeight: "xl",
     pt: 0,
   }),
-  media("mdVertical", {
-    fontSize: "header-3",
-    lineHeight: "lg",
-    fontWeight: "bold",
-    pt: 0,
+  variant({
+    prop: "vr",
+    variants: {
+      true: pickTheme(
+        media("mdVertical", {
+          fontSize: "header-3",
+          lineHeight: "lg",
+          fontWeight: "bold",
+          pt: 0,
+        })
+      ),
+    },
   }),
   variant({
     variants: {
@@ -96,11 +121,18 @@ const StyledDescription = styled("p")<ThemedProps>(
     pt: 5,
     m: 0,
   }),
-  media("mdVertical", {
-    fontSize: "text-md",
-    lineHeight: "md",
-    pt: 0,
-    ml: 10,
+  variant({
+    prop: "vr",
+    variants: {
+      true: pickTheme(
+        media("mdVertical", {
+          fontSize: "text-md",
+          lineHeight: "md",
+          pt: 0,
+          ml: 10,
+        })
+      ),
+    },
   }),
   media("md", {
     ml: 0,
@@ -117,22 +149,34 @@ const StyledDescription = styled("p")<ThemedProps>(
   })
 );
 
-const StyledLeft = styled("div")<StyledSystemProps>(
+const StyledLeft = styled("div")<ThemedProps>(
   css({
     boxSizing: "border-box",
   }),
-  media("mdVertical", { flexShrink: 0 })
+  variant({
+    prop: "vr",
+    variants: {
+      true: pickTheme(media("mdVertical", { flexShrink: 0 })),
+    },
+  })
 );
 
-const StyledWrapper = styled("div")<StyledSystemProps>(
+const StyledWrapper = styled("div")<ThemedProps>(
   css({
     boxSizing: "border-box",
     pt: 5,
     pb: 7,
   }),
-  media("mdVertical", {
-    display: "flex",
-    alignItems: "center",
+  variant({
+    prop: "vr",
+    variants: {
+      true: pickTheme(
+        media("mdVertical", {
+          display: "flex",
+          alignItems: "center",
+        })
+      ),
+    },
   }),
   media("md", {
     py: 4,
