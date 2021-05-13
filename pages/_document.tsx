@@ -1,6 +1,9 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
+const { NEXT_PUBLIC_GTM_ID } = process.env;
+const { NEXT_PUBLIC_GTAG_ID } = process.env;
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
@@ -36,7 +39,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
 
-          {process.env.NEXT_PUBLIC_GTM_ID && (
+          {NEXT_PUBLIC_GTM_ID && (
             <>
               {/* Google Tag Manager */}
               <script
@@ -45,7 +48,7 @@ export default class MyDocument extends Document {
                   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                  })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');`,
+                  })(window,document,'script','dataLayer','${NEXT_PUBLIC_GTM_ID}');`,
                 }}
               />
 
@@ -53,10 +56,29 @@ export default class MyDocument extends Document {
               {/* Google Tag Manager (noscript) */}
               <noscript
                 dangerouslySetInnerHTML={{
-                  __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+                  __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${NEXT_PUBLIC_GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
                 }}
               />
               {/* End Google Tag Manager (noscript) */}
+            </>
+          )}
+          {NEXT_PUBLIC_GTAG_ID && (
+            <>
+              {/* GTag */}
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${NEXT_PUBLIC_GTAG_ID}`}
+              />
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', "${NEXT_PUBLIC_GTAG_ID}");`,
+                }}
+              />
+              {/* End GTag */}
             </>
           )}
         </body>
