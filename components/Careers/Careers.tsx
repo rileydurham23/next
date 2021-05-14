@@ -124,13 +124,13 @@ const StyledWrapper = styled("section")<StyledSystemProps>(
 
 const shiftAnimation = keyframes`
   0% {
-    transform: translate3d(0, 0 , 0);
+    transform: translateX(0%);
   }
   50% {
-    transform: translate3d(calc(-100% + 100vw), 0 , 0);
+    transform: translateX(calc(-100% + 100vw));
   }
   100% {
-    transform: translate3d(0, 0 , 0);
+    transform: translateX(0%);
   }
 `;
 
@@ -147,6 +147,7 @@ const StyledRow = styled("ul")<StyledSystemProps>(
   css({
     display: "inline-flex",
     listStyle: "none",
+    minWidth: "100vw",
     m: 0,
     p: 0,
     animationTimingFunction: "linear",

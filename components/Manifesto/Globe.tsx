@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import ReactGlobe, { GlobeProps } from "react-globe.gl";
 import earthUrl from "./assets/globe.png";
 
+const USA = { lat: 50, lng: -80 };
+
 export default function Globe(props: GlobeProps) {
   const ref = useRef(null);
 
@@ -12,7 +14,7 @@ export default function Globe(props: GlobeProps) {
       globe.controls().autoRotate = true;
       globe.controls().autoRotateSpeed = 0.3;
       globe.controls().enableZoom = false;
-      globe.pointOfView({ altitude: 2 });
+      globe.pointOfView({ ...USA, altitude: 2 });
     }
   }, [ref.current]);
 
@@ -21,6 +23,8 @@ export default function Globe(props: GlobeProps) {
       ref={ref}
       globeImageUrl={earthUrl}
       backgroundColor="rgba(0,0,0,0)"
+      showAtmosphere={false}
+      enablePointerInteraction={false}
       {...props}
     />
   );
