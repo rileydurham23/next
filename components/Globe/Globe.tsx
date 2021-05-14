@@ -1,3 +1,12 @@
+//
+// it's **very** heavy component because of three.js in react-globe.gl deps
+// please, import it dynamically whenever possible and disable SSR:
+//
+// import dynamic from "next/dynamic";
+// const SSRLessGlob = dynamic(() => import("./Globe"), {
+//   ssr: false,
+// });
+//
 import { useEffect, useRef } from "react";
 import ReactGlobe, { GlobeProps } from "react-globe.gl";
 import earthUrl from "./assets/globe.png";

@@ -8,9 +8,9 @@ type Theme = "light" | "dark";
 
 export type Props = {
   title: string;
-  subject: string;
   description: string;
-  theme: Theme;
+  subject?: string;
+  theme?: Theme;
   verticalResponsive?: boolean;
 } & BoxProps;
 
@@ -25,9 +25,11 @@ export default function PageIntro({
   return (
     <StyledWrapper vr={vr} {...props}>
       <StyledLeft vr={vr}>
-        <StyledSubject variant={theme} vr={vr}>
-          {subject}
-        </StyledSubject>
+        {subject && (
+          <StyledSubject variant={theme} vr={vr}>
+            {subject}
+          </StyledSubject>
+        )}
         <StyledHeading variant={theme} vr={vr}>
           {title}
         </StyledHeading>

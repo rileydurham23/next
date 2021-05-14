@@ -9,7 +9,7 @@ import { Centrator } from "components/Layout";
 import Heading from "components/Heading";
 import theme from "components/theme";
 
-const SSRLessGlob = dynamic(() => import("./Globe"), {
+const SSRLessGlob = dynamic(() => import("components/Globe"), {
   ssr: false,
 });
 

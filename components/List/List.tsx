@@ -2,9 +2,9 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import css from "@styled-system/css";
 import { StyledSystemProps } from "components/system";
+import { variant } from "styled-system";
 import Heading from "components/Heading";
 import Box from "components/Box";
-import Flex from "components/Flex";
 import Icon, { IconName } from "components/Icon";
 import { Centrator } from "components/Layout";
 import terminalUrl from "./assets/terminal.png";
@@ -16,23 +16,27 @@ const terminalBg = `url(${terminalUrl}) right center no-repeat`;
 type Child = React.ReactElement<typeof ListItem>;
 
 interface Props {
-  title: string;
   children: Child | Array<Child>;
+  grid?: boolean;
+  title?: string;
   subtitle?: string;
 }
 
-export default function List({ title, subtitle, children }: Props) {
+export default function List({
+  title,
+  subtitle,
+  grid = false,
+  children,
+}: Props) {
   return (
     <Box as="section" background={waveBg} pt={[5, 10]} pb={[6, 11]}>
       <Centrator flexDirection="column">
         <Heading title={title} subtitle={subtitle} />
         <Box
-          background={["none", "none", terminalBg]}
-          backgroundSize={["", "", "384px 320px"]}
+          background={grid ? undefined : ["none", "none", terminalBg]}
+          backgroundSize={grid ? undefined : ["", "", "384px 320px"]}
         >
-          <Box as="ul" listStyle="none" maxWidth={["100%", "100%", "60%"]}>
-            {children}
-          </Box>
+          <StyledUL grid={grid}>{children}</StyledUL>
         </Box>
       </Centrator>
     </Box>
@@ -46,14 +50,16 @@ interface ListItemProps {
 
 export function ListItem({ children, icon }: ListItemProps) {
   return (
-    <Flex mt="7">
+    <StyledItem>
       {icon && <StyledIcon name={icon} size="xl" />}
       <StyledContentWrapper>{children}</StyledContentWrapper>
-    </Flex>
+    </StyledItem>
   );
 }
 
 const StyledIcon = styled(Icon)(css({ flexShrink: 0, mr: 4 }));
+
+const StyledItem = styled("li")(css({ display: "flex", mt: 7 }));
 
 const StyledContentWrapper = styled("div")<StyledSystemProps>(
   css({
@@ -70,6 +76,33 @@ const StyledContentWrapper = styled("div")<StyledSystemProps>(
       lineHeight: "lg",
       m: 0,
       mt: 3,
+    },
+  })
+);
+
+interface ULProps extends StyledSystemProps {
+  grid?: boolean | boolean[];
+}
+
+const StyledUL = styled("ul")<ULProps>(
+  css({
+    listStyle: "none",
+    m: 0,
+    p: 0,
+    maxWidth: ["100%", "100%", "60%"],
+  }),
+  variant({
+    prop: "grid",
+    variants: {
+      true: {
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        maxWidth: ["100%", "100%", "100%"],
+        [StyledItem]: {
+          width: "33%",
+        },
+      },
     },
   })
 );

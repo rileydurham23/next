@@ -1,22 +1,14 @@
 import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
+import { toFlexAlign } from "utils/align";
 
 type Align = "left" | "center";
 
 export type Props = {
-  title: string;
+  title?: string;
   align?: Align;
   subtitle?: string;
 } & FlexProps;
-
-function getAlign(align: Align): "center" | "flex-start" {
-  const map: Record<Align, "center" | "flex-start"> = {
-    left: "flex-start",
-    center: "center",
-  };
-
-  return map[align];
-}
 
 export default function Heading({
   title,
@@ -25,21 +17,23 @@ export default function Heading({
   ...props
 }: Props) {
   return (
-    <Flex flexDirection="column" alignItems={getAlign(align)} {...props}>
+    <Flex flexDirection="column" alignItems={toFlexAlign(align)} {...props}>
       {subtitle && (
         <Box as="p" mb="3" color="dark-purple" fontWeight="bold">
           {subtitle}
         </Box>
       )}
-      <Box
-        as="h2"
-        fontSize={["header-1", "section-header"]}
-        lineHeight={["xxl", "section-header"]}
-        fontWeight="bold"
-        textAlign={align}
-      >
-        {title}
-      </Box>
+      {title && (
+        <Box
+          as="h2"
+          fontSize={["header-1", "section-header"]}
+          lineHeight={["xxl", "section-header"]}
+          fontWeight="bold"
+          textAlign={align}
+        >
+          {title}
+        </Box>
+      )}
     </Flex>
   );
 }

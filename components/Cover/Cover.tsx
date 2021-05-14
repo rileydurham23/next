@@ -2,14 +2,17 @@ import styled from "styled-components";
 import { all, css, media, StyledSystemProps } from "components/system";
 import PageIntro, { Props as PageIntroProps } from "components/PageIntro";
 import { Centrator } from "components/Layout";
+import { toFlexAlign } from "utils/align";
 import earthUrl from "./assets/earth.jpg";
 
-export type Props = PageIntroProps;
+type Align = "left" | "center";
 
-export default function Cover(props: Props) {
+export type Props = { align?: Align } & PageIntroProps;
+
+export default function Cover({ align = "left", ...props }: Props) {
   return (
     <StyledWrapper backgroundImage={`url(${earthUrl})`}>
-      <Centrator>
+      <Centrator justifyContent={toFlexAlign(align)} textAlign={align}>
         <PageIntro
           theme={"light" as const}
           maxWidth={["100%", "41%"]}
