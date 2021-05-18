@@ -25,6 +25,9 @@ export const Header = ({ children, ...props }: HeaderProps) => {
   return (
     <Box
       css={css({
+        "& code": {
+          fontSize: "0.875em",
+        },
         [`&:hover ${Anchor}`]: {
           display: "inline",
         },
