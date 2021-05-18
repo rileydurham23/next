@@ -14,5 +14,4 @@ export const GTMPageView = (url: string) => {
   };
 
   window && window.dataLayer && window.dataLayer.push(pageEvent);
-  return pageEvent;
 };
