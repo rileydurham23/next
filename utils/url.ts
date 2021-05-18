@@ -8,6 +8,18 @@ export const isExternalLink = (href: string): boolean =>
 
 export const isHash = (href: string): boolean => href.startsWith("#");
 
+export const isMdxLink = (href: string): boolean => /\.md(x)?(#|$)/.test(href);
+
+export const isExtensionLess = (href: string): boolean => {
+  const parts = href.split("/");
+  const lastPart = parts[parts.length - 1];
+
+  return !lastPart.includes(".");
+};
+
+export const isPage = (href: string): boolean =>
+  isMdxLink(href) || isExtensionLess(href);
+
 export const getVersionAsPath = (href: string) => {
   const { latest } = getConfig();
 

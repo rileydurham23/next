@@ -2,7 +2,7 @@ import { Transformer } from "unified";
 import { Link } from "mdast";
 import visit from "unist-util-visit";
 import { VFile } from "vfile";
-import { isExternalLink, isHash } from "./url";
+import { isExternalLink, isHash, isPage } from "./url";
 import { MdxastRootNode, MdxastNode, MdxAnyElement } from "./unist-types";
 
 const mdxNodeTypes = new Set([
@@ -25,7 +25,7 @@ const updateHref = (basename: string, href: string) => {
 };
 
 const isLocalHref = (href?: string) =>
-  !!href && !isExternalLink(href) && !isHash(href);
+  !!href && !isExternalLink(href) && !isHash(href) && isPage(href);
 
 const isMdxComponentWithLocalHref = (node: MdxastNode): boolean => {
   return (

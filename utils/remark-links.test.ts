@@ -52,10 +52,19 @@ describe("utils/remark-links", () => {
     expect(result).toEqual("[Some link](/workflow/)\n");
   });
 
+  it("Correctly resolves links with hashes", () => {
+    const result = transformer({
+      contents: "[Some link](workflow.mdx#anchor)",
+      path: "/docs/enterprize.md",
+    });
+
+    expect(result).toEqual("[Some link](../workflow/#anchor)\n");
+  });
+
   it("Correctly resolves non .md paths", () => {
     const result = transformer({
-      contents: "[Some link](image.png)",
-      path: "/docs/enterprize.md",
+      contents: "[Some link](../image.png)",
+      path: "/docs/index.md",
     });
 
     expect(result).toEqual("[Some link](../image.png)\n");
@@ -70,7 +79,7 @@ describe("utils/remark-links", () => {
     expect(result).toEqual("[Some link](https://yandex.ru/workflow.md)\n");
   });
 
-  it("Work width mdx components", () => {
+  it("Work with mdx components", () => {
     const result = transformer({
       contents: '<Component href="../workflow.mdx"/>',
       path: "/docs/enterprize/index.mdx",
