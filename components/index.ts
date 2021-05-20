@@ -10,6 +10,7 @@ export { default as Head } from "components/Head";
 export { default as Careers } from "components/Careers";
 export { default as CrewGallery } from "components/CrewGallery";
 export { default as Header } from "components/Header";
+export { default as Banner } from "components/Banner";
 export { default as HeadlessButton } from "components/HeadlessButton";
 export { default as Icon } from "components/Icon";
 export { default as Manifesto } from "components/Manifesto";
