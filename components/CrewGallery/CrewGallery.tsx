@@ -91,7 +91,7 @@ const shiftAnimation = keyframes`
     transform: translateX(0%);
   }
   50% {
-    transform: translateX(calc(-100% + 100vw));
+    transform: translateX(calc(min(-150vw, -100%) + 100vw));
   }
   100% {
     transform: translateX(0%);
