@@ -126,7 +126,7 @@ const menu: MenuCategoryProps[] = [
         icon: "flag",
         title: "Careers",
         description: "View our available career opportunities",
-        href: "https://jobs.lever.co/gravitational",
+        href: "/careers",
       },
       {
         icon: "earth",

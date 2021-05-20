@@ -21,13 +21,7 @@ export default function Careers() {
           We are growing quickly. Join us to help move cloud computing into a
           brighter, and more secure, future.
         </Box>
-        <Button
-          as={Link}
-          href="https://jobs.lever.co/teleport"
-          variant="primary"
-          mt="6"
-          shape="lg"
-        >
+        <Button as={Link} href="/careers" variant="primary" mt="6" shape="lg">
           Get Started
         </Button>
       </Centrator>

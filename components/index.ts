@@ -2,6 +2,7 @@ import { BoxProps } from "components/Box";
 import { FlexProps } from "components/Flex";
 export { default as AnchorNavigation } from "components/AnchorNavigation";
 export { default as Button } from "components/Button";
+export { default as GlobeBanner } from "components/GlobeBanner";
 export { default as DocsPage } from "components/DocsPage";
 export { default as SitePage } from "components/SitePage";
 export { default as Footer } from "components/Footer";
