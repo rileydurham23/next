@@ -47,6 +47,9 @@ const StyledHeading = styled("div")(
       lineHeight: "xxl",
       fontWeight: "black",
       px: "3",
+      "> a": {
+        display: "none !important",
+      },
     },
     p: {
       m: 0,
