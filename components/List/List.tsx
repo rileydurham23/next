@@ -35,8 +35,9 @@ export default function List({
         <Box
           background={grid ? undefined : ["none", "none", terminalBg]}
           backgroundSize={grid ? undefined : ["", "", "384px 320px"]}
+          mt={grid ? [0, 5] : 0}
         >
-          <StyledUL grid={grid}>{children}</StyledUL>
+          <StyledUL grid={[false, grid]}>{children}</StyledUL>
         </Box>
       </Centrator>
     </Box>
@@ -57,16 +58,22 @@ export function ListItem({ children, icon }: ListItemProps) {
   );
 }
 
-const StyledIcon = styled(Icon)(css({ flexShrink: 0, mr: 4 }));
-
-const StyledItem = styled("li")(css({ display: "flex", mt: 7 }));
+const StyledIcon = styled(Icon)(
+  css({
+    position: "absolute",
+    left: 0,
+    top: 0,
+  })
+);
 
 const StyledContentWrapper = styled("div")<StyledSystemProps>(
   css({
-    "> h2": {
+    "> h3": {
       fontSize: "header-4",
-      lineHeight: "20px",
       fontWeight: "bold",
+      m: 0,
+      lineHeight: "40px",
+      mb: "-40px",
       "> a": {
         display: "none !important",
       },
@@ -75,7 +82,22 @@ const StyledContentWrapper = styled("div")<StyledSystemProps>(
       fontSize: "text-xl",
       lineHeight: "lg",
       m: 0,
-      mt: 3,
+      mt: 8,
+    },
+  })
+);
+
+const StyledItem = styled("li")(
+  css({
+    position: "relative",
+    boxSizing: "border-box",
+    display: "flex",
+    mt: 7,
+    [`${StyledIcon} + ${StyledContentWrapper} > h3`]: {
+      ml: 9,
+    },
+    [`${StyledIcon} + ${StyledContentWrapper} > p`]: {
+      ml: 9,
     },
   })
 );
@@ -99,8 +121,23 @@ const StyledUL = styled("ul")<ULProps>(
         flexWrap: "wrap",
         justifyContent: "center",
         maxWidth: ["100%", "100%", "100%"],
+        [StyledIcon]: {
+          left: "40px",
+        },
         [StyledItem]: {
           width: "33%",
+          mt: 0,
+          pl: 6,
+          "&:nth-child(3n+1)": {
+            pl: 0,
+            [StyledIcon]: {
+              left: 0,
+            },
+          },
+          "&:nth-child(n + 4)": {
+            mt: 6,
+          },
+          [`${StyledIcon} + ${StyledContentWrapper} > p`]: { ml: 0 },
         },
       },
     },

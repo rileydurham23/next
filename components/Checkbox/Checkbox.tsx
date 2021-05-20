@@ -111,5 +111,6 @@ const StyledWrapper = styled("label")<StyledSystemProps>(
     "&:active": {
       opacity: "0.56",
     },
-  })
+  }),
+  all
 );

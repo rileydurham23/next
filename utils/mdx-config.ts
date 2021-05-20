@@ -8,9 +8,9 @@ const DEFAULT_RENDERER = `
 import { mdx } from "@mdx-js/react";
 import { SitePage } from "components";
 
-const Wrapper = () => (
+const Wrapper = (props) => (
   <SitePage meta={meta}>
-    <MDXContent />
+    <MDXContent ssData={props} />
   </SitePage>
 );
 

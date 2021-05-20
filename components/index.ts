@@ -14,6 +14,7 @@ export { default as Banner } from "components/Banner";
 export { default as HeadlessButton } from "components/HeadlessButton";
 export { default as Icon } from "components/Icon";
 export { default as Manifesto } from "components/Manifesto";
+export { default as JobList } from "components/JobList";
 export { default as Image } from "components/Image";
 export { default as Layout, Centrator } from "components/Layout";
 export { default as PlanCalculator } from "components/PlanCalculator";

@@ -1,5 +1,8 @@
 import { useEffect, useRef, useCallback } from "react";
-import { Icon, Flex, Box, BoxProps, Slider } from "components";
+import Icon from "components/Icon";
+import Flex from "components/Flex";
+import Box, { BoxProps } from "components/Box";
+import Slider from "components/Slider";
 import { Table, Row, Cell, Separator } from "components/Table";
 import { Dropdown } from "components/Dropdown";
 import { transition } from "components/system";

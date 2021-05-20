@@ -19,7 +19,7 @@ export default function Heading({
   return (
     <Flex flexDirection="column" alignItems={toFlexAlign(align)} {...props}>
       {subtitle && (
-        <Box as="p" mb="3" color="dark-purple" fontWeight="bold">
+        <Box as="p" mb={title ? "3" : 0} color="dark-purple" fontWeight="bold">
           {subtitle}
         </Box>
       )}
@@ -27,7 +27,7 @@ export default function Heading({
         <Box
           as="h2"
           fontSize={["header-1", "section-header"]}
-          lineHeight={["xxl", "section-header"]}
+          lineHeight={["xl", "section-header"]}
           fontWeight="bold"
           textAlign={align}
         >

@@ -3,7 +3,7 @@
 // please, import it dynamically whenever possible and disable SSR:
 //
 // import dynamic from "next/dynamic";
-// const SSRLessGlob = dynamic(() => import("./Globe"), {
+// const SSRLessGlob = dynamic(() => import("components/Globe"), {
 //   ssr: false,
 // });
 //

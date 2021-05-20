@@ -9,7 +9,7 @@ type Align = "left" | "center";
 
 export type Props = { align?: Align } & PageIntroProps;
 
-export default function Cover({ align = "left", ...props }: Props) {
+export default function Cover({ align = "left", children, ...props }: Props) {
   return (
     <StyledWrapper backgroundImage={`url(${earthUrl})`}>
       <Centrator justifyContent={toFlexAlign(align)} textAlign={align}>
@@ -18,7 +18,9 @@ export default function Cover({ align = "left", ...props }: Props) {
           maxWidth={["100%", "41%"]}
           verticalResponsive={false}
           {...props}
-        />
+        >
+          {children}
+        </PageIntro>
       </Centrator>
     </StyledWrapper>
   );

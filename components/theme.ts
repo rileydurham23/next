@@ -101,6 +101,7 @@ const theme = {
       fontWeight: "black",
     },
   },
+  //      0  1  2  3   4   5   6   7   8   9   10  11
   space: [0, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
   media: {
     sm:

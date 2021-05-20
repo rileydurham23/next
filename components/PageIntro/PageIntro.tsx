@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
 import { variant } from "styled-system";
 import styled from "styled-components";
 import css from "@styled-system/css";
-import { BoxProps } from "components/Box";
+import Box, { BoxProps } from "components/Box";
 import { all, media, StyledSystemProps } from "components/system";
 
 type Theme = "light" | "dark";
@@ -12,6 +13,7 @@ export type Props = {
   subject?: string;
   theme?: Theme;
   verticalResponsive?: boolean;
+  children?: ReactNode;
 } & BoxProps;
 
 export default function PageIntro({
@@ -20,6 +22,7 @@ export default function PageIntro({
   description,
   theme = "dark",
   verticalResponsive: vr = true,
+  children,
   ...props
 }: Props) {
   return (
@@ -37,6 +40,7 @@ export default function PageIntro({
       <StyledDescription variant={theme} vr={vr}>
         {description}
       </StyledDescription>
+      {children && <Box mt="5">{children}</Box>}
     </StyledWrapper>
   );
 }
@@ -120,8 +124,8 @@ const StyledDescription = styled("p")<ThemedProps>(
     boxSizing: "border-box",
     fontSize: "text-xl",
     lineHeight: "lg",
-    pt: 5,
     m: 0,
+    mt: 5,
   }),
   variant({
     prop: "vr",
