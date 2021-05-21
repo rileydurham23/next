@@ -50,7 +50,9 @@ export interface StyledSystemProps
   css?: CssFunctionReturnType | string;
   textDecoration?: ResponsiveValue<Property.TextAlign, RequiredTheme>;
   textTransform?: ResponsiveValue<Property.TextTransform, RequiredTheme>;
+  float?: ResponsiveValue<Property.Float, RequiredTheme>;
   listStyle?: ResponsiveValue<Property.ListStyle, RequiredTheme>;
+  listStyleType?: ResponsiveValue<Property.ListStyleType, RequiredTheme>;
   whiteSpace?: ResponsiveValue<Property.WhiteSpace, RequiredTheme>;
   textOverflow?: ResponsiveValue<Property.TextOverflow, RequiredTheme>;
   borderCollapse?: ResponsiveValue<Property.BorderCollapse, RequiredTheme>;
@@ -76,10 +78,12 @@ export const all = compose(
     textOverflow: true,
     textTransform: true,
     listStyle: true,
+    listStyleType: true,
     whiteSpace: true,
     borderCollapse: true,
     transition: true,
     animationDuration: true,
+    float: true,
   }),
   variant({
     prop: "text",

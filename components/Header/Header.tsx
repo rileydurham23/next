@@ -1,45 +1,34 @@
 import { useState, useCallback } from "react";
 import styled from "styled-components";
 import { css, media, transition } from "components/system";
-import Button from "components/Button";
 import Flex from "components/Flex";
 import Icon from "components/Icon";
 import Link from "components/Link";
 import Logo from "components/Logo";
 import Menu from "components/Menu";
 import HeadlessButton from "components/HeadlessButton";
+import HeaderCTA from "./HeaderCTA";
 
 const Header = () => {
   const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
     false
   );
   const toggleNavigaton = useCallback(
-    () => setIsNavigationVisible((isNavigationVisible) => !isNavigationVisible),
+    () => setIsNavigationVisible((value) => !value),
     []
   );
 
   return (
     <StyledHeader as="header">
       <StyledLogoLink href="/">
-        <Logo width={121} height={24} color="dark-purple" />
+        <Logo width="121px" height="24px" color="dark-purple" />
       </StyledLogoLink>
       <StyledHamburger onClick={toggleNavigaton}>
         <Icon name={isNavigationVisible ? "close" : "hamburger"} size="md" />
       </StyledHamburger>
       <StyledContentWrapper isNavigationVisible={isNavigationVisible}>
         <Menu />
-        <StyledCTAs>
-          <StyledCTA
-            as="a"
-            href="https://dashboard.gravitational.com/web/"
-            variant="secondary"
-          >
-            Sign In
-          </StyledCTA>
-          <StyledCTA as="a" href="/pricing/">
-            Get Started
-          </StyledCTA>
-        </StyledCTAs>
+        <HeaderCTA />
       </StyledContentWrapper>
     </StyledHeader>
   );
@@ -114,35 +103,6 @@ const StyledContentWrapper = styled(Flex)(
       bg: "white",
     }),
   ]
-);
-
-const StyledCTAs = styled(Flex)(
-  css({
-    flexGrow: 0,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    pr: [0, 3],
-    ml: [0, "auto"],
-  }),
-  media("sm", {
-    mt: 5,
-    width: "100%",
-    flexDirection: "column",
-  })
-);
-
-const StyledCTA = styled(Button)(
-  css({
-    mr: 3,
-    flexShrink: 0,
-  }),
-  media("sm", {
-    fontSize: "text-lg",
-    height: "56px",
-    mt: 2,
-    mr: 0,
-    width: "100%",
-  })
 );
 
 const StyledHamburger = styled(HeadlessButton)(

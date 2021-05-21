@@ -3,7 +3,12 @@ import { useClickAway } from "react-use";
 import { useCallback, useRef } from "react";
 import { css, media, transition } from "components/system";
 import Box from "components/Box";
-import MenuItem, { MenuItemProps } from "./Item";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuOverlay,
+  MenuItemProps,
+} from "../DropdownMenu";
 
 export interface MenuCategoryProps {
   title: string;
@@ -36,7 +41,7 @@ const MenuCategory = ({
   });
 
   const toggleOpened = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
 
       onToggleOpened(opened ? null : id);
@@ -46,27 +51,31 @@ const MenuCategory = ({
 
   return (
     <>
-      {opened && <Overlay />}
+      {opened && <DropdownMenuOverlay />}
       <Box position="relative" ref={ref}>
         <MainLink href={href} onClick={toggleOpened} active={opened}>
           {title}
         </MainLink>
-        <Dropdown opened={opened}>
-          <Box flexGrow={1}>
-            <DropdownHeader>{description}</DropdownHeader>
-            <Box px={[3, 4]} pt={2} pb={[3, 2]}>
-              {children.map((props) => (
-                <MenuItem key={props.href} {...props} />
-              ))}
-            </Box>
-          </Box>
-        </Dropdown>
+        <Box
+          display={opened ? "block" : "none"}
+          left={0}
+          ml={[0, "-80px"]}
+          position={["relative", "absolute"]}
+          width={["100%", "auto"]}
+          minWidth={[0, "540px"]}
+          top={[0, "80px"]}
+          zIndex={3000}
+        >
+          <DropdownMenu title={description}>
+            {children.map((props) => (
+              <DropdownMenuItem key={props.href} {...props} />
+            ))}
+          </DropdownMenu>
+        </Box>
       </Box>
     </>
   );
 };
-
-export default MenuCategory;
 
 const MainLink = styled("a")(({ active }: { active: boolean }) => [
   css({
@@ -102,59 +111,4 @@ const MainLink = styled("a")(({ active }: { active: boolean }) => [
   }),
 ]);
 
-const Dropdown = styled("div")(({ opened }: { opened: boolean }) => [
-  css({
-    background: "white",
-    borderRadius: "default",
-    boxShadow: "0 4px 40px rgba(0, 0, 0, 0.24)",
-    color: "black",
-    display: opened ? "flex" : "none",
-    left: "0",
-    ml: "-80px",
-    overflow: "hidden",
-    p: 0,
-    position: "absolute",
-    minWidth: "540px",
-    top: "80px",
-    zIndex: 3000,
-  }),
-  media("sm", {
-    borderRadius: 0,
-    ml: 0,
-    minWidth: "auto",
-    position: "relative",
-    left: 0,
-    top: 0,
-    boxShadow: "none",
-    width: "100%",
-  }),
-]);
-
-const DropdownHeader = styled("h3")(({ center }: { center?: boolean }) =>
-  css({
-    display: ["none", "block"],
-    alignItems: "center",
-    textAlign: center ? "center" : "left",
-    mx: 5,
-    my: 0,
-    borderBottom: "1px solid",
-    borderColor: "lightest-gray",
-    fontSize: "text-xl",
-    lineHeight: "64px",
-  })
-);
-
-const Overlay = styled("div")(
-  css({
-    position: "fixed",
-    top: "80px",
-    right: 0,
-    bottom: 0,
-    left: 0,
-    zIndex: 1000,
-    background: "blur(60px)",
-  }),
-  media("sm", {
-    display: "none",
-  })
-);
+export default MenuCategory;
