@@ -12,7 +12,17 @@ const background = [
   theme.gradients.grayToWhite.background,
 ].join(",");
 
-export default function Footer() {
+interface Props {
+  short?: boolean;
+}
+
+export default function Footer({ short }: Props) {
+  const copyrightProps: { pt?: number[] } = {};
+
+  if (!short) {
+    copyrightProps.pt = [6, 8];
+  }
+
   return (
     <Flex
       as="footer"
@@ -31,8 +41,8 @@ export default function Footer() {
         backgroundRepeat="no-repeat"
         background={background}
       >
-        <Launchpad sections={launchpadData} />
-        <Copyright links={copyrightLinks} pt={[40, 54]} />
+        {!short && <Launchpad sections={launchpadData} />}
+        <Copyright links={copyrightLinks} {...copyrightProps} />
       </Box>
     </Flex>
   );
