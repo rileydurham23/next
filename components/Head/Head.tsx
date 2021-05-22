@@ -3,10 +3,6 @@ import { useRouter } from "next/router";
 
 import { buildCanonicalUrl, host } from "utils/url";
 
-const DEFAULT_TITLE = "Teleport";
-const DEFAULT_DESCRIPTION =
-  "Teleport is available for free as an open source download. We also offer commercial subscription plans priced on the number of computing resources accessible via Teleport.";
-
 const formatTitle = (suffix: string, title?: string) => {
   const base = title ? `${title} | ` : "";
 
@@ -14,14 +10,16 @@ const formatTitle = (suffix: string, title?: string) => {
 };
 interface HeadProps {
   title: string;
+  image?: string;
   description?: string;
   titleSuffix?: string;
 }
 
 const Head = ({
+  image,
+  description: propsDescription,
   title: propsTitle,
-  description: propsDescription = DEFAULT_DESCRIPTION,
-  titleSuffix = DEFAULT_TITLE,
+  titleSuffix,
 }: HeadProps) => {
   const router = useRouter();
   const url = buildCanonicalUrl(router);
@@ -42,9 +40,16 @@ const Head = ({
       <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={`${host}/og-image.png`} />
+      <meta property="og:image" content={`${host}/static/${image}`} />
     </NextHead>
   );
+};
+
+Head.defaultProps = {
+  image: "og-image.png",
+  titleSuffix: "Teleport",
+  description:
+    "Teleport is available for free as an open source download. We also offer commercial subscription plans priced on the number of computing resources accessible via Teleport.",
 };
 
 export default Head;
