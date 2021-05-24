@@ -4,6 +4,7 @@ export { default as absolute } from "./logos/logo-absolute.svg";
 export { default as accenture } from "./logos/logo-accenture.svg";
 export { default as acquia } from "./logos/logo-acquia.svg";
 export { default as airtable } from "./logos/logo-airtable.svg";
+export { default as anaconda } from "./logos/logo-anaconda.svg";
 export { default as asapp } from "./logos/logo-asapp.svg";
 export { default as ascend } from "./logos/logo-ascend.svg";
 export { default as auction } from "./logos/logo-auction.svg";

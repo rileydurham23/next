@@ -25,6 +25,7 @@ const theme = {
   },
   fonts: {
     body: "'Lato', sans-serif",
+    serif: "Georgia, serif",
     monospace: "Ubuntu Mono, monospace",
   },
   fontSizes: {
@@ -125,6 +126,7 @@ const theme = {
   },
   transitionTimings: {
     interaction: 300,
+    shift: 600,
   },
   radii: {
     sm: 2,

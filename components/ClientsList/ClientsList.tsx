@@ -27,7 +27,12 @@ export default function ClientsList({ clients, ...props }: Props) {
       <StyledList>
         {clients.map((id) => (
           <StyledItem key={id}>
-            <Company id={id} />
+            <Company
+              id={id}
+              px="4"
+              py={[3, 0]}
+              boxShadow="0 1px 3px rgba(0, 0, 0, 0.24);"
+            />
           </StyledItem>
         ))}
       </StyledList>

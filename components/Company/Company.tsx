@@ -16,12 +16,9 @@ export default function Company({ id, ...props }: Props) {
     <Flex
       borderRadius="default"
       bg="white"
-      px="4"
-      py={[3, 0]}
       height="100%"
       maxWidth="100%"
       overflow="hidden"
-      boxShadow="0 1px 3px rgba(0, 0, 0, 0.24);"
       {...props}
     >
       <Image

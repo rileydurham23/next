@@ -3,8 +3,8 @@ import { meta } from "./clients.mdx";
 
 let companies: CompanyData[] = [];
 
-if (isCompanies(meta.companies)) {
-  companies = meta.companies;
+if (isCompanies(meta)) {
+  companies = meta;
 }
 
 export default companies;
