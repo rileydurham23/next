@@ -14,12 +14,12 @@
     },
     {
       "name": "6.1",
-      "branch": "branch/v6.1",
-      "latest": true
+      "branch": "branch/v6.1"
     },
     {
       "name": "6.2",
-      "branch": "branch/v6"
+      "branch": "branch/v6.2",
+      "latest": true
     },
     {
       "name": "7.0",
