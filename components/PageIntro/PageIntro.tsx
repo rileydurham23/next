@@ -90,12 +90,13 @@ const StyledHeading = styled("h1")<ThemedProps>(
     lineHeight: "hero-header",
     fontWeight: "black",
     m: 0,
-    pt: 3,
+    mt: 3,
+    "&:first-child": { mt: 0 },
   }),
   media("md", {
     fontSize: "header-1",
     lineHeight: "xl",
-    pt: 0,
+    mt: 0,
   }),
   variant({
     prop: "vr",
@@ -105,7 +106,7 @@ const StyledHeading = styled("h1")<ThemedProps>(
           fontSize: "header-3",
           lineHeight: "lg",
           fontWeight: "bold",
-          pt: 0,
+          mt: 0,
         })
       ),
     },
@@ -125,7 +126,7 @@ const StyledDescription = styled("p")<ThemedProps>(
     fontSize: "text-xl",
     lineHeight: "lg",
     m: 0,
-    mt: 5,
+    mt: 2,
   }),
   variant({
     prop: "vr",
@@ -170,8 +171,6 @@ const StyledLeft = styled("div")<ThemedProps>(
 const StyledWrapper = styled("div")<ThemedProps>(
   css({
     boxSizing: "border-box",
-    pt: 5,
-    pb: 7,
   }),
   variant({
     prop: "vr",

@@ -87,6 +87,7 @@ const StyledListboxInput = styled(ListboxInput)<StyledSystemProps>(
     border: "1px solid",
     borderColor: ["white", "transparent"],
     borderRadius: "default",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.32)",
     color: "white",
     cursor: "pointer",
     transition: transition([
@@ -103,7 +104,7 @@ const StyledListboxInput = styled(ListboxInput)<StyledSystemProps>(
     variants: {
       dark: {
         color: "black",
-        borderColor: ["gray", "gray"],
+        borderColor: ["transparent", "transparent"],
         "&:focus-within, &:focus, &:hover": {
           bg: "light-purple",
           borderColor: "light-purple",

@@ -14,11 +14,22 @@ export default function Banner({ title, subtitle, ...props }: Props) {
       as="section"
       py={[6, 11]}
       background={`url(${spacecraftUrl}) center bottom no-repeat`}
+      backgroundPosition={[
+        "center bottom",
+        "center bottom",
+        "center bottom -5vw",
+      ]}
       backgroundSize={["140% auto", "100% auto"]}
       {...props}
     >
       <Centrator>
-        <Heading title={title} subtitle={subtitle} maxWidth="65%" />
+        <Heading
+          title={title}
+          subtitle={subtitle}
+          maxWidth="65%"
+          titleFontSize="banner"
+          titleLineHeight="xxl"
+        />
       </Centrator>
     </Box>
   );

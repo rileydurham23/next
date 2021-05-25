@@ -29,7 +29,7 @@ export default function Manifesto({ children }: Props) {
       <Box gradient="purpleToBlack" py="10">
         <Centrator flexDirection="column" color="white">
           <Heading title="Teleport Manifesto" />
-          <StyledContentContainer mt="6">{children}</StyledContentContainer>
+          <StyledContentContainer mt="3">{children}</StyledContentContainer>
         </Centrator>
       </Box>
       <Flex justifyContent="flex-end" minHeight="164px">
@@ -47,6 +47,8 @@ const StyledContentContainer = styled("div")<StyledSystemProps>(
     lineHeight: "lg",
     width: ["100%", "100%", "50%"],
     "> p": {
+      fontSize: "text-lg",
+      lineHeight: "28px",
       m: 0,
     },
   }),

@@ -8,12 +8,16 @@ export type Props = {
   title?: string;
   align?: Align;
   subtitle?: string;
+  titleFontSize?: string;
+  titleLineHeight?: string;
 } & FlexProps;
 
 export default function Heading({
   title,
   subtitle,
   align = "left",
+  titleFontSize = "section-header",
+  titleLineHeight = "section-header",
   ...props
 }: Props) {
   return (
@@ -26,8 +30,8 @@ export default function Heading({
       {title && (
         <Box
           as="h2"
-          fontSize={["header-1", "section-header"]}
-          lineHeight={["xl", "section-header"]}
+          fontSize={["header-1", titleFontSize]}
+          lineHeight={["xl", titleLineHeight]}
           fontWeight="bold"
           textAlign={align}
         >

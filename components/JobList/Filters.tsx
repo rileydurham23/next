@@ -44,6 +44,8 @@ export default function Filters({ filter, ...props }: FiltersProps) {
               value={filter[filterKind].current}
               onChange={filter[filterKind].set}
               options={filter[filterKind].all}
+              // borderRadius="default"
+              // boxShadow="0 2px 4px rgba(0, 0, 0, 0.32);"
               icon={<Icon name="arrow" size="sm" />}
             />
           </StyledItem>

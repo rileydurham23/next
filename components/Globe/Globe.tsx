@@ -9,11 +9,17 @@
 //
 import { useEffect, useRef } from "react";
 import ReactGlobe, { GlobeProps } from "react-globe.gl";
+import theme from "components/theme";
 import earthUrl from "./assets/globe.png";
+import getData, { Place } from "./places";
 
 const USA = { lat: 50, lng: -80 };
 
-export default function Globe(props: GlobeProps) {
+interface Props extends GlobeProps {
+  viewPoint?: { lat: number; lng: number };
+}
+
+export default function Globe({ viewPoint = USA, ...props }: Props) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -23,16 +29,25 @@ export default function Globe(props: GlobeProps) {
       globe.controls().autoRotate = true;
       globe.controls().autoRotateSpeed = 0.3;
       globe.controls().enableZoom = false;
-      globe.pointOfView({ ...USA, altitude: 2 });
+      globe.pointOfView({ ...viewPoint, altitude: 2 });
     }
   }, [ref.current]);
 
   return (
     <ReactGlobe
       ref={ref}
+      labelsData={getData()}
+      labelLat={(d: Place) => d.latitude}
+      labelLng={(d: Place) => d.longitude}
+      labelText={() => ""}
+      labelSize={1}
+      labelAltitude={0.01}
+      labelDotRadius={(d: Place) => (d.satellite ? 1 : 0.6)}
+      labelColor={() => "white"}
+      labelResolution={2}
       globeImageUrl={earthUrl}
       backgroundColor="rgba(0,0,0,0)"
-      showAtmosphere={false}
+      atmosphereColor={theme.colors["light-purple"]}
       enablePointerInteraction={false}
       {...props}
     />

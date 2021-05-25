@@ -79,8 +79,9 @@ const StyledContentWrapper = styled("div")<StyledSystemProps>(
       },
     },
     "> p": {
-      fontSize: "text-xl",
-      lineHeight: "lg",
+      fontSize: "text-lg",
+      lineHeight: "28px",
+      color: "darkest",
       m: 0,
       mt: 8,
     },
@@ -94,10 +95,10 @@ const StyledItem = styled("li")(
     display: "flex",
     mt: 7,
     [`${StyledIcon} + ${StyledContentWrapper} > h3`]: {
-      ml: 9,
+      ml: "52px",
     },
     [`${StyledIcon} + ${StyledContentWrapper} > p`]: {
-      ml: 9,
+      ml: "52px",
     },
   })
 );

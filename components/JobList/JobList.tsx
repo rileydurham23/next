@@ -34,7 +34,7 @@ export default function JobList({ jobs, ...props }: Props) {
         <Box as="h2" fontWeight="black" text="header-1">
           Work at Teleport
         </Box>
-        <Box as="p" mt="3" text="header-4">
+        <Box as="p" text="text-lg" lineHeight="lg">
           Start shaping your future today
         </Box>
         <Filters mt={[3, 6]} width={["100%", "70%"]} filter={filter} />

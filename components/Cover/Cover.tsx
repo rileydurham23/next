@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { all, css, media, StyledSystemProps } from "components/system";
+import { all, css, StyledSystemProps } from "components/system";
 import PageIntro, { Props as PageIntroProps } from "components/PageIntro";
 import { Centrator } from "components/Layout";
 import { toFlexAlign } from "utils/align";
@@ -36,9 +36,7 @@ const StyledWrapper = styled("section")<StyledSystemProps>(
     backgroundPositionY: "center",
     minHeight: [200, 437],
     width: "100%",
-  }),
-  media("mdVertical", {
-    minHeight: 200,
+    py: 5,
   }),
   all
 );

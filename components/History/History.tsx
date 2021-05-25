@@ -57,6 +57,9 @@ const StyledTextWrapper = styled("div")<StyledSystemProps>(
     fontSize: "text-xl",
     lineHeight: "lg",
     "> p": {
+      fontSize: "text-lg",
+      lineHeight: "28px",
+      color: "darkest",
       m: 0,
     },
   })

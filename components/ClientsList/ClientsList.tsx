@@ -20,7 +20,7 @@ export default function ClientsList({ clients, ...props }: Props) {
       <Box as="h2" fontSize="0" color="white">
         Clients
       </Box>
-      <Box as="p" text="text-xl" color="gray" fontWeight="bold">
+      <Box as="p" fontSize="text-lg" lineHeight="lg" fontWeight="bold">
         Trusted by Leading Orgnizations
       </Box>
 

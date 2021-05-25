@@ -77,7 +77,6 @@ function Photo({ photo }: PhotoProps) {
         src={photo.url}
         alt={photo.title}
         title={photo.title}
-        loading="lazy"
         width="auto"
         height="100%"
       />

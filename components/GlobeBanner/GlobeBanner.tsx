@@ -3,6 +3,8 @@ import styled from "styled-components";
 import dynamic from "next/dynamic";
 import Flex, { FlexProps } from "components/Flex";
 import { css } from "components/system";
+import theme from "components/theme";
+import starsUrl from "./assets/stars.png";
 
 const SSRLessGlob = dynamic(() => import("components/Globe"), {
   ssr: false,
@@ -12,22 +14,43 @@ type Props = {
   children: ReactNode;
 } & FlexProps;
 
+const bg = [
+  `url(${starsUrl}) 0 0`,
+  theme.gradients.purpleToBlackRadial.background,
+].join(",");
+
 export default function GlobeBanner({ children }: Props) {
   return (
     <Flex
       as="section"
-      bg="lightest-gray"
-      minHeight="600px"
+      height="400px"
       position="relative"
       overflow="hidden"
       justifyContent="center"
       alignItems="flex-end"
+      bg="light-purple"
+      background={bg}
+      backgroundSize="1800px 600px, 100% 100%"
     >
       <StyledHeading>{children}</StyledHeading>
-      <SSRLessGlob height={450} width={450} />
+      <StyledGlobeWrapper>
+        <SSRLessGlob
+          height={1000}
+          width={1000}
+          viewPoint={{ lat: 5, lng: -80 }}
+        />
+      </StyledGlobeWrapper>
     </Flex>
   );
 }
+
+const StyledGlobeWrapper = styled("div")(
+  css({
+    position: "absolute",
+    top: "100%",
+    transform: "translateY(-33%)",
+  })
+);
 
 const StyledHeading = styled("div")(
   css({
@@ -35,11 +58,11 @@ const StyledHeading = styled("div")(
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    color: "white",
     top: "30px",
     left: 0,
     width: "100%",
     textAlign: "center",
-    bg: "rgba(240, 242, 244, 90%)",
     py: 4,
     zIndex: 2,
     h2: {
@@ -53,9 +76,8 @@ const StyledHeading = styled("div")(
     },
     p: {
       m: 0,
-      mt: 3,
       px: 3,
-      fontSize: "header-4",
+      fontSize: "text-lg",
       lineHeight: "lg",
       maxWidth: ["100%", "40%"],
     },

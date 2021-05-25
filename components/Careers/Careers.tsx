@@ -17,7 +17,14 @@ export default function Careers() {
           subtitle="Join Us"
           align="center"
         />
-        <Box as="p" mt="5" color="darkest" text="text-xl" textAlign="center">
+        <Box
+          as="p"
+          mt="3"
+          color="darkest"
+          fontSize="text-lg"
+          lineHeight="lg"
+          textAlign="center"
+        >
           We are growing quickly. Join us to help move cloud computing into a
           brighter, and more secure, future.
         </Box>
