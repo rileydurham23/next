@@ -21,7 +21,7 @@ export default function ClientsList({ clients, ...props }: Props) {
         Clients
       </Box>
       <Box as="p" fontSize="text-lg" lineHeight="lg" fontWeight="bold">
-        Trusted by Leading Orgnizations
+        Trusted by Leading Organizations
       </Box>
 
       <StyledList>
