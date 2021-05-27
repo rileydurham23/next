@@ -3,6 +3,7 @@ export { ReactComponent as bolt } from "./svg/bolt.svg";
 export { ReactComponent as book } from "./svg/book.svg";
 export { ReactComponent as building } from "./svg/building.svg";
 export { ReactComponent as calendar } from "./svg/calendar.svg";
+export { ReactComponent as card } from "./svg/card.svg";
 export { ReactComponent as clock } from "./svg/clock.svg";
 export { ReactComponent as close } from "./svg/close.svg";
 export { ReactComponent as check } from "./svg/check.svg";

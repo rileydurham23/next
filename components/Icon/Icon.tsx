@@ -27,7 +27,7 @@ const Icon = ({ name, size = "md", ...props }: IconProps) => {
 
   return (
     <Box size={sizes[size]} {...props}>
-      <IconSVG width={sizes[size]} height={sizes[size]} display="block" />
+      <IconSVG width="100%" height="100%" display="block" />
     </Box>
   );
 };

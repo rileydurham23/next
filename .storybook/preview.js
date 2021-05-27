@@ -1,6 +1,12 @@
 import { ThemeProvider } from "styled-components";
 import theme from "components/theme";
 import "components/global-styles.css";
+import * as nextImage from "next/image";
+
+Object.defineProperty(nextImage, "default", {
+  configurable: true,
+  value: (props) => <img {...props} />,
+});
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
