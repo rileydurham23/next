@@ -1,6 +1,7 @@
 import { BoxProps } from "components/Box";
 import { FlexProps } from "components/Flex";
 export { default as AnchorNavigation } from "components/AnchorNavigation";
+export { default as BookBlock } from "components/BookBlock";
 export { default as Button } from "components/Button";
 export { default as GlobeBanner } from "components/GlobeBanner";
 export { default as DocsPage } from "components/DocsPage";
