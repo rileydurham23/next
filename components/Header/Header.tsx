@@ -7,9 +7,14 @@ import Link from "components/Link";
 import Logo from "components/Logo";
 import Menu from "components/Menu";
 import HeadlessButton from "components/HeadlessButton";
+import { Centrator } from "components/Layout";
 import HeaderCTA from "./HeaderCTA";
 
-const Header = () => {
+interface Props {
+  short?: boolean;
+}
+
+const Header = ({ short }: Props) => {
   const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
     false
   );
@@ -17,6 +22,14 @@ const Header = () => {
     () => setIsNavigationVisible((value) => !value),
     []
   );
+
+  if (short) {
+    return (
+      <Centrator wrapperAs="header" height="80px" alignItems="center">
+        <Logo width="201px" height="40px" color="dark-purple" />
+      </Centrator>
+    );
+  }
 
   return (
     <StyledHeader as="header">

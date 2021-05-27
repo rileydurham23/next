@@ -9,6 +9,7 @@ interface Props {
     description?: string;
     hideWave?: boolean;
     shortFooter?: boolean;
+    shortHeader?: boolean;
   };
   children: React.ReactNode;
 }
@@ -19,7 +20,10 @@ export default function SitePage({ meta, children }: Props) {
   return (
     <>
       <Head title={meta.title} description={meta.description} />
-      <Layout background={meta.hideWave ? "none" : background}>
+      <Layout
+        shortHeader={Boolean(meta.shortHeader)}
+        background={meta.hideWave ? "none" : background}
+      >
         <MDXProvider components={components}>{children}</MDXProvider>
       </Layout>
       <Footer short={Boolean(meta.shortFooter)} />
