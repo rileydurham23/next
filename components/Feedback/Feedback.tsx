@@ -8,7 +8,7 @@ import Pagination from "./Pagination";
 import Review from "./Review";
 
 const SWITCH_TIMEOUT = 5000;
-interface Props {
+export interface Props {
   reviews: CompanyId[];
 }
 
