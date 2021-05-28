@@ -53,22 +53,33 @@ export default function List({
 interface ListItemProps {
   children: ReactNode;
   icon?: IconName;
+  src?: string;
 }
 
-export function ListItem({ children, icon }: ListItemProps) {
+export function ListItem({ children, src, icon }: ListItemProps) {
   return (
     <StyledItem>
-      {icon && <StyledIcon name={icon} size="xl" />}
+      {(icon || src) && (
+        <StyledIconWrapper>
+          {icon ? (
+            <Icon name={icon} size="xl" />
+          ) : (
+            <Box as="img" src={src} width="100%" height="100%" />
+          )}
+        </StyledIconWrapper>
+      )}
       <StyledContentWrapper>{children}</StyledContentWrapper>
     </StyledItem>
   );
 }
 
-const StyledIcon = styled(Icon)(
+const StyledIconWrapper = styled(Icon)(
   css({
     position: "absolute",
     left: 0,
     top: 0,
+    width: "40px",
+    height: "40px",
   })
 );
 
@@ -100,10 +111,10 @@ const StyledItem = styled("li")(
     boxSizing: "border-box",
     display: "flex",
     mt: 7,
-    [`${StyledIcon} + ${StyledContentWrapper} > h3`]: {
+    [`${StyledIconWrapper} + ${StyledContentWrapper} > h3`]: {
       ml: "52px",
     },
-    [`${StyledIcon} + ${StyledContentWrapper} > p`]: {
+    [`${StyledIconWrapper} + ${StyledContentWrapper} > p`]: {
       ml: "52px",
     },
   })
@@ -128,7 +139,7 @@ const StyledUL = styled("ul")<ULProps>(
         flexWrap: "wrap",
         justifyContent: "center",
         maxWidth: ["100%", "100%", "100%"],
-        [StyledIcon]: {
+        [StyledIconWrapper]: {
           left: "40px",
         },
         [StyledItem]: {
@@ -137,14 +148,14 @@ const StyledUL = styled("ul")<ULProps>(
           pl: 6,
           "&:nth-child(3n+1)": {
             pl: 0,
-            [StyledIcon]: {
+            [StyledIconWrapper]: {
               left: 0,
             },
           },
           "&:nth-child(n + 4)": {
             mt: 6,
           },
-          [`${StyledIcon} + ${StyledContentWrapper} > p`]: { ml: 0 },
+          [`${StyledIconWrapper} + ${StyledContentWrapper} > p`]: { ml: 0 },
         },
       },
     },
