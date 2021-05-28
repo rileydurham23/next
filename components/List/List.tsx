@@ -15,7 +15,7 @@ const terminalBg = `url(${terminalUrl}) right center no-repeat`;
 
 type Child = React.ReactElement<typeof ListItem>;
 
-interface Props {
+export interface Props {
   children: Child | Array<Child>;
   grid?: boolean;
   title?: string;
@@ -29,7 +29,13 @@ export default function List({
   children,
 }: Props) {
   return (
-    <Box as="section" background={waveBg} pt={[5, 10]} pb={[6, 11]}>
+    <Box
+      as="section"
+      background={waveBg}
+      pt={[5, 10]}
+      pb={[6, 11]}
+      width="100%"
+    >
       <Centrator flexDirection="column">
         <Heading title={title} subtitle={subtitle} />
         <Box
