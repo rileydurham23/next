@@ -19,11 +19,9 @@ clients:
 
 import {
   History,
-  Milestone,
   ClientsList,
   Cover,
   List,
-  ListItem,
   Careers,
   Manifesto,
 } from "components";
@@ -31,37 +29,37 @@ import {
 <Cover title={meta.h1} subject={meta.subject} description={meta.description} />
 
 <History>
-  <Milestone icon="pc">
+  <History.Milestone icon="pc">
     Teleport founders **fell in love** with **programming** by giving a computer
     some instructions and watching the magic happen. The **close relationship**
     between a programmer, a machine, and code felt special.
-  </Milestone>
-  <Milestone icon="graduate">
+  </History.Milestone>
+  <History.Milestone icon="graduate">
     We **went to college** and **joined the workforce**. We even launched our
     own startups and witnessed the transition of programming from one machine to
     many and eventually to cloud computing. This brought enormous complexities
     into our lives. Half of our effort now goes towards erecting and
     continuously maintaining complex "**cloud environments**" for our programs.
-  </Milestone>
-  <Milestone icon="security">
+  </History.Milestone>
+  <History.Milestone icon="security">
     Each environment consists of numerous layers of computing resources, each
     with its own trust model, often separated by network boundaries and
     overburdened with excessive configuration. Not only is this complexity
     **slowing us down**, but it is also prone to human errors, resulting in
     **poor security**.
-  </Milestone>
-  <Milestone icon="laptop">
+  </History.Milestone>
+  <History.Milestone icon="laptop">
     We started the company because we found this **mess** with
     environments…**unpleasant**. We liked the simplicity of giving instructions
     to a computer better. Can we have that in **the modern era of cloud
     computing**?
-  </Milestone>
-  <Milestone icon="jet">
+  </History.Milestone>
+  <History.Milestone icon="jet">
     We believe the **answer is yes**, but we have to let go of environments and
     leap into **environment-free computing**, i.e. fully embrace the promise of
     the cloud and treat the entire planet as a single, multi-tenant computer.
     That computer needs a simple and secure **access plane**.
-  </Milestone>
+  </History.Milestone>
 </History>
 
 <Manifesto>
@@ -76,15 +74,15 @@ import {
   subtitle="Our Engineering Principles"
   title="Product and Engineering Principles"
 >
-  <ListItem src="./assets/well-paid.svg">
+  <List.Item src="./assets/well-paid.svg">
     ### We believe in being paid for quality work
 
     There's an incredible amount of software infrastructure that is under-funded
     and ignored. We believe our software needs to generate revenue to
     employ the best minds.
 
-  </ListItem>
-  <ListItem src="./assets/hearth.svg">
+  </List.Item>
+  <List.Item src="./assets/hearth.svg">
     ### We balance openness and transparency
 
     We work as much as we can in the open; our commits, designs, and
@@ -94,8 +92,8 @@ import {
     critical code is developed in the open. Our independent audits get
     published, even the unflattering ones.
 
-  </ListItem>
-  <ListItem src="./assets/puzzle.svg">
+  </List.Item>
+  <List.Item src="./assets/puzzle.svg">
     ### We want to tackle and solve the hard problems
 
     We want to minimize the theater in security products, and offer
@@ -104,7 +102,7 @@ import {
     done. We want to end passwords as a vehicle for trust, including passwords
     in disguise such as tokens.
 
-  </ListItem>
+  </List.Item>
 </List>
 
 <Careers />

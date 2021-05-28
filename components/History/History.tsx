@@ -19,7 +19,7 @@ const waveLeftBg = `url(${waveLeftUrl}) -438px -660px no-repeat`;
 const waveRightBg = `url(${waveRightUrl}) right -438px top -660px no-repeat`;
 const complexBg = [pathBg, waveLeftBg, waveRightBg].join(",");
 
-export default function History({ children }: Props) {
+function History({ children }: Props) {
   return (
     <Box
       as="section"
@@ -50,6 +50,10 @@ export function Milestone({ icon, children }: MilestoneProps) {
     </StyledItem>
   );
 }
+
+History.Milestone = Milestone;
+
+export default History;
 
 const StyledTextWrapper = styled("div")<StyledSystemProps>(
   css({

@@ -22,12 +22,7 @@ export interface Props {
   subtitle?: string;
 }
 
-export default function List({
-  title,
-  subtitle,
-  grid = false,
-  children,
-}: Props) {
+function List({ title, subtitle, grid = false, children }: Props) {
   return (
     <Box
       as="section"
@@ -72,6 +67,10 @@ export function ListItem({ children, src, icon }: ListItemProps) {
     </StyledItem>
   );
 }
+
+List.Item = ListItem;
+
+export default List;
 
 const StyledIconWrapper = styled(Icon)(
   css({

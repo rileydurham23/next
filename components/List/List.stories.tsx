@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
 import Flex from "../Flex";
-import List, { ListItem, Props } from "./List";
+import List, { Props } from "./List";
 
 const StoryComponent: Story<Props> = (args) => (
   <Flex
@@ -28,7 +28,7 @@ Simple.args = {
   subtitle: "Really Strong",
   children: (
     <>
-      <ListItem icon="bolt">
+      <List.Item icon="bolt">
         <h3>Title 1</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -36,8 +36,8 @@ Simple.args = {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </p>
-      </ListItem>
-      <ListItem icon="clock">
+      </List.Item>
+      <List.Item icon="clock">
         <h3>Title 2</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -45,8 +45,8 @@ Simple.args = {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </p>
-      </ListItem>
-      <ListItem icon="book">
+      </List.Item>
+      <List.Item icon="book">
         <h3>Title 3</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -54,7 +54,7 @@ Simple.args = {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </p>
-      </ListItem>
+      </List.Item>
     </>
   ),
 };
@@ -67,7 +67,7 @@ Grid.args = {
   grid: true,
   children: (
     <>
-      <ListItem icon="bolt">
+      <List.Item icon="bolt">
         <h3>Title 1</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -75,8 +75,8 @@ Grid.args = {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </p>
-      </ListItem>
-      <ListItem icon="clock">
+      </List.Item>
+      <List.Item icon="clock">
         <h3>Title 2</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -84,8 +84,8 @@ Grid.args = {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </p>
-      </ListItem>
-      <ListItem icon="book">
+      </List.Item>
+      <List.Item icon="book">
         <h3>Title 3</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -93,7 +93,7 @@ Grid.args = {
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </p>
-      </ListItem>
+      </List.Item>
     </>
   ),
 };
