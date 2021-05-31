@@ -39,7 +39,7 @@ const theme = {
     "header-2": 28,
     "header-1": 32,
     banner: 38,
-    "section-header": 40,
+    "section-header": 48,
     "hero-header": 54,
   },
   fontWeights: {
@@ -53,6 +53,7 @@ const theme = {
     lg: "32px",
     xl: "40px",
     xxl: "48px",
+    "section-header": "54px",
     "hero-header": "60px",
   },
   textStyles: {
@@ -94,7 +95,7 @@ const theme = {
     },
     "section-header": {
       fontSize: "section-header",
-      lineHeight: "hero-header",
+      lineHeight: "section-header",
       fontWeight: "bold",
     },
     "hero-header": {

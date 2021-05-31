@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 import css from "@styled-system/css";
-import { StyledSystemProps, all } from "components/system";
+import { StyledSystemProps } from "components/system";
 import { variant } from "styled-system";
 import Heading from "components/Heading";
-import Box, { BoxProps } from "components/Box";
+import Box from "components/Box";
 import Icon, { IconName } from "components/Icon";
 import { Centrator } from "components/Layout";
 import terminalUrl from "./assets/terminal.png";
@@ -14,27 +14,15 @@ const waveBg = `url(${waveUrl}) -477px 73px no-repeat`;
 const terminalBg = `url(${terminalUrl}) right center no-repeat`;
 
 type Child = React.ReactElement<typeof ListItem>;
-type Size = "sm" | "md";
 
-export type Props = {
+export interface Props {
   children: Child | Array<Child>;
-  description: ReactNode;
   grid?: boolean;
-  hideImage?: boolean;
   title?: string;
   subtitle?: string;
-} & BoxProps;
+}
 
-function List({
-  title,
-  subtitle,
-  description,
-  hideImage = false,
-  grid = false,
-  children,
-  ...props
-}: Props) {
-  const noImage = grid || hideImage;
+function List({ title, subtitle, grid = false, children }: Props) {
   return (
     <Box
       as="section"
@@ -42,14 +30,12 @@ function List({
       pt={[5, 10]}
       pb={[6, 11]}
       width="100%"
-      {...props}
     >
       <Centrator flexDirection="column">
         <Heading title={title} subtitle={subtitle} />
-        {description}
         <Box
-          background={noImage ? undefined : ["none", "none", terminalBg]}
-          backgroundSize={noImage ? undefined : ["", "", "384px 320px"]}
+          background={grid ? undefined : ["none", "none", terminalBg]}
+          backgroundSize={grid ? undefined : ["", "", "384px 320px"]}
           mt={grid ? [0, 5] : 0}
         >
           <StyledUL grid={[false, grid]}>{children}</StyledUL>
@@ -59,37 +45,25 @@ function List({
   );
 }
 
-type ListItemProps = {
+interface ListItemProps {
   children: ReactNode;
-  size?: Size;
   icon?: IconName;
   src?: string;
-} & BoxProps;
+}
 
-export function ListItem({
-  children,
-  src,
-  icon,
-  size = "md",
-  ...props
-}: ListItemProps) {
-  const iconSize = size === "md" ? "40px" : "32px";
+export function ListItem({ children, src, icon }: ListItemProps) {
   return (
-    <StyledItem {...props}>
+    <StyledItem>
       {(icon || src) && (
-        <StyledIconWrapper width={iconSize} height={iconSize}>
+        <StyledIconWrapper>
           {icon ? (
-            <Icon
-              name={icon}
-              size={size === "md" ? "xl" : "lg"}
-              color="dark-purple"
-            />
+            <Icon name={icon} size="xl" />
           ) : (
             <Box as="img" src={src} width="100%" height="100%" />
           )}
         </StyledIconWrapper>
       )}
-      <StyledContentWrapper size={size}>{children}</StyledContentWrapper>
+      <StyledContentWrapper>{children}</StyledContentWrapper>
     </StyledItem>
   );
 }
@@ -103,21 +77,18 @@ const StyledIconWrapper = styled(Icon)(
     position: "absolute",
     left: 0,
     top: 0,
-  }),
-  all
+    width: "40px",
+    height: "40px",
+  })
 );
 
-interface WrapperProps extends StyledSystemProps {
-  size?: Size | Size[];
-}
-
-const StyledContentWrapper = styled("div")<WrapperProps>(
+const StyledContentWrapper = styled("div")<StyledSystemProps>(
   css({
     "> h3": {
       fontSize: "header-4",
       fontWeight: "bold",
-      lineHeight: "40px",
       m: 0,
+      lineHeight: "40px",
       mb: "-40px",
       "> a": {
         display: "none !important",
@@ -129,22 +100,6 @@ const StyledContentWrapper = styled("div")<WrapperProps>(
       color: "darkest",
       m: 0,
       mt: 8,
-    },
-  }),
-  variant({
-    prop: "size",
-    variants: {
-      sm: {
-        "> h3": {
-          color: "dark-gray",
-          fontSize: "text-lg",
-          lineHeight: "md",
-        },
-        "> p": {
-          color: "dark-gray",
-          lineHeight: "md",
-        },
-      },
     },
   })
 );
@@ -161,8 +116,7 @@ const StyledItem = styled("li")(
     [`${StyledIconWrapper} + ${StyledContentWrapper} > p`]: {
       ml: "52px",
     },
-  }),
-  all
+  })
 );
 
 interface ULProps extends StyledSystemProps {

@@ -11,8 +11,8 @@ import leftUrl from "./assets/left.svg";
 import rightUrl from "./assets/right.svg";
 
 const bg = [
-  `url(${leftUrl}) left 24px top no-repeat`,
-  `url(${rightUrl}) right 24px top no-repeat`,
+  `url(${leftUrl}) left 24px top 24px no-repeat`,
+  `url(${rightUrl}) right 24px top 32px no-repeat`,
 ].join(",");
 
 type ReviewItemProps = {
@@ -39,7 +39,7 @@ export default function Review({ company }: ReviewItemProps) {
       <Company width="140px" height="50px" id={company} />
       <Box
         as="p"
-        mt="5"
+        mt="2"
         textAlign="center"
         fontSize={["text-lg", "header-3"]}
         lineHeight={["md", "lg"]}
@@ -60,9 +60,9 @@ export default function Review({ company }: ReviewItemProps) {
           />
         )}
         <Box
-          color="gray"
+          color="darkest"
           text="text-sm"
-          letterSpacing=".5px;"
+          fontWeight="bold"
           ml={photo ? 4 : 0}
           textAlign={photo ? "left" : "center"}
         >
@@ -82,13 +82,14 @@ const StyledWrapper = styled("blockquote")(
     maxWidth: "780px",
     m: 0,
     border: "1px solid",
-    borderRadius: "md",
+    borderRadius: "default",
     borderColor: ["transparent", "dark-purple"],
     background: bg,
-    backgroundSize: "80px 100px, 80px 100px",
+    backgroundSize: "35px 35px, 35px 35px",
     boxShadow: ["none", "0 1px 4px rgba(0, 0, 0, 0.24)"],
-    px: 9,
-    py: 5,
+    px: 7,
+    pt: 3,
+    pb: 5,
   }),
   all
 );
