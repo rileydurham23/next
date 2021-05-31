@@ -8,5 +8,11 @@ export declare global {
         callback: () => void
       ) => void;
     };
+    teleport?: {
+      renderSignupRequestForm: (
+        element: Element,
+        options: { apiUrl: string }
+      ) => void;
+    };
   }
 }
