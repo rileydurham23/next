@@ -40,7 +40,7 @@ const theme = {
     "header-1": 32,
     banner: 38,
     "section-header": 48,
-    "hero-header": 54,
+    "hero-header": 52,
   },
   fontWeights: {
     regular: 400,

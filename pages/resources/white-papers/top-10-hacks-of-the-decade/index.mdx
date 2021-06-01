@@ -1,0 +1,52 @@
+---
+title: Top 10 Hacks of the Past Decade
+description: "In 1971, when employees booted up their PDP-10 mainframe computers, they found a peculiar message waiting for them at the teletype console. “I’m the creeper: catch me if you can.” This mysterious message was found at multiple stations throughout the BBN Technologies headquarters. What researchers were witnessing was the spread of the very first computer virus, a worm called Creeper."
+shortFooter: true
+layout: short
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+reviews:
+  - mulesoft
+  - nasdaq
+  - sumologic
+  - anaconda
+---
+
+import { BookBlock, ClientsList, Feedback, PromoPointsBlock } from "components";
+
+<BookBlock
+  title="Top 10 Hacks of the Past Decade"
+  src="./assets/cover.png"
+  formId="1103"
+>
+  In 1971, when employees booted up their PDP-10 mainframe computers, they found
+  a peculiar message waiting for them at the teletype console. “I’m the creeper:
+  catch me if you can.” This mysterious message was found at multiple stations
+  throughout the BBN Technologies headquarters. What researchers were witnessing
+  was the spread of the very first computer virus, a worm called Creeper.
+</BookBlock>
+<PromoPointsBlock
+  title="Download the PDF to learn:"
+  src="./assets/engineers.svg"
+>
+  <PromoPointsBlock.Item icon="bolt">
+    The implications of the top 10 security hacks
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="card">
+    The role of the cybersecurity industry
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="shieldCheck">
+    How Teleport could have changed the results
+  </PromoPointsBlock.Item>
+</PromoPointsBlock>
+<ClientsList clients={meta.clients} contrasted />
+<Feedback reviews={meta.reviews} />

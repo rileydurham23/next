@@ -8,17 +8,29 @@ import { StyledSystemProps } from "components/system";
 
 type Props = {
   clients: CompanyId[];
+  contrasted: true;
 } & BoxProps;
 
-export default function ClientsList({ clients, ...props }: Props) {
+export default function ClientsList({ clients, contrasted, ...props }: Props) {
   return (
-    <Box as="section" py={[3, 6]} {...props}>
+    <Box
+      as="section"
+      bg={contrasted ? "page-bg" : "white"}
+      py={[3, 6]}
+      {...props}
+    >
       <Centrator>
         <Flex flexDirection="column" alignItems="center" width="100%">
           <Box as="h2" fontSize="0" color="white">
             Clients
           </Box>
-          <Box as="p" fontSize="text-lg" lineHeight="lg" fontWeight="bold">
+          <Box
+            as="p"
+            fontSize="text-lg"
+            lineHeight="lg"
+            fontWeight="bold"
+            color={contrasted ? "dark-gray" : "black"}
+          >
             Trusted by Leading Organizations
           </Box>
           <StyledList>

@@ -39,20 +39,36 @@ export interface PromoPointsBlockProps {
 const PromoPointsBlock = ({ title, src, children }: PromoPointsBlockProps) => {
   return (
     <Flex backgroundImage="linear-gradient(180deg, #ffffff 0%, #fafafb 100%)">
-      <Box bg="light-purple" color="white" flex="1 1 50%" p={[5, 11]}>
-        <Box
-          as="h2"
-          fontSize={["header-3", "36px"]}
-          lineHeight={["lg", "xxl"]}
-          fontWeight="black"
-          mb={[4, 6]}
-        >
-          {title}
+      <Box
+        backgroundImage="linear-gradient(136deg, #512fc9 0%, #651fff 100%)"
+        color="white"
+        flex="1 1 50%"
+        pl={[3, 3, 11]}
+      >
+        <Box maxWidth="620px" ml="auto" pr={[3, 11]} py={[4, 11]}>
+          <Box
+            as="h2"
+            fontSize={["header-3", "36px"]}
+            lineHeight={["lg", "xxl"]}
+            fontWeight="black"
+            mt={["-2px", "-8px"]}
+            mb={[4, 6]}
+          >
+            {title}
+          </Box>
+          <Box>{children}</Box>
         </Box>
-        <Box>{children}</Box>
       </Box>
-      <Box flex="1 1 50%" display={["none", "block"]} position="relative">
-        <StyledImage src={src} layout="fill" />
+      <Box flex="1 1 50%" display={["none", "block"]} pr={[5, 5, 11]}>
+        <Box
+          position="relative"
+          maxWidth="588px"
+          ml={5}
+          mr="auto"
+          height="100%"
+        >
+          <StyledImage src={src} layout="fill" />
+        </Box>
       </Box>
     </Flex>
   );

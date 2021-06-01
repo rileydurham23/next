@@ -1,23 +1,22 @@
-import Header from "components/Header";
+import Header, { HeaderMode } from "components/Header";
 import Flex, { FlexProps } from "components/Flex";
 
 interface LayoutProps {
   children: React.ReactNode;
-  shortHeader?: boolean;
+  mode?: HeaderMode;
 }
 
 const Layout = ({
   children,
-  shortHeader,
+  mode = "full",
   ...props
 }: LayoutProps & FlexProps) => {
-  const isShortHeader = Boolean(shortHeader);
   return (
     <>
-      <Header short={isShortHeader} />
+      <Header mode={mode} />
       <Flex
         as="main"
-        pt={isShortHeader ? undefined : ["48px", "80px"]}
+        pt={mode === "full" ? ["48px", "80px"] : undefined}
         flexDirection="column"
         {...props}
       >
