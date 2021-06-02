@@ -25,12 +25,5 @@
       "name": "7.0",
       "branch": "master"
     }
-  ],
-  "redirects": [
-    {
-      "source": "/resources/white-papers/top-10-hacks-of-the-decade/",
-      "destination": "/downloads/top-10-hacks-of-the-past-decade/",
-      "permanent": true
-    }
   ]
 }

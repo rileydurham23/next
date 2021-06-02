@@ -6,6 +6,7 @@ const { NEXT_PUBLIC_ENTERPRISE_SIGNUP_FORM_ID } = process.env;
 export default function EnterpriseSignup(props: BoxProps) {
   return (
     <Box
+      mt={["auto", "auto", "-99px"]}
       width={["100%", "640px", "488px"]}
       maxWidth={["100%", "640px", "30vw"]}
       boxShadow="0 8px 32px rgb(0 0 0 / 24%)"

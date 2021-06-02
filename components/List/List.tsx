@@ -36,14 +36,7 @@ function List({
 }: Props) {
   const noImage = grid || hideImage;
   return (
-    <Box
-      as="section"
-      background={waveBg}
-      pt={[5, 10]}
-      pb={[6, 11]}
-      width="100%"
-      {...props}
-    >
+    <Box as="section" background={waveBg} pb={[6, 11]} width="100%" {...props}>
       <Centrator flexDirection="column">
         <Heading title={title} subtitle={subtitle} />
         {description}

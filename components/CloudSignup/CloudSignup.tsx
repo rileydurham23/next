@@ -23,6 +23,7 @@ export default function CloudSignup(props: BoxProps) {
 const StyledWrapper = styled("div")<StyledSystemProps>(
   css({
     bg: "white",
+    mt: ["auto", "auto", "-99px"],
     width: ["100%", "640px", "488px"],
     maxWidth: ["100%", "640px", "30vw"],
     ".pro-signup": {
