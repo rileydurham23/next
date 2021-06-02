@@ -36,3 +36,4 @@ export { ReactComponent as checkmarkCircle } from "./svg/checkmark-circle.svg";
 export { ReactComponent as helpCircle } from "./svg/help-circle.svg";
 export { ReactComponent as lock } from "./svg/lock.svg";
 export { ReactComponent as server } from "./svg/server-access.svg";
+export { ReactComponent as wrench } from "./svg/wrench.svg";
