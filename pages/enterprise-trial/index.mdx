@@ -1,0 +1,65 @@
+---
+title: Get Started with Teleport
+h1: Teleport
+description: Teleport helps developers & security professionals quickly and securely access servers, applications, Kubernetes clusters, and databases from anywhere, across all environments.
+shortFooter: true
+layout: short
+video: 0HlyGk8dihM
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+reviews:
+  - mulesoft
+  - nasdaq
+  - sumologic
+  - anaconda
+---
+
+import {
+  ClientsList,
+  List,
+  Feedback,
+  EnterpriseSignup,
+  SignupDescription,
+} from "components";
+
+<List
+  subtitle="Access Plane"
+  title={meta.title}
+  hideImage
+  description={
+    <SignupDescription description={meta.description} video={meta.video}>
+      <EnterpriseSignup />
+    </SignupDescription>
+  }
+>
+  <List.Item icon="license" size="sm" maxWidth={["100%", "80%"]}>
+    ### Secure certificate-based authentication
+    Easily enforce MFA, RBAC, and SSO using identity-based, short-lived certificates to meet security & compliance requirements.
+
+  </List.Item>
+  <List.Item icon="magic" size="sm" maxWidth={["100%", "80%"]}>
+    ### Complete visibility into access & behavior
+
+    Teleport provides a unified resource catalog, live session recordings, and a comprehensive audit log to help you get a clear picture of changes being made.
+
+  </List.Item>
+  <List.Item icon="nodes" size="sm" maxWidth={["100%", "80%"]}>
+    ### Seamless integration with your stack
+
+    By relying on open standards like X.509 certificates, HTTPS, SAM, OpenID connect, and more, connecting Teleport to your stack is quick & easy.
+
+  </List.Item>
+</List>
+
+<ClientsList clients={meta.clients} bg="page-bg" />
+
+<Feedback reviews={meta.reviews} />

@@ -69,7 +69,7 @@ const StyledFormFormWrapper = styled("form")<
       float: "none !important" as "none",
       order: 2,
     },
-    "input[type=text], input[type=email]": {
+    "input[type=text], input[type=email], input[type=tel]": {
       width: "100% !important",
       p: "0 8px !important",
       border: "1px solid",
