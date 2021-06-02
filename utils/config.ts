@@ -4,6 +4,33 @@ import { load as loadDocs, normalize as normalizeDocs } from "./config-docs";
 
 const ajv = new Ajv();
 
+const redirectsSchemaFragment = {
+  type: "array",
+  items: {
+    type: "object",
+    properties: {
+      source: { type: "string" },
+      destination: { type: "string" },
+      boolean: { type: "boolean", nullable: true },
+      basePath: { type: "boolean", nullable: true },
+      statusCode: { type: "number", nullable: true },
+      permanent: { type: "boolean", nullable: true },
+      has: {
+        type: "object",
+        properties: {
+          type: { type: "string" },
+          key: { type: "string", nullable: true },
+          value: { type: "string", nullable: true },
+        },
+        nullable: true,
+        additionalProperties: false,
+      },
+    },
+    required: ["source", "destination"],
+    additionalProperties: false,
+  },
+};
+
 const siteSchema = {
   type: "object",
   properties: {
@@ -22,6 +49,7 @@ const siteSchema = {
       minItems: 1,
       uniqueItems: true,
     },
+    redirects: redirectsSchemaFragment,
   },
   required: ["versions"],
 };
@@ -65,19 +93,7 @@ const docsSchema = {
       minItems: 1,
       uniqueItems: true,
     },
-    redirects: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          source: { type: "string" },
-          destination: { type: "string" },
-          permanent: { type: "boolean", nullable: true },
-        },
-        required: ["source", "destination"],
-        additionalProperties: false,
-      },
-    },
+    redirects: redirectsSchemaFragment,
   },
   required: ["navigation"],
   additionalProperties: false,

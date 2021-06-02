@@ -1,3 +1,4 @@
+import { Redirect } from "next/dist/lib/load-custom-routes";
 import { resolve } from "path";
 import { existsSync, readFileSync } from "fs";
 import { isExternalLink, isHash, extractPath } from "./url";
@@ -6,12 +7,6 @@ import {
   NavigationItem,
 } from "../components/DocsPage/types";
 import getConfig from "./config-site";
-
-interface Redirect {
-  source: string;
-  destination: string;
-  permanent?: boolean;
-}
 
 export interface Config {
   navigation: NavigationCategory[];

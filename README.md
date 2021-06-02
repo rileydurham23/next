@@ -65,7 +65,8 @@ Now run one of the following commands:
 
 File that configures build options:
 
-`versions` - array of the available options, should match the names of the folders inside `content` dir. Will be shown in the version select in the inverted order.
+- `versions` - array of the available options, should match the names of the folders inside `content` dir. Will be shown in the version select in the inverted order.
+- `redirects` - optional array of redirects. Uses [Next.js syntax](https://nextjs.org/docs/api-reference/next.config.js/redirects) inside.
 
 Format of version entry:
 

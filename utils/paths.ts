@@ -3,8 +3,9 @@ import { writeFileSync } from "fs";
 import { join, resolve } from "path";
 import { format } from "date-fns";
 import { loadSiteConfig, loadDocsConfig } from "./config";
+import { resourceLimits } from "node:worker_threads";
 
-const { latest, versions } = loadSiteConfig();
+const { latest, versions, redirects } = loadSiteConfig();
 
 const NEXT_PUBLIC_ROOT_DIR = process.env.NEXT_PUBLIC_ROOT_DIR as string;
 const NEXT_PUBLIC_HOST = process.env.NEXT_PUBLIC_HOST as string;
@@ -99,9 +100,15 @@ export const generateSitemap = () => {
 };
 
 export const getRedirects = () => {
-  return versions.flatMap((version) => {
+  const result = versions.flatMap((version) => {
     const config = loadDocsConfig(version);
 
     return config.redirects ? config.redirects : [];
   });
+
+  if (redirects) {
+    result.push(...redirects);
+  }
+
+  return result;
 };
