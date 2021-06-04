@@ -63,4 +63,16 @@ describe("utils/rehype-images", () => {
       '<img src="/images/image@3x.png" alt="Alt text" width="100" height="100">'
     );
   });
+
+  it("Replaces paragrpah with images inside no multiple nodes", () => {
+    const result = transformer({
+      contents:
+        "![Alt text](/images/image.png)\nParagraph\n![Alt text](/images/image.png)",
+      path: "/docs/index.mdx",
+    });
+
+    expect(result).toEqual(
+      '<img src="/images/image.png" alt="Alt text" width="300" height="300"><p>\nParagraph\n</p><img src="/images/image.png" alt="Alt text" width="300" height="300">'
+    );
+  });
 });

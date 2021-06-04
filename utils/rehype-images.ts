@@ -13,8 +13,10 @@ const isLocalImg = (node: RehypeNode): boolean =>
   !isExternalLink(node.properties.src) &&
   !isHash(node.properties.src);
 
-const isParagraph = (node: RehypeNode) =>
-  node.type === "element" && node.tagName === "p";
+const isParagraphWithImageInside = (node: RehypeNode) =>
+  node.type === "element" &&
+  node.tagName === "p" &&
+  node.children.some(isLocalImg);
 
 const imgSizeRegExp = /@([0-9.]+)x/; // E.g. image@2x.png
 
@@ -60,25 +62,27 @@ export default function rehypeImages({
           node.properties.height = height / scaleRatio;
         } catch {}
       }
+    });
 
-      /*
-        We will use next/image on the client that will wrap image inside <div>,
-        and placing <div> inside <p> will cause css bugs, so we remove this <p> here
-      */
+    /*
+      We will use next/image on the client that will wrap image inside <div>,
+      and placing <div> inside <p> will cause css bugs, so we remove this <p> here
+    */
 
-      const parent = ancestors[ancestors.length - 1] as Element;
+    visit<Element>(
+      root,
+      [isParagraphWithImageInside],
+      (paragraphNode, ancestors) => {
+        const parent = ancestors[ancestors.length - 1] as Element;
+        const paragraphIndex = parent.children.indexOf(paragraphNode);
 
-      if (isParagraph(parent)) {
-        const grandparent = ancestors[ancestors.length - 2] as Element;
-        const parentIndex = grandparent.children.indexOf(parent);
-
-        if (parent.children.length === 1) {
-          grandparent.children[parentIndex] = node;
+        if (paragraphNode.children.length === 1) {
+          parent.children[paragraphIndex] = paragraphNode.children[0];
         } else {
           const newNodes = [];
           let currentParagraph: Element | undefined;
 
-          parent.children.forEach((node, index) => {
+          paragraphNode.children.forEach((node, index) => {
             if (isLocalImg(node)) {
               if (currentParagraph) {
                 newNodes.push(currentParagraph);
@@ -97,17 +101,17 @@ export default function rehypeImages({
                 currentParagraph.children.push(node);
               }
 
-              if (index === parent.children.length - 1) {
+              if (index === paragraphNode.children.length - 1) {
                 newNodes.push(currentParagraph);
               }
             }
           });
 
-          grandparent.children.splice(parentIndex, 1, ...newNodes);
-        }
+          parent.children.splice(paragraphIndex, 1, ...newNodes);
 
-        return visit.SKIP;
+          return [visit.SKIP, paragraphIndex + newNodes.length];
+        }
       }
-    });
+    );
   };
 }
