@@ -112,6 +112,11 @@ const menu: MenuCategoryProps[] = [
     ],
   },
   {
+    title: "Pricing",
+    description: "Pricing",
+    href: "/pricing/",
+  },
+  {
     title: "Company",
     description: "Company",
     href: "/about/",
