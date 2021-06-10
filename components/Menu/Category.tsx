@@ -14,7 +14,7 @@ export interface MenuCategoryProps {
   title: string;
   description: string;
   href: string;
-  children: MenuItemProps[];
+  children?: MenuItemProps[];
 }
 
 interface MenuCategoryComponentProps extends MenuCategoryProps {
@@ -42,9 +42,11 @@ const MenuCategory = ({
 
   const toggleOpened = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
-      e.preventDefault();
+      if (children) {
+        e.preventDefault();
 
-      onToggleOpened(opened ? null : id);
+        onToggleOpened(opened ? null : id);
+      }
     },
     [opened]
   );
@@ -66,11 +68,13 @@ const MenuCategory = ({
           top={[0, "80px"]}
           zIndex={3000}
         >
-          <DropdownMenu title={description}>
-            {children.map((props) => (
-              <DropdownMenuItem key={props.href} {...props} />
-            ))}
-          </DropdownMenu>
+          {children && (
+            <DropdownMenu title={description}>
+              {children.map((props) => (
+                <DropdownMenuItem key={props.href} {...props} />
+              ))}
+            </DropdownMenu>
+          )}
         </Box>
       </Box>
     </>
