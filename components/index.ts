@@ -37,6 +37,7 @@ export { default as Slider } from "components/Slider";
 export { default as Box } from "components/Box";
 export { default as Video } from "components/Video";
 export { default as Cover } from "components/Cover";
+export { default as PageIntro } from "components/PageIntro";
 export type { BoxProps };
 export { default as Flex } from "components/Flex";
 export type { FlexProps };

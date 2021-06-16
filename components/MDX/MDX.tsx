@@ -1,10 +1,8 @@
 import css from "@styled-system/css";
 import { MDXProvider } from "@mdx-js/react";
 import Admonition from "components/Admonition";
-import PageIntro from "components/PageIntro";
 import Box from "components/Box";
 import { Tabs, TabItem } from "components/Tabs";
-import Layout, { Centrator } from "components/Layout";
 import {
   Tile,
   TileSet,
@@ -13,7 +11,7 @@ import {
   TileImage,
 } from "components/Tile";
 import Code from "./Code";
-import { Header } from "./Headers";
+import { Header, StyledHeader } from "./Headers";
 import { Image, Figure } from "./Image";
 import IFrame from "./IFrame";
 import Link from "./Link";
@@ -50,9 +48,6 @@ export const components = {
   TileListItem,
   TileImage,
   Figure,
-  Layout,
-  Centrator,
-  PageIntro,
 };
 
 export interface MDXProps {
@@ -65,68 +60,68 @@ const MDX = ({ children }: MDXProps) => {
       css={css({
         lineHeight: ["26px"],
         color: "text",
-        "& *:first-child": {
+        "& > *:first-child": {
           mt: 0,
         },
-        "& *:last-child": {
+        "& > *:last-child": {
           mb: 0,
         },
-        "& p": {
+        "& p:not([class])": {
           mt: 0,
           mb: 3,
           fontSize: ["text-lg", "text-lg"],
           lineHeight: ["26px"],
         },
-        "& video": {
+        "& video:not([class])": {
           mb: 3,
           maxWidth: "100%",
         },
-        "& ul, & ol": {
+        "& ul:not([class]), & ol:not([class])": {
           mt: 0,
           mb: 3,
           pl: "24px",
         },
-        "& li": {
+        "& li:not([class])": {
           fontSize: ["text-lg", "text-lg"],
           lineHeight: "26px",
           mb: 2,
         },
-        "& h1": {
+        [`& h1${StyledHeader}`]: {
           fontSize: ["header-1", "40px"],
           lineHeight: ["48px", "52px"],
           fontWeight: "black",
           mt: 4,
           mb: 3,
         },
-        "& h2": {
+        [`& h2${StyledHeader}`]: {
           fontSize: ["header-2", "header-1"],
           lineHeight: ["32px", "48px"],
           fontWeight: "bold",
           mt: 3,
           mb: 2,
         },
-        "& h3": {
+        [`& h3${StyledHeader}`]: {
           fontSize: ["header-4", "header-3"],
           lineHeight: ["md", "32px"],
           fontWeight: "bold",
           mt: 3,
           mb: 2,
         },
-        "& h4": {
+        [`& h4${StyledHeader}`]: {
           fontSize: ["text-xl", "text-xl"],
           lineHeight: "32px",
           fontWeight: "bold",
           mt: 3,
           mb: 2,
         },
-        "& h5": {
+        [`& h5${StyledHeader}`]: {
           fontSize: "text-md",
           lineHeight: "lg",
           mt: 3,
           mb: 2,
           textTransform: "uppercase",
         },
-        "& table": {
+        "& table:not([class])": {
           mb: 4,
           bg: "white",
           boxShadow: "0 1px 4px rgba(0,0,0,.24)",
@@ -135,10 +130,10 @@ const MDX = ({ children }: MDXProps) => {
           boxSizing: "border-box",
           width: "100%",
         },
-        "& thead": {
+        "& thead:not([class])": {
           borderBottom: "1px solid #D2DBDF",
         },
-        "& th": {
+        "& th:not([class])": {
           fontSize: ["text-md", "text-lg"],
           lineHeight: "26px",
           fontWeight: "bold",
@@ -146,16 +141,16 @@ const MDX = ({ children }: MDXProps) => {
           px: 3,
           py: 2,
         },
-        "& td": {
+        "& td:not([class])": {
           color: "text",
           fontSize: ["text-md", "text-lg"],
           lineHeight: "md",
           p: 3,
         },
-        "& tbody tr:nth-child(even)": {
+        "& tbody tr:not([class]):nth-child(even)": {
           bg: "lightest-gray",
         },
-        "tr:last-child": {
+        "tr:not([class]):last-child": {
           borderBottomLeftRadius: "default",
           borderBottomRightRadius: "default",
         },

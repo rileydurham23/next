@@ -55,7 +55,7 @@ const Pre = ({ children }: CodeProps) => {
         right={0}
         p={2}
         color="dark-gray"
-        bg="code"
+        bg="transparent"
         css={css({
           "&:hover, &:focus, &:active": {
             color: "lightest-gray",
@@ -71,9 +71,7 @@ const Pre = ({ children }: CodeProps) => {
         ref={codeRef}
         display="block"
         overflowX="auto"
-        mx={0}
-        mt={0}
-        mb={3}
+        m={0}
         px={3}
         py={2}
         color="#ddd"

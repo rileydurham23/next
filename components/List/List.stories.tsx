@@ -28,8 +28,7 @@ Simple.args = {
   subtitle: "Really Strong",
   children: (
     <>
-      <List.Item icon="bolt">
-        <h3>Title 1</h3>
+      <List.Item icon="bolt" title="Title 1">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -37,8 +36,7 @@ Simple.args = {
           aliquip ex ea commodo consequat.
         </p>
       </List.Item>
-      <List.Item icon="clock">
-        <h3>Title 2</h3>
+      <List.Item icon="clock" title="Title 2">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -46,8 +44,7 @@ Simple.args = {
           aliquip ex ea commodo consequat.
         </p>
       </List.Item>
-      <List.Item icon="book">
-        <h3>Title 3</h3>
+      <List.Item icon="book" title="Title 3">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -67,8 +64,7 @@ Grid.args = {
   grid: true,
   children: (
     <>
-      <List.Item icon="bolt">
-        <h3>Title 1</h3>
+      <List.Item icon="bolt" title="Title 1">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -76,8 +72,7 @@ Grid.args = {
           aliquip ex ea commodo consequat.
         </p>
       </List.Item>
-      <List.Item icon="clock">
-        <h3>Title 2</h3>
+      <List.Item icon="clock" title="Title 2">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -85,8 +80,7 @@ Grid.args = {
           aliquip ex ea commodo consequat.
         </p>
       </List.Item>
-      <List.Item icon="book">
-        <h3>Title 3</h3>
+      <List.Item icon="book" title="Title 3">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad

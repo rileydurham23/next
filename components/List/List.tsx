@@ -57,6 +57,7 @@ type ListItemProps = {
   size?: Size;
   icon?: IconName;
   src?: string;
+  title: string;
 } & BoxProps;
 
 export function ListItem({
@@ -64,6 +65,7 @@ export function ListItem({
   src,
   icon,
   size = "md",
+  title,
   ...props
 }: ListItemProps) {
   const iconSize = size === "md" ? "40px" : "32px";
@@ -82,7 +84,10 @@ export function ListItem({
           )}
         </StyledIconWrapper>
       )}
-      <StyledContentWrapper size={size}>{children}</StyledContentWrapper>
+      <Box>
+        <StyledItemTitle size={size}>{title}</StyledItemTitle>
+        <StyledContentWrapper size={size}>{children}</StyledContentWrapper>
+      </Box>
     </StyledItem>
   );
 }
@@ -104,39 +109,48 @@ interface WrapperProps extends StyledSystemProps {
   size?: Size | Size[];
 }
 
-const StyledContentWrapper = styled("div")<WrapperProps>(
+const StyledItemTitle = styled("h3")<WrapperProps>(
   css({
-    "> h3": {
-      fontSize: "header-4",
-      fontWeight: "bold",
-      lineHeight: "40px",
-      m: 0,
-      mb: "-40px",
-      "> a": {
-        display: "none !important",
+    fontSize: "header-4",
+    fontWeight: "bold",
+    lineHeight: "lg",
+    py: 1,
+    mt: 0,
+    mb: 3,
+    ml: "52px",
+  }),
+  variant({
+    prop: "size",
+    variants: {
+      sm: {
+        color: "dark-gray",
+        fontSize: "text-lg",
+        lineHeight: "md",
+        py: 1,
       },
     },
-    "> p": {
-      fontSize: "text-lg",
-      lineHeight: "28px",
-      color: "darkest",
-      m: 0,
-      mt: 8,
+  })
+);
+
+const StyledContentWrapper = styled("div")<WrapperProps>(
+  css({
+    fontSize: "text-lg",
+    lineHeight: "28px",
+    color: "darkest",
+    ml: "52px",
+    "&& > *:first-child": {
+      mt: 0,
+    },
+    "&& > *:last-child": {
+      mb: 0,
     },
   }),
   variant({
     prop: "size",
     variants: {
       sm: {
-        "> h3": {
-          color: "dark-gray",
-          fontSize: "text-lg",
-          lineHeight: "md",
-        },
-        "> p": {
-          color: "dark-gray",
-          lineHeight: "md",
-        },
+        color: "dark-gray",
+        lineHeight: "md",
       },
     },
   })
@@ -148,12 +162,6 @@ const StyledItem = styled("li")(
     boxSizing: "border-box",
     display: "flex",
     mt: 7,
-    [`${StyledIconWrapper} + ${StyledContentWrapper} > h3`]: {
-      ml: "52px",
-    },
-    [`${StyledIconWrapper} + ${StyledContentWrapper} > p`]: {
-      ml: "52px",
-    },
   }),
   all
 );
@@ -193,7 +201,7 @@ const StyledUL = styled("ul")<ULProps>(
           "&:nth-child(n + 4)": {
             mt: 6,
           },
-          [`${StyledIconWrapper} + ${StyledContentWrapper} > p`]: { ml: 0 },
+          [`${StyledContentWrapper}`]: { ml: 0 },
         },
       },
     },

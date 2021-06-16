@@ -7,7 +7,7 @@ interface HeaderProps {
   children: React.ReactNode;
 }
 
-const Anchor = styled("a")(
+const StyledAnchor = styled("a")(
   css({
     display: "none",
     color: "light-gray",
@@ -21,20 +21,21 @@ const Anchor = styled("a")(
   })
 );
 
+export const StyledHeader = styled(Box)(
+  css({
+    "& code": {
+      fontSize: "0.875em",
+    },
+    [`&:hover ${StyledAnchor}`]: {
+      display: "inline",
+    },
+  })
+);
+
 export const Header = ({ children, ...props }: HeaderProps) => {
   return (
-    <Box
-      css={css({
-        "& code": {
-          fontSize: "0.875em",
-        },
-        [`&:hover ${Anchor}`]: {
-          display: "inline",
-        },
-      })}
-      {...props}
-    >
-      {children} <Anchor href={`#${props.id}`} />
-    </Box>
+    <StyledHeader {...props}>
+      {children} <StyledAnchor href={`#${props.id}`} />
+    </StyledHeader>
   );
 };

@@ -1,9 +1,8 @@
-import { MDXProvider } from "@mdx-js/react";
 import Layout from "components/Layout";
 import Footer from "components/Footer";
 import Head from "components/Head";
 import { HeaderMode } from "components/Header";
-import { components } from "components/MDX";
+import MDX from "components/MDX";
 import wavePngUrl from "sharedAssets/images/wave-light.png";
 
 interface Props {
@@ -26,7 +25,7 @@ export default function SitePage({ meta, children }: Props) {
     <>
       <Head title={meta.title} description={meta.description} />
       <Layout mode={layout} background={meta.hideWave ? "none" : background}>
-        <MDXProvider components={components}>{children}</MDXProvider>
+        <MDX>{children}</MDX>
       </Layout>
       <Footer short={Boolean(meta.shortFooter)} />
     </>

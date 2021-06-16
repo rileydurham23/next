@@ -43,10 +43,10 @@ const Admonition = ({
         fontSize={["text-md", "text-lg"]}
         lineHeight="26px"
         css={css({
-          "& *:first-child": {
+          "&& > *:first-child": {
             mt: 0,
           },
-          "& *:last-child": {
+          "&& > *:last-child": {
             mb: 0,
           },
         })}

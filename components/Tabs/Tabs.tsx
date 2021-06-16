@@ -106,7 +106,14 @@ export const Tabs = ({ children }: TabsProps) => {
           />
         ))}
       </Flex>
-      {currentTab}
+      <Box
+        css={css({
+          "&& > *:first-child": { mt: 0 },
+          "&& > *:last-child": { mb: 0 },
+        })}
+      >
+        {currentTab}
+      </Box>
     </Box>
   );
 };
