@@ -21,12 +21,7 @@ export default function SignupDescription({
       flexDirection="column"
       alignItems={["stretch", "center", "flex-start"]}
     >
-      <Video
-        videoId={video}
-        width={["100%", "100%", "640px"]}
-        maxWidth={["100%", "640px"]}
-        mt="4"
-      />
+      <Video videoId={video} width={640} height={360} mt="4" />
       <Box position={["static", "static", "absolute"]} right="0" top="0" my="4">
         {children}
       </Box>

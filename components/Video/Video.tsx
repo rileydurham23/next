@@ -3,31 +3,45 @@ import Box, { BoxProps } from "components/Box";
 type Props = {
   videoId?: string;
   src?: string;
+  width?: number;
+  height?: number;
 } & BoxProps;
 
 const toSrc = (id: string): string => `https://www.youtube.com/embed/${id}`;
 
-export default function Video({ src: rawSrc, videoId, ...props }: Props) {
+export default function Video({
+  src: rawSrc,
+  videoId,
+  width = 640,
+  height = 360,
+  ...props
+}: Props) {
   const src = videoId ? toSrc(videoId) : rawSrc;
   return (
-    <Box
-      width="640px"
-      height="336px"
-      maxWidth="100%"
-      borderRadius="md"
-      overflow="hidden"
-      {...props}
-    >
+    <Box width="100%" maxWidth={`${width}px`} {...props}>
       <Box
-        as="iframe"
         width="100%"
-        height="100%"
-        src={src}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
+        position="relative"
+        borderRadius="md"
+        overflow="hidden"
+        pb={`${(height / width) * 100}%`}
+      >
+        <Box
+          as="iframe"
+          width="100%"
+          height="100%"
+          position="absolute"
+          top="0"
+          right="0"
+          bottom="0"
+          left="0"
+          src={src}
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </Box>
     </Box>
   );
 }
