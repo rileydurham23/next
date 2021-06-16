@@ -1,7 +1,7 @@
 import Layout from "components/Layout";
 import Footer from "components/Footer";
 import Head from "components/Head";
-import { HeaderMode } from "components/Header";
+import { HeaderMode, HeaderBehaviour } from "components/Header";
 import MDX from "components/MDX";
 import wavePngUrl from "sharedAssets/images/wave-light.png";
 
@@ -12,6 +12,7 @@ interface Props {
     hideWave?: boolean;
     shortFooter?: boolean;
     layout?: HeaderMode;
+    headerBehaviour?: HeaderBehaviour;
   };
   children: React.ReactNode;
 }
@@ -24,7 +25,11 @@ export default function SitePage({ meta, children }: Props) {
   return (
     <>
       <Head title={meta.title} description={meta.description} />
-      <Layout mode={layout} background={meta.hideWave ? "none" : background}>
+      <Layout
+        mode={layout}
+        background={meta.hideWave ? "none" : background}
+        behaviour={meta.headerBehaviour}
+      >
         <MDX>{children}</MDX>
       </Layout>
       <Footer short={Boolean(meta.shortFooter)} />

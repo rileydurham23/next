@@ -1,16 +1,16 @@
-import styled from "styled-components";
-import {
-  space,
-  color,
-  position,
-  SpaceProps,
-  ColorProps,
-  PositionProps,
-} from "components/system";
+import Flex, { FlexProps } from "components/Flex";
 import { ReactComponent as LogoSvg } from "./logo.svg";
 
-interface LogoProps extends SpaceProps, ColorProps, PositionProps {}
-
-const Logo = styled(LogoSvg)<LogoProps>(space, color, position);
+const Logo = (props: FlexProps) => (
+  <Flex
+    display="inline-block"
+    lineHeight="0"
+    width="121px"
+    height="24px"
+    {...props}
+  >
+    <LogoSvg width="100%" height="100%" />
+  </Flex>
+);
 
 export default Logo;

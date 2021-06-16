@@ -10,13 +10,14 @@ import HeadlessButton from "components/HeadlessButton";
 import { Centrator } from "components/Layout";
 import HeaderCTA from "./HeaderCTA";
 
-export type HeaderMode = "full" | "short";
+export type HeaderMode = "simple" | "full";
+export type HeaderBehaviour = "floating" | "static";
 
-interface Props {
+interface HeaderProps {
   mode: HeaderMode;
 }
 
-const Header = ({ mode = "full" }: Props) => {
+const Header = ({ mode = "full" }: HeaderProps) => {
   const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
     false
   );
@@ -25,11 +26,25 @@ const Header = ({ mode = "full" }: Props) => {
     []
   );
 
-  if (mode === "short") {
+  if (mode === "simple") {
     return (
-      <Centrator wrapperAs="header" height="80px" alignItems="center">
-        <Logo width="150px" height="30px" color="dark-purple" />
-      </Centrator>
+      <Flex
+        as="header"
+        position="absolute"
+        top="0"
+        right="0"
+        left="0"
+        height={["48px", "80px"]}
+        alignItems="center"
+      >
+        <Centrator>
+          <Logo
+            width={["121px", "150px"]}
+            height={["24px", "30px"]}
+            color="dark-purple"
+          />
+        </Centrator>
+      </Flex>
     );
   }
 
