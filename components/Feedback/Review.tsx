@@ -85,6 +85,7 @@ const StyledWrapper = styled("blockquote")(
     borderRadius: "md",
     borderColor: ["transparent", "dark-purple"],
     background: bg,
+    backgroundColor: "white",
     backgroundSize: "80px 100px, 80px 100px",
     boxShadow: ["none", "0 1px 4px rgba(0, 0, 0, 0.24)"],
     px: 9,

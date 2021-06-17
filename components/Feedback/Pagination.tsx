@@ -60,7 +60,7 @@ const StyledDot = styled("button")<StyledDotProps>(
     p: 2,
     border: "1px solid",
     borderColor: "gray",
-    bg: "transparent",
+    bg: "white",
     borderRadius: "circle",
     cursor: "pointer",
     transition: transition([
