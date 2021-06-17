@@ -18,6 +18,7 @@ export default function Heading({
   align = "left",
   titleFontSize = "section-header",
   titleLineHeight = "section-header",
+  titleFontWeight = "bold",
   ...props
 }: Props) {
   return (
@@ -38,7 +39,7 @@ export default function Heading({
           as="h2"
           fontSize={["header-1", titleFontSize]}
           lineHeight={["xl", titleLineHeight]}
-          fontWeight="bold"
+          fontWeight={titleFontWeight}
           textAlign={align}
         >
           {title}

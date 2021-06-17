@@ -5,13 +5,37 @@ import { ComponentProps } from "react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import { isHash, isExternalLink, getPath } from "utils/url";
-import { all, StyledSystemProps } from "components/system";
+import { all, variant, transition, StyledSystemProps } from "components/system";
 
 const BaseLink = styled("a")<StyledSystemProps>(
   {
     boxSizing: "border-box",
     minWidth: 0,
+    transition: transition([["color", "interaction"]]),
   },
+  variant({
+    prop: "scheme",
+    variants: {
+      docs: {
+        color: "note",
+        "&:visited": {
+          color: "dark-purple",
+        },
+        "&:hover, &:active, &:focus": {
+          color: "light-purple",
+        },
+      },
+      site: {
+        color: "dark-purple",
+        "&:visited": {
+          color: "dark-purple",
+        },
+        "&:hover, &:active, &:focus": {
+          color: "light-purple",
+        },
+      },
+    },
+  }),
   all
 );
 

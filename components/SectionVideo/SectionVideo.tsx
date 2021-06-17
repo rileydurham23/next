@@ -26,7 +26,9 @@ export const SectionVideo = ({
         <Video videoId={videoId} />
       </Box>
       <Box pl={[0, 11]} pt={[3, 0]}>
-        <Box as="h2">{title}</Box>
+        <Box as="h2" fontSize="header-1" fontWeight="black" mb={3}>
+          {title}
+        </Box>
         <Box color="darkest">{children}</Box>
       </Box>
     </Centrator>
