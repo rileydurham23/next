@@ -41,3 +41,4 @@ export { default as PageIntro } from "components/PageIntro";
 export type { BoxProps };
 export { default as Flex } from "components/Flex";
 export type { FlexProps };
+export { default as TryTeleport } from "components/TryTeleport";
