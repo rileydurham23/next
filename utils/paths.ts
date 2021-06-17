@@ -3,7 +3,6 @@ import { writeFileSync } from "fs";
 import { join, resolve } from "path";
 import { format } from "date-fns";
 import { loadSiteConfig, loadDocsConfig } from "./config";
-import { resourceLimits } from "node:worker_threads";
 
 const { latest, versions, redirects } = loadSiteConfig();
 

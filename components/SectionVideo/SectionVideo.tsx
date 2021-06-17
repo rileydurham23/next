@@ -18,6 +18,7 @@ export const SectionVideo = ({
   return (
     <Centrator py={[3, 11]} flexDirection={["column", "row"]} {...props}>
       <Box
+        minWidth={["auto", "640px"]}
         flexShrink={0}
         borderRadius="default"
         boxShadow="0 0 32px rgba(0, 0, 0, 0.16)"

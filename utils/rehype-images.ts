@@ -48,7 +48,7 @@ export default function rehypeImages({
   staticPath,
 }: RehypeImagesProps): Transformer {
   return (root: Root) => {
-    visit<ImageElement>(root, [isLocalImg], (node, ancestors) => {
+    visit<ImageElement>(root, [isLocalImg], (node) => {
       const src = node.properties.src.replace(staticPath, `${destinationDir}/`);
 
       if (existsSync(src)) {
