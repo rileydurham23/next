@@ -1,9 +1,14 @@
+import Code from "components/Code";
 import Layout from "components/Layout";
 import Footer from "components/Footer";
 import Head from "components/Head";
 import { HeaderMode, HeaderBehaviour } from "components/Header";
 import MDX from "components/MDX";
 import wavePngUrl from "sharedAssets/images/wave-light.png";
+
+const components = {
+  pre: Code,
+};
 
 interface Props {
   meta: {
@@ -30,7 +35,7 @@ export default function SitePage({ meta, children }: Props) {
         background={meta.hideWave ? "none" : background}
         behaviour={meta.headerBehaviour}
       >
-        <MDX>{children}</MDX>
+        <MDX components={components}>{children}</MDX>
       </Layout>
       <Footer short={Boolean(meta.shortFooter)} />
     </>

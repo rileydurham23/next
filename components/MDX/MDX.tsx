@@ -1,5 +1,6 @@
+import { useMemo } from "react";
 import css from "@styled-system/css";
-import { MDXProvider } from "@mdx-js/react";
+import { MDXProvider, Components } from "@mdx-js/react";
 import Admonition from "components/Admonition";
 import Box from "components/Box";
 import { Tabs, TabItem } from "components/Tabs";
@@ -52,9 +53,14 @@ export const components = {
 
 export interface MDXProps {
   children: React.ReactNode;
+  components?: Components;
 }
 
-const MDX = ({ children }: MDXProps) => {
+const MDX = ({ children, components: customComponents = {} }: MDXProps) => {
+  const fullComponents = useMemo(() => {
+    return { ...components, ...customComponents };
+  }, [customComponents]);
+
   return (
     <Box
       css={css({
@@ -156,7 +162,7 @@ const MDX = ({ children }: MDXProps) => {
         },
       })}
     >
-      <MDXProvider components={components}>{children}</MDXProvider>
+      <MDXProvider components={fullComponents}>{children}</MDXProvider>
     </Box>
   );
 };

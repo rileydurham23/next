@@ -40,5 +40,6 @@ export { default as SectionVisuals } from "components/SectionVisuals";
 export { default as SectionVideo } from "components/SectionVideo";
 export { default as SitePage } from "components/SitePage";
 export { default as Slider } from "components/Slider";
+export { default as Terminal } from "components/Terminal";
 export { default as TryTeleport } from "components/TryTeleport";
 export { default as Video } from "components/Video";

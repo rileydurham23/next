@@ -1,6 +1,7 @@
 import { resolve } from "path";
 import { PluggableList } from "unified";
 import rehypeFixTags from "./rehype-fix-tags";
+import rehypeHighlight from "rehype-highlight";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkImportFrontmatter from "./remark-import-frontmatter";
 import remarkCopyLinkedFiles from "remark-copy-linked-files";
@@ -43,7 +44,7 @@ const config: MdxConfig = {
       },
     ],
   ],
-  rehypePlugins: [rehypeFixTags],
+  rehypePlugins: [rehypeFixTags, rehypeHighlight],
   skipExport: true,
   renderer: DEFAULT_RENDERER,
 };

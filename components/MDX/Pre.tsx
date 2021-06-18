@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback, ReactNode } from "react";
 import css from "@styled-system/css";
 import Box from "components/Box";
+import Code from "components/Code";
 import Icon from "components/Icon";
 import HeadlessButton from "components/HeadlessButton";
 
@@ -12,7 +13,7 @@ interface CodeProps {
 
 const Pre = ({ children }: CodeProps) => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
-  const codeRef = useRef<HTMLPreElement>();
+  const codeRef = useRef<HTMLDivElement>();
   const buttonRef = useRef<HTMLButtonElement>();
 
   const handleCopy = useCallback(() => {
@@ -38,8 +39,8 @@ const Pre = ({ children }: CodeProps) => {
       borderRadius="default"
       mb={4}
       mt="-4px"
+      boxShadow="0 1px 4px rgba(0, 0, 0, .24)"
       css={css({
-        boxShadow: "0 1px 4px rgba(0, 0, 0, .24)",
         "&:hover button": {
           display: "flex",
         },
@@ -66,85 +67,8 @@ const Pre = ({ children }: CodeProps) => {
         <Icon name="copy" />
         {isCopied && <Box ml={2}>Copied!</Box>}
       </HeadlessButton>
-      <Box
-        as="pre"
-        ref={codeRef}
-        display="block"
-        overflowX="auto"
-        m={0}
-        px={3}
-        py={2}
-        color="#ddd"
-        fontFamily="monospace"
-        fontSize={["text-sm", "text-md"]}
-        lineHeight="md"
-        css={`
-          & code {
-            font-family: inherit;
-          }
-
-          & .hljs-tag,
-          & .hljs-keyword,
-          & .hljs-selector-tag,
-          & .hljs-literal,
-          & .hljs-strong,
-          & .hljs-name {
-            color: #f92672;
-          }
-
-          & .hljs-code {
-            color: #66d9ef;
-          }
-
-          & .hljs-class .hljs-title {
-            color: white;
-          }
-
-          & .hljs-attribute,
-          & .hljs-symbol,
-          & .hljs-regexp,
-          & .hljs-link {
-            color: #bf79db;
-          }
-
-          & .hljs-string,
-          & .hljs-bullet,
-          & .hljs-subst,
-          & .hljs-title,
-          & .hljs-section,
-          & .hljs-emphasis,
-          & .hljs-type,
-          & .hljs-built_in,
-          & .hljs-builtin-name,
-          & .hljs-selector-attr,
-          & .hljs-selector-pseudo,
-          & .hljs-addition,
-          & .hljs-variable,
-          & .hljs-template-tag,
-          & .hljs-template-variable {
-            color: #a6e22e;
-          }
-
-          & .hljs-comment,
-          & .hljs-quote,
-          & .hljs-deletion,
-          & .hljs-meta {
-            color: #75715e;
-          }
-
-          & .hljs-keyword,
-          & .hljs-selector-tag,
-          & .hljs-literal,
-          & .hljs-doctag,
-          & .hljs-title,
-          & .hljs-section,
-          & .hljs-type,
-          & .hljs-selector-id {
-            font-weight: bold;
-          }
-        `}
-      >
-        {children}
+      <Box ref={codeRef}>
+        <Code borderRadius="default">{children}</Code>
       </Box>
     </Box>
   );
