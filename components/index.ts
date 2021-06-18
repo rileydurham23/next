@@ -33,6 +33,7 @@ export { default as PlanCalculator } from "components/PlanCalculator";
 export { default as PromoPointsBlock } from "components/PromoPointsBlock";
 export { default as SignupDescription } from "components/SignupDescription";
 export { default as Section } from "components/Section";
+export { default as SectionHeader } from "components/SectionHeader";
 export { default as SectionVideo } from "components/SectionVideo";
 export { default as SitePage } from "components/SitePage";
 export { default as Slider } from "components/Slider";
