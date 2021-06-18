@@ -62,6 +62,7 @@ export interface StyledSystemProps
     Property.AnimationDuration,
     RequiredTheme
   >;
+  pointerEvents?: ResponsiveValue<Property.PointerEvents, RequiredTheme>;
 }
 
 export const all = compose(
@@ -86,6 +87,7 @@ export const all = compose(
     animationDuration: true,
     float: true,
     boxSizing: true,
+    pointerEvent: true,
   }),
   variant({
     prop: "text",

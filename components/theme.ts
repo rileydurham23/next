@@ -130,6 +130,7 @@ const theme = {
   transitionTimings: {
     interaction: 300,
     shift: 600,
+    slow: 1200,
   },
   radii: {
     sm: 2,
