@@ -16,7 +16,7 @@ const CONTENT_DIRECTORY = resolve(__dirname, "content");
 const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "components/Company");
 
 const urlLoaderOptions = {
-  limit: 1 * 1024,
+  limit: false,
   noquotes: true,
   fallback: "file-loader",
   publicPath: `/_next/static/images/`,
@@ -38,7 +38,13 @@ module.exports = withBundleAnalyzer({
     config.module.rules.push({
       test: /\.svg$/,
       exclude: [/node_modules/, COMPANY_LOGOS_DIRECTORY],
-      use: ["@svgr/webpack", "url-loader"],
+      use: [
+        "@svgr/webpack",
+        {
+          loader: "url-loader",
+          options: urlLoaderOptions,
+        },
+      ],
     });
     config.module.rules.push({
       test: /\.svg$/,
@@ -46,10 +52,7 @@ module.exports = withBundleAnalyzer({
       use: [
         {
           loader: "url-loader",
-          options: {
-            ...urlLoaderOptions,
-            limit: 128,
-          },
+          options: urlLoaderOptions,
         },
       ],
     });
