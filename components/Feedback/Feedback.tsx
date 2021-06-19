@@ -9,10 +9,11 @@ import Review from "./Review";
 
 const SWITCH_TIMEOUT = 5000;
 export interface Props {
+  dark: boolean;
   reviews: CompanyId[];
 }
 
-export default function Feedback({ reviews }: Props) {
+export default function Feedback({ reviews, dark }: Props) {
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(0);
@@ -36,7 +37,7 @@ export default function Feedback({ reviews }: Props) {
   }, [hovered, focused, active]);
 
   return (
-    <Box as="section" py={[3, 8]} width="100vw" overflow="hidden">
+    <Box as="section" pt={[3, 8]} pb={[2, 3]} width="100vw" overflow="hidden">
       <div
         role="button"
         tabIndex={0}
@@ -60,6 +61,7 @@ export default function Feedback({ reviews }: Props) {
               justifyContent="center"
               width="100vw"
               flexShrink={0}
+              px={[3, 0]}
             >
               <Review company={id} />
             </Flex>
@@ -67,9 +69,10 @@ export default function Feedback({ reviews }: Props) {
         </StyledList>
       </div>
       <Pagination
-        mt={[0, 4]}
+        mt={[2, 3]}
         pages={reviews}
         selected={active}
+        dark={dark}
         onClick={setActive}
       />
     </Box>

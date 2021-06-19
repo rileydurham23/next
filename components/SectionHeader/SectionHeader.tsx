@@ -1,7 +1,6 @@
 import { Centrator } from "components/Layout";
 import Box from "components/Box";
 import Flex from "components/Flex";
-import Heading from "components/Heading";
 
 export interface SectionHeaderProps {
   subtitle?: string;
@@ -27,18 +26,36 @@ export const SectionHeader = ({
         flexDirection={["column", "row"]}
       >
         <Box flex="1 1 auto" py={[4, 11]} order={[1, 0]}>
-          <Heading
-            title={title}
-            subtitle={subtitle}
-            titleFontSize="56px"
-            titleLineHeight="xxl"
-            titleFontWeight="black"
-          />
+          <Flex flexDirection="column" alignItems="flexStart">
+            {subtitle && (
+              <Box
+                mb={title ? "3" : 0}
+                color="dark-purple"
+                fontWeight="bold"
+                fontSize="text-xl"
+                lineHeight="md"
+              >
+                {subtitle}
+              </Box>
+            )}
+            {title && (
+              <Box
+                as="h1"
+                color="black"
+                fontSize={["header-1", "54px"]}
+                lineHeight={["xl", "xxl"]}
+                fontWeight="black"
+                textAlign="left"
+              >
+                {title}
+              </Box>
+            )}
+          </Flex>
           <Box
             mt={[3, 4]}
             fontSize="text-xl"
             lineHeight="lg"
-            color="dark-gray"
+            color="darkest"
             maxWidth="600px"
           >
             {description}

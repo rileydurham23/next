@@ -1,11 +1,12 @@
 import { Children, isValidElement, useState } from "react";
 import css from "@styled-system/css";
+import styled from "styled-components";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 import Image from "components/Image";
 import { Centrator } from "components/Layout";
-import { transition } from "components/system";
+import { transition, variant } from "components/system";
 
 interface SectionTabsItemProps {
   children: React.ReactNode;
@@ -28,18 +29,7 @@ const SectionTabsItem = ({
 }: SectionTabsItemProps) => {
   return (
     <>
-      <HeadlessButton
-        border={["none", "2px solid"]}
-        borderColor={["auto", selected ? "light-purple" : "lightest-gray"]}
-        borderRadius="default"
-        textAlign="left"
-        position="relative"
-        px={[0, 3]}
-        pt={[0, 3]}
-        pb={3}
-        css={css({ "&:nth-of-type(1n+2)": { mt: 4 } })}
-        onClick={() => onChange(id)}
-      >
+      <StyledTab selected={selected} onClick={() => onChange(id)}>
         <Image
           src={src}
           width="24px"
@@ -60,7 +50,7 @@ const SectionTabsItem = ({
         <Box mt={2} fontSize="text-md" lineHeight="md" color="darkest">
           {description}
         </Box>
-      </HeadlessButton>
+      </StyledTab>
       <Flex
         zIndex={selected ? 1 : 0}
         pointerEvents={selected ? "none" : "auto"}
@@ -134,3 +124,40 @@ export const SectionTabs = ({ children, subtitle }: SectionTabsProps) => {
 };
 
 SectionTabs.Item = SectionTabsItem;
+
+const StyledTab = styled(HeadlessButton)<{ selected: boolean }>(
+  css({
+    border: ["none", "2px solid"],
+    borderRadius: "default",
+    textAlign: "left",
+    position: "relative",
+    px: [0, 3],
+    pt: [0, 3],
+    pb: 2,
+    willChange: "transform",
+    transition: transition([
+      ["backgroundColor", "interaction"],
+      ["borderColor", "interaction"],
+      ["boxShadow", "interaction"],
+    ]),
+    "&:nth-of-type(1n+2)": { mt: 3 },
+  }),
+  variant({
+    prop: "selected",
+    variants: {
+      true: {
+        borderColor: ["auto", "dark-purple"],
+        boxShadow: ["auto", "0 1px 4px rgba(0,0,0,.24)"],
+      },
+      false: {
+        borderColor: ["auto", "lightest-gray"],
+        boxShadow: ["auto", "auto"],
+        "&:hover, &:active, &:focus": {
+          bg: "lightest-gray",
+          borderColor: "gray",
+          boxShadow: "0 2px 8px rgba(0,0,0,.24)",
+        },
+      },
+    },
+  })
+);

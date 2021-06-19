@@ -36,6 +36,7 @@ const SectionStepsItem = ({
         {title}
       </Box>
       <Box
+        mt={2}
         fontSize="text-lg"
         lineHeight="md"
         color="darkest"
@@ -65,7 +66,12 @@ export const SectionSteps = ({
         alignItems="center"
         textAlign={["center", "left"]}
       >
-        <Box fontSize="banner" lineHeight="xxl" fontWeight="black">
+        <Box
+          fontSize="banner"
+          lineHeight="xxl"
+          fontWeight="black"
+          color="black"
+        >
           {title}
         </Box>
         <Box color="darkest" fontSize="text-xl" lineHeight="lg" mt={3}>

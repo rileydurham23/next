@@ -24,6 +24,11 @@ export const Main = () => {
           <Box height="400px" />
         </Section>
       </Box>
+      <Box border="1px solid" borderColor="light-gray" mt={3}>
+        <Section bg="squares">
+          <Box height="400px" />
+        </Section>
+      </Box>
     </>
   );
 };

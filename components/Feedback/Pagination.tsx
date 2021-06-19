@@ -1,5 +1,6 @@
 import { variant } from "styled-system";
 import styled from "styled-components";
+import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
 import { css, StyledSystemProps, transition } from "components/system";
 import { CompanyId } from "components/Company";
@@ -7,6 +8,7 @@ import { CompanyId } from "components/Company";
 type Props = {
   pages: CompanyId[];
   selected: number;
+  dark?: boolean;
   onClick: (index: number) => void;
 } & FlexProps;
 
@@ -14,6 +16,7 @@ export default function Pagination({
   pages,
   onClick,
   selected,
+  dark = false,
   ...props
 }: Props) {
   return (
@@ -27,70 +30,75 @@ export default function Pagination({
       {...props}
     >
       {pages.map((_, i) => (
-        <StyledDotItem
+        <Box
+          as="li"
+          lineHeight={0}
           key={i}
           aria-label={`Review ${i + 1} of ${pages.length}`}
         >
-          <StyledDot onClick={() => onClick(i)} active={selected === i} />
-        </StyledDotItem>
+          <StyledDot
+            onClick={() => onClick(i)}
+            active={selected === i}
+            dark={dark}
+          />
+        </Box>
       ))}
     </Flex>
   );
 }
-
-const StyledDotItem = styled("li")(
-  css({
-    lineHeight: 0,
-    "& + &": {
-      ml: 2,
-    },
-  })
-);
-
 interface StyledDotProps extends StyledSystemProps {
   active?: boolean | boolean[];
+  dark?: boolean | boolean[];
 }
 
 const StyledDot = styled("button")<StyledDotProps>(
   css({
     position: "relative",
-    height: "16px",
-    width: "16px",
+    height: "24px",
+    width: "24px",
     m: 0,
     p: 2,
-    border: "1px solid",
-    borderColor: "gray",
-    bg: "white",
-    borderRadius: "circle",
+    bg: "transparent",
+    border: "none",
     cursor: "pointer",
-    transition: transition([
-      ["borderColor", "interaction"],
-      ["boxShadow", "interaction"],
-    ]),
     "&:hover, &:focus": {
-      borderColor: "light-purple",
-      boxShadow: "1px 1px 3px #607D8B",
       outline: "none",
     },
-    "&:hover::after, &:focus::after": { bg: "light-purple" },
+    "&:hover::after, &:focus::after": { opacity: 1 },
     "&::after": {
       content: '""',
+      position: "absolute",
       left: "50%",
       top: "50%",
       transform: "translate3d(-50%, -50%, 0)",
       display: "block",
       height: "10px",
       width: "10px",
-      bg: "gray",
+      boxShadow: "1px 1px 3px #607D8B",
       borderRadius: "circle",
-      transition: transition([["backgroundColor", "interaction"]]),
+      opacity: 0.32,
+      transition: transition([["opacity", "interaction"]]),
     },
   }),
   variant({
     prop: "active",
     variants: {
       true: {
-        borderColor: "dark-purple",
+        "&::after": {
+          opacity: 1,
+        },
+      },
+    },
+  }),
+  variant({
+    prop: "dark",
+    variants: {
+      true: {
+        "&::after": {
+          bg: "white",
+        },
+      },
+      false: {
         "&::after": {
           bg: "dark-purple",
         },

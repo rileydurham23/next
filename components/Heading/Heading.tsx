@@ -10,6 +10,8 @@ export type Props = {
   subtitle?: string;
   titleFontSize?: string;
   titleLineHeight?: string;
+  titleFontWeight?: string;
+  titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 } & FlexProps;
 
 export default function Heading({
@@ -19,6 +21,7 @@ export default function Heading({
   titleFontSize = "section-header",
   titleLineHeight = "section-header",
   titleFontWeight = "bold",
+  titleAs = "h2",
   ...props
 }: Props) {
   return (
@@ -36,7 +39,8 @@ export default function Heading({
       )}
       {title && (
         <Box
-          as="h2"
+          as={titleAs}
+          color="black"
           fontSize={["header-1", titleFontSize]}
           lineHeight={["xl", titleLineHeight]}
           fontWeight={titleFontWeight}

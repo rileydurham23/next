@@ -41,9 +41,9 @@ export default function Review({ company }: ReviewItemProps) {
         as="p"
         mt="5"
         textAlign="center"
-        fontSize={["text-lg", "header-3"]}
+        fontSize={["text-lg", "header-4"]}
         lineHeight={["md", "lg"]}
-        color="dark-gray"
+        color="darkest"
         fontFamily={theme.fonts.serif}
       >
         {data.text}

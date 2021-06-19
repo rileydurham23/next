@@ -1,3 +1,4 @@
+import css from "@styled-system/css";
 import Box from "components/Box";
 import { FlexProps } from "components/Flex";
 import { Centrator } from "components/Layout";
@@ -18,7 +19,8 @@ export const SectionVideo = ({
   return (
     <Centrator py={[3, 11]} flexDirection={["column", "row"]} {...props}>
       <Box
-        minWidth={["auto", "640px"]}
+        maxWidth="640px"
+        minWidth={["0", "640px"]}
         flexShrink={0}
         borderRadius="default"
         boxShadow="0 0 32px rgba(0, 0, 0, 0.16)"
@@ -26,10 +28,30 @@ export const SectionVideo = ({
         <Video videoId={videoId} />
       </Box>
       <Box pl={[0, 11]} pt={[3, 0]}>
-        <Box as="h2" fontSize="header-1" fontWeight="black" mb={3}>
+        <Box
+          as="h2"
+          fontSize="header-1"
+          fontWeight="black"
+          color="black"
+          mb={3}
+        >
           {title}
         </Box>
-        <Box color="darkest">{children}</Box>
+        <Box
+          fontSize={["text-md", "text-xl"]}
+          lineHeight={["md", "lg"]}
+          color="dark-gray"
+          css={css({
+            "&& > *:first-child": { mt: 0 },
+            "&& > *:last-child": { mb: 0 },
+            "&& > p": {
+              fontSize: ["text-md", "text-xl"],
+              lineHeight: ["md", "lg"],
+            },
+          })}
+        >
+          {children}
+        </Box>
       </Box>
     </Centrator>
   );

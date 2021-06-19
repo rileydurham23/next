@@ -4,6 +4,7 @@ import Button from "components/Button";
 import { Centrator } from "components/Layout";
 import Section from "components/Section";
 import Link from "components/Link";
+import { transition } from "components/system";
 
 const TryTeleport = () => {
   return (
@@ -12,43 +13,50 @@ const TryTeleport = () => {
         color="white"
         flexDirection="column"
         alignItems="center"
-        pt={[5, 9]}
-        pb={[5, 6]}
+        py={[5, 11]}
       >
         <Box
           as="h2"
-          fontSize={["header-1", "section-header"]}
+          mb={2}
+          fontSize="section-header"
           fontWeight="black"
           lineHeight="xxl"
-          py={1}
         >
-          Try Teleport Today
+          Try Teleport today
         </Box>
-        <Box fontSize={["text-lg", "text-xl"]} lineHeight="md">
-          In the Cloud, Self-hosted, or Open Source
+        <Box fontSize="text-xl" lineHeight="lg" opacity="0.87">
+          In the cloud, self-hosted, or open source
         </Box>
         <Button
           as={Link}
           href="/pricing/"
           variant="secondary"
           shape="lg"
-          mt={4}
-          mb={3}
+          mt={[3, 5]}
+          mb={[2, 3]}
+          width={["100%", "auto"]}
         >
-          Get Started
+          Get started
         </Button>
         <Link
           href="/docs/"
+          bg="transparent"
+          width={["100%", "auto"]}
+          px={7}
+          borderRadius="default"
           color="white"
-          fontSize="text-md"
-          lineHeight="md"
+          textAlign="center"
+          fontSize="text-lg"
+          fontWeight="bold"
+          lineHeight="xxl"
+          transition={transition([["backgroundColor", "interaction"]])}
           css={css({
             "&:hover,&:active,&:focus": {
-              textDecoration: "none",
+              bg: "light-purple",
             },
           })}
         >
-          View Developer Docs
+          View developer docs
         </Link>
       </Centrator>
     </Section>

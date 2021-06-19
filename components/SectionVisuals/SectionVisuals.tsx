@@ -33,12 +33,16 @@ export const SectionVisuals = ({
         />
         <Box
           mt={[3, 4]}
-          fontSize="text-xl"
-          lineHeight="lg"
+          fontSize={["text-md", "text-xl"]}
+          lineHeight={["md", "lg"]}
           color="dark-gray"
           css={css({
             "&& > *:first-child": { mt: 0 },
             "&& > *:last-child": { mb: 0 },
+            "&& > p": {
+              fontSize: ["text-md", "text-xl"],
+              lineHeight: ["md", "lg"],
+            },
           })}
         >
           {description}
