@@ -5,7 +5,7 @@ import Icon from "components/Icon";
 import { Dropdown } from "components/Dropdown";
 import type { VersionsInfo } from "./types";
 
-const root = process.env.NEXT_PUBLIC_ROOT_DIR;
+const root = process.env.NEXT_PUBLIC_DOCS_DIR;
 
 const renderVersion = (version: string) => `Version ${version}`;
 
