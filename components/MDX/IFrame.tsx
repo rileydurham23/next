@@ -1,3 +1,4 @@
+import css from "@styled-system/css";
 import Box from "components/Box";
 
 interface IFrameProps {
@@ -12,7 +13,12 @@ const IFrame = ({ width, height, src, ...props }: IFrameProps) => {
       <Box
         maxWidth={`${width}px`}
         maxHeight={`${height}px`}
-        mb={["8px", "12px"]}
+        mb={[2, "12px"]}
+        css={css({
+          "&:last-child": {
+            mb: 0,
+          },
+        })}
       >
         <Box
           width="100%"
@@ -39,10 +45,15 @@ const IFrame = ({ width, height, src, ...props }: IFrameProps) => {
   return (
     <Box
       as="iframe"
-      mb={["8px", "12px"]}
+      mb={[2, "12px"]}
       width={width}
       height={height}
       src={src}
+      css={css({
+        "&:last-child": {
+          mb: 0,
+        },
+      })}
       {...props}
     />
   );

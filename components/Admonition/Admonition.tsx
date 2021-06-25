@@ -26,6 +26,11 @@ const Admonition = ({
       borderRadius="default"
       mb="3"
       boxShadow="0 1px 4px rgba(0, 0, 0, 0.24)"
+      css={css({
+        "&:last-child": {
+          mb: 0,
+        },
+      })}
     >
       <Box
         color={type === "warning" ? "black" : "white"}
@@ -37,20 +42,7 @@ const Admonition = ({
       >
         {title}
       </Box>
-      <Box
-        px={[2, 3]}
-        py={2}
-        fontSize={["text-md", "text-lg"]}
-        lineHeight="26px"
-        css={css({
-          "&& > *:first-child": {
-            mt: 0,
-          },
-          "&& > *:last-child": {
-            mb: 0,
-          },
-        })}
-      >
+      <Box px={[2, 3]} py={2} fontSize={["text-md", "text-lg"]}>
         {children}
       </Box>
     </Box>

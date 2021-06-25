@@ -3,6 +3,7 @@ import Box from "components/Box";
 import { FlexProps } from "components/Flex";
 import { Centrator } from "components/Layout";
 import Video from "components/Video";
+import { P } from "components/MDX";
 
 export type SectionVideoProps = {
   title: string;
@@ -42,11 +43,9 @@ export const SectionVideo = ({
           lineHeight={["md", "lg"]}
           color="dark-gray"
           css={css({
-            "&& > *:first-child": { mt: 0 },
-            "&& > *:last-child": { mb: 0 },
-            "&& > p": {
-              fontSize: ["text-md", "text-xl"],
-              lineHeight: ["md", "lg"],
+            [`& > ${P}`]: {
+              fontSize: "inherit",
+              lineHeight: "inherit",
             },
           })}
         >

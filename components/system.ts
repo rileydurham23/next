@@ -48,6 +48,7 @@ export interface StyledSystemProps
     GenericProp<"text", typeof theme.textStyles>,
     GenericProp<"gradient", typeof theme.gradients> {
   css?: CssFunctionReturnType | string;
+  cursor?: ResponsiveValue<Property.Cursor, RequiredTheme>;
   textDecoration?: ResponsiveValue<Property.TextAlign, RequiredTheme>;
   textTransform?: ResponsiveValue<Property.TextTransform, RequiredTheme>;
   float?: ResponsiveValue<Property.Float, RequiredTheme>;
@@ -88,6 +89,7 @@ export const all = compose(
     float: true,
     boxSizing: true,
     pointerEvent: true,
+    cursor: true,
   }),
   variant({
     prop: "text",

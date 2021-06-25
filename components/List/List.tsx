@@ -138,12 +138,6 @@ const StyledContentWrapper = styled("div")<WrapperProps>(
     lineHeight: "28px",
     color: "darkest",
     ml: "52px",
-    "&& > *:first-child": {
-      mt: 0,
-    },
-    "&& > *:last-child": {
-      mb: 0,
-    },
   }),
   variant({
     prop: "size",

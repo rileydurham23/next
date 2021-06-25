@@ -1,3 +1,4 @@
+import css from "@styled-system/css";
 import { Children, cloneElement, useMemo } from "react";
 import NextImage, { ImageProps as NextImageProps } from "next/image";
 import Box from "components/Box";
@@ -41,6 +42,14 @@ export const Image = ({ align, bordered, caption, ...props }: ImageProps) => {
       my={3}
       flexDirection="column"
       alignItems={getAlignItems(align)}
+      css={css({
+        "&:fisrt-child": {
+          mt: 0,
+        },
+        "&:last-child": {
+          mb: 0,
+        },
+      })}
     >
       {bordered ? (
         <Box as="span" boxShadow="0 1px 4px rgba(0, 0, 0, 0.24)">

@@ -38,11 +38,14 @@ const Pre = ({ children }: CodeProps) => {
       bg="code"
       borderRadius="default"
       mb={4}
-      mt="-4px"
+      mt={-1}
       boxShadow="0 1px 4px rgba(0, 0, 0, .24)"
       css={css({
         "&:hover button": {
           display: "flex",
+        },
+        "&:last-child": {
+          mb: 0,
         },
       })}
     >
@@ -56,7 +59,8 @@ const Pre = ({ children }: CodeProps) => {
         right={0}
         p={2}
         color="dark-gray"
-        bg="transparent"
+        bg="code"
+        cursor="pointer"
         css={css({
           "&:hover, &:focus, &:active": {
             color: "lightest-gray",

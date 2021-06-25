@@ -22,18 +22,7 @@ export interface TabItemProps {
 
 export const TabItem = ({ children }: TabItemProps) => {
   return (
-    <Box
-      p={[2, 3]}
-      overflowX="auto"
-      css={css({
-        "*:first-child": {
-          mt: 0,
-        },
-        "*:last-child": {
-          mb: 0,
-        },
-      })}
-    >
+    <Box p={[2, 3]} overflowX="auto">
       {children}
     </Box>
   );
@@ -88,7 +77,12 @@ export const Tabs = ({ children }: TabsProps) => {
       bg="white"
       boxShadow="0 1px 4px rgba(0,0,0,.24)"
       borderRadius="default"
-      mb="4"
+      mb={4}
+      css={css({
+        "&:last-child": {
+          mb: 0,
+        },
+      })}
     >
       <Flex
         bg="lightest-gray"
@@ -106,14 +100,7 @@ export const Tabs = ({ children }: TabsProps) => {
           />
         ))}
       </Flex>
-      <Box
-        css={css({
-          "&& > *:first-child": { mt: 0 },
-          "&& > *:last-child": { mb: 0 },
-        })}
-      >
-        {currentTab}
-      </Box>
+      {currentTab}
     </Box>
   );
 };

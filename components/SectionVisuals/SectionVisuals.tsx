@@ -3,6 +3,7 @@ import { Centrator } from "components/Layout";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Heading from "components/Heading";
+import { P } from "components/MDX";
 
 export interface SectionVisualsProps {
   subtitle?: string;
@@ -37,11 +38,9 @@ export const SectionVisuals = ({
           lineHeight={["md", "lg"]}
           color="dark-gray"
           css={css({
-            "&& > *:first-child": { mt: 0 },
-            "&& > *:last-child": { mb: 0 },
-            "&& > p": {
-              fontSize: ["text-md", "text-xl"],
-              lineHeight: ["md", "lg"],
+            [`& > ${P}`]: {
+              fontSize: "inherit",
+              lineHeight: "inherit",
             },
           })}
         >

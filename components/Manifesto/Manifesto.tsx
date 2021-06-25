@@ -25,10 +25,10 @@ export default function Manifesto({ children }: Props) {
     renderGlobe = window.innerWidth >= value;
   }
   return (
-    <Box as="section" overflow="hidden" mb="-164px ">
+    <Box as="section" overflow="hidden" mb="-164px">
       <Box gradient="purpleToBlack" py="10">
         <Centrator flexDirection="column" color="white">
-          <Heading title="Teleport Manifesto" />
+          <Heading title="Teleport Manifesto" dark />
           <StyledContentContainer mt="3">{children}</StyledContentContainer>
         </Centrator>
       </Box>

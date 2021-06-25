@@ -5,6 +5,7 @@ import { toFlexAlign } from "utils/align";
 type Align = "left" | "center";
 
 export type Props = {
+  dark?: boolean;
   title?: string;
   align?: Align;
   subtitle?: string;
@@ -18,8 +19,9 @@ export default function Heading({
   title,
   subtitle,
   align = "left",
+  dark = false,
   titleFontSize = "section-header",
-  titleLineHeight = "section-header",
+  titleLineHeight = "xxl",
   titleFontWeight = "bold",
   titleAs = "h2",
   ...props
@@ -29,7 +31,7 @@ export default function Heading({
       {subtitle && (
         <Box
           mb={title ? "3" : 0}
-          color="dark-purple"
+          color={dark ? "white" : "dark-purple"}
           fontWeight="bold"
           fontSize="text-lg"
           lineHeight="sm"
@@ -40,7 +42,7 @@ export default function Heading({
       {title && (
         <Box
           as={titleAs}
-          color="black"
+          color={dark ? "white" : "black"}
           fontSize={["header-1", titleFontSize]}
           lineHeight={["xl", titleLineHeight]}
           fontWeight={titleFontWeight}
