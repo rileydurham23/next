@@ -37,7 +37,7 @@ export default function Feedback({ reviews, dark }: Props) {
   }, [hovered, focused, active]);
 
   return (
-    <Box as="section" pt={[3, 8]} pb={[2, 3]} width="100vw" overflow="hidden">
+    <Box as="section" pt={[3, 8]} pb={[2, 3]} width="100%" overflow="hidden">
       <div
         role="button"
         tabIndex={0}
