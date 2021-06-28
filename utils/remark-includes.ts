@@ -15,6 +15,7 @@ import updateMessages from "./update-vfile-messages";
 const includeRegexpBase = "\\(!([^!]+)!\\)`?";
 const includeRegexp = new RegExp(includeRegexpBase);
 const exactIncludeRegexp = new RegExp(`^${includeRegexpBase}$`);
+const globalIncludeRegexp = new RegExp(includeRegexpBase, "g");
 
 interface ResolveIncludesProps {
   value: string;
@@ -40,9 +41,7 @@ const resolveIncludes = ({ value, filePath }: ResolveIncludesProps) => {
   return { result, error };
 };
 
-// Return matches by checking match() result array length
-const numIncludes = (node: MdxastNode) => 
-  typeof node.value === "string" && (node.value).match(includeRegexp).length;
+const numIncludes = (value: string) => value.match(globalIncludeRegexp).length;
 
 const hasInclude = (node: MdxastNode) =>
   typeof node.value === "string" && includeRegexp.test(node.value);
@@ -59,9 +58,8 @@ export default function remarkIncludes(
     const lastErrorIndex = vfile.messages.length;
 
     visit<MdxastNode>(root, [hasInclude], (node, ancestors: MdxastNode[]) => {
-
       if (node.type === "code") {
-        const noIncludes = numIncludes(node);
+        const noIncludes = numIncludes(node.value);
 
         for (let i = 0; i < noIncludes; i++) {
           const { result, error } = resolveIncludes({
