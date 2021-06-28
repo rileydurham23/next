@@ -24,6 +24,7 @@ interface ResolveIncludesProps {
 const resolveIncludes = ({ value, filePath }: ResolveIncludesProps) => {
   const rootDir = getVersionRootPath(filePath);
   let error: string;
+
   const result = value.replace(includeRegexp, (_, includePath) => {
     const fullImportPath = join(rootDir, includePath);
 
@@ -38,6 +39,10 @@ const resolveIncludes = ({ value, filePath }: ResolveIncludesProps) => {
 
   return { result, error };
 };
+
+// Return matches by checking match() result array length
+const numIncludes = (node: MdxastNode) => 
+  typeof node.value === "string" && (node.value).match(includeRegexp).length;
 
 const hasInclude = (node: MdxastNode) =>
   typeof node.value === "string" && includeRegexp.test(node.value);
@@ -54,18 +59,23 @@ export default function remarkIncludes(
     const lastErrorIndex = vfile.messages.length;
 
     visit<MdxastNode>(root, [hasInclude], (node, ancestors: MdxastNode[]) => {
+
       if (node.type === "code") {
-        const { result, error } = resolveIncludes({
-          value: node.value,
-          filePath: vfile.path,
-        });
+        const noIncludes = numIncludes(node);
 
-        if (resolve) {
-          node.value = result;
-        }
+        for (let i = 0; i < noIncludes; i++) {
+          const { result, error } = resolveIncludes({
+            value: node.value,
+            filePath: vfile.path,
+          });
 
-        if (lint && error) {
-          vfile.message(error, node);
+          if (resolve) {
+            node.value = result;
+          }
+
+          if (lint && error) {
+            vfile.message(error, node);
+          }
         }
       } else if (node.type === "text") {
         const parent = ancestors[ancestors.length - 1];
