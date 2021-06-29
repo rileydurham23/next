@@ -39,7 +39,7 @@ export const getGithubURL = (filepath: string) => {
   return branches[current]
     ? filepath.replace(
         root,
-        `${NEXT_PUBLIC_GITHUB_DOCS}/edit/${branches[current]}`
+        `${NEXT_PUBLIC_GITHUB_DOCS}/issues/new?assignees=&labels=documentation&template=documentation.md`
       )
     : "";
 };
