@@ -14,12 +14,15 @@ const Newsletter = (): JSX.Element => {
       <Background backgroundImage={`url(${webBackground})`}>
         <NewsHeader>
           <h1>
-            <Image
-              src={whiteLogo}
-              alt="network infrastructure"
-              width="321px"
-              height="40px"
-            />
+            <a href="/">
+              {/* verify url in <a/> tag above */}
+              <Image
+                src={whiteLogo}
+                alt="network infrastructure"
+                width="321px"
+                height="40px"
+              />
+            </a>
           </h1>
         </NewsHeader>
         <Card>
@@ -40,8 +43,29 @@ const Newsletter = (): JSX.Element => {
               </p>
             </Caption>
           </CardDivLeft>
-          <div></div>
+          <CardDivRight>
+            <Caption>
+              <h1>Subscribe to our newsletter!</h1>
+              <p style={{ fontSize: "18px" }}>
+                Subscribe to our newsletter to receive bi-weekly product
+                updates, blog posts, and technical resources from the Teleport
+                team.
+              </p>
+              <Email>Email Address</Email>
+            </Caption>
+          </CardDivRight>
         </Card>
+        <Copyright> © 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED</Copyright>
+        <TermsContainer>
+          <a href="/tos/">
+            {/* verify url in <a/> tag above */}
+            <TermsText>TERMS OF SERVICE</TermsText>
+          </a>
+          <a href="/privacy/">
+            {/* verify url in <a/> tag above */}
+            <TermsText>PRIVACY POLICY</TermsText>
+          </a>
+        </TermsContainer>
       </Background>
     </>
   );
@@ -51,8 +75,8 @@ const ImageContainer = styled(Flex)<StyledSystemProps>(
   css({
     justifyContent: "center",
     alignItems: "top",
-    borderRadius: "8px 0 0 8px",
     width: "504px",
+    margin: "65px 0 0 0",
   })
 );
 
@@ -69,30 +93,73 @@ const CardDivLeft = styled.div`
     #ffffff 100%,
     #ffffff 100%
   );
+  width: 504px;
+  border-radius: 8px 0 0 8px;
 `;
 
 const Caption = styled.div`
   color: #000000;
-  font-style: normal;
-  letter-spacing: normal;
+  margin: 0 56px;
+  box-sizing: border-box;
+
+  h1 {
+    font-size: 34px;
+  }
 
   h2 {
-    font-family: "Lato - Bold";
+    font-family: Lato;
     font-size: 24px;
     font-weight: 700;
-    font-style: normal;
-    letter-spacing: normal;
     line-height: 22px;
   }
 
   p {
-    width: 392px;
-    height: 67px;
-    font-family: "Lato - Regular";
+    font-family: Lato;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
   }
 `;
 
+const CardDivRight = styled.div`
+  background: #ffffff;
+  width: 440px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 99px;
+`;
+
+const Email = styled.div`
+  color: #324148;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+`;
+
+const Copyright = styled.section`
+  width: 459px;
+  height: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Lato";
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+const TermsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const TermsText = styled.p`
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Lato";
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: underline;
+  text-transform: uppercase;
+  margin: 12px 5px 60px 5px;
+`;
 export default Newsletter;

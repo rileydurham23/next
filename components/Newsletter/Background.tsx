@@ -10,7 +10,6 @@ const Background = styled(Box)<StyledSystemProps>(
     alignItems: "center",
     backgroundSize: "cover",
     backgroundPositionY: "center",
-    minHeight: "1236px",
   }),
   all
 );
