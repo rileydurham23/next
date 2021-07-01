@@ -23,7 +23,7 @@ const transformer = (
     .use(remarkIncludes, pluginOptions)
     .processSync(vfile(vfileOptions));
 
-describe("utils/remark-variables", () => {
+describe("utils/remark-includes", () => {
   it("Fixture match result on resolve", () => {
     const contents = readFileSync(
       resolve("utils/fixtures/includes-source.mdx"),
@@ -82,5 +82,24 @@ describe("utils/remark-variables", () => {
     ).toString();
 
     expect(contents).toEqual(result);
+  });
+
+  it("Multiple includes resolve in code block", () => {
+    const contents = readFileSync(
+      resolve("utils/fixtures/includes-multiple-source.mdx"),
+      "utf-8"
+    );
+
+    const result = transformer({
+      contents,
+      path: "/content/4.0/docs/pages/filename.mdx",
+    }).toString();
+
+    const expected = readFileSync(
+      resolve("utils/fixtures/includes-multiple-result.mdx"),
+      "utf-8"
+    );
+
+    expect(result).toEqual(expected);
   });
 });

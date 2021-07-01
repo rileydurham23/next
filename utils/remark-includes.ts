@@ -60,7 +60,6 @@ export default function remarkIncludes(
     visit<MdxastNode>(root, [hasInclude], (node, ancestors: MdxastNode[]) => {
       if (node.type === "code") {
         const noIncludes = numIncludes(node.value);
-
         for (let i = 0; i < noIncludes; i++) {
           const { result, error } = resolveIncludes({
             value: node.value,
