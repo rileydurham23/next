@@ -85,7 +85,7 @@ const DocHeader = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            Suggest Improvement
+            Improve
           </Button>
         </Flex>
       )}
