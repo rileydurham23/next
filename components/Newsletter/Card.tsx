@@ -10,6 +10,8 @@ const Card = styled(Flex)<StyledSystemProps>(
     height: "544px",
     width: "944px",
     borderRadius: "8px",
+    margin: "0 0 80px 0",
+    boxShadow: "0 0 64px rgba(0, 0, 0, 0.32)",
   }),
   all
 );
