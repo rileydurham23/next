@@ -1,17 +1,30 @@
 ---
-title: Pricing
-h1: Get Started
-subject: Plans and Pricing
+title: Get Started with Teleport
+h1: Get Started with Teleport
 description: Teleport is available either as a free, open source download, or through our commercial offerings which can be hosted by us or self-hosted. The pricing is determined by the number of computing resources accessible via Teleport.
+reviews:
+  - nasdaq
+  - sumologic
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
 ---
 
-import { Centrator, PageIntro, PlanCalculator } from "components";
+import data from "./data.yaml";
+import { ClientsList, Feedback, SectionPlan, Section } from "components";
 
-<Centrator wrapperAs="section" py="5">
-  <PageIntro
-    title={meta.h1}
-    subject={meta.subject}
-    description={meta.description}
-  />
-</Centrator>
-<PlanCalculator as="section" />
+<SectionPlan title={meta.h1} plans={data.plans} />
+
+<Section bg="purple">
+  <Feedback reviews={meta.reviews} dark />
+</Section>
+
+<ClientsList clients={meta.clients} />

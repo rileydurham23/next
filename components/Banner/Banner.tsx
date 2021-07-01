@@ -27,7 +27,7 @@ export default function Banner({ title, subtitle, ...props }: Props) {
           title={title}
           subtitle={subtitle}
           maxWidth="65%"
-          titleFontSize="banner"
+          titleFontSize="section-header"
           titleLineHeight="xxl"
         />
       </Centrator>

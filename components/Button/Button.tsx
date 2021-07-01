@@ -2,12 +2,12 @@ import styled from "styled-components";
 import css from "@styled-system/css";
 import { all, StyledSystemProps, transition, variant } from "components/system";
 
-type variant = "primary" | "secondary" | "secondary-white";
-type shape = "sm" | "md" | "lg";
+export type ButtonVariant = "primary" | "secondary" | "secondary-white";
+export type ButtonShape = "sm" | "md" | "lg";
 
 interface ButtonProps extends StyledSystemProps {
-  variant?: variant | variant[];
-  shape?: shape | shape[];
+  variant?: ButtonVariant | ButtonVariant[];
+  shape?: ButtonShape | ButtonShape[];
 }
 
 const Button = styled("button")<ButtonProps>(

@@ -24,7 +24,7 @@ export default {
 export const Hint = StoryComponent.bind({});
 
 Hint.args = {
-  icon: "helpCircle",
+  icon: "help",
   children:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
 };

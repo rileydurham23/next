@@ -48,6 +48,9 @@ export interface StyledSystemProps
     GenericProp<"text", typeof theme.textStyles>,
     GenericProp<"gradient", typeof theme.gradients> {
   css?: CssFunctionReturnType | string;
+  breakInside?: ResponsiveValue<Property.BreakInside, RequiredTheme>;
+  columns?: ResponsiveValue<Property.Columns, RequiredTheme>;
+  columnGap?: ResponsiveValue<Property.ColumnGap, RequiredTheme>;
   cursor?: ResponsiveValue<Property.Cursor, RequiredTheme>;
   textDecoration?: ResponsiveValue<Property.TextAlign, RequiredTheme>;
   textTransform?: ResponsiveValue<Property.TextTransform, RequiredTheme>;
@@ -90,6 +93,9 @@ export const all = compose(
     boxSizing: true,
     pointerEvent: true,
     cursor: true,
+    columns: true,
+    columnGap: true,
+    breakInside: true,
   }),
   variant({
     prop: "text",

@@ -38,7 +38,7 @@ const theme = {
     "header-3": 24,
     "header-2": 28,
     "header-1": 32,
-    banner: 38,
+    banner: 36,
     "section-header": 40,
     "hero-header": 52,
   },

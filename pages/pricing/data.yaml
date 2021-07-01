@@ -1,0 +1,35 @@
+plans:
+  - title: Community
+    subtitle: Free & Open Source
+    description: For engineers who prefer to build and run their own software.
+    features:
+      - Self-hosted
+      - All OSS features
+      - Github SSO integration
+      - Community support
+    actions:
+      - title: Free Download
+        url: /teleport/download/
+        type: secondary
+  - title: Enterprise
+    subtitle: Custom Pricing
+    large: true
+    description: For larger organizations and teams that require easy and secure access to their computing environments,  more flexibility and complete control.
+    features:
+      - 24x7 support with premium SLAs & account managers
+      - Cloud and self-hosted options
+      - Volume discounts
+      - Annual or Multi-Year contracts
+      - Multi-region deployments
+      - Access Workflows
+      - Enterprise SSO
+      - FedRAMP compliance package
+    actions:
+      - title: Try Teleport for free
+        url: /signup/
+        type: primary
+        comment: No credit card required. Free 14 day trial.
+      - title: Contact Sales
+        url: /signup/enterprise/
+        type: secondary
+        comment: Schedule a demo or inquire about pricing.

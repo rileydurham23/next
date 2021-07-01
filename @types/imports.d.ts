@@ -28,3 +28,9 @@ declare module "md-import-mapping" {
 
   export default value;
 }
+
+declare module "*.yaml" {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const content: { [key: string]: any };
+  export default content;
+}
