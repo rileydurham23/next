@@ -7,8 +7,6 @@ const Card = styled(Flex)<StyledSystemProps>(
   css({
     flexDirection: "row",
     background: "white",
-    height: "544px",
-    width: "944px",
     borderRadius: "8px",
     margin: "0 0 32px 0",
     boxShadow: "0 0 64px rgba(0, 0, 0, 0.32)",

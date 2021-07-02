@@ -1,7 +1,6 @@
 import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
 import styled from "styled-components";
-import css from "@styled-system/css";
 import { transition } from "components/system";
 import { useMarketo } from "utils/marketo";
 
@@ -22,7 +21,7 @@ export function NewsletterEmailSubscribe({ ...props }: FlexProps) {
       {...props}
     >
       <Box
-        ml={[0, 4]}
+        ml={[0, 2]}
         mt={[4, 0]}
         minHeight="40px"
         minWidth="340px"
@@ -37,53 +36,24 @@ export function NewsletterEmailSubscribe({ ...props }: FlexProps) {
   );
 }
 
-const StyledFormFormWrapper = styled("form")(
-  css({
-    display: "flex",
-    p: "0 !important",
-    width: "auto !important",
-    "& .mktoButton": {
-      color: "#ffffff",
-      px: 5,
-      bg: "#651fff",
-      border: "1px solid",
-      boxSizing: "border-box",
-      whiteSpace: "nowrap",
-      borderColor: "light-gray",
-      borderTopRightRadius: "default",
-      borderBottomRightRadius: "default",
-      minHeight: "40px",
-      textTransform: "uppercase",
-    },
-    "& .mktoEmailField": {
-      borderTopLeftRadius: "default",
-      borderBottomLeftRadius: "default",
-      borderTopRightRadius: 0,
-      borderBottomRightRadius: 0,
-      appearance: "none",
-      boxSizing: "border-box",
-      border: "1px solid",
-      borderColor: "light-gray",
-      borderRight: 0,
-      m: 0,
-      transition: transition([
-        ["backgroundColor", "interaction"],
-        ["borderColor", "interaction"],
-      ]),
-      width: "200px !important",
-      fontSize: "18px !important",
-      px: "8px !important",
-      minHeight: "40px",
-      "&:focus, &:hover": {
-        borderColor: "light-blue",
-        bg: "rgba(0,145,234,.04)",
-      },
-    },
-    "& .mktoFormRow:first-of-type, & .mktoFieldDescriptor, & .mktoFieldWrap, & .mktoEmailField": {
-      width: "100% !important",
-    },
-    "& .mktoFieldDescriptor": { mb: "0 !important" },
-    "& .mktoButtonWrap": { ml: "0 !important" },
-    "& .mktoOffset, & .mktoLabel, & .mktoGutter": { display: "none" },
-  })
-);
+const StyledFormFormWrapper = styled.form`
+  padding: 0 !important;
+  width: auto !important;
+
+  .mktoButton {
+    color: ${(props) => props.theme.colors.code};
+    padding: 0 5px;
+    background: #651fff;
+    border: 1px solid code;
+    box-sizing: border-box;
+    white-space: nowrap;
+    border-radius: 4px;
+    min-height: 40px;
+    text-transform: uppercase;
+  }
+
+  .mktoLabel {
+    display: block;
+    float: none;
+  }
+`;
