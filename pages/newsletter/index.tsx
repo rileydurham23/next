@@ -2,13 +2,16 @@ import styled from "styled-components";
 import { css, StyledSystemProps } from "components/system";
 import webBackground from "./assets/newsletter_web@2x.png";
 import Image from "next/image";
-import Background from "../../components/Newsletter/Background";
-import Card from "../../components/Newsletter/Card";
+import Background from "components/Newsletter/Background";
+import Card from "components/Newsletter/Card";
 import engineers from "./assets/engineers.png";
 import whiteLogo from "./assets/white.png";
-import Flex from "../../components/Flex";
+import Flex from "components/Flex";
+import { NewsletterEmailSubscribe } from "components/Newsletter/NewsletterEmailSubscribe";
 
-const Newsletter = (): JSX.Element => {
+const breakpoints = ["1000px"];
+
+const Newsletter = () => {
   return (
     <>
       <Background backgroundImage={`url(${webBackground})`}>
@@ -52,6 +55,7 @@ const Newsletter = (): JSX.Element => {
                 team.
               </p>
               <Email>Email Address</Email>
+              <NewsletterEmailSubscribe />
             </Caption>
           </CardDivRight>
         </Card>
