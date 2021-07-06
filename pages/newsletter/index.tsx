@@ -28,8 +28,8 @@ const Newsletter = () => {
               <Image
                 src={whiteLogo}
                 alt="network infrastructure"
-                width={["193px", "321px"]}
-                height={["24px", "40px"]}
+                width={"100%"}
+                // height={["24px", "40px"]}
               />
             </a>
           </Text>
@@ -40,8 +40,8 @@ const Newsletter = () => {
               <Image
                 src={engineers}
                 alt="network infrastructure"
-                width={["282px", "534px"]}
-                height={["158px", "300px"]}
+                width={"100%"}
+                // height={["158px", "300px"]}
               />
             </ImageContainer>
             <Caption>
