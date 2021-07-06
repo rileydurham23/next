@@ -2,11 +2,11 @@ import { ComponentProps } from "react";
 import styled from "styled-components";
 import { all, css, StyledSystemProps } from "components/system";
 
-const NewsHeader = styled("header")<StyledSystemProps>(
+const NewsHeader = styled("div")<StyledSystemProps>(
   css({
-    padding: "48px 0px 16px",
+    margin: ["62px 0px 46px", "48px 0px 264px"],
     position: "relative",
-    left: "65px",
+    left: ["40px", "65px"],
   }),
   all
 );

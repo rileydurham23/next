@@ -1,6 +1,6 @@
 import { ComponentProps } from "react";
 import styled from "styled-components";
-import { css, StyledSystemProps } from "components/system";
+import { all, css, StyledSystemProps } from "components/system";
 
 const Copyright = styled("div")<StyledSystemProps>(
   css({
@@ -12,7 +12,8 @@ const Copyright = styled("div")<StyledSystemProps>(
     fontWeight: "400",
     textAlign: "center",
     textTransform: "uppercase",
-  })
+  }),
+  all
 );
 
 export type CopyrightProps = ComponentProps<typeof Copyright>;

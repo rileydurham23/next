@@ -7,9 +7,11 @@ const Background = styled(Box)<StyledSystemProps>(
   css({
     display: "flex",
     flexDirection: "column",
+    boxSizing: "content-box",
     alignItems: "center",
     backgroundSize: "cover",
     backgroundPositionY: "center",
+    width: "100%",
   }),
   all
 );

@@ -8,6 +8,7 @@ const Email = styled("div")<StyledSystemProps>(
     fontSize: "12px",
     fontWeight: "700",
     lineHeight: "16px",
+    margin: "0 18px 8px 18px",
   })
 );
 

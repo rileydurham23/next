@@ -2,16 +2,17 @@ import { ComponentProps } from "react";
 import styled from "styled-components";
 import { all, css, StyledSystemProps } from "components/system";
 
-const CardDivLeftBottom = styled("div")<StyledSystemProps>(
+const AccessPlane = styled("div")<StyledSystemProps>(
   css({
     backgroundImage:
       "linear-gradient(-68deg, #eff1fe 0%, #ffffff 100%, #ffffff 100%)",
-    width: "504px",
-    borderRadius: "8px 0 0 8px",
+    width: [343, 504],
+    height: [326, 544],
+    borderRadius: ["8px", "8px 0 0 8px"],
   }),
   all
 );
 
-export type CardDivLeftBottomProps = ComponentProps<typeof CardDivLeftBottom>;
+export type AccessPlaneProps = ComponentProps<typeof AccessPlane>;
 
-export default CardDivLeftBottom;
+export default AccessPlane;

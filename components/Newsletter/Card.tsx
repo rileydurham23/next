@@ -5,11 +5,13 @@ import Flex from "../Flex";
 
 const Card = styled(Flex)<StyledSystemProps>(
   css({
-    flexDirection: "row",
     background: "white",
+    flexDirection: ["column", "row-reverse"],
     borderRadius: "8px",
-    margin: "0 0 32px 0",
+    marginBottom: ["56px", "32px"],
     boxShadow: "0 0 64px rgba(0, 0, 0, 0.32)",
+    height: [624, 544],
+    width: [343, 944],
   }),
   all
 );

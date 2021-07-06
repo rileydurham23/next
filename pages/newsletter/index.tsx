@@ -4,10 +4,10 @@ import Background from "components/Newsletter/Background";
 import Card from "components/Newsletter/Card";
 import NewsHeader from "components/Newsletter/NewsHeader";
 import ImageContainer from "components/Newsletter/ImageContainer";
-import CardDivLeftBottom from "components/Newsletter/CardDivLeftBottom";
-import CardDivRightTop from "components/Newsletter/CardDivRightTop";
+import AccessPlane from "components/Newsletter/AccessPlane";
+import EmailCTA from "components/Newsletter/EmailCTA";
 import Caption from "components/Newsletter/Caption";
-import Email from "components/Newsletter/Email";
+import Text from "components/Newsletter/Text";
 import Copyright from "components/Newsletter/Copyright";
 import TermsContainer from "components/Newsletter/TermsContainer";
 import TermsText from "components/Newsletter/TermsText";
@@ -23,65 +23,78 @@ const Newsletter = () => {
         backgroundImage={[`url(${mobBackground})`, `url(${webBackground})`]}
       >
         <NewsHeader>
-          <h1>
+          <Text as="h1" m={"0 0 0 0"}>
             <a href="/">
-              {/* verify url in <a/> tag above */}
               <Image
                 src={whiteLogo}
                 alt="network infrastructure"
-                width="321px"
-                height="40px"
+                width={["193px", "321px"]}
+                height={["24px", "40px"]}
               />
             </a>
-          </h1>
+          </Text>
         </NewsHeader>
-        <Card
-          flexDirection={["column", "row"]}
-          height={[812, 544]}
-          width={[375, 944]}
-        >
-          <CardDivLeftBottom width={[343, 504]}>
-            <ImageContainer m={["0 0 0 0", "65px 0 0 0"]}>
-              {/* <Image
+        <Card>
+          <AccessPlane order={[2, 1]}>
+            <ImageContainer margin={["20px 0 0 -75px", "65px 0 0 0"]}>
+              <Image
                 src={engineers}
                 alt="network infrastructure"
                 width={["282px", "534px"]}
                 height={["158px", "300px"]}
-              /> */}
+              />
             </ImageContainer>
             <Caption>
-              <h2>Teleport Access Plane</h2>
-              <p>
-                Get quick & secure access to SSH servers, Kubernetes clusters,
-                web applications, and databases across any environment.
-              </p>
+              <Text
+                fontSize={["header-4", "header-3"]}
+                lineHeight={["22px", "24px"]}
+                fontWeight={"bold"}
+                m={["6px 18px 10px 18px", "0 56px 14px 56px"]}
+              >
+                Access Plane
+              </Text>
+              <Text
+                fontSize={["15px", "text-lg"]}
+                lineHeight={["20px", "24px"]}
+                fontWeight={"regular"}
+                m={["0 18px 37px 18px", "0px 56px 59px 56px"]}
+              >
+                Teleport allows engineers and security professionals to unify
+                access for SSH servers, Kubernetes clusters, web applications,
+                and databases across all environments.
+              </Text>
             </Caption>
-          </CardDivLeftBottom>
-          <CardDivRightTop
-            order={[1, 2, 2]}
-            width={[343, 440]}
-            marginTop={["0px", "99px"]}
-          >
-            <Caption>
-              <h1>Subscribe to our newsletter!</h1>
-              <p style={{ fontSize: "18px" }}>
-                Subscribe to our newsletter to receive bi-weekly product
-                updates, blog posts, and technical resources from the Teleport
-                team.
-              </p>
-              {/* <Email>Email Address</Email> */}
+          </AccessPlane>
+          <EmailCTA>
+            <Caption width={[343, 440]} height={[298, 392]}>
+              <Text
+                fontSize={["22px", "34px"]}
+                lineHeight={["28px", "40px"]}
+                margin={["44px 18px 10px 18px", "113px 80px 20px 51px"]}
+                fontWeight={"bold"}
+              >
+                Subscribe to our newsletter!
+              </Text>
+              <Text
+                margin={["0 18px 0 18px", "0 80px 10px 51px"]}
+                fontSize={["17px", "18px"]}
+              >
+                We&apos;ll send you the best of our blog just once a month. We
+                promise.
+              </Text>
               <NewsletterEmailSubscribe />
             </Caption>
-          </CardDivRightTop>
+          </EmailCTA>
         </Card>
-        <Copyright> © 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED</Copyright>
-        <TermsContainer>
+        <Copyright display={["none", "block"]}>
+          {" "}
+          © 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED
+        </Copyright>
+        <TermsContainer mb={"263px"} display={["none", "flex"]}>
           <a href="/tos/">
-            {/* verify url in <a/> tag above */}
             <TermsText>TERMS OF SERVICE</TermsText>
           </a>
           <a href="/privacy/">
-            {/* verify url in <a/> tag above */}
             <TermsText>PRIVACY POLICY</TermsText>
           </a>
         </TermsContainer>
