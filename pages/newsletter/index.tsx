@@ -1,111 +1,164 @@
-import webBackground from "./assets/newsletter_web@2x.png";
-import mobBackground from "./assets/newsletter_mobile@2x.png";
-import Background from "components/Newsletter/Background";
+import styled from "styled-components";
+import { all, css, StyledSystemProps } from "components/system";
+import Head from "components/Head";
+import webBackground from "./assets/newsletter_web.png";
+import mobBackground from "./assets/newsletter_mob.png";
+import Box from "components/Box";
+import Flex from "components/Flex";
 import Card from "components/Newsletter/Card";
-import NewsHeader from "components/Newsletter/NewsHeader";
-import ImageContainer from "components/Newsletter/ImageContainer";
 import AccessPlane from "components/Newsletter/AccessPlane";
 import EmailCTA from "components/Newsletter/EmailCTA";
-import Caption from "components/Newsletter/Caption";
-import Text from "components/Newsletter/Text";
-import Copyright from "components/Newsletter/Copyright";
-import TermsContainer from "components/Newsletter/TermsContainer";
-import TermsText from "components/Newsletter/TermsText";
 import Image from "components/Image";
 import engineers from "./assets/engineers.png";
-import whiteLogo from "./assets/white.png";
+import whiteLogo from "./assets/white_logo@1x.png";
 import { NewsletterEmailSubscribe } from "components/Newsletter/NewsletterEmailSubscribe";
 
 const Newsletter = () => {
   return (
     <>
-      <Background
+      <Head title="Newsletter" description="Subsribe to our Newsletter!" />
+      <FlexBG
         backgroundImage={[`url(${mobBackground})`, `url(${webBackground})`]}
+        minHeight="100vh"
       >
-        <NewsHeader>
-          <Text as="h1" m={"0 0 0 0"}>
+        <Box m={["62px 0px 32px", "48px 0px 32px"]}>
+          <Box as="h1" m={"0 0 0 0"}>
             <a href="/">
-              <ImageContainer
-                width={["193px", "321px"]}
-                height={["24px", "40px"]}
+              <Flex
+                justifyContent="center"
+                alignItems="top"
+                height={["24px", null]}
+                width={["120px", null]}
               >
                 <Image
                   src={whiteLogo}
                   alt="network infrastructure"
                   width={"100%"}
                 />
-              </ImageContainer>
+              </Flex>
             </a>
-          </Text>
-        </NewsHeader>
+          </Box>
+        </Box>
         <Card>
           <AccessPlane order={[2, 1]}>
-            <ImageContainer
-              m={["20px 0 0 0", "65px 0 0 0"]}
+            <FlexBG
+              backgroundImage={`url(${engineers})`}
               width={[282, 534]}
               height={[158, 300]}
-            >
-              <Image
-                src={engineers}
-                alt="network infrastructure"
-                width={"100%"}
-              />
-            </ImageContainer>
-            <Caption>
-              <Text
+              backgroundRepeat="no-repeat"
+              ml={[5, -3]}
+            />
+            <Box>
+              <Box
                 fontSize={["header-4", "header-3"]}
                 lineHeight={["22px", "24px"]}
                 fontWeight={"bold"}
-                m={["6px 18px 10px 18px", "0 56px 14px 56px"]}
+                width="100%"
+                p={["6px 16px 10px 18px", "12px 56px 14px 56px"]}
               >
                 Access Plane
-              </Text>
-              <Text
+              </Box>
+              <Box
                 fontSize={["15px", "text-lg"]}
                 lineHeight={["20px", "24px"]}
                 fontWeight={"regular"}
-                m={["0 18px 37px 18px", "0px 56px 59px 56px"]}
+                width="100%"
+                px={["18px", 8]}
               >
                 Teleport allows engineers and security professionals to unify
                 access for SSH servers, Kubernetes clusters, web applications,
                 and databases across all environments.
-              </Text>
-            </Caption>
+              </Box>
+            </Box>
           </AccessPlane>
           <EmailCTA>
-            <Caption width={[343, 440]} height={[298, 392]}>
-              <Text
-                fontSize={["22px", "34px"]}
-                lineHeight={["28px", "40px"]}
-                margin={["44px 18px 10px 18px", "113px 80px 20px 51px"]}
-                fontWeight={"bold"}
+            <Flex
+              flexDirection="column"
+              justifyContent="space-betweem"
+              alignItems="center"
+              width={[343, 440]}
+              height={[298, 392]}
+            >
+              <Box
+                width={["307px", "304px"]}
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
               >
-                Subscribe to our newsletter!
-              </Text>
-              <Text
-                margin={["0 18px 0 18px", "0 80px 10px 51px"]}
-                fontSize={["17px", "18px"]}
-              >
-                We&apos;ll send you the best of our blog just once a month. We
-                promise.
-              </Text>
+                <Box
+                  fontSize={["22px", "34px"]}
+                  lineHeight={["28px", "40px"]}
+                  width="100%"
+                  pt={[7, "100px"]}
+                  pb={[2, 3]}
+                  fontWeight={"bold"}
+                >
+                  Subscribe to our newsletter!
+                </Box>
+                <Box fontSize={["17px", "18px"]} width="100%" pb={[null, 3]}>
+                  We&apos;ll send you the best of our blog just once a month. We
+                  promise.
+                </Box>
+              </Box>
               <NewsletterEmailSubscribe />
-            </Caption>
+            </Flex>
           </EmailCTA>
         </Card>
-        <Copyright display={["none", "block"]}>
-          © 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED
-        </Copyright>
-        <TermsContainer mb={"263px"} display={["none", "flex"]}>
-          <a href="/tos/">
-            <TermsText>TERMS OF SERVICE</TermsText>
-          </a>
-          <a href="/privacy/">
-            <TermsText>PRIVACY POLICY</TermsText>
-          </a>
-        </TermsContainer>
-      </Background>
+        <Box mb={5}>
+          <Copyright>© 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED</Copyright>
+          <Box
+            display={["none", "flex"]}
+            flexDirection="row"
+            justifyContent="center"
+          >
+            <a href="/tos/">
+              <TermsText>TERMS OF SERVICE</TermsText>
+            </a>
+            <a href="/privacy/">
+              <TermsText>PRIVACY POLICY</TermsText>
+            </a>
+          </Box>
+        </Box>
+      </FlexBG>
     </>
   );
 };
+
+const FlexBG = styled(Flex)<StyledSystemProps>(
+  {
+    display: "flex",
+    flexDirection: "column",
+    boxSizing: "content-box",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundSize: "cover",
+    width: "100%",
+  },
+  all
+);
+
+const Copyright = styled("div")<StyledSystemProps>(
+  css({
+    display: ["none", "block"],
+    width: "459px",
+    height: "14px",
+    color: "rgba(255, 255, 255, 0.8)",
+    fontSize: "text-sm",
+    textAlign: "center",
+    textTransform: "uppercase",
+  })
+);
+
+const TermsText = styled("div")<StyledSystemProps>(
+  css({
+    color: "rgba(255, 255, 255, 0.8)",
+    fontSize: "text-sm",
+    textAlign: "center",
+    textDecoration: "underline",
+    textTransform: "uppercase",
+    margin: "12px 5px 60px 5px",
+  })
+);
+
 export default Newsletter;
