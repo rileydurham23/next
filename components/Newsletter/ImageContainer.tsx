@@ -7,8 +7,6 @@ const ImageContainer = styled(Flex)<StyledSystemProps>(
   css({
     justifyContent: "center",
     alignItems: "top",
-    width: "504px",
-    margin: "65px 0 0 0",
   }),
   all
 );

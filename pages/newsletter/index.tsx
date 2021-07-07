@@ -25,23 +25,30 @@ const Newsletter = () => {
         <NewsHeader>
           <Text as="h1" m={"0 0 0 0"}>
             <a href="/">
-              <Image
-                src={whiteLogo}
-                alt="network infrastructure"
-                width={"100%"}
-                // height={["24px", "40px"]}
-              />
+              <ImageContainer
+                width={["193px", "321px"]}
+                height={["24px", "40px"]}
+              >
+                <Image
+                  src={whiteLogo}
+                  alt="network infrastructure"
+                  width={"100%"}
+                />
+              </ImageContainer>
             </a>
           </Text>
         </NewsHeader>
         <Card>
           <AccessPlane order={[2, 1]}>
-            <ImageContainer margin={["20px 0 0 -75px", "65px 0 0 0"]}>
+            <ImageContainer
+              m={["20px 0 0 0", "65px 0 0 0"]}
+              width={[282, 534]}
+              height={[158, 300]}
+            >
               <Image
                 src={engineers}
                 alt="network infrastructure"
                 width={"100%"}
-                // height={["158px", "300px"]}
               />
             </ImageContainer>
             <Caption>
@@ -87,7 +94,6 @@ const Newsletter = () => {
           </EmailCTA>
         </Card>
         <Copyright display={["none", "block"]}>
-          {" "}
           © 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED
         </Copyright>
         <TermsContainer mb={"263px"} display={["none", "flex"]}>
