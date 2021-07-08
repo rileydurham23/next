@@ -16,14 +16,15 @@ export function NewsletterEmailSubscribe({ ...props }: FlexProps) {
     <Flex
       backgroundColor="white"
       justifyContent="center"
-      alignItems={["stretch", "center"]}
+      alignItems="stretch"
       flexDirection={["column", "row"]}
+      mb={[5, 0]}
       {...props}
     >
       <Box
         mt={[4, 0]}
         minHeight="44px"
-        minWidth={["307px", "304px"]}
+        minWidth={["311px", "304px"]}
         bg={formLoaded ? "transparent" : "lightest-gray"}
         transition={transition([["backgroundColor", "interaction"]])}
       >
@@ -87,7 +88,7 @@ const StyledFormFormWrapper = styled("form")(
       boxSizing: "border-box",
       color: "darkest",
       display: "block",
-      fontSize: ["text-md", "text-xl !important"],
+      fontSize: ["14px !important", "18px !important"],
       fontWeight: "regular",
       height: "44px !important",
       outline: "none",

@@ -1,69 +1,75 @@
 import styled from "styled-components";
-import { all, css, StyledSystemProps } from "components/system";
+import { css, StyledSystemProps } from "components/system";
 import Head from "components/Head";
-import webBackground from "./assets/newsletter_web.png";
-import mobBackground from "./assets/newsletter_mob.png";
+import Link from "components/Link";
 import Box from "components/Box";
 import Flex from "components/Flex";
-import Card from "components/Newsletter/Card";
-import AccessPlane from "components/Newsletter/AccessPlane";
-import EmailCTA from "components/Newsletter/EmailCTA";
 import Image from "components/Image";
+import { NewsletterEmailSubscribe } from "components/Newsletter/NewsletterEmailSubscribe";
+
+import webBackground from "./assets/newsletter_web.png";
+import mobBackground from "./assets/newsletter_mob.png";
 import engineers from "./assets/engineers.png";
 import whiteLogo from "./assets/white_logo@1x.png";
-import { NewsletterEmailSubscribe } from "components/Newsletter/NewsletterEmailSubscribe";
 
 const Newsletter = () => {
   return (
     <>
       <Head title="Newsletter" description="Subsribe to our Newsletter!" />
-      <FlexBG
+      <StyledBackground
         backgroundImage={[`url(${mobBackground})`, `url(${webBackground})`]}
-        minHeight="100vh"
+        height="100vh"
       >
-        <Box m={["62px 0px 32px", "48px 0px 32px"]}>
-          <Box as="h1" m={"0 0 0 0"}>
-            <a href="/">
+        <Box mt={[9, 7]} mb={[5, 5]}>
+          <Box as="h1" m={0}>
+            <Link href="/">
               <Flex
                 justifyContent="center"
                 alignItems="top"
-                height={["24px", null]}
-                width={["120px", null]}
+                height={["24px", "auto"]}
+                width={["120px", "auto"]}
+                css={css({
+                  "&:hover, &:active, &:focus": {
+                    opacity: 0.8,
+                  },
+                })}
               >
                 <Image
                   src={whiteLogo}
                   alt="network infrastructure"
-                  width={"100%"}
+                  width="100%"
                 />
               </Flex>
-            </a>
+            </Link>
           </Box>
         </Box>
         <Card>
           <AccessPlane order={[2, 1]}>
-            <FlexBG
+            <StyledBackground
               backgroundImage={`url(${engineers})`}
+              backgroundSize="100%"
               width={[282, 534]}
               height={[158, 300]}
               backgroundRepeat="no-repeat"
               ml={[5, -3]}
+              mt={[4, 8]}
             />
             <Box>
               <Box
                 fontSize={["header-4", "header-3"]}
                 lineHeight={["22px", "24px"]}
-                fontWeight={"bold"}
-                width="100%"
-                p={["6px 16px 10px 18px", "12px 56px 14px 56px"]}
+                fontWeight="bold"
+                // width="100%"
+                p={["8px 16px 10px 16px", "12px 56px 16px 56px"]}
               >
                 Access Plane
               </Box>
               <Box
-                fontSize={["15px", "text-lg"]}
+                fontSize="text-lg"
                 lineHeight={["20px", "24px"]}
-                fontWeight={"regular"}
-                width="100%"
-                px={["18px", 8]}
+                fontWeight="regular"
+                px={[3, 8]}
+                pb={[5, 8]}
               >
                 Teleport allows engineers and security professionals to unify
                 access for SSH servers, Kubernetes clusters, web applications,
@@ -76,27 +82,19 @@ const Newsletter = () => {
               flexDirection="column"
               justifyContent="space-betweem"
               alignItems="center"
-              width={[343, 440]}
-              height={[298, 392]}
+              px={[3, 9]}
             >
-              <Box
-                width={["307px", "304px"]}
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-              >
+              <Box justifyContent="center">
                 <Box
                   fontSize={["22px", "34px"]}
                   lineHeight={["28px", "40px"]}
-                  width="100%"
-                  pt={[7, "100px"]}
+                  pt={[7, "120px"]}
                   pb={[2, 3]}
                   fontWeight={"bold"}
                 >
                   Subscribe to our newsletter!
                 </Box>
-                <Box fontSize={["17px", "18px"]} width="100%" pb={[null, 3]}>
+                <Box fontSize="text-xl" pb={[0, 3]}>
                   We&apos;ll send you the best of our blog just once a month. We
                   promise.
                 </Box>
@@ -112,37 +110,46 @@ const Newsletter = () => {
             flexDirection="row"
             justifyContent="center"
           >
-            <a href="/tos/">
+            <Link href="/tos/">
               <TermsText>TERMS OF SERVICE</TermsText>
-            </a>
-            <a href="/privacy/">
+            </Link>
+            <Link href="/privacy/">
               <TermsText>PRIVACY POLICY</TermsText>
-            </a>
+            </Link>
           </Box>
         </Box>
-      </FlexBG>
+      </StyledBackground>
     </>
   );
 };
 
-const FlexBG = styled(Flex)<StyledSystemProps>(
-  {
-    display: "flex",
+const AccessPlane = styled(Flex)(
+  css({
+    backgroundImage: [
+      "linear-gradient(141deg, #eff1fe 0%, #ffffff 100%)",
+      "linear-gradient(-68deg, #eff1fe 0%, #ffffff 100%, #ffffff 100%)",
+    ],
     flexDirection: "column",
-    boxSizing: "content-box",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundSize: "cover",
-    width: "100%",
-  },
-  all
+    justifyContent: "center",
+    borderRadius: ["0 0 8px 8px", "8px 0 0 8px"],
+  })
 );
 
-const Copyright = styled("div")<StyledSystemProps>(
+const Card = styled(Flex)(
+  css({
+    background: "white",
+    flexDirection: ["column", "row-reverse"],
+    borderRadius: "md",
+    marginBottom: [8, 5],
+    boxShadow: "0 0 64px rgba(0, 0, 0, 0.32)",
+    height: [624, 544],
+    width: [343, 944],
+  })
+);
+
+const Copyright = styled("div")(
   css({
     display: ["none", "block"],
-    width: "459px",
-    height: "14px",
     color: "rgba(255, 255, 255, 0.8)",
     fontSize: "text-sm",
     textAlign: "center",
@@ -150,14 +157,33 @@ const Copyright = styled("div")<StyledSystemProps>(
   })
 );
 
-const TermsText = styled("div")<StyledSystemProps>(
+const EmailCTA = styled("div")<StyledSystemProps>(
+  css({
+    background: "white",
+    borderRadius: "md",
+    boxSizing: "border-box",
+  })
+);
+
+const StyledBackground = styled(Flex)({
+  display: "flex",
+  flexDirection: "column",
+  boxSizing: "content-box",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+const TermsText = styled("div")(
   css({
     color: "rgba(255, 255, 255, 0.8)",
     fontSize: "text-sm",
     textAlign: "center",
     textDecoration: "underline",
     textTransform: "uppercase",
-    margin: "12px 5px 60px 5px",
+    margin: "16px 8px 64px 8px",
+    "&:hover, &:active, &:focus": {
+      color: "dark-purple",
+    },
   })
 );
 
