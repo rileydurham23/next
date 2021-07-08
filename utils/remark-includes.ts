@@ -15,6 +15,7 @@ import updateMessages from "./update-vfile-messages";
 const includeRegexpBase = "\\(!([^!]+)!\\)`?";
 const includeRegexp = new RegExp(includeRegexpBase);
 const exactIncludeRegexp = new RegExp(`^${includeRegexpBase}$`);
+const globalIncludeRegexp = new RegExp(includeRegexpBase, "g");
 
 interface ResolveIncludesProps {
   value: string;
@@ -24,6 +25,7 @@ interface ResolveIncludesProps {
 const resolveIncludes = ({ value, filePath }: ResolveIncludesProps) => {
   const rootDir = getVersionRootPath(filePath);
   let error: string;
+
   const result = value.replace(includeRegexp, (_, includePath) => {
     const fullImportPath = join(rootDir, includePath);
 
@@ -38,6 +40,8 @@ const resolveIncludes = ({ value, filePath }: ResolveIncludesProps) => {
 
   return { result, error };
 };
+
+const numIncludes = (value: string) => value.match(globalIncludeRegexp).length;
 
 const hasInclude = (node: MdxastNode) =>
   typeof node.value === "string" && includeRegexp.test(node.value);
@@ -55,17 +59,20 @@ export default function remarkIncludes(
 
     visit<MdxastNode>(root, [hasInclude], (node, ancestors: MdxastNode[]) => {
       if (node.type === "code") {
-        const { result, error } = resolveIncludes({
-          value: node.value,
-          filePath: vfile.path,
-        });
+        const noIncludes = numIncludes(node.value);
+        for (let i = 0; i < noIncludes; i++) {
+          const { result, error } = resolveIncludes({
+            value: node.value,
+            filePath: vfile.path,
+          });
 
-        if (resolve) {
-          node.value = result;
-        }
+          if (resolve) {
+            node.value = result;
+          }
 
-        if (lint && error) {
-          vfile.message(error, node);
+          if (lint && error) {
+            vfile.message(error, node);
+          }
         }
       } else if (node.type === "text") {
         const parent = ancestors[ancestors.length - 1];
