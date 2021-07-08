@@ -35,11 +35,9 @@ export const getVersionConfigPath = (filepath: string) => {
 export const getGithubURL = (filepath: string) => {
   const current = getVersion(filepath);
   const root = getVersionRootPath(filepath);
+  const ghIssuePath = `${NEXT_PUBLIC_GITHUB_DOCS}/issues/new?labels=documentation&template=documentation.md`;
 
   return branches[current]
-    ? filepath.replace(
-        root,
-        `${NEXT_PUBLIC_GITHUB_DOCS}/edit/${branches[current]}`
-      )
-    : "";
+    ? `${ghIssuePath}&title=[v.${current}]%20${filepath.replace(root, "")}`
+    : ghIssuePath;
 };
