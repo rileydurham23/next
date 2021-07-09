@@ -94,8 +94,7 @@ const Newsletter = () => {
                   Subscribe to our newsletter!
                 </Box>
                 <Box fontSize="text-xl" pb={[0, 3]}>
-                  We&apos;ll send you the best of our blog just once a month. We
-                  promise.
+                  We&apos;ll send you the best of our blog and industry news.
                 </Box>
               </Box>
               <NewsletterEmailSubscribe />
