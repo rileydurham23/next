@@ -22,14 +22,14 @@ const Newsletter = () => {
       >
         <Box mt={[9, 7]} mb={[5, 5]}>
           <Box as="h1" m={0}>
-            <Link href="/">
+            <StyledLink href="/">
               <Flex
                 justifyContent="center"
                 alignItems="top"
                 height={["24px", "auto"]}
                 width={["120px", "auto"]}
                 css={css({
-                  "&:hover, &:active, &:focus": {
+                  "&:hover": {
                     opacity: 0.8,
                   },
                 })}
@@ -40,11 +40,11 @@ const Newsletter = () => {
                   width="100%"
                 />
               </Flex>
-            </Link>
+            </StyledLink>
           </Box>
         </Box>
-        <Card>
-          <AccessPlane order={[2, 1]}>
+        <StyledCard>
+          <StyledAccessPlane order={[2, 1]}>
             <StyledBackground
               backgroundImage={`url(${engineers})`}
               backgroundSize="100%"
@@ -57,16 +57,15 @@ const Newsletter = () => {
             <Box>
               <Box
                 fontSize={["header-4", "header-3"]}
-                lineHeight={["22px", "24px"]}
+                lineHeight="md"
                 fontWeight="bold"
-                // width="100%"
                 p={["8px 16px 10px 16px", "12px 56px 16px 56px"]}
               >
                 Access Plane
               </Box>
               <Box
                 fontSize="text-lg"
-                lineHeight={["20px", "24px"]}
+                lineHeight={["20px", "md"]}
                 fontWeight="regular"
                 px={[3, 8]}
                 pb={[5, 8]}
@@ -76,8 +75,8 @@ const Newsletter = () => {
                 and databases across all environments.
               </Box>
             </Box>
-          </AccessPlane>
-          <EmailCTA>
+          </StyledAccessPlane>
+          <StyledEmailCTA>
             <Flex
               flexDirection="column"
               justifyContent="space-betweem"
@@ -86,8 +85,8 @@ const Newsletter = () => {
             >
               <Box justifyContent="center">
                 <Box
-                  fontSize={["22px", "34px"]}
-                  lineHeight={["28px", "40px"]}
+                  fontSize={["header-3", "header-1"]}
+                  lineHeight={["28px", "xl"]}
                   pt={[7, "120px"]}
                   pb={[2, 3]}
                   fontWeight={"bold"}
@@ -101,21 +100,23 @@ const Newsletter = () => {
               </Box>
               <NewsletterEmailSubscribe />
             </Flex>
-          </EmailCTA>
-        </Card>
+          </StyledEmailCTA>
+        </StyledCard>
         <Box mb={5}>
-          <Copyright>© 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED</Copyright>
+          <StyledCopyright>
+            © 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED
+          </StyledCopyright>
           <Box
             display={["none", "flex"]}
             flexDirection="row"
             justifyContent="center"
           >
-            <Link href="/tos/">
-              <TermsText>TERMS OF SERVICE</TermsText>
-            </Link>
-            <Link href="/privacy/">
-              <TermsText>PRIVACY POLICY</TermsText>
-            </Link>
+            <StyledLink href="/tos/">
+              <StyledTermsText>TERMS OF SERVICE</StyledTermsText>
+            </StyledLink>
+            <StyledLink href="/privacy/">
+              <StyledTermsText>PRIVACY POLICY</StyledTermsText>
+            </StyledLink>
           </Box>
         </Box>
       </StyledBackground>
@@ -123,7 +124,7 @@ const Newsletter = () => {
   );
 };
 
-const AccessPlane = styled(Flex)(
+const StyledAccessPlane = styled(Flex)(
   css({
     backgroundImage: [
       "linear-gradient(141deg, #eff1fe 0%, #ffffff 100%)",
@@ -135,19 +136,18 @@ const AccessPlane = styled(Flex)(
   })
 );
 
-const Card = styled(Flex)(
+const StyledCard = styled(Flex)(
   css({
     background: "white",
     flexDirection: ["column", "row-reverse"],
     borderRadius: "md",
     marginBottom: [8, 5],
     boxShadow: "0 0 64px rgba(0, 0, 0, 0.32)",
-    height: [624, 544],
     width: [343, 944],
   })
 );
 
-const Copyright = styled("div")(
+const StyledCopyright = styled("div")(
   css({
     display: ["none", "block"],
     color: "rgba(255, 255, 255, 0.8)",
@@ -157,7 +157,7 @@ const Copyright = styled("div")(
   })
 );
 
-const EmailCTA = styled("div")<StyledSystemProps>(
+const StyledEmailCTA = styled("div")<StyledSystemProps>(
   css({
     background: "white",
     borderRadius: "md",
@@ -173,7 +173,14 @@ const StyledBackground = styled(Flex)({
   alignItems: "center",
 });
 
-const TermsText = styled("div")(
+const StyledLink = styled(Link)({
+  "&:focus, &:active": {
+    opacity: "0.8",
+    outline: "none",
+  },
+});
+
+const StyledTermsText = styled("div")(
   css({
     color: "rgba(255, 255, 255, 0.8)",
     fontSize: "text-sm",

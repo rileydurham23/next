@@ -15,23 +15,19 @@ export function NewsletterEmailSubscribe({ ...props }: FlexProps) {
   return (
     <Flex
       backgroundColor="white"
-      justifyContent="center"
       alignItems="stretch"
-      flexDirection={["column", "row"]}
+      flexDirection="column"
       mb={[5, 0]}
+      mt={[4, 0]}
+      minHeight="44px"
+      minWidth={["311px", "304px"]}
+      bg={formLoaded ? "transparent" : "lightest-gray"}
+      transition={transition([["backgroundColor", "interaction"]])}
       {...props}
     >
-      <Box
-        mt={[4, 0]}
-        minHeight="44px"
-        minWidth={["311px", "304px"]}
-        bg={formLoaded ? "transparent" : "lightest-gray"}
-        transition={transition([["backgroundColor", "interaction"]])}
-      >
-        <StyledFormFormWrapper
-          id={`mktoForm_${NEXT_PUBLIC_EMAIL_SUBSCRIPTION_FORM_ID}`}
-        />
-      </Box>
+      <StyledFormFormWrapper
+        id={`mktoForm_${NEXT_PUBLIC_EMAIL_SUBSCRIPTION_FORM_ID}`}
+      />
     </Flex>
   );
 }
