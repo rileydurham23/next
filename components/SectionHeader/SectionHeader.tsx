@@ -1,25 +1,43 @@
 import { Centrator } from "components/Layout";
 import Box from "components/Box";
 import Flex from "components/Flex";
+import waveGrayBG from "./fixtures/waveGray.svg";
+
+type BGColor = "wave";
 
 export interface SectionHeaderProps {
   subtitle?: string;
   title: string;
   children: React.ReactNode;
   description: React.ReactNode;
+  bg?: BGColor;
 }
 
+const getBG = (color: BGColor) => {
+  switch (color) {
+    case "wave":
+      return {
+        backgroundColor: "linear-gradient(134deg, #ffffff 0%, #f0f2f4 100%)",
+        backgroundImage: `url(${waveGrayBG})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center center",
+        backgroundSize: "cover",
+      };
+    default:
+      return {
+        backgroundImage: "linear-gradient(180deg, #ffffff 0%, #f0f2f4 100%)",
+      };
+  }
+};
 export const SectionHeader = ({
   children,
   subtitle,
   title,
   description,
+  bg,
 }: SectionHeaderProps) => {
   return (
-    <Flex
-      pt={[7, 11]}
-      backgroundImage="linear-gradient(180deg, #ffffff 0%, #f0f2f4 100%)"
-    >
+    <Flex pt={[7, 11]} {...getBG(bg)}>
       <Centrator
         justifyContent={["auto", "space-between"]}
         alignItems="stretch"

@@ -1,4 +1,3 @@
-import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
 import styled from "styled-components";
 import css from "@styled-system/css";
