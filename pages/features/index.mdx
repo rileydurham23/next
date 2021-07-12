@@ -8,8 +8,11 @@ description: Teleport is a remote-first technology company with satellite office
 ---
 
 import {
-  SectionHeader
+  SectionHeader,
+  Section
 } from "components";
+
+import NextImage from "next/image";
 
 <SectionHeader
   subtitle="Access Plane"
@@ -22,3 +25,30 @@ import {
   }
 >
 </SectionHeader>
+<Section bg="flatGray">
+  <h3>
+  Enterprise Features
+  </h3>
+</Section>
+<Section bg="flatWhite">
+  <h3>
+  Core Features
+  </h3>
+  <h1>
+  How Teleport Works
+  </h1>
+  Teleport is a single binary which enables secure access to SSH nodes, Kubernetes clusters, 
+  web apps, PostgreSQL and MySQL databases behind NAT. Teleport is trivial 
+  to setup as a Linux daemon or in a Kubernetes pod. Learn more about how Teleport works. 
+
+  <NextImage
+  src="./assets/How-it-works.png"
+  alt="a diagram of Teleport's security functionality"
+  width={1301}
+  height={583}
+  />
+</Section>
+<Section bg="purple">
+  Try Teleport Today
+  </Section>
+  
