@@ -9,8 +9,8 @@ interface LayoutProps {
 
 const Layout = ({
   children,
-  mode = "full",
-  behaviour = "static",
+  mode,
+  behaviour,
   ...props
 }: LayoutProps & FlexProps) => {
   return (

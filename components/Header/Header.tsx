@@ -10,14 +10,14 @@ import HeadlessButton from "components/HeadlessButton";
 import { Centrator } from "components/Layout";
 import HeaderCTA from "./HeaderCTA";
 
-export type HeaderMode = "simple" | "full";
+export type HeaderMode = "simple" | "full" | "none";
 export type HeaderBehaviour = "floating" | "static";
 
 interface HeaderProps {
   mode: HeaderMode;
 }
 
-const Header = ({ mode = "full" }: HeaderProps) => {
+const Header = ({ mode }: HeaderProps) => {
   const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
     false
   );
@@ -25,43 +25,50 @@ const Header = ({ mode = "full" }: HeaderProps) => {
     () => setIsNavigationVisible((value) => !value),
     []
   );
+  switch (mode) {
+    case "none":
+      return <></>;
 
-  if (mode === "simple") {
-    return (
-      <Flex
-        as="header"
-        position="absolute"
-        top="0"
-        right="0"
-        left="0"
-        height={["48px", "80px"]}
-        alignItems="center"
-      >
-        <Centrator>
-          <Logo
-            width={["121px", "150px"]}
-            height={["24px", "30px"]}
-            color="dark-purple"
-          />
-        </Centrator>
-      </Flex>
-    );
+    case "simple":
+      return (
+        <Flex
+          as="header"
+          position="absolute"
+          top="0"
+          right="0"
+          left="0"
+          height={["48px", "80px"]}
+          alignItems="center"
+        >
+          <Centrator>
+            <Logo
+              width={["121px", "150px"]}
+              height={["24px", "30px"]}
+              color="dark-purple"
+            />
+          </Centrator>
+        </Flex>
+      );
+
+    default:
+      return (
+        <StyledHeader as="header">
+          <StyledLogoLink href="/">
+            <Logo width="121px" height="24px" color="dark-purple" />
+          </StyledLogoLink>
+          <StyledHamburger onClick={toggleNavigaton}>
+            <Icon
+              name={isNavigationVisible ? "close" : "hamburger"}
+              size="md"
+            />
+          </StyledHamburger>
+          <StyledContentWrapper isNavigationVisible={isNavigationVisible}>
+            <Menu />
+            <HeaderCTA />
+          </StyledContentWrapper>
+        </StyledHeader>
+      );
   }
-
-  return (
-    <StyledHeader as="header">
-      <StyledLogoLink href="/">
-        <Logo width="121px" height="24px" color="dark-purple" />
-      </StyledLogoLink>
-      <StyledHamburger onClick={toggleNavigaton}>
-        <Icon name={isNavigationVisible ? "close" : "hamburger"} size="md" />
-      </StyledHamburger>
-      <StyledContentWrapper isNavigationVisible={isNavigationVisible}>
-        <Menu />
-        <HeaderCTA />
-      </StyledContentWrapper>
-    </StyledHeader>
-  );
 };
 
 export default Header;

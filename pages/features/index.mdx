@@ -1,8 +1,8 @@
 ---
 title: Features
 subject: Features
-headerBehaviour: floating
-headerMode: full
+headerBehaviour: none
+layout: none
 hideWave: true
 description: Teleport is a remote-first technology company with satellite offices in Oakland and Seattle. We enable engineers to quickly access any computing resource anywhere on the planet.
 ---
@@ -15,6 +15,7 @@ import {
 import NextImage from "next/image";
 
 <SectionHeader
+  mode={meta.layout}
   subtitle="Access Plane"
   title="Teleport Features"
   bg="wave"

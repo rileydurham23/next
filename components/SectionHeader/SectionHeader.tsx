@@ -6,6 +6,7 @@ import waveGrayBG from "./fixtures/waveGray.svg";
 type BGColor = "wave";
 
 export interface SectionHeaderProps {
+  mode?: string;
   subtitle?: string;
   title: string;
   children: React.ReactNode;
@@ -20,7 +21,7 @@ const getBG = (color: BGColor) => {
         backgroundColor: "linear-gradient(134deg, #ffffff 0%, #f0f2f4 100%)",
         backgroundImage: `url(${waveGrayBG})`,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "center center",
+        backgroundPosition: "top left",
         backgroundSize: "cover",
       };
     default:
@@ -30,6 +31,7 @@ const getBG = (color: BGColor) => {
   }
 };
 export const SectionHeader = ({
+  mode,
   children,
   subtitle,
   title,
@@ -37,13 +39,17 @@ export const SectionHeader = ({
   bg,
 }: SectionHeaderProps) => {
   return (
-    <Flex pt={[7, 11]} {...getBG(bg)}>
+    <Flex pt={mode === "none" ? [3, 5] : [7, 11]} {...getBG(bg)}>
       <Centrator
         justifyContent={["auto", "space-between"]}
         alignItems="stretch"
         flexDirection={["column", "row"]}
       >
-        <Box flex="1 1 auto" py={[4, 11]} order={[1, 0]}>
+        <Box
+          flex="1 1 auto"
+          py={mode === "none" ? [4, 9] : [4, 11]}
+          order={[1, 0]}
+        >
           <Flex flexDirection="column" alignItems="flexStart">
             {subtitle && (
               <Box
