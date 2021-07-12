@@ -54,9 +54,9 @@ export const getLatestVersionRewirites = () =>
 
 export const generateSitemap = () => {
   const sitePages = getNonDocsPaths().map((loc) => ({ loc }));
-  const currentDocPages = getSlugDataListForVersion(
-    latest
-  ).map(({ slug, version }) => ({ loc: normalizeDocSlug(slug, version) }));
+  const currentDocPages = getSlugDataListForVersion(latest).map(
+    ({ slug, version }) => ({ loc: normalizeDocSlug(slug, version) })
+  );
 
   sitemapGenerator({
     pages: [...sitePages, ...currentDocPages],

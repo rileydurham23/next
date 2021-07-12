@@ -16,7 +16,7 @@ const LoginPage = () => {
     setValue(e.target.value);
   }, []);
   const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    (e: React.FormEvent<HTMLElement>) => {
       e.preventDefault();
 
       if (!value.trim()) {

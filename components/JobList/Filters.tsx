@@ -66,21 +66,23 @@ const StyledItem = styled("li")(
   })
 );
 
-const getNewState = (key: string, state: boolean) => (rec: ValMap): ValMap => {
-  if (key === ALL) {
-    return DefaultState;
-  }
-  return {
-    ...rec,
-    [ALL]: false,
-    [key]: state,
+const getNewState =
+  (key: string, state: boolean) =>
+  (rec: ValMap): ValMap => {
+    if (key === ALL) {
+      return DefaultState;
+    }
+    return {
+      ...rec,
+      [ALL]: false,
+      [key]: state,
+    };
   };
-};
 
-const createSetter = (setState: Dispatch<SetStateAction<ValMap>>) => (
-  key: string,
-  state: boolean
-) => setState(getNewState(key, state));
+const createSetter =
+  (setState: Dispatch<SetStateAction<ValMap>>) =>
+  (key: string, state: boolean) =>
+    setState(getNewState(key, state));
 
 function getUniq(list: Job[], field: FilterField): string[] {
   const used = {};

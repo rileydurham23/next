@@ -64,9 +64,10 @@ const DocNavigationCategory = ({
   title,
   entries,
 }: DocNavigationCategoryProps) => {
-  const toggleOpened = useCallback(() => onToggleOpened(opened ? null : id), [
-    opened,
-  ]);
+  const toggleOpened = useCallback(
+    () => onToggleOpened(opened ? null : id),
+    [id, opened, onToggleOpened]
+  );
 
   return (
     <Box as="nav" key={title}>
@@ -120,7 +121,7 @@ const DocNavigation = ({ data, section }: DocNavigationProps) => {
 
   useEffect(() => {
     setOpenedId(getCurrentCategoryIndex(data, route));
-  }, [route]);
+  }, [data, route]);
 
   return (
     <Box

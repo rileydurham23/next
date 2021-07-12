@@ -57,6 +57,7 @@ export const BookBlock = ({ children, title, src, formId }: BookBlockProps) => {
             boxShadow="0 4px 16px rgba(0, 0, 0, 0.24)"
             position="relative"
             zIndex={2}
+            alt=""
           />
           <Box
             backgroundImage={`url(${shadowBg})`}

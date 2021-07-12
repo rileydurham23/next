@@ -31,7 +31,7 @@ export default function Globe({ viewPoint = USA, ...props }: Props) {
       globe.controls().enableZoom = false;
       globe.pointOfView({ ...viewPoint, altitude: 2 });
     }
-  }, [ref.current]);
+  }, [viewPoint]);
 
   return (
     <ReactGlobe

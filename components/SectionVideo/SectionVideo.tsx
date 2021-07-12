@@ -25,6 +25,7 @@ export const SectionVideo = ({
         flexShrink={0}
         borderRadius="default"
         boxShadow="0 0 32px rgba(0, 0, 0, 0.16)"
+        alignSelf="flex-start"
       >
         <Video videoId={videoId} />
       </Box>

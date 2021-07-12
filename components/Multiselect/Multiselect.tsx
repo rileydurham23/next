@@ -11,7 +11,7 @@ import {
 import "@reach/listbox/styles.css";
 import Box, { BoxProps } from "components/Box";
 import { Checkbox } from "components/Checkbox";
-import { all, variant, transition, StyledSystemProps } from "components/system";
+import { all, variant, transition } from "components/system";
 
 type Variant = "light" | "dark";
 
@@ -52,7 +52,7 @@ export default function Multiselect<T>({
   return (
     <Box {...props}>
       <StyledListboxInput value="fake-value" variant={variant}>
-        <StyledListboxButton arrow={icon} variant={variant} />
+        <StyledListboxButton arrow={icon} />
         <StyledListboxPopover>
           <StyledListboxList>
             {options.map((option) => {
@@ -79,7 +79,7 @@ export default function Multiselect<T>({
   );
 }
 
-const StyledListboxInput = styled(ListboxInput)<StyledSystemProps>(
+const StyledListboxInput = styled(ListboxInput)<{ variant: Variant }>(
   css({
     display: "inline-flex",
     width: "100%",

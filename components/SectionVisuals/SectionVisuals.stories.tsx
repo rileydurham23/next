@@ -36,6 +36,6 @@ Default.args = {
     </>
   ),
   children: (
-    <Image src={imageSrc} width={400} height={400} layout="intrinsic" />
+    <Image src={imageSrc} width={400} height={400} layout="intrinsic" alt="" />
   ),
 };

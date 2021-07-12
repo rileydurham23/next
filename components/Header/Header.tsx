@@ -18,9 +18,8 @@ interface HeaderProps {
 }
 
 const Header = ({ mode = "full" }: HeaderProps) => {
-  const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
-    false
-  );
+  const [isNavigationVisible, setIsNavigationVisible] =
+    useState<boolean>(false);
   const toggleNavigaton = useCallback(
     () => setIsNavigationVisible((value) => !value),
     []

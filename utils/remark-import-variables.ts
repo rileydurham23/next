@@ -13,7 +13,7 @@ export default function remarkImportVariables(): Transformer {
     const { navigation } = loadDocsConfig(current);
 
     root.children.unshift(
-      createMdxjsEsmNode("navigation", (navigation as unknown) as Value)
+      createMdxjsEsmNode("navigation", navigation as unknown as Value)
     );
     root.children.unshift(
       createMdxjsEsmNode("githubUrl", getGithubURL(vfile.path))
