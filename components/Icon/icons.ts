@@ -37,3 +37,4 @@ export { ReactComponent as license } from "./svg/license.svg";
 export { ReactComponent as nodes } from "./svg/nodes.svg";
 export { ReactComponent as server } from "./svg/server-access.svg";
 export { ReactComponent as wrench } from "./svg/wrench.svg";
+export { ReactComponent as circleCheck } from "./svg/circleCheck.svg";

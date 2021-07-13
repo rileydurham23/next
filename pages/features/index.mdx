@@ -1,16 +1,23 @@
 ---
 title: Features
 subject: Features
-headerBehaviour: none
-layout: none
+headerBehaviour: static
+layout: full
 hideWave: true
 description: Teleport is a remote-first technology company with satellite offices in Oakland and Seattle. We enable engineers to quickly access any computing resource anywhere on the planet.
 ---
 
 import {
   SectionHeader,
-  Section
+  Section,
+  Flex,
+  Box,
+  Icon,
+  TryTeleport,
 } from "components";
+
+import FeatureTile from "components/Tile/FeatureTile";
+import FeatureTileDisplay from "components/Tile/FeatureTileDisplay";
 
 import NextImage from "next/image";
 
@@ -26,21 +33,113 @@ import NextImage from "next/image";
   }
 >
 </SectionHeader>
-<Section bg="flatGray">
-  <h3>
-  Enterprise Features
-  </h3>
+<Section bg="flatGray" >
+  <Flex flexDirection="row" pl={9} py={7}>
+    <Icon name="building" size="lg"/>
+    <Box
+      fontSize="header-3"
+      lineHeight="lg"
+      pl={3}
+    >Enterprise Features</Box>
+  </Flex>
+  <Flex px={7}>
+    <FeatureTileDisplay >
+      <FeatureTile
+        feature="enterprise"
+        src="./assets/deny.png"
+        title="Access Requests"
+      >
+        Teleport allows users to request elevated privileges in the middle 
+        of their command-line sessions. Requests can be approved or denied 
+        via ChatOps in Slack & PagerDuty or anywhere else via flexible 
+        Authorization Workflow API.
+      </FeatureTile>
+      <FeatureTile
+        feature="enterprise"
+        src="./assets/kubernetes.png"
+        title="FedRamp & Soc 2"
+      >
+        Teleport can help implement common compliance standards such as SOC2 
+        or FedRAMP for SSH and Kubernetes access.
+      </FeatureTile>
+      <FeatureTile
+        feature="enterprise"
+        src="./assets/yubikey.png"
+        title="Per-Session Multi-Factor Authentication"
+      >
+        Easily implement Multi-Factor Authentication across your organization 
+        without relying on device management systems. Teleport MFA is designed 
+        for distributed teams and comes with a self-enrollment MFA portal.
+      </FeatureTile>
+      <FeatureTile
+        feature="enterprise"
+        src="./assets/SSO.png"
+        title="Enterprise Single Sign-On (SSO)"
+      >
+        Teleport integrates into a company's existing company directory and SSO system. 
+        Enterprise Teleport supports all major SSO providers, including Okta, Sailpoint, 
+        Active Directory, OneLogin, G Suite, Auth0 and many others.
+      </FeatureTile>
+    </FeatureTileDisplay>
+  </Flex>
 </Section>
-<Section bg="flatWhite">
-  <h3>
-  Core Features
-  </h3>
-  <h1>
-  How Teleport Works
-  </h1>
-  Teleport is a single binary which enables secure access to SSH nodes, Kubernetes clusters, 
-  web apps, PostgreSQL and MySQL databases behind NAT. Teleport is trivial 
-  to setup as a Linux daemon or in a Kubernetes pod. Learn more about how Teleport works. 
+<Section bg="flatWhite" >
+  <Flex flexDirection="row" pl={9} py={7}>
+    <Icon name="circleCheck" size="lg"/>
+    <Box
+      fontSize="header-3"
+      lineHeight="lg"
+      pl={3}
+    >Core Features</Box>
+  </Flex>
+  <Flex px={7}>
+    <FeatureTileDisplay>
+      <FeatureTile feature="core" src="./assets/auth-cert.png" title="Certificate Auth for SSH & K8s">
+        Managing static SSH keys can lead to increased operational overhead and may lead 
+        to security vulnerabilities. The industry best practice is to use certificate-based 
+        authentication for SSH and Kubernetes. 
+      </FeatureTile>
+      <FeatureTile feature="core" src="./assets/audit-log.png" title="Audit Log">
+        Restricting access and granting specific permissions through role-based access controls 
+        is the first step to securing your infrastructure. The next step is to log all activity 
+        across your infrastructure. 
+      </FeatureTile>
+      <FeatureTile feature="core" src="./assets/play-recording.png" title="Session Recording">
+        Privileged session recording, or SSH session recording, means recording the user’s actual 
+        screen during their SSH session for real-time or later playback. 
+      </FeatureTile>
+      <FeatureTile feature="core" src="./assets/SSO.png" title="Trust Federation">
+        Teleport’s “Trusted Clusters” capability allows organizations to partition their infrastructure 
+        and grant access to each other. Managed service providers and contract-based DevOps teams take 
+        advantage of Teleport’s Trusted Clusters to manage servers for their clients.
+      </FeatureTile>
+      <FeatureTile feature="core" src="./assets/kubernetes.png" title="Kubernetes Access Management">
+        Teleport works by being a unified gateway for both Kubernetes and SSH sessions. This allows 
+        to synchronize SSO, role-based access controls and audit logging for both protocols.
+      </FeatureTile>
+      <FeatureTile feature="core" src="./assets/SSO.png" title="Single Sign-On (SSO)">
+        Teleport integrates into an existing company identity management. This allows DevOps, 
+        developers and other end-users to access computing infrastructure via the same SSO policy. 
+      </FeatureTile>
+      <FeatureTile feature="core" src="./assets/role-access.png" title="Role-Based Access Controls (RBAC)">
+        Role-Based Access Control (RBAC) is the practice of managing privileged access to infrastructure 
+        through a central directory of users, roles, and teams. Authorization is granted to groups 
+        (or roles) within a company directory.
+      </FeatureTile>
+      <FeatureTile feature="core" src="./assets/motherboard.png" title="IoT and Edge Connectivity">
+        Teleport provides access to SSH servers and Kubernetes clusters anywhere in the world, behind NAT. 
+        From restaurants to autonomous vehicles, no VPN required. 
+      </FeatureTile>
+    </FeatureTileDisplay>
+    </Flex>
+  <Box pl={9}>
+    <h1>
+      How Teleport Works
+    </h1>
+      Teleport is a single binary which enables secure access to SSH nodes, Kubernetes clusters, 
+      web apps, PostgreSQL and MySQL databases behind NAT. Teleport is trivial 
+      to setup as a Linux daemon or in a Kubernetes pod. Learn more about how Teleport works. 
+  </Box>
 
   <NextImage
   src="./assets/How-it-works.png"
@@ -49,7 +148,4 @@ import NextImage from "next/image";
   height={583}
   />
 </Section>
-<Section bg="purple">
-  Try Teleport Today
-  </Section>
-  
+<TryTeleport/>
