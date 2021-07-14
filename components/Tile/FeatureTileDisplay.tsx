@@ -13,7 +13,7 @@ const FeatureTileDisplay = ({ children }: FeatureTileProps) => {
     <Flex
       flexDirection="row"
       flexWrap="wrap"
-      justifyContent="space-evenly"
+      justifyContent="flex-start"
       alignItems="stretch"
     >
       {children}

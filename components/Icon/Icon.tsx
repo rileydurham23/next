@@ -13,12 +13,13 @@ const sizes = {
 export type IconName = keyof typeof icons;
 
 export interface IconProps
-  extends Omit<ComponentProps<typeof Box>, "name" | "size"> {
+  extends Omit<ComponentProps<typeof Box>, "name" | "fill" | "size"> {
   name: IconName;
+  fill?: string;
   size?: keyof typeof sizes;
 }
 
-const Icon = ({ name, size = "md", ...props }: IconProps) => {
+const Icon = ({ name, size = "md", fill, ...props }: IconProps) => {
   const IconSVG = icons[name];
 
   if (!IconSVG) {
@@ -27,7 +28,7 @@ const Icon = ({ name, size = "md", ...props }: IconProps) => {
 
   return (
     <Box size={sizes[size]} {...props}>
-      <IconSVG width="100%" height="100%" display="block" />
+      <IconSVG width="100%" height="100%" display="block" fill={fill} />
     </Box>
   );
 };

@@ -11,18 +11,26 @@ export interface FeatureTileProps {
   children: React.ReactNode;
   title: string;
   src: string;
+  href?: string;
   feature: "enterprise" | "core";
 }
 
-const FeatureTile = ({ children, src, title, feature }: FeatureTileProps) => {
+const FeatureTile = ({
+  children,
+  src,
+  title,
+  feature,
+  href,
+}: FeatureTileProps) => {
   const backgroundImage = feature === "enterprise" ? enterpriseBG : coreBG;
   return (
     <StyledWrapper>
+      {/* top half */}
       <Flex
         flexDirection="column"
         alignItems="center"
-        py="3"
-        px="4"
+        py={3}
+        px={4}
         backgroundImage={`url("${backgroundImage}")`}
         backgroundPosition="center"
         backgroundSize="cover"
@@ -30,13 +38,13 @@ const FeatureTile = ({ children, src, title, feature }: FeatureTileProps) => {
       >
         <NextImage src={src} alt={`${title}`} height={193} width={282} />
       </Flex>
+
+      {/* bottom half */}
       <Flex
-        id="bottomHalf"
         flexDirection="column"
-        py="3"
-        px="4"
+        pt={3}
+        px={[2, 4]}
         borderRadius="0 0 8px 8px"
-        bg="pink"
       >
         <Box fontSize="text-md" lineHeight="md" color="black" fontWeight="bold">
           {title}
@@ -44,7 +52,9 @@ const FeatureTile = ({ children, src, title, feature }: FeatureTileProps) => {
         <Box fontSize="13px" lineHeight="md" color="gray" pb={3}>
           {children}
         </Box>
-        <StyledButton variant="secondary" shape="lg">
+      </Flex>
+      <Flex flexDirection="column-reverse" px={[2, 4]} pb={3} height="100%">
+        <StyledButton variant="secondary" shape="lg" as="a" href={href}>
           Learn More
         </StyledButton>
       </Flex>
@@ -52,16 +62,18 @@ const FeatureTile = ({ children, src, title, feature }: FeatureTileProps) => {
   );
 };
 
-const StyledWrapper = styled(Box)(
+const StyledWrapper = styled(Flex)(
   css({
-    display: "block",
-    position: "relative",
-    maxWidth: "calc((100% - 64px) / 4)",
-    borderRadius: "8px",
+    flexDirection: "column",
+    // maxWidth: ["320px", "350px"],
+    maxWidth: "calc((100% - 80px) / 4)",
+    minWidth: "260px",
+    maxHeight: "500px",
+    borderRadius: "md",
     textDecoration: "none",
     boxShadow: "0 1px 4px rgba(0, 0, 0, 0.24)",
-    mb: "4",
-    mx: "2",
+    mb: 4,
+    mx: 2,
     bg: "white",
   })
 );
