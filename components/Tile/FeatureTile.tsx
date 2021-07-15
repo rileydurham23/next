@@ -40,12 +40,7 @@ const FeatureTile = ({
       </Flex>
 
       {/* bottom half */}
-      <Flex
-        flexDirection="column"
-        pt={3}
-        px={[2, 4]}
-        borderRadius="0 0 8px 8px"
-      >
+      <Flex flexDirection="column" pt={3} px={4} borderRadius="0 0 8px 8px">
         <Box fontSize="text-md" lineHeight="md" color="black" fontWeight="bold">
           {title}
         </Box>
@@ -53,7 +48,7 @@ const FeatureTile = ({
           {children}
         </Box>
       </Flex>
-      <Flex flexDirection="column-reverse" px={[2, 4]} pb={3} height="100%">
+      <Flex flexDirection="column-reverse" px={4} pb={4} height="100%">
         <StyledButton variant="secondary" shape="lg" as="a" href={href}>
           Learn More
         </StyledButton>
@@ -65,9 +60,8 @@ const FeatureTile = ({
 const StyledWrapper = styled(Flex)(
   css({
     flexDirection: "column",
-    // maxWidth: ["320px", "350px"],
     maxWidth: "calc((100% - 80px) / 4)",
-    minWidth: "260px",
+    minWidth: ["340px", "280px", "180px"],
     maxHeight: "500px",
     borderRadius: "md",
     textDecoration: "none",

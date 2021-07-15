@@ -15,9 +15,11 @@ export type HeaderBehaviour = "floating" | "static";
 
 interface HeaderProps {
   mode: HeaderMode;
+  headerColor: string;
+  border?: string;
 }
 
-const Header = ({ mode }: HeaderProps) => {
+const Header = ({ mode, headerColor, border }: HeaderProps) => {
   const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
     false
   );
@@ -52,7 +54,11 @@ const Header = ({ mode }: HeaderProps) => {
 
     default:
       return (
-        <StyledHeader as="header">
+        <StyledHeader
+          as="header"
+          backgroundColor={headerColor}
+          border={border === "none" ? "none !important" : null}
+        >
           <StyledLogoLink href="/">
             <Logo width="121px" height="24px" color="dark-purple" />
           </StyledLogoLink>

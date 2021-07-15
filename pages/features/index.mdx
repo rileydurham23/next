@@ -3,6 +3,7 @@ title: Features
 subject: Features
 headerBehaviour: floating
 layout: full
+border: none
 hideWave: true
 description: Teleport is a remote-first technology company with satellite offices in Oakland and Seattle. We enable engineers to quickly access any computing resource anywhere on the planet.
 ---
@@ -14,6 +15,7 @@ import {
   Box,
   Icon,
   TryTeleport,
+  Link
 } from "components";
 
 import FeatureTile from "components/Tile/FeatureTile";
@@ -31,13 +33,13 @@ import NextImage from "next/image";
   }
 ></SectionHeader>
 <Section bg="flatGray">
-  <Flex flexDirection="row" pl={[4, 9]} pt={[4, 7, 9]} pb={[4, 6]}>
+  <Flex flexDirection="row" pl={[3, 4, 11]} pt={[4, 7, 9]} pb={[4, 6]}>
     <Icon name="apartment" size="lg" fill="#512FC9" />
     <Box fontSize="header-3" color="darkest" lineHeight="lg" pl={3}>
       Enterprise Features
     </Box>
   </Flex>
-  <Flex px={7} pb={6}>
+  <Flex px={[3, 3, 11]} pb={6}>
     <FeatureTileDisplay>
       <FeatureTile
         feature="enterprise"
@@ -84,13 +86,13 @@ import NextImage from "next/image";
   </Flex>
 </Section>
 <Section bg="flatWhite">
-  <Flex flexDirection="row" pl={[4, 9]} pt={[4, 7, 9]} pb={[4, 6]}>
+  <Flex flexDirection="row" pl={[3, 4, 11]} pt={[4, 7, 9]} pb={[4, 6]}>
     <Icon name="circleCheck" size="lg" fill="#512FC9" />
     <Box color="darkest" fontSize="header-3" lineHeight="lg" pl={3}>
       Core Features
     </Box>
   </Flex>
-  <Flex px={7} pb={6}>
+  <Flex px={[3, 3, 11]} >
     <FeatureTileDisplay>
       <FeatureTile
         feature="core"
@@ -146,7 +148,7 @@ import NextImage from "next/image";
         feature="core"
         src="./assets/SSO.png"
         title="Single Sign-On (SSO)"
-        href="https://goteleport.com/teleport/how-it-works/secure-kubernetes-access/"
+        hrf="https://goteleport.com/teleport/how-it-works/secure-kubernetes-access/"
       >
         Teleport integrates into an existing company identity management. This
         allows DevOps, developers and other end-users to access computing
@@ -175,20 +177,22 @@ import NextImage from "next/image";
       </FeatureTile>
     </FeatureTileDisplay>
   </Flex>
-  <Box px={[4, 9]}>
-    <h1>How Teleport Works</h1>
-    Teleport is a single binary which enables secure access to SSH nodes, Kubernetes
-    clusters, web apps, PostgreSQL and MySQL databases behind NAT. Teleport is trivial
-    to setup as a Linux daemon or in a Kubernetes pod. Learn more about how Teleport
-    works.
-  </Box>
-  <Box py={[2, 2, 0]}>
-    <NextImage
-      src="./assets/How-it-works.png"
-      alt="a diagram of Teleport's security functionality"
-      width={1301}
-      height={583}
-    />
-  </Box>
+  <Flex flexDirection="column" alignItems="flex-end" px={[4, 5, 11]} pt={6}>
+    <Box fontSize="text-xl">
+      <h1 color="darkest" fontSize="header-1" >How Teleport Works</h1>
+      Teleport is a single binary which enables secure access to SSH nodes, Kubernetes
+      clusters, web apps, PostgreSQL and MySQL databases behind NAT. Teleport is trivial
+      to setup as a Linux daemon or in a Kubernetes pod. <Link color="light-blue" href="/">Learn more about how Teleport
+      works.</Link>
+    </Box>
+    <Box width="103%" my={[1, 4]} >
+      <NextImage
+        src="./assets/How-it-works.png"
+        alt="a diagram of Teleport's security functionality"
+        width={1301}
+        height={583}
+      />
+    </Box>
+  </Flex>
 </Section>
 <TryTeleport />

@@ -1,4 +1,3 @@
-// import styled from "styled-components";
 import Flex from "components/Flex";
 import FeatureTile from "./FeatureTile";
 
@@ -13,7 +12,7 @@ const FeatureTileDisplay = ({ children }: FeatureTileProps) => {
     <Flex
       flexDirection="row"
       flexWrap="wrap"
-      justifyContent="flex-start"
+      justifyContent={["center", "flex-start"]}
       alignItems="stretch"
     >
       {children}
