@@ -21,7 +21,7 @@ const Search = ({
         debug: false,
       });
     });
-  }, []);
+  }, [id]);
 
   return (
     <StyledWrapper {...props}>

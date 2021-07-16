@@ -1,6 +1,7 @@
 import css, {
   AllSystemCSSProperties,
   CssFunctionReturnType,
+  SystemStyleObject,
 } from "@styled-system/css";
 import { Property } from "csstype";
 import {
@@ -117,13 +118,14 @@ export interface StyledSystemWrapperProps
 
 export const wrapper = compose(flexbox, layout, position, shadow, space);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const media = (mediaKey = "", styles: any) => ({ /* props,  */ theme }) => {
-  const key = theme.media[mediaKey];
-  return {
-    [key]: css(styles)(theme),
+const media =
+  (mediaKey = "", styles: SystemStyleObject) =>
+  ({ /* props,  */ theme }) => {
+    const key = theme.media[mediaKey];
+    return {
+      [key]: css(styles)(theme),
+    };
   };
-};
 
 type Easing = string;
 

@@ -17,7 +17,7 @@ interface NormalizedConfig {
 }
 
 export const load = () => {
-  return (config as unknown) as Config;
+  return config as unknown as Config;
 };
 
 export const normalize = (config: Config): NormalizedConfig => {

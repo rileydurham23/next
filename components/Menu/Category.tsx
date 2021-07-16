@@ -48,7 +48,7 @@ const MenuCategory = ({
         onToggleOpened(opened ? null : id);
       }
     },
-    [opened]
+    [opened, children, id, onToggleOpened]
   );
 
   return (

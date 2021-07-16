@@ -35,6 +35,7 @@ export default function Slider({
 }: SliderProps & FlexProps) {
   const limitedValue = Math.min(maxValue, Math.max(minValue, value));
   const [innerValue, setInnerValue] = useState(limitedValue);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const throttledOnChange = useCallback(throttle(changeThrottle, onChange), [
     changeThrottle,
     onChange,
@@ -46,7 +47,7 @@ export default function Slider({
       setInnerValue(value);
       throttledOnChange(value);
     },
-    [onChange]
+    [throttledOnChange]
   );
 
   return (

@@ -1,4 +1,3 @@
-// eslint-disable-next-line node/no-deprecated-api
 import { resolve } from "url";
 import styled from "styled-components";
 import { ComponentProps } from "react";

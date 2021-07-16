@@ -10,7 +10,7 @@ import {
 } from "@reach/listbox";
 import "@reach/listbox/styles.css";
 import Box, { BoxProps } from "components/Box";
-import { all, variant, transition, StyledSystemProps } from "components/system";
+import { all, variant, transition } from "components/system";
 
 type Variant = "light" | "dark";
 
@@ -49,7 +49,7 @@ export function Dropdown<T>({
   return (
     <Box {...props}>
       <StyledListboxInput value={value} onChange={onChange} variant={variant}>
-        <StyledListboxButton arrow={icon} variant={variant} />
+        <StyledListboxButton arrow={icon} />
         <StyledListboxPopover>
           <ListboxList>
             {options.map((option) => {
@@ -68,7 +68,7 @@ export function Dropdown<T>({
   );
 }
 
-const StyledListboxInput = styled(ListboxInput)<StyledSystemProps>(
+const StyledListboxInput = styled(ListboxInput)<{ variant: Variant }>(
   css({
     display: "inline-flex",
     width: "100%",

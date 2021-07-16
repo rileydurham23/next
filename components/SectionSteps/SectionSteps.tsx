@@ -29,7 +29,13 @@ const SectionStepsItem = ({
     >
       <Flex alignItems="center" mb={4} maxWidth={width} flexGrow={1}>
         <Box boxShadow="0 4px 32px rgba(0, 0, 0, 0.24)" lineHeight="0">
-          <Image src={src} width={width} height={height} layout="intrinsic" />
+          <Image
+            src={src}
+            width={width}
+            height={height}
+            layout="intrinsic"
+            alt=""
+          />
         </Box>
       </Flex>
       <Box fontSize="header-4" fontWeight="black" color="dark-purple">

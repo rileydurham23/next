@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       router.events.off("routeChangeComplete", onRouteChangeComplete);
 
     return cleanup;
-  }, []);
+  }, [router.events]);
 
   return (
     <ThemeProvider theme={theme}>

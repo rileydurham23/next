@@ -117,7 +117,7 @@ export const loadSiteConfig = () => {
 
   validateConfig(
     siteConfigValidator,
-    (config as unknown) as Record<string, unknown>
+    config as unknown as Record<string, unknown>
   );
 
   return normalizeSite(config);
@@ -128,7 +128,7 @@ export const loadDocsConfig = (version: string) => {
 
   validateConfig(
     docsConfigValidator,
-    (config as unknown) as Record<string, unknown>
+    config as unknown as Record<string, unknown>
   );
 
   return normalizeDocs(config, version);

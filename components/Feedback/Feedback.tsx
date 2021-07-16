@@ -34,7 +34,7 @@ export default function Feedback({ reviews, dark }: Props) {
     return () => {
       clearInterval(interval);
     };
-  }, [hovered, focused, active]);
+  }, [hovered, focused, active, reviews.length]);
 
   return (
     <Box as="section" pt={[3, 8]} pb={[2, 3]} width="100%" overflow="hidden">

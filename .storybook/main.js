@@ -29,22 +29,13 @@ module.exports = {
     config.module.rules.push({
       test: /\.svg$/,
       exclude: [/node_modules/, COMPANY_LOGOS_DIRECTORY],
-      use: ["@svgr/webpack", "url-loader"],
+      use: ["@svgr/webpack", "file-loader"],
     });
 
     config.module.rules.push({
       test: /\.svg$/,
       include: [COMPANY_LOGOS_DIRECTORY],
-      use: [
-        {
-          loader: "url-loader",
-          options: {
-            noquotes: true,
-            fallback: "file-loader",
-            limit: 128,
-          },
-        },
-      ],
+      use: "file-loader",
     });
 
     const mdxRule = config.module.rules.find(

@@ -28,7 +28,7 @@ const Versions = ({
       setCurrentItem(version);
       router.push(href);
     },
-    [latest]
+    [latest, router]
   );
 
   useEffect(() => {

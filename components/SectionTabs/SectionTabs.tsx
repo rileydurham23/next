@@ -37,6 +37,7 @@ const SectionTabsItem = ({
           position="absolute"
           top={["4px", "20px"]}
           left={["0", "16px"]}
+          alt=""
         />
         <Box
           as="h3"

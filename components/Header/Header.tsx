@@ -8,6 +8,7 @@ import Logo from "components/Logo";
 import Menu from "components/Menu";
 import HeadlessButton from "components/HeadlessButton";
 import { Centrator } from "components/Layout";
+import blockBodyScroll from "utils/block-body-scroll";
 import HeaderCTA from "./HeaderCTA";
 
 export type HeaderMode = "simple" | "full" | "none";
@@ -20,13 +21,13 @@ interface HeaderProps {
 }
 
 const Header = ({ mode, headerColor, border }: HeaderProps) => {
-  const [isNavigationVisible, setIsNavigationVisible] = useState<boolean>(
-    false
-  );
-  const toggleNavigaton = useCallback(
-    () => setIsNavigationVisible((value) => !value),
-    []
-  );
+  const [isNavigationVisible, setIsNavigationVisible] =
+    useState<boolean>(false);
+  const toggleNavigaton = useCallback(() => {
+    setIsNavigationVisible((value) => !value);
+    blockBodyScroll(isNavigationVisible);
+  }, [isNavigationVisible]);
+
   switch (mode) {
     case "none":
       return <></>;

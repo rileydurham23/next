@@ -1,5 +1,4 @@
 import { Story } from "@storybook/react";
-import Link from "../Link";
 import MDX from "../MDX";
 import { SectionSteps, SectionStepsProps } from "./SectionSteps";
 import imageBlueSrc from "./fixtures/blue.png";

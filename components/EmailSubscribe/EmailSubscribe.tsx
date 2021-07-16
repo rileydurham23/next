@@ -82,9 +82,10 @@ const StyledFormFormWrapper = styled("form")(
         bg: "rgba(0,145,234,.04)",
       },
     },
-    "& .mktoFormRow:first-of-type, & .mktoFieldDescriptor, & .mktoFieldWrap, & .mktoEmailField": {
-      width: "100% !important",
-    },
+    "& .mktoFormRow:first-of-type, & .mktoFieldDescriptor, & .mktoFieldWrap, & .mktoEmailField":
+      {
+        width: "100% !important",
+      },
     "& .mktoFieldDescriptor": { mb: "0 !important" },
     "& .mktoButtonWrap": { ml: "0 !important" },
     "& .mktoOffset, & .mktoLabel, & .mktoGutter": { display: "none" },

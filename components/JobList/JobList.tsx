@@ -131,7 +131,7 @@ function Location({ location, ...props }: LocationProps) {
   return (
     <Flex alignItems="center" {...props}>
       <Box as="span" flexShrink={0} width="24px" height="16px" lineHeight={0}>
-        <Image src={flagUrl} width="24px" height="16px" />
+        <Image src={flagUrl} width="24px" height="16px" alt="" />
       </Box>
       <Box as="p" ml="3" lineHeight="20px">
         {location}

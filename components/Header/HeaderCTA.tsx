@@ -15,7 +15,7 @@ const HeaderCTA = () => {
   const ref = useRef(null);
 
   const [isSignInVisible, setIsSignInVisible] = useState<boolean>(false);
-  const toggleSignIn = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
+  const toggleSignIn = useCallback((e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
     setIsSignInVisible((value) => !value);
