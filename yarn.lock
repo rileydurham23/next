@@ -11531,7 +11531,7 @@ micromark-extension-gfm-task-list-item@~0.3.0:
   dependencies:
     micromark "~2.11.0"
 
-micromark-extension-gfm@^0.3.0:
+micromark-extension-gfm@0.3.3, micromark-extension-gfm@^0.3.0:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/micromark-extension-gfm/-/micromark-extension-gfm-0.3.3.tgz#36d1a4c089ca8bdfd978c9bd2bf1a0cb24e2acfe"
   integrity sha512-oVN4zv5/tAIA+l3GbMi7lWeYpJ14oQyJ3uEim20ktYFAcfX1x3LNlFGGlmrZHt7u9YlKExmyJdDGaTt6cMSR/A==

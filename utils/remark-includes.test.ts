@@ -3,6 +3,7 @@ import { readFileSync } from "fs";
 import { resolve } from "path";
 import remark from "remark";
 import mdx from "remark-mdx";
+import remarkGFM from "remark-gfm";
 import remarkIncludes, { RemarkIncludesOptions } from "./remark-includes";
 import { getVersionRootPath } from "./docs-helpers";
 
@@ -21,6 +22,7 @@ const transformer = (
   remark()
     .use(mdx)
     .use(remarkIncludes, pluginOptions)
+    .use(remarkGFM)
     .processSync(vfile(vfileOptions));
 
 describe("utils/remark-includes", () => {

@@ -6,8 +6,9 @@ import visit from "unist-util-visit-parents";
 import { MdxastNode } from "./unist-types";
 import fromMarkdown from "mdast-util-from-markdown";
 import syntax from "micromark-extension-mdxjs";
+import gfmSyntax from "micromark-extension-gfm";
 import mdx from "mdast-util-mdx";
-import gfm from "mdast-util-gfm";
+import { fromMarkdown as gfmFromMarkdown } from "mdast-util-gfm";
 import frontmatter from "mdast-util-frontmatter";
 import { getVersionRootPath } from "./docs-helpers";
 import updateMessages from "./update-vfile-messages";
@@ -90,10 +91,10 @@ export default function remarkIncludes(
               if (resolve) {
                 if (path.match(/\.mdx?$/)) {
                   const tree = fromMarkdown(result, {
-                    extensions: [syntax()],
+                    extensions: [syntax(), gfmSyntax()],
                     mdastExtensions: [
                       mdx.fromMarkdown,
-                      gfm.fromMarkdown,
+                      gfmFromMarkdown,
                       frontmatter.fromMarkdown,
                     ],
                   });
