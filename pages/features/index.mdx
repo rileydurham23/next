@@ -15,11 +15,12 @@ import {
   Box,
   Icon,
   TryTeleport,
-  Link
+  Link,
 } from "components";
 
 import FeatureTile from "components/Tile/FeatureTile";
 import FeatureTileDisplay from "components/Tile/FeatureTileDisplay";
+import FeatureTileWrapper from "components/Tile/FeatureTileWrapper";
 
 import NextImage from "next/image";
 
@@ -33,13 +34,11 @@ import NextImage from "next/image";
   }
 ></SectionHeader>
 <Section bg="flatGray">
-  <Flex flexDirection="row" pl={[3, 4, 11]} pt={[4, 7, 9]} pb={[4, 6]}>
-    <Icon name="apartment" size="lg" fill="#512FC9" />
-    <Box fontSize="header-3" color="darkest" lineHeight="lg" pl={3}>
-      Enterprise Features
-    </Box>
-  </Flex>
-  <Flex px={[3, 3, 10]} pb={6}>
+  <FeatureTileWrapper
+    iconName="apartment"
+    iconSize="lg"
+    title="Enterprise Features"
+  >
     <FeatureTileDisplay>
       <FeatureTile
         feature="enterprise"
@@ -83,16 +82,14 @@ import NextImage from "next/image";
         others.
       </FeatureTile>
     </FeatureTileDisplay>
-  </Flex>
+  </FeatureTileWrapper>
 </Section>
 <Section bg="flatWhite">
-  <Flex flexDirection="row" pl={[3, 4, 11]} pt={[4, 7, 9]} pb={[4, 6]}>
-    <Icon name="circleCheck" size="lg" fill="#512FC9" />
-    <Box color="darkest" fontSize="header-3" lineHeight="lg" pl={3}>
-      Core Features
-    </Box>
-  </Flex>
-  <Flex px={[3, 3, 10]} >
+  <FeatureTileWrapper
+    iconName="circleCheck"
+    iconSize="lg"
+    title="Core Features"
+  >
     <FeatureTileDisplay>
       <FeatureTile
         feature="core"
@@ -139,6 +136,7 @@ import NextImage from "next/image";
         feature="core"
         src="./assets/kubernetes.png"
         title="Kubernetes Access Management"
+        href="https://goteleport.com/teleport/how-it-works/secure-kubernetes-access/"
       >
         Teleport works by being a unified gateway for both Kubernetes and SSH
         sessions. This allows to synchronize SSO, role-based access controls and
@@ -148,7 +146,7 @@ import NextImage from "next/image";
         feature="core"
         src="./assets/SSO.png"
         title="Single Sign-On (SSO)"
-        hrf="https://goteleport.com/teleport/how-it-works/secure-kubernetes-access/"
+        href="https://goteleport.com/teleport/features/sso-for-ssh/"
       >
         Teleport integrates into an existing company identity management. This
         allows DevOps, developers and other end-users to access computing
@@ -176,18 +174,28 @@ import NextImage from "next/image";
         VPN required.
       </FeatureTile>
     </FeatureTileDisplay>
-  </Flex>
+  </FeatureTileWrapper>
   <Flex flexDirection="column" alignItems="flex-end" px={[4, 5, 11]} pt={6}>
     <Box fontSize="text-xl">
-      <h1 color="darkest" fontSize="header-1" >How Teleport Works</h1>
-      Teleport is a single binary which enables secure access to SSH nodes, Kubernetes
-      clusters, web apps, PostgreSQL and MySQL databases behind NAT. Teleport is trivial
-      to setup as a Linux daemon or in a Kubernetes pod. <Link color="light-blue" href="/">Learn more about how Teleport
-      works.</Link>
+      <Box as="h2" color="darkest" fontSize="header-1">
+        How Teleport Works
+      </Box>
+      <Box>
+        Teleport is a single binary which enables secure access to SSH nodes,
+        Kubernetes clusters, web apps, PostgreSQL and MySQL databases behind
+        NAT. Teleport is trivial to setup as a Linux daemon or in a Kubernetes
+        pod.{" "}
+        <Link
+          color="light-blue"
+          href="https://goteleport.com/teleport/how-it-works/"
+        >
+          Learn more about how Teleport works.
+        </Link>
+      </Box>
     </Box>
-    <Box width="103%" my={[1, 4]} >
+    <Box width="103%" my={[1, 4]}>
       <NextImage
-        src="./assets/How-it-works.png"
+        src="./assets/how-it-works.png"
         alt="a diagram of Teleport's security functionality"
         width={1301}
         height={583}

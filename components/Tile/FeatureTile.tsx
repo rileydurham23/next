@@ -4,8 +4,8 @@ import NextImage from "next/image";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Button from "components/Button";
-import enterpriseBG from "pages/features/assets/enterpriseBG.png";
-import coreBG from "pages/features/assets/coreBG.png";
+import enterprise from "pages/features/assets/enterprise-bg.png";
+import core from "pages/features/assets/core-bg.png";
 
 export interface FeatureTileProps {
   children: React.ReactNode;
@@ -22,7 +22,7 @@ const FeatureTile = ({
   feature,
   href,
 }: FeatureTileProps) => {
-  const backgroundImage = feature === "enterprise" ? enterpriseBG : coreBG;
+  const backgroundImage = feature === "enterprise" ? enterprise : core;
   return (
     <StyledWrapper>
       {/* top half */}
@@ -48,11 +48,13 @@ const FeatureTile = ({
           {children}
         </Box>
       </Flex>
-      <Flex flexDirection="column-reverse" px={4} pb={4} height="100%">
-        <StyledButton variant="secondary" shape="lg" as="a" href={href}>
-          Learn More
-        </StyledButton>
-      </Flex>
+      {href && (
+        <Flex flexDirection="column-reverse" px={4} pb={4} height="100%">
+          <StyledButton variant="secondary" shape="lg" as="a" href={href}>
+            Learn More
+          </StyledButton>
+        </Flex>
+      )}
     </StyledWrapper>
   );
 };
