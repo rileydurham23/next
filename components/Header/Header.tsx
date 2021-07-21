@@ -30,7 +30,7 @@ const Header = ({ mode, headerColor, border }: HeaderProps) => {
 
   switch (mode) {
     case "none":
-      return <></>;
+      return;
 
     case "simple":
       return (

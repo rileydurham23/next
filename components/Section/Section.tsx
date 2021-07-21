@@ -4,7 +4,7 @@ import waveGrayBG from "./assets/waveGray.svg";
 import waveWhiteBG from "./assets/waveWhite.svg";
 import wavePurpleBG from "./assets/wavePurple.svg";
 
-type BGColor =
+export type BGColor =
   | "squares"
   | "white"
   | "gray"
@@ -36,11 +36,11 @@ const getBG = (color: BGColor) => {
       };
     case "flatGray":
       return {
-        backgroundColor: "#f6f8f9",
+        backgroundColor: "page-bg",
       };
     case "flatWhite":
       return {
-        backgroundColor: "#ffffff",
+        backgroundColor: "white",
       };
     default:
       return {
