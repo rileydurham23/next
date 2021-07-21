@@ -4,7 +4,13 @@ import waveGrayBG from "./assets/waveGray.svg";
 import waveWhiteBG from "./assets/waveWhite.svg";
 import wavePurpleBG from "./assets/wavePurple.svg";
 
-type BGColor = "squares" | "white" | "gray" | "purple";
+export type BGColor =
+  | "squares"
+  | "white"
+  | "gray"
+  | "purple"
+  | "flatGray"
+  | "flatWhite";
 
 const getBG = (color: BGColor) => {
   switch (color) {
@@ -27,6 +33,14 @@ const getBG = (color: BGColor) => {
       return {
         backgroundColor: "white",
         backgroundImage: `url(${squaresBG})`,
+      };
+    case "flatGray":
+      return {
+        backgroundColor: "page-bg",
+      };
+    case "flatWhite":
+      return {
+        backgroundColor: "white",
       };
     default:
       return {
