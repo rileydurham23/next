@@ -7,6 +7,8 @@ import Code from "components/Code";
 import Icon from "components/Icon";
 import HeadlessButton from "components/HeadlessButton";
 
+import DeselectChar from "../../utils/deselect-character";
+
 interface CodeProps {
   children: ReactNode;
 }
@@ -22,7 +24,9 @@ const Pre = ({ children }: CodeProps) => {
     }
 
     if (codeRef.current) {
-      navigator.clipboard.writeText(codeRef.current.innerText);
+      navigator.clipboard.writeText(
+        DeselectChar("$", codeRef.current.innerText)
+      );
       setIsCopied(true);
 
       setTimeout(() => {
