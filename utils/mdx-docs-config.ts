@@ -1,4 +1,3 @@
-import { resolve } from "path";
 import { PluggableList } from "unified";
 import rehypeFixTags from "./rehype-fix-tags";
 import rehypeHeaders from "./rehype-headers";
@@ -13,9 +12,7 @@ import remarkImportVariables from "./remark-import-variables";
 import remarkIncludes from "./remark-includes";
 import remarkLinks from "./remark-links";
 import remarkVariables from "./remark-variables";
-
-const staticPath = "/static/assets/";
-const destinationDir = resolve(`public/${staticPath}`);
+import { staticPath, destinationDir } from "./mdx-paths";
 
 const DEFAULT_RENDERER = `
 /** @jsxRuntime classic */
