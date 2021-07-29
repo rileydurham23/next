@@ -30,30 +30,15 @@ Default.args = {
     "Teleport delivers industry best practices for SSH and RDP access with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates and leave SSH keys behind.",
   children: (
     <>
-      <ProductBanner.Item
-        title="Access Controls"
-        src={soc2}
-        height={32}
-        width={32}
-      >
+      <ProductBanner.Item title="Access Controls" src={soc2}>
         Teleport offers all required server access controls to implement
         compliance standards such as SOC2, PCI, and FedRAMP.
       </ProductBanner.Item>
-      <ProductBanner.Item
-        title="Access Requests"
-        src={cert}
-        height={32}
-        width={32}
-      >
+      <ProductBanner.Item title="Access Requests" src={cert}>
         Move away from root accounts with just-in-time privilege escalation for
         administrative tasks.
       </ProductBanner.Item>
-      <ProductBanner.Item
-        title="Per Session MFA"
-        src={sso}
-        height={32}
-        width={32}
-      >
+      <ProductBanner.Item title="Per Session MFA" src={sso}>
         Easily implement multi-factor authentication across your organization
         without relying on device management systems.
       </ProductBanner.Item>

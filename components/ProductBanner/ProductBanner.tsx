@@ -1,4 +1,3 @@
-import css from "@styled-system/css";
 import Image from "next/image";
 import { Centrator } from "components/Layout";
 import Flex from "components/Flex";
@@ -7,16 +6,12 @@ import Box from "components/Box";
 interface ProductBannerItemProps {
   title: string;
   src?: string;
-  width?: number;
-  height?: number;
   children: React.ReactNode;
 }
 
 const ProductBannerItem = ({
   title,
   src,
-  width,
-  height,
   children,
 }: ProductBannerItemProps) => {
   return (
@@ -27,16 +22,9 @@ const ProductBannerItem = ({
       alignItems="flex-start"
       pb={2}
       pl={3}
-      css={css({ "& + &": { ml: [0, 6] } })}
     >
-      <Flex alignItems="center" maxWidth={width} flexGrow={1} mb={1}>
-        <Image
-          src={src}
-          width={width}
-          height={height}
-          layout="intrinsic"
-          alt=""
-        />
+      <Flex alignItems="center" flexGrow={1} mb={1}>
+        <Image src={src} width={32} height={32} layout="intrinsic" alt="" />
       </Flex>
       <Box
         fontSize="text-md"
@@ -52,7 +40,6 @@ const ProductBannerItem = ({
         fontSize="text-md"
         lineHeight="md"
         color="darkest"
-        minHeight={["auto", "72px", "48px"]}
         mb={[3, 0]}
       >
         {children}
@@ -106,6 +93,7 @@ export const ProductBanner = ({
               {subtitle}
             </Box>
             <Box
+              as="h2"
               fontSize={["header-3", "header-1"]}
               lineHeight={["xl", "xxl"]}
               fontWeight="black"
