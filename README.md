@@ -41,7 +41,7 @@ yarn
 
 Now run one of the following commands:
 
-- `yarn dev` - will run development server at `localhost:3000` that will autorefresh pages in real time then you edit markdown documents.
+- `yarn dev` - will run development server for docs at `localhost:3000/docs` that will autorefresh pages in real time then you edit markdown documents.
 - `yarn build` - will build static production version.
 - `yarn start` - will display documentation built with `npm run build` at `localhost:3000`.
 - `yarn update-and-build` - shortcut for submodule update and build (this command is used on deploy to vercel). Do not use this command if you plan to edit docs locally - on run it will switch you branch to latest commit in `master` that can cause conflicts with your locally edited files.
