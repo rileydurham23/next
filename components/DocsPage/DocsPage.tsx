@@ -8,6 +8,7 @@ import Layout from "components/Layout";
 import Link from "components/Link";
 import MDX from "components/MDX";
 import Notice from "components/Notice";
+import VideoBar from "components/VideoBar";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navigation, { getCurrentCategoryIndex } from "./Navigation";
@@ -42,7 +43,7 @@ const DocsPage = ({
   navigation,
   versions,
   githubUrl,
-  meta: { h1, title, description, layout },
+  meta: { h1, title, description, layout, videoBanner },
   tableOfConents,
   children,
 }: DocsPageProps) => {
@@ -77,6 +78,13 @@ const DocsPage = ({
               githubUrl={githubUrl}
               icon={icon}
             />
+            {videoBanner && (
+              <VideoBar
+                mb={1}
+                boxShadow="0 1px 4px rgba(0, 0, 0, 0.24)"
+                {...videoBanner}
+              />
+            )}
             <Flex bg={isSectionLayout ? "page-bg" : "white"}>
               <Box flexGrow={1} px={[3, 6]} py={[3, 4]}>
                 {(isOldVersion || isBetaVersion) && (

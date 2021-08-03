@@ -1,6 +1,7 @@
 // Moved this types to separate file to simplyfy loaders build that requires them
 
 import type { IconName } from "components/Icon/types";
+import { VideoBarProps } from "components/VideoBar/types";
 
 export interface NavigationItem {
   title: string;
@@ -28,4 +29,5 @@ export interface PageMeta {
   h1?: string;
   githubUrl: string;
   layout?: LayoutName;
+  videoBanner?: VideoBarProps;
 }
