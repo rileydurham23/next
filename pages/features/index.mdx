@@ -15,12 +15,10 @@ import {
   Diagram,
   Box,
   Card,
-  Icon,
   TryTeleport,
   Link,
 } from "components";
 import { CardDisplay } from "components/Card";
-import { Centrator } from "components/Layout";
 
 <SectionHeader
   mode={meta.layout}
@@ -170,6 +168,14 @@ import { Centrator } from "components/Layout";
 >
   Teleport is a single binary which enables secure access to SSH nodes,
   Kubernetes clusters, web apps, PostgreSQL and MySQL databases behind NAT.
-  Teleport is trivial to setup as a Linux daemon or in a Kubernetes pod. <span><Link color="light-blue" href="https://goteleport.com/teleport/how-it-works/">Learn more about how Teleport works.</Link></span>
+  Teleport is trivial to setup as a Linux daemon or in a Kubernetes pod.{" "}
+  <span>
+    <Link
+      color="light-blue"
+      href="https://goteleport.com/teleport/how-it-works/"
+    >
+      Learn more about how Teleport works.
+    </Link>
+  </span>
 </Diagram>
 <TryTeleport />

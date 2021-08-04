@@ -48,26 +48,27 @@ export interface StyledSystemProps
     TypographyProps,
     GenericProp<"text", typeof theme.textStyles>,
     GenericProp<"gradient", typeof theme.gradients> {
+  animationDelay?: ResponsiveValue<Property.AnimationDelay, RequiredTheme>;
+  animationDuration?: ResponsiveValue<
+    Property.AnimationDuration,
+    RequiredTheme
+  >;
+  borderCollapse?: ResponsiveValue<Property.BorderCollapse, RequiredTheme>;
+  boxSizing?: ResponsiveValue<Property.BoxSizing, RequiredTheme>;
   css?: CssFunctionReturnType | string;
   breakInside?: ResponsiveValue<Property.BreakInside, RequiredTheme>;
   columns?: ResponsiveValue<Property.Columns, RequiredTheme>;
   columnGap?: ResponsiveValue<Property.ColumnGap, RequiredTheme>;
   cursor?: ResponsiveValue<Property.Cursor, RequiredTheme>;
-  textDecoration?: ResponsiveValue<Property.TextAlign, RequiredTheme>;
-  textTransform?: ResponsiveValue<Property.TextTransform, RequiredTheme>;
   float?: ResponsiveValue<Property.Float, RequiredTheme>;
   listStyle?: ResponsiveValue<Property.ListStyle, RequiredTheme>;
   listStyleType?: ResponsiveValue<Property.ListStyleType, RequiredTheme>;
-  whiteSpace?: ResponsiveValue<Property.WhiteSpace, RequiredTheme>;
-  textOverflow?: ResponsiveValue<Property.TextOverflow, RequiredTheme>;
-  borderCollapse?: ResponsiveValue<Property.BorderCollapse, RequiredTheme>;
-  boxSizing?: ResponsiveValue<Property.BoxSizing, RequiredTheme>;
-  transition?: ResponsiveValue<Property.Transition, RequiredTheme>;
-  animationDuration?: ResponsiveValue<
-    Property.AnimationDuration,
-    RequiredTheme
-  >;
   pointerEvents?: ResponsiveValue<Property.PointerEvents, RequiredTheme>;
+  textDecoration?: ResponsiveValue<Property.TextAlign, RequiredTheme>;
+  textOverflow?: ResponsiveValue<Property.TextOverflow, RequiredTheme>;
+  textTransform?: ResponsiveValue<Property.TextTransform, RequiredTheme>;
+  transition?: ResponsiveValue<Property.Transition, RequiredTheme>;
+  whiteSpace?: ResponsiveValue<Property.WhiteSpace, RequiredTheme>;
 }
 
 export const all = compose(
@@ -81,22 +82,23 @@ export const all = compose(
   space,
   typography,
   system({
+    animationDelay: true,
+    animationDuration: true,
+    borderCollapse: true,
+    boxSizing: true,
+    breakInside: true,
+    columnGap: true,
+    columns: true,
+    cursor: true,
+    float: true,
+    listStyle: true,
+    listStyleType: true,
+    pointerEvent: true,
     textDecoration: true,
     textOverflow: true,
     textTransform: true,
-    listStyle: true,
-    listStyleType: true,
-    whiteSpace: true,
-    borderCollapse: true,
     transition: true,
-    animationDuration: true,
-    float: true,
-    boxSizing: true,
-    pointerEvent: true,
-    cursor: true,
-    columns: true,
-    columnGap: true,
-    breakInside: true,
+    whiteSpace: true,
   }),
   variant({
     prop: "text",

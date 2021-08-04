@@ -1,4 +1,5 @@
 export { default as AnchorNavigation } from "components/AnchorNavigation";
+export { default as AnnouncementBar } from "components/AnnouncementBar";
 export { default as Banner } from "components/Banner";
 export { default as BookBlock } from "components/BookBlock";
 export { default as Box } from "components/Box";
