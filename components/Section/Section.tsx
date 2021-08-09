@@ -3,6 +3,7 @@ import squaresBG from "./assets/squares.svg";
 import waveGrayBG from "./assets/waveGray.svg";
 import waveWhiteBG from "./assets/waveWhite.svg";
 import wavePurpleBG from "./assets/wavePurple.svg";
+import doubleWave from "./assets/wave-double.png";
 
 export type BGColor =
   | "squares"
@@ -10,10 +11,25 @@ export type BGColor =
   | "gray"
   | "purple"
   | "flatGray"
-  | "flatWhite";
+  | "flatWhite"
+  | "double";
 
 const getBG = (color: BGColor) => {
   switch (color) {
+    case "double":
+      return {
+        backgroundImage: `url(${doubleWave})`,
+        backgroundPosition: "50%",
+        backgroundRepeat: "no-repeat",
+      };
+    case "flatGray":
+      return {
+        backgroundColor: "page-bg",
+      };
+    case "flatWhite":
+      return {
+        backgroundColor: "white",
+      };
     case "gray":
       return {
         backgroundColor: "#f7f8f9",
@@ -33,14 +49,6 @@ const getBG = (color: BGColor) => {
       return {
         backgroundColor: "white",
         backgroundImage: `url(${squaresBG})`,
-      };
-    case "flatGray":
-      return {
-        backgroundColor: "page-bg",
-      };
-    case "flatWhite":
-      return {
-        backgroundColor: "white",
       };
     default:
       return {

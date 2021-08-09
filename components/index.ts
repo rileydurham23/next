@@ -30,6 +30,7 @@ export { default as Link } from "components/Link";
 export { default as List } from "components/List";
 export { default as LoginPage } from "components/LoginPage";
 export { default as Manifesto } from "components/Manifesto";
+export { default as MessageBanner } from "components/MessageBanner";
 export { default as Notice } from "components/Notice";
 export { default as PageIntro } from "components/PageIntro";
 export { default as PromoPointsBlock } from "components/PromoPointsBlock";
