@@ -22,6 +22,7 @@ module.exports = withBundleAnalyzer({
   images: {
     path: "/_next/image/",
     disableStaticImages: true,
+    domains: ["i.ytimg.com"],
   },
   trailingSlash: true,
   webpack: (config, options) => {

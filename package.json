@@ -43,6 +43,7 @@
     "@styled-system/css": "^5.1.5",
     "@types/hast": "^2.3.2",
     "docsearch.js": "^2.6.3",
+    "got": "11.8.2",
     "micromark-extension-gfm": "0.3.3",
     "next": "11.0.1",
     "react": "17.0.2",

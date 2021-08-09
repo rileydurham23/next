@@ -56,7 +56,8 @@ const StyledVideoBar = styled(Button)(
     border: "none",
     borderRadius: "0",
     cursor: "pointer",
-    px: [3, 7],
+    pr: [3, 7],
+    pl: [1, 5],
     py: [2, 3],
     transition: transition([["boxShadow", "interaction"]]),
   })
@@ -88,7 +89,7 @@ const StyledWrapper = styled(Flex)(
   css({
     flexDirection: "row",
     width: "100%",
-    ml: [2, 3],
+    ml: [1, 3],
     justifyContent: "space-between",
   })
 );
@@ -117,6 +118,8 @@ const StyledDuration = styled("p")(
 
 const StyledWatchButton = styled(Button)(
   css({
+    display: ["none", "flex"],
+    alignSelf: "center",
     flexShrink: 0,
     maxWidth: ["100px", "180px"],
     width: "100%",
@@ -124,7 +127,6 @@ const StyledWatchButton = styled(Button)(
     mt: 0,
     py: [1, 0],
     px: [2, 4],
-    alignSelf: "center",
     textTransform: "uppercase",
     whiteSpace: ["normal", "nowrap"],
   })
