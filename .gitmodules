@@ -21,4 +21,5 @@
 [submodule "content/7.0"]
 	path = content/7.0
 	url = https://github.com/gravitational/teleport/
-	branch = master
+	branch = branch/v7
+
