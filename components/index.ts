@@ -12,6 +12,7 @@ export { default as Cover } from "components/Cover";
 export { default as CrewGallery } from "components/CrewGallery";
 export { default as Diagram } from "components/Diagram";
 export { default as DocsPage } from "components/DocsPage";
+export { default as EasyStart } from "components/EasyStart";
 export { default as EnterpriseSignup } from "components/EnterpriseSignup";
 export { default as Feedback } from "components/Feedback";
 export { default as Flex } from "components/Flex";

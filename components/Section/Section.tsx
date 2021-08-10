@@ -4,10 +4,11 @@ import waveGrayBG from "./assets/waveGray.svg";
 import waveWhiteBG from "./assets/waveWhite.svg";
 import wavePurpleBG from "./assets/wavePurple.svg";
 import doubleWave from "./assets/wave-double.png";
+import wavelight from "./assets/wave-light.png";
 
 export type BGColor =
   | "squares"
-  | "white"
+  | "wavelight"
   | "gray"
   | "purple"
   | "flatGray"
@@ -50,6 +51,13 @@ const getBG = (color: BGColor) => {
         backgroundColor: "white",
         backgroundImage: `url(${squaresBG})`,
       };
+    case "wavelight":
+      return {
+        backgroundImage: `url(${wavelight})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center center",
+        backgroundSize: "cover",
+      };
     default:
       return {
         backgroundColor: "white",
@@ -62,7 +70,7 @@ const getBG = (color: BGColor) => {
 };
 
 export interface SectionProps {
-  bg: BGColor;
+  bg?: BGColor;
   children: React.ReactNode;
 }
 

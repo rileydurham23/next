@@ -10,7 +10,7 @@ export const Main = () => {
   return (
     <>
       <Box border="1px solid" borderColor="light-gray">
-        <Section bg="white">
+        <Section>
           <Box height="400px" />
         </Section>
       </Box>
