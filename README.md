@@ -131,3 +131,25 @@ git rm -f path/to/submodule
 Suffix `@Nx` at the end of the image name will tell browser to scale image down by the number after the `@`.
 
 E. g. `filename@2x.png` mans that this image is retina-ready and should be rendered at half size. Same with `@3x`, `@1.5x`, etc.
+
+## How to add video banner
+
+To display the banner, we have to add the key `videoBanner` in the page's meta information (where we write title, h1, etc.). In the value of this key, we have to provide the ID of the YouTube video.
+
+### ID of the YouTube video
+
+We should open YouTube with the video which we want to insert to the page. In the URL of the video, we have to take part should be followed after symbols `?v=`
+
+For example, in URL, we have link `https://www.youtube.com/watch?v=UFhT52d5bYg`, we have to take that string `UFhT52d5bYg` - it's ID of this video.
+
+Once we have prescribed key `videoBanner` with video ID in meta information, we may see a video banner with a fake title and preview on the page. It's connected that in your local stand missing the YouTube API Key.
+
+### Adding YouTube API Key
+
+At the root of the project, we have to create `.env.local` file. Inside this file, we have to add `YOUTUBE_API_KEY` variable with the API key value:
+
+```
+YOUTUBE_API_KEY=[key-for-google-api]
+```
+
+API key we can get via this [instruction](https://developers.google.com/youtube/v3/getting-started#intro).

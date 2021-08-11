@@ -61,6 +61,8 @@ const Pre = ({ children }: CodeProps) => {
         color="dark-gray"
         bg="code"
         cursor="pointer"
+        borderTopRightRadius="default"
+        borderBottomRightRadius="default"
         css={css({
           "&:hover, &:focus, &:active": {
             color: "lightest-gray",
