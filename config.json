@@ -24,6 +24,10 @@
       "name": "7.0",
       "branch": "branch/v7",
       "latest": true
+    },
+    {
+      "name": "8.0",
+      "branch": "master"
     }
   ],
   "redirects": [

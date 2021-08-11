@@ -23,3 +23,7 @@
 	url = https://github.com/gravitational/teleport/
 	branch = branch/v7
 
+[submodule "content/8.0"]
+	path = content/8.0
+	url = https://github.com/gravitational/teleport/
+	branch = master
