@@ -18,6 +18,7 @@ export { default as Feedback } from "components/Feedback";
 export { default as Flex } from "components/Flex";
 export { default as Footer } from "components/Footer";
 export { default as GlobeBanner } from "components/GlobeBanner";
+export { default as GreatPlace } from "components/GreatPlace";
 export { default as Head } from "components/Head";
 export { default as Header } from "components/Header";
 export { default as Heading } from "components/Heading";
