@@ -22,6 +22,7 @@ Clone the repo and init submodules with the actual docs:
 
 ```
 git clone git@github.com:gravitational/next.git
+cd next
 git submodule init
 ```
 
