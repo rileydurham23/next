@@ -87,7 +87,7 @@ export const Tabs = ({ children }: TabsProps) => {
       <Flex
         bg="lightest-gray"
         overflowX="auto"
-        height="40px"
+        height="auto"
         borderTopLeftRadius="default"
         borderTopRightRadius="default"
       >
