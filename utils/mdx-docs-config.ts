@@ -12,6 +12,7 @@ import remarkImportVariables from "./remark-import-variables";
 import remarkIncludes from "./remark-includes";
 import remarkLinks from "./remark-links";
 import remarkVariables from "./remark-variables";
+import remarkCodeSnippet from "./remark-code-snippet";
 import { staticPath, destinationDir } from "./mdx-paths";
 
 const DEFAULT_RENDERER = `
@@ -45,6 +46,7 @@ const config: MdxConfig = {
   remarkPlugins: [
     remarkFrontmatter,
     remarkImportFrontmatter,
+    remarkCodeSnippet,
     remarkImportVariables,
     remarkIncludes,
     remarkVariables,
@@ -71,7 +73,7 @@ const config: MdxConfig = {
     ],
     [
       rehypeHighlight,
-      { aliases: { bash: ["bsh", "systemd"], yaml: ["conf", "toml"] } },
+      { aliases: { bash: ["bsh", "systemd", "code"], yaml: ["conf", "toml"] } },
     ],
     [rehypeHeaders, { maxLevel: 2 }],
   ],

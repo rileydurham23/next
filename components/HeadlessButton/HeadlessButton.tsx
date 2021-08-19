@@ -12,7 +12,7 @@ export const HeadlessButton = styled("button")<StyledSystemProps>(
     fontSize: "inherit",
     border: 0,
     padding: 0,
-    background: "transparent",
+    backgroundColor: "transparent",
   },
   all
 );

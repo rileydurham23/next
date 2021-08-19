@@ -2,7 +2,9 @@ import { useMemo } from "react";
 import { MDXProvider, Components } from "@mdx-js/react";
 import Admonition from "components/Admonition";
 import Box from "components/Box";
+import Command from "components/Command";
 import Notice from "components/Notice";
+import Snippet from "components/Snippet";
 import { Tabs, TabItem } from "components/Tabs";
 import {
   Tile,
@@ -43,6 +45,7 @@ export const components = {
   td: TD,
   video: Video,
   Admonition,
+  Command,
   Tabs,
   TabItem,
   Tile,
@@ -52,6 +55,7 @@ export const components = {
   TileImage,
   Figure,
   Notice,
+  Snippet,
 };
 
 export interface MDXProps {
