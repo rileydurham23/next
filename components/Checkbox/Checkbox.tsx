@@ -1,13 +1,14 @@
 import { ChangeEvent, ReactNode, useCallback } from "react";
 import css from "@styled-system/css";
 import styled from "styled-components";
-import Box, { BoxProps } from "components/Box";
+import { BoxProps } from "components/Box";
 import Icon from "components/Icon";
-import { all, variant, transition, StyledSystemProps } from "components/system";
+import { all, transition, StyledSystemProps } from "components/system";
 
 export interface CheckboxProps {
   checked: boolean;
   children?: ReactNode;
+  disabled?: boolean;
   onChange?: (value: boolean) => void;
 }
 
@@ -15,6 +16,7 @@ export function Checkbox({
   checked,
   onChange,
   children,
+  disabled,
   ...props
 }: CheckboxProps & BoxProps) {
   const handleChange = useCallback(
@@ -26,42 +28,40 @@ export function Checkbox({
 
   return (
     <StyledWrapper {...props}>
-      <Box
+      <StyledCheckbox
         as="input"
         type="checkbox"
+        disabled={disabled}
         checked={checked}
         onChange={handleChange}
-        position="absolute"
-        opacity="0"
-        width={0}
-        height={0}
       />
-      <StyledSquare
-        variant={checked ? "selected" : "unselected"}
-        mr={children ? "2" : "0"}
-      >
-        <StyledIcon name="check" size="sm" opacity={checked ? 1 : 0} />
+      <StyledSquare mr={children ? "2" : "0"}>
+        <StyledIcon name="check" size="sm" />
       </StyledSquare>
       {children}
     </StyledWrapper>
   );
 }
 
-type variant = "selected" | "unselected";
-
-interface StyledWrapperProps extends StyledSystemProps {
-  variant?: variant | variant[];
-}
-
-const StyledIcon = styled(Icon)<StyledWrapperProps>(
+const StyledCheckbox = styled("input")(
   css({
-    color: "dark-purple",
-    lineHeight: "sm",
+    position: "absolute",
+    opacity: 0,
+    width: 0,
+    height: 0,
+  })
+);
+
+const StyledIcon = styled(Icon)(
+  css({
+    color: "currentColor",
+    opacity: 0,
+    lineHeight: 0,
     transition: transition([["opacity", "interaction"]]),
   })
 );
 
-const StyledSquare = styled("div")<StyledWrapperProps>(
+const StyledSquare = styled("div")<StyledSystemProps>(
   css({
     display: "flex",
     alignItems: "center",
@@ -69,22 +69,26 @@ const StyledSquare = styled("div")<StyledWrapperProps>(
     boxSizing: "border-box",
     width: 24,
     height: 24,
-    border: "2px solid",
-    backgroundColor: "white",
+    border: "1px solid currentColor",
+    bg: "white",
+    color: "light-gray",
     transition: transition([
       ["borderColor", "interaction"],
       ["color", "interaction"],
     ]),
     borderRadius: "default",
-  }),
-  variant({
-    variants: {
-      selected: {
-        borderColor: "dark-purple",
-      },
-      unselected: {
-        borderColor: "light-gray",
-      },
+    [`${StyledCheckbox}:disabled + &`]: {
+      pointerEvents: "none",
+      bg: "lightest-gray",
+    },
+    [`${StyledCheckbox}:focus + &`]: {
+      color: "dark-purple",
+    },
+    [`${StyledCheckbox}:checked + & ${StyledIcon}`]: {
+      opacity: 1,
+    },
+    [`${StyledCheckbox}:checked:not(:disabled) + &`]: {
+      color: "dark-purple",
     },
   }),
   all
@@ -96,21 +100,6 @@ const StyledWrapper = styled("label")<StyledSystemProps>(
     alignItems: "center",
     boxSizing: "border-box",
     cursor: "pointer",
-    transition: transition([
-      ["opacity", "interaction"],
-      ["color", "interaction"],
-    ]),
-    "&:focus-within, &:focus, &:hover": {
-      outline: "none",
-      color: "light-purple",
-      [StyledSquare]: {
-        borderColor: "light-purple",
-        color: "light-purple",
-      },
-    },
-    "&:active": {
-      opacity: "0.56",
-    },
   }),
   all
 );

@@ -31,7 +31,7 @@ const StoryComponent: Story<CheckboxProps> = (args) => {
 
 export default {
   component: Component,
-  title: "Checkbox",
+  title: "Base/Checkbox",
   argTypes: {
     checked: {
       control: {
@@ -46,6 +46,20 @@ export const Plain = StoryComponent.bind({});
 
 Plain.args = {
   checked: false,
+};
+
+export const Disabled = StoryComponent.bind({});
+
+Disabled.args = {
+  disabled: true,
+  checked: false,
+};
+
+export const DisabledChecked = StoryComponent.bind({});
+
+DisabledChecked.args = {
+  disabled: true,
+  checked: true,
 };
 
 export const WithLabel = StoryComponent.bind({});
