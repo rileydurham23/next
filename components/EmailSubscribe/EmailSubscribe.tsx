@@ -28,7 +28,7 @@ export function EmailSubscribe({ ...props }: FlexProps) {
         ml={[0, 4]}
         mt={[4, 0]}
         minHeight="40px"
-        minWidth="340px"
+        minWidth={["auto", "340px"]}
         bg={formLoaded ? "transparent" : "lightest-gray"}
         transition={transition([["backgroundColor", "interaction"]])}
       >
@@ -80,6 +80,9 @@ const StyledFormFormWrapper = styled("form")(
       "&:focus, &:hover": {
         borderColor: "light-blue",
         bg: "rgba(0,145,234,.04)",
+      },
+      "&::placeholder": {
+        fontSize: ["14px", "18px"],
       },
     },
     "& .mktoFormRow:first-of-type, & .mktoFieldDescriptor, & .mktoFieldWrap, & .mktoEmailField":
