@@ -38,9 +38,9 @@ export default function remarkCodeSnippet(): Transformer {
           });
 
           const commandArrayElem = children[children.length - 1].children;
-          let hasSlash = codeLines[i][codeLines[i].length - 1] === "\\";
+          let hasNextLine = codeLines[i][codeLines[i].length - 1] === "\\";
 
-          while (hasSlash) {
+          while (hasNextLine) {
             commandArrayElem.push({
               type: "mdxJsxTextElement",
               name: "span",
@@ -54,7 +54,9 @@ export default function remarkCodeSnippet(): Transformer {
             });
 
             i++;
-            hasSlash = codeLines[i][codeLines[i].length - 1] === "\\";
+            hasNextLine =
+              Boolean(codeLines[i]) &&
+              codeLines[i][codeLines[i].length - 1] === "\\";
           }
         } else {
           children.push({
