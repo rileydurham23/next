@@ -48,7 +48,7 @@ const StyledGlobeWrapper = styled("div")(
   css({
     position: "absolute",
     top: "100%",
-    transform: "translateY(-33%)",
+    transform: ["translateY(-29%)", "translateY(-33%)"],
   })
 );
 
@@ -78,7 +78,7 @@ const StyledHeading = styled("div")(
       m: 0,
       px: 3,
       fontSize: "text-lg",
-      lineHeight: "lg",
+      lineHeight: ["md", "lg"],
       maxWidth: ["100%", "40%"],
     },
   })
