@@ -38,14 +38,15 @@ const GreatPlace = () => {
           <Flex
             flexDirection="row"
             justifyContent="center"
-            pr={4}
+            pr={[0, 4]}
             pl={[0, 4]}
-            minWidth="380px"
+            minWidth={["auto", "380px"]}
+            width={["90%", "initial"]}
           >
             <Flex zIndex={2} mr="-50px">
-              <NextImage src={cert} alt="" width={200} height={283}></NextImage>
+              <NextImage src={cert} alt="" width={200} height={283} />
             </Flex>
-            <NextImage src={pam} alt="" width={277} height={283}></NextImage>
+            <NextImage src={pam} alt="" width={277} height={283} />
           </Flex>
         </Flex>
       </Centrator>

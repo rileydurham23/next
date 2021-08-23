@@ -18,6 +18,7 @@ const Code = (props) => {
       borderColor="light-gray"
       borderRadius="sm"
       fontSize="text-md"
+      wordBreak="break-word"
     />
   );
 };

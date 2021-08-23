@@ -21,6 +21,7 @@ export const Code = ({ children, ...props }: CodeProps) => {
       fontSize={["text-sm", "text-md"]}
       lineHeight="md"
       {...props}
+      whiteSpace="pre"
       css={`
         & code {
           font-family: inherit;
