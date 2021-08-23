@@ -74,6 +74,7 @@ export interface StyledSystemProps
     Property.AnimationFillMode,
     RequiredTheme
   >;
+  wordBreak?: ResponsiveValue<Property.WordBreak, RequiredTheme>;
 }
 
 export const all = compose(
@@ -106,6 +107,7 @@ export const all = compose(
     whiteSpace: true,
     animationName: true,
     animationFillMode: true,
+    wordBreak: true,
   }),
   variant({
     prop: "text",

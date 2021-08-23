@@ -46,6 +46,7 @@ export const LI = styled("li")(
 
 export const Table = styled("table")(
   css({
+    display: ["block", "table"],
     mb: 4,
     bg: "white",
     boxShadow: "0 1px 4px rgba(0,0,0,.24)",
@@ -53,6 +54,8 @@ export const Table = styled("table")(
     borderCollapse: "collapse",
     boxSizing: "border-box",
     width: "100%",
+    overflow: "auto",
+    whiteSpace: ["nowrap", "normal"],
     "&:last-child": {
       mb: 0,
     },
