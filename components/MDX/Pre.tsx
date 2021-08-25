@@ -85,7 +85,7 @@ const StyledHeadlessButton = styled(HeadlessButton)(
     right: 0,
     zIndex: "2",
     p: 2,
-    color: "light-gray",
+    color: "lighter-gray",
     cursor: "pointer",
     borderTopRightRadius: "default",
     borderBottomRightRadius: "default",

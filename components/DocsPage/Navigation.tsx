@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
-import { Fragment, useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import css from "@styled-system/css";
+import { transition } from "components/system";
+import { all } from "components/system";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
@@ -25,25 +27,36 @@ const DocsNavigationItems = ({
   return (
     <>
       {!!entries.length &&
-        entries.map((entry) => (
-          <Fragment key={entry.slug}>
-            <NavigationLink
-              href={entry.slug}
-              active={entry.slug === getPath(router.asPath)}
-              onClick={onClick}
-            >
-              {entry.title}
-            </NavigationLink>
-            {!!entry.entries?.length && (
-              <Box ml="2">
-                <DocsNavigationItems
-                  entries={entry.entries}
-                  onClick={onClick}
-                />
-              </Box>
-            )}
-          </Fragment>
-        ))}
+        entries.map((entry) => {
+          const entryActive = entry.slug === getPath(router.asPath);
+          const childrenActive = entry.entries?.some(
+            (entry) => entry.slug === getPath(router.asPath)
+          );
+
+          return (
+            <Box as="li" key={entry.slug}>
+              <NavigationLink
+                href={entry.slug}
+                active={entryActive || childrenActive}
+                isSelected={entryActive}
+                onClick={onClick}
+              >
+                {entry.title}
+                {!!entry.entries?.length && (
+                  <EllipsisIcon size="sm" name="ellipsis" />
+                )}
+              </NavigationLink>
+              {!!entry.entries?.length && (
+                <WrapperLevelMenu as="ul" listStyle="none">
+                  <DocsNavigationItems
+                    entries={entry.entries}
+                    onClick={onClick}
+                  />
+                </WrapperLevelMenu>
+              )}
+            </Box>
+          );
+        })}
     </>
   );
 };
@@ -70,22 +83,30 @@ const DocNavigationCategory = ({
   );
 
   return (
-    <Box as="nav" key={title}>
+    <>
       <CategoryButton active={opened} onClick={toggleOpened}>
         <Icon name={icon} ml="12px" mr={2} />
         <Box text="text-md">{title}</Box>
+        <StyledIcon
+          size="sm"
+          name="arrow"
+          transform={
+            opened ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"
+          }
+        />
       </CategoryButton>
       {opened && (
         <Box
+          as="ul"
+          listStyle="none"
           bg="lightest-gray"
-          px={2}
           py={1}
           boxShadow="inset 0 1px 2px rgba(0, 0, 0, 0.24)"
         >
           <DocsNavigationItems entries={entries} onClick={onClick} />
         </Box>
       )}
-    </Box>
+    </>
   );
 };
 
@@ -133,7 +154,7 @@ const DocNavigation = ({ data, section }: DocNavigationProps) => {
       borderRight={section ? "none" : ["none", "1px solid"]}
       borderColor={["none", "lightest-gray"]}
     >
-      <Flex height="48px" py={2} bg="light-gray" alignItems="center">
+      <Flex height="48px" py={2} bg="lighter-gray" alignItems="center">
         <Search id="mobile" mx={2} width="100%" />
         <HeadlessButton
           onClick={toggleMenu}
@@ -150,6 +171,7 @@ const DocNavigation = ({ data, section }: DocNavigationProps) => {
         </HeadlessButton>
       </Flex>
       <Box
+        as="nav"
         position={["absolute", "static"]}
         display={[visible ? "block" : "none", "block"]}
         top="48px"
@@ -157,16 +179,20 @@ const DocNavigation = ({ data, section }: DocNavigationProps) => {
         width="100%"
         overflow={["none", "auto"]}
       >
-        {data.map((props, index) => (
-          <DocNavigationCategory
-            key={index}
-            id={index}
-            opened={index === openedId}
-            onToggleOpened={setOpenedId}
-            onClick={toggleMenu}
-            {...props}
-          />
-        ))}
+        <Box as="ul" listStyle="none">
+          {data.map((props, index) => (
+            <Box as="li" key={index}>
+              <DocNavigationCategory
+                key={index}
+                id={index}
+                opened={index === openedId}
+                onToggleOpened={setOpenedId}
+                onClick={toggleMenu}
+                {...props}
+              />
+            </Box>
+          ))}
+        </Box>
       </Box>
     </Box>
   );
@@ -177,6 +203,7 @@ export default DocNavigation;
 const CategoryButton = styled(HeadlessButton)(
   ({ active }: { active?: boolean }) =>
     css({
+      position: "relative",
       display: "flex",
       alignItems: "center",
       width: "100%",
@@ -186,28 +213,78 @@ const CategoryButton = styled(HeadlessButton)(
       borderLeft: "4px solid",
       borderLeftColor: active ? "light-purple" : "white",
       color: active ? "dark-purple" : "gray",
+      transition: transition([["color", "interaction"]]),
       "&:focus, &:hover, &:active": {
         cursor: "pointer",
         outline: "none",
         color: "light-purple",
       },
+      [`&:focus ${StyledIcon}, &:hover ${StyledIcon}, &:active ${StyledIcon}`]:
+        {
+          color: "light-purple",
+        },
+      [`& ${StyledIcon}`]: {
+        color: active ? "dark-purple" : "light-gray",
+      },
     })
 );
 
-const NavigationLink = styled(Link)(({ active }: { active?: boolean }) =>
+const NavigationLink = styled(Link)(
+  ({ active, isSelected }: { active?: boolean; isSelected?: boolean }) =>
+    css({
+      position: "relative",
+      display: "block",
+      width: "100%",
+      px: 3,
+      fontSize: "13px",
+      lineHeight: "lg",
+      color: active ? "dark-purple" : "gray",
+      fontWeight: active ? "bold" : "regular",
+      textDecoration: "none",
+      backgroundColor: isSelected ? "white" : "transpatent",
+      "&:focus, &:hover, &:active": {
+        outline: "none",
+        bg: "white",
+      },
+
+      "& + ul": {
+        display: active ? "block" : "none",
+      },
+
+      [`& ${EllipsisIcon}`]: {
+        display: active ? "none" : "block",
+      },
+    })
+);
+
+const WrapperLevelMenu = styled(Box)(
   css({
-    display: "block",
-    width: "100%",
-    px: 2,
-    borderRadius: "default",
-    fontSize: "text-md",
-    lineHeight: "lg",
-    color: active ? "dark-purple" : "gray",
-    fontWeight: active ? "bold" : "regular",
-    textDecoration: "none",
-    "&:focus, &:hover, &:active": {
-      outline: "none",
-      bg: "white",
+    display: "none",
+
+    "& a": {
+      fontSize: "text-sm",
+      lineHeight: "lg",
+      pl: 5,
     },
+  })
+);
+
+const StyledIcon = styled(Icon)(
+  css({
+    position: "absolute",
+    right: 3,
+    top: "50%",
+    transition: transition([["color", "interaction"]]),
+  }),
+  all
+);
+
+const EllipsisIcon = styled(Icon)(
+  css({
+    position: "absolute",
+    right: 3,
+    top: "50%",
+    transform: "translateY(-50%)",
+    color: "light-gray",
   })
 );

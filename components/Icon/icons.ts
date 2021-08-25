@@ -16,6 +16,7 @@ export { ReactComponent as copy } from "./svg/copy.svg";
 export { ReactComponent as database } from "./svg/database.svg";
 export { ReactComponent as download } from "./svg/download.svg";
 export { ReactComponent as earth } from "./svg/earth.svg";
+export { ReactComponent as ellipsis } from "./svg/ellipsis.svg";
 export { ReactComponent as error } from "./svg/error.svg";
 export { ReactComponent as flag } from "./svg/flag.svg";
 export { ReactComponent as gamepad } from "./svg/gamepad.svg";

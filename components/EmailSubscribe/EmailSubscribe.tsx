@@ -52,7 +52,7 @@ const StyledFormFormWrapper = styled("form")(
       border: "1px solid",
       boxSizing: "border-box",
       whiteSpace: "nowrap",
-      borderColor: "light-gray",
+      borderColor: "lighter-gray",
       borderTopRightRadius: "default",
       borderBottomRightRadius: "default",
       minHeight: "40px",
@@ -66,7 +66,7 @@ const StyledFormFormWrapper = styled("form")(
       appearance: "none",
       boxSizing: "border-box",
       border: "1px solid",
-      borderColor: "light-gray",
+      borderColor: "lighter-gray",
       borderRight: 0,
       m: 0,
       transition: transition([
