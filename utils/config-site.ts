@@ -7,6 +7,7 @@ interface Config {
     latest?: true;
   }[];
   redirects?: Redirect[];
+  allowedMarketoIds: number[];
 }
 
 interface NormalizedConfig {
@@ -14,34 +15,32 @@ interface NormalizedConfig {
   versions: string[];
   branches: Record<string, string>;
   redirects?: Redirect[];
+  allowedMarketoIds: number[];
 }
 
 export const load = () => {
   return config as unknown as Config;
 };
 
-export const normalize = (config: Config): NormalizedConfig => {
-  const latest = (() => {
-    const { versions } = config as Config;
-    let latest = versions.find(({ latest }) => latest === true)?.name;
+export const normalize = ({
+  versions,
+  allowedMarketoIds,
+  redirects,
+}: Config): NormalizedConfig => {
+  const result: NormalizedConfig = {
+    latest: (
+      versions.find(({ latest }) => latest === true) ||
+      versions[versions.length - 1]
+    ).name,
+    versions: versions.map(({ name }) => name),
+    branches: versions.reduce((result, { name, branch }) => {
+      return { ...result, [name]: branch };
+    }, {}),
+    allowedMarketoIds,
+  };
 
-    if (!latest) {
-      latest = versions[versions.length - 1].name;
-    }
-
-    return latest;
-  })();
-
-  const versions = config.versions.map(({ name }) => name);
-
-  const branches = config.versions.reduce((result, { name, branch }) => {
-    return { ...result, [name]: branch };
-  }, {});
-
-  const result: NormalizedConfig = { latest, versions, branches };
-
-  if (config.redirects) {
-    result.redirects = config.redirects;
+  if (redirects) {
+    result.redirects = redirects;
   }
 
   return result;

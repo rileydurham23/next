@@ -50,8 +50,14 @@ const siteSchema = {
       uniqueItems: true,
     },
     redirects: redirectsSchemaFragment,
+    allowedMarketoIds: {
+      type: "array",
+      items: {
+        type: "number",
+      },
+    },
   },
-  required: ["versions"],
+  required: ["versions", "allowedMarketoIds"],
 };
 
 const siteConfigValidator = ajv.compile(siteSchema);
