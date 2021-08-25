@@ -14,11 +14,12 @@ import {
   Flex,
   Diagram,
   Box,
-  Card,
+  GridDisplay,
   TryTeleport,
   Link,
 } from "components";
-import { CardDisplay } from "components/Card";
+
+import { GridCard } from "components/GridDisplay";
 
 <SectionHeader
   mode={meta.layout}
@@ -29,13 +30,14 @@ import { CardDisplay } from "components/Card";
     <>Nearly all Teleport features are available in the open source package.</>
   }
 ></SectionHeader>
-<CardDisplay
+<GridDisplay
   iconName="apartment"
   iconSize="lg"
   title="Enterprise Features"
   bg="flatGray"
 >
-  <Card
+
+  <GridCard
     cardBG="enterprise"
     src="./assets/deny.png"
     title="Access Requests"
@@ -44,8 +46,8 @@ import { CardDisplay } from "components/Card";
     Teleport allows users to request elevated privileges in the middle of their
     command-line sessions. Requests can be approved or denied via ChatOps in
     Slack & PagerDuty or anywhere else via flexible Authorization Workflow API.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="enterprise"
     src="./assets/kubernetes.png"
     title="FedRamp & Soc 2"
@@ -53,8 +55,8 @@ import { CardDisplay } from "components/Card";
   >
     Teleport can help implement common compliance standards such as SOC2 or
     FedRAMP for SSH and Kubernetes access.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="enterprise"
     src="./assets/yubikey.png"
     title="Per-Session Multi-Factor Authentication"
@@ -63,8 +65,8 @@ import { CardDisplay } from "components/Card";
     Easily implement Multi-Factor Authentication across your organization
     without relying on device management systems. Teleport MFA is designed for
     distributed teams and comes with a self-enrollment MFA portal.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="enterprise"
     src="./assets/SSO.png"
     title="Enterprise Single Sign-On (SSO)"
@@ -73,15 +75,15 @@ import { CardDisplay } from "components/Card";
     Teleport integrates into a company's existing company directory and SSO
     system. Enterprise Teleport supports all major SSO providers, including
     Okta, Sailpoint, Active Directory, OneLogin, G Suite, Auth0 and many others.
-  </Card>
-</CardDisplay>
-<CardDisplay
+  </GridCard>
+</GridDisplay>
+<GridDisplay
   iconName="circleCheck"
   iconSize="lg"
   title="Core Features"
   bg="flatWhite"
 >
-  <Card
+  <GridCard
     cardBG="core"
     src="./assets/auth-cert.png"
     title="Certificate Auth for SSH & K8s"
@@ -90,8 +92,8 @@ import { CardDisplay } from "components/Card";
     Managing static SSH keys can lead to increased operational overhead and may
     lead to security vulnerabilities. The industry best practice is to use
     certificate-based authentication for SSH and Kubernetes.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="core"
     src="./assets/audit-log.png"
     title="Audit Log"
@@ -100,8 +102,8 @@ import { CardDisplay } from "components/Card";
     Restricting access and granting specific permissions through role-based
     access controls is the first step to securing your infrastructure. The next
     step is to log all activity across your infrastructure.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="core"
     src="./assets/play-recording.png"
     title="Session Recording"
@@ -110,14 +112,14 @@ import { CardDisplay } from "components/Card";
     Privileged session recording, or SSH session recording, means recording the
     user’s actual screen during their SSH session for real-time or later
     playback.
-  </Card>
-  <Card cardBG="core" src="./assets/SSO.png" title="Trust Federation" href="">
+  </GridCard>
+  <GridCard cardBG="core" src="./assets/SSO.png" title="Trust Federation" href="">
     Teleport’s “Trusted Clusters” capability allows organizations to partition
     their infrastructure and grant access to each other. Managed service
     providers and contract-based DevOps teams take advantage of Teleport’s
     Trusted Clusters to manage servers for their clients.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="core"
     src="./assets/kubernetes.png"
     title="Kubernetes Access Management"
@@ -126,8 +128,8 @@ import { CardDisplay } from "components/Card";
     Teleport works by being a unified gateway for both Kubernetes and SSH
     sessions. This allows to synchronize SSO, role-based access controls and
     audit logging for both protocols.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="core"
     src="./assets/SSO.png"
     title="Single Sign-On (SSO)"
@@ -136,8 +138,8 @@ import { CardDisplay } from "components/Card";
     Teleport integrates into an existing company identity management. This
     allows DevOps, developers and other end-users to access computing
     infrastructure via the same SSO policy.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="core"
     src="./assets/role-access.png"
     title="Role-Based Access Controls (RBAC)"
@@ -147,8 +149,8 @@ import { CardDisplay } from "components/Card";
     access to infrastructure through a central directory of users, roles, and
     teams. Authorization is granted to groups (or roles) within a company
     directory.
-  </Card>
-  <Card
+  </GridCard>
+  <GridCard
     cardBG="core"
     src="./assets/motherboard.png"
     title="IoT and Edge Connectivity"
@@ -157,8 +159,8 @@ import { CardDisplay } from "components/Card";
     Teleport provides access to SSH servers and Kubernetes clusters anywhere in
     the world, behind NAT. From restaurants to autonomous vehicles, no VPN
     required.
-  </Card>
-</CardDisplay>
+  </GridCard>
+</GridDisplay>
 <Diagram
   title="How Teleport Works"
   src="./assets/access-plane-2600.png"

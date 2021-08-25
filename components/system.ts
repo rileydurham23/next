@@ -14,6 +14,8 @@ import {
   compose,
   flexbox,
   FlexboxProps,
+  grid,
+  GridProps,
   layout,
   LayoutProps,
   position,
@@ -41,6 +43,7 @@ export interface StyledSystemProps
     BorderProps,
     ColorProps,
     FlexboxProps,
+    GridProps,
     LayoutProps,
     PositionProps,
     ShadowProps,
@@ -83,6 +86,7 @@ export const all = compose(
   border,
   color,
   flexbox,
+  grid,
   layout,
   position,
   shadow,
@@ -123,13 +127,14 @@ export const all = compose(
 
 export interface StyledSystemWrapperProps
   extends FlexboxProps,
+    GridProps,
     LayoutProps,
     PositionProps,
     ShadowProps,
     SpaceProps,
     GenericProp<"text", typeof theme.textStyles> {}
 
-export const wrapper = compose(flexbox, layout, position, shadow, space);
+export const wrapper = compose(flexbox, grid, layout, position, shadow, space);
 
 const media =
   (mediaKey = "", styles: SystemStyleObject) =>
@@ -168,6 +173,7 @@ export {
   color,
   compose,
   flexbox,
+  grid,
   layout,
   position,
   shadow,
@@ -181,6 +187,7 @@ export type {
   BorderProps,
   ColorProps,
   FlexboxProps,
+  GridProps,
   LayoutProps,
   PositionProps,
   ShadowProps,

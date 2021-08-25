@@ -28,8 +28,8 @@ export const SectionVisuals = ({
         <Heading
           title={title}
           subtitle={subtitle}
-          titleFontSize="48px"
-          titleLineHeight="xxl"
+          titleFontSize={["header-1", "48px"]}
+          titleLineHeight={["xl", "xxl"]}
           titleFontWeight="black"
         />
         <Box

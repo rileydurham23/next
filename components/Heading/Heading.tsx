@@ -9,10 +9,11 @@ export type Props = {
   title?: string;
   align?: Align;
   subtitle?: string;
-  titleFontSize?: string;
-  titleLineHeight?: string;
-  titleFontWeight?: string;
+  titleFontSize?: string | string[];
+  titleLineHeight?: string | string[];
+  titleFontWeight?: string | string[];
   titleAs?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  subtitleFontSize?: string | string[];
 } & FlexProps;
 
 export default function Heading({
@@ -20,10 +21,11 @@ export default function Heading({
   subtitle,
   align = "left",
   dark = false,
-  titleFontSize = "section-header",
-  titleLineHeight = "xxl",
+  titleFontSize = ["header-1", "section-header"],
+  titleLineHeight = ["xl", "xxl"],
   titleFontWeight = "bold",
   titleAs = "h2",
+  subtitleFontSize = ["text-md", "text-lg"],
   ...props
 }: Props) {
   return (
@@ -33,7 +35,7 @@ export default function Heading({
           mb={title ? "3" : 0}
           color={dark ? "white" : "dark-purple"}
           fontWeight="bold"
-          fontSize="text-lg"
+          fontSize={subtitleFontSize}
           lineHeight="sm"
         >
           {subtitle}
@@ -43,8 +45,8 @@ export default function Heading({
         <Box
           as={titleAs}
           color={dark ? "white" : "black"}
-          fontSize={["header-1", titleFontSize]}
-          lineHeight={["xl", titleLineHeight]}
+          fontSize={titleFontSize}
+          lineHeight={titleLineHeight}
           fontWeight={titleFontWeight}
           textAlign={align}
         >

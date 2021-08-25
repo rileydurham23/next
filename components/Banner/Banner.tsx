@@ -23,13 +23,7 @@ export default function Banner({ title, subtitle, ...props }: Props) {
       {...props}
     >
       <Centrator>
-        <Heading
-          title={title}
-          subtitle={subtitle}
-          maxWidth="65%"
-          titleFontSize="section-header"
-          titleLineHeight="xxl"
-        />
+        <Heading title={title} subtitle={subtitle} maxWidth="65%" />
       </Centrator>
     </Box>
   );
