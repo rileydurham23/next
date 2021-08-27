@@ -23,11 +23,15 @@ export type Props = {
   hideImage?: boolean;
   title?: string;
   subtitle?: string;
+  titleFontSize?: string | string[];
+  titleFontWeight?: string | string[];
 } & BoxProps;
 
 function List({
   title,
   subtitle,
+  titleFontSize,
+  titleFontWeight,
   description,
   hideImage = false,
   grid = false,
@@ -38,7 +42,12 @@ function List({
   return (
     <Box as="section" background={waveBg} pb={[6, 11]} width="100%" {...props}>
       <Centrator flexDirection="column">
-        <Heading title={title} subtitle={subtitle} />
+        <Heading
+          title={title}
+          subtitle={subtitle}
+          titleFontSize={titleFontSize}
+          titleFontWeight={titleFontWeight}
+        />
         {description}
         <Box
           background={noImage ? undefined : ["none", "none", terminalBg]}

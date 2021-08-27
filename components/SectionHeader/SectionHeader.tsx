@@ -2,8 +2,9 @@ import { Centrator } from "components/Layout";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import wave from "./fixtures/wave.svg";
+import wavelight from "./fixtures/wave-light.png";
 
-type BGColor = "wave" | "white";
+type BGColor = "wave" | "white" | "gray" | "wavelight";
 
 export interface SectionHeaderProps {
   mode?: string;
@@ -16,6 +17,8 @@ export interface SectionHeaderProps {
 
 const getBG = (color: BGColor) => {
   switch (color) {
+    case "gray":
+      return { backgroundImage: "linear-gradient(125deg ,#F0F2F4,#fff)" };
     case "white":
       return { backgroundImage: "white" };
     case "wave":
@@ -25,6 +28,14 @@ const getBG = (color: BGColor) => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "5% 42%",
         backgroundSize: "160%",
+      };
+    case "wavelight":
+      return {
+        backgroundColor: "linear-gradient(134deg, #ffffff 0%, #f0f2f4 100%)",
+        backgroundImage: `url(${wavelight})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "100%",
       };
     default:
       return {

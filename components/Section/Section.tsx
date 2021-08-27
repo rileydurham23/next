@@ -9,8 +9,10 @@ import wavelight from "./assets/wave-light.png";
 export type BGColor =
   | "squares"
   | "wavelight"
-  | "gray"
+  | "grayGradient"
+  | "grayWave"
   | "purple"
+  | "purpleGradient"
   | "flatGray"
   | "flatWhite"
   | "double";
@@ -31,7 +33,11 @@ const getBG = (color: BGColor) => {
       return {
         backgroundColor: "white",
       };
-    case "gray":
+    case "grayGradient":
+      return {
+        backgroundImage: `linear-gradient(125deg ,rgba(240,242,244,.56),#fff)`,
+      };
+    case "grayWave":
       return {
         backgroundColor: "#f7f8f9",
         backgroundImage: `url(${waveGrayBG})`,
@@ -45,6 +51,10 @@ const getBG = (color: BGColor) => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
         backgroundSize: "cover",
+      };
+    case "purpleGradient":
+      return {
+        backgroundImage: `linear-gradient(225deg, #391c70 0%, #0c143d 100%)`,
       };
     case "squares":
       return {

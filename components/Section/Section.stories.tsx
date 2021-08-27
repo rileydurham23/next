@@ -15,7 +15,7 @@ export const Main = () => {
         </Section>
       </Box>
       <Box border="1px solid" borderColor="light-gray" mt={3}>
-        <Section bg="gray">
+        <Section bg="grayGradient">
           <Box height="400px" />
         </Section>
       </Box>
