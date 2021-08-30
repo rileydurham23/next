@@ -5,8 +5,8 @@ import NextImage from "next/image";
 import Link from "components/Link";
 import Box from "components/Box";
 import Flex from "components/Flex";
-import { NewsletterEmailSubscribe } from "components/Newsletter/NewsletterEmailSubscribe";
 import Logo from "components/Logo";
+import { RegistrationForm } from "./RegistrationForm";
 import { transition } from "components/system";
 import engineers from "./assets/engineers.png";
 import webBackground from "./assets/newsletter_web.png";
@@ -27,6 +27,7 @@ export interface RegistrationProps {
   description: string | React.ReactNode;
   CTA: string;
   subCTA: string;
+  formID?: string;
 }
 
 export const Registration = ({
@@ -37,6 +38,7 @@ export const Registration = ({
   description,
   CTA,
   subCTA,
+  formID,
 }: RegistrationProps) => {
   return (
     <>
@@ -124,7 +126,7 @@ export const Registration = ({
                   {subCTA}
                 </Box>
               </Box>
-              <NewsletterEmailSubscribe />
+              <RegistrationForm formID={formID} />
             </Flex>
           </StyledEmailCTA>
         </StyledCard>
@@ -141,6 +143,7 @@ export const Registration = ({
           >
             <StyledLink href="/tos/">TERMS OF SERVICE</StyledLink>
             <StyledLink href="/privacy/">PRIVACY POLICY</StyledLink>
+            <StyledLink href="/security/">SECURITY POLICY</StyledLink>
           </Box>
         </Box>
       </Flex>

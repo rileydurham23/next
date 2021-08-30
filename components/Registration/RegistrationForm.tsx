@@ -1,14 +1,19 @@
-import Flex, { FlexProps } from "components/Flex";
+import Flex from "components/Flex";
 import styled from "styled-components";
 import css from "@styled-system/css";
 import { transition } from "components/system";
 import { useMarketo } from "utils/marketo";
 
-const { NEXT_PUBLIC_EMAIL_SUBSCRIPTION_FORM_ID } = process.env;
+export interface RegistrationFormProps {
+  formID: string;
+}
 
-export function NewsletterEmailSubscribe({ ...props }: FlexProps) {
+/*The parent component Registration takes a 4-digit stringified ID number as a prop
+ * and passes it to RegistrationForm.
+ */
+export function RegistrationForm({ formID }: RegistrationFormProps) {
   const formLoaded = useMarketo({
-    formId: NEXT_PUBLIC_EMAIL_SUBSCRIPTION_FORM_ID,
+    formId: formID,
   });
 
   return (
@@ -23,11 +28,8 @@ export function NewsletterEmailSubscribe({ ...props }: FlexProps) {
       minWidth={["auto", "304px"]}
       bg={formLoaded ? "transparent" : "lightest-gray"}
       transition={transition([["backgroundColor", "interaction"]])}
-      {...props}
     >
-      <StyledFormFormWrapper
-        id={`mktoForm_${NEXT_PUBLIC_EMAIL_SUBSCRIPTION_FORM_ID}`}
-      />
+      <StyledFormFormWrapper id={`mktoForm_${formID}`} />
     </Flex>
   );
 }
