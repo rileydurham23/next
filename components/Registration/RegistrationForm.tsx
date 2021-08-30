@@ -39,6 +39,12 @@ const StyledFormFormWrapper = styled("form")(
     width: "auto !important",
     padding: "0px !important",
 
+    "#LblCompany": {
+      width: "120px !important",
+    },
+    "#LblEmail": {
+      width: "120px !important",
+    },
     ".mktoButton": {
       alignItems: "center",
       justifyContent: "center",
@@ -66,6 +72,14 @@ const StyledFormFormWrapper = styled("form")(
       },
     },
     label: {
+      display: "flex",
+      flexDirection: "row-reverse",
+      justifyContent: "flex-end",
+      textTransform: "uppercase",
+      fontSize: "text-sm",
+      marginBottom: "2px !important",
+    },
+    ".mktoOffset": {
       display: "none",
     },
     ".mktoButtonRow": {
