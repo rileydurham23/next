@@ -1,4 +1,5 @@
 export { default as AnchorNavigation } from "components/AnchorNavigation";
+export { default as AnimationHeader } from "components/AnimationHeader";
 export { default as AnnouncementBar } from "components/AnnouncementBar";
 export { default as Banner } from "components/Banner";
 export { default as BookBlock } from "components/BookBlock";
@@ -51,6 +52,7 @@ export { default as SectionVideo } from "components/SectionVideo";
 export { default as SitePage } from "components/SitePage";
 export { default as Slider } from "components/Slider";
 export { default as Terminal } from "components/Terminal";
+export { default as TerminalAnimation } from "components/TerminalAnimation";
 export { default as TryTeleport } from "components/TryTeleport";
 export { default as Video } from "components/Video";
 export { default as VideoBanner } from "components/VideoBanner";

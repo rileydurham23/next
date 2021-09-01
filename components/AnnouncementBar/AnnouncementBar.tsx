@@ -35,6 +35,7 @@ export const AnnouncementBar = () => {
       justifyContent="center"
       alignItems="center"
       height="60px"
+      py={[6, 8]}
     >
       <StyledRow opacity="1" animationDelay="0">
         <AnnouncementBarImage logo="google" />
