@@ -92,22 +92,22 @@ const StyledHeadlessButton = styled(HeadlessButton)(
     display: "none",
     alignItems: "center",
     position: "absolute",
-    top: ["50%", 0],
-    left: [-2, -3],
+    top: 0,
+    left: -3,
     margin: 0,
     pl: 1,
-    pr: [1, 2],
-    py: [2, 1],
+    pr: 2,
+    py: 1,
     color: "light-gray",
     bg: "darkest",
     cursor: "pointer",
     borderTopLeftRadius: "default",
     borderBottomLeftRadius: "default",
-    opacity: [1, 0],
+    opacity: 0,
     animationDuration: "0.3s",
     animationFillMode: "forwards",
     transition: transition([["color", "interaction"]]),
-    transform: ["translateY(-50%)", "translateY(0) translateX(3px)"],
+    transform: "translateX(3px)",
     appearance: "none",
 
     "&:hover, &:focus, &:active": {
@@ -117,6 +117,7 @@ const StyledHeadlessButton = styled(HeadlessButton)(
   }),
   styledCss`animation-name: ${shiftButton};`,
   media("sm", {
+    display: "none",
     animationName: "none",
   })
 );

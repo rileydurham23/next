@@ -12,6 +12,8 @@ export default function Snippet({ children }: SnippetProps) {
 
 const StyledPre = styled(Pre)(
   css({
+    overflow: ["scroll", "initial"],
+
     "& pre": {
       display: "flex",
       flexDirection: "column",
