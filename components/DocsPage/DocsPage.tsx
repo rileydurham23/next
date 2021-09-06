@@ -69,7 +69,11 @@ const DocsPage = ({
       <Layout>
         <Flex alignItems="stretch" flexDirection={["column", "row"]}>
           <Box flexShrink={0}>
-            <Navigation data={navigation} section={isSectionLayout} />
+            <Navigation
+              data={navigation}
+              section={isSectionLayout}
+              currentVersion={versions.current}
+            />
           </Box>
           <Flex flexGrow={1} flexDirection="column">
             <Header

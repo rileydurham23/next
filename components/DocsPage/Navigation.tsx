@@ -127,10 +127,15 @@ export const getCurrentCategoryIndex = (
 
 interface DocNavigationProps {
   section?: boolean;
+  currentVersion?: string;
   data: NavigationCategory[];
 }
 
-const DocNavigation = ({ data, section }: DocNavigationProps) => {
+const DocNavigation = ({
+  data,
+  section,
+  currentVersion,
+}: DocNavigationProps) => {
   const router = useRouter();
   const route = getPath(router.asPath);
 
@@ -155,7 +160,7 @@ const DocNavigation = ({ data, section }: DocNavigationProps) => {
       borderColor={["none", "lightest-gray"]}
     >
       <Flex height="48px" py={2} bg="lighter-gray" alignItems="center">
-        <Search id="mobile" mx={2} width="100%" />
+        <Search id="mobile" mx={2} width="100%" version={currentVersion} />
         <HeadlessButton
           onClick={toggleMenu}
           mr={3}

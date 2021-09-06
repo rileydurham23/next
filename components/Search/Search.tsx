@@ -2,13 +2,19 @@ import { useEffect, ComponentProps } from "react";
 import styled from "styled-components";
 import { css, wrapper, StyledSystemWrapperProps } from "components/system";
 import Icon from "components/Icon";
+import docVersions from "../../config.json";
 
 interface SearchProps {
   id?: string;
+  version?: string;
 }
+
+const ALGOLIA_HITS = 5 * docVersions.versions.length;
+const CURRENT_VERS = docVersions.versions.find((vers) => vers.latest).name;
 
 const Search = ({
   id = "search",
+  version,
   ...props
 }: SearchProps & ComponentProps<typeof StyledWrapper>) => {
   // docsearch.js is using "window" inside, so it will break ssr if we import it directly
@@ -19,9 +25,23 @@ const Search = ({
         indexName: "goteleport",
         inputSelector: `[data-docsearch-input="${id}"]`,
         debug: false,
+        algoliaOptions: {
+          hitsPerPage: ALGOLIA_HITS,
+        },
+        transformData: function (hits) {
+          return hits
+            .filter((hit) => {
+              if (CURRENT_VERS === version) {
+                return !hit.url.includes("ver");
+              }
+
+              return hit.url.includes(version);
+            })
+            .slice(0, 5);
+        },
       });
     });
-  }, [id]);
+  }, [id, version]);
 
   return (
     <StyledWrapper {...props}>
