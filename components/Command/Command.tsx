@@ -126,7 +126,6 @@ const StyledHeadlessButton = styled(HeadlessButton)(
   media("sm", {
     display: "none",
     animationName: "none",
-    display: "block",
     position: "initial",
     transform: "translateX(0)",
     ml: -1,
