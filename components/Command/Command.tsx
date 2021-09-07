@@ -74,7 +74,7 @@ const StyledCommand = styled("div")(
     transition: transition([["backgroundColor", "interaction"]]),
 
     "& > span:first-of-type::before": {
-      content: '"$ "',
+      content: "attr(data-content)",
     },
 
     "&:hover, &:focus": {
@@ -83,6 +83,13 @@ const StyledCommand = styled("div")(
 
     "&:hover button, &:focus button": {
       display: "flex",
+    },
+  }),
+  media("sm", {
+    backgroundColor: "darkest",
+    overflow: "scroll",
+    "& + &": {
+      marginTop: 1,
     },
   })
 );
@@ -119,5 +126,9 @@ const StyledHeadlessButton = styled(HeadlessButton)(
   media("sm", {
     display: "none",
     animationName: "none",
+    display: "block",
+    position: "initial",
+    transform: "translateX(0)",
+    ml: -1,
   })
 );

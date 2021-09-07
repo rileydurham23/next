@@ -24,7 +24,18 @@ const Pre = ({ children, ...props }: CodeProps) => {
     }
 
     if (codeRef.current) {
-      navigator.clipboard.writeText(codeRef.current.innerText);
+      const copyText = codeRef.current.cloneNode(true) as HTMLElement;
+      const descriptions = copyText.querySelectorAll("[data-type]");
+
+      if (descriptions.length) {
+        for (let i = 0; i < descriptions.length; i++) {
+          descriptions[i].remove();
+        }
+      }
+
+      document.body.appendChild(copyText);
+      navigator.clipboard.writeText(copyText.innerText);
+      document.body.removeChild(copyText);
       setIsCopied(true);
 
       setTimeout(() => {
@@ -48,6 +59,10 @@ const Pre = ({ children, ...props }: CodeProps) => {
         },
         "&:last-child": {
           mb: 0,
+        },
+        "& span[data-type='descr']": {
+          whiteSpace: "break-spaces",
+          wordBreak: "break-word",
         },
       })}
       {...props}
