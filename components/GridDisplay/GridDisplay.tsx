@@ -2,6 +2,8 @@ import { Flex, Grid, Section, Icon, Box, Heading } from "components";
 import { IconProps, IconName } from "components/Icon";
 import { Centrator } from "components/Layout";
 import type { BGColor } from "components/Section/Section";
+import { GridTile } from "./GridTile";
+import { GridCard } from "./GridCard";
 
 /**
  * Card/Tile display component with integral background, icon and title element.
@@ -39,7 +41,11 @@ export default function GridDisplay({
 }: GridDisplayProps) {
   return (
     <Section bg={bg}>
-      <Centrator flexDirection="column" alignItems="center">
+      <Centrator
+        pb={centralHeading ? [0, 11] : "auto"}
+        flexDirection="column"
+        alignItems="center"
+      >
         <Flex
           alignSelf={centralHeading ? "auto" : "flex-start"}
           pb={centralHeading ? [0, 6] : "auto"}
@@ -91,3 +97,6 @@ export default function GridDisplay({
     </Section>
   );
 }
+
+GridDisplay.Tile = GridTile;
+GridDisplay.Card = GridCard;

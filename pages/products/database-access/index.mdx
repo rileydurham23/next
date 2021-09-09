@@ -1,0 +1,179 @@
+---
+hideWave: true
+border: none
+---
+
+import {
+  AnimationHeader,
+  AnnouncementBar,
+  EasyStart,
+  MessageBanner,
+  ProductBanner,
+  Section,
+  TerminalAnimation,
+  Terminal,
+  TryTeleport,
+  VideoBanner,
+  WorksWith,
+  GridDisplay,
+} from "components";
+
+<Section bg="grayWave">
+  <AnimationHeader
+    title="Teleport Database Access"
+    subtitle="Teleport Access Plane"
+    terminalText="database"
+    description={
+      <>
+        Implement identity-based access to PostgreSQL, MongoDB, and MySQL, prevent data exfiltration, meet compliance requirements, and have complete visibility into access and behavior.
+      </>
+    }
+  />
+  <AnnouncementBar />
+</Section>
+<Section bg="wavelight">
+  <ProductBanner
+    imgPosition="right"
+    title="Secure your databases & meet compliance requirements"
+    subtitle="For DevSecOps"
+    src="../assets/server-access.png"
+    alt="a diagram of server architecture"
+    description={
+      <>
+        Implement industry best practices for database access with unified access plane: identity-based single sign-on, short-lived certificates, multi-factor authentication, RBAC and audit for all databases across all environments.
+      </>
+      }
+  >
+    <ProductBanner.Item title="Access Controls" >
+      Teleport offers all required access controls to implement compliance standards such as SOC2, PCI, and FedRAMP. This includes end-to-end encryption, idle session controls, RBAC, and others.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Access Workflows" >
+      Users can request elevated privileges to complete sensitive tasks. Their requests can be approved or denied via Slack, PagerDuty, or customized workflow via the programmable API.
+    </ProductBanner.Item>
+    
+  </ProductBanner>
+</Section>
+<Section bg="grayWave">
+  <ProductBanner
+    imgPosition="left"
+    title="Access that doesn't get in the way"
+    subtitle="For Developers"
+    src="../assets/access-anywhere-alt.png"
+    alt="a diagram of server architecture"
+    description={
+      <>
+        A single sign-on gives developers access to all databases behind NAT across all environments. There is no need to juggle multiple authentication methods across cloud providers or for jumping between VPNs.
+      </>
+      }
+  >
+    <ProductBanner.Item title="Delightful Experience" >
+      A single login gives engineers instant secure access to all databases they need, ending the hassle of juggling multiple VPNs or rotating shared passwords.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Unified Database Catalog" >
+      Teleport allows developers to list all databases they have access to, across all environments, with a single CLI command or via a live view in a browser.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Unified Connectivity" >
+      Teleport automatically routes client connections to databases behind NAT, cloud VPCs, edge networks, even to mobile IoT platforms!
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+<Section bg="wavelight">
+  <ProductBanner
+    imgPosition="right"
+    title="Complete visibility into access and behavior"
+    subtitle="Audit Log"
+    src="../assets/complete-visibility.png"
+    alt="a diagram of server architecture"
+    description={
+      <>
+        Teleport Database Access keeps an audit log of database access events across all environments, making it easy to see what is happening and who is responsible.
+      </>
+      }
+
+>
+
+    <ProductBanner.Item title="Audit Log" >
+      Commands executed within sessions are to user identities and sent to a centralized destination of choice such as SIEM solutions.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Live Session View" >
+      Adminstrators can see all live client sessions across all dataabases, getting an instant picture of what is happening.
+    </ProductBanner.Item>
+
+  </ProductBanner>
+</Section>
+<VideoBanner title="Demo Video" videoId="rPX_973PoW8" />
+<WorksWith title="Works with everything you have">
+  Teleport Database Access is open source and it relies on open standards such as
+  X.509 certificates, HTTPS, SAML, OpenID connect and others. Deployed as a
+  single-binary, it seamlessly integrates with the rest of your stack.
+</WorksWith>
+<EasyStart>
+  <Terminal>
+```
+# on a client
+$ tsh login --proxy=example.com
+
+# on a server
+$ apt install teleport
+
+# in a Kubernetes cluster
+$ helm install
+```
+  </Terminal>
+</EasyStart>
+<MessageBanner title="Our vision for the future" href="https://goteleport.com/resources/white-papers/environment-free-computing/" linkText="Learn more">
+  We are trying to solve the problem every company has - how to run and access software running anywhere in a secure and compliant manner. We call this environment-free computing.
+</MessageBanner>
+<TryTeleport/>
+<GridDisplay
+  centralHeading={true}
+  title="Learn more about Teleport Database Access"
+  subtitle="Explore resources"
+  titleFontSize="header-1"
+  titleFontWeight="black"
+  >
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Key feature listing and details"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="FEATURES"
+    href="https://goteleport.com/features"
+  >
+    Nearly all Teleport features are available in the open source package.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="tutorial"
+    title="Five minute demo of Teleport"
+    src="../assets/tutorial.svg"
+    smallIcon={true}
+    caption="DEMO"
+    href="https://goteleport.com/features"
+  >
+    This short video shows the basic capabilities of Teleport, Quickly
+    access any computing resource anywhere.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Teleport Quick Start Guide"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="DOCS"
+    href="https://goteleport.com/features"
+  >
+    Developer Documentation for using Teleport. This tutorial will guide
+    you through the steps needed to install and run Teleport on Linux
+    machines.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Deep dive into how Teleport works"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="HOW IT WORKS"
+    href="https://goteleport.com/features"
+  >
+    Learn the fundamentals of how Teleport works. The following is a
+    series of articles describing key Teleport concepts.
+  </GridDisplay.Tile>
+</GridDisplay>

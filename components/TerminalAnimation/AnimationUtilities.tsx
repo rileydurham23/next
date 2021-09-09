@@ -141,7 +141,7 @@ export const AnimatedResetButton = styled(Button)(
     fontWeight: "regular",
     fontSize: "14px",
   }),
-  styledCss`animation: 25ms linear 11s 1 normal forwards running ${fadeIn};'`
+  styledCss`animation: 1s linear 12s 1 normal forwards running ${fadeIn};'`
 );
 
 export const AnimatedTerminal = styled(Terminal)(

@@ -23,11 +23,13 @@ const ProductBannerItem = ({
       pb={2}
       pl={3}
     >
-      <Flex alignItems="center" flexGrow={1} mb={1}>
-        <Image src={src} width={32} height={32} layout="intrinsic" alt="" />
-      </Flex>
+      {src && (
+        <Flex alignItems="center" flexGrow={1} mb={1}>
+          <Image src={src} width={32} height={32} layout="intrinsic" alt="" />
+        </Flex>
+      )}
       <Box
-        fontSize="text-md"
+        fontSize={src ? "text-md" : "text-lg"}
         fontWeight="bold"
         color="black"
         lineHeight="lg"
@@ -41,6 +43,7 @@ const ProductBannerItem = ({
         lineHeight="md"
         color="darkest"
         mb={[3, 0]}
+        mr={[0, 3]}
       >
         {children}
       </Box>
@@ -68,7 +71,7 @@ export const ProductBanner = ({
   alt,
 }: ProductBannerProps) => {
   return (
-    <Flex flexDirection="column" alignItems="center" py={[3, 5]}>
+    <Flex flexDirection="column" alignItems="center" py={[5, 11]}>
       <Centrator
         flexDirection="column"
         alignItems={["center", "flex-start"]}
@@ -80,15 +83,17 @@ export const ProductBanner = ({
             flexDirection="column"
             pb={2}
             pl={3}
-            maxWidth={["auto", "40%"]}
+            maxWidth={
+              imgPosition === "right" ? ["auto", "40%"] : ["auto", "33%"]
+            }
             order={imgPosition === "right" ? 0 : 1}
           >
             <Box
               color="dark-purple"
-              fontSize="text-md"
+              fontSize={["text-lg", "text-xl"]}
               lineHeight="lg"
               fontWeight="bold"
-              mb={2}
+              mb={[2, 4]}
             >
               {subtitle}
             </Box>
@@ -98,7 +103,7 @@ export const ProductBanner = ({
               lineHeight={["xl", "xxl"]}
               fontWeight="black"
               color="black"
-              mb={[2, 3]}
+              mb={2}
             >
               {title}
             </Box>
@@ -114,9 +119,12 @@ export const ProductBanner = ({
           </Flex>
           {/* Image Element */}
           <Box
-            minWidth={["auto", "60%"]}
-            minHeight={["330px", "auto"]}
+            minWidth={
+              imgPosition === "right" ? ["auto", "60%"] : ["auto", "66.6%"]
+            }
+            minHeight={["330px", "400px"]}
             position="relative"
+            // border="1px solid red"
           >
             <Image layout="fill" objectFit="contain" src={src} alt={alt} />
           </Box>

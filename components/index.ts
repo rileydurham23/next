@@ -38,6 +38,7 @@ export { default as Manifesto } from "components/Manifesto";
 export { default as MessageBanner } from "components/MessageBanner";
 export { default as Notice } from "components/Notice";
 export { default as PageIntro } from "components/PageIntro";
+export { default as ProductBanner } from "components/ProductBanner";
 export { default as PromoPointsBlock } from "components/PromoPointsBlock";
 export { default as PubCertsKeys } from "components/PubCertsKeys";
 export { default as Registration } from "components/Registration";

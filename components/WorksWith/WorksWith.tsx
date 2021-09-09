@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
 import NextImage from "next/image";
-import { Centrator } from "components/Layout";
 import Flex from "components/Flex";
 import Box from "components/Box";
 import * as logos from "./logos";
@@ -14,62 +13,67 @@ export interface WorksWithProps {
 export const WorksWith = ({ title, children }: WorksWithProps) => {
   return (
     <StyledBG as="section" px={[0, 3]}>
-      <Centrator>
-        <Flex flexDirection={["column", "row"]}>
-          {/* Text component */}
-          <Flex
-            flexDirection="column"
-            maxWidth={["auto", "50%"]}
-            justifyContent="center"
-            px={[0, 5]}
-            py={[3, 0]}
+      <Flex
+        flexDirection={["column", "row"]}
+        maxWidth={1240}
+        justifyContent="space-between"
+      >
+        {/* Text component */}
+        <Flex
+          flexDirection="column"
+          maxWidth={["auto", "50%"]}
+          justifyContent="center"
+          mx={[3, 5]}
+          // px={[0, 5]}
+          py={[3, 0]}
+        >
+          <Box
+            as="h2"
+            fontSize={["header-2", "header-1"]}
+            fontWeight="black"
+            color="black"
+            lineHeight="xxl"
+            mb={3}
           >
-            <Box
-              as="h2"
-              fontSize={["header-2", "header-1"]}
-              fontWeight="black"
-              color="black"
-              lineHeight="xxl"
-              mb={3}
-            >
-              {title}
-            </Box>
-            <Box fontSize="text-xl" lineHeight="lg" color="darkest" mb={3}>
-              {children}
-            </Box>
-          </Flex>
-          {/* Graphic component */}
-          <Flex flexDirection="column" width={["auto", "100%"]}>
-            <LogoBoxRow>
-              <LogoBoxImage name="puppet">Puppet</LogoBoxImage>
-              <LogoBoxImage name="gcloud">Google Cloud</LogoBoxImage>
-              <LogoBoxImage name="aws">Amazon</LogoBoxImage>
-              <LogoBoxImage name="linux">Linux</LogoBoxImage>
-            </LogoBoxRow>
-            <LogoBoxRow>
-              <LogoBoxImage name="azure">Azure</LogoBoxImage>
-              <LogoBoxImage name="chef">Chef</LogoBoxImage>
-              <LogoBoxImage name="okta">Okta</LogoBoxImage>
-              <LogoBoxImage name="ansible">Ansible</LogoBoxImage>
-            </LogoBoxRow>
-            <LogoBoxRow>
-              <LogoBoxImage name="oneLogin">One Login</LogoBoxImage>
-              <LogoBoxImage name="auth0">Auth0</LogoBoxImage>
-              <LogoBoxImage name="windows">Active Directory</LogoBoxImage>
-              <LogoBoxImage name="k8s">Kubernetes</LogoBoxImage>
-            </LogoBoxRow>
-          </Flex>
+            {title}
+          </Box>
+          <Box fontSize="text-xl" lineHeight="lg" color="darkest" mb={3}>
+            {children}
+          </Box>
         </Flex>
-      </Centrator>
+        {/* Graphic component */}
+        <Flex flexDirection="column" width={["auto", "100%"]}>
+          <LogoBoxRow>
+            <LogoBoxImage name="puppet">Puppet</LogoBoxImage>
+            <LogoBoxImage name="gcloud">Google Cloud</LogoBoxImage>
+            <LogoBoxImage name="aws">Amazon</LogoBoxImage>
+            <LogoBoxImage name="linux">Linux</LogoBoxImage>
+          </LogoBoxRow>
+          <LogoBoxRow>
+            <LogoBoxImage name="azure">Azure</LogoBoxImage>
+            <LogoBoxImage name="chef">Chef</LogoBoxImage>
+            <LogoBoxImage name="okta">Okta</LogoBoxImage>
+            <LogoBoxImage name="ansible">Ansible</LogoBoxImage>
+          </LogoBoxRow>
+          <LogoBoxRow>
+            <LogoBoxImage name="oneLogin">One Login</LogoBoxImage>
+            <LogoBoxImage name="auth0">Auth0</LogoBoxImage>
+            <LogoBoxImage name="windows">Active Directory</LogoBoxImage>
+            <LogoBoxImage name="k8s">Kubernetes</LogoBoxImage>
+          </LogoBoxRow>
+        </Flex>
+      </Flex>
     </StyledBG>
   );
 };
 
 const StyledBG = styled(Box)(
   css({
-    backgroundImage: `url(${logos.wave}), linear-gradient(125deg, #F0F2F4, #fff)`,
+    display: "flex",
+    justifyContent: "center",
+    backgroundImage: `url(${logos.waveLight}), linear-gradient(125deg, #F0F2F4, #fff)`,
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
+    backgroundPosition: "top left",
     backgroundSize: "cover",
   })
 );

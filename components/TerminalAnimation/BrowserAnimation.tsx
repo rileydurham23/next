@@ -279,7 +279,7 @@ const StyledCenterBox = styled(Flex)(
     fontSize: "text-xl",
     border: "1px solid #D2DBDF",
     borderRadius: "default",
-    p: 5,
+    p: [3, 5],
     boxSizing: "content-box",
   })
 );

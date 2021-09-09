@@ -12,7 +12,7 @@ export interface VideoBannerProps {
 
 export const VideoBanner = ({ title, subtitle, videoId }: VideoBannerProps) => {
   return (
-    <Section bg="wavelight">
+    <Section bg="grayWave">
       <Centrator flexDirection="column">
         <Flex
           flexDirection="column"

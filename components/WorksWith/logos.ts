@@ -10,4 +10,4 @@ export { default as okta } from "./assets/okta.svg";
 export { default as oneLogin } from "./assets/oneLogin.svg";
 export { default as puppet } from "./assets/puppet.svg";
 export { default as windows } from "./assets/windows.svg";
-export { default as wave } from "./assets/waveGray.svg";
+export { default as waveLight } from "./assets/wave-light.png";

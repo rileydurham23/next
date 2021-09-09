@@ -26,7 +26,7 @@ export const AnimationHeader = ({
       alignItems="stretch"
       flexDirection={["column", "row"]}
     >
-      <Box maxWidth={["100%", "45%"]} py={[4, 5]}>
+      <Box maxWidth={["100%", "45%"]} pt={[4, 5]} pb={[0, 5]}>
         <Flex flexDirection="column" alignItems="flexStart">
           {subtitle && (
             <Box
@@ -58,6 +58,7 @@ export const AnimationHeader = ({
         <Button
           as={Link}
           variant="primary"
+          mt={[3, 0]}
           shape="lg"
           width={["100%", "auto"]}
           href="https://goteleport.com/pricing"

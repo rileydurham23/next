@@ -49,7 +49,7 @@ export const EasyStart = ({ children }: EasyStartProps) => {
             <Flex
               flexDirection="column"
               width={["auto", "50%"]}
-              mr={3}
+              mr={[0, 3]}
               mb={[3, 0]}
             >
               <Box
@@ -57,6 +57,7 @@ export const EasyStart = ({ children }: EasyStartProps) => {
                 fontSize={["text-md", "text-md", "text-xl"]}
                 lineHeight={["lg", "xxl"]}
                 fontWeight="bold"
+                mt={[3, 0]}
               >
                 Teleport consists of just two binaries.
               </Box>

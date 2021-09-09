@@ -117,9 +117,9 @@ const D3 = (
       <StyledCertBox>MongoDB</StyledCertBox>
       <StyledCertBox>MySQL</StyledCertBox>
       <Box ml={3}>
-        Your role is <StyledSpan>[dev-team]</StyledSpan>.
+        Your role is <StyledSpan>[dev-team]</StyledSpan>. Access expires in 8
+        hours.
       </Box>
-      <Box ml={3}>Your access expires in 8 hours.</Box>
     </Flex>
     <Flex flexDirection="row">
       <StyledPrompt />

@@ -1,0 +1,181 @@
+---
+hideWave: true
+border: none
+---
+
+import {
+  AnimationHeader,
+  AnnouncementBar,
+  EasyStart,
+  MessageBanner,
+  ProductBanner,
+  Section,
+  TerminalAnimation,
+  Terminal,
+  TryTeleport,
+  VideoBanner,
+  WorksWith,
+  GridDisplay,
+} from "components";
+
+<Section bg="grayWave">
+  <AnimationHeader
+    title="Teleport Server Access"
+    subtitle="Teleport Access Plane"
+    terminalText="server"
+    description={
+      <>
+        Consolidate identity-based server access across all environments, meet
+        compliance requirements, and have complete visibility into access and
+        behavior.
+      </>
+    }
+  />
+  <AnnouncementBar />
+</Section>
+<Section bg="waveLight">
+  <ProductBanner
+    imgPosition="right"
+    title="Secure your servers & meet compliance requirements"
+    subtitle="For DevSecOps"
+    src="../assets/server-access.png"
+    alt="a diagram of server architecture"
+    description="Teleport delivers industry best practices for SSH and RDP access with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates and leave SSH keys behind."
+  >
+    <ProductBanner.Item title="Access Controls" src="../assets/soc2.png">
+      Teleport offers all required server access controls to implement
+      compliance standards such as SOC2, PCI, and FedRAMP.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Access Requests" src="../assets/cert.png">
+      Move away from root accounts with just-in-time privilege escalation for
+      administrative tasks.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Per Session MFA" src="../assets/sso.png">
+      Easily implement multi-factor authentication across your organization
+      without relying on device management systems.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+<Section bg="grayWave">
+  <ProductBanner
+    imgPosition="left"
+    title="Access that doesn't get in the way"
+    subtitle="For Developers"
+    src="../assets/access-anywhere-alt.png"
+    alt="a diagram of server architecture"
+    description="Teleport delivers industry best practices for SSH and RDP access with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates and leave SSH keys behind."
+  >
+    <ProductBanner.Item title="Session Sharing" src="../assets/cert.png">
+      Invite colleagues to collaborate in a shared terminal session. Record
+      sessions for knowledge sharing purposes.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Live Server Catalog" src="../assets/catalog.svg">
+      List servers across all environments and see which servers are online with
+      a single CLI command or via a live view in a browser.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Plugins and API" src="../assets/plugins.svg">
+      Automate access provisioning and request approvals using your favorite
+      programming language.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+<Section bg="wavelight">
+  <ProductBanner
+    imgPosition="right"
+    title="Complete visibility into access and behavior"
+    subtitle="For Security Professionals"
+    src="../assets/db-access.png"
+    alt="a diagram of server architecture"
+    description="Teleport provides a live view and an audit log for server sessions, filesystem changes, data transfers, command executions, and other security events making it easy to see what’s happening and who is responsible."
+  >
+    <ProductBanner.Item title="Session Recording" src="../assets/recording.svg">
+      Every interactive session is recorded for future replay and can be
+      analyzed by other tools for behavior anomalies.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Audit Log" src="../assets/events.svg">
+      All security events including the filesystem and network activity are
+      recorded and can be exported into SIEM solutions.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Live View" src="../assets/live-view.svg">
+      All online servers, active sessions, access requests are visible with a
+      single CLI command or in a browser.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+<VideoBanner title="Demo Video" videoId="tUXYtwP-Kvw" />
+<WorksWith title="Works with everything you have">
+  Teleport Server Access is open source and it relies on open standards such as
+  X.509 certificates, HTTPS, SAML, OpenID connect and others. Deployed as a
+  single-binary, it seamlessly integrates with the rest of your stack.
+</WorksWith>
+<EasyStart>
+  <Terminal>
+```
+# on a client
+$ tsh login --proxy=example.com
+
+# on a server
+$ apt install teleport
+
+# in a Kubernetes cluster
+$ helm install
+```
+  </Terminal>
+</EasyStart>
+<MessageBanner title="Our vision for the future" href="https://goteleport.com/resources/white-papers/environment-free-computing/" linkText="Learn more">
+  We are trying to solve the problem every company has - how to run and access software running anywhere in a secure and compliant manner. We call this environment-free computing.
+</MessageBanner>
+<TryTeleport/>
+<GridDisplay
+  centralHeading={true}
+  title="Learn more about Teleport Server Access"
+  subtitle="Explore resources"
+  titleFontSize="header-1"
+  titleFontWeight="black"
+
+  >
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Key feature listing and details"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="FEATURES"
+    href="https://goteleport.com/features"
+  >
+    Nearly all Teleport features are available in the open source package.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="tutorial"
+    title="Five minute demo of Teleport"
+    src="../assets/tutorial.svg"
+    smallIcon={true}
+    caption="DEMO"
+    href="https://goteleport.com/features"
+  >
+    This short video shows the basic capabilities of Teleport, Quickly
+    access any computing resource anywhere.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Teleport Quick Start Guide"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="DOCS"
+    href="https://goteleport.com/features"
+  >
+    Developer Documentation for using Teleport. This tutorial will guide
+    you through the steps needed to install and run Teleport on Linux
+    machines.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Deep dive into how Teleport works"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="HOW IT WORKS"
+    href="https://goteleport.com/features"
+  >
+    Learn the fundamentals of how Teleport works. The following is a
+    series of articles describing key Teleport concepts.
+  </GridDisplay.Tile>
+</GridDisplay>
