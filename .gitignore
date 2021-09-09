@@ -10,7 +10,7 @@
 # production
 /.build
 /public/static/assets
-/public/static/sitemap.xml
+/public/next_sitemap.xml
 /public/storybook
 /pages/docs/ver/*
 
