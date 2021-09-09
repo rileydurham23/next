@@ -44,9 +44,19 @@ const GreatPlace = () => {
             width={["90%", "initial"]}
           >
             <Flex zIndex={2} mr="-50px">
-              <NextImage src={cert} alt="" width={200} height={283} />
+              <NextImage
+                src={cert}
+                alt="certification for great place to work"
+                width={200}
+                height={283}
+              />
             </Flex>
-            <NextImage src={pam} alt="" width={277} height={283} />
+            <NextImage
+              src={pam}
+              alt="Teleport's robot mascot Pam"
+              width={277}
+              height={283}
+            />
           </Flex>
         </Flex>
       </Centrator>

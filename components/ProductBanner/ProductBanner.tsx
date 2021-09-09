@@ -25,7 +25,13 @@ const ProductBannerItem = ({
     >
       {src && (
         <Flex alignItems="center" flexGrow={1} mb={1}>
-          <Image src={src} width={32} height={32} layout="intrinsic" alt="" />
+          <Image
+            src={src}
+            width={32}
+            height={32}
+            layout="intrinsic"
+            alt="miniature diagram"
+          />
         </Flex>
       )}
       <Box

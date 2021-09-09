@@ -108,7 +108,7 @@ export const Browser = () => {
           >
             <NextImage
               src={password}
-              alt=""
+              alt="an enter password screen"
               layout="fill"
               objectFit="contain"
             />
@@ -133,7 +133,7 @@ export const Browser = () => {
           >
             <NextImage
               src={biometric}
-              alt=""
+              alt="a biometric verification screen"
               layout="fill"
               objectFit="contain"
             />
@@ -151,7 +151,12 @@ export const Browser = () => {
         <AnimatedAuthSuccessBanner>
           Multi Factor Authentication
           <StyledImageContainer height="48px" width="48px" border="none">
-            <NextImage src={check} alt="" layout="fill" objectFit="contain" />
+            <NextImage
+              src={check}
+              alt="a multi-factor authentication screen"
+              layout="fill"
+              objectFit="contain"
+            />
           </StyledImageContainer>
           <Box
             color="#05C0AA"

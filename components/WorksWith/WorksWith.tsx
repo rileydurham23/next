@@ -112,7 +112,7 @@ const LogoBoxImage = ({ name, children }: LogoBoxImageProps) => {
       })}
     >
       <Flex justifyContent="center" alignItems="center" pb={2}>
-        <NextImage src={logos[name]} alt="" width="55px" height="55px" />
+        <NextImage src={logos[name]} alt={name} width="55px" height="55px" />
       </Flex>
       {children}
     </Flex>
