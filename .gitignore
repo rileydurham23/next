@@ -11,6 +11,7 @@
 /.build
 /public/static/assets
 /public/next_sitemap.xml
+/public/algolia_searchmap.xml
 /public/storybook
 /pages/docs/ver/*
 

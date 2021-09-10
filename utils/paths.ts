@@ -64,6 +64,23 @@ export const generateSitemap = () => {
   });
 };
 
+export const generateFullSitemap = () => {
+  const docPages = [];
+
+  versions.forEach((version) => {
+    docPages.push(
+      ...getSlugDataListForVersion(version).map(({ slug, version }) => ({
+        loc: normalizeDocSlug(slug, version),
+      }))
+    );
+  });
+
+  sitemapGenerator({
+    pages: docPages,
+    path: resolve("public", "algolia_searchmap.xml"),
+  });
+};
+
 export const getRedirects = () => {
   const result = versions.flatMap((version) => {
     const config = loadDocsConfig(version);

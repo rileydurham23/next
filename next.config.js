@@ -9,6 +9,7 @@ const {
   getRedirects,
   getLatestVersionRewirites,
   generateSitemap,
+  generateFullSitemap,
 } = require("./.build/utils/paths");
 
 const DOCS_DIRECTORY = resolve(__dirname, "pages/docs");
@@ -26,7 +27,10 @@ module.exports = withBundleAnalyzer({
   },
   trailingSlash: true,
   webpack: (config, options) => {
-    if (!options.dev) generateSitemap();
+    if (!options.dev) {
+      generateSitemap();
+      generateFullSitemap();
+    }
 
     config.output.assetModuleFilename = "static/images/[hash][ext]";
 
