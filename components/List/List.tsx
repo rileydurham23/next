@@ -89,7 +89,7 @@ export function ListItem({
               color="dark-purple"
             />
           ) : (
-            <Box as="img" src={src} width="100%" height="100%" />
+            <Box as="img" alt={title} src={src} width="100%" height="100%" />
           )}
         </StyledIconWrapper>
       )}
