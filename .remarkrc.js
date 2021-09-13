@@ -1,5 +1,6 @@
 const remarkVariables = require("./.build/utils/remark-variables");
 const remarkIncludes = require("./.build/utils/remark-includes");
+const remarkCodeSnippet = require("./.build/utils/remark-code-snippet");
 
 const configFix = {
   settings: {
@@ -23,6 +24,7 @@ const configLint = {
     "mdx",
     [remarkVariables.default, { resolve: true, lint: true }],
     [remarkIncludes.default, { lint: true }],
+    [remarkCodeSnippet.default, { lint: true }],
     "preset-lint-markdown-style-guide",
     ["lint-table-pipe-alignment", false],
     ["lint-table-cell-padding", false],

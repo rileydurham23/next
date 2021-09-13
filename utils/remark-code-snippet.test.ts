@@ -3,14 +3,18 @@ import remark from "remark";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import mdx from "remark-mdx";
-import remarkCodeSnippet from "./remark-code-snippet";
+import remarkCodeSnippet, {
+  RemarkCodeSnippetOptions,
+} from "./remark-code-snippet";
 
-const transformer = (options: VFileOptions) =>
+const transformer = (
+  options: VFileOptions,
+  pluginOptions: RemarkCodeSnippetOptions = { resolve: true }
+) =>
   remark()
     .use(mdx)
-    .use(remarkCodeSnippet)
-    .processSync(vfile(options))
-    .toString();
+    .use(remarkCodeSnippet, pluginOptions)
+    .processSync(vfile(options));
 
 describe("utils/remark-code-snippet", () => {
   it("Fixture match result on resolve", () => {
@@ -22,7 +26,7 @@ describe("utils/remark-code-snippet", () => {
     const result = transformer({
       contents,
       path: "/docs/index.mdx",
-    });
+    }).toString();
 
     const expected = readFileSync(
       resolve("utils/fixtures/result/code-snippet-simplest.mdx"),
@@ -41,7 +45,7 @@ describe("utils/remark-code-snippet", () => {
     const result = transformer({
       contents,
       path: "/docs/index.mdx",
-    });
+    }).toString();
 
     const expected = readFileSync(
       resolve("utils/fixtures/result/code-snippet-multiline.mdx"),
@@ -60,7 +64,7 @@ describe("utils/remark-code-snippet", () => {
     const result = transformer({
       contents,
       path: "/docs/index.mdx",
-    });
+    }).toString();
 
     const expected = readFileSync(
       resolve("utils/fixtures/result/code-snippet-heredoc.mdx"),
@@ -100,5 +104,45 @@ describe("utils/remark-code-snippet", () => {
         path: "/docs/index.mdx",
       })
     ).not.toThrow();
+  });
+
+  it("Returns correct error message on heredoc format lint", () => {
+    const contents = readFileSync(
+      resolve(
+        "utils/fixtures/includes/includes-code-snippet-heredoc-error.mdx"
+      ),
+      "utf-8"
+    );
+
+    expect(() =>
+      transformer(
+        {
+          contents,
+          path: "/docs/index.mdx",
+        },
+        { lint: true, resolve: false }
+      )
+    ).toThrow("No closing line for heredoc format");
+  });
+
+  it("Returns correct error message on multiline command lint", () => {
+    const contents = readFileSync(
+      resolve(
+        "utils/fixtures/includes/includes-code-snippet-multiline-error.mdx"
+      ),
+      "utf-8"
+    );
+
+    expect(() =>
+      transformer(
+        {
+          contents,
+          path: "/docs/index.mdx",
+        },
+        { lint: true, resolve: false }
+      )
+    ).toThrow(
+      "The last string in the multiline command has to be without symbol \\"
+    );
   });
 });

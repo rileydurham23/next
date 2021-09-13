@@ -1,6 +1,9 @@
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
+import { VFile } from "vfile";
 import { MdxastRootNode, MdxastNode } from "./unist-types";
+
+const RULE_ID = "code-snippet";
 
 const nodeIsCode = (node: MdxastNode) =>
   node.type === "code" && node.lang === "code";
@@ -52,8 +55,15 @@ const getPNode = (content: string) => ({
   ],
 });
 
-export default function remarkCodeSnippet(): Transformer {
-  return (root: MdxastRootNode) => {
+export interface RemarkCodeSnippetOptions {
+  lint?: boolean;
+  resolve?: boolean;
+}
+
+export default function remarkCodeSnippet(
+  { lint }: RemarkCodeSnippetOptions = { resolve: true }
+): Transformer {
+  return (root: MdxastRootNode, vfile: VFile) => {
     visit<MdxastNode>(root, [nodeIsCode], (node) => {
       const content: string = node.value as string;
       const codeLines = content.split("\n");
@@ -88,20 +98,13 @@ export default function remarkCodeSnippet(): Transformer {
             }
 
             if (codeLines.every((line) => line !== heredocMark)) {
-              const titleObj = root.children.find(
-                (elem) => elem.type === "heading" && elem.depth === 1
-              );
-              let title = "";
-
-              if (titleObj) {
-                title = titleObj.children[0].value;
+              if (lint) {
+                vfile.fail("No closing line for heredoc format", node, RULE_ID);
+              } else {
+                console.error(
+                  `ERROR: no closing line ${heredocMark} in the file ${vfile.path}`
+                );
               }
-
-              console.error(
-                `ERROR: no closing line ${heredocMark} ${
-                  title ? `on the page with title ${title}` : ""
-                }`
-              );
             }
           }
 
@@ -114,6 +117,14 @@ export default function remarkCodeSnippet(): Transformer {
             hasNextLine =
               Boolean(codeLines[i]) &&
               codeLines[i][codeLines[i].length - 1] === "\\";
+
+            if (lint && !codeLines[i]) {
+              vfile.fail(
+                "The last string in the multiline command has to be without symbol \\",
+                node,
+                RULE_ID
+              );
+            }
           }
         } else if (hasHost) {
           const parts = codeLines[i].split("$");
