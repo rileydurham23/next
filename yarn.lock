@@ -13496,6 +13496,11 @@ react-draggable@^4.4.3:
     classnames "^2.2.5"
     prop-types "^15.6.0"
 
+react-driftjs@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/react-driftjs/-/react-driftjs-1.1.11.tgz#f6b6e814cbec29bd478e28f9695cb0ca3685d2d5"
+  integrity sha512-KBKWlMFmgjKiq6icyNPVh6usij+TSWCPCdLwAhs1sd87tvV12DHjbAlGVDLftS2NCjEajEArQBUicMqJqkI9Yw==
+
 react-element-to-jsx-string@^14.3.2:
   version "14.3.2"
   resolved "https://registry.yarnpkg.com/react-element-to-jsx-string/-/react-element-to-jsx-string-14.3.2.tgz#c0000ed54d1f8b4371731b669613f2d4e0f63d5c"
