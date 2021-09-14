@@ -1,5 +1,5 @@
 import Box, { BoxProps } from "components/Box";
-import Marketo from "components/Marketo";
+import { MarketoBrowserForm } from "components/MarketoForm";
 
 const { NEXT_PUBLIC_ENTERPRISE_SIGNUP_FORM_ID } = process.env;
 
@@ -15,7 +15,7 @@ export default function EnterpriseSignup(props: BoxProps) {
       borderRadius="md"
       {...props}
     >
-      <Marketo id={NEXT_PUBLIC_ENTERPRISE_SIGNUP_FORM_ID} />
+      <MarketoBrowserForm id={NEXT_PUBLIC_ENTERPRISE_SIGNUP_FORM_ID} />
     </Box>
   );
 }

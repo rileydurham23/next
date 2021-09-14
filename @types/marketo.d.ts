@@ -50,7 +50,8 @@ declare type MarketoDataType =
   | "text"
   | "hidden"
   | "telephone"
-  | "textArea";
+  | "textArea"
+  | "checkboxes";
 
 declare type MarketoValueSource = "query";
 
@@ -70,6 +71,13 @@ declare interface MarketoField {
   hintText: string;
   maxLength: number;
   autoFill?: MarketoFieldAutoFill;
+  fieldMetaData: {
+    labelToRight: boolean;
+    values: {
+      label: string;
+      value: string;
+    }[];
+  };
 }
 
 declare interface MarketoFormMeta {

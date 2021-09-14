@@ -41,6 +41,7 @@ const Button = styled("button")<ButtonProps>(
       borderColor: "lightest-gray",
       color: "dark-gray",
       cursor: "default",
+      pointerEvents: "none",
     },
   }),
   all,

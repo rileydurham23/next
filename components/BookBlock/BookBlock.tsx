@@ -2,7 +2,7 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import Image from "components/Image";
 import { Centrator } from "components/Layout";
-import Marketo from "components/Marketo";
+import { MarketoBrowserForm } from "components/MarketoForm";
 import shadowBg from "./assets/shadow.png";
 
 export interface BookBlockProps {
@@ -38,7 +38,7 @@ export const BookBlock = ({ children, title, src, formId }: BookBlockProps) => {
             {children}
           </Box>
           <Box maxWidth={["auto", "376px"]}>
-            <Marketo id={formId} />
+            <MarketoBrowserForm id={formId} />
           </Box>
         </Box>
 
