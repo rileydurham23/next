@@ -35,3 +35,11 @@ Danger.args = {
   type: "danger",
   children: "Danger content",
 };
+
+export const NoIcon = Component.bind({});
+
+NoIcon.args = {
+  icon: false,
+  type: "danger",
+  children: "Content without icon",
+};

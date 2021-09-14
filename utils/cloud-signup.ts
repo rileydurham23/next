@@ -1,4 +1,4 @@
-import { ready as recaptchaReady } from "./recaptcha";
+import { load as loadRecaptcha } from "./recaptcha";
 
 const API_URL = process.env.NEXT_PUBLIC_TELEPORT_API_URL;
 
@@ -24,7 +24,7 @@ function loadLib(): Promise<typeof window.teleport> {
 export async function renderSignupRequestForm(element: Element): Promise<void> {
   try {
     const lib = await loadLib();
-    await recaptchaReady();
+    await loadRecaptcha();
 
     return lib.renderSignupRequestForm(element, {
       apiUrl: API_URL,

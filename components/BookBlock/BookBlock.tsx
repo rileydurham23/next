@@ -37,8 +37,8 @@ export const BookBlock = ({ children, title, src, formId }: BookBlockProps) => {
           >
             {children}
           </Box>
-          <Box maxWidth={["auto", "376px"]}>
-            <MarketoBrowserForm id={formId} />
+          <Box maxWidth={["auto", "300px"]}>
+            <MarketoBrowserForm id={formId} minHeight="258px" />
           </Box>
         </Box>
 

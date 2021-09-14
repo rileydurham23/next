@@ -36,7 +36,7 @@ const Button = styled("button")<ButtonProps>(
       transitionDuration: "0s",
       opacity: "0.56",
     },
-    "&:disabled": {
+    "&&:disabled": {
       backgroundColor: "lightest-gray",
       borderColor: "lightest-gray",
       color: "dark-gray",
@@ -44,8 +44,6 @@ const Button = styled("button")<ButtonProps>(
       pointerEvents: "none",
     },
   }),
-  all,
-
   variant({
     variants: {
       primary: {
@@ -109,7 +107,8 @@ const Button = styled("button")<ButtonProps>(
         borderWidth: "1px",
       },
     },
-  })
+  }),
+  all
 );
 
 Button.defaultProps = {

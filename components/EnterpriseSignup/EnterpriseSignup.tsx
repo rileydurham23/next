@@ -15,7 +15,10 @@ export default function EnterpriseSignup(props: BoxProps) {
       borderRadius="md"
       {...props}
     >
-      <MarketoBrowserForm id={NEXT_PUBLIC_ENTERPRISE_SIGNUP_FORM_ID} />
+      <MarketoBrowserForm
+        id={NEXT_PUBLIC_ENTERPRISE_SIGNUP_FORM_ID}
+        minHeight="620px"
+      />
     </Box>
   );
 }

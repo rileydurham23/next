@@ -1,4 +1,8 @@
-export { MarketoForm as default, MarketoBrowserForm } from "./MarketoForm";
+export {
+  MarketoForm as default,
+  MarketoBrowserForm,
+  RecaptchaTOC,
+} from "./MarketoForm";
 export {
   useMarketoForm,
   useDefaultFormValues,

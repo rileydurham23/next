@@ -18,11 +18,13 @@ type NoticeType = typeof types[number];
 export interface NoticeProps {
   type: NoticeType;
   children: React.ReactNode;
+  icon?: boolean;
 }
 
 const Notice = ({
   type: baseType,
   children,
+  icon = true,
   ...props
 }: NoticeProps & FlexProps) => {
   const type = baseType && types.includes(baseType) ? baseType : "tip";
@@ -30,7 +32,7 @@ const Notice = ({
 
   return (
     <StyledWrapper type={type} {...props}>
-      <Icon name={iconName} mr={2} color={type} flexShrink="0" />
+      {icon && <Icon name={iconName} mr={2} color={type} flexShrink="0" />}
       <Box fontSize="text-lg" lineHeight="md">
         {children}
       </Box>

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { isAllowedFormId, postFormData } from "utils/marketo-api-helpers";
+import { verify } from "utils/recaptcha-verify";
 
 /*
  * For some reason Marketo API throws error if you send field id
@@ -36,6 +37,20 @@ export default async function handler(
     res.status(403).json({ errors: [`Form id ${formId} is not whitelisted.`] });
 
     return;
+  }
+
+  try {
+    const isVerified = await verify(
+      req.headers["g-recaptcha-response"] as string
+    );
+
+    if (!isVerified) {
+      res.status(403).json({ errors: [`reCAPTCHA validation error.`] });
+
+      return;
+    }
+  } catch {
+    res.status(403).json({ errors: [`reCAPTCHA API error.`] });
   }
 
   try {

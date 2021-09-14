@@ -1,11 +1,12 @@
-import { useCallback, useState } from "react";
+import css from "@styled-system/css";
 import { Form } from "react-final-form";
 import { useRouter } from "next/router";
+import Link from "components/Link";
 import Button from "components/Button";
-import Box, { BoxProps } from "components/Box";
+import Box from "components/Box";
+import Flex, { FlexProps } from "components/Flex";
 import Notice from "components/Notice";
-import { useUID } from "utils/uid";
-import { useDefaultFormValues, submitForm, useMarketoForm } from "./helpers";
+import { useDefaultFormValues, useMarketoForm } from "./helpers";
 import {
   MarketoFieldWrapperEmail,
   MarketoFieldWrapperHidden,
@@ -44,6 +45,7 @@ const getFieldComponent = (type: MarketoDataType) => {
 type FormValues = Record<string, any>;
 
 export interface MarketoFormProps {
+  uid: string;
   buttonLabel: string;
   waitingLabel: string;
   fields: MarketoField[];
@@ -51,6 +53,32 @@ export interface MarketoFormProps {
   initialValues: FormValues;
   onSubmit: (values: FormValues) => void;
 }
+
+export const RecaptchaTOC = () => {
+  return (
+    <>
+      This site is protected by reCAPTCHA and the Google{" "}
+      <Link
+        scheme="comment"
+        href="https://policies.google.com/privacy"
+        target="_blank"
+        rel="noreferrer nofollow"
+      >
+        Privacy Policy
+      </Link>{" "}
+      and{" "}
+      <Link
+        scheme="comment"
+        href="https://policies.google.com/terms"
+        target="_blank"
+        rel="noreferrer nofollow"
+      >
+        Terms of Service
+      </Link>{" "}
+      apply.
+    </>
+  );
+};
 
 /*
  * This should be a base for the future form constructor,
@@ -64,9 +92,8 @@ export const MarketoForm = ({
   error,
   buttonLabel,
   waitingLabel,
+  uid,
 }: MarketoFormProps) => {
-  const uid = useUID();
-
   return (
     <Form
       initialValues={initialValues}
@@ -76,7 +103,6 @@ export const MarketoForm = ({
           <Box as="form" onSubmit={handleSubmit} width="100%">
             {fields.map((field) => {
               const FiledComponent = getFieldComponent(field.dataType);
-
               return (
                 <FiledComponent
                   key={field.id}
@@ -96,10 +122,21 @@ export const MarketoForm = ({
               {submitting ? waitingLabel : buttonLabel}
             </Button>
             {error && (
-              <Notice type="danger" mt={3}>
+              <Notice type="danger" icon={false} mt={3}>
                 {error}
               </Notice>
             )}
+            <Box
+              mt={3}
+              mx="auto"
+              fontSize="text-sm"
+              lineHeight="sm"
+              textAlign="center"
+              color="gray"
+              maxWidth="300px"
+            >
+              <RecaptchaTOC />
+            </Box>
           </Box>
         );
       }}
@@ -114,59 +151,52 @@ export const MarketoForm = ({
 
 export type MarketobrowserFormProps = {
   id: string;
-} & BoxProps;
+} & FlexProps;
 
 export const MarketoBrowserForm = ({
   id,
-  ...boxProps
+  ...flexProps
 }: MarketobrowserFormProps) => {
   const router = useRouter();
-  const [submitError, setSubmitError] = useState("");
-  const { data, loading, error } = useMarketoForm(id);
+
+  const { data, loading, error, onSubmit, UID } = useMarketoForm(id);
+
   const initialValues = useDefaultFormValues(
     data ? data.fields : [],
     router.query
   );
 
-  const thankYou = data?.meta?.thankYou;
-
-  const onSubmit = useCallback(
-    async (formData: FormValues) => {
-      setSubmitError("");
-
-      try {
-        await submitForm(id, formData);
-
-        if (thankYou?.followupType === "url") {
-          window.location.href = thankYou.followupValue;
-        }
-      } catch {
-        setSubmitError("Form submission failed, please try again.");
-      }
-    },
-    [id, thankYou]
-  );
-
   return (
-    <Box {...boxProps}>
-      {loading && (
+    <Flex justifyContent="center" alignItems="center" {...flexProps}>
+      {loading && !error && (
         <Box textAlign="center" p={4}>
           Loading...
         </Box>
       )}
-      {!loading && error && (
-        <Notice type="danger">Error in loading form config.</Notice>
+      {error && !loading && !data && (
+        <Notice type="danger" icon={false}>
+          Error in loading form config.
+        </Notice>
       )}
-      {!loading && !error && data && (
-        <MarketoForm
-          buttonLabel={data.meta.buttonLabel}
-          waitingLabel={data.meta.waitingLabel}
-          fields={data.fields}
-          error={submitError}
-          onSubmit={onSubmit}
-          initialValues={initialValues}
-        />
+      {!loading && data && (
+        <>
+          <MarketoForm
+            buttonLabel={data.meta.buttonLabel}
+            waitingLabel={data.meta.waitingLabel}
+            fields={data.fields}
+            error={error}
+            onSubmit={onSubmit}
+            initialValues={initialValues}
+            uid={UID}
+          />
+        </>
       )}
-    </Box>
+      <Box
+        css={css({
+          ".grecaptcha-badge": { visibility: "hidden" },
+        })}
+        id={UID}
+      />
+    </Flex>
   );
 };

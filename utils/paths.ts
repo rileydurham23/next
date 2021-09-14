@@ -10,6 +10,7 @@ const NEXT_PUBLIC_DOCS_DIR = process.env.NEXT_PUBLIC_DOCS_DIR as string;
 const extensions = ["md", "mdx", "ts", "tsx", "js", "jsx"];
 const pagesRoot = resolve("pages");
 const nextPages = [
+  new RegExp(`^${pagesRoot}/api/.*$`),
   new RegExp(`^${pagesRoot}/_app.(${extensions.join("|")})$`),
   new RegExp(`^${pagesRoot}/_document.(${extensions.join("|")})$`),
   new RegExp(`^${pagesRoot}${NEXT_PUBLIC_DOCS_DIR}/.*`),

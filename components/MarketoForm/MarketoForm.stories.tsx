@@ -14,6 +14,7 @@ const StoryComponent = ({ config }: any) => {
   return (
     <Flex p={4} width="100%" maxWidth="500px" justifyContent="stretch">
       <Component
+        uid="UID_0"
         fields={config.fields}
         initialValues={initialValues}
         onSubmit={onSubmit}

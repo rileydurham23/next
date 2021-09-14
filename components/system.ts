@@ -73,6 +73,7 @@ export interface StyledSystemProps
   transition?: ResponsiveValue<Property.Transition, RequiredTheme>;
   whiteSpace?: ResponsiveValue<Property.WhiteSpace, RequiredTheme>;
   animationName?: ResponsiveValue<Property.AnimationName, RequiredTheme>;
+  visibility?: ResponsiveValue<Property.Visibility, RequiredTheme>;
   animationFillMode?: ResponsiveValue<
     Property.AnimationFillMode,
     RequiredTheme
@@ -113,7 +114,10 @@ export const all = compose(
     animationName: true,
     animationFillMode: true,
     wordBreak: true,
+
     transform: true,
+
+    visibility: true,
   }),
   variant({
     prop: "text",
