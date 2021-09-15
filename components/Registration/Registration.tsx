@@ -6,7 +6,7 @@ import Link from "components/Link";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Logo from "components/Logo";
-import { RegistrationForm } from "./RegistrationForm";
+import { MarketoBrowserForm } from "components/MarketoForm";
 import { transition } from "components/system";
 import engineers from "./assets/engineers.png";
 import webBackground from "./assets/newsletter_web.png";
@@ -110,7 +110,8 @@ export const Registration = ({
               alignItems="center"
               maxWidth={["420px", "initial"]}
               px={[3, 9]}
-              pt={[6, 0]}
+              pt={[6, 4]}
+              pb={[0, 4]}
             >
               <Box justifyContent="center">
                 <Box
@@ -126,7 +127,18 @@ export const Registration = ({
                   {subCTA}
                 </Box>
               </Box>
-              <RegistrationForm formID={formID} />
+              <Flex
+                backgroundColor="white"
+                alignItems="stretch"
+                flexDirection="column"
+                mb={[5, 0]}
+                mt={[4, 0]}
+                width="100%"
+                minHeight="44px"
+                minWidth={["auto", "304px"]}
+              >
+                <MarketoBrowserForm id={formID} />
+              </Flex>
             </Flex>
           </StyledEmailCTA>
         </StyledCard>
