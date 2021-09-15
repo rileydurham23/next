@@ -74,6 +74,22 @@ describe("utils/remark-code-snippet", () => {
     expect(result).toEqual(expected);
   });
 
+  it("Support output to file mode for heredoc format", () => {
+    const contents = readFileSync(
+      resolve(
+        "utils/fixtures/includes/includes-code-snippet-output-to-file-mode.mdx"
+      ),
+      "utf-8"
+    );
+
+    expect(() =>
+      transformer({
+        contents,
+        path: "/docs/index.mdx",
+      })
+    ).not.toThrow();
+  });
+
   it("If a multiline command ends with a slash", () => {
     const contents = readFileSync(
       resolve(

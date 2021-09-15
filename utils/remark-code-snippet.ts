@@ -83,6 +83,10 @@ export default function remarkCodeSnippet(
           if (codeLines[i].includes("<<")) {
             let heredocMark = codeLines[i].match(/[^<<]*$/)[0].trim();
 
+            if (heredocMark.includes(">")) {
+              heredocMark = heredocMark.split(">")[0].trim();
+            }
+
             if (heredocMark.includes("'")) {
               heredocMark = heredocMark.match(/'(.*?)'/)[1];
             }
