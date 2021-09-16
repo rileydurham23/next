@@ -1,5 +1,6 @@
 import { Field } from "react-final-form";
 import { Checkbox } from "components/Checkbox";
+import Box from "components/Box";
 import Input from "components/Input";
 import FieldSet from "components/FieldSet";
 import TextArea from "components/TextArea";
@@ -18,6 +19,20 @@ interface MarketoFieldProps extends MarketoField {
   formId: string;
   disabled?: boolean;
 }
+
+export const MarketoFieldWrapperHTMLText = ({ text }: MarketoFieldProps) => {
+  return (
+    <Box
+      fontSize="text-sm"
+      lineHeight="sm"
+      color="gray"
+      mt={2}
+      textAlign="center"
+    >
+      {text.replace(/<[^>]*>/g, "")}
+    </Box>
+  );
+};
 
 export const MarketoFieldWrapperHidden = ({ id }: MarketoFieldProps) => {
   return <Field component="input" type="hidden" name={id} />;

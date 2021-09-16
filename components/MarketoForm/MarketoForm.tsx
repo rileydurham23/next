@@ -14,6 +14,7 @@ import {
   MarketoFieldWrapperText,
   MarketoFieldWrapperTextArea,
   MarketoFieldWrapperCheckboxes,
+  MarketoFieldWrapperHTMLText,
 } from "./MarketoFieldWrappers";
 
 /*
@@ -36,6 +37,8 @@ const getFieldComponent = (type: MarketoDataType) => {
       return MarketoFieldWrapperTextArea;
     case "checkboxes":
       return MarketoFieldWrapperCheckboxes;
+    case "htmltext":
+      return MarketoFieldWrapperHTMLText;
     default:
       return MarketoFieldWrapperHidden;
   }

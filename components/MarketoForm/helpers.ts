@@ -35,11 +35,13 @@ export const useDefaultFormValues = (
 ) => {
   return useMemo(
     () =>
-      fields.reduce((result, { id, autoFill }) => {
-        result[id] = getDefaultFieldValue(autoFill, query);
+      fields
+        .filter(({ dataType }) => dataType !== "htmltext")
+        .reduce((result, { id, autoFill }) => {
+          result[id] = getDefaultFieldValue(autoFill, query);
 
-        return result;
-      }, {} as Record<string, string>),
+          return result;
+        }, {} as Record<string, string>),
     [fields, query]
   );
 };
