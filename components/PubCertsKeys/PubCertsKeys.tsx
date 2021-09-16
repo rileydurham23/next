@@ -131,14 +131,38 @@ export const PubCertsKeys = () => {
           >
             code signed
           </Link>{" "}
-          with the following certificate:
+          by &quot;Developer ID QH8AA5B8UP Gravitational Inc.&quot; with the
+          following certificate:
         </Box>
         <ul>
           <li>
-            Developer ID <CodeSpan>QH8AA5B8UP</CodeSpan> Gravitational Inc.
+            SHA256 Fingerprint{" "}
+            <CodeSpan>
+              78 2F E1 18 5F A1 AD 68 AD 25 0B A9 4D 21 DC BB 0D 8E 47 C6 E4 1D
+              FE FB AB 05 41 33 4C 33 1D 43
+            </CodeSpan>
           </li>
           <li>
-            Fingerprint{" "}
+            SHA1 Fingerprint{" "}
+            <CodeSpan>
+              82 B6 25 AD 32 7C 24 1B 37 8A 54 B4 B2 54 BB 08 CE 71 B5 DF
+            </CodeSpan>
+          </li>
+        </ul>
+        <Box fontSize="text-lg">
+          Packages published prior to September 14, 2021 are signed with an
+          older certificate for the same Developer ID (QH8AA5B8UP):
+        </Box>
+        <ul>
+          <li>
+            SHA256 Fingerprint{" "}
+            <CodeSpan>
+              78 05 14 69 20 59 21 D1 EE 96 42 01 5A 28 35 FB E1 D4 38 5E 2A 23
+              5D 62 73 A4 D1 27 8A 33 BA 34
+            </CodeSpan>
+          </li>
+          <li>
+            SHA1 Fingerprint{" "}
             <CodeSpan>
               D2 70 EA 0C F2 0E CB 17 28 B2 21 E1 D5 B6 7C FE 50 FF AB 62
             </CodeSpan>
@@ -146,22 +170,32 @@ export const PubCertsKeys = () => {
         </ul>
         <Box pb={3}>
           Verify the Developer ID and fingerprint match on package downloads
-          with <CodeSpan>pkgutil</CodeSpan>
+          with the pkgutil tool:
         </Box>
         <CodeBlock>
           {`
-$ pkgutil --check-signature teleport-7.0.0-beta.5.pkg
-Package "teleport-7.0.0-beta.5.pkg":
-    Status: signed by a certificate trusted by Mac OS X
-    Certificate Chain:
-    1.  Developer ID Installer: Gravitational Inc. (QH8AA5B8UP)
-        SHA1 fingerprint: D2 70 EA 0C F2 0E CB 17 28 B2 21 E1 D5 B6 7C FE 50 FF AB 62
-        -----------------------------------------------------------------------------
-    2.  Developer ID Certification Authority
-        SHA1 fingerprint: 3B 16 6C 3B 7D C4 B7 51 C9 FE 2A FA B9 13 56 41 E3 88 E1 86
-        -----------------------------------------------------------------------------
-    3.  Apple Root CA
-        SHA1 fingerprint: 61 1E 5B 66 2C 59 3A 08 FF 58 D1 4A E2 24 52 D1 98 DF 6C 60
+$ pkgutil --check-signature teleport-7.1.2.pkg
+Package "teleport-7.1.2.pkg":
+   Status: signed by a developer certificate issued by Apple for distribution
+   Signed with a trusted timestamp on: 2021-09-15 00:49:03 +0000
+   Certificate Chain:
+    1. Developer ID Installer: Gravitational Inc. (QH8AA5B8UP)
+       Expires: 2026-07-27 18:27:29 +0000
+       SHA256 Fingerprint:
+           78 2F E1 18 5F A1 AD 68 AD 25 0B A9 4D 21 DC BB 0D 8E 47 C6 E4 1D
+           FE FB AB 05 41 33 4C 33 1D 43
+       ------------------------------------------------------------------------
+    2. Developer ID Certification Authority
+       Expires: 2027-02-01 22:12:15 +0000
+       SHA256 Fingerprint:
+           7A FC 9D 01 A6 2F 03 A2 DE 96 37 93 6D 4A FE 68 09 0D 2D E1 8D 03
+           F2 9C 88 CF B0 B1 BA 63 58 7F
+       ------------------------------------------------------------------------
+    3. Apple Root CA
+       Expires: 2035-02-09 21:40:36 +0000
+       SHA256 Fingerprint:
+           B0 B1 73 0E CB C7 FF 45 05 14 2C 49 F1 29 5E 6E DA 6B CA ED 7E 2C
+           68 C5 BE 91 B5 A1 10 01 F0 24
           `}
         </CodeBlock>
         <Box pb={3}>
@@ -170,7 +204,7 @@ Package "teleport-7.0.0-beta.5.pkg":
         </Box>
         <CodeBlock>
           {`
-$ codesign --verify -d --verbose=2 /usr/local/bin/tsh 
+$ codesign --verify -d --verbose=2 /usr/local/bin/tsh
 ...
 Authority=Developer ID Application: Gravitational Inc. (QH8AA5B8UP)
 Authority=Developer ID Certification Authority 
