@@ -279,6 +279,8 @@ Extensions    : {System.Security.Cryptography.Oid, System.Security.Cryptography.
 const CodeSpan = styled("span")(
   css({
     backgroundColor: "lighter-gray",
+    fontFamily: "monospace",
+    px: 1,
   })
 );
 
