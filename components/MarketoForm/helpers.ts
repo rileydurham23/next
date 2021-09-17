@@ -103,6 +103,7 @@ export const useMarketoForm = (
   const UID = `marketo_${id}`;
 
   const {
+    disabled,
     error: recaptchaError,
     ready: recaptchaReady,
     getToken,
@@ -114,7 +115,7 @@ export const useMarketoForm = (
    */
   const { data, error: fieldsError } =
     useSWRImmutable<MarketoFormDataAPIResponse>(
-      `/api/form/${id}/meta/`,
+      disabled ? undefined : `/api/form/${id}/meta/`,
       fetcher,
       { fallbackData }
     );
@@ -123,14 +124,18 @@ export const useMarketoForm = (
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (disabled) {
+      return;
+    }
+
     if (recaptchaError) {
       setError(recaptchaError);
     } else if (fieldsError) {
       setError("Can't download fields data.");
     }
-  }, [recaptchaError, fieldsError]);
+  }, [recaptchaError, fieldsError, disabled]);
 
-  const loading = !(recaptchaReady && !!data);
+  const loading = !disabled && !(recaptchaReady && !!data);
 
   const thankYou = data?.meta?.thankYou;
 
@@ -167,6 +172,7 @@ export const useMarketoForm = (
 
   return useMemo(() => {
     return {
+      disabled,
       data,
       loading,
       submitted,
@@ -174,5 +180,5 @@ export const useMarketoForm = (
       onSubmit,
       UID,
     };
-  }, [data, error, loading, submitted, onSubmit, UID]);
+  }, [data, error, loading, submitted, onSubmit, UID, disabled]);
 };

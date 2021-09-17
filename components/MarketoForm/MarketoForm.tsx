@@ -162,7 +162,7 @@ export const MarketoBrowserForm = ({
 }: MarketobrowserFormProps) => {
   const router = useRouter();
 
-  const { data, loading, error, onSubmit, UID } = useMarketoForm(id);
+  const { data, disabled, loading, error, onSubmit, UID } = useMarketoForm(id);
 
   const initialValues = useDefaultFormValues(
     data ? data.fields : [],
@@ -171,6 +171,11 @@ export const MarketoBrowserForm = ({
 
   return (
     <Flex justifyContent="center" alignItems="center" {...flexProps}>
+      {disabled && (
+        <Box textAlign="center" p={4}>
+          Marketo froms are disabled because ENV variables are missing.
+        </Box>
+      )}
       {loading && !error && (
         <Box textAlign="center" p={4}>
           Loading...

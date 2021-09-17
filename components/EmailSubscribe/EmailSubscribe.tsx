@@ -6,6 +6,7 @@ import { useNewsletter } from "./useNewsletter";
 
 const SubscriptionForm = () => {
   const {
+    disabled,
     UID,
     buttonLabel,
     error,
@@ -16,7 +17,7 @@ const SubscriptionForm = () => {
     onSubmit,
   } = useNewsletter();
 
-  return (
+  return disabled ? null : (
     <>
       <Flex as="form" onSubmit={onSubmit} mt={[0, "19px"]}>
         <Box

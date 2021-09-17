@@ -7,6 +7,7 @@ export const useNewsletter = () => {
   const router = useRouter();
 
   const {
+    disabled,
     data,
     error,
     submitted,
@@ -64,7 +65,18 @@ export const useNewsletter = () => {
       error,
       buttonLabel,
       UID,
+      disabled,
     }),
-    [onSubmit, onChange, value, submitting, submitted, error, buttonLabel, UID]
+    [
+      onSubmit,
+      onChange,
+      value,
+      submitting,
+      submitted,
+      error,
+      buttonLabel,
+      UID,
+      disabled,
+    ]
   );
 };

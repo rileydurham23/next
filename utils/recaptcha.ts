@@ -44,6 +44,10 @@ export const useRecaptcha = (UID: string) => {
   }, [recaptchaID, callbackFNName]);
 
   useEffect(() => {
+    if (!SITE_KEY) {
+      return;
+    }
+
     load().then(() => {
       window["grecaptcha"].enterprise.ready(() => {
         const ID = window["grecaptcha"].enterprise.render(UID, {
@@ -74,6 +78,7 @@ export const useRecaptcha = (UID: string) => {
 
   return useMemo(
     () => ({
+      disabled: !SITE_KEY,
       error,
       ready: Number.isInteger(recaptchaID),
       getToken,
