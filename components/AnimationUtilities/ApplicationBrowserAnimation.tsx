@@ -5,19 +5,20 @@ import NextImage from "next/image";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import {
-  browserRise,
-  browserFall,
   fadeOut,
   fadeIn,
   buttonRipple,
+  StyledInput,
+  StyledVerifyButton,
+  StyledCenterBox,
+  StyledImageContainer,
+  BrowserTop,
 } from "./AnimationUtilities";
-import closeX from "./assets/close.png";
-import add from "./assets/add.png";
-import password from "./assets/password.png";
-import biometric from "./assets/biometric.png";
-import check from "./assets/check.png";
+import { check, biometric, password } from "./assets";
+import { ApplicationLogosScreen } from "./ApplicationLogosScreen";
+import { JenkinsScreen } from "./JenkinsScreen";
 
-export const Browser = () => {
+export const ApplicationBrowser = () => {
   //sets the value of the password input field
   const [inputState, setInputState] = useState("");
 
@@ -33,7 +34,7 @@ export const Browser = () => {
           clearInterval(kennyLogin);
         }
       }, 60);
-    }, 4200);
+    }, 1500);
   };
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export const Browser = () => {
   }, []);
 
   return (
-    <AnimatedWrapper
+    <ApplicationAnimationWrapper
       id="container"
       flexDirection="column"
       width="90%"
@@ -49,50 +50,14 @@ export const Browser = () => {
       boxShadow="0 4px 16px rgba(0, 0, 0, .24)"
       borderRadius="8px 8px 0 0"
     >
+      <BrowserTop />
+      {/* Main container of browser "screen" */}
       <Flex
-        flexDirection="row"
-        background="#D2DBDF"
-        borderRadius="8px 8px 0 0"
-        width="100%"
-        justifyContent="flex-start"
-        height="32px"
-        position="relative"
-      >
-        <Flex
-          id="button-container"
-          flexDirection="row"
-          alignItems="center"
-          ml={2}
-        >
-          <BrowserClose />
-          <BrowserMin />
-          <BrowserMax />
-          <Flex
-            id="tab"
-            background="#F8F9F8"
-            borderRadius="4px 4px 0 0"
-            height="80%"
-            alignSelf="flex-end"
-            fontSize="text-sm"
-            fontWeight="bold"
-            px={2}
-            ml={2}
-          >
-            Single Sign On
-            <CloseTabButton ml={2} alignSelf="center" />
-          </Flex>
-          <AddTabButton />
-        </Flex>
-      </Flex>
-      <Flex
-        id="main-body"
         flexDirection="column"
         justifyContent="flex-start"
         alignItems="center"
-        pt={5}
         pb={3}
-        mb={3}
-        height="260px"
+        height="276px"
         boxSizing="border-box"
         position="relative"
       >
@@ -168,76 +133,23 @@ export const Browser = () => {
             Authentication Successful
           </Box>
         </AnimatedAuthSuccessBanner>
+        <AnimatedApplicationsBanner>
+          <ApplicationLogosScreen />
+        </AnimatedApplicationsBanner>
+        <AnimatedJenkinsBanner>
+          <JenkinsScreen />
+        </AnimatedJenkinsBanner>
       </Flex>
-    </AnimatedWrapper>
+    </ApplicationAnimationWrapper>
   );
 };
 
-//Browser window elements
-const StyledBrowserButton = styled(Box)({
-  borderRadius: "300px",
-  height: "12px",
-  width: "12px",
-  marginRight: 7,
-});
-
-export const BrowserClose = () => (
-  <StyledBrowserButton background="#F95E57" border="1px solid #E03D37" />
-);
-export const BrowserMin = () => (
-  <StyledBrowserButton background="#FBBE2E" border="1px solid #DF9C12" />
-);
-export const BrowserMax = () => (
-  <StyledBrowserButton background="#30C841" border="1px solid #2AA925" />
-);
-
-export const CloseTabButton = styled(Flex)({
-  height: "12px",
-  width: "16px",
-  backgroundImage: `url(${closeX})`,
-  backgroundReapeat: "no-repeat",
-  backgroundPosition: "top right",
-});
-
-export const AddTabButton = styled(Flex)({
-  height: "100%",
-  width: "24px",
-  backgroundColor: "#D2DBDF",
-  backgroundImage: `url(${add})`,
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "70% 60%",
-});
-
-//input field and verify button for simulated sign-in
-export const StyledInput = styled("input")(
+//positional wrapper for ApplicationAnimation
+const ApplicationAnimationWrapper = styled(Flex)(
   css({
-    border: "1px solid #c5c5c5",
-    borderRadius: "4px",
-    boxSizing: "border-box",
-    color: "gray",
-    fontSize: "18px !important",
-    height: "32px",
-    mb: 2,
-    mt: 3,
-    px: 2,
-    width: "100%",
-  })
-);
-
-export const StyledVerifyButton = styled(Flex)(
-  css({
-    alignItems: "center",
-    justifyContent: "center",
-    background: "linear-gradient(90deg, #227DC0, #1F74B3)",
-    border: "1px solid #114b74",
-    borderRadius: "2px",
-    color: "white",
-    fontSize: "text-md",
-    fontWeight: "bold",
-    position: "relative",
-    overflow: "hidden",
-    height: "32px",
-    width: "100%",
+    zIndex: 2,
+    position: "absolute",
+    top: "84px",
   })
 );
 
@@ -257,41 +169,12 @@ const AnimatedRippleContainer = styled(Box)(
     opacity: 0,
     zIndex: 2,
   }),
-  styledCss`animation: 300ms linear 5s 1 normal forwards running ${buttonRipple};`
-);
-
-//browser window rise, fall, & fade-out effect container
-const AnimatedWrapper = styled(Flex)(
-  css({
-    zIndex: 2,
-    position: "absolute",
-    top: "384px",
-  }),
-  styledCss`animation: 700ms ease-out 3s 1 normal forwards running ${browserRise}, 700ms linear 10s 1 normal forwards running ${browserFall}, 1s linear 10s 1 normal forwards running ${fadeOut};`
-);
-
-const StyledCenterBox = styled(Flex)(
-  css({
-    position: "absolute",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    width: ["180px", "272px"],
-    color: "gray",
-    backgroundColor: "white",
-    fontWeight: "bold",
-    fontSize: "text-xl",
-    border: "1px solid #D2DBDF",
-    borderRadius: "default",
-    p: [3, 5],
-    boxSizing: "content-box",
-  })
+  styledCss`animation: 300ms linear 2.5s 1 normal forwards running ${buttonRipple};`
 );
 
 const AnimatedSSOBanner = styled(StyledCenterBox)(
   css({
-    animationDelay: "6s",
+    animationDelay: "3.7s",
     animationTimingFunction: "linear",
     animationDuration: "50ms",
     animationFillMode: "forwards",
@@ -303,26 +186,37 @@ const AnimatedMultiFactorAuthBanner = styled(StyledCenterBox)(
   css({
     opacity: 0,
   }),
-  styledCss`animation: 400ms linear 6.3s 1 normal forwards running ${fadeIn}, 50ms linear 8s 1 normal forwards running ${fadeOut};`
+  styledCss`animation: 400ms linear 4s 1 normal forwards running ${fadeIn}, 50ms linear 6.5s 1 normal forwards running ${fadeOut};`
 );
 
 const AnimatedAuthSuccessBanner = styled(StyledCenterBox)(
   css({
     opacity: 0,
-    animationDelay: "8.3s",
-    animationTimingFunction: "linear",
-    animationDuration: "400ms",
-    animationFillMode: "forwards",
   }),
-  styledCss`animation-name: ${fadeIn};`
+  styledCss`animation: 400ms linear 6.8s 1 normal forwards running ${fadeIn}, 50ms linear 8.8s 1 normal forwards running ${fadeOut};`
 );
 
-const StyledImageContainer = styled(Flex)(
+const StyledFullWidthBanner = styled(Flex)(
   css({
-    backgroundColor: "white",
-    position: "relative",
-    borderRadius: "50%",
-    overflow: "hidden",
-    mt: 3,
+    position: "absolute",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    boxSizing: "content-box",
   })
+);
+
+const AnimatedApplicationsBanner = styled(StyledFullWidthBanner)(
+  css({
+    opacity: 0,
+  }),
+  styledCss`animation: 400ms linear 9.1s 1 normal forwards running ${fadeIn}, 50ms linear 11.1s 1 normal forwards running ${fadeOut};`
+);
+
+const AnimatedJenkinsBanner = styled(StyledFullWidthBanner)(
+  css({
+    opacity: 0,
+  }),
+  styledCss`animation: 400ms linear 11.4s 1 normal forwards running ${fadeIn};`
 );

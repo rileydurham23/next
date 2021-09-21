@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
+import Link from "components/Link";
 import { Centrator } from "components/Layout";
 import Section from "components/Section";
 import Flex from "components/Flex";
@@ -71,7 +72,12 @@ export const EasyStart = ({ children }: EasyStartProps) => {
                   or any Kubernetes cluster with a single command.
                 </li>
               </StyledOL>
-              <Button shape="lg" width={["auto", "230px", "230px"]}>
+              <Button
+                as={Link}
+                href="/teleport/downloads"
+                shape="lg"
+                width={["auto", "230px", "230px"]}
+              >
                 Download Teleport
               </Button>
             </Flex>

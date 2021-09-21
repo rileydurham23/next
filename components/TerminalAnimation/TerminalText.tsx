@@ -9,7 +9,7 @@ import {
   AnimatedCursor,
   AnimatedFadeIn,
   StyledSpan,
-} from "./AnimationUtilities";
+} from "../AnimationUtilities/AnimationUtilities";
 
 const StyledTextContainer = styled(Flex)(
   css({

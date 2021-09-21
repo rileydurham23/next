@@ -6,11 +6,11 @@ border: none
 import {
   AnimationHeader,
   AnnouncementBar,
+  ApplicationAnimation,
   EasyStart,
   MessageBanner,
   ProductBanner,
   Section,
-  TerminalAnimation,
   Terminal,
   TryTeleport,
   VideoBanner,
@@ -20,42 +20,39 @@ import {
 
 <Section bg="grayWave">
   <AnimationHeader
-    title="Teleport Kubernetes Access"
+    title="Teleport Application Access"
     subtitle="Teleport Access Plane"
     description={
       <>
-        Consolidate identity-based access to Kubernetes clusters across all environments, meet compliance requirements, and have complete visibility into access and behavior.
+        Implement security, meet compliance requirements and have complete visibility into access and behavior across all your web apps deployed behind NAT across all environments.      
       </>
     }
   >
-  <TerminalAnimation text="kubernetes"/>
+  <ApplicationAnimation/>
   </AnimationHeader>
   <AnnouncementBar />
 </Section>
-<Section bg="wavelight">
+<Section bg="flatWhite">
   <ProductBanner
     imgPosition="right"
-    title="Secure Kubernetes & meet compliance requirements"
+    title="Secure web apps &amp; meet compliance requirements"
     subtitle="For DevSecOps"
-    src="../assets/k8s-access.png"
+    src="../assets/application-diagram.png"
     alt="a diagram of server architecture"
     description={
       <>
-        Implement industry best practices for Kubernetes access with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived X.509 certificates.
+        Implement industry best practices for web application access with minimal configuration. Easily enforce MFA and SSO, and bring existing applications into compliance with security standards.
       </>
       }
   >
-    <ProductBanner.Item title="Access Controls" src="../assets/soc2.png">
-      Teleport offers all required server access controls to implement
-      compliance standards such as SOC2, PCI, and FedRAMP.
+    <ProductBanner.Item title="Access Controls" >
+      Teleport offers all web access controls to meet compliance requirements for SOC2, PCI, and FedRAMP. 
     </ProductBanner.Item>
-    <ProductBanner.Item title="Access Requests" src="../assets/cert.png">
-      Move away from root accounts with just-in-time privilege escalation for
-      administrative tasks.
+    <ProductBanner.Item title="Access Requests" >
+      Move away from root accounts with just-in-time privilege escalation for administrative tasks.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Per Session MFA" src="../assets/sso.png">
-      Easily implement multi-factor authentication across your organization
-      without relying on device management systems.
+    <ProductBanner.Item title="Session Controls" >
+      Define and enforce policy to handle idle user sessions, concurrent sessions for all web applications across all environments.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
@@ -64,25 +61,21 @@ import {
     imgPosition="left"
     title="Access that doesn't get in the way"
     subtitle="For Developers"
-    src="../assets/access-anywhere-alt.png"
+    src="../assets/application-laptop.png"
     alt="a diagram of server architecture"
     description={
       <>
-        A single sign-on gives engineers instant Kubernetes access across all environments. Leave behind configuration complexity, juggling of shared keys, hopping between VPNs and bastion hosts.
-      </>
+A single sign-on gives engineers access to all web apps running across all clouds. No need to wrestle with VPNs, manage public IPs, DNS records or SSL certificates for every application.      </>
       }
   >
-    <ProductBanner.Item title="Session Sharing" src="../assets/cert.png">
-      Invite colleagues to collaborate in a shared terminal session. Record
-      sessions for knowledge sharing purposes.
+    <ProductBanner.Item title="Live Catalog" >
+      Teleport application launcher allows users to see and access all available web apps with a single click.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Live Server Catalog" src="../assets/catalog.svg">
-      List servers across all environments and see which servers are online with
-      a single CLI command or via a live view in a browser.
+    <ProductBanner.Item title="AuthZ as a Service" >
+      Build faster by easily adding identity-based authentication with SSO and RBAC to your own applications.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Plugins and API" src="../assets/plugins.svg">
-      Automate access provisioning and request approvals using your favorite
-      programming language.
+    <ProductBanner.Item title="Plugins and API" >
+      Customize access requests and integrate access workflows using your favorite programming language.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
@@ -91,34 +84,27 @@ import {
     imgPosition="right"
     title="Complete visibility into access and behavior"
     subtitle="For Security Professionals"
-    src="../assets/db-access.png"
+    src="../assets/complete-visibility.png"
     alt="a diagram of server architecture"
     description={
       <>
-        Teleport provides a live view and the audit log of kubectl sessions and access events for all Kubernetes clusters across all environments, making it easy to see what’s happening and who is responsible.
-
-      </>
+Teleport provides a live view and an audit log for user sessions for all web applications across  all environments, making it easy to see what’s happening and who is responsible.      </>
       }
 >
-
-    <ProductBanner.Item title="Session Recording" src="../assets/recording.svg">
-      Every interactive session is recorded for future replay and can be
-      analyzed by other tools for behavior anomalies.
+    <ProductBanner.Item title="Live Catalog" >
+      The application catalog provides a live view of all active endpoints across all environments.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Audit Log" src="../assets/events.svg">
-      All kubectl sessions and security events are logged and exported to SIEM solutions as a single source of truth.
+    <ProductBanner.Item title="Audit Log" >
+      All security events from all web apps are recorded and can be exported into SIEM solutions.    
     </ProductBanner.Item>
-    <ProductBanner.Item title="Live View" src="../assets/live-view.svg">
-      All online clusters, active kubectl sessions, access requests are visible with a single CLI command or in a browser.
+    <ProductBanner.Item title="Activity Stream" >
+      Administrators can list all live user sessions for all applications, getting an instant picture of what’s happening.    
     </ProductBanner.Item>
-
   </ProductBanner>
 </Section>
-<VideoBanner title="Demo Video" videoId="2diX_UAmJ1c" />
+<VideoBanner title="Demo Video" videoId="5Uwhp3IQMHY" />
 <WorksWith title="Works with everything you have">
-  Teleport Kubernetes Access is open source and it relies on open standards such as
-  X.509 certificates, HTTPS, SAML, OpenID connect and others. Deployed as a
-  single-binary, it seamlessly integrates with the rest of your stack.
+  Teleport Application Access is open source and it relies on open standards such as SSH, HTTPS, SAML, OpenID connect and others. Deployed as a single-binary drop-in replacement for OpenSSH, it seamlessly integrates with the rest of your stack.
 </WorksWith>
 <EasyStart>
   <Terminal>
@@ -134,7 +120,7 @@ $ helm install
 ```
   </Terminal>
 </EasyStart>
-<MessageBanner title="Our vision for the future" href="/resources/white-papers/environment-free-computing/" linkText="Learn more">
+<MessageBanner title="Our vision for the future" href="https://goteleport.com/resources/white-papers/environment-free-computing/" linkText="Learn more">
   We are trying to solve the problem every company has - how to run and access software running anywhere in a secure and compliant manner. We call this environment-free computing.
 </MessageBanner>
 <TryTeleport/>

@@ -3,22 +3,19 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import Button from "components/Button";
 import Link from "components/Link";
-import TerminalAnimation, {
-  TerminalAnimationType,
-} from "components/TerminalAnimation";
 
 export interface AnimationHeaderProps {
   subtitle: string;
   title: string;
   description: React.ReactNode;
-  terminalText: TerminalAnimationType;
+  children?: React.ReactNode;
 }
 
 export const AnimationHeader = ({
   subtitle,
   title,
   description,
-  terminalText,
+  children,
 }: AnimationHeaderProps) => {
   return (
     <Centrator
@@ -73,7 +70,7 @@ export const AnimationHeader = ({
         alignItems="center"
         maxWidth="100%"
       >
-        <TerminalAnimation text={terminalText} />
+        {children}
       </Flex>
     </Centrator>
   );

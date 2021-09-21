@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import Flex from "components/Flex";
-import { AnimatedResetButton, AnimatedTerminal } from "./AnimationUtilities";
+import {
+  AnimatedResetButton,
+  AnimatedTerminal,
+} from "../AnimationUtilities/AnimationUtilities";
 import {
   HomePageText,
   DatabaseText,
   KubernetesText,
   ServerText,
 } from "./TerminalText";
-import { Browser } from "./BrowserAnimation";
+import { TerminalBrowser } from "../AnimationUtilities/TerminalBrowserAnimation";
 
 /**
  * This component handles the text animation in the terminal window.
@@ -98,7 +101,7 @@ export const TerminalAnimation = ({
         borderRadius="0 0 8px 8px"
       >
         <AnimatedTerminal>{termText}</AnimatedTerminal>
-        <Browser />
+        <TerminalBrowser />
       </Flex>
     </Flex>
   );
