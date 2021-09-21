@@ -1,0 +1,40 @@
+---
+title: Teleport vs AWS Session Manager
+description: "In this paper, we will provide a brief description of what SSM Session Manager is and how it compares to Teleport privileged access management solution. We’ll compare the significant design and feature differences and the operational overhead of the solutions. Because Session Manager is limited to AWS, we’ll limit the scope of the discussion to that cloud provider. Finally, we have provided a feature matrix of the two solutions."
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+---
+
+import { BookBlock, ClientsList, PromoPointsBlock } from "components";
+
+<BookBlock
+  title="Teleport vs AWS Session Manager"
+  src="../assets/teleport-vs-aws.png"
+  formId="1177"
+>
+  {meta.description}
+</BookBlock>
+<PromoPointsBlock
+  title="Download the PDF to learn:"
+  src="../assets/engineers.svg"
+>
+  <PromoPointsBlock.Item icon="bolt">
+    How does Session Manager work?
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="card">
+    How does Teleport compare to Session Manager (SM)?
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="shieldCheck">
+    AWS SSM Run vs tsh ssh
+  </PromoPointsBlock.Item>
+</PromoPointsBlock>
+<ClientsList clients={meta.clients} contrasted />

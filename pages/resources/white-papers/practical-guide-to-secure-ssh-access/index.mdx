@@ -1,0 +1,41 @@
+---
+title: Practical Guide to Secure SSH Access
+description: "There’s no denying that Secure Shell Protocol (SSH) is the de facto tool for Linux server administration, but is it truly secure? While SSH is widely supported, fairly straightforward to use, and was built with security in mind, it’s far from perfect.
+SSH, invented in 1995, is a cryptographic network protocol for accessing UNIX machines securely over an unsecured network. SSH uses a client–server architecture, connecting an SSH client application with an SSH server. It superseded Telnet protocol by adding encryption to prevent malicious actors from eavesdropping on network traffic and compromising data confidentiality and integrity."
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+---
+
+import { BookBlock, ClientsList, PromoPointsBlock } from "components";
+
+<BookBlock
+  title="Practical Guide to Secure SSH Access"
+  src="../assets/secure-ssh-access.png"
+  formId="1146"
+>
+  {meta.description}
+</BookBlock>
+<PromoPointsBlock
+  title="Download the PDF to learn:"
+  src="../assets/engineers.svg"
+>
+  <PromoPointsBlock.Item icon="bolt">
+    Choosing the right encryption
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="card">
+    Reducing your attack surface with an SSH proxy
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="shieldCheck">
+    Using industry best practices
+  </PromoPointsBlock.Item>
+</PromoPointsBlock>
+<ClientsList clients={meta.clients} contrasted />
