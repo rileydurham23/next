@@ -32,7 +32,7 @@ const Search = ({
           return hits
             .filter((hit) => {
               if (CURRENT_VERS === version) {
-                return !hit.url.includes("ver");
+                return !hit.url.includes("/ver/");
               }
 
               return hit.url.includes(version);
