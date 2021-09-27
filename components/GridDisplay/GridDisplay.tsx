@@ -26,7 +26,7 @@ export interface GridDisplayProps {
   iconSize?: IconProps["size"];
 }
 
-export default function GridDisplay({
+function GridDisplay({
   children,
   bg,
   centralHeading = false,
@@ -100,3 +100,5 @@ export default function GridDisplay({
 
 GridDisplay.Tile = GridTile;
 GridDisplay.Card = GridCard;
+
+export default GridDisplay;
