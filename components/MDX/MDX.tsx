@@ -13,6 +13,7 @@ import {
   TileListItem,
   TileImage,
 } from "components/Tile";
+import Details from "components/Details";
 import Code from "./Code";
 import { H1, H2, H3, H4, H5 } from "./Headers";
 import { P, UL, OL, LI, Table, THead, TBody, TR, TH, TD, Video } from "./Tags";
@@ -56,6 +57,7 @@ export const components = {
   Figure,
   Notice,
   Snippet,
+  Details,
 };
 
 export interface MDXProps {

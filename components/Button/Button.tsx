@@ -57,7 +57,7 @@ const Button = styled("button")<ButtonProps>(
         },
       },
       secondary: {
-        backgroundColor: "white",
+        bg: "white",
         borderColor: "dark-purple",
         color: "dark-purple",
         "&:focus, &:hover": {
@@ -67,12 +67,11 @@ const Button = styled("button")<ButtonProps>(
         },
       },
       "secondary-white": {
-        backgroundColor: "transparent",
+        bg: "transparent",
         borderColor: "white",
         color: "white",
-        "&:focus, &:hover": {
-          borderColor: "light-gray",
-          color: "light-gray",
+        "&:hover, &:active, &:focus, &:hover": {
+          bg: "rgba(255, 255, 255, 0.12)",
         },
       },
     },

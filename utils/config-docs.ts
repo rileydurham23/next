@@ -1,7 +1,7 @@
 import { Redirect } from "next/dist/lib/load-custom-routes";
 import { resolve } from "path";
 import { existsSync, readFileSync } from "fs";
-import { isExternalLink, isHash, extractPath } from "./url";
+import { isExternalLink, isHash, splitAsPath } from "./url";
 import {
   NavigationCategory,
   NavigationItem,
@@ -21,7 +21,7 @@ const normalizeDocsUrl = (version: string, url: string, raw?: boolean) => {
     return url;
   }
 
-  if (!extractPath(url).endsWith("/")) {
+  if (!splitAsPath(url).path.endsWith("/")) {
     const configPath = getConfigPath(version);
 
     throw Error(`File ${configPath} misses trailing slash in '${url}' path.`);

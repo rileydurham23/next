@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ComponentProps } from "react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
-import { isHash, isExternalLink, getPath } from "utils/url";
+import { isHash, isExternalLink, getDocPath } from "utils/url";
 import { all, variant, transition, StyledSystemProps } from "components/system";
 
 const BaseLink = styled("a")<StyledSystemProps>(
@@ -39,12 +39,18 @@ const BaseLink = styled("a")<StyledSystemProps>(
           opacity: 0.5,
         },
       },
+      white: {
+        color: "white",
+        "&:hover, &:active, &:focus": {
+          opacity: 0.8,
+        },
+      },
     },
   }),
   all
 );
 
-type LinkProps = {
+export type LinkProps = {
   passthrough?: boolean;
 } & Omit<NextLinkProps, "href"> &
   ComponentProps<typeof BaseLink>;
@@ -87,7 +93,7 @@ const Link = ({
   }
 
   const nextProps: NextLinkProps = {
-    href: resolve(getPath(router.asPath), href),
+    href: resolve(getDocPath(router.asPath), href),
     as,
     replace,
     scroll,

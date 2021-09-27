@@ -10,53 +10,50 @@ import {
 } from "@reach/listbox";
 import "@reach/listbox/styles.css";
 import Box, { BoxProps } from "components/Box";
-import { all, variant, transition } from "components/system";
-
-type Variant = "light" | "dark";
-
-interface StringOptions {
-  options: string[];
-  pickValue?: (item: string) => string;
-  renderOption?: (option: string) => ReactNode;
-}
-
-interface ObjectOptions<T> {
-  options: T[];
-  pickValue: (item: T) => string;
-  renderOption: (option: T) => ReactNode;
-}
+import Icon from "components/Icon";
+import { all, transition } from "components/system";
 
 export type DropdownProps<T> = {
-  onChange: (selected: string) => void;
-  variant?: Variant;
+  options: T[];
   value?: string;
+  pickValue?: (item: T) => string;
+  pickOption?: (options: T[], id: string) => T;
+  renderOption?: (option: T) => ReactNode;
+  onChange: (selected: string) => void;
   icon?: ReactNode;
-} & (StringOptions | ObjectOptions<T>) &
-  BoxProps;
+} & BoxProps;
 
-const echo = <T extends unknown>(thing: T): T => thing;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const echo = <T extends unknown>(thing: T): any => thing;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const echoOption = <T extends unknown>(options: T[], id: string): any => id;
+
+const defaultIcon = <Icon name="arrow" size="sm" />;
 
 export function Dropdown<T>({
   value,
-  icon,
+  icon = defaultIcon,
   options,
   onChange,
-  variant,
   renderOption = echo,
-  pickValue = echo,
+  pickId = echo,
+  pickOption = echoOption,
+  disabled,
   ...props
 }: DropdownProps<T>) {
   return (
     <Box {...props}>
-      <StyledListboxInput value={value} onChange={onChange} variant={variant}>
-        <StyledListboxButton arrow={icon} />
+      <StyledListboxInput value={value} onChange={onChange} disabled={disabled}>
+        <StyledListboxButton arrow={icon}>
+          {renderOption(value ? pickOption(options, value) : options[0])}
+        </StyledListboxButton>
         <StyledListboxPopover>
           <ListboxList>
             {options.map((option) => {
-              const value = pickValue(option);
+              const id = pickId(option);
 
               return (
-                <StyledListboxOption key={value} value={value}>
+                <StyledListboxOption key={id} value={id}>
                   {renderOption(option)}
                 </StyledListboxOption>
               );
@@ -68,40 +65,15 @@ export function Dropdown<T>({
   );
 }
 
-const StyledListboxInput = styled(ListboxInput)<{ variant: Variant }>(
+const StyledListboxInput = styled(ListboxInput)(
   css({
     display: "inline-flex",
     width: "100%",
-    minHeight: ["32px", "36px"],
-    border: "1px solid",
-    borderColor: ["white", "transparent"],
-    borderRadius: "default",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.32)",
     color: "white",
-    cursor: "pointer",
-    transition: transition([
-      ["background", "interaction"],
-      ["borderColor", "interaction"],
-      ["color", "interaction"],
-    ]),
-    "&:focus-within, &:hover, &:active, &:focus": {
-      borderColor: "white",
-    },
+    bg: "transparent",
+    whiteSpace: "nowrap",
   }),
-  all,
-  variant({
-    variants: {
-      dark: {
-        color: "black",
-        borderColor: ["transparent", "transparent"],
-        "&:focus-within, &:focus, &:hover": {
-          bg: "light-purple",
-          borderColor: "light-purple",
-          color: "white",
-        },
-      },
-    },
-  })
+  all
 );
 
 const StyledListboxButton = styled(ListboxButton)(
@@ -110,13 +82,21 @@ const StyledListboxButton = styled(ListboxButton)(
     alignItems: "center",
     fontSize: ["text-md", "text-sm"],
     fontWeight: "bold",
-    lineHeight: "lg",
+    lineHeight: "30px",
     cursor: "pointer",
-    border: "none",
+    border: "1px solid",
+    borderColor: "white",
+    borderRadius: "default",
     px: 2,
+    py: 0,
     width: "100%",
-    "&:focus": {
+    transition: transition([["backgroundColor", "interaction"]]),
+    "&:active, &:focus, &:hover": {
       outline: "none",
+      bg: "rgba(255, 255, 255, 0.12)",
+    },
+    '&[aria-disabled="true"]': {
+      pointerEvents: "none",
     },
     "& [data-reach-listbox-arrow]": {
       width: "16px",
@@ -134,7 +114,6 @@ const StyledListboxButton = styled(ListboxButton)(
 
 const StyledListboxPopover = styled(ListboxPopover)(
   css({
-    p: 0,
     border: "none",
     borderRadius: "sm",
     boxShadow: "0 4px 16px rgba(0,0,0,.24) !important",
@@ -146,10 +125,10 @@ const StyledListboxPopover = styled(ListboxPopover)(
 
 const StyledListboxOption = styled(ListboxOption)(
   css({
-    fontSize: "text-md",
+    fontSize: ["text-md", "text-sm"],
     fontWeight: "bold",
-    lineHeight: "40px",
-    px: 3,
+    lineHeight: "30px",
+    px: 2,
     cursor: "pointer",
     transition: transition([["background", "interaction"]]),
     "&:hover, &:focus, &:active, &[aria-selected='true']": {

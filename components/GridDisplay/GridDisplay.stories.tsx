@@ -25,7 +25,7 @@ export const Default = () => {
   return (
     <MDX>
       <GridDisplay
-        iconName="apartment"
+        iconName="building"
         iconSize="lg"
         title="Enterprise Features"
         bg="flatGray"

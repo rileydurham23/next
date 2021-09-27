@@ -1,4 +1,3 @@
-export { ReactComponent as apartment } from "./svg/apartment.svg";
 export { ReactComponent as arrow } from "./svg/arrow.svg";
 export { ReactComponent as bolt } from "./svg/bolt.svg";
 export { ReactComponent as book } from "./svg/book.svg";
@@ -25,11 +24,9 @@ export { ReactComponent as help } from "./svg/help.svg";
 export { ReactComponent as home } from "./svg/home.svg";
 export { ReactComponent as integrations } from "./svg/integrations.svg";
 export { ReactComponent as kubernetes } from "./svg/kubernetes.svg";
-export { ReactComponent as license } from "./svg/license.svg";
 export { ReactComponent as list } from "./svg/list.svg";
 export { ReactComponent as lock } from "./svg/lock.svg";
 export { ReactComponent as magnify } from "./svg/magnify.svg";
-export { ReactComponent as nodes } from "./svg/nodes.svg";
 export { ReactComponent as note } from "./svg/note.svg";
 export { ReactComponent as play } from "./svg/play.svg";
 export { ReactComponent as presentation } from "./svg/presentation.svg";

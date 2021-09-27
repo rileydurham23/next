@@ -80,7 +80,7 @@ export default function remarkVariables(
     const varNames = regExps.map(({ path }) => path);
 
     visit<MdxastNode>(root, [nodeHasValue], (node) => {
-      if (node.value) {
+      if (typeof node.value === "string") {
         if (resolve) {
           node.value = replaceVars(node.value as string, regExps);
         }
@@ -107,7 +107,7 @@ export default function remarkVariables(
       if (node.attributes) {
         Object.values(node.attributes as { value: string }[]).forEach(
           (attribute) => {
-            if (attribute.value) {
+            if (typeof attribute.value === "string") {
               if (resolve) {
                 attribute.value = replaceVars(attribute.value, regExps);
               }

@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 import AnchorNavigation, { HeaderMeta } from "components/AnchorNavigation";
 import Box from "components/Box";
 import Button from "components/Button";
@@ -7,8 +8,10 @@ import Head from "components/Head";
 import Layout from "components/Layout";
 import Link from "components/Link";
 import MDX from "components/MDX";
+import { DocsLink } from "./DocsLink";
 import Notice from "components/Notice";
 import VideoBar from "components/VideoBar";
+import { DocsContext } from "./context";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navigation, { getCurrentCategoryIndex } from "./Navigation";
@@ -18,6 +21,10 @@ import {
   PageMeta,
   LayoutName,
 } from "./types";
+
+const components = {
+  a: DocsLink,
+};
 
 const getContentWidth = (layout: LayoutName) => {
   switch (layout) {
@@ -48,10 +55,17 @@ const DocsPage = ({
   children,
 }: DocsPageProps) => {
   const router = useRouter();
-  const isSectionLayout = layout === "section";
-  const isTocVisible = !layout || layout === "doc";
+  const { setIsCurrentVersion, setVersion } = useContext(DocsContext);
 
   const { current, latest, available } = versions;
+
+  useEffect(() => {
+    setIsCurrentVersion(current === latest);
+    setVersion(current);
+  }, [current, latest, setIsCurrentVersion, setVersion]);
+
+  const isSectionLayout = layout === "section";
+  const isTocVisible = !layout || layout === "doc";
 
   const categoryId = getCurrentCategoryIndex(navigation, router.asPath);
   const icon = categoryId ? navigation[categoryId]?.icon : "book";
@@ -110,7 +124,7 @@ const DocsPage = ({
                   </Notice>
                 )}
                 <Box maxWidth={getContentWidth(layout)}>
-                  <MDX>{children}</MDX>
+                  <MDX components={components}>{children}</MDX>
                 </Box>
               </Box>
               {!!tableOfConents.length && isTocVisible && (

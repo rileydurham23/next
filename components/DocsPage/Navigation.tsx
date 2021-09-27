@@ -8,10 +8,10 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 import Search from "components/Search";
-import Link from "components/Link";
 import Icon from "components/Icon";
+import { DocsLink } from "./DocsLink";
 import { NavigationItem, NavigationCategory } from "./types";
-import { getPath } from "utils/url";
+import { getDocPath } from "utils/url";
 
 interface DocsNavigationItemsProps {
   entries: NavigationItem[];
@@ -28,9 +28,9 @@ const DocsNavigationItems = ({
     <>
       {!!entries.length &&
         entries.map((entry) => {
-          const entryActive = entry.slug === getPath(router.asPath);
+          const entryActive = entry.slug === getDocPath(router.asPath);
           const childrenActive = entry.entries?.some(
-            (entry) => entry.slug === getPath(router.asPath)
+            (entry) => entry.slug === getDocPath(router.asPath)
           );
 
           return (
@@ -137,7 +137,7 @@ const DocNavigation = ({
   currentVersion,
 }: DocNavigationProps) => {
   const router = useRouter();
-  const route = getPath(router.asPath);
+  const route = getDocPath(router.asPath);
 
   const [openedId, setOpenedId] = useState<number>(
     getCurrentCategoryIndex(data, route)
@@ -234,7 +234,7 @@ const CategoryButton = styled(HeadlessButton)(
     })
 );
 
-const NavigationLink = styled(Link)(
+const NavigationLink = styled(DocsLink)(
   ({ active, isSelected }: { active?: boolean; isSelected?: boolean }) =>
     css({
       position: "relative",
