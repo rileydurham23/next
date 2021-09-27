@@ -74,7 +74,7 @@ export const EasyStart = ({ children }: EasyStartProps) => {
               </StyledOL>
               <Button
                 as={Link}
-                href="/teleport/downloads"
+                href="/teleport/download"
                 shape="lg"
                 width={["auto", "230px", "230px"]}
               >
