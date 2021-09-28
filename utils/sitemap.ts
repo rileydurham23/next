@@ -24,10 +24,6 @@ interface SitemapPage {
   <loc>"https://goteleport.com/products/database-access"</loc> 
     => <loc>"https://goteleport.com/database-access"</loc>
 */
-const loseProduct = (locString: string): string => {
-  const first10 = locString.slice(0, 9);
-  return first10 === "/products" ? locString.slice(9) : locString;
-};
 
 const generateSitemapPage = ({
   loc,
@@ -35,8 +31,6 @@ const generateSitemapPage = ({
   changefreq = "daily",
   priority,
 }: SitemapPage) => {
-  loc = loseProduct(loc);
-
   return (
     "  <url>\n" +
     `    <loc>${host}${loc}</loc>\n` +

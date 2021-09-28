@@ -16,21 +16,21 @@ const menu: MenuCategoryProps[] = [
         title: "Teleport Server Access",
         description:
           "SSH securely into Linux servers and smart devices with a complete audit trail",
-        href: "/teleport/server/",
+        href: "/ssh-server-access/",
       },
       {
         image: kubernetesSvgPath,
         title: "Teleport Kubernetes Access",
         description:
           "Access Kubernetes clusters securely with complete visibility to access and behavior",
-        href: "/teleport/kubernetes/",
+        href: "/kubernetes-access/",
       },
       {
         image: applicationSvgPath,
         title: "Teleport Application Access",
         description:
           "Access web applications running behind NAT and firewalls with security and compliance",
-        href: "/teleport/application/",
+        href: "/application-access/",
       },
       {
         image: databaseSvgPath,
