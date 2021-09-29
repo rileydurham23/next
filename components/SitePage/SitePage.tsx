@@ -19,7 +19,7 @@ interface Props {
     description?: string;
     hideWave?: boolean;
     shortFooter?: boolean;
-    layout?: HeaderMode;
+    headerMode?: HeaderMode;
     headerBehaviour?: HeaderBehaviour;
     headerColor?: string;
     border?: string;
@@ -30,13 +30,13 @@ interface Props {
 const background = `url(${wavePngUrl}) 0 0 no-repeat`;
 
 export default function SitePage({ meta, children }: Props) {
-  const { layout = "full" } = meta;
+  const { headerMode = "full" } = meta;
 
   return (
     <>
       <Head title={meta.title} description={meta.description} />
       <Layout
-        mode={layout}
+        mode={headerMode}
         background={meta.hideWave ? "none" : background}
         behaviour={meta.headerBehaviour}
         headerColor={meta.headerColor}

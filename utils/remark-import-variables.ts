@@ -1,7 +1,6 @@
 import { Transformer } from "unified";
-import { Value } from "estree-util-value-to-estree";
 import { MdxastRootNode } from "./unist-types";
-import createMdxjsEsmNode from "./create-mdxjsesm-node";
+import { createMdxjsEsmExportNode } from "./acorn";
 import { loadDocsConfig, loadSiteConfig } from "./config";
 import { getVersion, getGithubURL } from "./docs-helpers";
 
@@ -13,13 +12,16 @@ export default function remarkImportVariables(): Transformer {
     const { navigation } = loadDocsConfig(current);
 
     root.children.unshift(
-      createMdxjsEsmNode("navigation", navigation as unknown as Value)
+      createMdxjsEsmExportNode(
+        "navigation",
+        navigation as unknown as Record<string, unknown>
+      )
     );
     root.children.unshift(
-      createMdxjsEsmNode("githubUrl", getGithubURL(vfile.path))
+      createMdxjsEsmExportNode("githubUrl", getGithubURL(vfile.path))
     );
     root.children.unshift(
-      createMdxjsEsmNode("versions", {
+      createMdxjsEsmExportNode("versions", {
         current,
         latest,
         available: versions,

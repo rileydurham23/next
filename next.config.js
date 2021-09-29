@@ -4,7 +4,8 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 const mdxOptions = require("./.build/utils/mdx-config");
-const mdxDocsOptions = require("./.build/utils/mdx-docs-config");
+const mdxSiteOptions = require("./.build/utils/mdx-config-site");
+const mdxDocsOptions = require("./.build/utils/mdx-config-docs");
 const {
   getRedirects,
   getLatestVersionRewirites,
@@ -12,6 +13,7 @@ const {
   generateFullSitemap,
 } = require("./.build/utils/paths");
 
+const PAGES_DIRECTORY = resolve(__dirname, "pages");
 const DOCS_DIRECTORY = resolve(__dirname, "pages/docs");
 const CONTENT_DIRECTORY = resolve(__dirname, "content");
 const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "components/Company");
@@ -72,7 +74,19 @@ module.exports = withBundleAnalyzer({
     });
     config.module.rules.push({
       test: /\.(md|mdx)$/,
-      exclude: [DOCS_DIRECTORY, CONTENT_DIRECTORY],
+      include: PAGES_DIRECTORY,
+      exclude: DOCS_DIRECTORY,
+      use: [
+        options.defaultLoaders.babel,
+        {
+          loader: "@mdx-js/loader",
+          options: mdxSiteOptions.default,
+        },
+      ],
+    });
+    config.module.rules.push({
+      test: /\.(md|mdx)$/,
+      exclude: [PAGES_DIRECTORY, CONTENT_DIRECTORY],
       use: [
         options.defaultLoaders.babel,
         {

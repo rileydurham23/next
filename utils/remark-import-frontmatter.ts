@@ -1,8 +1,7 @@
 import { Transformer } from "unified";
 import yaml from "js-yaml";
-import { Value } from "estree-util-value-to-estree";
 import { MdxastRootNode, MdxastNode } from "./unist-types";
-import createMdxjsEsmNode from "./create-mdxjsesm-node";
+import { createMdxjsEsmExportNode } from "./acorn";
 import { fetchVideoMeta, Meta, FullMeta } from "./youtube-meta";
 
 export interface HeaderMeta {
@@ -43,6 +42,8 @@ export default function remarkImportFrontmatter({
       config.videoBanner = await fetchVideoMeta(config.videoBanner);
     }
 
-    root.children.unshift(createMdxjsEsmNode(name, config as Value));
+    root.children.unshift(
+      createMdxjsEsmExportNode(name, config as Record<string, unknown>)
+    );
   };
 }

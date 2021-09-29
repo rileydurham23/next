@@ -2,7 +2,7 @@ import { PluggableList } from "unified";
 import rehypeFixTags from "./rehype-fix-tags";
 import rehypeHighlight from "rehype-highlight";
 import remarkFrontmatter from "remark-frontmatter";
-import remarkImportFrontmatter from "./remark-import-frontmatter";
+import remarkLayout from "./remark-layout";
 import remarkCopyLinkedFiles from "remark-copy-linked-files";
 import { staticPath, destinationDir } from "./mdx-paths";
 
@@ -11,12 +11,17 @@ interface MdxConfig {
   remarkPlugins: PluggableList;
 }
 
-// This config will be used for mdx files inside components
-
 const config: MdxConfig = {
   remarkPlugins: [
     remarkFrontmatter,
-    remarkImportFrontmatter,
+    [
+      remarkLayout,
+      {
+        layouts: {
+          default: "components/SitePage",
+        },
+      },
+    ],
     [
       remarkCopyLinkedFiles,
       {

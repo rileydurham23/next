@@ -5,9 +5,14 @@ import { Element } from "hast";
 import visit from "unist-util-visit";
 import rank from "hast-util-heading-rank";
 import toString from "hast-util-to-string";
-import createMdxjsEsmNode from "./create-mdxjsesm-node";
+import { createMdxjsEsmExportNode } from "./acorn";
 import { MdxastRootNode } from "./unist-types";
-import { Value } from "estree-util-value-to-estree";
+
+interface HeaderMeta {
+  rank: number;
+  id: string;
+  title: string;
+}
 
 interface RehypeHeadersOptions {
   name?: string;
@@ -19,7 +24,7 @@ export default function rehypeHeaders({
   maxLevel,
 }: RehypeHeadersOptions): Transformer {
   return (root: MdxastRootNode) => {
-    const headers: Value[] = [];
+    const headers: HeaderMeta[] = [];
 
     visit<Element>(root, "element", function (node) {
       if (rank(node) && rank(node) <= maxLevel) {
@@ -31,6 +36,6 @@ export default function rehypeHeaders({
       }
     });
 
-    root.children.unshift(createMdxjsEsmNode(name, headers));
+    root.children.unshift(createMdxjsEsmExportNode(name, headers));
   };
 }

@@ -12,7 +12,8 @@
   },
   "include": ["@types/**/*.d.ts"],
   "files": [
-    "utils/mdx-docs-config.ts",
+    "utils/mdx-config-docs.ts",
+    "utils/mdx-config-site.ts",
     "utils/mdx-config.ts",
     "utils/mdx-paths.ts",
     "utils/paths.ts",
