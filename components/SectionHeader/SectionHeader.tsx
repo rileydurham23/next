@@ -3,9 +3,15 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import wave from "./fixtures/wave.svg";
 import wavelight from "./fixtures/wave-light.png";
+import Button, { ButtonVariant, ButtonShape } from "components/Button";
 
-type BGColor = "wave" | "white" | "gray" | "wavelight";
-
+type BGColor = "wave" | "white" | "gray" | "wavelight" | "wave-on-gray";
+type LinkProps = {
+  href: string;
+  text: string;
+  variant?: ButtonVariant;
+  shape?: ButtonShape;
+};
 export interface SectionHeaderProps {
   mode?: string;
   subtitle?: string;
@@ -13,6 +19,7 @@ export interface SectionHeaderProps {
   children: React.ReactNode;
   description: React.ReactNode;
   bg?: BGColor;
+  link?: LinkProps;
 }
 
 const getBG = (color: BGColor) => {
@@ -37,6 +44,13 @@ const getBG = (color: BGColor) => {
         backgroundPosition: "center",
         backgroundSize: "100%",
       };
+    case "wave-on-gray":
+      return {
+        backgroundImage: `url(${wave}), linear-gradient(125deg ,#F0F2F4,#fff)`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "100%",
+      };
     default:
       return {
         backgroundImage: "linear-gradient(180deg, #ffffff 0%, #f0f2f4 100%)",
@@ -50,6 +64,7 @@ export const SectionHeader = ({
   title,
   description,
   bg,
+  link,
 }: SectionHeaderProps) => {
   return (
     <Flex pt={mode === "none" ? [3, 5] : [7, 11]} {...getBG(bg)}>
@@ -97,6 +112,17 @@ export const SectionHeader = ({
           >
             {description}
           </Box>
+          {link && (
+            <Button
+              mt={6}
+              as="a"
+              href={link.href}
+              shape={link.shape}
+              variant={link.variant}
+            >
+              {link.text}
+            </Button>
+          )}
         </Box>
         <Flex
           flex="0 0 auto"

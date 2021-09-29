@@ -26,7 +26,8 @@ declare module "@mdx-js/react" {
     | "td"
     | "thematicBreak"
     | "tr"
-    | "ul";
+    | "ul"
+    | "Quote";
 
   export type Components = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
