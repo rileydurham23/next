@@ -75,8 +75,8 @@ Teleport is a remote-first technology company with satellite offices in Oakland 
 
 </GlobeBanner>
 
-<JobList id="jobs" jobs={props.ssData.jobs} />
+<JobList id="jobs" jobs={props.jobs} />
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   return { props: { jobs: await fetchJobs() } };
 }
