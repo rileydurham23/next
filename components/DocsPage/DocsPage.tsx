@@ -23,7 +23,9 @@ import {
 } from "./types";
 
 const components = {
-  a: DocsLink,
+  a: function Link(props) {
+    return <DocsLink {...props} scheme="docs" />;
+  },
 };
 
 const getContentWidth = (layout: LayoutName) => {

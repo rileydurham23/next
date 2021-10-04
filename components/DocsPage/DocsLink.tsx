@@ -14,5 +14,5 @@ export const DocsLink = ({ href: baseHref, ...props }: LinkProps) => {
     href = updateScopeInUrl(href, scope);
   }
 
-  return <BaseLink {...props} href={href} scheme="docs" />;
+  return <BaseLink {...props} href={href} />;
 };
