@@ -2,6 +2,7 @@ import { PluggableList } from "unified";
 import rehypeFixTags from "./rehype-fix-tags";
 import rehypeHighlight from "rehype-highlight";
 import remarkFrontmatter from "remark-frontmatter";
+import remarkGFM from "remark-gfm";
 import remarkLayout from "./remark-layout";
 import remarkCopyLinkedFiles from "remark-copy-linked-files";
 import { staticPath, destinationDir } from "./mdx-paths";
@@ -19,6 +20,7 @@ const config: MdxConfig = {
       {
         layouts: {
           default: "components/SitePage",
+          content: "layouts/ContentPage",
         },
       },
     ],
@@ -30,8 +32,9 @@ const config: MdxConfig = {
         ignoreFileExtensions: [".md", ".mdx"],
       },
     ],
+    remarkGFM,
   ],
-  rehypePlugins: [rehypeFixTags, rehypeHighlight],
+  rehypePlugins: [rehypeFixTags, [rehypeHighlight, { plainText: ["text"] }]],
 };
 
 export default config;

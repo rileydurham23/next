@@ -11,6 +11,7 @@ const extensions = ["md", "mdx", "ts", "tsx", "js", "jsx"];
 const pagesRoot = resolve("pages");
 const nextPages = [
   new RegExp(`^${pagesRoot}/api/.*$`),
+  new RegExp(`^${pagesRoot}/previous-terms/.*$`),
   new RegExp(`^${pagesRoot}/_app.(${extensions.join("|")})$`),
   new RegExp(`^${pagesRoot}/_document.(${extensions.join("|")})$`),
   new RegExp(`^${pagesRoot}${NEXT_PUBLIC_DOCS_DIR}/.*`),

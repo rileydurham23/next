@@ -16,7 +16,7 @@ export interface SectionHeaderProps {
   mode?: string;
   subtitle?: string;
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   description: React.ReactNode;
   bg?: BGColor;
   link?: LinkProps;

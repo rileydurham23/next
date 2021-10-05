@@ -13,6 +13,7 @@ interface HeadProps {
   image?: string;
   description?: string;
   titleSuffix?: string;
+  noIndex?: boolean;
 }
 
 const Head = ({
@@ -20,6 +21,7 @@ const Head = ({
   description: propsDescription,
   title: propsTitle,
   titleSuffix,
+  noIndex,
 }: HeadProps) => {
   const router = useRouter();
   const url = buildCanonicalUrl(router);
@@ -36,6 +38,7 @@ const Head = ({
       <link rel="canonical" href={url} />
       <meta name="description" content={description} />
       <meta name="author" content="Teleport" />
+      {noIndex && <meta name="robots" content="noindex" />}
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
@@ -50,6 +53,7 @@ Head.defaultProps = {
   titleSuffix: "Teleport",
   description:
     "Teleport is available for free as an open source download. We also offer commercial subscription plans priced on the number of computing resources accessible via Teleport.",
+  noIndex: false,
 };
 
 export default Head;

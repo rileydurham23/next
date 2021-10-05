@@ -1,6 +1,5 @@
 // Drift is the chatbot - should be avaialble on all pages
 import Drift from "react-driftjs";
-
 import Code from "components/Code";
 import Layout from "components/Layout";
 import Footer from "components/Footer";
@@ -45,7 +44,7 @@ export default function SitePage({ meta, children }: Props) {
         <MDX components={components}>{children}</MDX>
       </Layout>
       <Footer short={Boolean(meta.shortFooter)} />
-      <Drift appId="gd7mkidpzmux" />
+      <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
     </>
   );
 }
