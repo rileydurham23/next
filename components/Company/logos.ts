@@ -83,6 +83,8 @@ export { default as paymentus } from "./logos/logo-paymentus.svg";
 export { default as pindrop } from "./logos/logo-pindrop.svg";
 export { default as pivotaltracker } from "./logos/logo-pivotaltracker.svg";
 export { default as pubmatic } from "./logos/logo-pubmatic.svg";
+export { default as roadie1 } from "./logos/logo-roadie1.svg";
+export { default as roadie2 } from "./logos/logo-roadie2.svg";
 export { default as rushstreet } from "./logos/logo-rushstreet.svg";
 export { default as safeboda } from "./logos/logo-safeboda.svg";
 export { default as samsung } from "./logos/logo-samsung.svg";

@@ -37,7 +37,13 @@ export default function Feedback({ reviews, dark }: Props) {
   }, [hovered, focused, active, reviews.length]);
 
   return (
-    <Box as="section" pt={[3, 8]} pb={[2, 3]} width="100%" overflow="hidden">
+    <Box
+      as="section"
+      pt={[3, 8]}
+      pb={reviews.length === 1 ? [2, 8] : [2, 3]}
+      width="100%"
+      overflow="hidden"
+    >
       <div
         role="button"
         tabIndex={0}
