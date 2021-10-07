@@ -13,6 +13,7 @@ export { ReactComponent as clouds } from "./svg/clouds.svg";
 export { ReactComponent as code } from "./svg/code.svg";
 export { ReactComponent as copy } from "./svg/copy.svg";
 export { ReactComponent as database } from "./svg/database.svg";
+export { ReactComponent as desktop } from "./svg/desktop.svg";
 export { ReactComponent as download } from "./svg/download.svg";
 export { ReactComponent as earth } from "./svg/earth.svg";
 export { ReactComponent as ellipsis } from "./svg/ellipsis.svg";
