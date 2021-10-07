@@ -2,7 +2,6 @@
 
 import { Node } from "unist";
 import visit from "unist-util-visit";
-import { MdxJsxFlowElement } from "./unist-types";
 import { Transformer } from "unified";
 
 export default function rehypeFixTags(): Transformer {

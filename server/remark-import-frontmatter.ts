@@ -1,6 +1,5 @@
 import { Transformer } from "unified";
 import yaml from "js-yaml";
-import { MdxastRootNode, MdxastNode } from "./unist-types";
 import { createMdxjsEsmExportNode } from "./acorn";
 import { fetchVideoMeta, Meta, FullMeta } from "./youtube-meta";
 

@@ -1,5 +1,4 @@
 import { Transformer } from "unified";
-import { MdxastRootNode } from "./unist-types";
 import { createMdxjsEsmExportNode } from "./acorn";
 import { loadDocsConfig, loadSiteConfig } from "./config";
 import { getVersion, getGithubURL } from "./docs-helpers";

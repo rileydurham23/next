@@ -1,6 +1,6 @@
-const remarkVariables = require("./.build/utils/remark-variables");
-const remarkIncludes = require("./.build/utils/remark-includes");
-const remarkCodeSnippet = require("./.build/utils/remark-code-snippet");
+const remarkVariables = require("./.build/server/remark-variables");
+const remarkIncludes = require("./.build/server/remark-includes");
+const remarkCodeSnippet = require("./.build/server/remark-code-snippet");
 
 const configFix = {
   settings: {

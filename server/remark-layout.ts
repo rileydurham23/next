@@ -7,7 +7,6 @@ import { Transformer } from "unified";
 import yaml from "js-yaml";
 import stringifyObject from "stringify-object";
 import { createMdxjsEsmNode } from "./acorn";
-import { MdxastRootNode, MdxastNode } from "./unist-types";
 
 type Meta = Record<string, unknown>;
 

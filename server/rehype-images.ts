@@ -1,8 +1,7 @@
 import { Transformer } from "unified";
 import { Element, Root } from "hast";
 import visit from "unist-util-visit-parents";
-import { RehypeNode, MdxJsxTextElement, MdxJsxAttribute } from "./unist-types";
-import { isExternalLink, isHash } from "./url";
+import { isExternalLink, isHash } from "../utils/url";
 
 interface MdxImageElement extends MdxJsxTextElement {
   name: "img";

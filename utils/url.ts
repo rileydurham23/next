@@ -1,5 +1,4 @@
-import { NextRouter } from "next/router";
-import getConfig from "./config-site";
+import getConfig from "../server/config-site";
 
 export const host = process.env.NEXT_PUBLIC_HOST;
 interface URLParts {
@@ -72,8 +71,8 @@ export const getDocPath = (asPath: string) => {
   return base.endsWith("/") ? base : `${base}/`;
 };
 
-export const buildCanonicalUrl = (router: NextRouter) => {
-  const path = getVersionAsPath(router.asPath);
+export const buildCanonicalUrl = (asPath: string) => {
+  const path = getVersionAsPath(asPath);
 
   return `${host}${path}`;
 };

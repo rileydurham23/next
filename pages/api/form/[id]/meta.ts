@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { isAllowedFormId, getFormData } from "utils/marketo-api-helpers";
+import { isAllowedFormId, getFormData } from "server/marketo-api-helpers";
 
 export default async function handler(
   req: NextApiRequest,

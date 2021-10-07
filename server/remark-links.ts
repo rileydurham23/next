@@ -2,13 +2,7 @@ import { Transformer } from "unified";
 import { Link } from "mdast";
 import visit from "unist-util-visit";
 import { VFile } from "vfile";
-import { isExternalLink, isHash, isPage } from "./url";
-import {
-  MdxastRootNode,
-  MdxastNode,
-  MdxAnyElement,
-  EsmNode,
-} from "./unist-types";
+import { isExternalLink, isHash, isPage } from "../utils/url";
 
 interface ObjectHref {
   src: string;

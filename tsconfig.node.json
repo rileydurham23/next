@@ -10,14 +10,6 @@
     "resolveJsonModule": true,
     "outDir": ".build"
   },
-  "include": ["@types/**/*.d.ts"],
-  "files": [
-    "utils/mdx-config-docs.ts",
-    "utils/mdx-config-site.ts",
-    "utils/mdx-config.ts",
-    "utils/mdx-paths.ts",
-    "utils/paths.ts",
-    "utils/config.ts"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["@types/**/*.d.ts", "server/**/*.ts"],
+  "exclude": ["node_modules", "server/**/*.test.ts"]
 }

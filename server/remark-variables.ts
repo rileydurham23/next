@@ -3,9 +3,8 @@ import visit from "unist-util-visit";
 import { VFile } from "vfile";
 import { loadDocsConfig } from "./config";
 import { getVersion } from "./docs-helpers";
-import { MdxastNode } from "./unist-types";
-
 import updateMessages from "./update-vfile-messages";
+
 interface GeneratedRegexp {
   regexp: RegExp;
   path: string;

@@ -16,10 +16,10 @@ const transformer = (
     .use(remarkCodeSnippet, pluginOptions)
     .processSync(vfile(options));
 
-describe("utils/remark-code-snippet", () => {
+describe("server/remark-code-snippet", () => {
   it("Fixture match result on resolve", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/includes/includes-code-snippet-simplest.mdx"),
+      resolve("server/fixtures/includes/includes-code-snippet-simplest.mdx"),
       "utf-8"
     );
 
@@ -29,7 +29,7 @@ describe("utils/remark-code-snippet", () => {
     }).toString();
 
     const expected = readFileSync(
-      resolve("utils/fixtures/result/code-snippet-simplest.mdx"),
+      resolve("server/fixtures/result/code-snippet-simplest.mdx"),
       "utf-8"
     );
 
@@ -38,7 +38,7 @@ describe("utils/remark-code-snippet", () => {
 
   it("Multiline command support", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/includes/includes-code-snippet-multiline.mdx"),
+      resolve("server/fixtures/includes/includes-code-snippet-multiline.mdx"),
       "utf-8"
     );
 
@@ -48,7 +48,7 @@ describe("utils/remark-code-snippet", () => {
     }).toString();
 
     const expected = readFileSync(
-      resolve("utils/fixtures/result/code-snippet-multiline.mdx"),
+      resolve("server/fixtures/result/code-snippet-multiline.mdx"),
       "utf-8"
     );
 
@@ -57,7 +57,7 @@ describe("utils/remark-code-snippet", () => {
 
   it("Heredoc format support", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/includes/includes-code-snippet-heredoc.mdx"),
+      resolve("server/fixtures/includes/includes-code-snippet-heredoc.mdx"),
       "utf-8"
     );
 
@@ -67,7 +67,7 @@ describe("utils/remark-code-snippet", () => {
     }).toString();
 
     const expected = readFileSync(
-      resolve("utils/fixtures/result/code-snippet-heredoc.mdx"),
+      resolve("server/fixtures/result/code-snippet-heredoc.mdx"),
       "utf-8"
     );
 
@@ -77,7 +77,7 @@ describe("utils/remark-code-snippet", () => {
   it("Support output to file mode for heredoc format", () => {
     const contents = readFileSync(
       resolve(
-        "utils/fixtures/includes/includes-code-snippet-output-to-file-mode.mdx"
+        "server/fixtures/includes/includes-code-snippet-output-to-file-mode.mdx"
       ),
       "utf-8"
     );
@@ -93,7 +93,7 @@ describe("utils/remark-code-snippet", () => {
   it("If a multiline command ends with a slash", () => {
     const contents = readFileSync(
       resolve(
-        "utils/fixtures/includes/includes-code-snippet-multiline-error.mdx"
+        "server/fixtures/includes/includes-code-snippet-multiline-error.mdx"
       ),
       "utf-8"
     );
@@ -109,7 +109,7 @@ describe("utils/remark-code-snippet", () => {
   it("If a heredoc format command ends without a closing tag", () => {
     const contents = readFileSync(
       resolve(
-        "utils/fixtures/includes/includes-code-snippet-heredoc-error.mdx"
+        "server/fixtures/includes/includes-code-snippet-heredoc-error.mdx"
       ),
       "utf-8"
     );
@@ -125,7 +125,7 @@ describe("utils/remark-code-snippet", () => {
   it("Returns correct error message on heredoc format lint", () => {
     const contents = readFileSync(
       resolve(
-        "utils/fixtures/includes/includes-code-snippet-heredoc-error.mdx"
+        "server/fixtures/includes/includes-code-snippet-heredoc-error.mdx"
       ),
       "utf-8"
     );
@@ -144,7 +144,7 @@ describe("utils/remark-code-snippet", () => {
   it("Returns correct error message on multiline command lint", () => {
     const contents = readFileSync(
       resolve(
-        "utils/fixtures/includes/includes-code-snippet-multiline-error.mdx"
+        "server/fixtures/includes/includes-code-snippet-multiline-error.mdx"
       ),
       "utf-8"
     );

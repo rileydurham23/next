@@ -42,7 +42,7 @@ const transformer = (
 describe("utils/remark-variables", () => {
   it("Fixture match result", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/variables-source.mdx"),
+      resolve("server/fixtures/variables-source.mdx"),
       "utf-8"
     );
 
@@ -52,7 +52,7 @@ describe("utils/remark-variables", () => {
     }).toString();
 
     const expected = readFileSync(
-      resolve("utils/fixtures/variables-result.mdx"),
+      resolve("server/fixtures/variables-result.mdx"),
       "utf-8"
     );
 
@@ -61,7 +61,7 @@ describe("utils/remark-variables", () => {
 
   it("Returns correct warnings on lint", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/variables-source.mdx"),
+      resolve("server/fixtures/variables-source.mdx"),
       "utf-8"
     );
 

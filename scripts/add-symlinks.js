@@ -1,6 +1,6 @@
 const { symlinkSync, rmdirSync, existsSync, mkdirSync } = require("fs");
 const { resolve } = require("path");
-const { loadSiteConfig } = require("../.build/utils/config");
+const { loadSiteConfig } = require("../.build/server/config");
 
 const { versions } = loadSiteConfig();
 

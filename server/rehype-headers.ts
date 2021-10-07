@@ -6,7 +6,6 @@ import visit from "unist-util-visit";
 import rank from "hast-util-heading-rank";
 import toString from "hast-util-to-string";
 import { createMdxjsEsmExportNode } from "./acorn";
-import { MdxastRootNode } from "./unist-types";
 
 interface HeaderMeta {
   rank: number;

@@ -3,15 +3,15 @@ const { resolve } = require("path");
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
-const mdxOptions = require("./.build/utils/mdx-config");
-const mdxSiteOptions = require("./.build/utils/mdx-config-site");
-const mdxDocsOptions = require("./.build/utils/mdx-config-docs");
+const mdxOptions = require("./.build/server/mdx-config");
+const mdxSiteOptions = require("./.build/server/mdx-config-site");
+const mdxDocsOptions = require("./.build/server/mdx-config-docs");
 const {
   getRedirects,
   getLatestVersionRewirites,
   generateSitemap,
   generateFullSitemap,
-} = require("./.build/utils/paths");
+} = require("./.build/server/paths");
 
 const PAGES_DIRECTORY = resolve(__dirname, "pages");
 const DOCS_DIRECTORY = resolve(__dirname, "pages/docs");

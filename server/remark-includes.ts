@@ -3,7 +3,6 @@ import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 import { VFile } from "vfile";
 import visit from "unist-util-visit-parents";
-import { MdxastNode } from "./unist-types";
 import fromMarkdown from "mdast-util-from-markdown";
 import syntax from "micromark-extension-mdxjs";
 import gfmSyntax from "micromark-extension-gfm";

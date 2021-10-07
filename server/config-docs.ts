@@ -1,7 +1,7 @@
 import { Redirect } from "next/dist/lib/load-custom-routes";
 import { resolve } from "path";
 import { existsSync, readFileSync } from "fs";
-import { isExternalLink, isHash, splitAsPath } from "./url";
+import { isExternalLink, isHash, splitAsPath } from "../utils/url";
 import {
   NavigationCategory,
   NavigationItem,

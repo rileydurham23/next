@@ -24,7 +24,7 @@ const Head = ({
   noIndex,
 }: HeadProps) => {
   const router = useRouter();
-  const url = buildCanonicalUrl(router);
+  const url = buildCanonicalUrl(router.asPath);
   const title = formatTitle(titleSuffix, propsTitle);
   const description = propsDescription || "";
 

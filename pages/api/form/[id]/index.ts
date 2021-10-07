@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { isAllowedFormId, postFormData } from "utils/marketo-api-helpers";
-import { verify } from "utils/recaptcha-verify";
+import { isAllowedFormId, postFormData } from "server/marketo-api-helpers";
+import { verify } from "server/recaptcha-verify";
 
 /*
  * For some reason Marketo API throws error if you send field id

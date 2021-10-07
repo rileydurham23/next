@@ -8,7 +8,6 @@
 import { Parser } from "acorn";
 import acornJsx from "acorn-jsx";
 import stringifyObject from "stringify-object";
-import { EsmNode } from "./unist-types";
 
 const AcornParser = Parser.extend(acornJsx());
 

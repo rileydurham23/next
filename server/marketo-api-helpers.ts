@@ -1,6 +1,6 @@
 import got from "got";
 import NodeCache from "node-cache";
-import { loadSiteConfig } from "utils/config";
+import { loadSiteConfig } from "./config";
 
 const { allowedMarketoIds } = loadSiteConfig();
 

@@ -11,14 +11,7 @@ import { Image, Link } from "mdast";
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
 import { VFile } from "vfile";
-import {
-  MdxastRootNode,
-  MdxastNode,
-  MdxJsxAttribute,
-  MdxJsxFlowElement,
-  ProgramEsmNode,
-} from "./unist-types";
-import { isLocalAssetFile } from "./url";
+import { isLocalAssetFile } from "../utils/url";
 
 export interface RemarkImportFilesOptions {
   resolve?: boolean;

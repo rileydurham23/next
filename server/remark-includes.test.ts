@@ -12,7 +12,7 @@ jest.mock("./docs-helpers");
 const mockedGetVersionRootPath = getVersionRootPath as jest.Mock<string>;
 
 mockedGetVersionRootPath.mockImplementation(() =>
-  resolve("utils/fixtures/includes/")
+  resolve("server/fixtures/includes/")
 );
 
 const transformer = (
@@ -25,10 +25,10 @@ const transformer = (
     .use(remarkGFM)
     .processSync(vfile(vfileOptions));
 
-describe("utils/remark-includes", () => {
+describe("server/remark-includes", () => {
   it("Fixture match result on resolve", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/includes-source.mdx"),
+      resolve("server/fixtures/includes-source.mdx"),
       "utf-8"
     );
 
@@ -38,7 +38,7 @@ describe("utils/remark-includes", () => {
     }).toString();
 
     const expected = readFileSync(
-      resolve("utils/fixtures/includes-result.mdx"),
+      resolve("server/fixtures/includes-result.mdx"),
       "utf-8"
     );
 
@@ -47,7 +47,7 @@ describe("utils/remark-includes", () => {
 
   it("Returns correct warnings on lint", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/includes-source.mdx"),
+      resolve("server/fixtures/includes-source.mdx"),
       "utf-8"
     );
 
@@ -71,7 +71,7 @@ describe("utils/remark-includes", () => {
 
   it("Leave includes in place on { resolve: false }", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/includes-source.mdx"),
+      resolve("server/fixtures/includes-source.mdx"),
       "utf-8"
     );
 
@@ -88,7 +88,7 @@ describe("utils/remark-includes", () => {
 
   it("Multiple includes resolve in code block", () => {
     const contents = readFileSync(
-      resolve("utils/fixtures/includes-multiple-source.mdx"),
+      resolve("server/fixtures/includes-multiple-source.mdx"),
       "utf-8"
     );
 
@@ -98,7 +98,7 @@ describe("utils/remark-includes", () => {
     }).toString();
 
     const expected = readFileSync(
-      resolve("utils/fixtures/includes-multiple-result.mdx"),
+      resolve("server/fixtures/includes-multiple-result.mdx"),
       "utf-8"
     );
 

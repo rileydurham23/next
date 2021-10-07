@@ -1,7 +1,6 @@
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
 import { VFile } from "vfile";
-import { MdxastRootNode, MdxastNode } from "./unist-types";
 
 const RULE_ID = "code-snippet";
 
