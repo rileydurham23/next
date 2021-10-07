@@ -4,8 +4,7 @@ import rehypeHighlight from "rehype-highlight";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkLayout from "./remark-layout";
-import remarkCopyLinkedFiles from "remark-copy-linked-files";
-import { staticPath, destinationDir } from "./mdx-paths";
+import remarkImportFiles from "./remark-import-files";
 
 interface MdxConfig {
   rehypePlugins: PluggableList;
@@ -24,15 +23,8 @@ const config: MdxConfig = {
         },
       },
     ],
-    [
-      remarkCopyLinkedFiles,
-      {
-        destinationDir,
-        staticPath,
-        ignoreFileExtensions: [".md", ".mdx"],
-      },
-    ],
     remarkGFM,
+    remarkImportFiles,
   ],
   rehypePlugins: [rehypeFixTags, [rehypeHighlight, { plainText: ["text"] }]],
 };

@@ -4,7 +4,6 @@ import rehypeHeaders from "./rehype-headers";
 import rehypeHighlight from "rehype-highlight";
 import rehypeImages from "./rehype-images";
 import rehypeSlug from "rehype-slug";
-import remarkCopyLinkedFiles from "remark-copy-linked-files";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkImportFrontmatter from "./remark-import-frontmatter";
@@ -13,7 +12,7 @@ import remarkIncludes from "./remark-includes";
 import remarkLinks from "./remark-links";
 import remarkVariables from "./remark-variables";
 import remarkCodeSnippet from "./remark-code-snippet";
-import { staticPath, destinationDir } from "./mdx-paths";
+import remarkImportFiles from "./remark-import-files";
 
 const DEFAULT_RENDERER = `
 /** @jsxRuntime classic */
@@ -51,29 +50,18 @@ const config: MdxConfig = {
     remarkIncludes,
     remarkVariables,
     remarkGFM,
+    remarkImportFiles,
     remarkLinks,
-    [
-      remarkCopyLinkedFiles,
-      {
-        destinationDir,
-        staticPath,
-        ignoreFileExtensions: [".md", ".mdx"],
-      },
-    ],
   ],
   rehypePlugins: [
     rehypeFixTags,
     rehypeSlug,
-    [
-      rehypeImages,
-      {
-        destinationDir,
-        staticPath,
-      },
-    ],
+    rehypeImages,
     [
       rehypeHighlight,
-      { aliases: { bash: ["bsh", "systemd", "code"], yaml: ["conf", "toml"] } },
+      {
+        aliases: { bash: ["bsh", "systemd", "code"], yaml: ["conf", "toml"] },
+      },
     ],
     [rehypeHeaders, { maxLevel: 2 }],
   ],

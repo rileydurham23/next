@@ -77,3 +77,29 @@ export const buildCanonicalUrl = (router: NextRouter) => {
 
   return `${host}${path}`;
 };
+
+export const hasExt = () => /\..+$/;
+export const urlPattern = () => /^(https?:)/;
+export const emailPattern = () => /^(mailto:)/;
+export const blackList = () => /\.(mdx?|css|tsx?|jsx?)$/;
+
+export const isLocalAssetFile = (_href?: string) => {
+  if (typeof _href !== "string") return false;
+  const href = _href.split("#")[0].split("?")[0];
+  let dots = href.split(".").length - 1;
+  if (href[0] === ".") {
+    dots--;
+    if (href[1] === ".") {
+      dots--;
+    }
+  }
+
+  return (
+    dots > 0 &&
+    href[href.length - 1] !== "/" &&
+    hasExt().test(href) &&
+    !blackList().test(href) &&
+    !urlPattern().test(href) &&
+    !emailPattern().test(href)
+  );
+};

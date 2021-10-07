@@ -1,69 +1,42 @@
-import { existsSync, readFileSync } from "fs";
-import probe from "probe-image-size";
 import { Transformer } from "unified";
 import { Element, Root } from "hast";
 import visit from "unist-util-visit-parents";
-import { RehypeNode } from "./unist-types";
+import { RehypeNode, MdxJsxTextElement, MdxJsxAttribute } from "./unist-types";
 import { isExternalLink, isHash } from "./url";
 
-const isLocalImg = (node: RehypeNode): boolean =>
-  node.type === "element" &&
-  node.tagName === "img" &&
-  typeof node.properties.src === "string" &&
-  !isExternalLink(node.properties.src) &&
-  !isHash(node.properties.src);
+interface MdxImageElement extends MdxJsxTextElement {
+  name: "img";
+  attributes: MdxJsxAttribute[];
+}
 
-const isParagraphWithImageInside = (node: RehypeNode) =>
-  node.type === "element" &&
-  node.tagName === "p" &&
-  node.children.some(isLocalImg);
+const isImgObj = (node): node is MdxImageElement =>
+  ((node.type === "mdxJsxTextElement" || node.type === "mdxJsxFlowElement") &&
+    node.name === "img") ||
+  node.$assetMeta;
 
-const imgSizeRegExp = /@([0-9.]+)x/; // E.g. image@2x.png
-
-const getScaleRatio = (src: string) => {
-  if (imgSizeRegExp.test(src)) {
-    const match = src.match(imgSizeRegExp);
-
-    return parseFloat(match[1]);
-  } else {
-    return 1;
+const isLocalImg = (node): boolean => {
+  if (isImgObj(node)) {
+    return true;
   }
+  return (
+    node.type === "element" &&
+    node.tagName === "img" &&
+    typeof node.properties.src === "string" &&
+    !isExternalLink(node.properties.src) &&
+    !isHash(node.properties.src)
+  );
 };
 
-interface RehypeImagesProps {
-  destinationDir: string;
-  staticPath: string;
-}
+const isParagraphWithImageInside = (node: RehypeNode) => {
+  return (
+    node.type === "element" &&
+    node.tagName === "p" &&
+    node.children.some(isLocalImg)
+  );
+};
 
-interface ImageElement extends Element {
-  properties: {
-    src: string;
-    width?: number;
-    height?: number;
-  };
-}
-
-export default function rehypeImages({
-  destinationDir,
-  staticPath,
-}: RehypeImagesProps): Transformer {
+export default function rehypeImages(): Transformer {
   return (root: Root) => {
-    visit<ImageElement>(root, [isLocalImg], (node) => {
-      const src = node.properties.src.replace(staticPath, `${destinationDir}/`);
-
-      if (existsSync(src)) {
-        const file = readFileSync(src);
-
-        try {
-          const { width, height } = probe.sync(file);
-          const scaleRatio = getScaleRatio(src);
-
-          node.properties.width = width / scaleRatio;
-          node.properties.height = height / scaleRatio;
-        } catch {}
-      }
-    });
-
     /*
       We will use next/image on the client that will wrap image inside <div>,
       and placing <div> inside <p> will cause css bugs, so we remove this <p> here
