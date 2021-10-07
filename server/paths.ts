@@ -2,6 +2,7 @@ import glob from "glob";
 import { resolve, join } from "path";
 import { loadSiteConfig, loadDocsConfig } from "./config";
 import { generateSitemap as sitemapGenerator } from "./sitemap";
+import { getFrontMatter } from "./frontmatter";
 
 const { latest, versions, redirects } = loadSiteConfig();
 
@@ -11,19 +12,45 @@ const extensions = ["md", "mdx", "ts", "tsx", "js", "jsx"];
 const pagesRoot = resolve("pages");
 const nextPages = [
   new RegExp(`^${pagesRoot}/api/.*$`),
-  new RegExp(`^${pagesRoot}/previous-terms/.*$`),
   new RegExp(`^${pagesRoot}/_app.(${extensions.join("|")})$`),
   new RegExp(`^${pagesRoot}/_document.(${extensions.join("|")})$`),
   new RegExp(`^${pagesRoot}${NEXT_PUBLIC_DOCS_DIR}/.*`),
 ];
 
+const filterNoIndexPage = (path: string) => {
+  const isMdxPage = /\.mdx?$/.test(path);
+
+  if (!isMdxPage) {
+    return true;
+  }
+
+  const data = getFrontMatter(path);
+
+  return !data["noindex"];
+};
+
 const getNonDocsPaths = () => {
   return glob
     .sync(join(pagesRoot, `**/*.{${extensions.join()}}`))
     .filter((path) => !nextPages.some((regexp) => regexp.test(path)))
+    .filter(filterNoIndexPage)
     .map((path) => path.replace(pagesRoot, ""))
     .map((path) =>
       path.replace(new RegExp(`(/index)?.(${extensions.join("|")})$`), "/")
+    );
+};
+
+type Identity = (path: string) => boolean;
+
+const getSlugsForVersion = (version: string, filter: Identity = () => true) => {
+  const root = join("/ver", version);
+  const path = resolve("content", version, "docs/pages");
+
+  return glob
+    .sync(join(path, "**/*.mdx"))
+    .filter(filter)
+    .map((filename) =>
+      filename.replace(/\/?(index)?.mdx?$/, "/").replace(path, root)
     );
 };
 
@@ -31,7 +58,7 @@ const getSlugDataListForVersion = (version: string) => {
   const root = join("/ver", version);
   const path = resolve("content", version, "docs/pages");
 
-  return glob.sync(join(path, "**/*.mdx")).map((filename) => {
+  return getSlugsForVersion(version).map((filename) => {
     return {
       slug: filename.replace(/\/?(index)?.mdx?$/, "/").replace(path, root),
       version,
@@ -56,8 +83,8 @@ export const getLatestVersionRewirites = () =>
 
 export const generateSitemap = () => {
   const sitePages = getNonDocsPaths().map((loc) => ({ loc }));
-  const currentDocPages = getSlugDataListForVersion(latest).map(
-    ({ slug, version }) => ({ loc: normalizeDocSlug(slug, version) })
+  const currentDocPages = getSlugsForVersion(latest, filterNoIndexPage).map(
+    (slug) => ({ loc: normalizeDocSlug(slug, latest) })
   );
 
   sitemapGenerator({
@@ -71,7 +98,7 @@ export const generateFullSitemap = () => {
 
   versions.forEach((version) => {
     docPages.push(
-      ...getSlugDataListForVersion(version).map(({ slug, version }) => ({
+      ...getSlugsForVersion(version, filterNoIndexPage).map((slug) => ({
         loc: normalizeDocSlug(slug, version),
       }))
     );
