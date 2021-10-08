@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { MDXProvider } from "@mdx-js/react";
 import Drift from "react-driftjs";
 import SectionHeader, { BGColor } from "components/SectionHeader";
@@ -20,7 +20,7 @@ const ACCESS_LINK = {
   shape: "outline",
 } as const;
 
-const wrapperOptions = {
+const baseWrapperOptions = {
   bg: "wavelight" as const,
   color: "darkest",
   backgroundPosition: "top left",
@@ -74,6 +74,10 @@ export const ContentPage = ({
 }: ContentPageProps) => {
   const bg = bgWave ? { bg: bgWave } : {};
   const Wrapper = needWrapper ? Section : Fragment;
+  const wrapperOptions = useMemo(
+    () => (needWrapper ? baseWrapperOptions : {}),
+    [needWrapper]
+  );
   return (
     <>
       <Head title={title} description={description} noIndex={noindex} />
