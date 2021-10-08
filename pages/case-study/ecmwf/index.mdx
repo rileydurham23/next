@@ -7,22 +7,23 @@ hideWave: true
 layout: content
 reviews:
   - ecmwf
-companyLogo:
-  src: ./assets/ecmwf.png
-  width: 300
-  height: 52
-  alt: logo ECMWF
-articleTitle: How Third Parties Securely Access Supercomputing Clusters
-articleSubtitle: Customer Case Study
+$images:
+  logo: ./assets/ecmwf@2x.png
+logoAlt: logo ECMWF
+h1: How Third Parties Securely Access Supercomputing Clusters
+subtitle: Customer Case Study
+articleDescription: false
+needWrapper: true
+bgWave: wave-on-gray
+tryTeleport: true
+accessPlane: true
 ---
 
 import {
-  Box,
   Link,
   Feedback,
   Quote
 } from "components";
-import NextImage from "next/image";
 
 
 The ECMWF needs to safely and securely grant remote shell access to a supercomputer while knowing little about the end users. So when they modernized, European Centre for Medium-Range Weather Forecasting (ECMWF) chose Teleport. On one hand, the ECMWF was founded to provide mission-critical weather services to its members across Europe. On the other, they had to protect computing clusters that forecast models from unwanted access. The catch? A healthy portion of their ecosystem consisted of third party users connecting remotely from a Member State. In other words, the ECMWF had to open their facilities to researchers they did not have explicit contracts with and cannot know in advance. With Teleport, they have enough control to feel comfortable exposing endpoints to anyone its Member States had authorized.
@@ -39,8 +40,6 @@ As with most growing organizations, the ECMWF’s existing in-house solution, ec
 ## What is ecAccess?
 The two computational behemoths housed by the ECMWF include a high-performance computing Linux cluster and two [Cray XC40s](https://en.wikipedia.org/wiki/Cray_XC40) that constitute its supercomputer. Capable of up to hundreds of teraflops in processing power, these facilities are used by researchers to crunch data and build machine learning models all through remote shell access via SSH. Such low-level access opened an avenue for hackers to siphon supercomputing resources, with a recent example being a coordinated attempt to use other European supercomputers to [mine cryptocurrencies](https://www.zdnet.com/article/supercomputers-hacked-across-europe-to-mine-cryptocurrency/). For the ECMWF, the stakes are higher as their systems directly support emergency services. Days or even weeks of downtime is not tolerable.
 <Figure
-  width={1208}
-  height={372}
   caption="Figure 1: ecAccess Architecture"
 >
   ![ecAccess Architecture](./assets/ecaccess-architecture.png)
@@ -57,8 +56,6 @@ Like most Linux shops, especially one that creates and freely distributes softwa
 ## An (Accelerated) Implementation
 The ECMWF first implemented Teleport in their facility in England, both as a POC and because of the immediate need for better auth. The idea was to have both ecAccess and Teleport in production and slowly wean users off ecAccess in preparation for their Italy data center, which would only support Teleport. In March 2020, this initiative was pushed into high gear as COVID spread.
 <Figure
-  width={1208}
-  height={554}
   caption="Figure 2: How Teleport Works"
 >
   ![How Teleport Works](./assets/how-teleport-works.png)
@@ -74,12 +71,10 @@ ECMWF connected Teleport to their identity management system and Keycloak login 
 
 Consider two potential certificates an authorization server may receive:
 <Figure
-  width={600}
-  height={177}
   caption="Figure 3: Two Different User Identities"
   imagePositioning="center"
 >
-    ![Two Different User Identities](./assets/two-different-user-identities.png)
+    ![Two Different User Identities](./assets/two-different-user-identities@1.5x.png)
 </Figure>
 
 Both John and Alice present notably different profiles. John is a staff member and a sysadmin at that. His privilege level is superior to Alice’s, who received credentials through a Member State government program. With Teleport, the ECMWF could partition different levels of authorization, enforcing access policies among staff, analysts, and third parties. A YAML file for John’s admin role may look something like this:
@@ -130,12 +125,10 @@ By connecting the user login with an identity provider, identity information get
 ## The Web UI
 In addition to a local agent, Teleport provides a fully featured web-based SSH console that can be used in-browser. This unlocked an entirely new cast of users that existed solely over the web. The demographic included people that had only used Windows machines and might still be using one. For example some security policies prevent users from downloading any agents on local devices, either for OpenSSH or Teleport. Others just found using the CLI daunting. For all these people, having a web client gave them a channel they previously had not.
 <Figure
-  width={600}
-  height={164}
   caption="Figure 4: Teleport Web Console"
   imagePositioning="center"
 >
-  ![Teleport Web Console](./assets/terminal-web-console.png)
+  ![Teleport Web Console](./assets/terminal-web-console@1.5x.png)
 </Figure>
 
 Even for those experienced with Linux, the Web UI has been a welcome addition to the ECMWF. A widely adopted OSS data science tool, JupyterHub, exists in-browser. By being able to hop between services by just switching tabs makes for a much more consistent experience for many data scientists.

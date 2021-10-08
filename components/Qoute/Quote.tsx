@@ -6,8 +6,8 @@ import Link from "components/Link";
 interface QouteProps {
   children: React.ReactNode;
   title?: string;
-  linkTextTitle: string;
-  linkSrc: string;
+  linkTextTitle?: string;
+  linkSrc?: string;
 }
 
 export default function Qoute({
@@ -19,17 +19,14 @@ export default function Qoute({
 }: QouteProps) {
   return (
     <StyledQoute {...props}>
-      {title && !linkSrc && (
+      {title && (
         <Box as="p" fontWeight="700" mb="3">
           {title}
-        </Box>
-      )}
-      {title && linkSrc && (
-        <Box as="p" fontWeight="700" mb="3">
-          {title}
-          <Link scheme="site" color="dark-purple" href={linkSrc} ml="1">
-            {linkTextTitle}
-          </Link>
+          {linkSrc && linkTextTitle && (
+            <Link scheme="site" color="dark-purple" href={linkSrc} ml="1">
+              {linkTextTitle}
+            </Link>
+          )}
         </Box>
       )}
       {children}
