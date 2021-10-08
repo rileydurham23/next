@@ -17,7 +17,7 @@ interface RemarkLayoutOptions {
 const getLayoutCode = (layout: string, meta: Meta) => `
 import Layout from "${layout}";
 
-const meta = ${stringifyObject(meta)};
+export const meta = ${stringifyObject(meta)};
 
 const Wrapper = (props) => <Layout {...props} meta={meta} />;
 

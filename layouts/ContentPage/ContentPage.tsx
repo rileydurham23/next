@@ -1,5 +1,7 @@
+import React from "react";
 import Drift from "react-driftjs";
-import SectionHeader from "components/SectionHeader";
+import SectionHeader, { BGColor } from "components/SectionHeader";
+import Section from "components/Section";
 import Head from "components/Head";
 import Layout, { Centrator } from "components/Layout";
 import Footer from "components/Footer";
@@ -7,6 +9,25 @@ import MDX from "components/MDX";
 import BaseCode from "components/Code";
 import Box, { BoxProps } from "components/Box";
 import BaseLink, { LinkProps } from "components/Link";
+import NextImage, { ImageProps } from "next/image";
+import TryTeleport from "components/TryTeleport";
+import accessPlaneImg from "./assets/access-plane-all.png";
+import Quote from "components/Qoute";
+import { Figure } from "components/MDX/Image";
+
+const ACCESS_LINK = {
+  href: "/",
+  text: "Learn more",
+  variant: "secondary",
+  shape: "outline",
+} as const;
+
+const wrapperOptions = {
+  bg: "wavelight" as const,
+  color: "darkest",
+  backgroundPosition: "top left",
+  backgroundSize: "auto",
+};
 
 const components = {
   pre: function Pre(props) {
@@ -60,6 +81,12 @@ const components = {
   a: function Link(props: LinkProps) {
     return <BaseLink {...props} scheme="site" />;
   },
+  Quote: function LocalQuote(props) {
+    return <Quote mt="6" {...props} />;
+  },
+  Figure: function LocalFigure(props) {
+    return <Figure xMargin="0" {...props} />;
+  },
 };
 
 interface ContentPageProps {
@@ -68,28 +95,75 @@ interface ContentPageProps {
     subtitle?: string;
     description?: string;
     noindex?: boolean;
+    h1?: string;
+    articleDescription?: boolean;
+    $images?: { logo: Exclude<ImageProps["src"], string> };
+    logoAlt: string;
+    bgWave?: BGColor;
+    tryTeleport?: boolean;
+    accessPlane?: boolean;
+    needWrapper?: boolean;
   };
   children: React.ReactNode;
 }
 
 export const ContentPage = ({
   children,
-  meta: { title, subtitle = "Teleport Access Plane", description, noindex },
+  meta: {
+    title,
+    subtitle = "Teleport Access Plane",
+    description,
+    noindex,
+    h1,
+    articleDescription = true,
+    $images,
+    logoAlt,
+    needWrapper,
+    bgWave,
+    tryTeleport,
+    accessPlane,
+  },
 }: ContentPageProps) => {
+  const bg = bgWave ? { bg: bgWave } : {};
+  const Wrapper = needWrapper ? Section : React.Fragment;
   return (
     <>
       <Head title={title} description={description} noIndex={noindex} />
       <Layout border="none" behaviour="floating">
         <SectionHeader
           subtitle={subtitle}
-          title={title}
-          description={description}
-        />
-        <Centrator flexDirection="column" my={[3, 11]}>
-          <MDX components={components}>{children}</MDX>
-        </Centrator>
+          title={h1 ? h1 : title}
+          description={articleDescription ? description : undefined}
+          {...bg}
+        >
+          {logoAlt && <NextImage src={$images.logo} alt={logoAlt} />}
+        </SectionHeader>
+        <Wrapper {...wrapperOptions}>
+          <Centrator flexDirection="column" my={[3, 11]}>
+            <MDX components={components}>{children}</MDX>
+          </Centrator>
+        </Wrapper>
         <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
       </Layout>
+      {accessPlane && (
+        <SectionHeader
+          mode="full"
+          subtitle="Teleport is part of the"
+          title="Access Plane"
+          description="Teleport provides an Access Plane that consolidates access controls and auditing across all environments - infrastructure, applications and data."
+          bg="wave"
+          link={ACCESS_LINK}
+        >
+          <NextImage
+            src={accessPlaneImg}
+            width={588}
+            height={356}
+            layout="intrinsic"
+            alt="Teleport Access Plane"
+          />
+        </SectionHeader>
+      )}
+      {tryTeleport && <TryTeleport />}
       <Footer />
     </>
   );

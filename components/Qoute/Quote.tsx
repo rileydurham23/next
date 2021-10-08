@@ -27,7 +27,7 @@ export default function Qoute({
       {title && linkSrc && (
         <Box as="p" fontWeight="700" mb="3">
           {title}
-          <Link scheme="site" href={linkSrc} ml="1">
+          <Link scheme="site" color="dark-purple" href={linkSrc} ml="1">
             {linkTextTitle}
           </Link>
         </Box>

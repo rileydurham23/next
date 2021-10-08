@@ -5,7 +5,7 @@ import wave from "./fixtures/wave.svg";
 import wavelight from "./fixtures/wave-light.png";
 import Button, { ButtonVariant, ButtonShape } from "components/Button";
 
-type BGColor = "wave" | "white" | "gray" | "wavelight" | "wave-on-gray";
+export type BGColor = "wave" | "white" | "gray" | "wavelight" | "wave-on-gray";
 type LinkProps = {
   href: string;
   text: string;

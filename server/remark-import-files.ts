@@ -3,6 +3,7 @@ import {
   VariableDeclaration,
   ObjectExpression,
   Property,
+  ModuleDeclaration,
 } from "estree-jsx";
 import { existsSync, readFileSync } from "fs";
 import probe from "probe-image-size";
@@ -243,6 +244,14 @@ const getScaleRatio = (src: string) => {
   }
 };
 
+function forSureDeclar(_node): _node is ModuleDeclaration {
+  return true;
+}
+
+function forSureExportNamedDeclaration(_node): _node is ExportNamedDeclaration {
+  return true;
+}
+
 interface Dims {
   w: string;
   h: string;
@@ -308,19 +317,41 @@ export default function remarkImportFiles(
           node.type === "mdxjsEsm" && /export const meta = /.test(node.value),
       ],
       (node: ProgramEsmNode) => {
-        const stat = node.data?.estree?.body?.[0] as ExportNamedDeclaration;
-        const declar = stat.declaration as VariableDeclaration;
+        const exportDeclaration = node.data?.estree?.body?.find((i) => {
+          if (i.type === "ExportNamedDeclaration") {
+            const declar = i.declaration as VariableDeclaration;
+            const declarDeclarations = declar?.declarations[0];
+            if (
+              declarDeclarations.id.type === "Identifier" &&
+              declarDeclarations.id.name === "meta" &&
+              declarDeclarations.init.type === "ObjectExpression"
+            ) {
+              return true;
+            }
+          }
+          return false;
+        });
+
+        if (
+          !exportDeclaration ||
+          !forSureDeclar(exportDeclaration) ||
+          !forSureExportNamedDeclaration(exportDeclaration)
+        ) {
+          return;
+        }
+
+        const declar = exportDeclaration.declaration as VariableDeclaration;
         const properties = declar.declarations[0].init as ObjectExpression;
-        const prop = properties.properties?.find(
+        const imagesProp = properties.properties?.find(
           (elem: Property) =>
             elem.key.type === "Identifier" && elem.key.name === "$images"
         ) as Property;
 
-        if (!prop || prop.value.type !== "ObjectExpression") {
+        if (!imagesProp || imagesProp.value.type !== "ObjectExpression") {
           return;
         }
 
-        for (const property of prop.value.properties) {
+        for (const property of imagesProp.value.properties) {
           if (
             property.type !== "Property" ||
             property.value.type !== "Literal"
