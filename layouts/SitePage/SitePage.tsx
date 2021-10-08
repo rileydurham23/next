@@ -1,16 +1,13 @@
+import { MDXProvider } from "@mdx-js/react";
 // Drift is the chatbot - should be avaialble on all pages
 import Drift from "react-driftjs";
-import Code from "components/Code";
 import Layout from "components/Layout";
 import Footer from "components/Footer";
 import Head from "components/Head";
+import Box from "components/Box";
 import { HeaderMode, HeaderBehaviour } from "components/Header";
-import MDX from "components/MDX";
+import { components } from "./components";
 import wavePngUrl from "sharedAssets/images/wave-light.png";
-
-const components = {
-  pre: Code,
-};
 
 interface Props {
   meta: {
@@ -41,7 +38,9 @@ export default function SitePage({ meta, children }: Props) {
         headerColor={meta.headerColor}
         border={meta.border}
       >
-        <MDX components={components}>{children}</MDX>
+        <Box color="text" lineHeight="26px">
+          <MDXProvider components={components}>{children}</MDXProvider>
+        </Box>
       </Layout>
       <Footer short={Boolean(meta.shortFooter)} />
       <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />

@@ -18,7 +18,7 @@ const config: MdxConfig = {
       remarkLayout,
       {
         layouts: {
-          default: "components/SitePage",
+          default: "layouts/SitePage",
           content: "layouts/ContentPage",
         },
       },

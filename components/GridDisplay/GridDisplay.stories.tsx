@@ -1,5 +1,4 @@
 import { Story } from "@storybook/react";
-import MDX from "../MDX";
 import GridDisplay from "./GridDisplay";
 import { GridCard, GridCardProps } from "./GridCard";
 import { GridTile, GridTileProps } from "./GridTile";
@@ -23,7 +22,7 @@ const Tile = TileWrapper.bind({});
 
 export const Default = () => {
   return (
-    <MDX>
+    <>
       <GridDisplay
         iconName="building"
         iconSize="lg"
@@ -122,6 +121,6 @@ export const Default = () => {
           series of articles describing key Teleport concepts.
         </Tile>
       </GridDisplay>
-    </MDX>
+    </>
   );
 };

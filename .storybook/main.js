@@ -1,6 +1,6 @@
 const { resolve } = require("path");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-const mdxOptions = require("../.build/utils/mdx-config");
+const mdxOptions = require("../.build/server/mdx-config");
 
 const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "..", "components/Company");
 

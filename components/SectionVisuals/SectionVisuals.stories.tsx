@@ -1,13 +1,14 @@
+import { MDXProvider } from "@mdx-js/react";
 import { Story } from "@storybook/react";
 import Image from "next/image";
-import MDX from "../MDX";
+import { components } from "layouts/SitePage";
 import { SectionVisuals, SectionVisualsProps } from "./SectionVisuals";
 import imageSrc from "./fixtures/red.png";
 
 const StoryComponent: Story<SectionVisualsProps> = (args) => (
-  <MDX>
+  <MDXProvider components={components}>
     <SectionVisuals {...args} />
-  </MDX>
+  </MDXProvider>
 );
 
 export default {

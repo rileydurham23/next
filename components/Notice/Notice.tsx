@@ -4,11 +4,7 @@ import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
 import Icon from "components/Icon";
 import { variant, css } from "components/system";
-import {
-  DocsContext,
-  ScopesType,
-  getScopes,
-} from "components/DocsPage/context";
+import { DocsContext, ScopesType, getScopes } from "layouts/DocsPage/context";
 
 const types = ["warning", "tip", "note", "danger"] as const;
 

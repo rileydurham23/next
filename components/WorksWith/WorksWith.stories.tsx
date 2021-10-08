@@ -1,12 +1,8 @@
 import { Story } from "@storybook/react";
-import MDX from "../MDX";
+
 import { WorksWith, WorksWithProps } from "./WorksWith";
 
-const StoryComponent: Story<WorksWithProps> = (args) => (
-  <MDX>
-    <WorksWith {...args} />
-  </MDX>
-);
+const StoryComponent: Story<WorksWithProps> = (args) => <WorksWith {...args} />;
 
 export default {
   component: StoryComponent,

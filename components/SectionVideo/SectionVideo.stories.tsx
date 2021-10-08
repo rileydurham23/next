@@ -1,11 +1,12 @@
 import { Story } from "@storybook/react";
-import MDX from "../MDX";
+import { MDXProvider } from "@mdx-js/react";
+import { components } from "layouts/SitePage";
 import { SectionVideo, SectionVideoProps } from "./SectionVideo";
 
 const StoryComponent: Story<SectionVideoProps> = (args) => (
-  <MDX>
+  <MDXProvider components={components}>
     <SectionVideo {...args} />
-  </MDX>
+  </MDXProvider>
 );
 
 export default {

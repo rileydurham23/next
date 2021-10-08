@@ -1,5 +1,4 @@
 import { Story } from "@storybook/react";
-import MDX from "../MDX";
 import { ProductBanner, ProductBannerProps } from "./ProductBanner";
 
 import cert from "./fixtures/cert.png";
@@ -8,9 +7,7 @@ import soc2 from "./fixtures/soc2.png";
 import server from "./fixtures/server-access.png";
 
 const StoryComponent: Story<ProductBannerProps> = (args) => (
-  <MDX>
-    <ProductBanner {...args} />
-  </MDX>
+  <ProductBanner {...args} />
 );
 
 export default {

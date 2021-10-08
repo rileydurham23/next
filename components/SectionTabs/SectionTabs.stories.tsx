@@ -1,5 +1,6 @@
 import Image from "next/image";
-import MDX from "../MDX";
+import { MDXProvider } from "@mdx-js/react";
+import { components } from "layouts/SitePage";
 import { SectionTabs } from "./SectionTabs";
 import blueImg from "./fixtures/blue.png";
 import greenImg from "./fixtures/green.png";
@@ -12,7 +13,7 @@ export default {
 
 export const Default = () => {
   return (
-    <MDX>
+    <MDXProvider components={components}>
       <SectionTabs subtitle="Core Features">
         <SectionTabs.Item
           src={greenImg}
@@ -54,6 +55,6 @@ export const Default = () => {
           />
         </SectionTabs.Item>
       </SectionTabs>
-    </MDX>
+    </MDXProvider>
   );
 };

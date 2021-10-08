@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import { DocsContextProvider } from "components/DocsPage/context";
+import { DocsContextProvider } from "layouts/DocsPage/context";
 import theme from "components/theme";
 import { GTMPageView } from "utils/gtm";
 import "components/global-styles.css";

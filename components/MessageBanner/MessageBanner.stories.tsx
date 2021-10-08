@@ -1,11 +1,8 @@
 import { Story } from "@storybook/react";
-import MDX from "../MDX";
 import { MessageBanner, MessageBannerProps } from "./MessageBanner";
 
 const StoryComponent: Story<MessageBannerProps> = (args) => (
-  <MDX>
-    <MessageBanner {...args} />
-  </MDX>
+  <MessageBanner {...args} />
 );
 
 export default {

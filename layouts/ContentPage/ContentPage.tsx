@@ -1,19 +1,17 @@
-import React from "react";
+import { Fragment } from "react";
+import { MDXProvider } from "@mdx-js/react";
 import Drift from "react-driftjs";
 import SectionHeader, { BGColor } from "components/SectionHeader";
 import Section from "components/Section";
 import Head from "components/Head";
 import Layout, { Centrator } from "components/Layout";
 import Footer from "components/Footer";
-import MDX from "components/MDX";
-import BaseCode from "components/Code";
-import Box, { BoxProps } from "components/Box";
-import BaseLink, { LinkProps } from "components/Link";
 import NextImage, { ImageProps } from "next/image";
 import TryTeleport from "components/TryTeleport";
 import accessPlaneImg from "./assets/access-plane-all.png";
 import Quote from "components/Qoute";
 import { Figure } from "components/MDX/Image";
+import { components as baseComponents } from "layouts/SitePage";
 
 const ACCESS_LINK = {
   href: "/",
@@ -30,57 +28,7 @@ const wrapperOptions = {
 };
 
 const components = {
-  pre: function Pre(props) {
-    return <pre {...props} />;
-  },
-  code: function Code(props) {
-    return <BaseCode {...props} />;
-  },
-  h1: function H1(props: BoxProps) {
-    return (
-      <Box
-        as="h1"
-        mt={2}
-        mb={5}
-        fontSize="header-2"
-        fontWeight="black"
-        lineHeight="xl"
-        color="black"
-        {...props}
-      />
-    );
-  },
-  h2: function H2(props: BoxProps) {
-    return (
-      <Box
-        as="h2"
-        mt={5}
-        mb={2}
-        fontSize="header-3"
-        fontWeight="regular"
-        lineHeight="lg"
-        color="dark-purple"
-        {...props}
-      />
-    );
-  },
-  h3: function H3(props: BoxProps) {
-    return (
-      <Box
-        as="h3"
-        mt={2}
-        mb={2}
-        fontSize="text-lg"
-        fontWeight="bold"
-        lineHeight="lg"
-        color="black"
-        {...props}
-      />
-    );
-  },
-  a: function Link(props: LinkProps) {
-    return <BaseLink {...props} scheme="site" />;
-  },
+  ...baseComponents,
   Quote: function LocalQuote(props) {
     return <Quote mt="6" {...props} />;
   },
@@ -125,7 +73,7 @@ export const ContentPage = ({
   },
 }: ContentPageProps) => {
   const bg = bgWave ? { bg: bgWave } : {};
-  const Wrapper = needWrapper ? Section : React.Fragment;
+  const Wrapper = needWrapper ? Section : Fragment;
   return (
     <>
       <Head title={title} description={description} noIndex={noindex} />
@@ -139,8 +87,13 @@ export const ContentPage = ({
           {logoAlt && <NextImage src={$images.logo} alt={logoAlt} />}
         </SectionHeader>
         <Wrapper {...wrapperOptions}>
-          <Centrator flexDirection="column" my={[3, 11]}>
-            <MDX components={components}>{children}</MDX>
+          <Centrator
+            flexDirection="column"
+            my={[3, 11]}
+            color="text"
+            lineHeight="26px"
+          >
+            <MDXProvider components={components}>{children}</MDXProvider>
           </Centrator>
         </Wrapper>
         <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />

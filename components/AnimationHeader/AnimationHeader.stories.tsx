@@ -1,5 +1,4 @@
 import { Story } from "@storybook/react";
-import MDX from "../MDX";
 import { AnimationHeader, AnimationHeaderProps } from "./AnimationHeader";
 
 export default {
@@ -8,9 +7,7 @@ export default {
 };
 
 const StoryComponent: Story<AnimationHeaderProps> = (args) => (
-  <MDX>
-    <AnimationHeader {...args} />
-  </MDX>
+  <AnimationHeader {...args} />
 );
 
 export const Default = StoryComponent.bind({});

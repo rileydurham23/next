@@ -5,11 +5,7 @@ import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 import Icon from "components/Icon";
 import { transition } from "components/system";
-import {
-  DocsContext,
-  ScopesType,
-  getScopes,
-} from "components/DocsPage/context";
+import { DocsContext, ScopesType, getScopes } from "layouts/DocsPage/context";
 
 export interface DetailsProps {
   scope?: ScopesType;

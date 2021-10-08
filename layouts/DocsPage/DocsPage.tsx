@@ -1,3 +1,4 @@
+import { MDXProvider } from "@mdx-js/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import AnchorNavigation, { HeaderMeta } from "components/AnchorNavigation";
@@ -7,8 +8,7 @@ import Flex from "components/Flex";
 import Head from "components/Head";
 import Layout from "components/Layout";
 import Link from "components/Link";
-import MDX from "components/MDX";
-import { DocsLink } from "./DocsLink";
+import { components } from "./components";
 import Notice from "components/Notice";
 import VideoBar from "components/VideoBar";
 import { DocsContext } from "./context";
@@ -21,12 +21,6 @@ import {
   PageMeta,
   LayoutName,
 } from "./types";
-
-const components = {
-  a: function Link(props) {
-    return <DocsLink {...props} scheme="docs" />;
-  },
-};
 
 const getContentWidth = (layout: LayoutName) => {
   switch (layout) {
@@ -126,7 +120,11 @@ const DocsPage = ({
                   </Notice>
                 )}
                 <Box maxWidth={getContentWidth(layout)}>
-                  <MDX components={components}>{children}</MDX>
+                  <Box color="text" lineHeight="26px">
+                    <MDXProvider components={components}>
+                      {children}
+                    </MDXProvider>
+                  </Box>
                 </Box>
               </Box>
               {!!tableOfConents.length && isTocVisible && (

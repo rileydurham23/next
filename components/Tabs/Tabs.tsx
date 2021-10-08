@@ -12,12 +12,8 @@ import { variant } from "components/system";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
-import { VersionWarning } from "components/DocsPage";
-import {
-  ScopesType,
-  DocsContext,
-  getScopes,
-} from "components/DocsPage/context";
+import { VersionWarning } from "layouts/DocsPage";
+import { ScopesType, DocsContext, getScopes } from "layouts/DocsPage/context";
 
 const getSelectedLabel = (
   tabs: React.ReactComponentElement<typeof TabItem>[]

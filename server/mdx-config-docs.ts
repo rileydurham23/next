@@ -18,7 +18,7 @@ const DEFAULT_RENDERER = `
 /** @jsxRuntime classic */
 
 import { mdx } from "@mdx-js/react";
-import DocsPage from "components/DocsPage";
+import DocsPage from "layouts/DocsPage";
 const Wrapper = () => (
   <DocsPage
     meta={meta}

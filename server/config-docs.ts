@@ -2,10 +2,7 @@ import { Redirect } from "next/dist/lib/load-custom-routes";
 import { resolve } from "path";
 import { existsSync, readFileSync } from "fs";
 import { isExternalLink, isHash, splitAsPath } from "../utils/url";
-import {
-  NavigationCategory,
-  NavigationItem,
-} from "../components/DocsPage/types";
+import { NavigationCategory, NavigationItem } from "../layouts/DocsPage/types";
 import getConfig from "./config-site";
 
 export interface Config {

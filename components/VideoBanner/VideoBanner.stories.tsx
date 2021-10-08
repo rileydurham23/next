@@ -1,11 +1,8 @@
 import { Story } from "@storybook/react";
-import MDX from "../MDX";
 import { VideoBanner, VideoBannerProps } from "./VideoBanner";
 
 const StoryComponent: Story<VideoBannerProps> = (args) => (
-  <MDX>
-    <VideoBanner {...args} />
-  </MDX>
+  <VideoBanner {...args} />
 );
 
 export default {

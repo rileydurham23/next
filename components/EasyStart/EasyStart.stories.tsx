@@ -1,12 +1,13 @@
 import { Story } from "@storybook/react";
+import { MDXProvider } from "@mdx-js/react";
+import { components } from "layouts/SitePage";
 import { EasyStart, EasyStartProps } from "./EasyStart";
 import Terminal from "../Terminal";
-import MDX from "../MDX";
 
 const StoryComponent: Story<EasyStartProps> = (args) => (
-  <MDX>
+  <MDXProvider components={components}>
     <EasyStart {...args} />
-  </MDX>
+  </MDXProvider>
 );
 
 export default {
