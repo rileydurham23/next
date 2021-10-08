@@ -3,22 +3,22 @@ import { css, all } from "components/system";
 import Box from "components/Box";
 import Link from "components/Link";
 
-interface QouteProps {
+interface QuoteProps {
   children: React.ReactNode;
   title?: string;
   linkTextTitle?: string;
   linkSrc?: string;
 }
 
-export default function Qoute({
+export function Quote({
   children,
   title,
   linkTextTitle,
   linkSrc,
   ...props
-}: QouteProps) {
+}: QuoteProps) {
   return (
-    <StyledQoute {...props}>
+    <StyledQuote {...props}>
       {title && (
         <Box as="p" fontWeight="700" mb="3">
           {title}
@@ -30,11 +30,11 @@ export default function Qoute({
         </Box>
       )}
       {children}
-    </StyledQoute>
+    </StyledQuote>
   );
 }
 
-const StyledQoute = styled("blockquote")(
+const StyledQuote = styled("blockquote")(
   css({
     boxSizing: "border-box",
     width: "100%",

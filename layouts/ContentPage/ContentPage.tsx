@@ -9,7 +9,7 @@ import Footer from "components/Footer";
 import NextImage, { ImageProps } from "next/image";
 import TryTeleport from "components/TryTeleport";
 import accessPlaneImg from "./assets/access-plane-all.png";
-import Quote from "components/Qoute";
+import Quote from "components/Quote";
 import { Figure } from "components/MDX/Image";
 import { components as baseComponents } from "layouts/SitePage";
 
