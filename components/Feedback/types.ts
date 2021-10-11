@@ -4,7 +4,7 @@ export type PersonPhoto = keyof typeof photos;
 
 export interface Review {
   text: string;
-  person: {
+  person?: {
     name: string;
     title: string;
     photo?: PersonPhoto;

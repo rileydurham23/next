@@ -28,7 +28,7 @@ export default function Review({ company }: ReviewItemProps) {
 
   let photo = "";
 
-  if (data.person.photo in personsData) {
+  if (data.person?.photo in personsData) {
     photo = personsData[data.person.photo];
   }
 
@@ -59,16 +59,18 @@ export default function Review({ company }: ReviewItemProps) {
             height="40px"
           />
         )}
-        <Box
-          color="gray"
-          text="text-sm"
-          letterSpacing=".5px;"
-          ml={photo ? 4 : 0}
-          textAlign={photo ? "left" : "center"}
-        >
-          <Box as="p">{data.person.name}</Box>
-          <Box as="p">{`${data.person.title}, ${companyData.title}`}</Box>
-        </Box>
+        {data.person && (
+          <Box
+            color="gray"
+            text="text-sm"
+            letterSpacing=".5px;"
+            ml={photo ? 4 : 0}
+            textAlign={photo ? "left" : "center"}
+          >
+            <Box as="p">{data.person.name}</Box>
+            <Box as="p">{`${data.person.title}, ${companyData.title}`}</Box>
+          </Box>
+        )}
       </Flex>
     </StyledWrapper>
   );
