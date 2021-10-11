@@ -1,8 +1,11 @@
 import { useCallback, useState, useMemo } from "react";
+import { useRouter } from "next/router";
 import { useDefaultFormValues, useMarketoForm } from "components/MarketoForm";
 import fallbackData from "./data.json";
 
 export const useNewsletter = () => {
+  const router = useRouter();
+
   const {
     disabled,
     data,
@@ -15,7 +18,10 @@ export const useNewsletter = () => {
     fallbackData as unknown as MarketoFormDataAPIResponse
   );
 
-  const initialValues = useDefaultFormValues(data ? data.fields : []);
+  const initialValues = useDefaultFormValues(
+    data ? data.fields : [],
+    router.query
+  );
 
   const [value, setValue] = useState<string>(initialValues.Email);
   const [submitting, setSubmitting] = useState<boolean>(false);

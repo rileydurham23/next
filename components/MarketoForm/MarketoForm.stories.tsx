@@ -9,7 +9,7 @@ const onSubmit = () =>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const StoryComponent = ({ config }: any) => {
-  const initialValues = useDefaultFormValues(config.fields);
+  const initialValues = useDefaultFormValues(config.fields, {});
 
   return (
     <Flex p={4} width="100%" maxWidth="500px" justifyContent="stretch">
