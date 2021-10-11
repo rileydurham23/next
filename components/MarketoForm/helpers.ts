@@ -5,44 +5,37 @@
 
 import { useCallback, useMemo, useState, useEffect } from "react";
 import useSWRImmutable from "swr/immutable";
+import { parseCookies } from "nookies";
 import { fetcher } from "utils/fetcher";
 import { useRecaptcha } from "utils/recaptcha";
 
-type RouterQuery = NodeJS.Dict<string | string[]>;
-
-const getDefaultFieldValue = (
-  autoFill: MarketoFieldAutoFill,
-  query: RouterQuery
-) => {
+const getDefaultFieldValue = (autoFill: MarketoFieldAutoFill) => {
   if (!autoFill) {
     return "";
   }
 
-  const { value: defaultValue = "", valueFrom, parameterName } = autoFill;
+  const cookie = parseCookies();
+
+  const { value: defaultValue = "", parameterName } = autoFill;
 
   let value = defaultValue;
 
-  if (valueFrom === "query" && query[parameterName]) {
-    value = query[parameterName] as string;
-  }
+  if (cookie[parameterName]) value = cookie[parameterName] as string;
 
   return value;
 };
 
-export const useDefaultFormValues = (
-  fields: MarketoField[],
-  query: NodeJS.Dict<string | string[]>
-) => {
+export const useDefaultFormValues = (fields: MarketoField[]) => {
   return useMemo(
     () =>
       fields
         .filter(({ dataType }) => dataType !== "htmltext")
         .reduce((result, { id, autoFill }) => {
-          result[id] = getDefaultFieldValue(autoFill, query);
+          result[id] = getDefaultFieldValue(autoFill);
 
           return result;
         }, {} as Record<string, string>),
-    [fields, query]
+    [fields]
   );
 };
 
