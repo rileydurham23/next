@@ -1,6 +1,5 @@
 import css from "@styled-system/css";
 import { Form } from "react-final-form";
-import { useRouter } from "next/router";
 import Link from "components/Link";
 import Button from "components/Button";
 import Box from "components/Box";
@@ -160,14 +159,9 @@ export const MarketoBrowserForm = ({
   id,
   ...flexProps
 }: MarketobrowserFormProps) => {
-  const router = useRouter();
-
   const { data, disabled, loading, error, onSubmit, UID } = useMarketoForm(id);
 
-  const initialValues = useDefaultFormValues(
-    data ? data.fields : [],
-    router.query
-  );
+  const initialValues = useDefaultFormValues(data ? data.fields : []);
 
   return (
     <Flex justifyContent="center" alignItems="center" {...flexProps}>
