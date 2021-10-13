@@ -1,48 +1,49 @@
 import Section from "components/Section";
 import { Centrator } from "components/Layout";
-import Flex from "components/Flex";
 import Box from "components/Box";
 import Video from "components/Video";
+import { BGColor } from "components/Section";
 
 export interface VideoBannerProps {
-  title: string;
-  subtitle?: string;
   videoId: string;
+  title?: string;
+  subtitle?: string;
+  bg?: BGColor;
 }
 
-export const VideoBanner = ({ title, subtitle, videoId }: VideoBannerProps) => {
+export const VideoBanner = ({
+  title,
+  subtitle,
+  videoId,
+  bg = "grayWave",
+}: VideoBannerProps) => {
   return (
-    <Section bg="grayWave">
-      <Centrator flexDirection="column">
-        <Flex
-          flexDirection="column"
-          alignItems="center"
-          width={["auto", "100%"]}
-          py={[5, 11]}
-        >
+    <Section bg={bg}>
+      <Centrator flexDirection="column" py={[5, 11]} alignItems="center">
+        {title && (
           <Box
+            as="p"
             fontSize={["header-3", "header-1"]}
             fontWeight="black"
             mb={subtitle ? [3, 5] : [5, 7]}
           >
             {title}
           </Box>
-          <Box>
-            {subtitle && (
-              <Box
-                mb={4}
-                fontSize={["text-l", "text-xl"]}
-                lineHeight="lg"
-                color="darkest"
-                maxWidth="600px"
-                textAlign="center"
-              >
-                {subtitle}
-              </Box>
-            )}
+        )}
+        {subtitle && (
+          <Box
+            as="p"
+            mb={4}
+            fontSize={["text-l", "text-xl"]}
+            lineHeight="lg"
+            color="darkest"
+            maxWidth="600px"
+            textAlign="center"
+          >
+            {subtitle}
           </Box>
-          <Video width={1064} height={534} videoId={videoId} />
-        </Flex>
+        )}
+        <Video width={1064} height={534} videoId={videoId} />
       </Centrator>
     </Section>
   );
