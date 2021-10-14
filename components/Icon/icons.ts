@@ -28,6 +28,7 @@ export { ReactComponent as kubernetes } from "./svg/kubernetes.svg";
 export { ReactComponent as list } from "./svg/list.svg";
 export { ReactComponent as lock } from "./svg/lock.svg";
 export { ReactComponent as magnify } from "./svg/magnify.svg";
+export { ReactComponent as map } from "./svg/map.svg";
 export { ReactComponent as note } from "./svg/note.svg";
 export { ReactComponent as play } from "./svg/play.svg";
 export { ReactComponent as presentation } from "./svg/presentation.svg";

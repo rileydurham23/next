@@ -1,5 +1,9 @@
-import { Flex, Grid, Section, Icon, Box, Heading } from "components";
-import { IconProps, IconName } from "components/Icon";
+import Flex from "components/Flex";
+import Grid from "components/Grid";
+import Section from "components/Section";
+import Box from "components/Box";
+import Heading from "components/Heading";
+import Icon, { IconProps, IconName } from "components/Icon";
 import { Centrator } from "components/Layout";
 import type { BGColor } from "components/Section/Section";
 import { GridTile } from "./GridTile";
@@ -18,10 +22,11 @@ export interface GridDisplayProps {
   centralHeading?: boolean;
   title: string;
   subtitle?: string;
-  titleFontSize?: string[];
-  titleLineHeight?: string[];
-  titleFontWeight?: string[];
-  subtitleFontSize?: string[];
+  description?: string;
+  titleFontSize?: string | string[];
+  titleLineHeight?: string | string[];
+  titleFontWeight?: string | string[];
+  subtitleFontSize?: string | string[];
   iconName?: IconName;
   iconSize?: IconProps["size"];
 }
@@ -37,6 +42,7 @@ function GridDisplay({
   titleFontWeight,
   iconName,
   iconSize,
+  description,
   subtitleFontSize = ["text-md", "text-xl"],
 }: GridDisplayProps) {
   return (
@@ -62,6 +68,16 @@ function GridDisplay({
                 subtitleFontSize={subtitleFontSize}
                 align="center"
               />
+              {description && (
+                <Box
+                  color="darkest"
+                  fontSize={["text-lg", "text-xl"]}
+                  lineHeight="lg"
+                  textAlign="center"
+                >
+                  {description}
+                </Box>
+              )}
             </Flex>
           ) : (
             <Flex id="titlediv" flexDirection="row" pt={[5, 7, 9]}>

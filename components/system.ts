@@ -80,6 +80,11 @@ export interface StyledSystemProps
   >;
   wordBreak?: ResponsiveValue<Property.WordBreak, RequiredTheme>;
   transform?: ResponsiveValue<Property.Transform, RequiredTheme>;
+  gap?: ResponsiveValue<Property.Gap, RequiredTheme>;
+  gridTemplateColumns?: ResponsiveValue<
+    Property.GridTemplateColumns,
+    RequiredTheme
+  >;
 }
 
 export const all = compose(
@@ -114,10 +119,10 @@ export const all = compose(
     animationName: true,
     animationFillMode: true,
     wordBreak: true,
-
     transform: true,
-
     visibility: true,
+    gap: true,
+    gridTemplateColumns: true,
   }),
   variant({
     prop: "text",

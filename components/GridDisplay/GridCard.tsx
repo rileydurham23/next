@@ -4,7 +4,7 @@ import NextImage from "next/image";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Button from "components/Button";
-import { core, enterprise, whitepaper, tutorial } from "./assets";
+import { core, enterprise, whitepaper, tutorial, webinar } from "./assets";
 
 /**
  * Component for use in a GridDisplay.
@@ -31,6 +31,7 @@ const cardBackgrounds = {
   core,
   whitepaper,
   tutorial,
+  webinar,
 };
 
 export const GridCard = ({
