@@ -4,17 +4,68 @@ import { Node } from "unist";
 import visit from "unist-util-visit";
 import { Transformer } from "unified";
 
+//what can be included in the <p>
+const INCLUDING_TAGS = [
+  "b",
+  "a",
+  "link",
+  "address",
+  "strong",
+  "button",
+  "em",
+  "bdi",
+  "bdo",
+  "blockquote",
+  "cite",
+  "code",
+  "del",
+  "dfn",
+  "i",
+  "ins",
+  "kbd",
+  "mark",
+  "pre",
+  "q",
+  "ruby",
+  "rb",
+  "rt",
+  "rtc",
+  "rp",
+  "s",
+  "small",
+  "span",
+  "sub",
+  "sup",
+  "time",
+  "u",
+];
+
+const isException = (tag) => !INCLUDING_TAGS.includes(tag);
+
+const removeTag = (children: Node[]): Node[] => {
+  const newChildren: Node[] = [];
+  for (const inner of children) {
+    const innerChildren = inner.children as Node[];
+    if (
+      inner.type === "element" &&
+      inner.tagName === "p" &&
+      innerChildren.length > 0 &&
+      (innerChildren[0].type === "mdxJsxFlowElement" ||
+        (innerChildren[0].type === "mdxJsxTextElement" &&
+          isException(innerChildren[0].name)))
+    ) {
+      newChildren.push(...removeTag(innerChildren));
+    } else {
+      newChildren.push(inner);
+    }
+  }
+  return newChildren;
+};
+
 export default function rehypeFixTags(): Transformer {
   return (tree) => {
     visit(tree, "mdxJsxFlowElement", (node: MdxJsxFlowElement) => {
-      if (
-        node.children.length === 1 &&
-        node.children[0].type === "element" &&
-        node.children[0].tagName === "p"
-      ) {
-        node.children = node.children[0].children as Node[];
-        return visit.SKIP;
-      }
+      node.children = removeTag(node.children);
     });
   };
 }
