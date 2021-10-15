@@ -33,15 +33,14 @@ const getImage = (
   imageProps: NextImageProps,
   imagePositioning?: PositioningValue
 ) => {
-  const image = imageProps;
   if (imagePositioning) {
     return (
       <Flex justifyContent={imagePositioning} width="100%">
-        <NextImage {...image} />
+        <NextImage {...imageProps} />
       </Flex>
     );
   }
-  return <NextImage {...image} />;
+  return <NextImage {...imageProps} />;
 };
 
 export const Image = ({
