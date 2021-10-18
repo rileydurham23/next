@@ -50,7 +50,6 @@ function List({
       pb={[6, 11]}
       width="100%"
       {...props}
-      pt={fourUp ? 9 : 0}
     >
       <Centrator flexDirection="column">
         <Heading
