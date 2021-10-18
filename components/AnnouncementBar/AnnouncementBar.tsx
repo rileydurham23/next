@@ -21,8 +21,9 @@ const AnnouncementBarImage = ({
   const LogoSVG = logos[logo];
   return (
     <Box
-      maxWidth={["120px", "160px"]}
-      height="32px"
+      maxWidth={[120, 160]}
+      minWidth={[null, 140]}
+      height={inLivingColor ? 70 : 32}
       my={2}
       mx={4}
       color="gray"
