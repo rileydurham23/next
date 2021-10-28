@@ -15,7 +15,8 @@ export type BGColor =
   | "purpleGradient"
   | "flatGray"
   | "flatWhite"
-  | "double";
+  | "double"
+  | "waveWhiteTop";
 
 const getBG = (color: BGColor) => {
   switch (color) {
@@ -67,6 +68,13 @@ const getBG = (color: BGColor) => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
         backgroundSize: "cover",
+      };
+    case "waveWhiteTop":
+      return {
+        backgroundImage: `url(${waveWhiteBG})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "top -140px left",
+        backgroundSize: "100%",
       };
     default:
       return {
