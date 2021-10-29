@@ -25,8 +25,10 @@ interface FeaturesPageProps {
     title: string;
     subtitle: string;
     description: string;
-    $images: { logo: Exclude<ImageProps["src"], string> };
-    altImage: string;
+    logo: {
+      image: Exclude<ImageProps["src"], string>;
+      alt: string;
+    };
     noindex?: boolean;
     h1?: string;
     reviews?: CompanyId[];
@@ -45,8 +47,7 @@ export const FeaturesPage = ({
     description,
     noindex,
     h1,
-    $images,
-    altImage,
+    logo,
     reviews,
     titleVideo,
     videoId,
@@ -62,7 +63,7 @@ export const FeaturesPage = ({
           title={h1 ? h1 : title}
           description={description}
         >
-          <NextImage src={$images.logo} alt={altImage} />
+          <NextImage src={logo.image} alt={logo.alt} />
         </SectionHeader>
         <Section bg="waveWhiteTop">
           <MDXProvider components={components}>{children}</MDXProvider>
