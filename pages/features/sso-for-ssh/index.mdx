@@ -1,0 +1,42 @@
+---
+title: How to implement SSO for SSH and Kubernetes
+description: Teleport easily integrates into a company's existing company directory and SSO system. This allows SREs, developers and other end-users to access secured infrastructure by simply authenticating their identity in the directory. IT administrators don't have the burden of managing SSH keys or local passwords across their server infrastructure.
+hideWave: true
+layout: features
+h1: Single Sign-On (SSO) for SSH and Kubernetes
+$images:
+  logo: ./assets/oss@1.5x.png
+altImage: title image
+reviews:
+  - auth0
+  - sumologic
+titleVideo: Demo video. Using GitHub for Single Sign On (SSO)
+videoId: XjgN2WWFCX8
+videoDescription: The local account is good for administrative purposes but regular users of Teleport Enterprise should be using a Single Sign-On (SSO) mechanism that use SAML or OIDC protocols. This guide explains how to set up Github SSO with Open Source, Enterprise Teleport, self-hosted or cloud.
+---
+
+import { SectionTabs, Terminal } from "components";
+
+<SectionTabs>
+  <SectionTabs.Item
+    src="./assets/mfa.svg"
+    title="Multi-factor authentication (MFA)"
+    description="Integrating with company-wide SSO enables two-factor authentication (2FA) for SSH sessions using the same access control plane, simplifying management and audit."
+  >
+    <Terminal></Terminal>
+  </SectionTabs.Item>
+  <SectionTabs.Item
+    src="./assets/onboard-collab.svg"
+    title="Compliant process for onboarding and transferring employees"
+    description="Ensure privileged access permissions stay up-to-date as individuals switch roles or leave the company."
+  >
+    <Terminal></Terminal>
+  </SectionTabs.Item>
+  <SectionTabs.Item
+    src="./assets/transparency.svg"
+    title="Monitoring access patterns"
+    description="Authenticating against a single source of truth allows for the monitoring of access in order to identify unusual patterns."
+  >
+    <Terminal></Terminal>
+  </SectionTabs.Item>
+</SectionTabs>
