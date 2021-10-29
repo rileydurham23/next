@@ -128,6 +128,7 @@
     "remark-validate-links": "^10.0.4",
     "simple-git-hooks": "^2.5.1",
     "stringify-object": "^3.3.0",
+    "to-vfile": "6.1.0",
     "ts-jest": "^27.0.3",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
     "typescript": "^4.3.5",
