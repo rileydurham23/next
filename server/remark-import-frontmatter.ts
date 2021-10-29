@@ -1,6 +1,6 @@
 import { Transformer } from "unified";
 import yaml from "js-yaml";
-import { createMdxjsEsmExportNode } from "./acorn";
+import { createMdxjsEsmExportNode } from "./mdx-helpers";
 import { fetchVideoMeta, Meta, FullMeta } from "./youtube-meta";
 
 export interface HeaderMeta {
