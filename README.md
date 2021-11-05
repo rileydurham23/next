@@ -158,52 +158,50 @@ Get the API key via these [instructions](https://developers.google.com/youtube/v
 
 ## Marketing Team
 
-This repo makes it easy for non-technical people to update certain pages; currently those pages are limited to Events but will expand in the future. Before attempting an update, make sure you have followed the Prerequisites and Installation instructions at the top of this readme.
-
-### Updating Events:
-
-Events, which are just small bits of text, are located here: `pages/about/events/index.mdx` which you can open in a code editor. Scroll down within this file until you see `events:`
-
-Each entry after that starts with a `title` field and has the following other REQUIRED fields: `description, link, start` and `location`; `end` is optional but encouraged. 
-
-Creating an event is as simple as adding a new entry to this page.  
+### Instructions for adding Events using the Web UI on GitHub:
 
 **IMPORTANT!** `start` and `end` are in YYYY-MM-DD format
 
-1. In a terminal window, start in the root of the next repo (we are no longer in web) and make sure you are in the `main` branch by running 
+1. Log into GitHub, if you aren't automatically logged in.
 
-```bash
-git checkout main
-``` 
-and that it is up to date:
-```bash
-git pull origin main
+2. Navigate to https://github.com/gravitational/next .
+
+3. In the file tree, click "pages".
+
+4. Click "about".
+
+5. Click "events".
+
+6. Click "index.mdx".
+
+7. On the "index.mdx" page, on the right side, above the file content, you should see several icons.  Click the pencil icon to edit the file.
+
+8. Add new text in the file directly under the last event in the events section. For example, your text addition should look like this:
+
 ```
-2. check out a feature branch by running `git checkout -b [your name]/[branch name of your choice]`, e.g.:
-```bash
-git checkout -b nico/events
+ - title: Example Event
+  description: Example Event is a yearly gathering of tech and security professionals to share highlights and learn together.
+  link: "https://exampleevent.io" ***MUST BE IN QUOTATION MARKS***
+  start: 2022-04-01
+  end: 2022-04-02
+  location: Cooltown, USA
 ```
-3. in your text editor of choice, edit the file `next/pages/about/events/index.mdx`, then:
-```bash
-yarn lint
-git add pages/about/events
-```
-4. commit your changes by running: `git commit -m "added [your event here] event"`, e.g: 
-```bash
-git commit -m "added GlueCon event"
-```
-7. push your branch to GitHub by running `git push origin [your branch name]`, e.g. 
-```bash
-git push origin nico/events
-```
-8. Navigate a web browser to the next repo in GitHub [https://github.com/gravitational/next](https://github.com/gravitational/next). If you've just pushed code to this repo you will probably see a prompt front and center asking if you'd like to create a pull request. Do so!
+  
+9. When you are finished, select the option that says "Create new branch for this commit and start a pull request."  It is very important that you do NOT commit directly to main. Github will automatically create a branch name for you, no need to change it.
 
-9. Otherwise, create a pull request by clicking on `Pull requests` from the menu running along the top of the screen under `gravitational/next` and then clicking `New pull request` on the right.
+10. Click "Propose changes".
 
-10.  Under the `Compare changes` heading, change the `compare` branch from `main` to the branch you created. You should see a green check with the words `Able to merge.` but if you don't please contact one of the folks listed below as reviewers.
+11. You will now be in a pull request screen.  Assign a reviewer (C-STYR, alexwolfe, sandylcruz or deliaconstantino) by clicking the cog next to "Reviewers" on the right hand side. 
 
-11. Click `Create pull request` and then assign a reviewer: [@C-STYR](https://github.com/C-STYR), [@alexwolfe](https://github.com/alexwolfe),[@sandylcruz](https://github.com/sandylcruz), or [@deliaconstantino](https://github.com/deliaconstantino) (from the dropdown menu on upper-right)
+12. Change the title of your PR (pull request) from "Update index.mdx" to something meaningful like "Add Example Event to the Events Page".
 
-12. Click `Create pull request` again. 
+13. Click "Create pull request".
 
-13. Finally, notify the person(s) you selected as reviewers by pinging them on Slack. That's it, you're finished. Well done!
+14. Finally, notify the person(s) you selected as reviewers by pinging them on Slack. The reviewer will merge the PR for you.  Please do not merge the PR. That's it, you're finished. Well done!
+
+
+
+
+
+
+
