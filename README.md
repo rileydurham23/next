@@ -160,8 +160,6 @@ Get the API key via these [instructions](https://developers.google.com/youtube/v
 
 ### Instructions for adding Events using the Web UI on GitHub:
 
-**IMPORTANT!** `start` and `end` are in YYYY-MM-DD format
-
 1. Log into GitHub, if you aren't automatically logged in.
 
 2. Navigate to https://github.com/gravitational/next .
@@ -176,15 +174,20 @@ Get the API key via these [instructions](https://developers.google.com/youtube/v
 
 7. On the "index.mdx" page, on the right side, above the file content, you should see several icons.  Click the pencil icon to edit the file.
 
-8. Add new text in the file directly under the last event in the events section. For example, your text addition should look like this:
+8. Add new text in the file directly under the last event in the events section. For example, your text addition should look like this:  
+
+    **IMPORTANT!** 
+    - spacing and indentation matter. Make sure your event entry matches the indentation of the events already on the page.
+    - `start` and `end` are in YYYY-MM-DD format.
+    - `link` must be a url link in quotation marks.
 
 ```
  - title: Example Event
-  description: Example Event is a yearly gathering of tech and security professionals to share highlights and learn together.
-  link: "https://exampleevent.io" ***MUST BE IN QUOTATION MARKS***
-  start: 2022-04-01
-  end: 2022-04-02
-  location: Cooltown, USA
+   description: Example Event is a yearly gathering of tech and security professionals to share highlights and learn together.
+   link: "https://exampleevent.io" ***MUST BE IN QUOTATION MARKS***
+   start: 2022-04-01
+   end: 2022-04-02
+   location: Cooltown, USA
 ```
   
 9. When you are finished, select the option that says "Create new branch for this commit and start a pull request."  It is very important that you do NOT commit directly to main. Github will automatically create a branch name for you, no need to change it.
