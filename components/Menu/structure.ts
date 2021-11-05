@@ -49,6 +49,32 @@ const menu: MenuCategoryProps[] = [
     ],
   },
   {
+    title: "Industries",
+    description: "Teleport Across Industries",
+    href: "/use-cases/",
+    children: [
+      {
+        icon: "building",
+        title: "Financial Services",
+        description: "Learn how Financial Services companies use Teleport",
+        href: "/use-cases/finance/",
+      },
+      {
+        icon: "window",
+        title: "Software-as-a-service (SaaS) Providers",
+        description: "Learn how SaaS providers use Teleport",
+        href: "/use-cases/saas/",
+      },
+      {
+        icon: "gamepad",
+        title: "E-commerce & Entertainment",
+        description:
+          "Learn how E-commerce & Entertainment companies use Teleport",
+        href: "/use-cases/ecommerce-entertainment",
+      },
+    ],
+  },
+  {
     title: "Documentation",
     description: "Teleport documentation",
     href: "/docs/",
@@ -56,7 +82,7 @@ const menu: MenuCategoryProps[] = [
       {
         icon: "stack",
         title: "Documentation",
-        description: "Developer documenation for using Teleport",
+        description: "Developer documentation for using Teleport",
         href: "/docs/",
       },
       {
