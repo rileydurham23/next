@@ -187,9 +187,9 @@ git pull origin main
 ```bash
 git checkout -b nico/events
 ```
-3. in your text editor of choice, edit the file `next/pages/about/events/index.mdx`. For example, your text addition should look like this:  
+3. in your text editor of choice, edit the file `next/pages/about/events/index.mdx`. For example, your text addition should look like the following:  
 
-    **IMPORTANT!** 
+    **IMPORTANT!**
     - spacing and indentation matter. Make sure your event entry matches the indentation of the events already on the page.
     - `start` and `end` are in YYYY-MM-DD format.
     - `link` must be a url link in quotation marks.
@@ -244,7 +244,7 @@ git push origin nico/events
 
 7. On the "index.mdx" page, on the right side, above the file content, you should see several icons.  Click the pencil icon to edit the file.
 
-8. Add new text in the file directly under the last event in the events section. For example, your text addition should look like this:  
+8. Add new text in the file directly under the last event in the events section. For example, your text addition should look like the following:  
 
     **IMPORTANT!** 
     - spacing and indentation matter. Make sure your event entry matches the indentation of the events already on the page.
