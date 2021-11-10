@@ -39,7 +39,7 @@ export const SaaS1: LogoRow = [
   "colorAirtable",
   "colorElastic",
   "colorAuth0",
-  "colorCastor",
+  "colorCarta",
   "colorKaltura",
 ];
 
