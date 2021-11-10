@@ -1,9 +1,11 @@
 import Box from "components/Box";
 import Flex from "components/Flex";
-import Image from "components/Image";
+import NextImage from "next/image";
 import { Centrator } from "components/Layout";
 import { MarketoBrowserForm } from "components/MarketoForm";
 import shadowBg from "./assets/shadow.png";
+import styled from "styled-components";
+import css from "@styled-system/css";
 
 export interface BookBlockProps {
   children: React.ReactNode;
@@ -41,7 +43,6 @@ export const BookBlock = ({ children, title, src, formId }: BookBlockProps) => {
             <MarketoBrowserForm id={formId} minHeight="258px" />
           </Box>
         </Box>
-
         <Flex
           flexShrink={0}
           mr="-76px"
@@ -50,15 +51,9 @@ export const BookBlock = ({ children, title, src, formId }: BookBlockProps) => {
           flexDirection="column"
           alignItems="center"
         >
-          <Image
-            src={src}
-            width="344px"
-            height="auto"
-            boxShadow="0 4px 16px rgba(0, 0, 0, 0.24)"
-            position="relative"
-            zIndex={2}
-            alt=""
-          />
+          <StyledImageContainer>
+            <NextImage src={src} alt="" layout="fill" objectFit="contain" />
+          </StyledImageContainer>
           <Box
             backgroundImage={`url(${shadowBg})`}
             width="496px"
@@ -73,3 +68,13 @@ export const BookBlock = ({ children, title, src, formId }: BookBlockProps) => {
     </Flex>
   );
 };
+
+const StyledImageContainer = styled(Flex)(
+  css({
+    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.24)",
+    position: "relative",
+    zIndex: 2,
+    width: 344,
+    height: 440,
+  })
+);
