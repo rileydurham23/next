@@ -116,6 +116,8 @@ export { default as swisscom } from "./logos/logo-swisscom.svg";
 export { default as telefonica } from "./logos/logo-telefonica.svg";
 export { default as threatstack } from "./logos/logo-threatstack.svg";
 export { default as thredup } from "./logos/logo-thredup.svg";
+export { default as thredup1 } from "./logos/logo-thredup.svg";
+export { default as thredup2 } from "./logos/logo-thredup.svg";
 export { default as tokopedia } from "./logos/logo-tokopedia.svg";
 export { default as touchsurgery } from "./logos/logo-touchsurgery.svg";
 export { default as transatel } from "./logos/logo-transatel.svg";
