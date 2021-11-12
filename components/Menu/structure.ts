@@ -51,7 +51,7 @@ const menu: MenuCategoryProps[] = [
   {
     title: "Industries",
     description: "Teleport Across Industries",
-    href: "/use-cases/",
+    href: "/",
     children: [
       {
         icon: "building",

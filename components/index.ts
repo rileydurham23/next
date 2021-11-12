@@ -3,6 +3,7 @@ export { default as AnimationHeader } from "components/AnimationHeader";
 export { default as AnnouncementBar } from "components/AnnouncementBar";
 export { default as ApplicationAnimation } from "components/ApplicationAnimation";
 export { default as BackgroundViewer } from "components/BackgroundViewer";
+export { default as Badge } from "components/Badge";
 export { default as BaitCard } from "components/BaitCard";
 export { default as Banner } from "components/Banner";
 export { default as BookBlock } from "components/BookBlock";
