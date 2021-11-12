@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
-import Image from "components/Image";
+import NextImage from "next/image";
 import { Centrator } from "components/Layout";
 import { transition, variant } from "components/system";
 
@@ -30,15 +30,15 @@ const SectionTabsItem = ({
   return (
     <>
       <StyledTab selected={selected} onClick={() => onChange(id)}>
-        <Image
-          src={src}
-          width="24px"
-          height="24px"
-          position="absolute"
-          top={["4px", "20px"]}
-          left={["0", "16px"]}
-          alt=""
-        />
+        <StyledImageContainer>
+          <NextImage
+            src={src}
+            width="24px"
+            height="24px"
+            layout="intrinsic"
+            alt=""
+          />
+        </StyledImageContainer>
         <Box
           as="h3"
           ml={6}
@@ -189,5 +189,13 @@ const StyledTab = styled(HeadlessButton)<{ selected: boolean }>(
         },
       },
     },
+  })
+);
+
+const StyledImageContainer = styled(Flex)(
+  css({
+    top: ["4px", "20px"],
+    left: ["0", "16px"],
+    position: "absolute",
   })
 );
