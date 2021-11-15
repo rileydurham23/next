@@ -1,0 +1,33 @@
+---
+title: Access Control Podcast. Episode 5
+description: This episode is a deep dive with Julien Vehent about his book Securing DevOps. Security in the Cloud. We touch on security topics at Mozilla and Google GCP and provide updated advice on securing the cloud since it's publication.
+podcastName: 5-julien-vehent
+layout: podcast
+---
+
+## Securing DevOps - Overview
+### Key topics on Securing DevOps
+- For startups, it’s important to start with the smallest attack surface possible for a startup, to focus on their product and leave complex infrastructure security and cloud security problems for later on.
+- The need to start segmenting permissions when there are too many people in a team is natural, and getting into the cloud services and cloud security business knowing that rearchitecting regularly will be needed is healthy.
+- One of the most critical issues we observe in cloud environments today is leaking credentials that give attackers access to identities or accounts in the cloud; such access can be misused to break into services or abuse resources.
+- Log management is absolutely critical for security teams of course, but also for anyone else involved with building and running services in the cloud.
+- When trying to identify top threats, talk to organization leadership. Often the top threats are already known to the executives.
+- Engineers typically want to build security into their systems or their services. They often don’t necessarily have the support to do so because that security requirement is not well-documented or explained.
+
+### Expanding your knowledge on Securing DevOps
+- [Securing DevOps: Security in the Cloud by Julien Vehent](https://www.manning.com/books/securing-devops)
+- [SSRF Attack Examples and Mitigations](/blog/ssrf-attacks/)
+- [Teleport Database Access](/docs/database-access/introduction/)
+- [Teleport Kubernetes Access Guide](/kubernetes-access/)
+- [Teleport Application Access](/application-access/)
+- [Teleport Quick Start](/docs/quickstart/)
+- [Teleport Access Plane](/)
+
+## Securing DevOps - Introduction
+**Ben**: Welcome to Access Control, a podcast providing practical security advice for startups. Advice from people who have been there. In each episode, we’ll interview a leader in their field and learn best practices and practical tips for securing your org. For today’s episode, I’ll be talking to Julien Vehent, author of Securing DevOps and a security engineer at Google Cloud. Julien was previously on the Firefox Operations Security team where he built and grew a remote team of DevSecOps teams from the ground up. I picked up Julien’s book a year ago and it’s loaded with practical tips for bringing security into DevOps making Julien the ideal guest for today’s episode. This episode isn’t sponsored by Julien for Manning Press, but I would highly recommend picking up a copy. We’ll have a link to the book in the show notes below. Hi, Julien. Thanks for joining us today.
+
+**Julien**: Hi, Ben. Thanks for having me.
+
+**Ben**: So to kick it off you have a background in cryptography and information security management. Can you tell me how you’ve leveraged this expertise as a practitioner of DevOps?
+
+**Julien**: Yeah. This is definitely an area where I spent a lot of time at the beginning of my career. I would definitely not call myself a cryptographer. What I learnt studying cryptography is that I didn’t know nearly enough to earn that title and learned a lot of humility in the process...

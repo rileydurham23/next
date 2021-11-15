@@ -11,6 +11,7 @@ const {
   getLatestVersionRewirites,
   generateSitemap,
   generateFullSitemap,
+  writePodcastsData,
 } = require("./.build/server/paths");
 
 const PAGES_DIRECTORY = resolve(__dirname, "pages");
@@ -33,7 +34,6 @@ module.exports = withBundleAnalyzer({
       generateSitemap();
       generateFullSitemap();
     }
-
     config.output.assetModuleFilename = "static/images/[hash][ext]";
 
     config.module.rules.push({

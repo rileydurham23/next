@@ -103,26 +103,26 @@ export const ContentPage = ({
           </Centrator>
         </Wrapper>
         <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
+        {accessPlane && (
+          <SectionHeader
+            mode="full"
+            subtitle="Teleport is part of the"
+            title="Access Plane"
+            description="Teleport provides an Access Plane that consolidates access controls and auditing across all environments - infrastructure, applications and data."
+            bg="wave"
+            link={ACCESS_LINK}
+          >
+            <NextImage
+              src={accessPlaneImg}
+              width={588}
+              height={356}
+              layout="intrinsic"
+              alt="Teleport Access Plane"
+            />
+          </SectionHeader>
+        )}
+        {tryTeleport && <TryTeleport />}
       </Layout>
-      {accessPlane && (
-        <SectionHeader
-          mode="full"
-          subtitle="Teleport is part of the"
-          title="Access Plane"
-          description="Teleport provides an Access Plane that consolidates access controls and auditing across all environments - infrastructure, applications and data."
-          bg="wave"
-          link={ACCESS_LINK}
-        >
-          <NextImage
-            src={accessPlaneImg}
-            width={588}
-            height={356}
-            layout="intrinsic"
-            alt="Teleport Access Plane"
-          />
-        </SectionHeader>
-      )}
-      {tryTeleport && <TryTeleport />}
       <Footer />
     </>
   );

@@ -1,0 +1,37 @@
+---
+title: Access Control Podcast. Episode 8
+description: How to evaluate and secure Kubernetes from a range of possible attacks.
+podcastName: 8-andrew-martin
+layout: podcast
+---
+
+## Securing Kubernetes - Overview
+### Key topics on Securing Kubernetes
+- Evaluating a Kubernetes cluster can occur on several levels. Standard isolation questions include examining how traffic gets into a cluster, how people can access the nodes, and whether the API server is public or private.
+- The three common sources of compromise for Kubernetes clusters are supply chain risks, threat actors, and insider threats.
+- Most hosted Kubernetes systems, especially cloud provider systems, come with a hardened node image.
+- When companies get into feature delivery tunnel vision, security takes a back seat, and at some point, they might be left running an outdated node version.
+- Without smooth continuous delivery pipelines, the responsibility of managing your own infrastructure can be too much for an organization.
+- One preferred way of updating a Kubernetes cluster is to do a blue-green deployment, whereby there are two clusters behind the load balancer.
+- Misconfiguration is a main cause of security incidents, and preventing misconfigurations is about testing.
+- A Kubernetes namespace is not a security boundary in itself because there are things that are not namespaced, so there is no way to accurately correlate security criteria to the namespace.
+
+### Expanding your knowledge on Securing Kubernetes
+- [Kubernetes API Access Security Hardening](/blog/kubernetes-api-access-security/)
+- [Teleport Kubernetes Access](/docs/kubernetes-access/introduction/)
+- [Teleport Application Access](/application-access/)
+- [Teleport Quick Start](/docs/quickstart/)
+- [Teleport Access Plane](/)
+
+## Securing Kubernetes - Introduction
+**Ben**: Welcome to Access Control, a podcast providing practical security advice for startups. Advice from people who have been there. Each episode, we’ll interview a leader in their field and then best practices and practical tips for securing your org. For today’s episode, I’ll be talking to [Andrew Martin](https://www.linkedin.com/in/andr3wmartin/), CEO of Control Plane. Control Plane is a London-based Kubernetes Consultancy helping architect, install, audit, and secure Kubernetes clusters using cloud-native technologies. Andrew was previously a DevOps lead at the UK Home Office and has helped lead teams implementing high-volume critical national infrastructure projects for the UK Government. We’ll deep-dive into securing Kubernetes and strategies for partnering with the public sector.
+
+Andrew is co-author of [O’Reilly’s Hacking Kubernetes](https://www.oreilly.com/library/view/hacking-kubernetes/9781492081722/), a great book in progress and due November 21st. This book will help you better understand the Kubernetes defaults, threat models for Kubernetes clusters, and how you can protect against those attacks.
+
+**Ben**: Hi, Andrew. Thanks for joining us today.
+
+**Andrew**: Hello. Thank you very much for having me.
+
+**Ben**: Control Plane is a consultancy, so you must see a lot of Kubernetes clusters. What’s the first thing you look at when you evaluate a customer’s cluster?
+
+**Andrew**: That is a good question. There are a few different levels. Sometimes we provide a kind of holistic audit service, and we will ideally start with the infrastructure as code deployment. I mean, hopefully, somebody’s used Terraform, or if not, some kind of cloud specifics...
