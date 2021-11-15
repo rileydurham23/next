@@ -6,7 +6,7 @@ export type BadgeSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface BadgeProps {
   name: IconName;
-  size: BadgeSize;
+  size?: BadgeSize;
 }
 
 export const Badge = ({ name, size = "md" }: BadgeProps) => {
