@@ -4,12 +4,21 @@ import Section from "components/Section";
 import Flex from "components/Flex";
 import wavelight from "./assets/wave-light.png";
 import Badge, { BadgeProps } from "components/Badge";
+import Icon, { IconName } from "components/Icon";
 export interface CenterCardProps extends BadgeProps {
   title: string;
   text: string;
+  iconName?: IconName;
+  badgeIconName?: IconName;
 }
 
-export const CenterCard = ({ title, text, name, size }: CenterCardProps) => {
+export const CenterCard = ({
+  title,
+  text,
+  size,
+  badgeIconName,
+  iconName,
+}: CenterCardProps) => {
   return (
     <Section
       display="flex"
@@ -20,7 +29,11 @@ export const CenterCard = ({ title, text, name, size }: CenterCardProps) => {
       minHeight={[null, 632]}
     >
       <StyledCard>
-        <Badge name={name} size={size} />
+        {badgeIconName ? (
+          <Badge name={badgeIconName} size={size} />
+        ) : (
+          <Icon name={iconName} size={size} />
+        )}
         <Flex
           as="h2"
           color="black"
