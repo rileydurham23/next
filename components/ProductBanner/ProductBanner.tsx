@@ -6,7 +6,6 @@ import Badge, { BadgeProps } from "components/Badge";
 import Icon, { IconName } from "components/Icon";
 interface ProductBannerItemProps extends BadgeProps {
   title: string;
-  src?: string;
   children: React.ReactNode;
   iconName?: IconName;
   badgeIconName?: IconName;
@@ -14,7 +13,6 @@ interface ProductBannerItemProps extends BadgeProps {
 
 const ProductBannerItem = ({
   title,
-  src,
   children,
   size,
   badgeIconName,
@@ -36,7 +34,7 @@ const ProductBannerItem = ({
       )}
 
       <Box
-        fontSize={src ? "text-md" : "text-lg"}
+        fontSize={badgeIconName || iconName ? "text-md" : "text-lg"}
         fontWeight="bold"
         color="black"
         lineHeight="lg"
