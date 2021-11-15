@@ -1,22 +1,24 @@
-import styled from "styled-components";
-import css from "@styled-system/css";
 import NextImage from "next/image";
 import { Centrator } from "components/Layout";
 import Flex from "components/Flex";
 import Box from "components/Box";
-
-interface ProductBannerItemProps {
+import Badge, { BadgeProps } from "components/Badge";
+import Icon, { IconName } from "components/Icon";
+interface ProductBannerItemProps extends BadgeProps {
   title: string;
   src?: string;
-  iconWrapper?: boolean;
   children: React.ReactNode;
+  iconName?: IconName;
+  badgeIconName?: IconName;
 }
 
 const ProductBannerItem = ({
   title,
   src,
-  iconWrapper = false,
   children,
+  size,
+  badgeIconName,
+  iconName,
 }: ProductBannerItemProps) => {
   return (
     <Flex
@@ -27,28 +29,12 @@ const ProductBannerItem = ({
       pb={2}
       pl={3}
     >
-      {src &&
-        (!iconWrapper ? (
-          <Flex alignItems="center" flexGrow={1} mb={1}>
-            <NextImage
-              src={src}
-              width={32}
-              height={32}
-              layout="intrinsic"
-              alt="miniature diagram"
-            />
-          </Flex>
-        ) : (
-          <StyledIconWrapper>
-            <NextImage
-              src={src}
-              width={24}
-              height={24}
-              layout="intrinsic"
-              alt="miniature diagram"
-            />
-          </StyledIconWrapper>
-        ))}
+      {badgeIconName ? (
+        <Badge name={badgeIconName} size={size} />
+      ) : (
+        <Icon name={iconName} size={size} />
+      )}
+
       <Box
         fontSize={src ? "text-md" : "text-lg"}
         fontWeight="bold"
@@ -182,19 +168,5 @@ export const ProductBanner = ({
     </Flex>
   );
 };
-
-const StyledIconWrapper = styled(Flex)(
-  css({
-    justifyContent: "center",
-    alignItems: "center",
-    bg: "dark-purple",
-    border: "1px solid white",
-    borderRadius: "circle",
-    height: 48,
-    width: 48,
-    boxShadow: "0px 8px 16px rgba(12, 12, 14, 0.24)",
-    mb: 2,
-  })
-);
 
 ProductBanner.Item = ProductBannerItem;
