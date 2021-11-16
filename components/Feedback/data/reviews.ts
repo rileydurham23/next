@@ -1,13 +1,13 @@
 import { CompanyId } from "components/Company";
-import { meta } from "./reviews.mdx";
+import data from "./reviews.yaml";
 import { Review } from "../types";
 
 type ReviewMap = Record<CompanyId, Review | undefined>;
 
 let reviews = {} as ReviewMap;
 
-if (isReviews(meta)) {
-  reviews = meta;
+if (isReviews(data)) {
+  reviews = data;
 }
 
 function isReviews(maybeReviews: unknown): maybeReviews is ReviewMap {

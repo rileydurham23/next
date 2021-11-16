@@ -1,4 +1,3 @@
----
 copyright:
   - title: Terms of service
     url: /tos/
@@ -74,12 +73,3 @@ launchpad:
             url: https://github.com/gravitational
           - title: Twitter
             url: https://twitter.com/goteleport
----
-
-# Rules
-
-- we have a **link** - it's an object with "title" and "url" fields
-- **copyright** should be a list of **links**
-- we have a **launchpad section** - it's an object with "title" and "items" fields
-- **launchpad** should be a list of **launchpad sections**
-- **items** in launchpad sections should be a list of **links** OR another **launchpad sections**

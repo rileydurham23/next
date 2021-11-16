@@ -1,6 +1,5 @@
 const { resolve } = require("path");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-const mdxOptions = require("../.build/server/mdx-config");
 
 const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "..", "components/Company");
 
@@ -40,26 +39,11 @@ module.exports = {
       type: "asset/resource",
     });
 
-    const mdxRule = config.module.rules.find(
-      ({ test }) => test.toString() === "/\\.mdx$/"
-    );
-
-    if (mdxRule) {
-      const mdxLoaderIndex = mdxRule.use.findIndex(({ loader }) =>
-        /@mdx-js/.test(loader)
-      );
-
-      if (mdxLoaderIndex >= 0) {
-        mdxRule.use[mdxLoaderIndex] = {
-          loader: "@mdx-js/loader",
-          options: mdxOptions.default,
-        };
-      } else {
-        throw new Error("MDX loader not found");
-      }
-    } else {
-      throw new Error("MDX rule not found");
-    }
+    config.module.rules.push({
+      test: /\.ya?ml$/,
+      type: "json",
+      use: "yaml-loader",
+    });
 
     return config;
   },

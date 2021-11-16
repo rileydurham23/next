@@ -3,7 +3,6 @@ const { resolve } = require("path");
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
-const mdxOptions = require("./.build/server/mdx-config");
 const mdxSiteOptions = require("./.build/server/mdx-config-site");
 const mdxDocsOptions = require("./.build/server/mdx-config-docs");
 const {
@@ -15,7 +14,6 @@ const {
 } = require("./.build/server/paths");
 
 const PAGES_DIRECTORY = resolve(__dirname, "pages");
-const DOCS_DIRECTORY = resolve(__dirname, "pages/docs");
 const CONTENT_DIRECTORY = resolve(__dirname, "content");
 const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "components/Company");
 
@@ -69,23 +67,18 @@ module.exports = withBundleAnalyzer({
       ],
     });
     config.module.rules.push({
-      test: /\.(mp4|webm|ogg|swf|ogv)$/,
+      test: /\.(png|jpg|webp|gif|mp4|webm|ogg|swf|ogv)$/i,
       type: "asset/resource",
       exclude: /node_modules/,
     });
     config.module.rules.push({
       test: /\.svg$/,
-      include: [COMPANY_LOGOS_DIRECTORY],
+      include: COMPANY_LOGOS_DIRECTORY,
       type: "asset/resource",
-    });
-    config.module.rules.push({
-      test: /\.(png|jpg|webp|gif)$/i,
-      type: "asset/resource",
-      exclude: /node_modules/,
     });
     config.module.rules.push({
       test: /\.(md|mdx)$/,
-      include: [DOCS_DIRECTORY, CONTENT_DIRECTORY],
+      include: CONTENT_DIRECTORY,
       use: [
         options.defaultLoaders.babel,
         {
@@ -97,23 +90,12 @@ module.exports = withBundleAnalyzer({
     config.module.rules.push({
       test: /\.(md|mdx)$/,
       include: PAGES_DIRECTORY,
-      exclude: DOCS_DIRECTORY,
+      exclude: CONTENT_DIRECTORY,
       use: [
         options.defaultLoaders.babel,
         {
           loader: "@mdx-js/loader",
           options: mdxSiteOptions.default,
-        },
-      ],
-    });
-    config.module.rules.push({
-      test: /\.(md|mdx)$/,
-      exclude: [PAGES_DIRECTORY, CONTENT_DIRECTORY],
-      use: [
-        options.defaultLoaders.babel,
-        {
-          loader: "@mdx-js/loader",
-          options: mdxOptions.default,
         },
       ],
     });
