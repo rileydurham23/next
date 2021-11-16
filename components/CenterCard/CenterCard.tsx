@@ -29,11 +29,13 @@ export const CenterCard = ({
       minHeight={[null, 632]}
     >
       <StyledCard>
-        {badgeIconName ? (
-          <Badge name={badgeIconName} size={size} />
-        ) : (
-          <Icon name={iconName} size={size} />
-        )}
+        <Flex mb={[3, 4]}>
+          {badgeIconName ? (
+            <Badge name={badgeIconName} size={size} />
+          ) : (
+            <Icon name={iconName} size={size} />
+          )}
+        </Flex>
         <Flex
           as="h2"
           color="black"
