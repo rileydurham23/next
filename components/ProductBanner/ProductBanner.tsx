@@ -6,18 +6,40 @@ import Badge, { BadgeProps } from "components/Badge";
 import Icon, { IconName } from "components/Icon";
 interface ProductBannerItemProps extends BadgeProps {
   title: string;
+  src?: string;
   children: React.ReactNode;
   iconName?: IconName;
   badgeIconName?: IconName;
 }
 
+const getImageDetails = (src, badgeIconName, iconName, size) => {
+  if (badgeIconName) return <Badge name={badgeIconName} size={size} />;
+  if (iconName) return <Icon name={iconName} size={size} />;
+  if (src) {
+    return (
+      <Flex alignItems="center" flexGrow={1} mb={1}>
+        <NextImage
+          src={src}
+          width={32}
+          height={32}
+          layout="intrinsic"
+          alt="miniature diagram"
+        />
+      </Flex>
+    );
+  }
+};
+
 const ProductBannerItem = ({
   title,
+  src,
   children,
   size,
   badgeIconName,
   iconName,
 }: ProductBannerItemProps) => {
+  const image = getImageDetails(src, badgeIconName, iconName, size);
+
   return (
     <Flex
       flex="0 1 auto"
@@ -27,14 +49,9 @@ const ProductBannerItem = ({
       pb={2}
       pl={3}
     >
-      {badgeIconName ? (
-        <Badge name={badgeIconName} size={size} />
-      ) : (
-        <Icon name={iconName} size={size} />
-      )}
-
+      {image}
       <Box
-        fontSize={badgeIconName || iconName ? "text-md" : "text-lg"}
+        fontSize={image ? "text-md" : "text-lg"}
         fontWeight="bold"
         color="black"
         lineHeight="lg"
