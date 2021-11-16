@@ -22,6 +22,7 @@ export { default as EnterpriseSignup } from "components/EnterpriseSignup";
 export { default as Feedback } from "components/Feedback";
 export { default as Flex } from "components/Flex";
 export { default as Footer } from "components/Footer";
+export { default as ForkRibbon } from "components/ForkRibbon";
 export { default as GlobeBanner } from "components/GlobeBanner";
 export { default as Grid } from "components/Grid";
 export { default as GreatPlace } from "components/GreatPlace";
