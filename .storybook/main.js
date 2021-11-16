@@ -6,14 +6,16 @@ const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "..", "components/Company");
 
 module.exports = {
   stories: ["../components/**/*.stories.mdx", "../components/**/*.stories.tsx"],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-actions",
-  ],
+  addons: ["@storybook/addon-essentials", "storybook-addon-turbo-build"],
+  core: {
+    builder: "webpack5",
+  },
   webpackFinal: async (config) => {
-    config.resolve.plugins.push(new TsconfigPathsPlugin({}));
+    // This plugin will make `baseUrl` prop from tsconfig.json
+    // work with DocGen plugin, without it it will throw errors
+    config.resolve.plugins = [new TsconfigPathsPlugin({})];
 
+    // Here we remove default svg config to replace it with svgr
     config.module.rules = config.module.rules.map((rule) => {
       if (rule.test.toString().includes("svg")) {
         const test = rule.test
@@ -35,7 +37,7 @@ module.exports = {
     config.module.rules.push({
       test: /\.svg$/,
       include: [COMPANY_LOGOS_DIRECTORY],
-      use: "file-loader",
+      type: "asset/resource",
     });
 
     const mdxRule = config.module.rules.find(
