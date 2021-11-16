@@ -52,7 +52,7 @@ import largorgs from "./assets/for-largorgs.svg";
     imgPosition="right"
     description={
       <>
-Running mission critical applications on AWS requires controling who can provision and access resources like AWS Console, EC2, RDS, Aurora, and EKS. Not every AWS user in your organization needs access to everything. AWS Console might be used by DevOps engineers responsible for maintaining your infrastructure. EC2 instances might by accessed by on-call SREs.  RDS and Aurora by DBAs or data analysts.  Managing indentity-based access to such a wide variety of roles is time-consuming and complex but necessary to control costs & ensure security & compliance.
+Running mission critical applications on AWS requires controlling who can provision and access resources like AWS Console, EC2, RDS, Aurora, and EKS. Not every AWS user in your organization needs access to everything. AWS Console might be used by DevOps engineers responsible for maintaining your infrastructure. EC2 instances might by accessed by on-call SREs.  RDS and Aurora by DBAs or data analysts.  Managing identity-based access to such a wide variety of roles is time-consuming and complex but necessary to control costs & ensure security & compliance.
       </>
     }
 >
@@ -87,7 +87,7 @@ Running mission critical applications on AWS requires controling who can provisi
     logoSrc={startups}
     description={
       <>
-        With Teleport, you can seperate out who can provision AWS resources from who can access them.
+        With Teleport, you can separate who can provision AWS resources from who can access them.
         We provide an identity-aware access solution for AWS Console and the AWS API that enables fine-grained, role-based access controls to prevent unauthorized creation of AWS resources.  If an SRE needs to be able to provision new AWS resources, you can easily grant temporary elevated access that automatically expires.
       </>
     }
@@ -99,14 +99,14 @@ Running mission critical applications on AWS requires controling who can provisi
       Enforce the same controls for AWS Console at the AWS API level.
     </ProductBanner.Item>
     <ProductBanner.Item title="Complete audit in AWS CloudTrail">
-      Teleport ensure all AWS Console activity is logged in Cloudtrail for complete visibility into access & behavoir.
+      Teleport ensures all AWS Console activity is logged in CloudTrail for complete visibility into access & behavior.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
 
 <Section width="100%" bg="flatGray">
   <ProductBanner
-    subtitle="Deep integration for AWS"
+    subtitle="Deep integration for AWS products"
     title="Easily enforce granular controls for AWS resources"
     width="100%"
     src="./assets/cust-access-controls@2x.png"
@@ -114,18 +114,18 @@ Running mission critical applications on AWS requires controling who can provisi
     logoSrc={largorgs}
     description={
       <>
-        Teleport enables you to provide fine-grained, identity-based access to your critical AWS resources like Linux & Windows EC2 instances, RDS and Aurora databases, EKS Kubernetes clusters, even CI/CD systems like Jenkins and dashboards like Grafana and Kibana running on AWS.
+        Teleport enables you to provide fine-grained, identity-based access to your critical AWS resources like Linux & Windows EC2 instances, RDS and Aurora databases, EKS clusters, even CI/CD systems like Jenkins and dashboards like Grafana and Kibana running on AWS.
       </>
     }
   >
     <ProductBanner.Item title="AWS EC2">
-      Integrate and extend your corporate identity roles with Teleport acccess for EC2. New EC2 instances automatically join your Teleport cluster. Supports Linux & Windows.
+      Integrate and extend your corporate identity roles with Teleport access for EC2. New EC2 instances automatically join your Teleport cluster. Supports Linux & Windows.
     </ProductBanner.Item>
-    <ProductBanner.Item title="AWS RDS & Auroa">
-      Get table-level controls for your databases running on AWS and complete visibility to the queries your team is running.
+    <ProductBanner.Item title="AWS RDS & Aurora">
+      Get table-level controls for your databases running on AWS and complete visibility to the queries your team are running.
     </ProductBanner.Item>
     <ProductBanner.Item title="AWS EKS">
-      Specify seperate permissions for Kubnernetes pods running on EKS than the underlying EC2 instance.
+      Specify separate permissions for Kubernetes pods running on EKS than the underlying EC2 instance.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
@@ -145,10 +145,10 @@ Running mission critical applications on AWS requires controling who can provisi
     }
   >
     <ProductBanner.Item title="Hosted on AWS">
-      The Teleport Cloud is hosted across multiple AWS regions so you can run your AWS workloads close to your infrastructure access management platform.
+      The Teleport Cloud is hosted across multiple AWS regions so you can run your AWS workloads close to your Access Plane.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Available in the AWS Marketplace">
-      Purchase Teleport directly via the AWS Marketplace or use AWS credits to pay for Teleport useage.  Private offers available for enterprise customers.
+    <ProductBanner.Item title="Buy on AWS Marketplace">
+      Purchase Teleport directly via the AWS Marketplace or use AWS credits to pay for Teleport usage.  Private offers available for enterprise customers.
     </ProductBanner.Item>
     <ProductBanner.Item title="AWS CloudHSM">
     For added security protecting the Teleport Certificate Authority (CA) running on AWS, we support AWS CloudHSM.
