@@ -20,6 +20,7 @@ export const Badge = ({ name, size = "md" }: BadgeProps) => {
       height={48}
       width={48}
       boxShadow="0px 8px 16px rgba(12, 12, 14, 0.24)"
+      mb={[3, 4]}
     >
       <Icon name={name} size={size} color="white" />
     </Flex>
