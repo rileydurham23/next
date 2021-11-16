@@ -1,9 +1,6 @@
 import { Story } from "@storybook/react";
 import { ProductBanner, ProductBannerProps } from "./ProductBanner";
 
-import cert from "./fixtures/cert.png";
-import sso from "./fixtures/sso.png";
-import soc2 from "./fixtures/soc2.png";
 import server from "./fixtures/server-access.png";
 
 const StoryComponent: Story<ProductBannerProps> = (args) => (
@@ -27,15 +24,27 @@ Default.args = {
     "Teleport delivers industry best practices for SSH and RDP access with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates and leave SSH keys behind.",
   children: (
     <>
-      <ProductBanner.Item title="Access Controls" src={soc2}>
+      <ProductBanner.Item
+        title="Access Controls"
+        badgeIconName="question"
+        name="question"
+      >
         Teleport offers all required server access controls to implement
         compliance standards such as SOC2, PCI, and FedRAMP.
       </ProductBanner.Item>
-      <ProductBanner.Item title="Access Requests" src={cert}>
+      <ProductBanner.Item
+        title="Access Requests"
+        name="check"
+        badgeIconName="check"
+      >
         Move away from root accounts with just-in-time privilege escalation for
         administrative tasks.
       </ProductBanner.Item>
-      <ProductBanner.Item title="Per Session MFA" src={sso}>
+      <ProductBanner.Item
+        title="Per Session MFA"
+        name="shieldCheck"
+        badgeIconName="shieldCheck"
+      >
         Easily implement multi-factor authentication across your organization
         without relying on device management systems.
       </ProductBanner.Item>
