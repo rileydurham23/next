@@ -15,21 +15,26 @@ interface SectionTabsItemProps {
   selected?: boolean;
   src: string;
   title: string;
+  alignment?: "tabsLeft" | "tabsRight";
+  narrowTabs?: boolean;
   onChange?: (id: number) => void;
 }
 
 const SectionTabsItem = ({
   children,
+  alignment,
   description,
   id = 0,
   selected = false,
   src,
   title,
+  narrowTabs,
   onChange = () => undefined,
 }: SectionTabsItemProps) => {
   return (
     <>
       <StyledTab selected={selected} onClick={() => onChange(id)}>
+        {/* Icon */}
         <Image
           src={src}
           width="24px"
@@ -59,9 +64,9 @@ const SectionTabsItem = ({
         transition={transition([["opacity", "slow"]])}
         position={["static", "absolute"]}
         top="0"
-        right="0"
+        right={alignment === "tabsLeft" ? 0 : narrowTabs ? 400 : 490}
         bottom="0"
-        left="490px"
+        left={alignment === "tabsRight" ? 0 : narrowTabs ? 400 : 490}
         alignItems="stretch"
       >
         {children}
@@ -75,6 +80,8 @@ export interface SectionTabsProps {
   title?: string;
   subtitle?: string;
   description?: string;
+  alignment?: "tabsLeft" | "tabsRight";
+  narrowTabs?: boolean;
 }
 
 export const SectionTabs = ({
@@ -82,6 +89,8 @@ export const SectionTabs = ({
   title,
   subtitle,
   description,
+  narrowTabs = false,
+  alignment = "tabsLeft",
 }: SectionTabsProps) => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const onChange = (index: number) => setCurrentTab(index);
@@ -128,17 +137,23 @@ export const SectionTabs = ({
           <Box
             mb={[3, 5]}
             fontSize="text-xl"
-            width={[null, "80%"]}
+            width={[null, "90%"]}
             lineHeight="lg"
             color="darkest"
           >
             {description}
           </Box>
         )}
-        <Flex position="relative">
-          <Box maxWidth={["auto", "400px"]}>
+        <Flex
+          position="relative"
+          flexDirection="column"
+          alignItems={alignment === "tabsRight" ? "flex-end" : "flex-start"}
+        >
+          <Box maxWidth={narrowTabs ? ["100%", "340px"] : ["auto", "400px"]}>
             {childTabProps.map((props, id) => (
               <SectionTabsItem
+                alignment={alignment}
+                narrowTabs={narrowTabs}
                 key={id}
                 {...props}
                 onChange={onChange}
@@ -157,10 +172,11 @@ SectionTabs.Item = SectionTabsItem;
 
 const StyledTab = styled(HeadlessButton)<{ selected: boolean }>(
   css({
+    display: "block",
     border: ["none", "2px solid"],
     borderRadius: "default",
-    textAlign: "left",
     position: "relative",
+    textAlign: "left",
     px: [0, 3],
     pt: [0, 3],
     pb: 2,
