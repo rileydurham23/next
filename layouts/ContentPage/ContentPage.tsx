@@ -53,6 +53,8 @@ interface ContentPageProps {
     tryTeleport?: boolean;
     accessPlane?: boolean;
     needWrapper?: boolean;
+    topMargin?: number;
+    headerColor?: string;
   };
   children: React.ReactNode;
 }
@@ -71,6 +73,8 @@ export const ContentPage = ({
     bgWave,
     tryTeleport,
     accessPlane,
+    topMargin = 11,
+    headerColor,
   },
 }: ContentPageProps) => {
   const bg = bgWave ? { bg: bgWave } : {};
@@ -83,7 +87,7 @@ export const ContentPage = ({
   return (
     <>
       <Head title={title} description={description} noIndex={noindex} />
-      <Layout border="none" behaviour="floating">
+      <Layout border="none" behaviour="floating" headerColor={headerColor}>
         <SectionHeader
           subtitle={subtitle}
           title={h1 ? h1 : title}
@@ -95,7 +99,7 @@ export const ContentPage = ({
         <Wrapper {...wrapperOptions}>
           <Centrator
             flexDirection="column"
-            my={[3, 11]}
+            my={[3, topMargin]}
             color="text"
             lineHeight="26px"
           >
