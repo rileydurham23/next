@@ -13,6 +13,7 @@
 /public/next_sitemap.xml
 /public/algolia_searchmap.xml
 /public/storybook
+/public/podcast-data.json
 /pages/docs/ver/*
 
 # misc

@@ -179,7 +179,7 @@ const threeRowAnimation = keyframes`
 const StyledBox = styled(Flex)(
   css({
     p: 2,
-    width: "100%",
+    maxWidth: ["100%", 160],
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
@@ -190,13 +190,14 @@ const StyledBox = styled(Flex)(
 const StyledWrapper = styled(Flex)(
   css({
     width: 206,
-    height: 100,
+    height: 120,
     flexShrink: 1,
     backgroundColor: "white",
     borderRadius: "16px",
     boxShadow: "0 1px 4px rgb(0 0 0 / 24%)",
     boxSizing: "border-box",
     justifyContent: "center",
+    alignItems: "center",
   })
 );
 
@@ -221,9 +222,10 @@ const StyledRow = styled(Flex)((props) => [
 const StyledH3 = styled("h3")(
   css({
     color: "dark-purple",
-    fontSize: "text-md",
+    fontSize: ["text-lg", "text-xl"],
     textAlign: "center",
-    marginBottom: 3,
-    lineHeight: "lg",
+    marginBottom: [5, 3],
+    lineHeight: "xxl",
+    fontWeight: "bold",
   })
 );

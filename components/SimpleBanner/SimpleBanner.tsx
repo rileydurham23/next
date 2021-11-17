@@ -3,7 +3,6 @@ import css from "@styled-system/css";
 
 import Badge from "components/Badge";
 import Box from "components/Box";
-import { Centrator } from "components/Layout";
 import Flex from "components/Flex";
 import Icon from "components/Icon";
 import { isIconName } from "components/Icon";
@@ -29,6 +28,7 @@ const SimpleBannerItem = ({
       flexDirection="column"
       pb={2}
       pl={3}
+      pr={[0, 2]}
       width="100%"
     >
       {isIconName(src) ? (
@@ -77,22 +77,20 @@ export interface SimpleBannerProps {
 
 export const SimpleBanner = ({ children }: SimpleBannerProps) => {
   return (
-    <Flex flexDirection="column" alignItems="center" py={[5, 11]}>
-      <Centrator
-        alignItems={["center", "flex-start"]}
-        flexDirection="column"
-        textAlign="left"
+    <Flex
+      alignItems={["center", "flex-start"]}
+      flexDirection="column"
+      textAlign="left"
+    >
+      <Flex
+        alignItems="flex-start"
+        flexDirection={["column", "row"]}
+        justifyContent="space-between"
+        my={[3, 5]}
+        width="100%"
       >
-        <Flex
-          alignItems="flex-start"
-          flexDirection={["column", "row"]}
-          justifyContent="space-between"
-          mt={[3, 5]}
-          width="100%"
-        >
-          {children}
-        </Flex>
-      </Centrator>
+        {children}
+      </Flex>
     </Flex>
   );
 };

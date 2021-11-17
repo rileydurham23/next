@@ -19,6 +19,7 @@ export type DropdownProps<T> = {
   pickValue?: (item: T) => string;
   pickOption?: (options: T[], id: string) => T;
   renderOption?: (option: T) => ReactNode;
+  pickId?: (item: T) => string;
   onChange: (selected: string) => void;
   icon?: ReactNode;
   color?: string;

@@ -1,10 +1,18 @@
 import styled from "styled-components";
-import css from "@styled-system/css";
+import { all, css } from "components/system";
 import NextImage from "next/image";
 import Link from "components/Link";
-import Box from "components/Box";
+import Box, { BoxProps } from "components/Box";
 import Flex from "components/Flex";
-import { core, enterprise, whitepaper, tutorial, webinar } from "./assets";
+import {
+  core,
+  enterprise,
+  whitepaper,
+  tutorial,
+  webinar,
+  podcast,
+  audit,
+} from "./assets";
 
 /**
  * Component for use in a GridDisplay.
@@ -24,6 +32,7 @@ export interface GridTileProps {
   cardBG: string;
   smallIcon?: boolean;
   caption?: string;
+  cardBC?: string;
 }
 
 const cardBackgrounds = {
@@ -32,6 +41,8 @@ const cardBackgrounds = {
   whitepaper,
   tutorial,
   webinar,
+  podcast,
+  audit,
 };
 
 export const GridTile = ({
@@ -42,12 +53,14 @@ export const GridTile = ({
   href,
   smallIcon = false,
   caption,
-}: GridTileProps) => {
+  cardBC,
+  ...props
+}: GridTileProps & BoxProps) => {
   //add additional backgrounds to cardBackgrounds
   const backgroundImage = cardBackgrounds[cardBG];
 
   return (
-    <StyledWrapper href={href}>
+    <StyledWrapper href={href} {...props}>
       {/* top half */}
       <Flex
         flexDirection="row"
@@ -57,6 +70,7 @@ export const GridTile = ({
         backgroundPosition="center"
         backgroundSize="cover"
         borderRadius="8px 8px 0 0"
+        backgroundColor={cardBC}
       >
         {!smallIcon ? (
           <NextImage src={src} alt={title} height={193} width={282} />
@@ -111,5 +125,6 @@ const StyledWrapper = styled(Link)(
       transform: "translateY(-2px)",
       boxShadow: "0 8px 32px rgba(0, 0, 0, .24)",
     },
-  })
+  }),
+  all
 );

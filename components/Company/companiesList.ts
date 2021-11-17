@@ -1,10 +1,10 @@
 import { CompanyData } from "./types";
-import { meta } from "./clients.mdx";
+import data from "./clients.yaml";
 
 let companies: CompanyData[] = [];
 
-if (isCompanies(meta)) {
-  companies = meta;
+if (isCompanies(data)) {
+  companies = data;
 }
 
 export default companies;
