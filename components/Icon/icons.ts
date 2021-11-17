@@ -35,6 +35,7 @@ export { ReactComponent as play } from "./svg/play.svg";
 export { ReactComponent as presentation } from "./svg/presentation.svg";
 export { ReactComponent as protocol } from "./svg/protocol.svg";
 export { ReactComponent as question } from "./svg/question.svg";
+export { ReactComponent as quickstart } from "./svg/quickstart.svg";
 export { ReactComponent as server } from "./svg/server-access.svg";
 export { ReactComponent as shieldCheck } from "./svg/shield-check.svg";
 export { ReactComponent as spreading } from "./svg/spreading.svg";
