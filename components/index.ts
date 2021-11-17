@@ -25,7 +25,7 @@ export { default as Footer } from "components/Footer";
 export { default as ForkRibbon } from "components/ForkRibbon";
 export { default as GlobeBanner } from "components/GlobeBanner";
 export { default as Grid } from "components/Grid";
-export { default as GreatPlace } from "components/GreatPlace";
+export { default as SectionBanner } from "components/SectionBanner";
 export { default as Head } from "components/Head";
 export { default as Header } from "components/Header";
 export { default as Heading } from "components/Heading";

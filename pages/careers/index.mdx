@@ -11,7 +11,7 @@ import {
   CrewGallery,
   Button,
   JobList,
-  GreatPlace,
+  SectionBanner,
   GlobeBanner,
   Banner,
 } from "components";
@@ -67,7 +67,16 @@ import { fetchJobs } from "components/JobList";
     Our team members need to have everything they need to do their best work. Stipends to set up their home office and monthly allowance for internet and cell phone. Commuter benefits.
   </List.Item>
 </List>
-<GreatPlace/>
+<SectionBanner 
+bg="flatWhite" 
+textColor="text" 
+style="greatPlace" 
+title="Great Place to Work" 
+text={
+  <>Our employees make our culture and we strive to make Teleport a desirable 
+  place to work by hiring and supporting incredible people. We are extremely proud 
+  to have 100% of our employees agree that Teleport is a Great Place to Work.</>}
+/>
 <GlobeBanner>
   ## Our Team All Over the Globe
 
