@@ -15,35 +15,26 @@ videoId: cO256wi-BEI
 videoDescription: Role-Based Access Control (RBAC) is the practice of managing privileged access to infrastructure through a central directory of users, roles, and teams. Authorization is granted to groups (or roles) within a company directory. This allows individuals to access secured infrastructure by simply authenticating their identity, usually through a Single Sign-on (SSO) solution tied to the directory.
 ---
 
-import { SectionTabs, Terminal } from "components";
+import { ProductBanner } from "components";
 
-<SectionTabs>
-  <SectionTabs.Item
-    src="./assets/mfa.svg"
-    title="Multi-factor authentication (MFA)"
-    description="Integrating with company-wide SSO enables two-factor authentication (2FA) for SSH sessions using the same access control plane, simplifying management and audit."
-  >
-    <Terminal></Terminal>
-  </SectionTabs.Item>
-  <SectionTabs.Item
-    src="./assets/move-away.svg"
-    title="Enforce infrastructure and data compliance"
-    description="Isolate production environments and production data from specific roles and teams, or limit access to certain roles and teams. Enforce policies like 'Developers must never see production data with ease'"
-  >
-    <Terminal></Terminal>
-  </SectionTabs.Item>
-  <SectionTabs.Item
-    src="./assets/onboard-collab.svg"
-    title="Compliant process for onboarding and transferring employees"
-    description="Ensure privileged access permissions stay up-to-date as individuals switch roles or leave the company."
-  >
-    <Terminal></Terminal>
-  </SectionTabs.Item>
-  <SectionTabs.Item
-    src="./assets/protect-sessions.svg"
-    title="Prohibit root access for all roles"
-    description="Teleport RBAC allows security administrators to remove the need to use root privileges. RBAC also separates SSH permissions management from server management."
-  >
-    <Terminal></Terminal>
-  </SectionTabs.Item>
-</SectionTabs>
+<ProductBanner
+  imgPosition="left"
+  title="Lorem ipsum dolor sit amet."
+  subtitle="For DevSecOps"
+  src="./assets/rbac-for-ssh@1.5x.png"
+  alt="Ut enim ad minim veniam"
+  description="Lobortis elementum nibh tellus molestie. Pharetra et ultrices neque ornare aenean euismod elementum. Proin sed libero enim sed faucibus turpis in. Vel eros donec ac odio tempor orci dapibus. Nisl tincidunt eget nullam non. Diam sollicitudin tempor id eu. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum. Pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus."
+>
+  <ProductBanner.Item title="Multi-factor authentication (MFA)" src="./assets/mfa.svg">
+    Integrating with company-wide SSO enables two-factor authentication (2FA) for SSH sessions using the same access control plane, simplifying management and audit.
+  </ProductBanner.Item>
+  <ProductBanner.Item title="Enforce infrastructure and data compliance" src="./assets/move-away.svg">
+    Isolate production environments and production data from specific roles and teams, or limit access to certain roles and teams. Enforce policies like 'Developers must never see production data with ease'
+  </ProductBanner.Item>
+  <ProductBanner.Item title="Compliant process for onboarding and transferring employees" src="./assets/onboard-collab.svg">
+    Ensure privileged access permissions stay up-to-date as individuals switch roles or leave the company.
+  </ProductBanner.Item>
+  <ProductBanner.Item title="Prohibit root access for all roles" src="./assets/protect-sessions.svg">
+    Teleport RBAC allows security administrators to remove the need to use root privileges. RBAC also separates SSH permissions management from server management.
+  </ProductBanner.Item>
+</ProductBanner>
