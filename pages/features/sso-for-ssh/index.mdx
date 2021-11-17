@@ -15,28 +15,23 @@ videoId: XjgN2WWFCX8
 videoDescription: The local account is good for administrative purposes but regular users of Teleport Enterprise should be using a Single Sign-On (SSO) mechanism that use SAML or OIDC protocols. This guide explains how to set up Github SSO with Open Source, Enterprise Teleport, self-hosted or cloud.
 ---
 
-import { SectionTabs, Terminal } from "components";
+import { ProductBanner } from "components";
 
-<SectionTabs>
-  <SectionTabs.Item
-    src="./assets/mfa.svg"
-    title="Multi-factor authentication (MFA)"
-    description="Integrating with company-wide SSO enables two-factor authentication (2FA) for SSH sessions using the same access control plane, simplifying management and audit."
-  >
-    <Terminal></Terminal>
-  </SectionTabs.Item>
-  <SectionTabs.Item
-    src="./assets/onboard-collab.svg"
-    title="Compliant process for onboarding and transferring employees"
-    description="Ensure privileged access permissions stay up-to-date as individuals switch roles or leave the company."
-  >
-    <Terminal></Terminal>
-  </SectionTabs.Item>
-  <SectionTabs.Item
-    src="./assets/transparency.svg"
-    title="Monitoring access patterns"
-    description="Authenticating against a single source of truth allows for the monitoring of access in order to identify unusual patterns."
-  >
-    <Terminal></Terminal>
-  </SectionTabs.Item>
-</SectionTabs>
+<ProductBanner
+  imgPosition="left"
+  title="Lorem ipsum dolor sit amet."
+  subtitle="For DevSecOps"
+  src="./assets/oss@1.5x.png"
+  alt="Ut enim ad minim veniam"
+  description="Lobortis elementum nibh tellus molestie. Pharetra et ultrices neque ornare aenean euismod elementum. Proin sed libero enim sed faucibus turpis in. Vel eros donec ac odio tempor orci dapibus. Nisl tincidunt eget nullam non. Diam sollicitudin tempor id eu. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum. Pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus."
+>
+  <ProductBanner.Item title="Multi-factor authentication (MFA)" src="./assets/mfa.svg">
+    Integrating with company-wide SSO enables two-factor authentication (2FA) for SSH sessions using the same access control plane, simplifying management and audit.
+  </ProductBanner.Item>
+  <ProductBanner.Item title="Compliant process for onboarding and transferring employees" src="./assets/onboard-collab.svg">
+    Ensure privileged access permissions stay up-to-date as individuals switch roles or leave the company.
+  </ProductBanner.Item>
+  <ProductBanner.Item title="Monitoring access patterns" src="./assets/transparency.svg">
+    Authenticating against a single source of truth allows for the monitoring of access in order to identify unusual patterns.
+  </ProductBanner.Item>
+</ProductBanner>
