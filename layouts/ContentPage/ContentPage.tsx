@@ -53,6 +53,8 @@ interface ContentPageProps {
     tryTeleport?: boolean;
     accessPlane?: boolean;
     needWrapper?: boolean;
+    topMargin?: number;
+    headerColor?: string;
   };
   children: React.ReactNode;
 }
@@ -71,6 +73,8 @@ export const ContentPage = ({
     bgWave,
     tryTeleport,
     accessPlane,
+    topMargin = 11,
+    headerColor,
   },
 }: ContentPageProps) => {
   const bg = bgWave ? { bg: bgWave } : {};
@@ -83,7 +87,7 @@ export const ContentPage = ({
   return (
     <>
       <Head title={title} description={description} noIndex={noindex} />
-      <Layout border="none" behaviour="floating">
+      <Layout border="none" behaviour="floating" headerColor={headerColor}>
         <SectionHeader
           subtitle={subtitle}
           title={h1 ? h1 : title}
@@ -95,7 +99,7 @@ export const ContentPage = ({
         <Wrapper {...wrapperOptions}>
           <Centrator
             flexDirection="column"
-            my={[3, 11]}
+            my={[3, topMargin]}
             color="text"
             lineHeight="26px"
           >
@@ -103,26 +107,26 @@ export const ContentPage = ({
           </Centrator>
         </Wrapper>
         <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
+        {accessPlane && (
+          <SectionHeader
+            mode="full"
+            subtitle="Teleport is part of the"
+            title="Access Plane"
+            description="Teleport provides an Access Plane that consolidates access controls and auditing across all environments - infrastructure, applications and data."
+            bg="wave"
+            link={ACCESS_LINK}
+          >
+            <NextImage
+              src={accessPlaneImg}
+              width={588}
+              height={356}
+              layout="intrinsic"
+              alt="Teleport Access Plane"
+            />
+          </SectionHeader>
+        )}
+        {tryTeleport && <TryTeleport />}
       </Layout>
-      {accessPlane && (
-        <SectionHeader
-          mode="full"
-          subtitle="Teleport is part of the"
-          title="Access Plane"
-          description="Teleport provides an Access Plane that consolidates access controls and auditing across all environments - infrastructure, applications and data."
-          bg="wave"
-          link={ACCESS_LINK}
-        >
-          <NextImage
-            src={accessPlaneImg}
-            width={588}
-            height={356}
-            layout="intrinsic"
-            alt="Teleport Access Plane"
-          />
-        </SectionHeader>
-      )}
-      {tryTeleport && <TryTeleport />}
       <Footer />
     </>
   );

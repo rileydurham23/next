@@ -1,15 +1,15 @@
 import { SectionData, Link } from "components/Launchpad";
-import { meta } from "./footer.mdx";
+import data from "./footer.yaml";
 
 let copyrightLinks: Link[] = [];
 let launchpadData: SectionData[] = [];
 
-if (isCopyright(meta?.copyright)) {
-  copyrightLinks = meta.copyright;
+if (isCopyright(data?.copyright)) {
+  copyrightLinks = data.copyright;
 }
 
-if (isLaunchpad(meta?.launchpad)) {
-  launchpadData = meta.launchpad;
+if (isLaunchpad(data?.launchpad)) {
+  launchpadData = data.launchpad;
 }
 
 function isCopyright(maybyLinks: unknown): maybyLinks is Link[] {

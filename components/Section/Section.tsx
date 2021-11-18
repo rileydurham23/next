@@ -5,6 +5,7 @@ import waveWhiteBG from "./assets/waveWhite.png";
 import wavePurpleBG from "./assets/wavePurple.png";
 import doubleWave from "./assets/wave-double.png";
 import wavelight from "./assets/wave-light.png";
+import stars from "./assets/stars.png";
 
 export type BGColor =
   | "squares"
@@ -13,6 +14,7 @@ export type BGColor =
   | "grayWave"
   | "purple"
   | "purpleGradient"
+  | "purpleStars"
   | "flatGray"
   | "flatWhite"
   | "double";
@@ -55,6 +57,11 @@ const getBG = (color: BGColor) => {
     case "purpleGradient":
       return {
         backgroundImage: `linear-gradient(225deg, #391c70 0%, #0c143d 100%)`,
+      };
+    case "purpleStars":
+      return {
+        backgroundImage: `url(${stars}), linear-gradient(180deg, #4827A2 0%, #2E1A64 100%)`,
+        backgroundSize: "contain",
       };
     case "squares":
       return {

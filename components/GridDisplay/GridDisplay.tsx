@@ -48,7 +48,11 @@ function GridDisplay({
   subtitleFontSize = ["text-md", "text-xl"],
 }: GridDisplayProps) {
   return (
-    <Section bg={bg}>
+    <Section
+      bg={bg}
+      pt={productCard ? 1 : null}
+      borderTop={productCard ? "1px solid #F0F2F4" : null}
+    >
       <Centrator
         pb={centralHeading ? [0, 11] : "auto"}
         flexDirection="column"
@@ -111,7 +115,7 @@ function GridDisplay({
               ? [
                   "minmax(340px, 560px)",
                   "repeat(2, minmax(140px, 400px))",
-                  "repeat(4, minmax(140px, 270px))",
+                  "repeat(4, minmax(140px, 294px))",
                 ]
               : [
                   "minmax(140px, 270px)",

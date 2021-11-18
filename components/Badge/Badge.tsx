@@ -9,7 +9,7 @@ export interface BadgeProps {
   size: BadgeSize;
 }
 
-export const Badge = ({ name, size }: BadgeProps) => {
+export const Badge = ({ name, size = "md" }: BadgeProps) => {
   return (
     <Flex
       justifyContent="center"
@@ -21,7 +21,7 @@ export const Badge = ({ name, size }: BadgeProps) => {
       width={48}
       boxShadow="0px 8px 16px rgba(12, 12, 14, 0.24)"
     >
-      <Icon name={name} size={size} />
+      <Icon name={name} size={size} color="white" />
     </Flex>
   );
 };
