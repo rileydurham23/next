@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
 import { transition } from "components/system";
-import Image from "components/Image";
+import NextImage from "next/image";
 import Flex, { FlexProps } from "components/Flex";
 import Link from "components/Link";
 import * as logos from "./logos";
@@ -29,13 +29,13 @@ export default function Company({ id, needLink, ...props }: Props) {
       href={data?.caseStudy}
       {...props}
     >
-      <Image
+      <NextImage
         src={url}
         alt={data?.title}
         title={data?.title}
-        loading="lazy"
-        width="auto"
-        height="100%"
+        layout="intrinsic"
+        width="195"
+        height="195"
       />
     </Wrapper>
   );
