@@ -10,14 +10,25 @@ interface ProductBannerItemProps extends BadgeProps {
   title: string;
   src?: string;
   children: React.ReactNode;
+  iconWrapper?: boolean;
   iconName?: IconName;
   badgeIconName?: IconName;
 }
 
-const getImageDetails = (src, badgeIconName, iconName, size) => {
-  if (badgeIconName) return <Badge name={badgeIconName} size={size} />;
-  if (iconName) return <Icon name={iconName} size={size} />;
-  if (src) {
+const getImageDetails = (src, badgeIconName, iconName, size, iconWrapper) => {
+  if (badgeIconName)
+    return (
+      <Flex mb="2">
+        <Badge name={badgeIconName} size={size} />
+      </Flex>
+    );
+  if (iconName)
+    return (
+      <Flex mb="2">
+        <Icon name={iconName} size={size} />
+      </Flex>
+    );
+  if (src && iconWrapper) {
     return (
       <StyledIconWrapper>
         <NextImage
@@ -30,6 +41,19 @@ const getImageDetails = (src, badgeIconName, iconName, size) => {
       </StyledIconWrapper>
     );
   }
+  if (src) {
+    return (
+      <Flex alignItems="center" flexGrow={1} mb={1}>
+        <NextImage
+          src={src}
+          width={32}
+          height={32}
+          layout="intrinsic"
+          alt="miniature diagram"
+        />
+      </Flex>
+    );
+  }
 };
 
 const ProductBannerItem = ({
@@ -39,8 +63,15 @@ const ProductBannerItem = ({
   size,
   badgeIconName,
   iconName,
+  iconWrapper = false,
 }: ProductBannerItemProps) => {
-  const image = getImageDetails(src, badgeIconName, iconName, size);
+  const image = getImageDetails(
+    src,
+    badgeIconName,
+    iconName,
+    size,
+    iconWrapper
+  );
 
   return (
     <Flex
@@ -51,7 +82,7 @@ const ProductBannerItem = ({
       pb={2}
       pl={3}
     >
-      <Flex mb="2">{image}</Flex>
+      {image}
       <Box
         fontSize={image ? "text-md" : "text-lg"}
         fontWeight="bold"
@@ -196,6 +227,7 @@ const StyledIconWrapper = styled(Flex)(
     height: 48,
     width: 48,
     boxShadow: "0px 8px 16px rgba(12, 12, 14, 0.24)",
+    mb: 2,
   })
 );
 
