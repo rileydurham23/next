@@ -171,7 +171,8 @@ Running mission critical applications on AWS requires controlling who can provis
 $ tsh login --proxy=example.com
 
 # on AWS Linux 2
-$ apt install teleport
+$ sudo yum-config-manager --add-repo https://rpm.releases.teleport.dev/teleport.repo
+$ sudo yum install teleport
 
 # in a Kubernetes cluster
 $ helm install
