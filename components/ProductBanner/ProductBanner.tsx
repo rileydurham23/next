@@ -4,22 +4,23 @@ import NextImage from "next/image";
 import { Centrator } from "components/Layout";
 import Flex from "components/Flex";
 import Box from "components/Box";
-import Badge, { BadgeProps } from "components/Badge";
+import Badge, { IconSize } from "components/Badge";
 import Icon, { IconName } from "components/Icon";
-interface ProductBannerItemProps extends BadgeProps {
+interface ProductBannerItemProps {
   title: string;
   src?: string;
   children: React.ReactNode;
   iconWrapper?: boolean;
   iconName?: IconName;
-  badgeIconName?: IconName;
+  badgeName?: IconName;
+  size?: IconSize;
 }
 
-const getImageDetails = (src, badgeIconName, iconName, size, iconWrapper) => {
-  if (badgeIconName)
+const getImageDetails = (src, badgeName, iconName, size, iconWrapper) => {
+  if (badgeName)
     return (
       <Flex mb="2">
-        <Badge name={badgeIconName} size={size} />
+        <Badge name={badgeName} size={size} />
       </Flex>
     );
   if (iconName)
@@ -61,17 +62,11 @@ const ProductBannerItem = ({
   src,
   children,
   size,
-  badgeIconName,
+  badgeName,
   iconName,
   iconWrapper = false,
 }: ProductBannerItemProps) => {
-  const image = getImageDetails(
-    src,
-    badgeIconName,
-    iconName,
-    size,
-    iconWrapper
-  );
+  const image = getImageDetails(src, badgeName, iconName, size, iconWrapper);
 
   return (
     <Flex
