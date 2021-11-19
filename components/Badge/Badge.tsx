@@ -2,11 +2,11 @@ import Flex from "components/Flex";
 import Icon from "components/Icon";
 import type { IconName } from "../Icon/types";
 
-export type BadgeSize = "xs" | "sm" | "md" | "lg" | "xl";
+export type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface BadgeProps {
   name: IconName;
-  size?: BadgeSize;
+  size?: IconSize;
 }
 
 export const Badge = ({ name, size = "md" }: BadgeProps) => {
