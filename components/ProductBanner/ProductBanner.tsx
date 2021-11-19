@@ -1,5 +1,3 @@
-import styled from "styled-components";
-import css from "@styled-system/css";
 import NextImage from "next/image";
 import { Centrator } from "components/Layout";
 import Flex from "components/Flex";
@@ -196,19 +194,5 @@ export const ProductBanner = ({
     </Flex>
   );
 };
-
-const StyledIconWrapper = styled(Flex)(
-  css({
-    justifyContent: "center",
-    alignItems: "center",
-    bg: "dark-purple",
-    border: "1px solid white",
-    borderRadius: "circle",
-    height: 48,
-    width: 48,
-    boxShadow: "0px 8px 16px rgba(12, 12, 14, 0.24)",
-    mb: 2,
-  })
-);
 
 ProductBanner.Item = ProductBannerItem;
