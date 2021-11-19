@@ -10,13 +10,12 @@ interface ProductBannerItemProps {
   title: string;
   src?: string;
   children: React.ReactNode;
-  iconWrapper?: boolean;
   iconName?: IconName;
   badgeName?: IconName;
   size?: IconSize;
 }
 
-const getImageDetails = (src, badgeName, iconName, size, iconWrapper) => {
+const getImageDetails = (src, badgeName, iconName, size) => {
   if (badgeName)
     return (
       <Flex mb="2">
@@ -29,19 +28,6 @@ const getImageDetails = (src, badgeName, iconName, size, iconWrapper) => {
         <Icon name={iconName} size={size} />
       </Flex>
     );
-  if (src && iconWrapper) {
-    return (
-      <StyledIconWrapper>
-        <NextImage
-          src={src}
-          width={24}
-          height={24}
-          layout="intrinsic"
-          alt="miniature diagram"
-        />
-      </StyledIconWrapper>
-    );
-  }
   if (src) {
     return (
       <Flex alignItems="center" flexGrow={1} mb={1}>
@@ -64,9 +50,8 @@ const ProductBannerItem = ({
   size,
   badgeName,
   iconName,
-  iconWrapper = false,
 }: ProductBannerItemProps) => {
-  const image = getImageDetails(src, badgeName, iconName, size, iconWrapper);
+  const image = getImageDetails(src, badgeName, iconName, size);
 
   return (
     <Flex
