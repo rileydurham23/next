@@ -47,16 +47,16 @@ export default function CrewGallery(props: BoxProps) {
     <Box overflow="hidden" {...props}>
       <StyledRowWrapper>
         <StyledRow
-          height={["250px", "250px", "500px"]}
-          animationDuration={["200s", "200s", "150s"]}
+          height={["250px", "500px"]}
+          animationDuration={["200s", "150s"]}
         >
           {group1.map((photo, index) => (
             <Photo key={index} photo={photo} imgHeight="topRow" />
           ))}
         </StyledRow>
         <StyledRow
-          height={["190px", "190px", "380px"]}
-          animationDuration={["250s", "250s", "200s"]}
+          height={["190px", "380px"]}
+          animationDuration={["250s", "200s"]}
           mt="3"
         >
           {group2.map((photo, index) => (
@@ -76,15 +76,15 @@ interface PhotoProps {
 
 function Photo({ photo, imgHeight }: PhotoProps) {
   const heightValue =
-    imgHeight === "topRow"
-      ? ["250px", "250px", "500px"]
-      : ["190px", "190px", "380px"];
+    imgHeight === "topRow" ? ["250px", "500px"] : ["190px", "380px"];
 
   const StyledImgContainer = styled(Flex)(
     css({
       height: heightValue,
-      width: "500",
-      // display: "block",
+      // width: "200%",
+      // margin: "1",
+      width: "500px",
+      display: "block",
       position: "relative",
     })
   );
@@ -105,6 +105,7 @@ function Photo({ photo, imgHeight }: PhotoProps) {
           src={photo.url}
           alt={photo.title}
           title={photo.title}
+          // layout="responsive"
           layout="fill"
           objectFit="contain"
           // width="400"
@@ -152,7 +153,7 @@ const StyledRow = styled("ul")<StyledSystemProps>(
     animationIterationCount: "infinite",
     willChange: "transform",
   }),
-  styledCss`animation-name: ${shiftAnimation};`,
+  // styledCss`animation-name: ${shiftAnimation};`,
   all
 );
 
