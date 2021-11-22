@@ -47,7 +47,7 @@ export default function CrewGallery(props: BoxProps) {
     <Box overflow="hidden" {...props}>
       <StyledRowWrapper>
         <StyledRow
-          height={["250px", "500px"]}
+          height={["250px", "250px", "500px"]}
           animationDuration={["200s", "150s"]}
         >
           {group1.map((photo, index) => (
@@ -55,7 +55,7 @@ export default function CrewGallery(props: BoxProps) {
           ))}
         </StyledRow>
         <StyledRow
-          height={["190px", "380px"]}
+          height={["190px", "190px", "380px"]}
           animationDuration={["250s", "200s"]}
           mt="3"
         >
@@ -76,7 +76,9 @@ interface PhotoProps {
 
 function Photo({ photo, imgHeight }: PhotoProps) {
   const heightValue =
-    imgHeight === "topRow" ? ["250px", "500px"] : ["190px", "380px"];
+    imgHeight === "topRow"
+      ? ["250px", "250px", "500px"]
+      : ["190px", "190px", "380px"];
 
   const StyledImgContainer = styled(Flex)(
     css({
@@ -90,33 +92,32 @@ function Photo({ photo, imgHeight }: PhotoProps) {
   );
   return (
     <>
-      {/* // <StyledLI> */}
-      {/* <Image
+      <StyledLI>
+        {/* <Image
         src={photo.url}
         alt={photo.title}
         title={photo.title}
         width="auto"
         height="100%"
       /> */}
-      {/* <Flex position="relative"> */}
-      {/* <StyledLogoShell> */}
-      <StyledImgContainer>
-        <NextImage
-          src={photo.url}
-          alt={photo.title}
-          title={photo.title}
-          // layout="responsive"
-          layout="fill"
-          objectFit="contain"
-          // width="400"
-          // height="500"
-        />
-      </StyledImgContainer>
-
-      {/* </StyledLogoShell> */}
-      {/* </Flex> */}
-      <StyledCaption>{photo.title}</StyledCaption>
-      {/* // </StyledLI> */}
+        {/* <Flex position="relative"> */}
+        <StyledLogoShell>
+          <StyledImgContainer>
+            <NextImage
+              src={photo.url}
+              alt={photo.title}
+              title={photo.title}
+              // layout="responsive"
+              layout="responsive"
+              objectFit="none"
+              width="400"
+              height="500"
+            />
+          </StyledImgContainer>
+        </StyledLogoShell>
+        {/* </Flex> */}
+        {/* <StyledCaption>{photo.title}</StyledCaption> */}
+      </StyledLI>
     </>
   );
 }
@@ -153,7 +154,7 @@ const StyledRow = styled("ul")<StyledSystemProps>(
     animationIterationCount: "infinite",
     willChange: "transform",
   }),
-  // styledCss`animation-name: ${shiftAnimation};`,
+  styledCss`animation-name: ${shiftAnimation};`,
   all
 );
 
@@ -176,9 +177,10 @@ const StyledCaption = styled("p")<StyledSystemProps>(
 const StyledLI = styled("li")<StyledSystemProps>(
   css({
     position: "relative",
-    height: "100%",
-    flexShrink: 0,
-    "& + &": { ml: 3 },
+    // height: "100%",
+    // width: "100%",
+    // flexShrink: 0,
+    // "& + &": { ml: 3 },
   })
 );
 
@@ -187,11 +189,11 @@ const StyledLogoShell = styled(Flex)(
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "#273264",
+    backgroundColor: "#273264",
     height: "700px",
     width: "500px",
-    // height: "100%",
-    // width: "auto",
+    height: "100%",
+    width: "auto",
     borderRadius: "md",
     m: 3,
   })
