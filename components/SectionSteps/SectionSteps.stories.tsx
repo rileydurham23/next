@@ -13,7 +13,7 @@ const StoryComponent: Story<SectionStepsProps> = (args) => (
 
 export default {
   component: StoryComponent,
-  title: "Site/SectionSteps",
+  title: "Site/Section/SectionSteps",
 };
 
 export const Default = StoryComponent.bind({});

@@ -3,7 +3,7 @@ import Flex from "components/Flex";
 import { Section } from "./Section";
 import { SectionData } from "./types";
 
-interface LaunchpadProps {
+export interface LaunchpadProps {
   sections: SectionData[];
 }
 

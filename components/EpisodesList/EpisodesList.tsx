@@ -8,7 +8,7 @@ import { CARD_DATA } from "./constants";
 import type { PodcastEpisode, EpisodeKind } from "./types";
 import { ResourcesDropdown } from "./ResourcesDropdown";
 
-interface EpisodesListProps {
+export interface EpisodesListProps {
   episodes: PodcastEpisode[];
   kind: EpisodeKind;
   needSizeLimit?: boolean;

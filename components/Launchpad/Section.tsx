@@ -3,7 +3,7 @@ import { StyledLink } from "components/Link";
 import { StyledHeading } from "./StyledHeading";
 import { SectionData } from "./types";
 
-interface Props {
+export interface SectionProps {
   data: SectionData;
   embedded?: boolean;
 }
@@ -22,7 +22,7 @@ function renderItem(item: SectionData["items"][number], index: number) {
   );
 }
 
-export function Section({ data, embedded }: Props) {
+export function Section({ data, embedded }: SectionProps) {
   return (
     <>
       <StyledHeading

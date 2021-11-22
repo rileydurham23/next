@@ -3,7 +3,7 @@ import { css, all } from "components/system";
 import Box from "components/Box";
 import Link from "components/Link";
 
-interface QuoteProps {
+export interface QuoteProps {
   children: React.ReactNode;
   title?: string;
   linkTextTitle?: string;

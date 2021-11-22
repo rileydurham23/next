@@ -1,16 +1,22 @@
-import { Story } from "@storybook/react";
+import { Meta, Story } from "@storybook/react";
 import { VideoBanner, VideoBannerProps } from "./VideoBanner";
 
-const StoryComponent: Story<VideoBannerProps> = (args) => (
-  <VideoBanner {...args} />
-);
+const generateStoryComponent = () => {
+  const StoryComponent: Story<VideoBannerProps> = (args) => (
+    <VideoBanner {...args} />
+  );
 
-export default {
+  return StoryComponent;
+};
+
+const meta: Meta = {
   component: VideoBanner,
   title: "Site/VideoBanner",
 };
 
-export const Default = StoryComponent.bind({});
+export default meta;
+
+export const Default = generateStoryComponent();
 
 Default.args = {
   title: "Demo Video",

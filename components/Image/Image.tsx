@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { all, StyledSystemProps } from "components/system";
 
-interface ImageProps extends StyledSystemProps {
+export interface ImageProps extends StyledSystemProps {
   css?: string;
 }
 

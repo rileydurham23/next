@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { all, css } from "components/system";
 import Link from "components/Link";
 
-interface ForkRibbonProps {
+export interface ForkRibbonProps {
   backgroundColor?: string;
   repoLink: string;
   text?: string;
@@ -13,7 +13,7 @@ interface RibbonContainerProps {
   backgroundColor?: string;
 }
 
-const ForkRibbon = ({
+export const ForkRibbon = ({
   backgroundColor = "black",
   repoLink = "https://github.com/gravitational/teleport",
   text = "Fork Me on GitHub",

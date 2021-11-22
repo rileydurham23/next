@@ -5,7 +5,7 @@ import Icon from "components/Icon";
 import { SearchStyles } from "./SearchStyles";
 import docVersions from "../../config.json";
 
-interface SearchProps {
+export interface SearchProps {
   id?: string;
   version?: string;
 }

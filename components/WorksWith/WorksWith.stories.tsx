@@ -6,7 +6,7 @@ const StoryComponent: Story<WorksWithProps> = (args) => <WorksWith {...args} />;
 
 export default {
   component: StoryComponent,
-  title: "WorksWith",
+  title: "Site/WorksWith",
 };
 
 export const Default = StoryComponent.bind({});

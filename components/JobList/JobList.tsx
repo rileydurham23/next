@@ -15,7 +15,7 @@ import waveUrl from "./assets/wave.png";
 
 const waveBg = `url(${waveUrl}) -50px 0 no-repeat`;
 
-type Props = {
+export type Props = {
   jobs: Job[];
 } & BoxProps;
 

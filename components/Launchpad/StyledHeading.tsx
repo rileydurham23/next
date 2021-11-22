@@ -4,7 +4,7 @@ import { all, StyledSystemProps, variant } from "components/system";
 
 type Variant = "plain" | "embedded";
 
-interface HeadingProps extends StyledSystemProps {
+export interface HeadingProps extends StyledSystemProps {
   variant?: Variant | Variant[];
 }
 

@@ -14,7 +14,7 @@ import HeaderCTA from "./HeaderCTA";
 export type HeaderMode = "simple" | "full" | "none";
 export type HeaderBehaviour = "floating" | "static";
 
-interface HeaderProps {
+export interface HeaderProps {
   mode: HeaderMode;
   headerColor: string;
   border?: string;

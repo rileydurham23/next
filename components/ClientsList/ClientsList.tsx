@@ -9,7 +9,7 @@ import { StyledSystemProps } from "components/system";
 import { Dropdown } from "components/Dropdown";
 import wave from "./assets/wave.svg";
 
-type Props = {
+export type Props = {
   clients: CompanyId[];
   contrasted: true;
   needLink?: boolean;

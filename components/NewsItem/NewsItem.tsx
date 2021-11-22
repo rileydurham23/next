@@ -6,7 +6,7 @@ import { Centrator } from "components/Layout";
  * This is the News component on the homepage underneath Get Started button in the header
  */
 
-interface NewsItemProps {
+export interface NewsItemProps {
   children: React.ReactNode;
 }
 export const NewsItem = ({ children }: NewsItemProps) => {
