@@ -1,7 +1,7 @@
 ---
 title: Improve security & compliance for AWS infrastructure
 subtitle: Infrastructure Access for AWS
-headerDescription: Easily control who can provision & access your critical AWS resources
+headerDescription: Easily control who can provision and access your critical AWS resources
 hideWave: true
 description: Teleport’s Access Plane empowers teams using AWS to innovate, without sacrificing speed for security.
 reviews:
@@ -52,7 +52,8 @@ import largorgs from "./assets/for-largorgs.svg";
     imgPosition="right"
     description={
       <>
-Running mission critical applications on AWS requires controlling who can provision and access resources like AWS Console, EC2, RDS, Aurora, and EKS. Not every AWS user in your organization needs access to everything. AWS Console might be used by DevOps engineers responsible for maintaining your infrastructure. EC2 instances might be accessed by on-call SREs.  RDS and Aurora by DBAs or data analysts.  Managing identity-based access to such a wide variety of roles is time-consuming and complex but necessary to control costs, ensure security & compliance.
+Managing identity-based access to AWS resources across multiple accounts is time-consuming and complex 
+but necessary to control costs, as well as ensure security and compliance.
       </>
     }
 >
@@ -88,15 +89,15 @@ Running mission critical applications on AWS requires controlling who can provis
     description={
       <>
         With Teleport, you can separate who can provision AWS resources from who can access them.
-        We provide an identity-aware access solution for AWS Console and the AWS API that enables fine-grained, role-based access controls to prevent unauthorized creation of AWS resources.  If an SRE needs to be able to provision new AWS resources, you can easily grant temporary elevated access that automatically expires.
+        We provide an identity-aware access solution for the AWS Management Console and CLI that enables fine-grained, role-based access controls to prevent unauthorized creation of AWS resources.  If an SRE needs to be able to provision new AWS resources, you can easily grant temporary elevated access that automatically expires.
       </>
     }
   >
-    <ProductBanner.Item title="AWS Console">
-      Teleport provides connectivity, authentication, authorization and audit for AWS Console.
+    <ProductBanner.Item title="AWS Management Console">
+      Teleport provides connectivity, authentication, authorization and audit for AWS Management Console & CLI.
     </ProductBanner.Item>
-    <ProductBanner.Item title="AWS API">
-      Enforce the same controls for AWS Console at the AWS API level.
+    <ProductBanner.Item title="AWS CLI–">
+      Enforce the same controls for AWS Console at the AWS CLI level.
     </ProductBanner.Item>
     <ProductBanner.Item title="Complete audit in AWS CloudTrail">
       Teleport ensures all AWS Console activity is logged in CloudTrail for complete visibility into access & behavior.
@@ -158,9 +159,9 @@ Running mission critical applications on AWS requires controlling who can provis
 
 <Section bg="flatWhite">
   <WorksWith title="Works with everything you have">
-    Teleport Server Access is open source and it relies on open standards such
+    Teleport is open source and it relies on open standards such
     as X.509 certificates, HTTPS, SAML, OpenID connect and others. Deployed as a
-    single-binary, it seamlessly integrates with the rest of your stack.
+    single-binary, it seamlessly integrates with the rest of your AWS stack.
   </WorksWith>
 </Section>
 
@@ -171,8 +172,7 @@ Running mission critical applications on AWS requires controlling who can provis
 $ tsh login --proxy=example.com
 
 # on AWS Linux 2
-$ sudo yum-config-manager --add-repo https://rpm.releases.teleport.dev/teleport.repo
-$ sudo yum install teleport
+$ apt install teleport
 
 # in a Kubernetes cluster
 $ helm install
