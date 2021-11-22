@@ -10,7 +10,7 @@ import {
   Heading,
   PageIntro,
   Section,
-  ListAndImage,
+  ImageAndContent,
   List,
   TryTeleport,
   Flex,
@@ -34,31 +34,27 @@ import NextImage from "next/image";
     width={328}
   />
 </SectionHeader>
-<ListAndImage
-  intro=""
-  title="Security Team"
-  listHeading="Teleport maintains a cross functional security team dedicated to:"
-  listItems={[
-    "Teleport code, dependency, and supply chain vulnerability detection and response",
-    "Teleport Cloud Security",
-    "Corporate IT Security",
-  ]}
-  outro={
-    <Flex flexDirection={["column", "row"]}>
-      <Flex>You can reach this team by email:&nbsp;</Flex>
-      <Link scheme="site" href="mailto:security@goteleport.com">
+<ImageAndContent title="Security Team" subtitle="Teleport maintains a cross functional security team dedicated to:" imageToRightAndNotCentered={true} imagePosition="right"
+  content={
+    <Flex flexDirection="column">
+      <ul>
+        <li>Teleport code, dependency, and supply chain vulnerability detection and response</li>
+        <li>Teleport Cloud Security</li>
+        <li>Corporate IT Security</li>
+      </ul>
+      <Flex>You can reach this team by email:  <Link scheme="site" href="mailto:security@goteleport.com">
         security@goteleport.com
-      </Link>
+      </Link> </Flex>
     </Flex>
-  }
+    }
 >
-  <NextImage
+    <NextImage
     src="./assets/security-illustration@2x.png"
     alt="Security Team"
     height={219}
     width={328}
   />
-</ListAndImage>
+</ImageAndContent>
 <Section bg="purpleGradient">
   <Centrator>
   <Flex py={[5, 9]} flexDirection="column">
