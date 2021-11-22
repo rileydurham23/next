@@ -2,16 +2,17 @@ import styled from "styled-components";
 import css from "@styled-system/css";
 import Section from "components/Section";
 import Flex from "components/Flex";
-import NextImage from "next/image";
 import wavelight from "./assets/wave-light.png";
-
+import Badge, { IconSize } from "components/Badge";
+import { IconName } from "components/Icon";
 export interface CenterCardProps {
-  src?: string;
   title: string;
   text: string;
+  name?: IconName;
+  size?: IconSize;
 }
 
-export const CenterCard = ({ src, title, text }: CenterCardProps) => {
+export const CenterCard = ({ title, text, size, name }: CenterCardProps) => {
   return (
     <Section
       display="flex"
@@ -22,21 +23,7 @@ export const CenterCard = ({ src, title, text }: CenterCardProps) => {
       minHeight={[null, 632]}
     >
       <StyledCard>
-        {src && (
-          <Flex
-            justifyContent="center"
-            alignItems="center"
-            bg="dark-purple"
-            border="1px solid white"
-            borderRadius="circle"
-            height={48}
-            width={48}
-            boxShadow="0px 8px 16px rgba(12, 12, 14, 0.24)"
-            mb={[3, 4]}
-          >
-            <NextImage src={src} alt="small icon" height={24} width={24} />
-          </Flex>
-        )}
+        <Flex mb={[3, 4]}>{name && <Badge name={name} size={size} />}</Flex>
         <Flex
           as="h2"
           color="black"

@@ -1,23 +1,56 @@
-import styled from "styled-components";
-import css from "@styled-system/css";
 import NextImage from "next/image";
 import { Centrator } from "components/Layout";
 import Flex from "components/Flex";
 import Box from "components/Box";
-
+import Badge, { IconSize } from "components/Badge";
+import Icon, { IconName } from "components/Icon";
 interface ProductBannerItemProps {
   title: string;
   src?: string;
-  iconWrapper?: boolean;
   children: React.ReactNode;
+  iconName?: IconName;
+  badgeName?: IconName;
+  size?: IconSize;
 }
+
+const getImageDetails = (src, badgeName, iconName, size) => {
+  if (badgeName)
+    return (
+      <Flex mb="2">
+        <Badge name={badgeName} size={size} />
+      </Flex>
+    );
+  if (iconName)
+    return (
+      <Flex mb="2">
+        <Icon name={iconName} size={size} />
+      </Flex>
+    );
+  if (src) {
+    return (
+      <Flex alignItems="center" flexGrow={1} mb={1}>
+        <NextImage
+          src={src}
+          width={32}
+          height={32}
+          layout="intrinsic"
+          alt="miniature diagram"
+        />
+      </Flex>
+    );
+  }
+};
 
 const ProductBannerItem = ({
   title,
   src,
-  iconWrapper = false,
   children,
+  size,
+  badgeName,
+  iconName,
 }: ProductBannerItemProps) => {
+  const image = getImageDetails(src, badgeName, iconName, size);
+
   return (
     <Flex
       flex="0 1 auto"
@@ -27,30 +60,9 @@ const ProductBannerItem = ({
       pb={2}
       pl={3}
     >
-      {src &&
-        (!iconWrapper ? (
-          <Flex alignItems="center" flexGrow={1} mb={1}>
-            <NextImage
-              src={src}
-              width={32}
-              height={32}
-              layout="intrinsic"
-              alt="miniature diagram"
-            />
-          </Flex>
-        ) : (
-          <StyledIconWrapper>
-            <NextImage
-              src={src}
-              width={24}
-              height={24}
-              layout="intrinsic"
-              alt="miniature diagram"
-            />
-          </StyledIconWrapper>
-        ))}
+      {image}
       <Box
-        fontSize={src ? "text-md" : "text-lg"}
+        fontSize={image ? "text-md" : "text-lg"}
         fontWeight="bold"
         color="black"
         lineHeight="lg"
@@ -182,19 +194,5 @@ export const ProductBanner = ({
     </Flex>
   );
 };
-
-const StyledIconWrapper = styled(Flex)(
-  css({
-    justifyContent: "center",
-    alignItems: "center",
-    bg: "dark-purple",
-    border: "1px solid white",
-    borderRadius: "circle",
-    height: 48,
-    width: 48,
-    boxShadow: "0px 8px 16px rgba(12, 12, 14, 0.24)",
-    mb: 2,
-  })
-);
 
 ProductBanner.Item = ProductBannerItem;
