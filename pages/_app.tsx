@@ -7,8 +7,8 @@ import { DocsContextProvider } from "layouts/DocsPage/context";
 import theme from "components/theme";
 import { GTMPageView } from "utils/gtm";
 import { utmValidator, gValidator } from "utils/utm-cookies";
-import "components/global-styles.css";
-import "components/Search/search.css";
+import { Lato, UbuntuMono } from "components/Fonts";
+import GlobalStyles from "components/GlobalStyles";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -58,6 +58,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     return (
       <DocsContextProvider>
         <ThemeProvider theme={theme}>
+          <Lato />
+          <UbuntuMono />
+          <GlobalStyles />
           <Component {...pageProps} />
         </ThemeProvider>
       </DocsContextProvider>
@@ -65,6 +68,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   } else {
     return (
       <ThemeProvider theme={theme}>
+        <Lato />
+        <UbuntuMono />
+        <GlobalStyles />
         <Component {...pageProps} />
       </ThemeProvider>
     );

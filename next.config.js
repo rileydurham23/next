@@ -66,7 +66,7 @@ module.exports = withBundleAnalyzer({
       ],
     });
     config.module.rules.push({
-      test: /\.(png|jpg|webp|gif|mp4|webm|ogg|swf|ogv)$/i,
+      test: /\.(png|jpg|webp|gif|mp4|webm|ogg|swf|ogv|woff2)$/i,
       type: "asset/resource",
       exclude: /node_modules/,
     });

@@ -1,6 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import theme from "components/theme";
-import "components/global-styles.css";
+import { Lato, UbuntuMono } from "components/Fonts";
+import GlobalStyles from "components/GlobalStyles";
 import * as NextImage from "next/image";
 
 // NextImage will not work with Storybook out of the box
@@ -28,6 +29,9 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
+      <Lato />
+      <UbuntuMono />
+      <GlobalStyles />
       <Story />
     </ThemeProvider>
   ),

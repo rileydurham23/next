@@ -16,6 +16,11 @@ declare module "*.jpg" {
   export default value;
 }
 
+declare module "*.woff2" {
+  const value: string;
+  export default value;
+}
+
 declare module "*.md" {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const value: any;

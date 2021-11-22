@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export const SearchStyles = createGlobalStyle`
 .searchbox {
   display: block;
   position: relative;
@@ -628,3 +631,4 @@
 .algolia-autocomplete {
   width: 100% !important;
 }
+`;
