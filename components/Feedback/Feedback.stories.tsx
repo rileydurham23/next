@@ -24,5 +24,5 @@ export default {
 export const FeedbackList = StoryComponent.bind({});
 
 FeedbackList.args = {
-  reviews: ["mulesoft", "nasdaq", "sumologic", "anaconda"],
+  reviews: ["carta", "nasdaq", "sumologic", "anaconda"],
 };
