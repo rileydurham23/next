@@ -1,17 +1,35 @@
 ---
-title: Careers
-h1: Work with Us
+title: Benefits Overview (US)
+subtitle: Teleport Benefits
 hideWave: true
 description: View our available career opportunities
+headerDescription: Below is a summary of the benefits we offer full-time employees based in the U.S. at Teleport. Our main goal is to give our employees the benefits they need to do their job well and to feel happy and secure in their career and life.
+shadow: true
 ---
 import NextImage from "next/image"
 import {
+  Section,
   SectionBanner,
+  SectionHeader,
+  SectionVisuals,
   TryTeleport,
   GridDisplay,
 } from "components";
 
 import { BenefitCard } from "components/GridDisplay";
+
+<Section bg="flatGray" pb={[0, 5]}>
+  <SectionHeader
+    bg="transparent"
+    title={meta.title}
+    subtitle={meta.subtitle}
+    description={meta.headerDescription}
+    width="100%"
+    mode="none"
+  >
+    ![secure access for saas](./assets/best-company-perks@2x.png)
+  </SectionHeader>
+</Section>
 
 <SectionBanner 
 bg="purpleStars" 
@@ -51,12 +69,25 @@ text={
     - Guardian-VSP Vision Plan C (Choice)
   </BenefitCard>
   <BenefitCard  title="Life Insurance" cardBG="gray" src="./assets/guardian.svg">
-    - [Guardian Guardian Base Life $50,000]()
+    - [Guardian Guardian Base Life $50,000](/static/benefits/Guardian-Base-Life-$50k.pdf)
   </BenefitCard>
   <BenefitCard  title="Long Term Disability" cardBG="gray" src="./assets/guardian.svg">
-    - [Guardian Guardian Long-Term Disability (age 65)]()
+    - [Guardian Guardian Long-Term Disability (age 65)](/static/benefits/Guardian-Long-Term-Disability.pdf)
   </BenefitCard>
 </GridDisplay>
+<Section bg="grayWave">
+  <SectionVisuals
+  title="401K"
+  contentWidth="700px"
+  description={
+    <ul>
+      <li>Default Contribution (auto-enrolled): 1% contribution</li>
+      <li>Employer Matching: 100% of contributions on the first 3% deferred, then 50% of contributions from 3% to 5%</li>
+    </ul>
+  }>
+  ![Guideline Logo](./assets/guideline.svg)
+  </SectionVisuals>
+</Section>
 <GridDisplay bg="flatWhite" cardStyle="benefitCard">
   <BenefitCard title="Enhanced Wellness Benefits" cardBG="orange" >
     The intention for this program is increasing wellness and productivity. Wellness is unique and individual 

@@ -19,6 +19,7 @@ interface Props {
     headerBehaviour?: HeaderBehaviour;
     headerColor?: string;
     border?: string;
+    shadow?: boolean;
   };
   children: React.ReactNode;
 }
@@ -37,6 +38,7 @@ export default function SitePage({ meta, children }: Props) {
         behaviour={meta.headerBehaviour}
         headerColor={meta.headerColor}
         border={meta.border}
+        shadow={meta.shadow}
       >
         <Box color="text" lineHeight="26px">
           <MDXProvider components={components}>{children}</MDXProvider>

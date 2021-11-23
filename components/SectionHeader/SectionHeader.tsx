@@ -106,7 +106,7 @@ export const SectionHeader = ({
           <Flex flexDirection="column" alignItems="flexStart">
             {subtitle && (
               <Box
-                mb={title ? "1" : 0}
+                mb={title ? 3 : 0}
                 color="dark-purple"
                 fontWeight="bold"
                 fontSize="text-xl"
@@ -130,7 +130,7 @@ export const SectionHeader = ({
           </Flex>
           {description && (
             <Box
-              mt={[3, 2]}
+              mt={[3, 4]}
               fontSize="text-xl"
               lineHeight="lg"
               color="darkest"
