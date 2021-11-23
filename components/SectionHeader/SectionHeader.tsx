@@ -22,6 +22,7 @@ type LinkProps = {
 export interface SectionHeaderProps {
   title: string;
   description?: React.ReactNode;
+  descriptionTextWidth?: string;
   subtitle?: string;
   children?: React.ReactNode;
   mode?: string;
@@ -72,6 +73,7 @@ const getBG = (color: BGColor) => {
 export const SectionHeader = ({
   mode,
   children,
+  descriptionTextWidth = "600px",
   subtitle,
   title,
   description,
@@ -134,7 +136,7 @@ export const SectionHeader = ({
               fontSize="text-xl"
               lineHeight="lg"
               color="darkest"
-              maxWidth="600px"
+              maxWidth={descriptionTextWidth}
             >
               {description}
             </Box>
