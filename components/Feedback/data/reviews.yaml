@@ -188,13 +188,13 @@ carta4:
     title: Senior Site Reliability Engineer II
 
 thredup1:
-  text: The biggest challenge was with newly onboarded developers, who had to go through a multi-step process to set up a custom solution.
+  text: The limited scope of the custom solution meant the SRE team was spending significant time onboarding engineers and troubleshooting issues.
   person:
     name: Roman Chepurnyi
-    title: Director of Infrastructure Engineering
+    title: Senior Director, Infrastructure and Security Engineering
 
 thredup2:
   text: With our SOC2 audit, and likely future compliance requirements, using Teleport for high fidelity record-keeping bolstered our risk assessment and response competency.
   person:
     name: Roman Chepurnyi
-    title: Director of Infrastructure Engineering
+    title: Senior Director, Infrastructure and Security Engineering
