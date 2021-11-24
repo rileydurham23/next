@@ -74,7 +74,7 @@ const menu: MenuCategoryProps[] = [
       },
       {
         icon: "server",
-        title: "AWS",
+        title: "Infrastructure Access for AWS",
         description:
           "Easily control who can provision and access your critical AWS resources",
         href: "/use-cases/aws",
