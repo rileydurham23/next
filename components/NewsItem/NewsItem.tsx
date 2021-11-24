@@ -7,13 +7,14 @@ import { Centrator } from "components/Layout";
  */
 
 export interface NewsItemProps {
+  newsImg?: boolean;
   children: React.ReactNode;
 }
-export const NewsItem = ({ children }: NewsItemProps) => {
+export const NewsItem = ({ newsImg = false, children }: NewsItemProps) => {
   return (
     <Centrator flexDirection="row" mt={2} justifyContent="flex-start">
-      <StyledNewsImg>NEW</StyledNewsImg>
-      <Flex ml={3} fontSize="14px">
+      {newsImg && <StyledNewsImg>NEW</StyledNewsImg>}
+      <Flex ml={newsImg ? 3 : 0} fontSize="14px">
         {children}
       </Flex>
     </Centrator>

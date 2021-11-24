@@ -14,6 +14,7 @@ import {
   CenterCard,
   EasyStart,
   Feedback,
+  NewsItem,
   ProductBanner,
   Section,
   SectionHeader,
@@ -35,8 +36,11 @@ import largorgs from "./assets/for-largorgs.svg";
     width="100%"
     mode="none"
   >
-    ![secure access for saas](./assets/secure-access-for-saas@2x.png)
+    ![secure access for saas](./assets/hero-aws@2x.png)
   </SectionHeader>
+  <NewsItem>
+    Teleport is available in the [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-syjxiiw25cr3u?sr=0-1&ref_=beagle&applicationId=AWSMPContessa)
+  </NewsItem>
   <AnnouncementBar
     backgroundColor="lightest-gray"
     inLivingColor
@@ -48,7 +52,7 @@ import largorgs from "./assets/for-largorgs.svg";
   <ProductBanner
     title="Unique challenges faced by AWS customers"
     width="100%"
-    src="./assets/saas@2x-min.png"
+    src="./assets/unique-challenges@2x.png"
     imgPosition="right"
     description={
       <>
@@ -57,13 +61,13 @@ but necessary to control costs, as well as ensure security and compliance.
       </>
     }
 >
-    <ProductBanner.Item iconWrapper title="Infrastructure sprawl" src="./assets/security-icon.svg">
+    <ProductBanner.Item  title="Infrastructure sprawl"  badgeName="server">
       You need to control who can provision infrastructure to control costs and prevent sprawl.
     </ProductBanner.Item>
-    <ProductBanner.Item iconWrapper title="Granular access" src="./assets/complexity-icon.svg">
+    <ProductBanner.Item  title="Granular access" badgeName="layers">
       Different teams require different levels of identity-based access for different resources.
     </ProductBanner.Item>
-    <ProductBanner.Item iconWrapper title="Security &amp; Compliance" src="./assets/security-icon.svg">
+    <ProductBanner.Item  title="Security &amp; Compliance" badgeName="quickstart">
       You need to lock down who can provision & access your AWS infrastructure and keep detailed audit logs. 
     </ProductBanner.Item>
   </ProductBanner>
@@ -83,7 +87,7 @@ but necessary to control costs, as well as ensure security and compliance.
     subtitle="Get the most out of AWS Management Console"
     title="Control who can provision AWS resources"
     width="100%"
-    src="./assets/security-that-scales-with-you@2x.png"
+    src="./assets/management-console@2x.png"
     imgPosition="right"
     logoSrc={startups}
     description={
@@ -93,13 +97,13 @@ but necessary to control costs, as well as ensure security and compliance.
       </>
     }
   >
-    <ProductBanner.Item title="AWS Management Console">
+    <ProductBanner.Item title="AWS Management Console" src="./assets/aws-management-console-icon.svg" size="lg" shadow>
       Teleport provides connectivity, authentication, authorization and audit for AWS Management Console & CLI.
     </ProductBanner.Item>
-    <ProductBanner.Item title="AWS CLI">
+    <ProductBanner.Item title="AWS CLI" src="./assets/aws-cli-icon.svg" size="lg" shadow>
       Enforce the same controls for AWS Console at the AWS CLI level.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Complete audit in AWS CloudTrail">
+    <ProductBanner.Item title="Complete audit in AWS CloudTrail" src="./assets/aws-cloudtrail-icon.svg" size="lg" shadow>
       Teleport ensures all AWS Console activity is logged in CloudTrail for complete visibility into access & behavior.
     </ProductBanner.Item>
   </ProductBanner>
@@ -110,7 +114,7 @@ but necessary to control costs, as well as ensure security and compliance.
     subtitle="Deep integration for AWS products"
     title="Easily enforce granular controls for AWS resources"
     width="100%"
-    src="./assets/cust-access-controls@2x.png"
+    src="./assets/deep-integration@2x.png"
     imgPosition="left"
     logoSrc={largorgs}
     description={
@@ -119,13 +123,13 @@ but necessary to control costs, as well as ensure security and compliance.
       </>
     }
   >
-    <ProductBanner.Item title="AWS EC2">
+    <ProductBanner.Item title="AWS EC2" src="./assets/aws-ec2-icon.svg" size="lg" shadow>
       Integrate and extend your corporate identity roles with Teleport access for EC2. New EC2 instances automatically join your Teleport cluster. Supports Linux & Windows.
     </ProductBanner.Item>
-    <ProductBanner.Item title="AWS RDS, Redshift & Aurora">
+    <ProductBanner.Item title="AWS RDS, Redshift & Aurora" src="./assets/aws-aurora-icon.svg" size="lg" shadow>
       Get table-level controls for your databases running on AWS and complete visibility to the queries your team are running.
     </ProductBanner.Item>
-    <ProductBanner.Item title="AWS EKS">
+    <ProductBanner.Item title="AWS EKS" src="./assets/aws-eks-icon.svg" size="lg" shadow>
       Specify separate permissions for Kubernetes pods running on EKS than the underlying EC2 instance.
     </ProductBanner.Item>
   </ProductBanner>
@@ -136,7 +140,7 @@ but necessary to control costs, as well as ensure security and compliance.
     subtitle="Built to make the most out of AWS"
     title="Teleport uses AWS services for the most integrated experience"
     width="100%"
-    src="./assets/secure-access-for-saas@2x.png"
+    src="./assets/build-to-make@2x.png"
     imgPosition="right"
     logoSrc={secteams}
     description={
@@ -145,20 +149,20 @@ but necessary to control costs, as well as ensure security and compliance.
       </>
     }
   >
-    <ProductBanner.Item title="Hosted on AWS">
+    <ProductBanner.Item title="Hosted on AWS" src="./assets/aws-icon.svg" size="lg" shadow>
       The Teleport Cloud is hosted across multiple AWS regions so you can run your AWS workloads close to your Access Plane.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Buy on AWS Marketplace">
+    <ProductBanner.Item title="Buy on AWS Marketplace" src="./assets/aws-marketplace-icon.svg" size="lg" shadow>
       Purchase Teleport directly via the AWS Marketplace or use AWS credits to pay for Teleport usage.  Private offers available for enterprise customers.
     </ProductBanner.Item>
-    <ProductBanner.Item title="AWS CloudHSM">
+    <ProductBanner.Item title="AWS CloudHSM" src="./assets/aws-cloudhsm-icon.svg" size="lg" shadow>
     For added security protecting the Teleport Certificate Authority (CA) running on AWS, we support AWS CloudHSM.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
 
 <Section bg="flatWhite">
-  <WorksWith title="Works with everything you have">
+  <WorksWith title="Works with everything you have" AWS>
     Teleport is open source and it relies on open standards such
     as X.509 certificates, HTTPS, SAML, OpenID connect and others. Deployed as a
     single-binary, it seamlessly integrates with the rest of your AWS stack.
@@ -166,7 +170,7 @@ but necessary to control costs, as well as ensure security and compliance.
 </Section>
 
 <EasyStart>
-      <Terminal>
+  <Terminal>
 ```
 # on a client
 $ tsh login --proxy=example.com

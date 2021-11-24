@@ -1,6 +1,8 @@
 export { default as ansible } from "./assets/ansible.svg";
 export { default as auth0 } from "./assets/auth0.svg";
 export { default as aws } from "./assets/aws.svg";
+export { default as cloudtrail } from "./assets/aws-cloudtrail.svg";
+export { default as marketplace } from "./assets/aws-marketplace.svg";
 export { default as azure } from "./assets/azure.svg";
 export { default as chef } from "./assets/chef.svg";
 export { default as gcloud } from "./assets/gcloud.svg";
