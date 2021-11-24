@@ -1,3 +1,5 @@
+import { ImageProps } from "next/image";
+
 import aleksandrKlizhentas from "./crew/aleksandr_klizhentas.jpg";
 import alexWolfe from "./crew/alex_wolfe.jpg";
 import alexWolfe2 from "./crew/alex_wolfe_2.jpg";
@@ -22,11 +24,16 @@ import taylorWakefield2 from "./crew/taylor_wakefield_2.jpg";
 import travisSwientek from "./crew/travis_swientek.jpg";
 import travisSwientek2 from "./crew/travis_swientek_2.jpg";
 
+export interface Photo {
+  src: string;
+  width: number;
+  height: number;
+}
 interface Member {
   firstName: string;
   lastName: string;
   role: string;
-  photos: string[];
+  photos: Photo[];
 }
 
 const crew: Member[] = [
@@ -34,103 +41,127 @@ const crew: Member[] = [
     firstName: "Aleksandr",
     lastName: "Klizhentas",
     role: "CTO",
-    photos: [aleksandrKlizhentas],
+    photos: [
+      {
+        src: aleksandrKlizhentas,
+        width: 1000,
+        height: 667,
+      },
+    ],
   },
   {
     firstName: "Anna",
     lastName: "Radchenko",
     role: "Designer",
-    photos: [annaRadchenko, annaRadchenko2],
+    photos: [
+      { src: annaRadchenko, width: 1040, height: 1560 },
+      { src: annaRadchenko2, width: 1040, height: 1560 },
+    ],
   },
   {
     firstName: "Alex",
     lastName: "Wolfe",
     role: "VP of UX and Design",
-    photos: [alexWolfe, alexWolfe2],
+    photos: [
+      { src: alexWolfe, width: 750, height: 1000 },
+      { src: alexWolfe2, width: 1000, height: 750 },
+    ],
   },
   {
     firstName: "Alexandra",
     lastName: "Patane",
     role: "Mid market Account Executive",
-    photos: [alexandraPatane, alexandraPatane2],
+    photos: [
+      { src: alexandraPatane, width: 768, height: 960 },
+      { src: alexandraPatane2, width: 750, height: 1000 },
+    ],
   },
   {
     firstName: "Andrew",
     lastName: "Lytvynov",
     role: "Software Engineer",
-    photos: [andrewLytvynov],
+    photos: [{ src: andrewLytvynov, width: 1365, height: 1024 }],
   },
   {
     firstName: "Bardia",
     lastName: "Shahali",
     role: "VP of Sales",
-    photos: [bardiaShahali],
+    photos: [{ src: bardiaShahali, width: 1008, height: 1334 }],
   },
   {
     firstName: "Brian",
     lastName: "Joerger",
     role: "Software Engineer",
-    photos: [brianJoerger],
+    photos: [{ src: brianJoerger, width: 667, height: 500 }],
   },
   {
     firstName: "Ev",
     lastName: "Kontsevoy",
     role: "CEO",
-    photos: [euguenyKontsevoy],
+    photos: [{ src: euguenyKontsevoy, width: 1560, height: 1040 }],
   },
   {
     firstName: "Isaiah",
     lastName: "Becker-Mayer",
     role: "Software Engineer",
-    photos: [isaiahBeckerMayer],
+    photos: [{ src: isaiahBeckerMayer, width: 193, height: 380 }],
   },
   {
     firstName: "Jay",
     lastName: "Perez",
     role: "Technical Support Engineer",
-    photos: [jayPerez],
+    photos: [{ src: jayPerez, width: 380, height: 380 }],
   },
   {
     firstName: "Jonathon",
     lastName: "Canada",
     role: "Sales Engineer",
-    photos: [jonathonCanada],
+    photos: [{ src: jonathonCanada, width: 375, height: 500 }],
   },
   {
     firstName: "Joshua",
     lastName: "Smith",
     role: "Enterprise Account Executive",
-    photos: [joshuaSmith],
+    photos: [{ src: joshuaSmith, width: 1029, height: 772 }],
   },
   {
     firstName: "Kafi",
     lastName: "Payne",
     role: "HR Director",
-    photos: [kafiPayne, kafiPayne2],
+    photos: [
+      { src: kafiPayne, width: 812, height: 1218 },
+      { src: kafiPayne2, width: 800, height: 1200 },
+    ],
   },
   {
     firstName: "Natalie",
     lastName: "Staudacher",
     role: "Customer Success Manager",
-    photos: [natalieStaudacher],
+    photos: [{ src: natalieStaudacher, width: 513, height: 380 }],
   },
   {
     firstName: "Pierre",
     lastName: "Beaucamp",
     role: "Software Engineer",
-    photos: [pierreBeaucamp],
+    photos: [{ src: pierreBeaucamp, width: 1008, height: 1344 }],
   },
   {
     firstName: "Taylor",
     lastName: "Wakefield",
     role: "COO",
-    photos: [taylorWakefield, taylorWakefield2],
+    photos: [
+      { src: taylorWakefield, width: 1040, height: 1560 },
+      { src: taylorWakefield2, width: 1008, height: 1344 },
+    ],
   },
   {
     firstName: "Travis",
     lastName: "Swientek",
     role: "Head of Customer Success",
-    photos: [travisSwientek, travisSwientek2],
+    photos: [
+      { src: travisSwientek, width: 667, height: 500 },
+      { src: travisSwientek2, width: 507, height: 380 },
+    ],
   },
 ];
 

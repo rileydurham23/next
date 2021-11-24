@@ -1,42 +1,89 @@
 import styled, { keyframes, css as styledCss } from "styled-components";
-import css from "@styled-system/css";
-import { all, StyledSystemProps } from "components/system";
+import { css, all, StyledSystemProps } from "components/system";
 import Box, { BoxProps } from "components/Box";
-import Image from "components/Image";
-import crew from "./data";
+import NextImage from "next/image";
+import crew, { Photo as DataPhoto } from "./data";
 
 interface Photo {
   title: string;
   url: string;
+  width: string[];
+  height: string[];
 }
 
+interface Portrait extends DataPhoto {
+  title: string;
+}
+
+const getSizeImages = (
+  heights: string[],
+  photoWidth: number,
+  photoHeight: number
+) => {
+  const width = [];
+  const height = [];
+
+  for (const heightImage of heights) {
+    const numberHeight = parseInt(heightImage, 10);
+    height.push(heightImage);
+
+    const widthImage = Math.round((numberHeight / photoHeight) * photoWidth);
+    width.push(`${widthImage}px`);
+  }
+  return { height, width };
+};
+
+const toFinalPhoto = (photo: Portrait, heights: string[]) => {
+  const { width, height } = getSizeImages(heights, photo.width, photo.height);
+
+  return {
+    title: photo.title,
+    url: photo.src,
+    width: width,
+    height: height,
+  };
+};
+
+const GROUPE_ONE_HEIGHT = ["250px", "250px", "500px"];
+const GROUPE_TWO_HEIGHT = ["190px", "190px", "380px"];
+
 function getGroups(): [Photo[], Photo[]] {
-  const queue: Photo[] = [];
-  const group1: Photo[] = [];
-  const group2: Photo[] = [];
+  const queue: Portrait[] = [];
+  const group1: Portrait[] = [];
+  const group2: Portrait[] = [];
 
   for (const member of crew) {
-    if (member.photos.length) {
-      const photos = member.photos.map((photo) => ({
-        title: `${member.firstName}, ${member.role}`,
-        url: photo,
-      }));
+    const groupNumber = group1.length < crew.length / 2 ? 1 : 2;
 
-      queue.push(...photos);
-      const group = group1.length < crew.length / 2 ? group1 : group2;
+    if (member.photos.length) {
+      queue.push(
+        ...member.photos.map((photo) => ({
+          ...photo,
+          title: `${member.firstName}, ${member.role}`,
+        }))
+      );
+      const group = groupNumber === 1 ? group1 : group2;
       group.push(queue.pop());
     }
   }
 
+  const photosGroup1 = group1.map((photo) =>
+    toFinalPhoto(photo, GROUPE_ONE_HEIGHT)
+  );
+
+  const photosGroup2 = group2.map((photo) =>
+    toFinalPhoto(photo, GROUPE_TWO_HEIGHT)
+  );
+
   for (let i = 0; i < queue.length; i++) {
     if (i % 2) {
-      group2.unshift(queue[i]);
+      photosGroup2.unshift(toFinalPhoto(queue[i], GROUPE_TWO_HEIGHT));
     } else {
-      group2.push(queue[i]);
+      photosGroup1.push(toFinalPhoto(queue[i], GROUPE_ONE_HEIGHT));
     }
   }
 
-  return [group1, group2];
+  return [photosGroup1, photosGroup2];
 }
 
 export default function CrewGallery(props: BoxProps) {
@@ -45,7 +92,7 @@ export default function CrewGallery(props: BoxProps) {
     <Box overflow="hidden" {...props}>
       <StyledRowWrapper>
         <StyledRow
-          height={["250px", "250px", "500px"]}
+          height={GROUPE_ONE_HEIGHT}
           animationDuration={["200s", "200s", "150s"]}
         >
           {group1.map((photo, index) => (
@@ -53,7 +100,7 @@ export default function CrewGallery(props: BoxProps) {
           ))}
         </StyledRow>
         <StyledRow
-          height={["190px", "190px", "380px"]}
+          height={GROUPE_TWO_HEIGHT}
           animationDuration={["250s", "250s", "200s"]}
           mt="3"
         >
@@ -72,13 +119,13 @@ interface PhotoProps {
 
 function Photo({ photo }: PhotoProps) {
   return (
-    <StyledLI>
-      <Image
+    <StyledLI width={photo.width} height={photo.height}>
+      <NextImage
         src={photo.url}
         alt={photo.title}
         title={photo.title}
-        width="auto"
-        height="100%"
+        layout="fill"
+        objectFit="contain"
       />
       <StyledCaption>{photo.title}</StyledCaption>
     </StyledLI>
@@ -143,5 +190,6 @@ const StyledLI = styled("li")<StyledSystemProps>(
     height: "100%",
     flexShrink: 0,
     "& + &": { ml: 3 },
-  })
+  }),
+  all
 );
