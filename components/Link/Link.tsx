@@ -50,6 +50,20 @@ const BaseLink = styled("a")<StyledSystemProps>(
           opacity: 0.8,
         },
       },
+      terms: {
+        color: "lightest-gray",
+        opacity: 0.8,
+        textDecoration: "underline",
+        cursor: "pointer",
+        transition: transition([["color", "interaction"]]),
+        "&:hover": {
+          color: "white",
+        },
+        "&:focus, &:active": {
+          color: "white",
+          outline: "none",
+        },
+      },
     },
   }),
   all
