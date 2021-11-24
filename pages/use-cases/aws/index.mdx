@@ -14,6 +14,8 @@ import {
   CenterCard,
   EasyStart,
   Feedback,
+  Image,
+  Link,
   NewsItem,
   ProductBanner,
   Section,
@@ -38,9 +40,14 @@ import largorgs from "./assets/for-largorgs.svg";
   >
     ![secure access for saas](./assets/hero-aws@2x.png)
   </SectionHeader>
-  <NewsItem>
-    Teleport is available in the [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-syjxiiw25cr3u?sr=0-1&ref_=beagle&applicationId=AWSMPContessa)
-  </NewsItem>
+  <NewsItem display="flex" flexDirection="row" alignItems="center">
+    Teleport is available in the 
+    <Link
+      href="https://aws.amazon.com/marketplace/pp/prodview-syjxiiw25cr3u?sr=0-1&ref_=beagle&applicationId=AWSMPContessa"
+    >
+      <Image ml="10px" src="./assets/aws-marketplace-logo.svg" />
+    </Link>
+</NewsItem>
   <AnnouncementBar
     backgroundColor="lightest-gray"
     inLivingColor
