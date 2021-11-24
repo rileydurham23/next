@@ -72,6 +72,13 @@ const menu: MenuCategoryProps[] = [
           "Learn how E-commerce & Entertainment companies use Teleport",
         href: "/use-cases/ecommerce-entertainment",
       },
+      {
+        icon: "server",
+        title: "AWS",
+        description:
+          "Easily control who can provision and access your critical AWS resources",
+        href: "/use-cases/aws",
+      },
     ],
   },
   {
