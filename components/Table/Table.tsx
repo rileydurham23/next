@@ -7,7 +7,7 @@ import { Row } from "./Row";
 
 type RowElement = ReactElement<typeof Row>;
 
-interface TableProps {
+export interface TableProps {
   children: RowElement | Array<RowElement | Array<RowElement>>;
 }
 

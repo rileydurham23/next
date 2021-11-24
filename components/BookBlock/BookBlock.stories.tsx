@@ -11,7 +11,7 @@ const Component: Story<BookBlockProps> = (args) => (
 
 export default {
   component: BookBlock,
-  title: "BookBlock",
+  title: "Site/BookBlock",
 };
 
 export const Main = Component.bind({});

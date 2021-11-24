@@ -5,7 +5,11 @@ const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "..", "components/Company");
 
 module.exports = {
   stories: ["../components/**/*.stories.mdx", "../components/**/*.stories.tsx"],
-  addons: ["@storybook/addon-essentials", "storybook-addon-turbo-build"],
+  addons: [
+    "@storybook/addon-essentials",
+    "storybook-addon-turbo-build",
+    "storybook-addon-next-router",
+  ],
   core: {
     builder: "webpack5",
   },

@@ -18,11 +18,11 @@ const StoryComponent: Story<Props> = (args) => (
 
 export default {
   component: Feedback,
-  title: "Feedback",
+  title: "Site/Feedback",
 };
 
 export const FeedbackList = StoryComponent.bind({});
 
 FeedbackList.args = {
-  reviews: ["mulesoft", "nasdaq", "sumologic", "anaconda"],
+  reviews: ["carta", "nasdaq", "sumologic", "anaconda"],
 };

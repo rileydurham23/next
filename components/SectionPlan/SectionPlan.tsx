@@ -4,7 +4,7 @@ import Flex from "components/Flex";
 import { Centrator } from "components/Layout";
 import SectionPlanCard from "./SectionPlanCard";
 
-type PlanProps = {
+export type PlanProps = {
   plans: React.ComponentProps<typeof SectionPlanCard>[];
 } & BoxProps;
 

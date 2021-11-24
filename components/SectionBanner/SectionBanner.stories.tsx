@@ -5,7 +5,7 @@ import NextImage from "next/image";
 
 export default {
   component: SectionBanner,
-  title: "Site/SectionBanner",
+  title: "Site/Section/SectionBanner",
 };
 
 const StoryComponent: Story<SectionBannerProps> = (args) => (

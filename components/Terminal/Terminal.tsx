@@ -1,7 +1,7 @@
 import Box, { BoxProps } from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
 
-type TerminalProps = {
+export type TerminalProps = {
   children: React.ReactNode;
 } & BoxProps;
 

@@ -12,7 +12,7 @@ const background = [
   theme.gradients.grayToWhite.background,
 ].join(",");
 
-interface Props {
+export interface Props {
   short?: boolean;
 }
 

@@ -1,7 +1,7 @@
 import Flex, { FlexProps } from "components/Flex";
 import { ReactComponent as LogoSvg } from "./logo.svg";
 
-interface LogoProps extends FlexProps {
+export interface LogoProps extends FlexProps {
   width?: string | string[];
   height?: string | string[];
 }

@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
+import { ReactNode } from "react";
 import { all, StyledSystemProps, transition, variant } from "components/system";
 
 export type ButtonVariant = "primary" | "secondary" | "secondary-white";
 export type ButtonShape = "sm" | "md" | "lg" | "outline";
 
-interface ButtonProps extends StyledSystemProps {
+export interface ButtonProps extends StyledSystemProps {
   variant?: ButtonVariant | ButtonVariant[];
   shape?: ButtonShape | ButtonShape[];
+  children?: ReactNode;
 }
 
 const Button = styled("button")<ButtonProps>(

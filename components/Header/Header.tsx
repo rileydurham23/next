@@ -14,13 +14,14 @@ import HeaderCTA from "./HeaderCTA";
 export type HeaderMode = "simple" | "full" | "none";
 export type HeaderBehaviour = "floating" | "static";
 
-interface HeaderProps {
+export interface HeaderProps {
   mode: HeaderMode;
   headerColor: string;
   border?: string;
+  shadow?: boolean;
 }
 
-const Header = ({ mode, headerColor, border }: HeaderProps) => {
+const Header = ({ mode, headerColor, border, shadow = false }: HeaderProps) => {
   const [isNavigationVisible, setIsNavigationVisible] =
     useState<boolean>(false);
   const toggleNavigaton = useCallback(() => {
@@ -59,6 +60,7 @@ const Header = ({ mode, headerColor, border }: HeaderProps) => {
           as="header"
           backgroundColor={headerColor}
           border={border === "none" ? "none !important" : null}
+          boxShadow={shadow ? "0px 2px 8px rgba(12, 12, 14, 0.24)" : null}
         >
           <StyledLogoLink href="/">
             <Logo width="121px" height="24px" color="dark-purple" />

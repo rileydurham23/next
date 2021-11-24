@@ -13,7 +13,7 @@ const SSRLessGlob = dynamic(() => import("components/Globe"), {
   ssr: false,
 });
 
-interface Props {
+export interface Props {
   children: ReactNode;
 }
 

@@ -2,9 +2,10 @@ import { useEffect, ComponentProps } from "react";
 import styled from "styled-components";
 import { css, wrapper, StyledSystemWrapperProps } from "components/system";
 import Icon from "components/Icon";
+import { SearchStyles } from "./SearchStyles";
 import docVersions from "../../config.json";
 
-interface SearchProps {
+export interface SearchProps {
   id?: string;
   version?: string;
 }
@@ -44,21 +45,24 @@ const Search = ({
   }, [id, version]);
 
   return (
-    <StyledWrapper {...props}>
-      <Icon
-        name="magnify"
-        color="gray"
-        ml="6px"
-        display={["none", "block"]}
-        position="absolute"
-      />
+    <>
+      <SearchStyles />
+      <StyledWrapper {...props}>
+        <Icon
+          name="magnify"
+          color="gray"
+          ml="6px"
+          display={["none", "block"]}
+          position="absolute"
+        />
 
-      <StyledInput
-        type="text"
-        placeholder="Search docs..."
-        data-docsearch-input={id}
-      />
-    </StyledWrapper>
+        <StyledInput
+          type="text"
+          placeholder="Search docs..."
+          data-docsearch-input={id}
+        />
+      </StyledWrapper>
+    </>
   );
 };
 

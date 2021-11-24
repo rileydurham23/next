@@ -1,16 +1,27 @@
-import { Tabs as TabsWrapper, TabItem } from "./Tabs";
+import { Meta, Story } from "@storybook/react";
+import { TabItem, Tabs, TabsProps } from "./Tabs";
 
-export default {
-  component: TabsWrapper,
-  subcomponents: { TabItem },
+const generateStoryComponent = () => {
+  const StoryComponent: Story<TabsProps> = (args) => <Tabs {...args} />;
+
+  return StoryComponent;
+};
+
+const meta: Meta = {
+  component: Tabs,
   title: "Tabs",
 };
 
-export const Tabs = () => {
-  return (
-    <TabsWrapper>
-      <TabItem label="Tab one">Tab one content</TabItem>
-      <TabItem label="Tab two">Tab two content</TabItem>
-    </TabsWrapper>
-  );
+export default meta;
+
+export const Default = generateStoryComponent();
+
+Default.args = {
+  children: (
+    <TabItem label="Amazon Linux">
+      We recommend using `Amazon Linux 2` to install and use Linux kernel 4.19
+      using `sudo amazon-linux-extras install kernel-ng` and rebooting your
+      instance.
+    </TabItem>
+  ),
 };

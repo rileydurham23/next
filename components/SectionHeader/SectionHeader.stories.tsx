@@ -12,7 +12,7 @@ const StoryComponent: Story<SectionHeaderProps> = (args) => (
 
 export default {
   component: StoryComponent,
-  title: "Site/SectionHeader",
+  title: "Site/Section/SectionHeader",
 };
 
 export const Default = StoryComponent.bind({});

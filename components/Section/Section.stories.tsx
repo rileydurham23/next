@@ -1,13 +1,25 @@
 import Box from "../Box";
-import { Section } from "./Section";
+import { Meta, Story } from "@storybook/react";
 
-export default {
-  component: Section,
-  title: "Section",
+import { Section, SectionProps } from "./Section";
+
+const generateStoryComponent = () => {
+  const StoryComponent: Story<SectionProps> = (args) => <Section {...args} />;
+
+  return StoryComponent;
 };
 
-export const Main = () => {
-  return (
+const meta: Meta = {
+  component: Section,
+  title: "Site/Section/Section",
+};
+
+export default meta;
+
+export const Default = generateStoryComponent();
+
+Default.args = {
+  children: (
     <>
       <Box border="1px solid" borderColor="light-gray">
         <Section>
@@ -30,5 +42,5 @@ export const Main = () => {
         </Section>
       </Box>
     </>
-  );
+  ),
 };

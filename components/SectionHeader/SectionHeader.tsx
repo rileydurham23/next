@@ -22,12 +22,13 @@ type LinkProps = {
 export interface SectionHeaderProps {
   title: string;
   description?: React.ReactNode;
+  descriptionTextWidth?: string;
   subtitle?: string;
   children?: React.ReactNode;
   mode?: string;
   bg?: BGColor;
   link?: LinkProps;
-  inColumn?: boolean;
+  kind?: "column" | "row" | "default";
 }
 
 const getBG = (color: BGColor) => {
@@ -72,18 +73,21 @@ const getBG = (color: BGColor) => {
 export const SectionHeader = ({
   mode,
   children,
+  descriptionTextWidth = "600px",
   subtitle,
   title,
   description,
   bg,
   link,
-  inColumn,
+  kind = "default",
 }: SectionHeaderProps) => {
-  const titleInColumn = inColumn ? "column" : ["column", "row"];
-  const leftGap = inColumn ? 0 : [0, 11];
-  const titleBottomGap = inColumn ? [0, 5] : mode === "none" ? [4, 9] : [4, 11];
-  const headerBottomGap = inColumn ? [3, 5] : 0;
-  const sectionTopGap = inColumn ? [11, 9] : mode === "none" ? [4, 9] : [4, 11];
+  const titleInColumn = kind === "column" ? "column" : ["column", "row"];
+  const leftGap = kind === "column" ? 0 : [0, 11];
+  const titleBottomGap =
+    kind === "column" ? [0, 5] : mode === "none" ? [4, 9] : [4, 11];
+  const headerBottomGap = kind === "column" ? [3, 5] : 0;
+  const sectionTopGap =
+    kind === "column" ? [11, 9] : mode === "none" ? [4, 9] : [4, 11];
   return (
     <Flex
       pt={mode === "none" ? [3, 5] : [7, 11]}
@@ -99,12 +103,12 @@ export const SectionHeader = ({
           flex="1 1 auto"
           pt={sectionTopGap}
           pb={titleBottomGap}
-          order={inColumn ? 0 : [1, 0]}
+          order={kind === "default" ? [1, 0] : 0}
         >
           <Flex flexDirection="column" alignItems="flexStart">
             {subtitle && (
               <Box
-                mb={title ? "1" : 0}
+                mb={title ? 3 : 0}
                 color="dark-purple"
                 fontWeight="bold"
                 fontSize="text-xl"
@@ -128,11 +132,11 @@ export const SectionHeader = ({
           </Flex>
           {description && (
             <Box
-              mt={[3, 2]}
+              mt={[3, 4]}
               fontSize="text-xl"
               lineHeight="lg"
               color="darkest"
-              maxWidth="600px"
+              maxWidth={descriptionTextWidth}
             >
               {description}
             </Box>
@@ -151,12 +155,12 @@ export const SectionHeader = ({
         </Box>
         <Flex
           flex="0 0 auto"
-          justifyContent="center"
+          justifyContent={kind === "row" ? ["left", "center"] : "center"}
           alignItems="center"
           ml={leftGap}
-          pt={[3, 2]}
+          pt={kind === "row" ? [0, 2] : [3, 2]}
           pb={[0, 2]}
-          px={inColumn ? 0 : [3, 0]}
+          px={kind === "default" ? [3, 0] : 0}
           maxWidth="100%"
         >
           {children}

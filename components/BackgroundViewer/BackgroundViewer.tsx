@@ -41,7 +41,7 @@ const getBG = (bg: BG) => {
   }
 };
 
-interface BGVProps {
+export interface BGVProps {
   bg: BG;
 }
 

@@ -31,7 +31,7 @@ const StyledWrapper = styled("section")<StyledSystemProps>(
     display: "flex",
     alignItems: "center",
     boxSizing: "content-box",
-    backgroundColor: "#124074",
+    backgroundColor: "#0a1732",
     backgroundSize: "cover",
     backgroundPositionY: "center",
     minHeight: [200, 437],

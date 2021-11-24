@@ -19,7 +19,7 @@ const StoryComponent: Story<Props> = (args) => {
 
 export default {
   component: Banner,
-  title: "Banner",
+  title: "Site/Banner",
 };
 
 export const Simple = StoryComponent.bind({});

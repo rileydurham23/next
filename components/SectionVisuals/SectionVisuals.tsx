@@ -8,6 +8,7 @@ import { P } from "components/MDX";
 export interface SectionVisualsProps {
   subtitle?: string;
   title: string;
+  contentWidth?: string;
   children: React.ReactNode;
   description: React.ReactNode;
 }
@@ -16,6 +17,7 @@ export const SectionVisuals = ({
   children,
   subtitle,
   title,
+  contentWidth = "600px",
   description,
 }: SectionVisualsProps) => {
   return (
@@ -24,7 +26,7 @@ export const SectionVisuals = ({
       flexDirection={["column", "row"]}
       justifyContent="space-between"
     >
-      <Box flex="1 1 auto" maxWidth="600px" pt={[4, 11]} pb={[0, 11]}>
+      <Box flex="1 1 auto" maxWidth={contentWidth} pt={[4, 11]} pb={[0, 11]}>
         <Heading
           title={title}
           subtitle={subtitle}
@@ -41,6 +43,11 @@ export const SectionVisuals = ({
             [`& > ${P}`]: {
               fontSize: "inherit",
               lineHeight: "inherit",
+            },
+            li: {
+              color: "black",
+              fontSize: "text-md",
+              lineHeight: "md",
             },
           })}
         >

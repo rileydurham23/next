@@ -22,6 +22,12 @@ import {
  *
  * GridCards are not clickable or hoverable. The optional href prop
  * will be passed to a "Learn More" button.
+ *
+ * ProductCards exist just below the Hero on the homepage. They have no border,
+ * no hover, just an icon, title/text and Learn More button.
+ *
+ * BenefitCards are similar to GridCards but with a different display logic,
+ * contents, and an optional title above the card (outside its borders)
  */
 
 export interface GridTileProps {
@@ -83,7 +89,13 @@ export const GridTile = ({
           >
             <NextImage src={src} alt={title} height={32} width={32} />
             {caption && (
-              <Box color="white" fontWeight="bold" fontSize="header-3" pl={2}>
+              <Box
+                as="p"
+                color="white"
+                fontWeight="bold"
+                fontSize="header-3"
+                pl={2}
+              >
                 {caption}
               </Box>
             )}
@@ -101,7 +113,13 @@ export const GridTile = ({
         px={4}
         borderRadius="0 0 8px 8px"
       >
-        <Box fontSize="text-md" lineHeight="md" color="black" fontWeight="bold">
+        <Box
+          as="p"
+          fontSize="text-md"
+          lineHeight="md"
+          color="black"
+          fontWeight="bold"
+        >
           {title}
         </Box>
         <Box fontSize="13px" lineHeight="md" color="gray" pb={href ? 3 : 0}>

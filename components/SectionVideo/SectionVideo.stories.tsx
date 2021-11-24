@@ -11,7 +11,7 @@ const StoryComponent: Story<SectionVideoProps> = (args) => (
 
 export default {
   component: StoryComponent,
-  title: "SectionVideo",
+  title: "Site/Section/SectionVideo",
 };
 
 export const Default = StoryComponent.bind({});

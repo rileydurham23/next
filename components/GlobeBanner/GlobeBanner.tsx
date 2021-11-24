@@ -10,7 +10,7 @@ const SSRLessGlob = dynamic(() => import("components/Globe"), {
   ssr: false,
 });
 
-type Props = {
+export type Props = {
   children: ReactNode;
 } & FlexProps;
 

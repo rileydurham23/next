@@ -128,6 +128,7 @@
     "remark-rehype": "^8.1.0",
     "remark-validate-links": "^10.0.4",
     "simple-git-hooks": "^2.5.1",
+    "storybook-addon-next-router": "^3.0.8",
     "storybook-addon-turbo-build": "^1.0.1",
     "stringify-object": "^3.3.0",
     "to-vfile": "6.1.0",

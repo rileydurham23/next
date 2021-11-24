@@ -37,6 +37,7 @@ export { ReactComponent as colorTokopedia } from "./logos/color-tokopedia.svg";
 export { ReactComponent as colorThreatstack } from "./logos/color-threatstack.svg";
 export { ReactComponent as colorThredUp } from "./logos/color-thredup.svg";
 export { ReactComponent as colorTwitch } from "./logos/color-twitch.svg";
+export { ReactComponent as colorVmware } from "./logos/logo-vmware.svg";
 export { ReactComponent as colorWise } from "./logos/color-wise.svg";
 export { ReactComponent as colorWish } from "./logos/color-wish.svg";
 export { ReactComponent as colorZynga } from "./logos/color-zynga.svg";

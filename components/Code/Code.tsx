@@ -2,7 +2,7 @@
 
 import Box, { BoxProps } from "components/Box";
 
-type CodeProps = {
+export type CodeProps = {
   children: React.ReactNode;
 } & BoxProps;
 

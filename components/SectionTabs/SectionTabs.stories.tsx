@@ -8,7 +8,7 @@ import redImg from "./fixtures/red.png";
 
 export default {
   component: SectionTabs,
-  title: "Site/SectionTabs",
+  title: "Site/Section/SectionTabs",
 };
 
 export const Default = () => {

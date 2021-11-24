@@ -5,7 +5,7 @@ import Button from "components/Button";
 import Flex from "components/Flex";
 import NextImage from "next/image";
 
-interface BaitCardProps {
+export interface BaitCardProps {
   img: string;
   imgBG: string;
   logo: string;
@@ -25,6 +25,7 @@ export default function BaitCard({
   description,
 }: BaitCardProps) {
   const sideCard = side === "left" ? "row" : "row-reverse";
+
   return (
     <StyledCard flexDirection={sideCard}>
       <Box

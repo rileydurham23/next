@@ -8,7 +8,7 @@ const formatTitle = (suffix: string, title?: string) => {
 
   return base + suffix;
 };
-interface HeadProps {
+export interface HeadProps {
   title: string;
   image?: string;
   description?: string;

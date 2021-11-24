@@ -9,7 +9,7 @@ const Component: Story<PromoPointsBlockProps> = (args) => (
 export default {
   component: PromoPointsBlock,
   subcomponent: [PromoPointsBlock.Item],
-  title: "PromoPointsBlock",
+  title: "Site/PromoPointsBlock",
 };
 
 export const Main = Component.bind({});

@@ -3,7 +3,7 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import Video from "components/Video";
 
-type Props = {
+export type Props = {
   video: string;
   description: string;
   children: ReactNode;

@@ -1,6 +1,6 @@
 import { Box } from "components";
 
-interface SidebarProps {
+export interface SidebarProps {
   // side?: string;
   title?: string;
   bg?: string;

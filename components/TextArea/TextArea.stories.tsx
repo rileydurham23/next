@@ -1,33 +1,22 @@
-import { Story } from "@storybook/react";
-import { useState } from "react";
-import { TextArea as Component } from "./TextArea";
+import { Meta, Story } from "@storybook/react";
+import { TextArea } from "./TextArea";
 
-const StoryComponent: Story<React.HTMLProps<HTMLTextAreaElement>> = (args) => {
-  const [value, setValue] = useState(args.value);
+const generateStoryComponent = () => {
+  const StoryComponent: Story = (args) => <TextArea {...args} />;
 
-  return (
-    <Component
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      {...args}
-    />
-  );
+  return StoryComponent;
 };
 
-export default {
-  component: Component,
-  title: "Base/TextArea",
+const meta: Meta = {
+  component: TextArea,
+  title: "TextArea",
 };
 
-export const Base = StoryComponent.bind({});
+export default meta;
 
-Base.args = {
-  placeholder: "Placeholder",
-};
+export const Default = generateStoryComponent();
 
-export const Disabled = StoryComponent.bind({});
-
-Disabled.args = {
+Default.args = {
   disabled: true,
   value: "Some value",
 };

@@ -40,7 +40,7 @@ export const SaaS1: LogoRow = [
   "colorElastic",
   "colorAuth0",
   "colorCarta",
-  "colorKaltura",
+  "colorVmware",
 ];
 
 export const SaaS2: LogoRow = [

@@ -12,7 +12,7 @@ import waveRightUrl from "./assets/wave_right.png";
 
 type Child = React.ReactElement<typeof Milestone>;
 
-type Props = { children: Child | Array<Child> };
+export type Props = { children: Child | Array<Child> };
 
 const pathBg = `url(${pathUrl}) center 200px no-repeat`;
 const waveLeftBg = `url(${waveLeftUrl}) -438px -660px no-repeat`;

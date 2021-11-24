@@ -3,7 +3,7 @@ import Box, { BoxProps } from "components/Box";
 import Link from "components/Link";
 import { HeaderMeta } from "./types";
 
-interface AnchorNavigationProps {
+export interface AnchorNavigationProps {
   headers: HeaderMeta[];
 }
 

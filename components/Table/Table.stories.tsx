@@ -1,27 +1,25 @@
-import Flex from "../Flex";
 import { Table, Row, Cell, Separator, HorizontalHeader } from "./index";
+import { TableProps } from "./Table";
+import { Meta, Story } from "@storybook/react";
 
-export default {
+const generateStoryComponent = () => {
+  const StoryComponent: Story<TableProps> = (args) => <Table {...args} />;
+
+  return StoryComponent;
+};
+
+const meta: Meta = {
   component: Table,
-  subcomponents: {
-    Row,
-    Cell,
-    SeparatorRow: Separator.Row,
-    SeparatorCell: Separator.Cell,
-  },
   title: "Table",
 };
 
-export const SimpleTable = () => (
-  <Flex
-    bg="white"
-    width="100%"
-    display="inline-flex"
-    p="2"
-    alignItems="center"
-    justifyContent="center"
-  >
-    <Table>
+export default meta;
+
+export const Default = generateStoryComponent();
+
+Default.args = {
+  children: (
+    <>
       <Row>
         <HorizontalHeader>Question</HorizontalHeader>
         <Cell>How are you?</Cell>
@@ -47,6 +45,6 @@ export const SimpleTable = () => (
         <Cell>{"Yep, it's true"}</Cell>
         <Cell>Bye</Cell>
       </Row>
-    </Table>
-  </Flex>
-);
+    </>
+  ),
+};

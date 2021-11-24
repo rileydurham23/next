@@ -357,7 +357,6 @@
     - Technology
 - id: mulesoft
   title: MuleSoft
-  caseStudy: /case-study/mulesoft/
   industry:
     - Technology
 - id: mx
@@ -465,6 +464,7 @@
     - Technology
 - id: thredup
   title: thredUP
+  caseStudy: /case-study/thredup/
   industry:
     - Retail
 - id: thredup1

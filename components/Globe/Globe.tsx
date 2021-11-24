@@ -15,7 +15,7 @@ import getData, { Place } from "./places";
 
 const USA = { lat: 50, lng: -80 };
 
-interface Props extends GlobeProps {
+export interface Props extends GlobeProps {
   viewPoint?: { lat: number; lng: number };
 }
 
