@@ -49,8 +49,8 @@ const menu: MenuCategoryProps[] = [
     ],
   },
   {
-    title: "Industries",
-    description: "Teleport Across Industries",
+    title: "Use Cases",
+    description: "Teleport Use Cases",
     href: "/",
     children: [
       {
@@ -70,7 +70,14 @@ const menu: MenuCategoryProps[] = [
         title: "E-commerce & Entertainment",
         description:
           "Learn how E-commerce & Entertainment companies use Teleport",
-        href: "/use-cases/ecommerce-entertainment",
+        href: "/use-cases/ecommerce-entertainment/",
+      },
+      {
+        icon: "server",
+        title: "Infrastructure Access for AWS",
+        description:
+          "Easily control who can provision and access your critical AWS resources",
+        href: "/use-cases/aws/",
       },
     ],
   },
