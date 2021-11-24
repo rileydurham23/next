@@ -49,7 +49,7 @@ const menu: MenuCategoryProps[] = [
     ],
   },
   {
-    title: "Industries",
+    title: "Use Cases",
     description: "Teleport Across Industries",
     href: "/",
     children: [
