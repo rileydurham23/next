@@ -11,9 +11,16 @@ interface ProductBannerItemProps {
   iconName?: IconName;
   badgeName?: IconName;
   size?: IconSize;
+  shadow?: boolean;
 }
 
-const getImageDetails = (src, badgeName, iconName, size) => {
+const imageSizes = {
+  sm: 24,
+  md: 32,
+  lg: 48,
+};
+
+const getImageDetails = (src, badgeName, iconName, size, shadow) => {
   if (badgeName)
     return (
       <Flex mb="2">
@@ -28,11 +35,17 @@ const getImageDetails = (src, badgeName, iconName, size) => {
     );
   if (src) {
     return (
-      <Flex alignItems="center" flexGrow={1} mb={1}>
+      <Flex
+        alignItems="center"
+        flexGrow={1}
+        mb={size === "lg" ? 2 : 1}
+        boxShadow={shadow ? "0px 8px 16px rgba(12, 12, 14, 0.24)" : null}
+        borderRadius="6px"
+      >
         <NextImage
           src={src}
-          width={32}
-          height={32}
+          width={imageSizes[size]}
+          height={imageSizes[size]}
           layout="intrinsic"
           alt="miniature diagram"
         />
@@ -45,11 +58,12 @@ const ProductBannerItem = ({
   title,
   src,
   children,
-  size,
+  size = "md",
   badgeName,
   iconName,
+  shadow = false,
 }: ProductBannerItemProps) => {
-  const image = getImageDetails(src, badgeName, iconName, size);
+  const image = getImageDetails(src, badgeName, iconName, size, shadow);
 
   return (
     <Flex
