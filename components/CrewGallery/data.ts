@@ -1,5 +1,3 @@
-import { ImageProps } from "next/image";
-
 import aleksandrKlizhentas from "./crew/aleksandr_klizhentas.jpg";
 import alexWolfe from "./crew/alex_wolfe.jpg";
 import alexWolfe2 from "./crew/alex_wolfe_2.jpg";
