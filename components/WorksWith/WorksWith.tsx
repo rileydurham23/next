@@ -112,19 +112,19 @@ const AWSDisplay = (
   <>
     <LogoBoxRow>
       <LogoBoxImage name="aws">Amazon</LogoBoxImage>
-      <LogoBoxImage name="cloudtrail">AWS Cloudtrail</LogoBoxImage>
+      <LogoBoxImage name="cloudtrail">AWS CloudTrail</LogoBoxImage>
       <LogoBoxImage name="marketplace">AWS Marketplace</LogoBoxImage>
-      <LogoBoxImage name="linux">Linux</LogoBoxImage>
+      <LogoBoxImage name="aurora">AWS Aurora</LogoBoxImage>
     </LogoBoxRow>
     <LogoBoxRow>
-      <LogoBoxImage name="puppet">Puppet</LogoBoxImage>
-      <LogoBoxImage name="chef">Chef</LogoBoxImage>
-      <LogoBoxImage name="okta">Okta</LogoBoxImage>
-      <LogoBoxImage name="ansible">Ansible</LogoBoxImage>
+      <LogoBoxImage name="cli">AWS CLI</LogoBoxImage>
+      <LogoBoxImage name="hsm">AWS CloudHSM</LogoBoxImage>
+      <LogoBoxImage name="ec2">AWS EC2</LogoBoxImage>
+      <LogoBoxImage name="eks">AWS EKS</LogoBoxImage>
     </LogoBoxRow>
     <LogoBoxRow>
-      <LogoBoxImage name="oneLogin">One Login</LogoBoxImage>
-      <LogoBoxImage name="auth0">Auth0</LogoBoxImage>
+      <LogoBoxImage name="management">AWS Management Console</LogoBoxImage>
+      <LogoBoxImage name="rdc">AWS RDC</LogoBoxImage>
       <LogoBoxImage name="windows">Active Directory</LogoBoxImage>
       <LogoBoxImage name="k8s">Kubernetes</LogoBoxImage>
     </LogoBoxRow>
