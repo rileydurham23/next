@@ -60,16 +60,14 @@ const shiftButton = keyframes`
 
 const StyledCommand = styled("div")(
   css({
-    display: "flex",
+    boxSizing: "border-box",
     flexDirection: "column",
     position: "relative",
-    width: "100%",
     color: "white",
-    backgroundColor: "code",
+    bg: "code",
     mx: -3,
     px: 3,
-    py: [1, 0],
-    fontSize: "text-md",
+    fontSize: ["text-sm", "text-md"],
     lineHeight: "md",
     transition: transition([["backgroundColor", "interaction"]]),
 
@@ -84,13 +82,6 @@ const StyledCommand = styled("div")(
     "&:hover button, &:focus button": {
       display: "flex",
     },
-  }),
-  media("sm", {
-    backgroundColor: "darkest",
-    overflow: "scroll",
-    "& + &": {
-      marginTop: 1,
-    },
   })
 );
 
@@ -100,16 +91,13 @@ const StyledHeadlessButton = styled(HeadlessButton)(
     alignItems: "center",
     position: "absolute",
     top: 0,
-    left: -3,
+    left: 0,
     margin: 0,
-    pl: 1,
-    pr: 2,
+    px: "6px",
     py: 1,
     color: "light-gray",
     bg: "darkest",
     cursor: "pointer",
-    borderTopLeftRadius: "default",
-    borderBottomLeftRadius: "default",
     opacity: 0,
     animationDuration: "0.3s",
     animationFillMode: "forwards",
