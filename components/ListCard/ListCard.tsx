@@ -2,48 +2,73 @@ import type { BGColor } from "components/Section/Section";
 import css from "@styled-system/css";
 import Flex from "components/Flex";
 import Icon, { IconName } from "components/Icon";
-import Section from "components/Section";
 import styled from "styled-components";
 
-export interface ListCardProps {
-  bg?: BGColor;
+export interface ListCardContainerProps {
   children: React.ReactElement<typeof ListCardItem>;
   title: string;
 }
 
-const ListCard = ({ bg = "grayWave", children, title }: ListCardProps) => {
+export const ListCardContainer = ({ children }: ListCardContainerProps) => {
   return (
-    <Section
+    <Flex
+      alignItems="flex-start"
+      display="flex"
+      flexDirection={["column", "row"]}
+      my={8}
+    >
+      {children}
+    </Flex>
+  );
+};
+
+export interface ListCardProps {
+  bg?: BGColor;
+  children: React.ReactElement<typeof ListCardItem>;
+  subtitle?: string;
+  title: string;
+}
+
+const ListCard = ({ bg, children, subtitle, title }: ListCardProps) => {
+  return (
+    <Flex
       alignItems="center"
+      backgroundColor={bg || "transparent"}
       bg={bg}
       display="flex"
       flexDirection="column"
+      height="100%"
       justifyContent="center"
-      padding={[1, 6]}
+      mr={3}
+      textAlign="left"
     >
       <StyledCard>
         <Flex
           as="h2"
           color="black"
           flexWrap="wrap"
-          fontSize={["header-2", "header-1", "header-1"]}
+          fontSize={["header-3", "header-1"]}
           fontWeight="black"
-          lineHeight={["md", "xxl"]}
+          lineHeight={["xl", "xxl"]}
           mt={0}
-          textAlign="center"
+          mx={[2, 5]}
+          textAlign="left"
         >
           {title}
         </Flex>
         <Flex
-          fontSize={["text-md", "text-xl"]}
+          fontSize="text-xl"
           lineHeight="lg"
-          maxWidth={["95%", "90%"]}
-          textAlign="center"
+          maxWidth={["95%", "85%"]}
+          mx={[2, 5]}
         >
+          {subtitle}
+        </Flex>
+        <Flex lineHeight="lg" maxWidth={["98%", "90%"]} textAlign="center">
           <StyledUL>{children}</StyledUL>
         </Flex>
       </StyledCard>
-    </Section>
+    </Flex>
   );
 };
 
@@ -58,16 +83,17 @@ export type ListCardItemProps = {
 export const ListCardItem = ({
   children,
   icon = "circleCheck",
-  iconColor = "purple",
+  iconColor = "dark-purple",
   mode = "normal",
 }: ListCardItemProps) => {
   return (
     <StyledLi>
       <Icon
         color={iconColor}
-        mx={mode === "compact" ? 2 : 4}
+        ml={mode === "compact" ? 2 : [5, 3]}
+        mr={mode === "compact" ? 2 : [2, 3]}
         name={icon}
-        size={mode === "compact" ? "sm" : "md"}
+        size="md"
       />
       <StyledText>{children}</StyledText>
     </StyledLi>
@@ -76,17 +102,18 @@ export const ListCardItem = ({
 
 const StyledCard = styled(Flex)(
   css({
-    alignItems: "center",
+    alignItems: ["baseline", "center"],
     backgroundColor: "white",
     backgroundSize: "cover",
     borderRadius: "md",
     boxShadow: "0 1px 4px rgba(0, 0, 0, .12)",
     flexDirection: "column",
-    height: ["86%", "80%"],
-    justifyContent: "center",
-    my: [6, 3],
-    py: [5, 9],
-    width: "90%",
+    height: "100%",
+    justifyContent: "flex-start",
+    m: [1, 3],
+    px: [2, 3],
+    py: [3, 9],
+    width: "98%",
   })
 );
 
