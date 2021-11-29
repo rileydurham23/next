@@ -19,7 +19,7 @@ export const IDIOM: Record<IdiomClass, ColorStyles> = {
   purple: {
     background: {
       backgroundImage: [`url(${mobBackground})`, `url(${webBackground})`],
-      backgroundSize: ["100%", "cover"],
+      backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
     },
     logo: { color: "white" },

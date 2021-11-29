@@ -35,8 +35,6 @@ export const Pattern1 = ({
         justifyContent="space-between"
         alignItems="center"
         // mobile height will need to be changed if longer forms are used
-        height={["100vh", null]}
-        minHeight={[null, "100vh"]}
         pl={[2, 4]}
         pr={[2, 4]}
         {...background}
@@ -75,7 +73,7 @@ export const Pattern1 = ({
 
 const StyledCard = styled(Flex)(
   css({
-    maxWidth: "944px",
+    maxWidth: ["343px", "944px"],
     width: "100%",
     backgroundColor: "white",
     flexDirection: ["column", "row"],
