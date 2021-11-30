@@ -44,7 +44,7 @@ const DownloadSuccess = () => {
   return (
     <Pattern1
       headTitle="Teleport Success"
-      headDescription="Try it free. Unify access for SSH servers, Kubernetes clusters, web applications, and databases across all environments."
+      headDescription="Teleport enables unified access for Kubernetes clusters, SSH servers, databases, and web applications in any environment."
       colorStyle="purple"
       cardMaxWidth={["343px", "944px"]}
     >
