@@ -39,7 +39,7 @@ interface LIProps {
   iconName?: IconName;
 }
 
-const LI = ({ href, hrefName, iconName }: LIProps) => {
+const LI = ({ href, hrefName, iconName = null }: LIProps) => {
   return (
     <>
       <StyledLi>
