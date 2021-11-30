@@ -15,14 +15,10 @@ const DownloadSuccess = () => {
       headTitle="Teleport Success"
       headDescription="Try it free. Unify access for SSH servers, Kubernetes clusters, web applications, and databases across all environments."
       colorStyle="purple"
+      cardMaxWidth={["343px", "944px"]}
     >
       <LeftSide>
-        <Flex
-          flexDirection="column"
-          justifyContent="center"
-          maxWidth={["420px", "initial"]}
-          width="100%"
-        >
+        <Flex flexDirection="column" justifyContent="center" width="100%">
           <Flex
             position="relative"
             width="auto"

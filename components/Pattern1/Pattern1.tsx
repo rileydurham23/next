@@ -15,6 +15,7 @@ import { IdiomClass, IDIOM } from "./constants";
 export interface Pattern1Props {
   headTitle: string;
   headDescription: string;
+  cardMaxWidth?: string | string[];
   colorStyle: IdiomClass;
   children: React.ReactNode;
 }
@@ -22,6 +23,7 @@ export interface Pattern1Props {
 export const Pattern1 = ({
   headTitle,
   headDescription,
+  cardMaxWidth = "944px",
   colorStyle,
   children,
 }: Pattern1Props) => {
@@ -34,18 +36,18 @@ export const Pattern1 = ({
         flexDirection="column"
         justifyContent="space-between"
         alignItems="center"
-        // mobile height will need to be changed if longer forms are used
         height={["100%", null]}
         minHeight="100vh"
-        pl={[2, 4]}
-        pr={[2, 4]}
+        px={[2, 4]}
         {...background}
       >
         <Box as="header" mt={[5, 9]} mb={[5, 5]} {...logoColor}>
           <Logo width={["120px", "180px"]} height={["24px", "38px"]} />
         </Box>
 
-        <StyledCard as="section">{children}</StyledCard>
+        <StyledCard maxWidth={cardMaxWidth} as="section">
+          {children}
+        </StyledCard>
 
         {/* Footer: hidden on mobile */}
         <Box as="footer" mb={9} textAlign="center" fontSize="text-sm">
@@ -75,7 +77,6 @@ export const Pattern1 = ({
 
 const StyledCard = styled(Flex)(
   css({
-    maxWidth: "944px",
     width: "100%",
     backgroundColor: "white",
     flexDirection: ["column", "row"],
