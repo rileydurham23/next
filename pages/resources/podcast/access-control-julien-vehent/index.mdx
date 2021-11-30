@@ -23,11 +23,224 @@ layout: podcast
 - [Teleport Quick Start](/docs/quickstart/)
 - [Teleport Access Plane](/)
 
-## Securing DevOps - Introduction
-**Ben**: Welcome to Access Control, a podcast providing practical security advice for startups. Advice from people who have been there. In each episode, we’ll interview a leader in their field and learn best practices and practical tips for securing your org. For today’s episode, I’ll be talking to Julien Vehent, author of Securing DevOps and a security engineer at Google Cloud. Julien was previously on the Firefox Operations Security team where he built and grew a remote team of DevSecOps teams from the ground up. I picked up Julien’s book a year ago and it’s loaded with practical tips for bringing security into DevOps making Julien the ideal guest for today’s episode. This episode isn’t sponsored by Julien for Manning Press, but I would highly recommend picking up a copy. We’ll have a link to the book in the show notes below. Hi, Julien. Thanks for joining us today.
+## Transcript
 
-**Julien**: Hi, Ben. Thanks for having me.
+**Ben:** Welcome to Access Control, a podcast providing practical security advice for startups. Advice from people who have been there. In each episode, we'll interview a leader in their field and learn best practices and practical tips for securing your org. For today’s episode, I'll be talking to Julien Vehent, author of Securing DevOps and a security engineer at Google Cloud. Julien was previously on the Firefox Operations Security team where he built and grew a remote team of DevSecOps teams from the ground up. I picked up Julien's book a year ago and it's loaded with practical tips for bringing security into DevOps making Julien the ideal guest for today's episode. This episode isn't sponsored by Julien for Manning Press, but I would highly recommend picking up a copy. We'll have a link to the book in the show notes below. Hi, Julien. Thanks for joining us today.
 
-**Ben**: So to kick it off you have a background in cryptography and information security management. Can you tell me how you’ve leveraged this expertise as a practitioner of DevOps?
+**Julien:** Hi, Ben. Thanks for having me.
 
-**Julien**: Yeah. This is definitely an area where I spent a lot of time at the beginning of my career. I would definitely not call myself a cryptographer. What I learnt studying cryptography is that I didn’t know nearly enough to earn that title and learned a lot of humility in the process...
+### From Infosec to DevOps
+
+**Ben:** So to kick it off you have a background in cryptography and information security management. Can you tell me how you've leveraged this expertise as a practitioner of DevOps?
+
+**Julien:** Yeah. This is definitely an area where I spent a lot of time at the beginning of my career. I would definitely not call myself a cryptographer. What I learnt studying cryptography is that I didn't know nearly enough to earn that title and learned a lot of humility in the process. What I've discovered very early on is that the approach we had to information security in the 2000s and the early 2010s just wasn't adapted to modern web services environments that were actively adopting the cloud. And there was a lot of pushback from security teams to remain in the on-premise environment and continue to use the old controls that we had in place and built over the 20 years prior. And engineering teams, SRA teams, and developers were pushing the other direction saying, "We need the scalability, we need the flexibility and the agility of DevOps and the security team needs to adapt and needs to reinvent its set of security controls for that new environment. And as a security engineer but also someone who's spent a lot of time in systems and operations, I had a lot of empathy for those SRA teams and I was very interested in actually building tools and techniques that would work in cloud environments. And that's how I got into the world of DevOps and tried to build security around it.
+
+**Ben:** DevSecOps means the sort of a movement of the last five to eight years that's sort of a combination of both, as the DevOps has matured and security has matured.
+
+**Julien:** That's right.
+
+### How to Secure a DevOps Pipeline
+
+**Ben:** And then you start your book by applying layers of security into the DevOps pipeline, and this sounds like such great advice for protecting your web applications and securing the delivery pipeline. For startups, which part do you think is important that they should build vs. buy for their DevOps pipeline?
+
+**Julien:** I think it's important to start with the smallest attack surface possible for a startup. Really focus on your product as much as you can and leave those complex infrastructure security, cloud security problems for later on. So my advice is always as you start, really leverage existing products. Leverage code hosting solutions, CI/CD solutions, hosting solutions that will be secure by default and generate easier to operate than something that would be running on-premise and will require a full team to manage. Now of course, depending on what the startup is building they may have requirements that force them in a certain direction. But generally speaking for the first two or three years of a startup there will not be a person and let alone a team dedicated to security and therefore minimizing the risks and the attack surface is critical.
+
+**Ben:** Yeah. So you're much better going with a circle CI as opposed to a self-hosted Jenkins if there isn't the requirement or someone to even manage or maintain it.
+
+**Julien:** That's right. That would be my recommendation. Now again, some teams have chosen the self-hosted Jenkins route and done very, very well but they usually have a specific use case for that solution and if you can leverage a vendor at first it's often a better approach.
+
+### Setting Roles Without Limiting Access
+
+**Ben:** And so as companies sort of start — you might start with a fresh AWS account, you have access to everything and then you slowly reduce the privilege that developers or teams can get access. Do you have any tips for providing sort of roles of least privilege without limiting access to resources?
+
+**Julien:** Yeah. I think a lot of teams have gone the route of giving everybody access to everything at first because that was a business need and the company was small enough that it was acceptable, and then obviously that doesn't scale. You get to a point where there are too many people in the team and they need to start segmenting permissions. And I think it is, in fact, a fine process to go through. I think it's fine to start from a fairly open environment when there aren't that many people around and security exposure is fairly limited. And I also think it's fairly healthy to rearchitect after — let's say — a year or two years and maybe create a new AWS account or a new cloud account — whatever, GCP, Azure — and migrate the critical components to that new environment with better security controls. It is very unlikely that the first version of a software stack will be viable long-term. So getting into the cloud services and cloud security business knowing that rearchitecting regularly will be needed is, I think, very healthy. Now, I've seen teams take that to the extreme. At Mozilla at some point, we took it to the extreme of having one AWS account per environment per application which turns into a lot of AWS accounts and there's a lot of tooling overhead with this. Being able to manage user accounts and permissions across a large set of AWS accounts is not easy. It is something that a larger organization will probably have to do at some point. We see the same problem in GCP organization as well but it's not something that I would design for from the get-go I would say.
+
+**Ben:** Yeah. Yeah. It's kind of your design and go-to-product-market fit first and then once you've got that fit you start thinking what are the security concerns and then what are the risks for your business and then go into the next version as you sort of migrate.
+
+**Julien:** That's right. Keep it simple at first and then gradually add complexity.
+
+### Bootstrapping Trust
+
+**Ben:** Yeah. Another topic that jumped out at me we kind of ran into is always bootstrapping trust, and the idea of you starting with a new system and you need to get trust across all of these different services. Do you have any tips for bootstrapping trust and making sure that secrets don't get leaked across systems for people who — are there any services out there that can help people sort of bootstrap trust without ending out with some json secrets like on their local machine, for example?
+
+**Julien:** Right. I think it's definitely one of the most critical issues we observe in cloud environments today — is leaking credentials, leaking secrets that give attackers access to identities or accounts in the cloud and can be misused to break into services or abuse resources and incur the — the typical example of somebody get access to access credentials and they started mining Bitcoin in the AWS account and suddenly you have a $100,000 bill you have to pay. I think a lot of teams have tried over the years to adopt password managers and secrets managers of various degrees of usability. And in many cases, those tools are just not good enough and they're so clunky and difficult to use that at some point the secrets will end up in the wrong place and they will end up leaking in a patch on GitHub, that's the typical place, or Pastebin or a log entry posted somewhere or something like this. To me, the biggest problem here, and we spent a lot of time — years ago I wrote a tool called Sops which is effectively an editor for Yaml 5. So it will encrypt all of the values so that we could store secrets in configuration files completely encrypted. It will decrypt with KMS, etc., etc. Nowadays you can do that using capabilities that are already built-in the cloud. You can use Hashcode — Vault is another great way to do that. And all of these tools are great because they built into the cloud, and they are very usable and they reduce the friction that both an operation team and a developer would have in essentially trying to fit their secrets into a configuration file and deploying them to machines and mishandling that and making them all over the place. As much as possible, I think it's great to not have to manage secrets at all.
+
+**Julien:** 10 years ago, it was a gigantic pain in the butt to have to manage SSL certificates. You have to store the private keys for two, three, years, four years sometimes. You had to distribute those to machines. It was incredibly hard to do. We built I don't know how many versions of Puppet modules and chef modules to do this securely. It was very, very costly to do and maintain. Lots of overhead for storing those and having the backups, etc. Nowadays you just click a button and you get Let's Encrypt Certificates deployed directly to your load balancers or to your machines. That's a good example to me that when possible we should just not manage the secrets at all and use automation to just let the system create the secrets, deploy the secrets, delete them when they're no longer needed and they never really get in the hands of an operator. And that incredibly increased security very quickly. It reduced the burden to the operation team and it reduced the risks.
+
+**Ben:** Another good example of short-lived certificates are better if the user experience can be — autorenewal, getting new certificates is easier than having — let's say — a three-year SSL cert back in the day that would have to get revoked by a CA and it would cause all sorts of other problems.
+
+**Julien:** That's right.
+
+### Log Management Tips
+
+**Ben:** And then in the second chapter of your book you go into watching for anomalies and protecting services against attacks. I think one of the core areas of this — you look at log management, and I know many startups have very patchy log management when getting started. If starting out, do you have any tips for what people should think about sort of ingesting as far as key logs?
+
+**Julien:** Yeah. Log management is absolutely critical for security teams of course, but pretty much anyone else who is involved with building and running services in the cloud. And that's a problem that an organization would have to solve regardless of having to deal with security issues. My advice is again as much as possible leverage what exists in the cloud infrastructure. If possible, try to not build your own login pipeline by gluing together a bunch of instances and trying custom configs of [inaudible], etc., etc., and instead try to use the capabilities that already exist. I know that in GCP Stackdriver is, frankly, excellent. You can get your logs into a UX where you can search them and visualize them very easily. You can export them to Bitquery and have a USF log that you can query directly from a web interface with some variance of SQL. That is extremely powerful and it is a lot more powerful than anyone could build inside their environment by hand. I mean trying to run —
+
+**Ben:** And maintain it and updates [crosstalk] —
+
+**Julien:** And maintain it and making sure you don't lose any of those logs and that they rotate properly and all of that stuff. I mean we spent a lot of time in the 2000s and early 2010s running security investigation with grep and writing custom scripts to search through gigs sometimes terabytes of logs. And it works, right? But once you've tried the logs in a database, in a data lake like Bitquery you understand the flexibility that that gives you and the capabilities that you get out of it. It's a whole different world and there's a lot more you can do with those logs. That would be, I think, really the first that organizations have to focus on is make sure you have a good logging story that you can leverage what's inside of those logs at a reasonable reasonability cost.
+
+**Ben:** Starting with your application logs but then also your other event logs that you get from your cloud provider as far as logins and other activity.
+
+**Julien:** Yeah.
+
+### Logs as the Smoke Test for the Credential Leak
+
+**Ben:** From a security perspective, what other things should people be looking out for as far as logs of access that people should keep an eye on?
+
+**Julien:** I like that you mention the cloud logs themselves because when we talk about cloud security we talk about credentials leaking and being misused. Really being able to dive into those cloud logs and the audit logs and the access logs of the infrastructure themselves to detect that a certain account has started misbehaving, has started creating a bunch of instances when not necessarily expected is a great way to find essentially abuse and attacks.
+
+**Ben:** It's like the smoke test for the credential leak. Someone has been using it.
+
+**Julien:** That's right. And sometimes the infrastructure provider will tell you that your credentials are being misused, and they will even disable them for you if they notice it early enough but sometimes they won't. Being able to consume what comes out of the control plane of the infrastructure is very, very important. And those logs are very difficult to read and comprehend as well. So getting exposed to those logs early on — and really understanding how to query them and how to manipulate them before there is an attack — is important. At the application level, at the service level, I think it's very important to work with developers in defining a reasonable standard for logging. The next thing you want is to have 20 or 30 applications in production, and each of them uses a different format for logging. Now the format doesn't need to be perfect but it should have — what we used to do at Mozilla and we had a standard JSON envelope — was a standard set of fields and some of the fields in there were kind of freeform but you knew what to expect from the base envelope and it made it a lot easier to grep all of the logs that were within the same time window, for example, and that is very important to do. So all of the application logs that are issued by the software should follow the same base format and should go to the same place. And then you can start thinking about what type of advanced threats you want to detect in those logs. And that entirely depends on what the application itself is doing. If you're running an accounts system, you may be interested in detecting password stuffing attacks. If you're running a shipping and ordering system, you may be interested in catching a spike in orders from a certain geography at a point in time.
+
+**Julien:** This is the type of stuff that you will essentially have to identify with the developers by doing threat modeling with them and then [inaudible] detection in a more advanced detection pipeline. Not really the basics.
+
+**Ben:** Comes down to what are the threats of your business and what are the issues that you need to protect.
+
+**Julien:** That's right.
+
+### Using Geographic Data to Find Abuse
+
+**Ben:** In this chapter, you also talk about using geographic data to find abuse. Do you have any services which you would recommend as far as building systems on top to use geographic data as anomaly detection?
+
+**Julien:** I don't think I have any system to recommend. Every time we've done this or I've seen it done, it was done using custom code. The basic principle is very easy to comprehend. If you see a login action from a certain latitude and longitude, and you see another login action from a latitude and longitude that is so far away from the first one that it's impossible for that person to have travelled at normal speed, you know something is up. You know that either those credentials are being shared or they've been stolen, or someone is using a VPN, etc., etc. But you know that there is something to investigate here. And we use that log — like most modern sophisticated SSO and identity management systems will have this type of detection built in. When you try to log in to Facebook and you're on vacation in the Bahamas, you'll see a bunch of different little tests that Facebook wants you to run in order to get into your account, right? And the heuristic to trigger that set of tests is most likely location-based. This is a type of more advanced detection that is appropriate for a certain type of system, but you also wouldn't want to have a location-based test on any sort of web service because the cost of triaging those incidents and investigating them may be high. So you want to be very purposeful and specific when you enable those tests.
+
+**Ben:** Yeah. And as you kind of go through all this sort of log management and capture [inaudible], people can be sensitive. How do you prioritize what you alert on, as opposed to what you just collect and use later?
+
+**Julien:** That's always a struggle. There's always a temptation to — particularly in less matured detection systems — alert on everything. To me, there are criteria that are very important. One, the alert needs to be of good enough quality that an analyst can take it and do something with it. I remember years and years ago, we used a host-based intrusion detection system called OS Sync, and it would alert any time there was a file change in /etc.
+
+**Ben:** So it'd be a lot of noise.
+
+**Julien:** Yes, because we had hundreds of servers and they would do puppet deployments that would touch all of the files in /etc and all of those alerts will be sent, not aggregated, will send an individual email to my inbox every time that happened. And I would end up — every time someone would do a large deployment across infrastructure with 20 or 30 thousand alerts. This is a pretty clear case of the alert is useless [laughter]. I used to mass-delete them and etc. But as you're building a detection infrastructure it's important to think about what you're going to do with those alerts. Are they interesting? Are they useful? Can they be investigated? Is it worthwhile to spend 20 or 30 minutes looking through one of those alerts? And the second aspect is trying to prioritize those alerts by type of threat and type of environment. It's possible that an alert is worth investigating but only on a specific type of system and not across, for example, the dev or the staging environments because we know those are kind of more open and etc. So being really mindful about which alerts are being sent to human beings for triage is extremely important because alert fatigue is a real thing, and people will quit their job if they are constantly flooded with alerts they can't investigate.
+
+**Ben:** Then I guess it becomes like the boy who cries wolf when a real alert comes in.
+
+**Julien:** Yes, exactly. We've seen those even on large companies going to give a presentation at conferences saying, "We're seeing 300,000 attacks a minute." I'm like, "No, you're seeing 300,000 port scans a minute [laughter]." These are not attacks. But it's often difficult to explain to leadership the difference between detecting the noise of the internet and the difference between detecting something that may be a threat to the organization. And that's really where the value of a mature detection team is.
+
+### Leveraging a Range of Linux Primitives
+
+**Ben:** And I think one other thing I liked about this chapter is use of Linux primitives such as Auditd. Do you have any ones that people should use or avoid? We have a lot of customers who use SELinux and they also find them wanting that control over Linux but also kind of shooting them in the foot for what they need to do.
+
+**Julien:** As a very, very general rule: it's always better to prevent than to detect. So SELinux may allow you to prevent a certain type of attack and that's better than allowing it and trying to detect it happening. With that said, I personally have a love-and-hate relationship with SELinux and this type of systems because I've seen them get in the way of normal work so often that they end up creating a lot of frustration and actually a lot of friction between the operations team that's trying to run those systems and the security team that's enforcing the use of this control. So I think it's important to be mindful about the type of controls that get deployed and whether they are really worth the cost that they put on the rest of the organization. Auditd is an interesting one because there's a lot you can get out of monitoring Cisco on a Linux box but it's also incredibly noisy. I think it's possible to have an Auditd configuration that is specific enough that the signals you get out of those alerts are valuable but it's also very, very easy to get completely flooded by an enormous amount of noise and to lose the value of those logs very quickly. To me, the question is, again, which systems do you really want to protect with these types of controls, and which Auditd rules do you want to enable? And be very mindful and specific about that and always keep an eye on the impact that this has on not only the security team workload but also the operations team and the performance of those systems and all of those, right? Take everything into account as you build this out.
+
+**Ben:** So I guess an example would be — you would use it for a system processing financial data but not for your public website?
+
+**Julien:** That's right.
+
+### Detecting Intrusions – The Caribbean Breach Story
+
+**Ben:** Moving on, in your book, you then go into detecting intrusions and you have a great story named the Caribbean Breach which I enjoyed that starts off with a mojito, and then it goes downhill from there. Can you just walk listeners through this breach scenario?
+
+**Julien:** You know what? It's been so long since I've written it that I'm not sure I remember all the details of it [laughter].
+
+**Ben:** I read it yesterday.
+
+**Julien:** Yeah. You do it.
+
+**Ben:** It starts off with a company offsite in a Caribbean island and there's a — it seems that someone posting a link on the website is a false against the company, and so I think maybe they're publicly traded but I think the stock price goes down and then it sort of goes through preparation, identification, containment, eradication, recovery, and lessons learned.
+
+**Julien:** That's right.
+
+**Ben:** It's those five steps. And I actually love the use of storytelling. Do you use storytelling in your role now?
+
+### Storytelling to Convey Security Risks
+
+**Julien:** Oh, absolutely. Yes. So this chapter's probably a chapter I would've written even if I didn't have written the book. I wanted to tell that story of what happens when your organization gets targeted to a point where pretty much everybody is involved. And I really wanted to express how stressful the exercise is but also how much value you can get out of it. And you simply can't do that by writing technical documentation. And this is where storytelling is very powerful. The Caribbean Breach is a very fun chapter because it is fictional but also not really [laughter]. So a lot of the characters in the chapter have recognized themselves [laughter] and they asked me afterwards, "Is this me?" "Well, part of this character is you, maybe, I don't know. But it's based on my work experience and the types of incidents I've worked over the years and what I've seen succeed, what I've seen fail. I have seen exercises done in executive boardrooms where it was completely fictional but where in minutes you would have the chief legal and the CTO yelling at each other, and yet it was a fictional exercise. It was just a situation we're putting them in and they were already at each other's throat. You can imagine what that situation would have been like if it had been a real incident. I have seen situations that are just mind-blowing. Postmortem where people are more interested in pointing fingers than trying to find the actual root cause of the issue.
+
+**Julien:** It is very important to take the human aspect into account when responding to incidents which I think a lot of modern organizations — I mean certainly Mozilla was fantastic at this and Google is incredible at this as well. They do really, really, well. They understand what good postmortem looks like, what good incident management looks like and which phases you need to follow in order to properly respond, recover from a breach and from an incident. And the Caribbean breach — it's a fun little story but it's also very typical to how an organization would respond to this type of attack. Suddenly you don't trust anything. You have to go and investigate every single aspect of infrastructure you have. You have to go rebuild a large number of systems. You have to implement less mitigations on things. Oftentimes, you have to kind of try things that will not work but yet spend a day or two trying to build something you'll have to throw away because it's no longer needed or it's not the right solution. You're scrambling effectively, and the role of a good mature security team and security leader is to bring some structure and some confidence to that chaotic process. And it's what I was trying to show through that chapter.
+
+### Keeping Compromised Images for Later Inspection
+
+**Ben:** A tool you mentioned, which was new to me, was [AWS IR](https://threatresponse.cloud/) — I think Instant Response — which is used at a certain part of the containment to just sort of capture the AMI for later inspection. How important do you think it is to sort of keep these compromised images for an organization?
+
+**Julien:** I think it's very important. I think the problem you will face dealing with a major incident is that you don't know, as you're dealing with it, really how bad it's going to get. You think that — it may end up being nothing, or it may end up being an incident so bad that it may put the entire organization at risk. While you're waiting for those answers, collecting forensic evidence even if you end up not using it I think is very important. It's possible that in fact in the majority of cases you will probably just keep that evidence for a few months and throw it away. But there may be situations where you will hand it over to the FBI because they want to review what they found. Or you may hire an external firm to go perform forensics on it for you. So having that data I think is a critical part of the process.
+
+### Advice on Game Days for Security Scenarios
+
+**Ben:** Do you have any advice if anyone wants to do sort of a game day similar as far as this scenario or other security scenarios?
+
+**Julien:** There are two ways to do it. It's always fun to kind of take a fictional incident and without even touching the keyboard just get everybody in a room, physical or virtual room, and thinking through the response process as a group and very quickly you'll find things like, "Oh, I need to access this documentation but, oh, it's on that system and that system is down right now. I can't access it.' And it's a very lightweight way to capture important disaster recovery items. So you need a backup of this on everybody's machine so that if the systems are down they can still access the backups, etc., etc. For documentation not live data, for example. And that's always fun to do, takes a few hours to prepare. Maybe half a day to run through. So not a very expensive process. Beyond that, I think when an organization reaches a point where it has enough technical depth that there are enough attack vectors to be concerned about it's good to hire an external firm to break into that infrastructure and maybe do that a little bit as a red team, blue team exercise where the firm is the red team and the blue team tries to essentially detect them. So maybe they know the red team is coming, maybe they don't and you just try to treat it as an exercise. You can push that even further and say: "We're going to take this system over there and turn it into a mini CTF. That team is going to try to attack it, and the blue team is going to try to respond. To me, the main point is that this is where a lot of teams will have quite a bit of fun if done well. I mean for better or worse, incident response is extremely engaging and there is certainly an adrenaline rush that goes with it and some people enjoy it at a lot, some people find it excruciating but it can be turned into something that is engaging to the team.
+
+### Maturing DevOps Security
+
+**Ben:** And then moving on from the Caribbean incident to maturing DevOps security — what do you see as top threats in an organization and how would a team go about figuring this out?
+
+**Julien:** The most important part when trying to identify top threats is to go talk to people. Trying to come up — for example, taking an existing framework like you take the minotaur attack framework for a good document — but trying to apply that to an organization in isolation without talking to anybody will probably be inaccurate. And often the top threats are already known to the executives and the leadership of the company and it's fairly easy to go ask them or ask a CEO: "What are you worried about from a cybersecurity perspective or even from a business perspective? Are you worried about a competitor breaking into your system to steal information and data? Are you worried about an employee being malicious? Are you worried about an actor from another country breaking into our systems?" Sometimes those fears are justified. Sometimes it's not properly informed but it's always an interesting data point to know what the executives are thinking about and worrying about. I think it's also valuable to go talk to the people who have been around for a while - software engineers, systems engineers — and ask them, "Where do you think the vulnerabilities are? Where do you think the threats?
+
+#### Identifying Top threats in an Organization
+
+**Ben:** Kind of know where the skeletons are hid in the infrastructure.
+
+**Julien:** Exactly. Where do you think the skeletons are hidden? Exactly. It's rarely where you think they are. Or they will point you at that big application over there that's very, very well-secured but it's completely controlled by that one little cron job that's running on a 10-year-old machine —
+
+**Ben:** And no one ever wants to touch it.
+
+**Julien:** — that has [crosstalk] and that nobody wants to touch. Exactly. They will know that stuff that nobody else knows about. Within a few weeks, within a few months, you can start building a picture of where the real risks to the organization really are and that I think is very valuable to any sort of security program.
+
+#### When and How to Create a Risk Assessment Program
+
+**Ben:** And I think you touch on a few different frameworks. I know you have the rapid risk assessment program and there's a few others. For people who don't have one yet, where's kind of a good place to start?
+
+**Julien:** It depends on the size of the organization I think. For a very small startup, it is fairly impractical to try and adopt a risk assessment or threat modelling framework because even the most lightweight ones — and the rapid risk assessment is one of the most lightweight that exists today — will still require someone to spend a significant amount of time familiarizing themselves and building out the program and etc. And if you have 10, 20 people and maybe one person on staff dedicated to security, you can't. You don't have that kind of time. So for a very, very small organization I think it's better to just ask people around as you're building out the infrastructure: "Hey, what are we worried about? What amount of security do we want to put here? What amount of risk do we want to take?" without really trying to fit that into your framework. When you reach 100, 200 people and there are 2, 3, 4 people dedicated to security, then it becomes a little more practical to try to implement an existing framework, try to do threat modelling. But I think the way to do that is by still talking to people. Going into the design meetings and asking engineers: "What kind of threats do you think we're exposed to here? How would you think someone could break into this service and what amount of security do you think is appropriate to put around it?" It usually covers the majority of the threats. Now you can inform that process with a threat dictionary from one of the many existing frameworks out there. And ISO 2701 has references and etc. that a security engineer can use, but the part that is really critical is having that culture of discussing threats and discussing risks with the engineering teams. And that really creates this momentum to think about security without necessarily thinking about cost.
+
+**Julien:** 00:35:55.931 It's more about we want to build good things that are secure that people can rely on, and we're not treating security as a compliance item.
+
+**Ben:** 00:36:01.312 If you're early on those meetings, you can build secure systems as opposed to retrofitting or —
+
+**Julien:** 00:36:06.452 Yeah. That's right.
+
+**Ben:** 00:36:07.498 —[crosstalk] afterwards. It's much easier to do it from day one than a year later.
+
+**Julien:** 00:36:10.862 Yup. And oftentimes the developers themselves will know how to build something securely. I've rarely met engineers who didn't want to build security into their systems or their services. They often don't necessarily have the support to do so because that security requirement is not well-documented, not well-explained, not justified. And this is where a security team can provide a lot of support to those engineers by explaining to their management chain: "Yes, we need to spend X number of days on this security feature because of X, Y, and Z," and essentially support the developers' effort.
+
+**Ben:** 00:36:53.356 Yeah. Because it's sort of similar to QA. Once the feature goes out, it's not just getting the feature out the door, it has to be secure as well as working.
+
+**Julien:** 00:37:02.390 Yup. That's right.
+
+### A Bug Bounty Program to Test Security
+
+**Ben:** 00:37:03.587 And then for testing security, do you have any tips if people want to start a bug bounty program?
+
+**Julien:** 00:37:08.316 Bug bounty programs are difficult because they're very noisy at first. Again going back to the point that we were discussing at the beginning of this episode is — rely on existing vendors to ramp up your bug bounty program. Don't try to necessarily ramp it up from zero. I think it's also important to clearly identify what is in the scope of that program before building a bug bounty program. Bug bounty programs are good for low-hanging fruits. So if you have an XXS, a SQL injection, some vulnerabilities in the web app, the bug bounty program will likely focus junior researchers against those issues. It's also a good indicator of the health of an application. We used bug bounty metrics to say: "Well, this service is getting 10 times more reports than that other service. So clearly there's something at play here. Let's go focus an expensive security audit on that service and we would find a lot of stuff." It's also a good justification for other security efforts. I remember back in the day we had an application that accepted user input, and it would get XXS all the time. Constantly. So we used the bug bounty data to justify, implement, content security policy in that application and we again used the bug bounty data to show that essentially we didn't get a single report after implementing that CSP. It was a good metric —
+
+**Ben:** 00:38:45.127 It's a very easy-ish way to fix these [crosstalk].
+
+**Julien:** 00:38:47.897 Exactly. And we use that metric then to go talk to other teams and other applications and tell them: "You should also implement a CSP. Look what happened to that application when we did. So bug bounties are good for that. They are not going to detect sophisticated attacks. They're not going to replace investing into security design, a good security program or partnering with good security firms to do regular audits, right? They will help with the very basic type of attacks on web applications.
+
+### Tips for Working with Remote Teams
+
+**Ben:** 00:39:20.935 In your past experience at Mozilla and the same at Google, you've worked a lot with remote teams. Do you have any tips for working with remote teams? I know this also — I know we're during COVID now, but this was kind of before COVID [laughter].
+
+**Julien:** 00:39:35.609 I think the first one is the quality of your audio and video plays an immense part in the remote experience. I once had a junior engineer who didn't want to cancel a meeting with me, so he decided to take the meeting while he was waiting at the DMV [laughter]. I told him, "This is great and I know the topic is urgent but it's not that urgent and I definitely don't want to take the meeting from here. There's just too much background noise." So trying to be mindful of your location, your audio, your video helps a lot. The other thing is recognizing that remote teams also need to get together from time to time. You need to build up those connections — you need to — well, now it's not possible because COVID but when travel reopens again, get together somewhere, have dinner together with your coworkers, spend some time at a whiteboard thinking about engineering, etc. That really helps create cohesion that then supports the remote effort. And then the third point I would make is that being remote is not just being distant from each other. It's also about having very, very different work schedules. And so adopting an asynchronous-first communication style and not expecting people to respond right away or to be there at their desk when you ask them a question is also important. So have more things in writing. Send more emails. Send messages on chat but know that you may have to wait a couple of hours to get an answer. All of these things make the remote experience better.
+
+**Ben:** 00:41:23.082 Yeah. I saw a tweet today about the Linux kernel being made over a mailing list.
+
+**Julien:** 00:41:28.986 Yup.
+
+**Ben:** 00:41:30.202 So it's the only reason — if you can make a kernel over a mailing list, it's proof that everything else is kind of easy-ish.
+
+**Julien:** 00:41:37.521 That's right.
+
+### Book Revisions in Hindsight
+
+**Ben:** 00:41:37.749 So you published Securing DevOps in 2018. Technology is a fast-changing field. If you were to do a revision now, is there anything that you would include or leave out?
+
+**Julien:** 00:41:48.132 Yeah. I think I would certainly — so one of the chapters that I'm least comfortable with is the one around really the detection pipeline that I would rewrite and use very different technology today. Like I mentioned, I think I would make heavy use of technologies like Stackdriver and BigQuery because I think they work fantastically well for any sort of anomaly detection and log analysis. The core principles outlined in the book — they have not changed. They're still the same. The technology, the tools, have evolved considerably. I started writing Securing DevOps in 2015. Kubernetes was not something we talked about really back then. And while I wouldn't necessarily spend a whole lot of time on Kubernetes in a new addition of Securing DevOps, I think it has its place. Probably in replacement of Elastic Beanstalk, for example. So there are things I would adapt.Overall, I think, the message is the same. I would have to decide whether to keep or leave out the chapter on TLS because one wonderful thing that happened over the past decade is that we turned HTTPS into an implementation detail that no one really has to worry about anymore. You just turn it on and it works. And 10 years ago, we wrote scanners to verify cypher suite configurations. We spent an enormous amount of time working with systems team to have their TLS improved. I have conversations after conversations with vendors on supporting better cyphers and helping them support better cyphers and all of that stuff is pretty much gone now. You just turn on TLS 1.3, you get your certificate from Let's Encrypt and boom, you're done. There's no battling the protocol anymore.
+
+**Julien:** 00:43:44.782 I think that's a great thing. I hope that more and more of internet infrastructure goes this direction of secure-by-default. with great, great usability stories and hopefully maybe someday, we won't even need a security team anymore because it's just secure-by-default.
+
+**Ben:** 00:44:01.094 We can always dream.
+
+**Julien:** 00:44:02.385 Yeah. Very unlikely but, hey [laughter].
+
+### Security Best Practices for a Junior Engineers
+
+**Ben:** 00:44:04.731 So just to close it out, what piece of advice would you give to a junior team member trying to implement your security best practices?
+
+**Julien:** 00:44:13.480 The first one is know that a book like Securing DevOps outlines really a long security program. We're talking three to five years. It's, I would say, a very experienced security team with good investment and maturity can implement a whole program like that in maybe three years. But for a junior engineer joining a startup trying to build out a security program, know that it's going to take you five years and that's okay. That's okay. Focus on one problem at a time. Build and gain trust from your peers because the worst thing that can happen to a security engineer is to be distrusted by the rest of the engineering team. So trust is very important. Solve problems. Think about impact and usability and communicate a lot. It's very tempting. And I still see a lot of engineers that come out of training in schools and universities today and they focus on the hard fundamental problems of security. They will be great at reverse engineering, they will be fantastic cryptographers. And I try to explain to them that 99% of the problem they're going to have to solve are really along the line of someone left a private key somewhere on a public website. And there are more — most problems are not technical. They're a human problem. They're usability problems. And so you have to be human, and you have to build trust and communicate. That's very important.
+
+**Ben:** 00:45:58.821 Wow! That's a great way to end. Thank you for your time today, Julien.
+
+**Julien:** 00:46:01.565 Thank you so much. This was a lot of fun.
