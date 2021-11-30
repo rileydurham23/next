@@ -4,13 +4,10 @@ import { css } from "components/system";
 import Pattern1 from "components/Pattern1";
 import Box from "components/Box";
 import Flex from "components/Flex";
-import Icon from "components/Icon";
-import type { IconName } from "components/Icon";
-import Link from "components/Link";
 import Section from "components/Section";
 import NextImage from "next/image";
 import pam from "./assets/pam.png";
-import { TopLinks } from "./constants";
+import LI, { TopLinks } from "./constants";
 
 const DownloadSuccess = () => {
   return (
@@ -142,40 +139,6 @@ const TextFlex = styled(Flex)(
     minWidth: ["auto", "304px"],
   })
 );
-
-interface LIProps {
-  href: string;
-  hrefName: string;
-  iconName?: IconName;
-}
-
-const StyledLi = styled("li")(
-  css({
-    display: "flex",
-    lineHeight: "md",
-    pt: [2, 4],
-    "&:nth-child(1)": {
-      pt: [2, 3],
-    },
-  })
-);
-
-const StyledIcon = styled(Icon)(
-  css({
-    color: "dark-purple",
-  })
-);
-
-const LI = ({ href, hrefName, iconName }: LIProps) => {
-  return (
-    <StyledLi>
-      <StyledIcon name={iconName} mr={iconName ? 3 : -4} />
-      <Link color="darkest" href={href}>
-        {hrefName}
-      </Link>
-    </StyledLi>
-  );
-};
 
 const StyledH3 = styled("h3")(
   css({
