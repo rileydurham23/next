@@ -164,6 +164,25 @@ const TextFlex = styled(Flex)(
     lineHeight: "xl",
     minHeight: 6,
     minWidth: ["auto", "304px"],
+        h3: {
+      fontSize: "text-xl",
+      lineHeight: ["md", "lg"],
+      my: 0,
+      pt: [5, 6],
+    }, 
+        ul: {
+      listStyle: "none",
+      m: 0,
+      pl: 0,
+    },
+    li: {
+      display: "flex",
+      lineHeight: "md",
+      pt: [2, 4],
+      "&:nth-child(1)": {
+        pt: [2, 3],
+      },
+    }
   })
 );
 
