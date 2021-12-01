@@ -11,8 +11,8 @@ import hosted from "./assets/hosted.png";
 const Enterprise = () => {
   return (
     <Pattern1
-      headTitle="title"
-      headDescription="desc"
+      headTitle="Signup for Teleport Enterprise"
+      headDescription="Designed for engineering teams that demand the flexibility to run software anywhere, on any infrastructure."
       colorStyle="purple"
       cardMaxWidth="800px"
     >
@@ -24,6 +24,7 @@ const Enterprise = () => {
             fontWeight="bold"
             lineHeight={["lg", "lg", "xxl"]}
             color="dark-purple"
+            mt={[null, 3]}
             mb={[2, 2, 3]}
           >
             Access Plane
@@ -40,7 +41,7 @@ const Enterprise = () => {
           <Box
             fontSize="text-md"
             lineHeight="md"
-            mb={3}
+            mb={[3, 4]}
             color="darkest"
             fontWeight="regular"
           >
@@ -59,6 +60,7 @@ const Enterprise = () => {
         </Flex>
       </LeftSide>
       <RightSide>
+        {/* Marketo form */}
         <EnterpriseSignup
           maxWidth="100%"
           width={["100%", "640px"]}
