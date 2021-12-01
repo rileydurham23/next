@@ -14,7 +14,7 @@ export default function CloudSignup(props: BoxProps) {
   }, [ref]);
 
   return (
-    <StyledWrapper {...props}>
+    <StyledWrapper {...props} id="me">
       <div ref={ref}></div>
     </StyledWrapper>
   );
@@ -23,11 +23,14 @@ export default function CloudSignup(props: BoxProps) {
 const StyledWrapper = styled("div")<StyledSystemProps>(
   css({
     bg: "white",
-    mt: ["auto", "auto", "-99px"],
-    width: ["100%", "640px", "488px"],
-    maxWidth: ["100%", "640px", "30vw"],
+    width: ["100%", "100%"],
+    maxWidth: ["100%", "320px"],
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     ".pro-signup": {
       width: "100%",
+      boxShadow: "none",
     },
     ".pro-signup__info": {
       display: "none",
@@ -35,6 +38,9 @@ const StyledWrapper = styled("div")<StyledSystemProps>(
     ".pro-signup__form": {
       width: "100%",
       boxSizing: "border-box",
+    },
+    button: {
+      mt: ["12px", 5],
     },
   }),
   all

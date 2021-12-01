@@ -13,6 +13,10 @@ interface ColorStyles {
   logo: {
     color: string;
   };
+  copyColor: {
+    color: string;
+  };
+  scheme: string;
 }
 
 export const IDIOM: Record<IdiomClass, ColorStyles> = {
@@ -23,9 +27,13 @@ export const IDIOM: Record<IdiomClass, ColorStyles> = {
       backgroundRepeat: "no-repeat",
     },
     logo: { color: "white" },
+    copyColor: { color: "white" },
+    scheme: "termsPurple",
   },
   white: {
     background: { background: "linear-gradient(125deg, #F7F8F9, #FDFDFC)" },
     logo: { color: "dark-purple" },
+    copyColor: { color: "gray" },
+    scheme: "termsWhite",
   },
 };
