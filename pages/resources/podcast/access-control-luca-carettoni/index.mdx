@@ -23,11 +23,184 @@ layout: podcast
 - [Teleport Quick Start](/docs/quickstart/)
 - [Teleport Access Plane](/)
 
-## State of Startup Application Security - Introduction
-**Ben**: Welcome to Access Control, a podcast providing practical security advice to startups, advice from people who’ve been [inaudible] each episode will interview a leader in their field and learn best practices and practical tips for securing your org. For today’s episode, I’ll be talking to Luca Carettoni, cofounder of Doyensec. Doyensec is an independent security research and development company focused on vulnerability discovery and remediation. The Teleport team has been working with Doyensec for the last two years and have put together multiple security assessments for Teleport. In this episode, we’ll get a pentester’s view into the current state of startup security. Hi, Luca. Thanks for joining us today.
+## Transcript
 
-**Luca**: Hey. Thanks for having me.
+**Ben:** Welcome to Access Control, a podcast providing practical security advice to startups, advice from people who've been [inaudible] each episode will interview a leader in their field and learn best practices and practical tips for securing your org. For today's episode, I'll be talking to Luca Carettoni, cofounder of Doyensec. Doyensec is an independent security research and development company focused on vulnerability discovery and remediation. The Teleport team has been working with Doyensec for the last two years and have put together multiple security assessments for Teleport. In this episode, we'll get a pentester's view into the current state of startup security. Hi, Luca. Thanks for joining us today.
 
-**Ben**: To get started can you tell me how you got into the security industry.Before we chatted, pentester came up as sort of an interesting term. Wondering if you can give some background what is a pentester and why you think it’s not the best term.
+**Luca:** Hey. Thanks for having me.
 
-**Luca**: Sure. Sure. Let me give a quick overview. In my mind, pentester recalls the traditional black-box testing, which is something that we, as an industry, have been trying to push for the past 15 years as a simulation of an attack. But then over time, realized attackers don’t have scope and time limitation. As a customer, when you engage a pentesting company, you give a scope, and you get a timeline that is often driven by your budget...
+### What is a Pentester?
+
+**Ben:** Before we chatted, pentester came up as sort of an interesting term. Wondering if you can give some background what is a pentester and why you think it's not the best term.
+
+**Luca:** Sure. Sure. Let me give a quick overview. In my mind, pentester recalls the traditional black-box testing, which is something that we, as an industry, have been trying to push for the past 15 years as a simulation of an attack. But then over time, realized attackers don't have scope and time limitation. As a customer, when you engage a pentesting company, you give a scope, and you get a timeline that is often driven by your budget. And those are not things that normally an attacker has. We realized an industry that was not very effective was not a real simulation, and we finally came to the conclusion that it would be better to approach testing in a different way. So I do prefer terms like security engineer or security researcher. And particularly, security engineer suggests it's an engineering job. So it's a software engineering job. It's software engineer-applied. The shift between black-box and what some people now refer as grey-box or white-box testing, I think it's really important. I like security engineer versus pentester.
+
+**Ben:** People are unfamiliar — can you describe the difference between black-box and grey-box testing?
+
+**Luca:** Sure. Yeah, absolutely. In a black-box case, companies are just giving a target with minimal information and no internal visibility on code [inaudible] or even details around the specific targets. Traditionally, and I'm talking about when network pentesting was a thing, target would be a set of IP addresses, and that's pretty much what would be [constant?] to the scope of the engagement. Now when we talk about white-box testing and grey-box testing, we're referring to approaching the target from an engineering standpoint where we have access to the code, we have access to system [inaudible], potentially even the engineers that build the system so that we can better understand how it works. We can maximize the return on investment. So in the days, there are looking for a project, find more bugs. That's basically the shift, going from I know nothing about a target and have to somehow simulate it breaking to let's try to get as many details as possible, understand [completely?] how the system works in order to subvert it.
+
+**Ben:** Yeah. Who do you work with? Are they mostly web applications, or are they mobile apps? Is there a particular field that you focus in on?
+
+**Luca:** Yeah. So we're known to be good at web and mobile. Those are the two macro area of facilitation. So web, pretty much all web technologies. And mobile, typically, user space application and [inaudible] so [inaudible] stops type of work.
+
+### Security Preparedness and Response
+
+**Ben:** And then when you see the sort of state of the internet, what sort of keeps you up in the night?
+
+**Luca:** Well, actually, I sleep pretty well. I guess, being a consultant helps. At the end of the day, I mean, we're trying to do our best, but the customer is ultimately responsible for the system and the products. Having said that, I mean, I have had roles where I was responsible for the [inaudible] security roadmap and the security [inaudible], and you have to be prepared. And if you've done your best, that's pretty much all you can do. It's important how you react to a compromise rather than always trying to prevent a compromise. The right state of mind of, "Okay, we've done our best with the resources that we have. We are prepared on those things," I guess that's the best one can do.
+
+**Ben:** Yeah. And when it happens, it's not a surprise.
+
+**Luca:** From both [inaudible] and response standpoint, but also things like how you manage logistics, how you manage threats. You've got to be prepared and work towards those moments [inaudible] security enterprise, whether it's IT security or pure product security.
+
+### When a Startup Should Hire an External Party to Manage Security
+
+**Ben:** Yeah. You provide a range of services to startups. At what point do you think a startup should hire an external party to help them?
+
+**Luca:** We do provide product security testing services primarily in the application security space. For a startup, there are primarily two main activities that they would have to perform to do a secure design and secure implementation of a system. So from one side, you have at the very beginning the project, you have to design the system. If you are [inaudible] security maturity, at certain point, you might want to also do threat modelling around the system you are designing. So that's where it would be best to have someone in-house that can do that part so that can actually review the overall design even before starting to code and implement. If the startup doesn't have that resource, well, then I would recommend to look for help even if that just means for a day or two of someone reviewing [inaudible] and thinking about a security model of what someone is building.
+
+**Ben:** The same way you'd have an architect look over your cloud infrastructure — they would look over the same thing but with a security lens.
+
+**Luca:** So if possible, done internally. If not, outsourced. Later on when these product — maybe what is the right time is probably when you're onboarding the first customer or right before you're onboarding the first customer. Security investing is clearly an important part of the step that you can make to secure an application. Very often, startups don't have that level of expertise in-house, and so that's when they basically look for partners to help with their security testing. Time and the resources permitting — I would recommend to people in-house for both activities.
+
+### Building an Internal Security Proficiency
+
+**Ben:** Yeah. If people are thinking about building an in-house security proficiency, who would be sort of the first person they should look for? Do you go straight for a CISO, or do you go for a security engineer?
+
+**Luca:** Yes. I guess it really depends on what's their need. Why are you thinking about security? Many startups discover security as a request from other customer to compliance, SOC 2 request or things like that. So they basically understand that a customer is interested about the security of their product and, as a result, eventually understand that they need someone to take care of that. And if compliance is your first priority, then you should probably hire someone that understands the technical part good enough but is also capable of — he or she is also capable of talking to auditors and doing governance around the compliance part, so.
+
+**Ben:** You go through SOC 2, which involves lots of paperwork, and it's some technology but a lot of sort of, "These are my controls, and these are the processes I have in place."
+
+**Luca:** Yeah, exactly. It wouldn't make sense to hire someone else if, basically, what you want to do is compliance. But then on the other hand, if you really want to do product security, which is actual security for the platform or the software you're building, then my general recommendation is a strong security engineer, so someone that is close enough to software engineering and has [inaudible] the software engineer life and struggles or is close enough to recommend a good trade-off between usability, security, and product features and whatnot. Because at the very beginning of a startups, you often don't have all those tools. You might need a person that is capable of making those choices.
+
+### Tips for Finding That First Security Hire
+
+**Ben:** And then do you have any tips for finding these security engineers?
+
+**Luca:** I wish. I mean, it's very difficult. The tips I can give which are — first of all, certifications are kind of useless. And it might be controversial for many, but realistically, I don't think there are very good certification out there. And why they serve purpose as keywords for recruiters, non-technical recruiters, they generally fail to represent the skillset of a person, especially if we are talking about roles like a technical strong security engineer. So looking at code of open-source repositories or research that has been published or conferences or advisories, in our case advisory and exploit, so the software used to exploit vulnerabilities, are probably the best way to understand when a person is good, is good enough for the job.
+
+### Tips for Building a Better Defensive Team
+
+**Ben:** Yeah. I think you mentioned previously when we chatted that the industry's very heavy on the offensive, but there's not as much on the defensive side of the ship, as it were. And so I guess that's sort of where you probably take an engineer who's more interested in the security aspects that they code and develop as opposed to on the offensive.
+
+**Luca:** That would probably be tip no.2 is — it's easier to teach security, I feel, to a good software engineer than it is to teach software engineering to someone with a [inaudible] mentality. And frankly, I've lead that type of transition myself where I started my career as a pure consultant, and then when I had to fix the first bugs in production, I actually realized how difficult it is and how precise you have to be. Really understanding how things work ultimately makes you a better security engineer. You'll find more bugs if you understand really how things work, so. So that would be definitely a recommendation.
+
+### The Compromise Between Speed-to-Market Vs. Security
+
+**Ben:** And Doyensec spends a lot of time researching and disclosing vulnerabilities in open-source projects. I was on your blog, and you've done a bunch of work around Electron JS, which is a very popular cross-platform framework used by Slack and VSCode. And this is also a pretty common tool that startups would be quicker to market because you could write your app once and deploy it to all these other places. So what's your thoughts on the compromise between speed to market versus security?
+
+**Luca:** That's what [inaudible] was. I mean, the idea of using web technologies to build a desktop app is something that people really wanted for a very long time because we started thinking that a browser would solve all our problems, and then we started seeing websites that were Chrome-only and realized that they didn't make a lot of sense, not to mention performance or other integration that you might want to have with your desktop. And so I think naturally, yeah, I mean, that's here to stay. I'm not a big believer of [inaudible] browser. In terms of security, I mean, Electron is, honestly, our best bet out there. A lot of people are not very happy with the security of Electron, but I think they either don't understand the threat model or they are looking at implementation and design charts that they were made a few years ago. Electron today is Electron. I mean, version 12 of Electron is a pretty solid platform for building desktop app with web technology. There are, obviously, some limitations. So usually, it's important to apply secure coding and know the framework and its limitations, keep the framework always up-to-date. But if you follow those principles, then you can build secure apps with Electron.
+
+**Ben:** Yeah. I guess that applies to everything, keeping up-to-date —
+
+**Luca:** Yeah. I mean, absolutely. But there were security concerns and problems in the early version of Electron because of the immaturity of the framework. And that's something that I would say any framework goes through, even from a technical standpoint but also in terms of governance. Electron started [inaudible] and now it's a software with many engineers working full-time across multiple big-tier companies. Clearly, it's a mature project, and with that comes also a lot of maturity from a security standpoint.
+
+### Deciding Which Technology to Pick
+
+**Ben:** Yeah. So sort of in your decision early on of which technology you pick, there's probably more inherent risks with a brand-new project than something that has been sort of well-tested and proven on larger companies.
+
+**Luca:** Yeah. I mean, and I guess that's an important choice to make. And I don't think many people actually do that. I think that would actually solve a lot of security troubles if there would be a bit more attention on which framework or which library or which even type of design to pick when building something. And I guess things are getting better because frameworks are overall getting better. I mean, cross-scripting, if you use React or Angular, you really have to make some good mistakes to introduce cross-scripting.
+
+### Top Vulnerabilities Witnessed
+
+**Ben:** So I guess the framework enables better security practices. And then talking of cross-site scripting — five or six years ago, it was a pretty top vulnerability, and now you're saying it's kind of gone away — what's the sort of top vulnerabilities that you're currently seeing?
+
+**Luca:** There are a few vulnerabilities that I think are getting attention. I mean, a couple of years ago or four or five years ago, we had a good influx of deserialization vulnerabilities, Java deserialization being kind of the first one, even though the technique and the class of vulnerability is very old. I mean, it's something that's been around for 15 years. But there was kind of a new movement around finding and exploiting deserialization vulnerability. The last few years, the last two years might be — the most interesting classes are [Server-Side Request Forgery](/blog/ssrf-attacks/), so the ability for services exposed to the user to make arbitrary HTTPS request, which, just to mention a notable example, I mean, the latest Microsoft exchange vulnerability, one of the vulnerabilities in the chain was through a Server-Side Request Forgery. It's definitely a new and important class of vulnerability. The other one which I think we'll see increasingly more and more extreme vulnerability is prototype pollution, particularly in Node and JavaScript.
+
+**Ben:** What's the vulnerability?
+
+**Luca:** So prototype pollution is about basically changing the prototype of the object, and depending on how an object is used, it can be either used to subvert an execution flow, bypass authorization, and in some cases even execute remote code, so. It's a vulnerability that does require business logic understanding. It's not an easy vulnerability to scan and detect. But I think we'll see more and more of those. Because I don't think we, as a security community, gives a lot of attention to that particular class of danger.
+
+**Ben:** Yeah. And do you think that's because it's not easily found in scanners, so it goes hidden until it's used?
+
+**Luca:** For several reasons. Clearly, JavaScript and Node are becoming more and more popular. A lot more people are spending time understanding the security implication of those technologies. It's also a fairly new class of vulnerability. I mean, in terms of there haven't been a lot of research prior, a few major papers in the past years. As usual, when everything starts, we have someone opening this can of worms and then slowly the security community experimenting and understanding more about the implication of all. So I think we just got started with the prototype pollution.
+
+**Ben:** You want to know the top 10 — I put the top 3 programs that cause the most problems in pen tests.
+
+**Luca:** From a network perspective, which is not something I've been really doing in a few years since we started Doyensec because we're focused on pure application security, if I think about myself 15 years ago when testing networks having the type of small [inaudible] that are available today, kind of like tokens and things like that, those are definitely effective tools that can quickly uncover a pen test that is going on. In terms of pure product security or application security, I can't really think of anything else more than maybe obfuscation and stuff, which would delay the engagement with — it might be not much value. And I think this is back to the issue from where we started. Why would you obfuscate the code that you give to a pentester where instead of finding bugs, the person would have to spend time reverse-engineering and trying to de-obfuscate the code? It kind of makes no sense.
+
+**Ben:** It's kind of like a meta-problem. It's not really the core of the problem. Yeah.
+
+**Luca:** Yeah. And as long as you don't base your security out of security obscurity, the obfuscation, sorry, has a place because it clearly helps to raise the barrier for someone to start poking and understanding the application. But I don't think you really want to test that during product security testing. What you want to test is you want to find [inaudible]. You want to understand if your security mechanism worked, not whether the obfuscation is strong enough.
+
+### Practical Tips for Prioritizing Bugs
+
+**Ben:** And then as part of my research for this, I stumbled upon your Twitter account. One of the thing I noticed was a pinned Tweet that said, "Given sufficient bug density, security design is irrelevant," which is kind of funny because most startups have an insane amount of bugs.
+
+**Luca:** I love this quote. It's a quote by Ian Beer, who is an amazing researcher at Google's Project Zero, which is a specialized team at Google responsible for finding zero-day vulnerability and, as they say, make exploitation harder. Extremely talented researcher. And I don't know what was his intention. But to me, that code means you can spend a lot of time designing and applying security engineering practices, but then eventually, if you have enough bugs in your software, all the assumptions you made just broken, and it really doesn't matter. It is still good to put some hours think about design and doing [inaudible] modelling. But then ultimately, the implementation is the real deal.
+
+**Ben:** Do you have any tips for sort of prioritizing what people should look out for, as far as bugs and issues?
+
+**Luca:** It would probably depend on the type of software. I think we have seen already — we have seen already this type of approach when exploiting software where today, if someone asks to exploit a modern target or a mainstream application, it's generally not exploited with a single bug. It's exploited with chains of bugs. And that's because, for example, if you think about a browser exploit, the first vulnerability that is exploited allows the attacker to compromise the renderer, the tab inside Chrome if you're talking about Chrome, or the tab that is hosting the page that is loaded. But then you have a lot of other security measures and techniques that are being implemented and prevent full compromise of things like sandboxing, process isolation. The attacker has to now find another vulnerability. And you see that even though the design is solid because browser vendor has decided to, for example, introduce sandboxing for chains that exist, it's a good reminder that secure design won't completely save us.
+
+### Where Cloud Apps and Web Apps Fall on the Target List
+
+**Ben:** Yeah. Another thing that sort of stood out to me, you mentioned that Pwn2Own, which is a competition to get access to systems, and they said this year, they focused a lot on web security and cloud. I think also maybe Tesla as well. But keeping on the web security and cloud, do you think that cloud and web apps have had sort of a low — had sort of a — they've not been as prominent targets, and do you think this is sort of a shift of people focusing more time on web security and cloud targets?
+
+**Luca:** Let's clarify a bit. So Pwn2Own is a competition that is basically an open call to external researcher to come and to — in the past, it was to come at the conference. Now, so it's a virtual event where people can target applications or mobile devices or, as I mentioned, cars like a Tesla. It's always been generally seen as a type of competition that would attract people with what people generally refer as like low-level skills because there was [inaudible] type of technology that those applications and those system were made of. Now, I mentioned it was, in my opinion, a very important Pwn2Own because they switched to web. It's not just the switch in terms of technology. I mean, one of the categories that was in the latest Pwn2Own earlier this April was enterprise communication, Zoom and Microsoft Teams. Those application, in particular Microsoft Teams, it's all based on web technology. I mean, Microsoft Teams is an Electron app. Clearly, there was a shift in the technology that people are using to build application. But more importantly, to me, in terms of the Pwn2Own contest, it is how companies react for vulnerabilities and how researcher have to play with that if they want to win the games.
+
+**Luca:** In the past, it used to be that if Microsoft or any other vendors that is generally part of the competition wants to patch a vulnerability, they have to release a patch, and that would have to be distributed, and then the day before a competition, the organizer would update software to be to the latest version. Now, because traffic is passing through cloud services, for a searcher, I mean, you have to send your malicious payload through service that is owned and managed by company and can be fixed at any point in time. So it is a big shift in — as a security tester, as a security engineer, there's a big shift from, okay, I can test exact copy of the application that most likely I will have in front of me during the competition versus I can do my testing prior to the event, but then you don't control the cloud. You don't control the communication within the cloud. And the vendors could have patched your bug in matter of minutes even.
+
+**Ben:** Yeah. So the software is never static. I guess it always sort of continues deployment, continues delivery. Yeah. It's always changing.
+
+**Luca:** Yeah. That's an interesting thing to see. I mean, I am fairly confident that even Zoom and Arrow, those targets, had a good chunk of cloud infrastructure that was involved in those attempts. And by the way, it's Pwn2Own because if you break in, so if you break the application, you actually get to own the device. Or in case of a device that is running a browser, the contestant also wins the laptop, and then, yeah, with a Tesla, you would win the Tesla. But no one showed up, so.
+
+### Best Cloud for Secure Setups
+
+**Ben:** Yeah, the car. Brings me to my next question. Amazon has its Shared Responsibility Model. There's a range of different cloud providers. What's the best cloud for secure setups that you've seen? Or is it on the team to sort of architect the best solution?
+
+**Luca:** If you're talking to our cloud providers, I feel like they are slowly all catching up in terms of services provided, I would say. I mean, I am definitely more expert on AWS than I am with the GCP or Azure. But I think AWS has pushed a lot of security features recently, which makes it pretty interesting from a security standpoint. We talked, for example, briefly about server-side request forgery. One of the typical techniques that attackers would use when you have a server-side request forgery is [inaudible] to access the metadata server of the AWS EC2 instances in order to start information [inaudible] machine. And that's something that, for example, Amazon has mitigated by introducing a new version of the metadata server that requires some [inaudible]. So clearly, there is an intention to provide tools that can be used to build secure applications [inaudible]. That's just one example. There are, obviously, a lot more. I'm not a big fan of web application firewalls. I think providing those things in a seamless way through AWS is pretty good, HSM, right, CloudHSM — things that generally, you cannot really afford. I mean, they're still expensive on the cloud, but clearly, you won't be able to afford if you're a small startup and you have to put on-prem [inaudible] HSM.
+
+**Ben:** For people on the defensive side, there's, obviously, a range of different tools out there that people can purchase and buy. Do you have any tips for the top four tools that people should look at purchasing?
+
+**Luca:** I would say don't buy tools, but rather invest in people. That's kind of my way out to this question. There is an interesting presentation that Haroon Meer at the t2 conference in 2016 - it was something like Learning the Wrong Lessons from Offence — where he talks about how defense, and particular defense tools are not really catching up. They're generally — cannot be used to solve all the security needs. Saying you need people because even if you buy a tool, if you buy an appliance, then someone has to install it. Someone has to maintain it. Someone has to tune it. So you need the expertise. To me, that's the base. Sometimes you don't even need to buy. I mean, sometimes adjusting and tuning any open-source products that are out there will really put you quite ahead of the competition. I mean, there are utility that, as a startup or an enterprise, you can buy, some 2FA devices, YubiKey or SoloKeys, for providing strong authentication and things like that. So those are good things to purchase. But in general, of linking boxes, I'm not a big fan.
+
+### Upleveling Security Skills
+
+**Ben:** For investing in people, if you sort of have a team of sort of more junior engineer who wants to get more into security, where would they go to get resources? What are your tips for sort of upleveling their skills?
+
+**Luca:** Security's a big field, so I think it would be really important to understand what the person is passionate about. I mean, to me, that's the most important quality. It really takes a lot of passion and a lot of long nights to understand how things work and to experiment outside pure work duty. So if you are not really enjoying the continuous learning, I don't think it's possible to be very good at what we do in this field. So understanding what you like as a person, as a team leader. I think understanding what the team members enjoy doing, I think it's important. And then basically double down on what you discover. So if it's incident response, take that path and basically try to read all the possible resources out there. If it's through application security, start reading all the articles that go on Reddit netsec. Start reading and understanding the root causes of vulnerability, reading advisories, and styling all software in order to understand how vulnerabilities manifest and what's the root cause of such vulnerabilities, building exploits. Really hands-on practice, it's the real way, in my opinion, to —
+
+**Ben:** Yeah, yeah. And that's better than getting certifications? You sort of mentioned earlier it's better to get your hands dirty.
+
+**Luca:** Some certification, they won't even increase the level of skillset just because of how they are designed. And even the technical certifications, it's really difficult to get a certification that it's updated in terms of the challenges and the technologies that are used today — yeah, it's not a good representation of the skillset of a person, whether that particular person passes or not any particular certification.
+
+**Ben:** Amazon launched an AWS security practitioner. They've reduced the time. It's only valid for a year, which kind of makes sense. They seem to launch 10 new products each year anyway, and things change a lot in that period of time.
+
+**Luca:** Yeah. And I think just to be clear, the certification I was referring was mostly about information security certification. People who are taking vendor-specific certification — I think there's a value in that because you're clearly going very deep into a particular technology or aspect of the particular vendor. And I think it kind of makes sense. Because I think about the old Cisco certification for routers and stuff. But it makes sense. What I was talking about information security certification [inaudible].
+
+### Tips for Working from Home
+
+**Ben:** Doyensec has been a remote-first company since you began, and obviously, everyone currently in April of 2021 is remote due to the pandemic. But you had a few tips on providing practical tips for working from home. Do you have any tips for working from home but also keeping your sort of workforce —?
+
+**Luca:** That's a difficult topic to solve. It helps for company to have technical team members. And clearly, if you have people that are not only in the standard technical component but are also security paranoid, as most of security engineers are, then clearly, we can push the boundary on certain things where normally won't be able to not compromise usability too much. One example is we encrypt all internal email with GPG Mail. So I'm not a big fan of GPG either, but if you're working in a stricter environment when everyone has the same client, and you can use a plugin, and it automatically encrypts the email, it's basically a no-brainer where it's providing some security on top of what is not secure, which is email.
+
+**Luca:** But clearly, that won't scale outside your company or even within your company. It won't scale if you don't have technical people that know how to manage keys and all those things. On a more, I think, practical terms, things like [inaudible] encryption, disabling guest accounts, enforcing screen saver [inaudible] there— I think are still very relevant today. Most company, I mean, I think they understand those type of solution, and they are general apply those. But then you can go a step further, and, for example, we talked before about FIDO key and two-factor authentication. Clearly, I mean, it's the time where I can't see company not using those mechanisms when they are now so well integrated to major platform and software as a service that I don't really understand why people would not invest a few dollars on buying FIDO keys for each person.
+
+**Ben:** And do you think there's any specific service in priority they should try and set up second factor on?
+
+**Luca:** Emails. I mean, emails is the door to everything. Right? Let's not forget if someone compromise your email, they can then request password reset. And so basically, the email is your password manager, if you want. So definitely, it would go as the first one. But that applies to basically communication tools and wiki or any tool that is used to store and exchange information, which includes code, for example, GitHub or Bitbucket or GitLab or whatever.
+
+### Encrypting Email Internally
+
+**Ben:** That's some great tips. I find it fascinating that you encrypt email internally. Can you tell me a bit more why?
+
+**Luca:** We're a Mac shop, and we use Mail. And there is a thing that's called GPG Mail, which is a plugin that you need to install in the specific [inaudible], and then you can basically set by default that all the emails that goes to — we do like @doyensec email. They are automatically encrypted, so I don't have to do anything, and the email were encrypted, which has a lot of advantages because first of all, if someone compromises our Gmail account, because we are big by G Suite, they won't have access to the email that we exchange. Of course, if you write me an email, that's not encrypted, so that is on my mailbox. But the email that we exchange internally are all encrypted.
+
+**Ben:** All encrypted.
+
+**Luca:** So that's one advantage. And there is another advantage which is an internal advantage, I feel, which is if you don't encrypt emails, what happens is that people will [inaudible] the emails from their phone, and phones are much easier devices to lose. We were brainstorming on okay, how do we — yeah, how do we block that? We [inaudible] to ask people [inaudible] or things like that, which I'm not a big fan. And this seemed like a good solution because people can still receive their email on their phone, but they're encrypted, so if they don't explicitly pull down their GPG private key from their laptop where it's generated, which they don't because it's not very convenient and what, at least we don't care if their device is lost.
+
+### The State of the Internet Today
+
+**Ben:** Do you have any other last kind of thoughts or questions —?
+
+**Luca:** Going back to one of the questions you asked, what keeps me up at night, a lot of things are broken. If you want to be optimistic, I feel less broken than they were 15 years ago when I started, because we're doing something. The problem is that we're not just keeping up with the technologies. And we get to secure stuff, that it's not obsolete, but it's going to be soon obsolete. And we have to catch up a bit faster in order to provide tools for non-technical people that are secure by default. So that's one aspect. The other aspect is, I think, some concern that I personally have around privacy and advertising and things like that that will affect the younger generation. So I think about my daughter. Those our problems that we've not resolved. And I don't think they're even technical problems. It's mostly about business models and how you deal with information on the internet. But those are difficult things.
+
+### Conclusion
+
+**Ben:** Thanks, Luca, for your time today. Really enjoyed the chat.
+
+**Luca:** Thank you.
+
+**Ben:** Thanks for listening to our third episode. I had a lot of fun chatting with Luca. And we've had a great experience working with Doyensec. If your company needs a security audit, or you'd like to learn more about the services that Doyensec provides, please go visit them at doyensec.com. If you have any suggestions for guests or topics, please send an email at [podcast@goteleport.com](mailto:podcast@goteleport.com). This podcast was created by [Teleport](/teleport/docs/quickstart/). Teleport allows engineers and security professionals to unified access for SSH servers, Kubernetes clusters, web applications, and databases across all environments. To learn more, visit us at goteleport.com.

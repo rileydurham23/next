@@ -19,6 +19,7 @@ export const Default = generateStoryComponent();
 
 Default.args = {
   title: "Meet Compliance Requirements",
+  bg: "purple",
   children: (
     <>
       <ListCardItem icon="circleCheck">
@@ -27,27 +28,27 @@ Default.args = {
         security and systems engineers to enforce security and compliance
         policies such as:
       </ListCardItem>
-      <ListCardItem icon="circleCheck">
+      <ListCardItem icon="bolt">
         Multi-factor authentication (MFA). Integrating with company-wide SSO
         enables two-factor authentication (2FA) for SSH sessions using the same
         access control plane, simplifying management and audit.
       </ListCardItem>
-      <ListCardItem icon="circleCheck">
+      <ListCardItem icon="lock">
         Enforce infrastructure and data compliance. Isolate production
         environments and production data from specific roles and teams, or limit
         access to certain roles and teams.
       </ListCardItem>
-      <ListCardItem icon="circleCheck">
+      <ListCardItem icon="kubernetes">
         Compliant process for onboarding and transferring employees. Ensure
         privileged access permissions stay up-to-date as individuals switch
         roles or leave the company.
       </ListCardItem>
-      <ListCardItem icon="circleCheck">
+      <ListCardItem icon="map">
         Prohibit root access for all roles. Teleport RBAC allows security
         administrators to remove the need to use root privileges. RBAC also
         separates SSH permissions management from server management.
       </ListCardItem>
-      <ListCardItem icon="circleCheck">
+      <ListCardItem icon="arrow">
         Overall, the result of implementing RBAC is a reduction in operational
         overhead. Administrators can control (add, modify, and revoke)
         privileged access for teams or individuals from one place, while users
