@@ -16,12 +16,7 @@ tryTeleport: true
 import { EpisodesList } from "components";
 import { getResourcesData } from "server/resources-helpers";
 
-<EpisodesList
-  id="tech-paper"
-  episodes={props.episodes}
-  kind="techPaper"
-  needSizeLimit
-/>
+<EpisodesList id="tech-paper" episodes={props.episodes} kind="techPaper" />
 
 export async function getStaticProps(context) {
   return { props: { episodes: getResourcesData("white-papers") } };

@@ -1,4 +1,4 @@
-import { PodcastEpisode } from "components/EpisodesList/types";
+import { PodcastEpisode, TechPaperBook } from "components/EpisodesList/types";
 import { getPagesInfo } from "./pages-helpers";
 
 export const getResourcesData = (type: string) => {
@@ -11,6 +11,7 @@ export const getResourcesData = (type: string) => {
 
     if (type === "podcast") {
       resourcesPageInfo = resourcesPageInfo
+        //we use a filter to exclude the index page
         .filter((episode: PodcastEpisode) => episode.frontmatter.podcastName)
         .sort((a: PodcastEpisode, b: PodcastEpisode) => {
           const aNumberEpisode = Number(
@@ -20,6 +21,19 @@ export const getResourcesData = (type: string) => {
             b.frontmatter.podcastName.split("-")[0]
           );
           return bNumberEpisode - aNumberEpisode;
+        });
+    } else if (type === "white-papers") {
+      resourcesPageInfo = resourcesPageInfo
+        //we use a filter to exclude the index page
+        .filter(
+          (episode: TechPaperBook) =>
+            episode.frontmatter.title !== "Tech Papers"
+        )
+        .sort((a: TechPaperBook, b: TechPaperBook) => {
+          return (
+            new Date(b.frontmatter.publicationDate).getTime() -
+            new Date(a.frontmatter.publicationDate).getTime()
+          );
         });
     }
   } catch (e) {

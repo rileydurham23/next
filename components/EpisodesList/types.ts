@@ -7,6 +7,18 @@ export interface PodcastEpisode {
   uri: string;
 }
 
+export interface TechPaperBook {
+  frontmatter: {
+    podcastName: string;
+    title: string;
+    description: string;
+    publicationDate: string;
+    cardTitle?: string;
+    brief?: string;
+  };
+  uri: string;
+}
+
 export interface CardParams {
   cardBG: string;
   cardBC: string;

@@ -39,6 +39,7 @@ export interface GridTileProps {
   smallIcon?: boolean;
   caption?: string;
   cardBC?: string;
+  needDescriptionMargin?: boolean;
 }
 
 const cardBackgrounds = {
@@ -60,6 +61,7 @@ export const GridTile = ({
   smallIcon = false,
   caption,
   cardBC,
+  needDescriptionMargin = Boolean(href),
   ...props
 }: GridTileProps & BoxProps) => {
   //add additional backgrounds to cardBackgrounds
@@ -122,7 +124,12 @@ export const GridTile = ({
         >
           {title}
         </Box>
-        <Box fontSize="13px" lineHeight="md" color="gray" pb={href ? 3 : 0}>
+        <Box
+          fontSize="13px"
+          lineHeight="md"
+          color="gray"
+          pb={needDescriptionMargin ? 3 : 0}
+        >
           {children}
         </Box>
       </Flex>
