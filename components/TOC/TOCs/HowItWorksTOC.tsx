@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { all, StyledSystemProps } from "components/system";
-import { Box, Link } from "components";
+import Box from "components/Box";
+import Link from "components/Link";
 import { TOCItemList } from "./ItemsLists";
 
 interface HowItWorksTOCProps {

@@ -1,4 +1,4 @@
-import { Box } from "components";
+import Box from "components/Box";
 
 export interface SidebarProps {
   // side?: string;

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
-import { Section, Flex, Box, Link } from "components";
+import Section from "components/Section";
+import Flex from "components/Flex";
+import Box from "components/Box";
+import Link from "components/Link";
 import { Centrator } from "components/Layout";
 
 export const PubCertsKeys = () => {

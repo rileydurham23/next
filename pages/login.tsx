@@ -1,4 +1,5 @@
-import { Head, LoginPage as LoginPageComponent } from "components";
+import Head from "components/Head";
+import { default as LoginPageComponent } from "components/LoginPage";
 
 const LoginPage = () => {
   return (

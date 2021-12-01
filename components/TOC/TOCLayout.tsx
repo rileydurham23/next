@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
-import { Box, Flex, Link } from "components";
+import Box from "components/Box";
+import Flex from "components/Flex";
+import Link from "components/Link";
 import { Centrator } from "components/Layout";
 
 export interface TOCLayoutProps {

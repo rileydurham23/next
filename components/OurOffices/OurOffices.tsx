@@ -1,5 +1,7 @@
 import NextImage from "next/image";
-import { Box, Flex, Section } from "components";
+import Box from "components/Box";
+import Flex from "components/Flex";
+import Section from "components/Section";
 import { Centrator } from "components/Layout";
 import sanfrancisco from "./assets/sanfrancisco.jpg";
 import seattle from "./assets/seattle.jpg";

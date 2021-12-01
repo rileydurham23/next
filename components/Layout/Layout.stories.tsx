@@ -1,6 +1,6 @@
 import Layout, { LayoutProps } from "./Layout";
 import { Meta, Story } from "@storybook/react";
-import { SectionHeader } from "components";
+import SectionHeader from "components/SectionHeader";
 
 const generateStoryComponent = () => {
   const StoryComponent: Story<LayoutProps> = (args) => <Layout {...args} />;

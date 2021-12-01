@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatedResetButton } from "components/AnimationUtilities/AnimationUtilities";
 import { ApplicationBrowser } from "components/AnimationUtilities/ApplicationBrowserAnimation";
-import { Flex } from "components";
+import Flex from "components/Flex";
 
 export const ApplicationAnimation = () => {
   const [containerState, setContainerState] = useState(0);

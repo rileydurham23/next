@@ -1,6 +1,7 @@
-import { Section, Flex, Box } from "components";
+import Box from "components/Box";
+import Flex from "components/Flex";
 import { Centrator } from "components/Layout";
-import { BGColor } from "components/Section";
+import Section, { BGColor } from "components/Section";
 import { GreatPlaceImage } from "./GreatPlaceImage";
 
 type Node = React.ReactNode | JSX.Element;

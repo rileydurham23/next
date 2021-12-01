@@ -1,4 +1,4 @@
-import { Flex } from "components";
+import Flex from "components/Flex";
 
 /**
  * Returns side-by-side code windows for easy comparison. Currently optimized for 2 windows.
