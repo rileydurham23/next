@@ -182,17 +182,6 @@ interface LIProps {
   iconName?: IconName;
 }
 
-const LI = ({ href, hrefName, iconName }: LIProps) => {
-  return (
-    <StyledLi>
-      <StyledIcon name={iconName} mr={iconName ? 3 : -4} />
-      <Link color="darkest" href={href}>
-        {hrefName}
-      </Link>
-    </StyledLi>
-  );
-};
-
 const StyledLi = styled("li")(
   css({
     display: "flex",
@@ -204,10 +193,15 @@ const StyledLi = styled("li")(
   })
 );
 
-const StyledIcon = styled(Icon)(
-  css({
-    color: "dark-purple",
-  })
-);
+const LI = ({ href, hrefName, iconName }: LIProps) => {
+  return (
+    <StyledLi>
+      {iconName && <Icon name={iconName} color="dark-purple" mr={3} />}
+      <Link color="darkest" href={href}>
+        {hrefName}
+      </Link>
+    </StyledLi>
+  );
+};
 
 export default DownloadSuccess;
