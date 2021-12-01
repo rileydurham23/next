@@ -74,7 +74,6 @@ const Enterprise = () => {
 
 const LeftSide = styled(Flex)(
   css({
-    display: "flex",
     flexWrap: "wrap",
     borderRadius: ["8px 8px 0 0", "8px 0 0 8px"],
     alignSelf: "stretch",
@@ -87,7 +86,6 @@ const LeftSide = styled(Flex)(
 const RightSide = styled(Flex)(
   css({
     flexDirection: "column",
-    display: "flex",
     alignItems: "center",
     borderRadius: "md",
     boxSizing: "border-box",
