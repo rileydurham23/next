@@ -67,7 +67,7 @@ const DownloadSuccess = () => {
         </Flex>
       </LeftSide>
       <RightSide>
-        <Box justifyContent="center" mx={[3, 6]} my={[7, 9]}>
+        <Box mx={[3, 6]} my={[7, 9]}>
           <Box
             as="h2"
             fontSize={["header-3", "header-2"]}
@@ -88,8 +88,8 @@ const DownloadSuccess = () => {
           </Box>
 
           <TextFlex>
-            <StyledH3>Getting Started</StyledH3>
-            <StyledUL>
+            <h3>Getting Started</h3>
+            <ul>
               {TopLinks.map((link, index) => (
                 <LI
                   href={link.href}
@@ -98,26 +98,26 @@ const DownloadSuccess = () => {
                   key={index}
                 />
               ))}
-            </StyledUL>
+            </ul>
 
-            <StyledH3>Join Our Community</StyledH3>
-            <StyledUL>
+            <h3>Join Our Community</h3>
+            <ul>
               <LI
                 href="https://github.com/gravitational/teleport/discussions"
                 iconName="github"
                 hrefName="Community Discussion"
                 key="1"
               />
-            </StyledUL>
+            </ul>
 
-            <StyledH3>Need Enterprise Grade Features?</StyledH3>
-            <StyledUL>
+            <h3>Need Enterprise Grade Features?</h3>
+            <ul>
               <LI
                 href="https://goteleport.com/#offerings"
                 hrefName="Learn About Teleport Enterprise Edition"
                 key="1"
               />
-            </StyledUL>
+            </ul>
           </TextFlex>
         </Box>
       </RightSide>
@@ -129,8 +129,7 @@ const LeftSide = styled(Section)(
   css({
     alignItems: "center",
     backgroundColor: "lightest-gray",
-    backgroundPosition: 0,
-    borderRadius: "md",
+    borderRadius: ["8px 8px 0 0", "8px 0 0 8px"],
     display: "flex",
     flex: "1",
     flexDirection: "column",
@@ -149,14 +148,6 @@ const RightSide = styled(Flex)(
   })
 );
 
-const StyledUL = styled("ul")(
-  css({
-    listStyle: "none",
-    m: 0,
-    pl: 0,
-  })
-);
-
 const TextFlex = styled(Flex)(
   css({
     alignItems: "stretch",
@@ -164,13 +155,13 @@ const TextFlex = styled(Flex)(
     lineHeight: "xl",
     minHeight: 6,
     minWidth: ["auto", "304px"],
-        h3: {
+    h3: {
       fontSize: "text-xl",
       lineHeight: ["md", "lg"],
       my: 0,
       pt: [5, 6],
-    }, 
-        ul: {
+    },
+    ul: {
       listStyle: "none",
       m: 0,
       pl: 0,
@@ -182,16 +173,7 @@ const TextFlex = styled(Flex)(
       "&:nth-child(1)": {
         pt: [2, 3],
       },
-    }
-  })
-);
-
-const StyledH3 = styled("h3")(
-  css({
-    fontSize: "text-xl",
-    lineHeight: ["md", "lg"],
-    my: 0,
-    pt: [5, 6],
+    },
   })
 );
 
@@ -201,25 +183,14 @@ interface LIProps {
   iconName?: IconName;
 }
 
-const StyledLi = styled("li")(
-  css({
-    display: "flex",
-    lineHeight: "md",
-    pt: [2, 4],
-    "&:nth-child(1)": {
-      pt: [2, 3],
-    },
-  })
-);
-
 const LI = ({ href, hrefName, iconName }: LIProps) => {
   return (
-    <StyledLi>
+    <li>
       {iconName && <Icon name={iconName} color="dark-purple" mr={3} />}
       <Link color="darkest" href={href}>
         {hrefName}
       </Link>
-    </StyledLi>
+    </li>
   );
 };
 
