@@ -29,6 +29,8 @@ export const Pattern1 = ({
 }: Pattern1Props) => {
   const background = IDIOM[colorStyle].background;
   const logoColor = IDIOM[colorStyle].logo;
+  const copyColor = IDIOM[colorStyle].copyColor;
+  const linkStyles = IDIOM[colorStyle].scheme;
   return (
     <>
       <Head title={headTitle} description={headDescription} />
@@ -51,7 +53,7 @@ export const Pattern1 = ({
 
         {/* Footer: hidden on mobile */}
         <Box as="footer" mb={9} textAlign="center" fontSize="text-sm">
-          <Box display={["none", "block"]} color="lightest-gray" opacity="0.8">
+          <Box display={["none", "block"]} {...copyColor}>
             © 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED
           </Box>
           <Box
@@ -59,13 +61,13 @@ export const Pattern1 = ({
             flexDirection="row"
             justifyContent="center"
           >
-            <StyledLink scheme="terms" href="/tos/">
+            <StyledLink scheme={linkStyles} href="/tos/">
               TERMS OF SERVICE
             </StyledLink>
-            <StyledLink scheme="terms" href="/privacy/">
+            <StyledLink scheme={linkStyles} href="/privacy/">
               PRIVACY POLICY
             </StyledLink>
-            <StyledLink scheme="terms" href="/security/">
+            <StyledLink scheme={linkStyles} href="/security/">
               SECURITY POLICY
             </StyledLink>
           </Box>
