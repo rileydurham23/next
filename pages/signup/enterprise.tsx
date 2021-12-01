@@ -14,7 +14,7 @@ const Enterprise = () => {
       headTitle="title"
       headDescription="desc"
       colorStyle="purple"
-      cardMaxWidth="900px"
+      cardMaxWidth="800px"
     >
       <LeftSide>
         <Flex flexDirection="column" width="100%">
@@ -47,7 +47,7 @@ const Enterprise = () => {
             Designed for engineering teams that demand the flexibility to run
             software anywhere, on any infrastructure.
           </Box>
-          <Flex display="block" maxHeight={[]}>
+          <Flex display="block">
             <NextImage
               src={hosted}
               alt="cloud"
