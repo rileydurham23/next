@@ -76,6 +76,7 @@ const StyledInfo = styled(Box)(
 
 const StyledCard = styled(Flex)(
   css({
+    width: "100%",
     height: ["auto", "500px"],
     "&:nth-child(2n+1)": {
       backgroundColor: ["lightest-gray", "transparent"],
