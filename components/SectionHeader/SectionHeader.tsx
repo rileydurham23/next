@@ -155,7 +155,7 @@ export const SectionHeader = ({
         </Box>
         <Flex
           flex="0 0 auto"
-          justifyContent={kind === "row" ? ["left", "center"] : "center"}
+          justifyContent={kind === "row" ? ["left", "center"] : "baseline"}
           alignItems="center"
           ml={leftGap}
           pt={kind === "row" ? [0, 2] : [3, 2]}

@@ -1,4 +1,5 @@
 import type { BGColor } from "components/Section/Section";
+import Box from "components/Box";
 import css from "@styled-system/css";
 import Flex from "components/Flex";
 import Icon, { IconName } from "components/Icon";
@@ -78,6 +79,7 @@ export type ListCardItemProps = {
   iconColor?: string;
   listCardItemBold?: string;
   mode?: "normal" | "compact";
+  title?: string;
 };
 
 export const ListCardItem = ({
@@ -85,8 +87,24 @@ export const ListCardItem = ({
   icon = "circleCheck",
   iconColor = "dark-purple",
   mode = "normal",
+  title,
 }: ListCardItemProps) => {
-  return (
+  return title ? (
+    <StyledLiWithTitle>
+      <Box display="flex" flexDirection="column">
+        <Box display="flex" flexDirection="row" alignItems="center" mb={3}>
+          <Icon
+            color={iconColor}
+            mx={mode === "compact" ? 2 : [2, 4]}
+            name={icon}
+            size={mode === "compact" ? "sm" : "md"}
+          />
+          <StyledTitle>{title}</StyledTitle>
+        </Box>
+        <StyledTextWithTitle>{children}</StyledTextWithTitle>
+      </Box>
+    </StyledLiWithTitle>
+  ) : (
     <StyledLi>
       <Icon
         color={iconColor}
@@ -121,17 +139,40 @@ const StyledLi = styled("li")(
   css({
     alignItems: "center",
     display: "flex",
-    flexDirection: "row",
+    mb: [2, 0],
   })
 );
 
-const StyledText = styled("div")(
+const StyledLiWithTitle = styled("li")(
   css({
+    alignItems: "center",
     display: "flex",
+    mb: [7, "12px"],
+  })
+);
+
+const StyledText = styled(Flex)(
+  css({
     flexDirection: "row",
     margin: [2, 3],
     textAlign: "left",
     width: "90%",
+  })
+);
+
+const StyledTextWithTitle = styled(Flex)(
+  css({
+    marginLeft: [2, 4],
+    textAlign: "left",
+    width: ["98%", "90%"],
+  })
+);
+
+const StyledTitle = styled(Flex)(
+  css({
+    fontSize: "text-md",
+    fontWeight: "bold",
+    textTransform: "uppercase",
   })
 );
 
