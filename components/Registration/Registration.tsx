@@ -102,7 +102,7 @@ export const Registration = ({
                 fontSize={["header-3", "header-1"]}
                 lineHeight={["lg", "xl"]}
                 pb={[2, 3]}
-                fontWeight={"bold"}
+                fontWeight="bold"
               >
                 {CTA}
               </Box>
