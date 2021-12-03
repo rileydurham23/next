@@ -1,10 +1,10 @@
 import Flex, { FlexProps } from "components/Flex";
 import { ReactComponent as LogoSvg } from "./logo.svg";
 
-export interface LogoProps extends FlexProps {
+export type LogoProps = {
   width?: string | string[];
   height?: string | string[];
-}
+} & FlexProps;
 
 const Logo = (props: LogoProps) => (
   <Flex
