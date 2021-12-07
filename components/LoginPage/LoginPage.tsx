@@ -5,7 +5,7 @@ import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
 import Link from "components/Link";
-import { ReactComponent as Logo } from "./assets/logo-medallion.svg";
+import Logo from "./assets/logo-medallion.svg?react";
 import bgImage from "./assets/cloud-city.png";
 
 const LoginPage = () => {

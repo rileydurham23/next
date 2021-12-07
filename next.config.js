@@ -14,7 +14,6 @@ const {
 
 const PAGES_DIRECTORY = resolve(__dirname, "pages");
 const CONTENT_DIRECTORY = resolve(__dirname, "content");
-const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "components/Company");
 
 module.exports = withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
@@ -34,47 +33,24 @@ module.exports = withBundleAnalyzer({
     config.output.assetModuleFilename = "static/images/[hash][ext]";
 
     config.module.rules.push({
+      test: /\.(png|jpg|webp|gif|mp4|webm|ogg|swf|ogv|woff2)$/i,
+      type: "asset/resource",
+    });
+
+    config.module.rules.push({
       test: /\.svg$/,
-      exclude: [/node_modules/, COMPANY_LOGOS_DIRECTORY],
-      use: [
+      oneOf: [
         {
-          loader: "@svgr/webpack",
-          options: {
-            jsx: {
-              babelConfig: {
-                plugins: [
-                  [
-                    "@svgr/babel-plugin-remove-jsx-attribute",
-                    {
-                      elements: ["svg", "g", "path", "rect"],
-                      attributes: ["xmlns:lucid", "lucid:page-tab-id"],
-                    },
-                  ],
-                ],
-              },
-            },
-          },
+          issuer: /\.[mjt]sx?$/,
+          resourceQuery: /react/,
+          use: "@svgr/webpack",
         },
         {
-          loader: "file-loader",
-          options: {
-            publicPath: `/_next/static/images/`,
-            outputPath: "static/images/",
-            name: "[hash].[ext]",
-          },
+          type: "asset/resource",
         },
       ],
     });
-    config.module.rules.push({
-      test: /\.(png|jpg|webp|gif|mp4|webm|ogg|swf|ogv|woff2)$/i,
-      type: "asset/resource",
-      exclude: /node_modules/,
-    });
-    config.module.rules.push({
-      test: /\.svg$/,
-      include: COMPANY_LOGOS_DIRECTORY,
-      type: "asset/resource",
-    });
+
     config.module.rules.push({
       test: /\.(md|mdx)$/,
       include: CONTENT_DIRECTORY,

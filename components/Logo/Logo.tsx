@@ -1,5 +1,5 @@
 import Flex, { FlexProps } from "components/Flex";
-import { ReactComponent as LogoSvg } from "./logo.svg";
+import LogoSvg from "./logo.svg?react";
 
 export type LogoProps = {
   width?: string | string[];

@@ -1,7 +1,4 @@
-const { resolve } = require("path");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-
-const COMPANY_LOGOS_DIRECTORY = resolve(__dirname, "..", "components/Company");
 
 module.exports = {
   stories: ["../components/**/*.stories.mdx", "../components/**/*.stories.tsx"],
@@ -33,14 +30,16 @@ module.exports = {
 
     config.module.rules.push({
       test: /\.svg$/,
-      exclude: [/node_modules/, COMPANY_LOGOS_DIRECTORY],
-      use: ["@svgr/webpack", "file-loader"],
-    });
-
-    config.module.rules.push({
-      test: /\.svg$/,
-      include: [COMPANY_LOGOS_DIRECTORY],
-      type: "asset/resource",
+      oneOf: [
+        {
+          issuer: /\.[mjt]sx?$/,
+          resourceQuery: /react/,
+          use: "@svgr/webpack",
+        },
+        {
+          type: "asset/resource",
+        },
+      ],
     });
 
     config.module.rules.push({

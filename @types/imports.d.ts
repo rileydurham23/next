@@ -1,9 +1,13 @@
 declare module "*.svg" {
-  export const ReactComponent: React.StatelessComponent<
-    React.SVGAttributes<SVGElement>
-  >;
+  const value: string;
 
-  export default string;
+  export default value;
+}
+
+declare module "*.svg?react" {
+  const Component: React.StatelessComponent<React.SVGAttributes<SVGElement>>;
+
+  export default Component;
 }
 
 declare module "*.png" {
@@ -18,19 +22,6 @@ declare module "*.jpg" {
 
 declare module "*.woff2" {
   const value: string;
-  export default value;
-}
-
-declare module "*.md" {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const value: any;
-  export default value;
-}
-
-declare module "md-import-mapping" {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const value: any;
-
   export default value;
 }
 
