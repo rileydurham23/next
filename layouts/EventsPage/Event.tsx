@@ -1,13 +1,10 @@
 import { format } from "date-fns";
 import css from "@styled-system/css";
+import { truncate } from "utils/string";
 import Box, { BoxProps } from "components/Box";
 import Flex from "components/Flex";
 import Link from "components/Link";
 import Icon from "components/Icon";
-
-const truncate = (text: string, length: number): string => {
-  return text.length < length ? text : `${text.substr(0, length)}...`;
-};
 
 const formatDate = (start: Date, end?: Date): string => {
   const startString = format(start, "yyyy, MMM d");

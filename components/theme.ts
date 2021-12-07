@@ -135,6 +135,7 @@ const theme = {
   radii: {
     sm: 2,
     md: 8,
+    lg: 16,
     default: 4,
     circle: 99999,
   },
