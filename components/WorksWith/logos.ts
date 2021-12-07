@@ -21,3 +21,4 @@ export { default as puppet } from "./assets/puppet.svg";
 export { default as rdc } from "./assets/aws-rdc-icon.svg";
 export { default as windows } from "./assets/windows.svg";
 export { default as waveLight } from "./assets/wave-light.png";
+export { default as windows2021 } from "./assets/windows2021.svg";

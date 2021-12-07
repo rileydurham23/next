@@ -88,22 +88,22 @@ const LogoBoxRow = ({ children }: LogoBoxRowProps) => {
 const WWDefault = (
   <>
     <LogoBoxRow>
-      <LogoBoxImage name="puppet">Puppet</LogoBoxImage>
-      <LogoBoxImage name="gcloud">Google Cloud</LogoBoxImage>
       <LogoBoxImage name="aws">Amazon</LogoBoxImage>
+      <LogoBoxImage name="gcloud">Google Cloud</LogoBoxImage>
+      <LogoBoxImage name="azure">Azure</LogoBoxImage>
       <LogoBoxImage name="linux">Linux</LogoBoxImage>
     </LogoBoxRow>
     <LogoBoxRow>
-      <LogoBoxImage name="azure">Azure</LogoBoxImage>
+      <LogoBoxImage name="windows2021">Windows</LogoBoxImage>
       <LogoBoxImage name="chef">Chef</LogoBoxImage>
       <LogoBoxImage name="okta">Okta</LogoBoxImage>
-      <LogoBoxImage name="ansible">Ansible</LogoBoxImage>
+      <LogoBoxImage name="windows2021">Active Directory</LogoBoxImage>
     </LogoBoxRow>
     <LogoBoxRow>
+      <LogoBoxImage name="puppet">Puppet</LogoBoxImage>
       <LogoBoxImage name="oneLogin">One Login</LogoBoxImage>
-      <LogoBoxImage name="auth0">Auth0</LogoBoxImage>
-      <LogoBoxImage name="windows">Active Directory</LogoBoxImage>
       <LogoBoxImage name="k8s">Kubernetes</LogoBoxImage>
+      <LogoBoxImage name="ansible">Ansible</LogoBoxImage>
     </LogoBoxRow>
   </>
 );
