@@ -1,0 +1,144 @@
+---
+title: Privileged Access Management 2.0
+description: Teleport is the future of PAM; cloud-native, developer-friendly, open-source, and maintenance-free.
+hideWave: false
+border: none
+---
+
+import {
+  AnnouncementBar,
+  Box,
+  Section,
+  PageIntro,
+  TryTeleport,
+  Flex
+} from "components";
+import NextImage from "next/image";
+import { Centrator } from "components/Layout";
+import {
+  CompactClients1,
+  CompactClients2,
+  CompactClients3,
+} from "components/AnnouncementBar/data";
+
+<Centrator maxWidth="1240px" padding={["0 16px", "32px 80px 32px 32px"]}>
+  <PageIntro
+    title="Privileged Access Managment 2.0"
+    subtitle="Teleport Access Plane"
+    description="Teleport is the future of PAM: cloud-native, developer-friendly, open-source, and maintenance-free."
+    width="100%"
+    verticalResponsive={false}
+    renderSmallHeading={true}
+  />
+</Centrator>
+
+<Section bg="flatWhite" borderTop="1px solid #F0F2F4" padding={["0 16px 16px", "8px 64px 32px"]}>
+  <Centrator maxWidth="960px"  px={[0, 3]} pb={[0, 8]}>
+    <Section bg="flatWhite" fontColor="darkest" lineHeight="md" fontSize="text-lg" >
+
+    ## What is wrong with PAM 1.0?
+
+    Legacy solutions for privileged access management were optimized for a traditional IT-centric, perimeter-based operational model that has been superseded by cloud computing. PAM 1.0 is characterized by:
+
+    - Heavy reliance on information security teams for implementation and maintenance.
+
+    - Predominantly closed-source, proprietary solutions without the oversight of the open source security community.
+
+    - Perimeter-based approach to security instead of adhering to Zero Trust principles, where networks no longer matter and cloud environments, remote workers, and edge servers are all first-class citizens.
+
+    - Hostile user experience, particularly for developers, leading to reduced workforce flexibility and lower productivity.
+
+    - Inability to take advantage of cloud-native technologies to operate at scale.
+
+    ## What is PAM 2.0?
+
+    The next generation of PAM solutions must address the deficiencies of the legacy implementations above. Teleport does this by providing secure access for developers without getting in the way of their productivity. Teleport is different from legacy PAM solutions in the following ways:
+
+    - Open source and developer-friendly, offering high-quality user experience and APIs for customization.
+
+    - Designed and built with a focus on cloud and edge computing.
+
+    - Developers working from home or in coworking locations are first-class citizens.
+
+    {/* SECURE INFRASTRUCTURE */}
+    ## Teleport Benefits
+      <Flex flexDirection={["column", "row"]} justifyContent="space-between" alignItems="center" mt={-3}>
+        <Box width={["100%", "50%"]}>
+          #### SECURE YOUR INFRASTRUCTURE & MEET COMPLIANCE REQUIREMENTS
+          Ensure that you are using industry best practices out-of-the-box.
+          
+          - Isolate critical infrastructure and enforce 2FA when using SSH and Kubernetes.
+          - Provide role-based access controls (RBAC) using short-lived certificates and your existing identity management service.
+          - Log events and record session activity for full auditability.
+        
+        </Box>
+        <Box width={["100%", "50%"]} maxWidth={["100%", "450px"]} mb={6}>
+          <NextImage
+            src="./assets/gravity-distribute.png"
+            alt="Security Team"
+            height={525}
+            width={899}
+            layout="intrinsic"
+          />
+        </Box>
+      </Flex>
+
+    {/* HAVE COMPLETE VISABILITY DETAIL */}
+    <Flex flexDirection={["column", "row"]} justifyContent="space-between" alignItems="center" >
+        <Box width={["100%", "58%"]} px={3}>
+          <Flex my={4}  borderRadius="default" overflow="hidden">
+            <NextImage
+              src="./assets/recorded-session.gif"
+              alt="Security Team"
+              height={519}
+              width={899}
+              layout="intrinsic"
+            />
+          </Flex>
+        </Box>
+        <Box width={["100%", "41%"]} px={3} pb={2}>
+          #### COMPLETE VISIBILITY INTO ACCESS & BEHAVIOR
+          See what's happening and who's responsible.
+          
+          - Convert logins, executed commands, deployments and other events into structured audit logs.
+          - Monitor, share and join interactive sessions in real-time from the CLI or browser.
+          - Audit events and session recordings are securely stored in a vault to prevent tampering.
+        </Box>
+      </Flex>
+
+    {/* IOT DETAIL  */}
+      <Flex flexDirection={["column", "row"]} justifyContent="space-between" alignItems="center" >
+        <Box maxWidth={["100%", "41%"]} px={3} pb={2}>
+          #### ONE GATEWAY FOR ALL OF YOUR CLOUDS, ON-PREMISE, EDGE AND IOT DEVICES.
+          Eliminate the differences between accessing cloud, remote, restricted and regulated environments.
+
+          - Implement security and compliance for SSH and Kubernetes across all of your public cloud environments, and across all providers.
+          - Securely access environments located in public clouds and on-prem environments of other organizations, including your customers' environments.
+          - Access IoT and edge devices, and even self-driving trucks, the same way as any other server or VM in any of your public clouds.
+        </Box>
+        <Flex width={["100%", "58%"]} px={3} pb={2}>
+          <Flex display="block" maxWidth={["899px", "500px"]} my={6}>
+            <NextImage
+              src="./assets/iot.png"
+              alt="Security Team"
+              height={619}
+              width={899}
+              layout="intrinsic"
+            />
+          </Flex>
+        </Flex>
+      </Flex>
+
+    </Section>
+  </Centrator>
+
+  <Section bg="flatWhite" pt={3} pb={10}>
+    <AnnouncementBar
+      caseStudy
+      title
+      rows={[CompactClients1, CompactClients2, CompactClients3]}
+    />
+  </Section>
+
+</Section>
+<TryTeleport />

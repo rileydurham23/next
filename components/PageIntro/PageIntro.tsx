@@ -14,7 +14,7 @@ export type Props = {
   theme?: Theme;
   verticalResponsive?: boolean;
   children?: ReactNode;
-  isZeroTrustPage?: boolean;
+  renderSmallHeading?: boolean;
 } & BoxProps;
 
 export default function PageIntro({
@@ -24,7 +24,7 @@ export default function PageIntro({
   theme = "dark",
   verticalResponsive: vr = true,
   children,
-  isZeroTrustPage = false,
+  renderSmallHeading = false,
   ...props
 }: Props) {
   return (
@@ -34,7 +34,7 @@ export default function PageIntro({
           <StyledSubject
             variant={theme}
             vr={vr}
-            pb={isZeroTrustPage ? 2 : null}
+            pb={renderSmallHeading ? 2 : null}
           >
             {subtitle}
           </StyledSubject>
@@ -42,9 +42,9 @@ export default function PageIntro({
         <StyledHeading
           variant={theme}
           vr={vr}
-          fontSize={isZeroTrustPage ? 32 : null}
-          lineHeight={isZeroTrustPage ? "48px" : null}
-          pb={isZeroTrustPage ? 2 : null}
+          fontSize={renderSmallHeading ? 32 : null}
+          lineHeight={renderSmallHeading ? "48px" : null}
+          pb={renderSmallHeading ? 2 : null}
         >
           {title}
         </StyledHeading>
