@@ -1,4 +1,8 @@
-import { PodcastEpisode, TechPaperBook } from "components/EpisodesList/types";
+import {
+  PodcastEpisode,
+  TechPaperBook,
+  Tutorial,
+} from "components/EpisodesList/types";
 import { getPagesInfo } from "./pages-helpers";
 
 export const getResourcesData = (type: string) => {
@@ -33,6 +37,18 @@ export const getResourcesData = (type: string) => {
           return (
             new Date(b.frontmatter.publicationDate).getTime() -
             new Date(a.frontmatter.publicationDate).getTime()
+          );
+        });
+    } else if (type === "guides") {
+      resourcesPageInfo = resourcesPageInfo
+        //we use a filter to exclude the index page
+        .filter(
+          (episode: Tutorial) => episode.frontmatter.tutorialPublicationDate
+        )
+        .sort((a: Tutorial, b: Tutorial) => {
+          return (
+            new Date(b.frontmatter.tutorialPublicationDate).getTime() -
+            new Date(a.frontmatter.tutorialPublicationDate).getTime()
           );
         });
     }

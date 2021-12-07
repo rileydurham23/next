@@ -1,0 +1,37 @@
+---
+title: "Setting Up PAM Authentication with Teleport"
+alternateTitle: "How to Set Up PAM Authentication with Teleport"
+description: "Ben Arent provides a quick walkthrough of integrating Teleport's node service with PAM."
+layout: tutorial
+tutorialPublicationDate: "2021-07-28"
+videoId: "VrZXZtxjNes"
+videoLength: "05:43"
+---
+
+## Overview
+
+This video provides a short overview of how Teleport's node service can be configured to integrate with [PAM](https://en.wikipedia.org/wiki/Linux_PAM).
+
+Teleport currently supports the `auth`, `account`, and `session` PAM modules. The `auth` stack is optional and not used by default.
+
+These are a few things to leverage PAM for:
+
+- Create a custom Message of the Day (MOTD)
+- Create local (UNIX) users on login
+- Add additional authentication steps using PAM
+
+[Learn more](/docs/server-access/guides/ssh-pam/).
+
+## Setting Up PAM Authentication with Teleport
+
+**Ben:** Hi. In this short video, I'm going to give you a quick overview of using Teleport with PAM. PAM stands for Pluggable Authentication Modules, and it's used by nearly every Linux operating system, and you'll likely be using it without even knowing it. So before I dive too deep into our documentation, let me just show you what it looks like without using PAM. You can use Teleport without PAM. You come in, you have the host, everything has been configured, but you may want to use the standard sshd PAM. In this case, you see, I've logged in and this is a dynamic Message of the Day (MOTD) from Ubuntu and it's called everything from standard sshd. So if I come back to this host, Teleport out of the box, all you need to do is enable their safe service. You don't need to enable PAM. There's some other labels here which provide the labels on the list, but that's all you need for Teleport to get up and running.
+
+**Ben:** In my second host here, you can see that I have the ssh service enabled, but I've also enabled PAM. And through PAM, I'm calling the service name `sshd`, and this is the default stack you would get if you were to, let's say, OpenSSH into a box. That's why it looks so familiar. You can edit the sshd config, but we have some customers who completely delete OpenSSH off their boxes, and so we recommend also creating different service names that are custom. So I have a host here which I have created a custom PAM module, and this does a few things. I've updated it to provide a custom Message of the Day letting people know that their activity is being recorded. I've also updated the dynamic Message of the Day to say which version of Teleport this is running. And let me show you what the Teleport config looks like.
+
+**Ben:** So you can see I have PAM enabled, and the service name is Teleport. So let me show you PAM. This is what my PAM config looks like. I have a few things in here. I have `pam_exec` which is calling this command, which I'll show you afterwards, Message of the Day which is required to just make the PAM stack work. You can even remove everything from the , but it's needed for PAM to work. And then I've also got a Message of the Day dynamic, which is also optional. So let me come back to my hosts and I'll show you how this is being configured. Oh, I was going to show you actually what's in this script, so. In this Teleport account, this is the bash script, which we have a comment here, which will be used in combination with `useradd` and it creates this user on login. And then if there are any errors, are write out to `pam.error`.
+
+**Ben:** So you can see I've been logged in as the Ubuntu user, but if I exit I can come in here and then log in as any of these sort of principles. And let's say I've logged in as my username, benarent, and this has created the local Unix user for the server. And this can be very helpful for a range of things. So if I come down here, we have full instructions of how you want to configure `pam_exec`, and if you’re a very large organization and want to provision local users and home directories on the fly. There's a few variables that we leverage to make this work, that we've already seen: `TELEPORT_USERNAME`, `TELEPORT_LOGIN` and `TELEPORT_ROLES`. And this relatively simple example shows you just use `useradd`, but you can use this and extend it to do such things as possibly, add certain users to the [inaudible] file, for example. In our documentation, we have a few other things that are pretty useful. We will teach you how to set Message of the Day. One of the new features in Teleport 7.0 is you can set a Message of the Day just using Teleport without using PAM. This can be very useful if you just using Teleport with Kubernetes or databases and you want people to confirm that they're accessing cluster and let's say, for compliance reasons you need to let them know that all activity is being logged.
+
+**Ben:** Last up, we have PAM `auth`. As a rule, you'll need this off, but you may want to use this if you want another second factor once accessing your nodes. I would recommend using Teleport's native second factor, which is available in our access controls. But if you have a third party, let's say, you're using Duo and Teleport, you'll need to use PAM `auth`: true to make those two services work together. You can do a few other things. So here we have examples of setting PAM on and off, setting custom messages of the day, instructions on creating local users, and then last up a bit more information about using PAM `auth`.
+
+**Ben:** This kind of brings us to the end of using Teleport with PAM. If you have any specific questions, please leave a comment in our GitHub discussions or contact us in our Slack forum. Thank you.

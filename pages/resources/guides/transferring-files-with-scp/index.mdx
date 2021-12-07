@@ -1,0 +1,23 @@
+---
+title: "Transferring Files with SCP"
+alternateTitle: "How to Transfer Files with SCP"
+description: "Learn how to transfer files with Teleport SCP in this brief training video."
+layout: tutorial
+tutorialPublicationDate: "2021-06-25"
+videoId: "fvxfHI8amRs"
+videoLength: "03:34"
+---
+
+## Overview
+
+In this demo video, Ben Arent shows you how to transfer files with Teleport SCP.
+
+[Learn more](/docs/user-manual/).
+
+## Transferring Files with SCP
+
+**Ben:** Hi. In this short video, I'm going to show you how you can use Teleport to upload and downloads files using tsh scp. tsh is our command line tool, and you use this on your workstation. In my case, I've already logged into a server. I have my demo environment here, and I have a few hosts. I'm going to be accessing this host here, so let me ssh into it. And you can see, this is a temp directory in here, but nothing else. So let me exit. So now I'm back in my local environment. I'm going to use tsh scp. scp is the same command as standard scp, but tsh scp makes it easier. Some customers will alias scp to use tsh scp. I'm going to log in, which is going to be my Linux user, which is ec2-user in my case. I'm going to pick the file, which is going to be called debug-tool, which I have locally in this scp directory. And then lastly, I am going to connect to this user again at the host that we disconnected to. And it's going to — I just picked the wrong file directory. I couldn’t write to this directory, but we're moving that with a [inaudible]. I can now upload it. So now if I go back and ssh in, you can see that we have the debug-tool.
+
+**Ben:** The next thing I'm going to show you is — let me actually log in, ls host again. So I'm going to just create a file here called debug.log. And you can see, I have also another debug.log locally, but I'm going to remove it. Now we're going to us tsh scp to download this file. So we do the same thing again. It's the same command, but a little different. So tsh scp --login=ec2-user. Now we just pick the IP address of our host, and the file is called debug.log. And then we're going to save it locally as local-debug.log. And you can see now, we have the local-debug.log saved. This brings me to the end of using tsh scp.
+
+**Ben:** For people who may not want to be using the command line, we have the same capabilities in Teleport itself. You can use our web UI. You can see here — this is the host I've been on to upload and download files. Another benefit — because this has all gone through Teleport — is everything has been audited, and you can see that we have scp uploads and downloads recorded. So that brings me to the end of the instruction on using Teleport with scp. I'd recommend checking out our user manual. We have a few other commands such as uploading a whole file directory using Recursive. If you have any questions, please leave a comment in our Slack community or discussions.

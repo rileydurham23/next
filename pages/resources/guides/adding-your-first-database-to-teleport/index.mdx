@@ -1,0 +1,31 @@
+---
+title: "Adding Your First Database to Teleport"
+description: "Ben Arent, in this brief demo, shows you how to add your first database to Teleport."
+layout: tutorial
+tutorialPublicationDate: "2021-05-20"
+videoId: "PCYyTecSzCY"
+videoLength: "06:26"
+---
+
+## Overview
+
+Teleport allows engineers and security professionals to unify access for SSH servers, Kubernetes clusters, web applications, and databases across all environments. Teleport can provide secure access to PostgreSQL, MySQL and MongoDB databases, while improving both access control and visibility. Learn more about [Teleport Database Access](/docs/database-access/introduction/).
+
+## Adding Your First Database to Teleport
+
+**Ben:** I'm going to give you a tour on how to connect your first database to Teleport. This tutorial focuses on our hosted edition of Teleport. For this setup, we'll be connecting to a Teleport Cloud instance under the acme dev subdomain that I've selected. We'll connect to an AWS RDS instance using PostgreSQL, and we'll have to set up an EC2 instance which will provide our jump host and have to find route for it. We're going to set this all up now. To get started, I'm going to create a fresh database. There's a few things to look out for here. We support both RDS and MySQL. I'm going to create a test database, use the standard login. You want to make sure that you have public access at least for initial set up so you can create the user, and set up IAM database authentication. Let's create a database.
+
+**Ben:** These are the credentials that RDS has created for us. We're going to save these and use these later to access the database from our workstation. Let's check the status of the database. It's still creating, so we're going to create the IAM roles needed. We're going to use an IAM policy to let our Teleport host be able to connect to the instance. This is slightly different than the ARN you would get from RDS. So please play coextension to the account ID, and DB cluster. We're going to copy this and configure this now. The region is where you started the host, in our case, it's us-west. The account ID is available from the top menu. And the cluster is host ID. It's different from the ARN. It is available in the configuration page. You can select a DB username, but we're just going to use a star.
+
+**Ben:** We're going to select this and go over to AWS IAM and create a new policy. You can see this provides full access to our RDS instance. Next up, we're going to create a user in our RDS instance, which we're going to impersonate. So we're going to use pSQL to connect to the direct in this instance using the username you defined and the password that we saw earlier. This is the only time that you'll be using this username password just for initial configuration. We have instructions available on our documentation site. In my case, I'm changing the username from `dbalice` to `dbadmin`, but it's important to grant it the `rds_iam` role. The role has been granted.
+
+**Ben:** Another thing you need to do is, for the instance, will launch a new small EC2 host, which will provide Teleports, the ability to get access to the RDS database. I'm going to be SSHing into this to install Teleport and configure everything. This is the same as our standard install procedure, but I'm just going to follow it on. To install Teleport, I'm going to get everything from an installations page. I'm using `deb` repo. And last stop, I install Teleport. Teleport has now been installed, and I'll come back to this host.
+
+**Ben:** We're going to now attach the IAM role we created earlier to this new instance we've created, so we modify the IAM role. You can either create a new role here or select one. In my case, I was creating a new EC2 common use case role. And using my pre-defined policy that we created earlier. This means this EC2 host can assume the role to provide RDS access. Next up, we're going to get the join token. I'm going to log in to my cloud instance. Add my OTP Token. And download the certificates to use tctl. Next up, I use `tctl tokens`. I've changed this to add the auth server and also the `db-uri` to point to my RDS instance. I have to make sure that I'm running in sudo, so everything will start again. And you can see the database service has started successfully. Now, are we able to access this database using tsh on my local machine. I'm going to `tsh db ls`. Use this pSQL command that’s been prefilled. Change it to the default table — which in my case is PostgreSQL — and my user, which I've assumed — which is `dbadmin`. And now I have access to PostgreSQL via Teleport. If I add something, I can save my actions or this will be recorded in Teleport. There's a full audit log of activity.
+
+**Ben:** Thank you. This brings me to the end of the video, if you have any questions, please leave comments in our discussion board.
+
+Key links:
+
+- [Teleport Admin guide](/docs/admin-guide/)
+- [Teleport Database Access](/database-access/)

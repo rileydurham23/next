@@ -38,3 +38,14 @@ export interface ResourceItem {
   title: string;
   href: string;
 }
+
+export interface Tutorial {
+  frontmatter: {
+    alternateTitle?: string;
+    description: string;
+    tutorialPublicationDate: string;
+    title: string;
+    videoId: string;
+  };
+  uri: string;
+}

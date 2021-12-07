@@ -1,0 +1,26 @@
+---
+title: "Adding Your First Application to Teleport"
+alternateTitle: "Introduction to Adding Your First Application to Teleport"
+description: "Ben Arent, in this brief demo, shows you how to add your first application to Teleport."
+layout: tutorial
+tutorialPublicationDate: "2021-05-20"
+videoId: "HkBQY-uWIbU"
+videoLength: "02:39"
+---
+
+## Overview
+
+Teleport allows engineers and security professionals to unify access for SSH servers, Kubernetes clusters, web applications, and databases across all environments. [Learn more](/docs/application-access/introduction/).
+
+## Adding Your First Application to Teleport
+
+**Ben:** Hi. I'm going to give you a tour on how to add your first application to Teleport. For new users, the easiest way to get started is with our install script. This script will download Teleport, install it, and set up everything. To get started, alt-click, add application using **Automatically**. For the first application, I'm going to provide access to a Grafana instance running locally. These steps are outlined in our Getting Started guide for application access. I already have Docker set up, and I'm going to configure this app in Teleport Cloud. I'm going to name the app, in my case, Grafana. Set the location of the app. I'm running it on `localhost:3000`. I now have the install script, and I'm going to run it locally. I'll give it a second to install. But now you can see Grafana has showed up in my dashboard. I can now share my local Grafana host with the rest of my team. This is a cool demo, but obviously unsustainable unless I keep my computer on 24/7. You can use that same script to provide access on cloud hosts.
+
+**Ben:** One benefit is: by setting the application address to localhost, means it's only accessible to Teleport itself. You can use the install script to install Teleport, but you might want to provide more control over the install procedure. For more control, we recommend using the manual process. This starts with installing Teleport. For install instructions, you can check out the installation page on our Docs site. Once Teleport is installed, you need to get an invite token. The first step is to log in to Teleport using tsh. Here I'm using tsh login, using the address for my type of cloud proxy, using my local auth, and my username. Next up, I'm going to use tctl, which is an administrative tool for providing access over tokens. Here I'm going to create a new join token. Then we'll start Teleport using the following parameters. No. I've changed the app name and app url.
+
+**Ben:** Now I have my [inaudible] dashboard accessible in Teleport. Now that I've connected my second application, you might want to consider steps for improving the setup. I would recommend starting Teleport with systemd and adding labels, so you can more easily set up RBAC using Teleport. Thanks for watching. And if you have any questions, please reach out to us on our discussion forum.
+
+Key links:
+
+- [Teleport Admin guide](/docs/admin-guide/)
+- [Connecting applications](/docs/application-access/guides/connecting-apps/)

@@ -3,11 +3,16 @@ import Grid from "components/Grid";
 import Flex from "components/Flex";
 import Box from "components/Box";
 import { CARD_DATA } from "./constants";
-import type { PodcastEpisode, EpisodeKind, TechPaperBook } from "./types";
+import type {
+  PodcastEpisode,
+  EpisodeKind,
+  TechPaperBook,
+  Tutorial,
+} from "./types";
 import { ResourcesDropdown } from "./ResourcesDropdown";
 
 export interface EpisodesListProps {
-  episodes: PodcastEpisode[] | TechPaperBook[];
+  episodes: PodcastEpisode[] | TechPaperBook[] | Tutorial[];
   kind: EpisodeKind;
   needSizeLimit?: boolean;
 }

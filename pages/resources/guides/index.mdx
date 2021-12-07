@@ -1,0 +1,22 @@
+---
+title: Guides & Tutorials
+description: A collection of guides from Teleport that cover topics relevant for companies and individuals running complex applications and cloud-native infrastructure.
+bgWave: wave-on-gray
+border: none
+layout: content
+logo:
+  image: ./assets/resources.svg
+  alt: title image
+needWrapper: true
+subtitle: Teleport Access Plane
+tryTeleport: true
+---
+
+import { EpisodesList } from "components";
+import { getResourcesData } from "server/resources-helpers";
+
+<EpisodesList episodes={props.episodes} id="tutorial" kind="tutorial" />
+
+export async function getStaticProps(context) {
+  return { props: { episodes: getResourcesData("guides") } };
+}

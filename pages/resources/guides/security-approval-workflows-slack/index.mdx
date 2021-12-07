@@ -1,0 +1,62 @@
+---
+title: "Security Access Workflows for SSH using Slack"
+alternateTitle: "Using Slack with Access Workflow"
+description: "Configure Slack with the Access Workflow - requesting access roles; setup integration between Teleport and Slack to provide RBAC requests."
+layout: tutorial
+tutorialPublicationDate: "2020-08-28"
+videoId: "SrhDyBeZSkU"
+videoLength: "08:35"
+---
+
+## Introduction to Using Slack for Access Workflows
+
+One of [Teleport's Features](/features/) is _Access Workflows_.
+Teleport allows users to request elevated privileges in the middle of their
+command-line sessions. Privilege elevation requests can be approved or denied
+via ChatOps in Slack or anywhere else via flexible Authorization Workflow API.
+
+This video shows how to configure Slack with the Approval Workflow - requesting access roles; setup integration between Teleport and Slack to provide role based [access requests](/features/access-requests/).
+
+Once you have completed this tutorial you will be able to:
+
+- Configure Request Roles
+- Provide Additional Role Access for the Developer
+- Configure Slack to Work with Teleport
+- Configure a Teleport Access Plugin User
+- Using Slack as Part of the Approval Process
+
+## Access Workflows
+
+**Steven:** Welcome to this [How Teleport Works](/how-it-works/) video, for using Slack with Access Workflows. Teleport is a simple, secure, access solution that developers use to remotely manage their cloud or edge environments through SSH or Kubernetes. (Read [How to ssh properly](https://goteleport.com/blog/how-to-ssh-properly/)).Using the approval flow, users can request roles for additional temporary access. The workflow API enables integrating with multiple tools such as Slack for approval/denial requests. Today with our example, we'll be using the roles dev, staging, and prod and a specific user developer that has access to dev and that can require staging and prod. Through Teleport and the Slack plugin, it'll be interacting with the Slack API, to allow remotely managing the approval or denial of requests.
+
+### Configuring Request Roles
+
+**Steven:** For our first step, let's take a look at the Teleport cluster and what roles and nodes are configured here. We're going to first go in as the admin user that has broad access to the nodes. We can see there are seven nodes including the Teleport, proxy, and auth. And let's take a look at how the roles are configured within this cluster. So we have dev, prod, staging, including admin within the dev role, we can see it has the tier dev node access as well as DB user and app user access for logins. Now let's take a look from the command line, for that developer user. We're going to log in as “developer”. And now we're going to take a look at what nodes are available, and as expected, it's the two nodes with the tier dev label. Now we're going to allow for requesting “staging” and “prod”. And then from tctl, we'll be able to approve or deny those requests.
+
+### Providing Additional Role Access for the Developer
+
+**Steven:** So let's take a look at the staging which — like dev — has a specific tier, staging. In terms of editing dev, we're now going to make it so that user is allowed to request accessing the roles of staging and prod. And we just have to add to the YAML here for requests. And we're going to put the roles of both staging and prod. Now the user from the command line is to request the role of staging — notice he has an ID waiting for the request. We're now going to go into the Teleport proxy and auth. Look at the requests that are listed. We can see his request here, and we're going to directly approve it through the tctl request. With tctl request, approve, and the ID. Now that we've approved it, we can see from the command line he has a new status. And you can also see the staging nodes as well as the dev, which he previously had. And now he can SSH into one of the staging nodes to access one of the Redis databases here.
+
+### Configuring Slack to Work with Teleport
+
+**Steven:** Now let's configure Slack to work with Teleport for approvals and dial. We'll be using a private channel for managing the requests. We'll configure Teleport app within the Slack API as well as a Teleport Slack Plugin. So within api.slack.com, we'll be adding a new Teleport app designated for a specific workspace that we have. Once we're in the app, we're going to go into the interactive components. And we're going to enable interactivity and repair requests URL. In this case, we're going to be using an individual machine “slackbot1” with this URL. We've now saved it and now we're going to add the OAuth permissions. In order for it to be allowed to interact, it'll need specific Scope permissions, so we're going to add that here in the OAuth Scope. First, we're going to add the webhook. We're then going to allow it — for the Slack Bot to write as messages as a Teleport user. We're also going to add some user's information for “users:read” and “users:read.emails”.
+
+**Steven:** Now we're also going to install the Teleport app into the workspace and designate it within that “teleport requests” private channel we've already set up. And now we're going to allow it. Before leaving the api.slack.com, we'll want to collect the OAuth access token and we'll also need some other information. We go to the basic information page. We can scroll down and there's a Signing Secret that will be used by the Teleport Slack plugin and copy-and-paste that somewhere secure. We'll also go to the “request private channel” and add the app, invite it to the channel, and it's now available in the channel and we'll be able to write here.
+
+### Configuring an Access Plugin User
+
+**Steven:** Within Teleport, we're now going to add the access plugin user that is used by the Teleport Slack plugin, as well as export certificate that'll be used to authenticate it. Now within the Teleport auth server, we'll be adding a role and the access plugin Slack user. We can do that through a single YAML file, pass it to tctl, it'll confirm, and created the user enroll. And now we're going to export the certificate. So now we have these three files, which we'll want to copy into the “slackbot” machine. Now we're gonna have a specific Teleport node used to run the Slack plugin, and we're gonna configure and start the plugin. So you can see we have our new “slackbot” Teleport node. We're gonna get the Teleport Slack plugin executable. We're going to install it, just as you would for Teleport. Now we want to configure it in “teleport-slack.toml” file. And we have a file that we'd already prepared, so let's take a look. We can see the auth server, the auth files we'd already seen, the values from Slack, the listener address `:443`, a certificate that we got from Letsencrypt, as those all log in. Now that we have all that configured, we can start in our “teleport-slack”.
+
+### Slack in Use as Part of the Approval Process
+
+**Steven:** Now let's see Slack in use as part of the approval process. The developer requests for roles, and we'll see the Teleport Slack plugin working. Again this developer has the dev role. He's script-requested staging and prod. We can see that here in Slack. And then we can approve. Once it's approved, we come back, and he now has that access. He can list the other nodes and now we can directly open SSH session into a prod database server. And now we can open up a Redis interaction, do whatever actions are needed, and close the session as well.
+
+### Walkthrough Recap
+
+**Steven:** Let's review what we've done: we've configured request roles, provided additional role access for the developer, we configured the Teleport application within the Slack API for the workspace, we configured an access plugin user, and now the Teleport Slack plugin can post and receive messages for approval or denial. All of these steps are available within our documentation at this URL. Thank you for joining us for “How to Use Slack with Approval Workflow in Teleport”.
+Please visit [goteleport.com](/) for more information on Teleport.
+
+Key links:
+
+- [Teleport Admin guide](/docs/admin-guide/)
+- [Teleport Slack Plugin Setup](/docs/enterprise/workflow/ssh-approval-slack/)

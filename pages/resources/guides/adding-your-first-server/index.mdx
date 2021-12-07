@@ -1,0 +1,26 @@
+---
+title: "Adding Your First Server to Teleport"
+alternateTitle: "Introduction to Adding Your First Server to Teleport"
+description: "Watch a quick walkthrough of how to add your first server to Teleport."
+layout: tutorial
+tutorialPublicationDate: "2021-05-20"
+videoId: "tUXYtwP-Kvw"
+videoLength: "02:48"
+---
+
+## Overview
+
+This video outlines steps for adding your first server to Teleport. [Learn more](/docs/server-access/getting-started/).
+
+## Adding Your First Server to Teleport
+
+**Ben:** I'm going to give you a tour on how to write your first server to Teleport and steps of getting tokens and automating setup. For new users, the easy way to get started is with our install script. This script will download Teleport, install it, and provide the initial setup and correct tokens. To get started, alt-click, add server using **Automatically**. I'll copy the snippet. I have a fresh EC2 host here, which I'm going to copy and paste it, and get it connected. Teleport is now installed to my box. Since I've added a EC2 host, I'll have to make sure that I have the correct principal on my role. AWS defaults to the ec2-user host, so I'm going to add that now. I can now use Teleport to access my host. Here, I'm accessing Teleport using the Web UI, but I could also use tsh, which is our command-line tool. Now I have a running node. Let's add a few labels to it. Labels can be added using Teleport [inaudible]. Now we've updated it. I'll restart the Teleport systemd process. These labels have now been updated. You can use these to learn more about the servers and also combine them with RBAC rules to limit access to specific hosts. Now we've added one server. Let's add more.
+
+**Ben:** To take this further, we'll dive into what you need to run servers at scale. This will ultimately depend upon how you roll out your infrastructure and automation, but at a high level, there are two core components. First, you need to install Teleport on the host. We have a range of options for downloading and installing Teleport. You can visit our downloads page, but you can also use our Dev or RMP repos to set this up more easily. The next step is to make sure that these servers get enrolled in Teleport using an invite token. We recommend using short-lived join tokens. These are created using tctl. tctl is a powerful admin tool that can be used for administrative actions on the cluster. I'm going to create a new token.
+
+**Ben:** We recommend using short-lived join tokens, but to get started, I'll bump it to one year. This token can only be used for the initial join handshake with Teleport. Now Teleport is installed. We're going to start Teleport with this join token. You can now see that the second server has been added to Teleport. If you ever want to revoke a token, you can use tctl again. First, let's see the tokens that are available using tctl ls. If you want to remove that token, you can just use tctl rm and select the token. These steps should be enough to get you started. Thanks for watching. And if you have any questions, please reach out to us on our discussion forum.
+
+Key links:
+
+- [Server Access](/docs/server-access/introduction/)
+- [Getting Started guide](/docs/server-access/getting-started/)

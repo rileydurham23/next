@@ -1,0 +1,23 @@
+---
+title: "Adding Your First Kubernetes Cluster to Teleport"
+description: "Ben Arent shows you how to add your first Kubernetes cluster to Teleport."
+layout: tutorial
+tutorialPublicationDate: "2021-05-20"
+videoId: "2diX_UAmJ1c"
+videoLength: "02:53"
+---
+
+## Overview
+
+Teleport allows engineers and security professionals to unify access for SSH servers, Kubernetes clusters, web applications, and databases across all environments. [Learn more](/docs/).
+
+## Adding Your First Kubernetes Cluster to Teleport
+
+**Ben:** I'm going to give a tour on how to connect your first Kubernetes cluster to Teleport. As of Teleport 6.2, all actions will be completed in the terminal. Before you get started, you should have installed Teleport. We're going to be using our Helm chart, teleport-kube-agent, which will connect the external Kubernetes clusters to Teleport. To get started, I'm going to login to Teleport and then my password and second factor. I'm now connected to my Teleport Cloud instance. Next up, I'm going to be using tctl to create a Kubernetes invite token. I create it, --type=kube, and I make sure that the ttl is valid for 8,760 hours, which is one year. Let me copy that token. After I have this token, I'm going to base64 encode it and add it to a Kubernetes Secrets. This is going to be used to securely access my Kubernetes cluster when I set up the Helm chart. I'm exporting my base64-encoded token and a few other required namespaces for Teleport, the name of my Kubernetes cluster, and last up the proxy endpoint, which is acme-demo.teleport.ssh:443.
+
+**Ben:** Next up, I apply the new secrets file that's been created. I now install the Helm chart. You can see that it's now been deployed. Now that Teleport is installed, I can use tsh kube ls to find the instance. You can see acme_k8s is listed. I'm now going to login using tsh kube login. And now I can use my kubectl commands that I would normally. Let's try and deploy an instance in the pod. I'm having an issue that I can't connect. This is because my current access role hasn't given me the correct group. I'm going to now add it to my Kubernetes group now, picking the system:masters superadmin role. Going back to my terminal, I can tsh kube ls again, and then I'm going to login to the acme_k8s cluster. Now I'm able to use kubectl to access all of my resources. All of these are recorded using Teleport, and you can play back the sessions that happened and have full order log of events. Thank you for watching. If you have any questions, please leave a comment in our discussions forum.
+
+Key links:
+
+- [Kubernetes Access](/docs/kubernetes-access/introduction/)
+- [Getting Started guide](/docs/kubernetes-access/getting-started/)

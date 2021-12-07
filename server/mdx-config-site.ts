@@ -22,6 +22,7 @@ const config: MdxConfig = {
           howItWorks: "layouts/HowItWorksPage",
           events: "layouts/EventsPage",
           podcast: "layouts/PodcastPage",
+          tutorial: "layouts/TutorialPage",
           press: "layouts/PressPage",
         },
         defaultLayout: "layouts/SitePage",

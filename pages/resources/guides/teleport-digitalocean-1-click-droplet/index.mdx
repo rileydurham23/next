@@ -1,0 +1,29 @@
+---
+title: "Teleport DigitalOcean 1-Click Droplet"
+alternateTitle: "Getting Started with Teleport DigitalOcean 1-Click Droplet"
+description: "Sakshyam Shah, in this brief demo, shows you how to protect access to your droplets using Teleport."
+layout: tutorial
+tutorialPublicationDate: "2021-10-21"
+videoId: "voHQlSX_czE"
+videoLength: "05:36"
+---
+
+## Overview
+
+Protect SSH access to your droplets, web access to 1-click droplet apps, web access to 1-click Kubernetes apps, and database access to self-hosted MySQL, PostgreSQL, and MongoDB with Teleport Community Edition.
+
+[Learn more](https://marketplace.digitalocean.com/).
+
+## Getting Started with Teleport DigitalOcean 1-Click Droplet
+
+**Sakshyam:** Hi. This tutorial explains getting started with Teleport 1-Click Droplet App. That is available in DigitalOcean Marketplace. Teleport allows engineers and security professionals to unify access for SSH servers, Kubernetes clusters, web applications, and databases across all environments. If you're looking for a custom or manual installation, check out our Teleport installation page at goteleport.com/docs/installation. Before you begin with Teleport installation, make sure you are ready with a cluster name. A cluster name should be a fully qualified domain name. Next, you'll need an email address to fetch a TLS certificate from Let's Encrypt, a username to be used as Teleport account, and a two-factor authentication app. The Setup Wizard will ask for these values to configure Teleport accounts for you. For this tutorial, I'm using a domain name, teleporters.dev, and its DNS is managed with Cloudflare. Now let's create a droplet. I am selecting the smallest droplet size as Teleport is very efficient on server resources. I'm selecting Singapore as my data center region, selecting SSH keys as authentication method. Trimmed down the hostname to “teleport” so it's easier to reference. Okay. Depending on the production use case, you may require to select a bigger droplet size. Now our droplet is ready. We'll use this IP address to update our DNS record. Add a new A record with subdomain dodemo, paste the IP address, go no to proxy, and save. Now we'll SSH to our instance.
+
+**Sakshyam:** Yes. Okay. The Setup Wizard has started. So we'll enter our cluster name. That is dodemo.teleporters.dev that we configured earlier. Then it will ask for email address, s.shah@goteleport.com, a username, so I will be using tadmin. Now the Setup Wizard is taking all the inputs and automatically configuring Teleport for you. Okay. The Wizard is done. Now the final step is required to complete user setup process. We'll open this link. And open it in browser where we'll be setting up password and two-factor authentication for the user account. So scan the QR code with two-factor authentication app, and then set password and TOTP code to create an account. Okay. Our account is created, and as you can see, we have logged inside Teleport UI. Teleport primary server or the droplet we've created is already enrolled inside the servers, and you can access the server from this UI. So on the top right, we have user account settings. On the left, we have UI menus where you can view activities, manage teams and clusters. So let's connect to the one server. This is the primary server where Teleport is installed. Okay. `teleport version`, `teleport.service` status. This is just a demo that you can SSH from the web UI and browser itself.
+
+**Sakshyam:** Okay. So this is just a quick demo of the Teleport web UI. To go further from here, please do check out our [documentation](/docs/) page and learn how to do server access, [application access](/docs/application-access/introduction/), [Kubernetes access](/docs/kubernetes-access/introduction/), and [database access](/docs/database-access/introduction/) using Teleport. If you need any help, make sure to ping our community portal or Slack channel, or check out GitHub for open issues and discussions. So that's it for this tutorial. Happy Teleporting. Good day.
+
+Key links:
+
+- [How Teleport works](/how-it-works/)
+- [Documentation](/docs/)
+- [Admin manual](/docs/admin-guide/)

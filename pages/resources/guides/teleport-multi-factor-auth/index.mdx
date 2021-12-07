@@ -1,0 +1,17 @@
+---
+title: "Teleport Multi-Factor Authentication"
+alternateTitle: "Introducing Teleport Multi-Factor Authentication"
+description: "Ben Arent introduces Teleport's additional second-factor authentication."
+layout: tutorial
+tutorialPublicationDate: "2021-04-28"
+videoId: "j8Ze7HhjFGw"
+videoLength: "01:28"
+---
+
+## Overview
+
+This video introduces Teleport's [additional second-factor authentication](/docs/access-controls/guides/u2f/).
+
+**Ben:** Introducing Teleport's additional second-factor authentication. Teleport uses identity providers such as Google Workspaces, Active Directory, or your own SAML or RODC provider combined with Teleport roles to provide fine-grained access. As new team members join, they can be added to external groups, and these can be easily mapped to Teleport roles. Creating rules such as engineers can only obtain a four-hour certificate for access vs. forty-eight hours for the SRE team. Many IDPs let teams set up best practices for securing accounts such as requiring a second factor, but sometimes that's not enough.
+
+**Ben:** Teleport 6.1 lets you add another layer of protection by requiring users to present a hardware token when starting a new SSH or Kubernetes session. By using a hardware token, theft of credentials becomes much harder. These policies can be enforced by the OPS team without having to get buy-in from IT. As I start a new session, it will require me to tap my YubiKey. Teams can set up this feature to use both hardware and software tokens. Teleport supports all major hardware tokens such as Yubikeys, SoloKeys, or Titan tokens. You can even limit to a specific provider requiring FIPS certified keys and even keys only issued by one company. Teleport supports all software token apps and can be used with Google Authenticator, Authy, or many of the OTP applications. Thanks for watching. Per-session MFA is available in both Enterprise and are open-source edition.

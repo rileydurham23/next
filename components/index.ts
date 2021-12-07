@@ -75,4 +75,5 @@ export { default as TerminalAnimation } from "components/TerminalAnimation";
 export { default as TryTeleport } from "components/TryTeleport";
 export { default as Video } from "components/Video";
 export { default as VideoBanner } from "components/VideoBanner";
+export { default as VideoColumn } from "components/VideoColumn";
 export { default as WorksWith } from "components/WorksWith";
