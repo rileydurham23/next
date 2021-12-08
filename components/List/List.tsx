@@ -9,6 +9,7 @@ import Icon, { IconName } from "components/Icon";
 import { Centrator } from "components/Layout";
 import terminalUrl from "./assets/terminal.png";
 import waveUrl from "./assets/wave.png";
+import AvatarItem from "./AvatarItem";
 
 const fourUpBg = "transparent";
 const waveBg = `url(${waveUrl}) -477px 73px no-repeat`;
@@ -111,6 +112,7 @@ export function ListItem({
 }
 
 List.Item = ListItem;
+List.AvatarItem = AvatarItem;
 
 export default List;
 
@@ -124,7 +126,7 @@ const StyledIconWrapper = styled(Icon)(
 );
 
 interface WrapperProps extends StyledSystemProps {
-  size?: Size | Size[];
+  size?: Size | Size[] | "avatar";
 }
 
 const StyledItemTitle = styled("h3")<WrapperProps>(
@@ -135,7 +137,7 @@ const StyledItemTitle = styled("h3")<WrapperProps>(
     py: 1,
     mt: 0,
     mb: 3,
-    ml: "52px",
+    ml: 52,
   }),
   variant({
     prop: "size",
@@ -155,7 +157,7 @@ const StyledContentWrapper = styled("div")<WrapperProps>(
     fontSize: "text-lg",
     lineHeight: "28px",
     color: "darkest",
-    ml: "52px",
+    ml: 52,
   }),
   variant({
     prop: "size",
@@ -230,6 +232,9 @@ const StyledUL = styled("ul")<ULProps>(
           pl: 6,
           [`${StyledContentWrapper}`]: { ml: 0 },
         },
+      },
+      avatar: {
+        maxWidth: ["100%", "100%", "68%"],
       },
     },
   })

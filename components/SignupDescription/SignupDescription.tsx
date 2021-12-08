@@ -4,7 +4,7 @@ import Flex from "components/Flex";
 import Video from "components/Video";
 
 export type Props = {
-  video: string;
+  video?: string;
   description: string;
   children: ReactNode;
 };
@@ -13,6 +13,7 @@ export default function SignupDescription({
   video,
   description,
   children,
+  ...props
 }: Props) {
   return (
     <Flex
@@ -21,7 +22,7 @@ export default function SignupDescription({
       flexDirection="column"
       alignItems={["stretch", "center", "flex-start"]}
     >
-      <Video videoId={video} width={640} height={360} mt="4" />
+      {video && <Video videoId={video} width={640} height={360} mt="4" />}
       <Box position={["static", "static", "absolute"]} right="0" top="0" my="4">
         {children}
       </Box>
@@ -29,6 +30,7 @@ export default function SignupDescription({
       <Box
         as="p"
         text="text-lg"
+        {...props}
         mt="3"
         alignSelf="flex-start"
         width={["100%", "80%", "50%"]}
