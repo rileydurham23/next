@@ -97,7 +97,7 @@ const WWDefault = (
       <LogoBoxImage name="windows2021">Windows</LogoBoxImage>
       <LogoBoxImage name="chef">Chef</LogoBoxImage>
       <LogoBoxImage name="okta">Okta</LogoBoxImage>
-      <LogoBoxImage name="windows2021">Active Directory</LogoBoxImage>
+      <LogoBoxImage name="windows">Active Directory</LogoBoxImage>
     </LogoBoxRow>
     <LogoBoxRow>
       <LogoBoxImage name="puppet">Puppet</LogoBoxImage>
