@@ -24,7 +24,10 @@ export const Details = ({
   min,
   children,
 }: DetailsProps) => {
-  const { scope: currentScope, isCurrentVersion } = useContext(DocsContext);
+  const {
+    scope: currentScope,
+    versions: { current, latest },
+  } = useContext(DocsContext);
   const scopes = useMemo(() => getScopes(scope), [scope]);
   const [isOpened, setIsOpened] = useState<boolean>(Boolean(opened));
   const isInCurrentScope = scopes.includes(currentScope);
@@ -35,7 +38,7 @@ export const Details = ({
     }
   }, [scopes, isInCurrentScope]);
 
-  const isCloudAndNotCurrent = scopes.includes("cloud") && !isCurrentVersion;
+  const isCloudAndNotCurrent = scopes.includes("cloud") && current !== latest;
   const isHiddenInCurrentScope = scopeOnly && !isInCurrentScope;
   const isHidden = isCloudAndNotCurrent || isHiddenInCurrentScope;
 

@@ -1,5 +1,6 @@
 import Admonition from "components/Admonition";
 import Command from "components/Command";
+import BaseLink from "components/Link";
 import Notice from "components/Notice";
 import Snippet from "components/Snippet";
 import { Tabs, TabItem } from "components/Tabs";
@@ -34,11 +35,10 @@ import {
   IFrame,
   Pre,
 } from "components/MDX";
-import { DocsLink } from "./DocsLink";
 
 export const components = {
   a: function Link(props) {
-    return <DocsLink {...props} scheme="docs" />;
+    return <BaseLink {...props} scheme="docs" />;
   },
   code: Code,
   inlineCode: Code,

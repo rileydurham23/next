@@ -13,6 +13,7 @@ export interface HeadProps {
   image?: string;
   description?: string;
   titleSuffix?: string;
+  url?: string;
   noIndex?: boolean;
 }
 
@@ -21,10 +22,11 @@ const Head = ({
   description: propsDescription,
   title: propsTitle,
   titleSuffix,
+  url: propsUrl,
   noIndex,
 }: HeadProps) => {
   const router = useRouter();
-  const url = buildCanonicalUrl(router.asPath);
+  const url = buildCanonicalUrl(propsUrl || router.asPath);
   const title = formatTitle(titleSuffix, propsTitle);
   const description = propsDescription || "";
 

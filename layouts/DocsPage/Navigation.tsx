@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import css from "@styled-system/css";
@@ -9,10 +8,8 @@ import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 import Search from "components/Search";
 import Icon from "components/Icon";
-import { DocsLink } from "./DocsLink";
+import Link, { useCurrentHref } from "components/Link";
 import { NavigationItem, NavigationCategory } from "./types";
-import { getDocPath } from "utils/url";
-
 interface DocsNavigationItemsProps {
   entries: NavigationItem[];
   onClick: () => void;
@@ -22,15 +19,15 @@ const DocsNavigationItems = ({
   entries,
   onClick,
 }: DocsNavigationItemsProps) => {
-  const router = useRouter();
+  const docPath = useCurrentHref();
 
   return (
     <>
       {!!entries.length &&
         entries.map((entry) => {
-          const entryActive = entry.slug === getDocPath(router.asPath);
+          const entryActive = entry.slug === docPath;
           const childrenActive = entry.entries?.some(
-            (entry) => entry.slug === getDocPath(router.asPath)
+            (entry) => entry.slug === docPath
           );
 
           return (
@@ -136,8 +133,7 @@ const DocNavigation = ({
   section,
   currentVersion,
 }: DocNavigationProps) => {
-  const router = useRouter();
-  const route = getDocPath(router.asPath);
+  const route = useCurrentHref();
 
   const [openedId, setOpenedId] = useState<number>(
     getCurrentCategoryIndex(data, route)
@@ -234,7 +230,7 @@ const CategoryButton = styled(HeadlessButton)(
     })
 );
 
-const NavigationLink = styled(DocsLink)(
+const NavigationLink = styled(Link)(
   ({ active, isSelected }: { active?: boolean; isSelected?: boolean }) =>
     css({
       position: "relative",

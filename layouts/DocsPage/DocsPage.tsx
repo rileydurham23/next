@@ -51,14 +51,13 @@ const DocsPage = ({
   children,
 }: DocsPageProps) => {
   const router = useRouter();
-  const { setIsCurrentVersion, setVersion } = useContext(DocsContext);
+  const { setVersions } = useContext(DocsContext);
 
   const { current, latest, available } = versions;
 
   useEffect(() => {
-    setIsCurrentVersion(current === latest);
-    setVersion(current);
-  }, [current, latest, setIsCurrentVersion, setVersion]);
+    setVersions(versions);
+  }, [versions, setVersions]);
 
   const isSectionLayout = layout === "section";
   const isTocVisible = !layout || layout === "doc";

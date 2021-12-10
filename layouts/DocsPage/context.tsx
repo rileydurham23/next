@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { createContext, useState, useEffect } from "react";
-import { splitAsPath, buildAsPath } from "utils/url";
+import { splitPath, buildPath } from "utils/url";
+import { VersionsInfo } from "./types";
 
 const scopeValues = ["oss", "cloud", "enterprise"] as const;
 
@@ -18,7 +19,7 @@ export const getScopes = (scope?: ScopeType | ScopeType[]) => {
 };
 
 export const getScopeFromUrl = (asPath: string): ScopeType => {
-  const { query } = splitAsPath(asPath);
+  const { query } = splitPath(asPath);
 
   const scope = query.scope as ScopeType;
 
@@ -26,7 +27,7 @@ export const getScopeFromUrl = (asPath: string): ScopeType => {
 };
 
 export const updateScopeInUrl = (asPath: string, scope: ScopeType): string => {
-  const urlParts = splitAsPath(asPath);
+  const urlParts = splitPath(asPath);
 
   if (scope === "oss") {
     if (urlParts.query.scope) {
@@ -36,25 +37,27 @@ export const updateScopeInUrl = (asPath: string, scope: ScopeType): string => {
     urlParts.query.scope = scope;
   }
 
-  return buildAsPath(urlParts);
+  return buildPath(urlParts);
 };
 
 export interface DocsContextProps {
   scope: ScopeType;
   setScope: (scope: ScopeType) => void;
-  isCurrentVersion: boolean;
-  setIsCurrentVersion: (isCurrentVersion: boolean) => void;
-  version: string;
-  setVersion: (version: string) => void;
+  versions: VersionsInfo;
+  setVersions: (version: VersionsInfo) => void;
 }
+
+const defaultVersions = {
+  latest: process.env.DOCS_LATEST_VERSION,
+  current: "",
+  available: [],
+};
 
 export const DocsContext = createContext<DocsContextProps>({
   scope: "oss",
   setScope: () => undefined,
-  isCurrentVersion: true,
-  setIsCurrentVersion: () => undefined,
-  version: "",
-  setVersion: () => undefined,
+  versions: defaultVersions,
+  setVersions: () => undefined,
 });
 
 interface DocsContextProviderProps {
@@ -63,23 +66,25 @@ interface DocsContextProviderProps {
 
 export const DocsContextProvider = ({ children }: DocsContextProviderProps) => {
   const router = useRouter();
+  const current = router.asPath.startsWith("/docs/ver/")
+    ? router.asPath.split("/")[3]
+    : "";
 
   const urlScope = getScopeFromUrl(router.asPath);
   const [ready, setReady] = useState<boolean>(false);
   const [scope, setScope] = useState<ScopeType>("oss");
-  const [isCurrentVersion, setIsCurrentVersion] = useState<boolean>(false);
-  const [version, setVersion] = useState<string>("");
+  const [versions, setVersions] = useState<VersionsInfo>({
+    ...defaultVersions,
+    current,
+  });
 
   // We set these variables to prevent incosistency with ssr
   useEffect(() => {
     if (!ready) {
-      const { path } = splitAsPath(router.asPath);
-
       setScope(urlScope);
-      setIsCurrentVersion(!path.startsWith("/docs/ver/"));
       setReady(true);
     } else {
-      if (scope === "cloud" && !isCurrentVersion) {
+      if (scope === "cloud" && versions.current !== versions.latest) {
         router.replace("/docs/?scope=cloud");
       } else if (scope !== urlScope) {
         router.replace(
@@ -89,17 +94,15 @@ export const DocsContextProvider = ({ children }: DocsContextProviderProps) => {
         );
       }
     }
-  }, [scope, ready, urlScope, router, isCurrentVersion]);
+  }, [scope, ready, urlScope, router, versions]);
 
   return (
     <DocsContext.Provider
       value={{
         scope,
         setScope,
-        isCurrentVersion,
-        setIsCurrentVersion,
-        version,
-        setVersion,
+        versions,
+        setVersions,
       }}
     >
       {children}

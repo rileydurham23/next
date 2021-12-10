@@ -1,15 +1,9 @@
-import { resolve } from "url";
 import styled from "styled-components";
 import { ComponentProps } from "react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import { useRouter } from "next/router";
-import {
-  isHash,
-  isExternalLink,
-  getDocPath,
-  isLocalAssetFile,
-} from "utils/url";
+import { isHash, isExternalLink, isLocalAssetFile } from "utils/url";
 import { all, variant, transition, StyledSystemProps } from "components/system";
+import { useNormalizedHref } from "./hooks";
 
 const BaseLink = styled("a")<StyledSystemProps>(
   {
@@ -98,23 +92,22 @@ const Link = ({
   locale,
   ...linkProps
 }: LinkProps) => {
-  const router = useRouter();
+  const normalizedHref = useNormalizedHref(href);
 
   if (
-    /\/assets\//.test(href) ||
     passthrough ||
-    (typeof href === "string" && isHash(href)) ||
-    isLocalAssetFile(href)
+    isHash(normalizedHref) ||
+    isLocalAssetFile(normalizedHref)
   ) {
     return (
-      <BaseLink href={href} {...linkProps}>
+      <BaseLink href={normalizedHref} {...linkProps}>
         {children}
       </BaseLink>
     );
-  } else if (typeof href === "string" && isExternalLink(href)) {
+  } else if (isExternalLink(normalizedHref)) {
     return (
       <BaseLink
-        href={href}
+        href={normalizedHref}
         target="_blank"
         rel="noopener noreferrer"
         {...linkProps}
@@ -125,7 +118,7 @@ const Link = ({
   }
 
   const nextProps: NextLinkProps = {
-    href: resolve(getDocPath(router.asPath), href),
+    href: normalizedHref,
     as,
     replace,
     scroll,

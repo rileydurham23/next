@@ -5,6 +5,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 const mdxSiteOptions = require("./.build/server/mdx-config-site");
 const mdxDocsOptions = require("./.build/server/mdx-config-docs");
+const { loadSiteConfig } = require("./.build/server/config");
 const {
   getRedirects,
   getLatestVersionRewirites,
@@ -12,6 +13,7 @@ const {
   generateFullSitemap,
 } = require("./.build/server/paths");
 
+const { latest } = loadSiteConfig();
 const PAGES_DIRECTORY = resolve(__dirname, "pages");
 const CONTENT_DIRECTORY = resolve(__dirname, "content");
 
@@ -25,6 +27,9 @@ module.exports = withBundleAnalyzer({
     domains: ["i.ytimg.com"],
   },
   trailingSlash: true,
+  env: {
+    DOCS_LATEST_VERSION: latest,
+  },
   webpack: (config, options) => {
     if (!options.dev) {
       generateSitemap();

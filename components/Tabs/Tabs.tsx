@@ -68,7 +68,10 @@ export interface TabsProps {
 }
 
 export const Tabs = ({ children }: TabsProps) => {
-  const { scope, isCurrentVersion } = useContext(DocsContext);
+  const {
+    scope,
+    versions: { latest, current },
+  } = useContext(DocsContext);
 
   const childTabs = useMemo(
     () =>
@@ -126,7 +129,7 @@ export const Tabs = ({ children }: TabsProps) => {
             key={tab.props.label}
             display={tab.props.label === currentLabel ? "block" : "none"}
           >
-            {tab.props.scope === "cloud" && !isCurrentVersion ? (
+            {tab.props.scope === "cloud" && latest !== current ? (
               <TabItem label={tab.props.label}>
                 <VersionWarning />
               </TabItem>
