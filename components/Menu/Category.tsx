@@ -3,6 +3,7 @@ import { useClickAway } from "react-use";
 import { useCallback, useRef } from "react";
 import { css, media, transition } from "components/system";
 import Box from "components/Box";
+import Flex from "components/Flex";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -61,11 +62,10 @@ const MenuCategory = ({
         <Box
           display={opened ? "block" : "none"}
           left={0}
-          ml={[0, "-80px"]}
+          ml={0}
           position={["relative", "absolute"]}
           width={["100%", "auto"]}
           minWidth={[0, "540px"]}
-          top={[0, "80px"]}
           zIndex={3000}
         >
           {children && (
@@ -86,12 +86,14 @@ const MainLink = styled("a")(({ active }: { active: boolean }) => [
     boxSizing: "border-box",
     color: active ? "dark-purple" : "darkest",
     cursor: "pointer",
-    display: "block",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     fontSize: "15px",
     bg: active ? "rgba(240, 242, 244, 0.56)" : "transparent",
     fontWeight: 500,
-    float: "left",
-    lineHeight: "80px",
+    height: "80px",
     outline: "none",
     padding: "0 16px",
     position: "relative",

@@ -35,8 +35,8 @@ const HeaderCTA = () => {
         alignItems="center"
         justifyContent="flex-end"
         flexDirection={["column", "row"]}
+        flexShrink={0}
         mt={[5, 0]}
-        pr={[0, 3]}
         ml={[0, "auto"]}
         width={["100%", "auto"]}
       >
