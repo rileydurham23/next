@@ -85,7 +85,7 @@ Being a security company themselves, they certainly had the resources to build t
 
 ## Implementation
 ### A Single Proxy
-Cloud [rejects](/resources/white-papers/environment-free-computing/) the operating model of its predecessor, client-server, but still carries its baggage. For the longest time, co-located engineers and machines put remote access protocols out of mind. But now, employees at home had to deal with thousands of ephemeral environments, each with their own special way of connecting over TCP/UDP. Unable to communicate with each other, they performed variants of the same authentication and authorization process in parallel.
+Cloud rejects the operating model of its predecessor, client-server, but still carries its baggage. For the longest time, co-located engineers and machines put remote access protocols out of mind. But now, employees at home had to deal with thousands of ephemeral environments, each with their own special way of connecting over TCP/UDP. Unable to communicate with each other, they performed variants of the same authentication and authorization process in parallel.
 
 With Teleport, ExtraHop routed all traffic through a proxy — a universal port of entry that accepted all forms of credentials. Each kubectl command and ssh connection request gets routed through a proxy service, hosted on their bastion server in front of a VPC. The proxy gates all requests, regardless of what the resource is — in this case, Kubernetes and servers, but can also include [databases](/docs/database-access/) and [web applications](/docs/application-access/). Placed between the client and machine, the Teleport proxy authenticates and authorizes each user in a manner that removes its dependency on the remote protocol in use.
 <Figure
