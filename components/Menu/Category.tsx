@@ -3,7 +3,7 @@ import { useClickAway } from "react-use";
 import { useCallback, useRef } from "react";
 import { css, media, transition } from "components/system";
 import Box from "components/Box";
-import Flex from "components/Flex";
+
 import {
   DropdownMenu,
   DropdownMenuItem,

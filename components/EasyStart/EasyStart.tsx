@@ -8,10 +8,18 @@ import Box from "components/Box";
 import Button from "components/Button";
 
 export interface EasyStartProps {
+  description: string;
+  listDescription: string;
+  listItems: string[] | React.ReactNode[];
   children: React.ReactNode;
 }
 
-export const EasyStart = ({ children }: EasyStartProps) => {
+export const EasyStart = ({
+  description,
+  listDescription,
+  listItems,
+  children,
+}: EasyStartProps) => {
   return (
     <Section bg="wavelight">
       <Centrator>
@@ -41,8 +49,7 @@ export const EasyStart = ({ children }: EasyStartProps) => {
               lineHeight="lg"
               mb={[0, 3]}
             >
-              Teleport is easy to deploy and use. We believe that simplicity and
-              good user experience are key to first-class security.
+              {description}
             </Box>
           </Flex>
           <Flex flexDirection={["column", "row"]}>
@@ -60,17 +67,12 @@ export const EasyStart = ({ children }: EasyStartProps) => {
                 fontWeight="bold"
                 mt={[3, 0]}
               >
-                Teleport consists of just two binaries.
+                {listDescription}
               </Box>
               <StyledOL>
-                <li>
-                  The <code>tsh</code> client allows users to login to retrieve
-                  short-lived certifcates.
-                </li>
-                <li>
-                  The <code>teleport</code> agent can be installed on any server
-                  or any Kubernetes cluster with a single command.
-                </li>
+                {listItems.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </StyledOL>
               <Button
                 as={Link}
