@@ -8,3 +8,4 @@ export { default as audit } from "./audit-bg.svg";
 export { default as purple } from "./purple-bg.png";
 export { default as orange } from "./orange-bg.png";
 export { default as blue } from "./blue-bg.png";
+export { default as article } from "./featured-article.png";

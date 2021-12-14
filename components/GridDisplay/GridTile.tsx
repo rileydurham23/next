@@ -12,6 +12,7 @@ import {
   webinar,
   podcast,
   audit,
+  article,
 } from "./assets";
 
 /**
@@ -33,12 +34,13 @@ import {
 export interface GridTileProps {
   children: React.ReactNode;
   title: string;
-  src: string;
   href: string;
   cardBG: string;
+  src?: string;
   smallIcon?: boolean;
   caption?: string;
   cardBC?: string;
+  bhColor?: string;
   needDescriptionMargin?: boolean;
 }
 
@@ -50,6 +52,7 @@ const cardBackgrounds = {
   webinar,
   podcast,
   audit,
+  article,
 };
 
 export const GridTile = ({
@@ -61,48 +64,53 @@ export const GridTile = ({
   smallIcon = false,
   caption,
   cardBC,
-  needDescriptionMargin = Boolean(href),
+  bhColor,
+  needDescriptionMargin = Boolean(href) && Boolean(src),
   ...props
 }: GridTileProps & BoxProps) => {
   //add additional backgrounds to cardBackgrounds
   const backgroundImage = cardBackgrounds[cardBG];
+  const isArticle = cardBG === "article";
 
   return (
     <StyledWrapper href={href} {...props}>
       {/* top half */}
       <Flex
         flexDirection="row"
-        py={3}
+        pt={src ? 3 : "120px"}
+        pb={3}
         px={4}
         backgroundImage={`url("${backgroundImage}")`}
         backgroundPosition="center"
-        backgroundSize="cover"
+        backgroundSize={isArticle ? "auto 100%" : "cover"}
+        backgroundRepeat="no-repeat"
         borderRadius="8px 8px 0 0"
         backgroundColor={cardBC}
       >
-        {!smallIcon ? (
-          <NextImage src={src} alt={title} height={193} width={282} />
-        ) : (
-          <Flex
-            flexDirection="row"
-            alignItems="center"
-            height={140}
-            justifyContent="flex-start"
-          >
-            <NextImage src={src} alt={title} height={32} width={32} />
-            {caption && (
-              <Box
-                as="p"
-                color="white"
-                fontWeight="bold"
-                fontSize="header-3"
-                pl={2}
-              >
-                {caption}
-              </Box>
-            )}
-          </Flex>
-        )}
+        {src &&
+          (!smallIcon ? (
+            <NextImage src={src} alt={title} height={193} width={282} />
+          ) : (
+            <Flex
+              flexDirection="row"
+              alignItems="center"
+              height={140}
+              justifyContent="flex-start"
+            >
+              <NextImage src={src} alt={title} height={32} width={32} />
+              {caption && (
+                <Box
+                  as="p"
+                  color="white"
+                  fontWeight="bold"
+                  fontSize="header-3"
+                  pl={2}
+                >
+                  {caption}
+                </Box>
+              )}
+            </Flex>
+          ))}
       </Flex>
 
       {/* bottom half */}
@@ -114,6 +122,7 @@ export const GridTile = ({
         pt={3}
         px={4}
         borderRadius="0 0 8px 8px"
+        backgroundColor={bhColor}
       >
         <Box
           as="p"

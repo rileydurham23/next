@@ -1,10 +1,24 @@
+import { Fragment } from "react";
+import styled from "styled-components";
+import { css, all, transition } from "components/system";
 import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
-import css from "@styled-system/css";
+import Section from "components/Section";
 import { RecaptchaTOC } from "components/MarketoForm";
 import { useNewsletter } from "./useNewsletter";
 
-const SubscriptionForm = () => {
+const labelObject = {
+  as: "label",
+  htmlFor: "email",
+  textTransform: "uppercase",
+  width: "100%",
+  text: "text-xs",
+};
+interface SubscriptionFormProps {
+  isViolet?: boolean;
+}
+
+const SubscriptionForm = ({ isViolet }: SubscriptionFormProps) => {
   const {
     disabled,
     UID,
@@ -16,78 +30,58 @@ const SubscriptionForm = () => {
     onChange,
     onSubmit,
   } = useNewsletter();
+  const WrapperInput = isViolet ? Box : Fragment;
+  const wrapperProps = isViolet ? labelObject : undefined;
 
   return disabled ? null : (
     <>
-      <Flex as="form" onSubmit={onSubmit} mt={[0, "19px"]}>
-        <Box
-          as="input"
-          type="email"
-          aria-required="true"
-          value={value}
-          placeholder="Email address"
-          disabled={submitting}
-          onChange={onChange}
-          borderTopLeftRadius="default"
-          borderBottomLeftRadius="default"
-          boxSizing="border-box"
-          border="1px solid"
-          borderColor="light-gray"
-          borderRight={0}
-          width="100%"
-          fontSize="text-xl"
-          px={2}
-          minHeight="40px"
-          css={css({
-            "&:focus": {
-              outline: "none",
-            },
-            "&::placeholder": {
-              fontSize: ["14px", "18px"],
-            },
-            "&:disabled": {
-              opacity: 0.5,
-            },
-          })}
-        />
-        <Box
+      <Flex
+        as="form"
+        onSubmit={onSubmit}
+        mt={isViolet ? [3, "19px"] : [0, "19px"]}
+      >
+        <WrapperInput {...wrapperProps}>
+          {isViolet && "Email address"}
+          <StyledInput
+            as="input"
+            type="email"
+            id="email"
+            aria-required="true"
+            value={value}
+            placeholder="Email address"
+            disabled={submitting}
+            onChange={onChange}
+            borderWidth={isViolet ? 0 : "1px"}
+            borderRightWidth={0}
+          />
+        </WrapperInput>
+        <StyledButton
           as="button"
           type="submit"
           disabled={submitting}
-          color="gray"
-          px={5}
-          bg="lightest-gray"
-          border="1px solid"
-          borderColor="light-gray"
-          borderTopRightRadius="default"
-          borderBottomRightRadius="default"
-          minHeight="40px"
-          textTransform="uppercase"
-          cursor="pointer"
-          flex="0 0 auto"
-          css={css({
-            "&:focus, &:hover": {
-              outline: "none",
-              bg: "light-gray",
-            },
-            "&::disabled": {
-              opacity: 0.5,
-              pointerEvents: "none",
-            },
-          })}
+          color={isViolet ? "dark-purple" : "gray"}
+          ml={isViolet ? 2 : 0}
+          px={isViolet ? [3, 5] : 5}
+          bg={isViolet ? "white" : "lightest-gray"}
+          alignSelf={isViolet ? "flex-end" : "auto"}
+          borderWidth={isViolet ? 0 : "1px"}
         >
           {buttonLabel}
-        </Box>
+        </StyledButton>
       </Flex>
       <Box
         color="gray"
         fontSize="text-sm"
+        lineHeight="12px"
         textAlign="center"
         mt={1}
         minHeight="15px"
       >
         {!submitted && !error && (
-          <Box visibility={value.length > 0 ? "visible" : "hidden"}>
+          <Box
+            visibility={value.length > 0 ? "visible" : "hidden"}
+            textAlign={isViolet ? "left" : "center"}
+          >
             <RecaptchaTOC />
           </Box>
         )}
@@ -128,3 +122,81 @@ export function EmailSubscribe({ ...props }: FlexProps) {
     </Flex>
   );
 }
+
+export function EmailSubscribeViolet({ ...props }: FlexProps) {
+  return (
+    <StyledSection bg="purple" {...props}>
+      <Box as="h2" text={["text-xl", "header-3"]}>
+        Teleport cybersecurity blog posts and tech news
+      </Box>
+      <Box as="p" text="text-md">
+        {
+          "Every other week we'll send a newsletter with the latest cybersecurity news and Teleport updates."
+        }
+      </Box>
+      <Box minHeight="40px">
+        <SubscriptionForm isViolet />
+      </Box>
+    </StyledSection>
+  );
+}
+
+const StyledInput = styled(Box)(
+  css({
+    boxSizing: "border-box",
+    minHeight: "40px",
+    width: "100%",
+    fontSize: "text-xl",
+    px: 2,
+    borderTopLeftRadius: "default",
+    borderBottomLeftRadius: "default",
+    borderStyle: " solid",
+    borderColor: "light-gray",
+    "&:focus": {
+      outline: "none",
+    },
+    "&::placeholder": {
+      fontSize: ["14px", "18px"],
+    },
+    "&:disabled": {
+      opacity: 0.5,
+    },
+  })
+);
+
+const StyledButton = styled(Box)(
+  css({
+    borderStyle: "solid",
+    borderColor: "light-gray",
+    borderTopRightRadius: "default",
+    borderBottomRightRadius: "default",
+    minHeight: "40px",
+    textTransform: "uppercase",
+    cursor: "pointer",
+    flex: "0 0 auto",
+    transition: transition([["backgroundColor", "interaction"]]),
+    "&:focus, &:hover": {
+      outline: "none",
+      backgroundColor: "light-gray",
+    },
+    "&::disabled": {
+      opacity: 0.5,
+      pointerEvents: "none",
+    },
+  })
+);
+
+const StyledSection = styled(Section)(
+  css({
+    display: "flex",
+    flexDirection: "column",
+    color: "white",
+    pt: [4, 3],
+    pb: [3, 4],
+    px: [4, 5],
+    mt: 6,
+    borderRadius: "16px",
+    boxShadow: "0 0 12px rgba(0, 0, 0, 0.32)",
+  }),
+  all
+);

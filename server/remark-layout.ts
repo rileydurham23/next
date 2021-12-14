@@ -16,6 +16,7 @@ type ExportTemplate = (metaKey: string) => string;
 
 interface LayoutOptions {
   path: string;
+  metaProcessor?: (meta: Meta) => Promise<Meta>;
   importTemplate?: ImportTemplate;
   exportTemplate?: ExportTemplate;
 }
@@ -46,6 +47,8 @@ export default function Wrapper (props) {
 };
 `;
 
+const defaultMetaProcessor = (meta: Meta) => Promise.resolve(meta);
+
 export default function remarkLayout({
   layouts = {},
   defaultLayout,
@@ -54,7 +57,6 @@ export default function remarkLayout({
   skipMeta = false,
   skipLayout = false,
   metaKey = "meta",
-  metaProcessor = (meta) => Promise.resolve(meta),
 }: RemarkLayoutOptions): Transformer {
   return async (root: MdxastRootNode) => {
     const node = find(root, (node: Node) => node.type === "yaml");
@@ -67,6 +69,11 @@ export default function remarkLayout({
 
     const layout =
       (meta.layout && layouts[meta.layout as string]) || defaultLayout;
+
+    const metaProcessor =
+      typeof layout !== "string" && layout.metaProcessor
+        ? layout.metaProcessor
+        : defaultMetaProcessor;
 
     if (!skipMeta) {
       root.children.push(

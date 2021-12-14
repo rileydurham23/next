@@ -37,10 +37,13 @@
     "pre-commit": "yarn lint-staged"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.5.0",
+    "@algolia/autocomplete-theme-classic": "^1.5.0",
     "@mdx-js/mdx": "^2.0.0-next.9",
     "@mdx-js/react": "^2.0.0-next.9",
     "@reach/listbox": "^0.16.2",
     "@styled-system/css": "^5.1.5",
+    "algoliasearch": "^4.11.0",
     "@types/hast": "^2.3.4",
     "date-fns": "^2.27.0",
     "docsearch.js": "^2.6.3",

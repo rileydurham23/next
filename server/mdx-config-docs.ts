@@ -39,17 +39,19 @@ const config: MdxConfig = {
     [
       remarkLayout,
       {
-        defaultLayout: "layouts/DocsPage",
-        defaultExportTemplate,
-        metaProcessor: async (config: Record<string, unknown>) => {
-          const { videoBanner } = config;
+        defaultLayout: {
+          path: "layouts/DocsPage",
+          metaProcessor: async (config: Record<string, unknown>) => {
+            const { videoBanner } = config;
 
-          if (typeof videoBanner === "string") {
-            config.videoBanner = await fetchVideoMeta(videoBanner);
-          }
+            if (typeof videoBanner === "string") {
+              config.videoBanner = await fetchVideoMeta(videoBanner);
+            }
 
-          return config;
+            return config;
+          },
         },
+        defaultExportTemplate,
       },
     ],
     remarkCodeSnippet,
