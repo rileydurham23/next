@@ -17,10 +17,24 @@ import {
 import { check, biometric, password } from "./assets";
 import { ApplicationLogosScreen } from "./ApplicationLogosScreen";
 import { JenkinsScreen } from "./JenkinsScreen";
+import { DesktopAccessScreen } from "./DesktopAccessScreen";
+import { WindowsScreen } from "./WindowsScreen";
 
-export const ApplicationBrowser = () => {
+export interface AnimationProps {
+  animationType: string;
+}
+
+export const ApplicationBrowser = ({ animationType }: AnimationProps) => {
   //sets the value of the password input field
   const [inputState, setInputState] = useState("");
+  const penultimateBanner = {
+    application: <ApplicationLogosScreen />,
+    desktop: <DesktopAccessScreen />,
+  };
+  const finalBanner = {
+    application: <JenkinsScreen />,
+    desktop: <WindowsScreen />,
+  };
 
   //sets the timing for the simulated password entry animation
   const enterPassword = () => {
@@ -133,12 +147,10 @@ export const ApplicationBrowser = () => {
             Authentication Successful
           </Box>
         </AnimatedAuthSuccessBanner>
-        <AnimatedApplicationsBanner>
-          <ApplicationLogosScreen />
-        </AnimatedApplicationsBanner>
-        <AnimatedJenkinsBanner>
-          <JenkinsScreen />
-        </AnimatedJenkinsBanner>
+        <AnimatedPenultimateBanner>
+          {penultimateBanner[animationType]}
+        </AnimatedPenultimateBanner>
+        <AnimatedFinalBanner>{finalBanner[animationType]}</AnimatedFinalBanner>
       </Flex>
     </ApplicationAnimationWrapper>
   );
@@ -207,14 +219,14 @@ const StyledFullWidthBanner = styled(Flex)(
   })
 );
 
-const AnimatedApplicationsBanner = styled(StyledFullWidthBanner)(
+const AnimatedPenultimateBanner = styled(StyledFullWidthBanner)(
   css({
     opacity: 0,
   }),
   styledCss`animation: 400ms linear 9.1s 1 normal forwards running ${fadeIn}, 50ms linear 11.1s 1 normal forwards running ${fadeOut};`
 );
 
-const AnimatedJenkinsBanner = styled(StyledFullWidthBanner)(
+const AnimatedFinalBanner = styled(StyledFullWidthBanner)(
   css({
     opacity: 0,
   }),

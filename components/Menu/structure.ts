@@ -3,6 +3,7 @@ import databaseSvgPath from "./assets/database.svg";
 import applicationSvgPath from "./assets/application.svg";
 import kubernetesSvgPath from "./assets/kubernetes.svg";
 import serverSvgPath from "./assets/server.svg";
+import desktopSvgPath from "./assets/desktop.svg";
 import featuresSvgPath from "./assets/features.svg";
 
 const menu: MenuCategoryProps[] = [
@@ -38,6 +39,13 @@ const menu: MenuCategoryProps[] = [
         description:
           "For PostgreSQL and MySQL databases behind NAT in multiple environments",
         href: "/database-access/",
+      },
+      {
+        image: desktopSvgPath,
+        title: "Teleport Desktop Access",
+        description:
+          "Securely access Windows servers and desktops in multiple environments.",
+        href: "/desktop-access/",
       },
       {
         image: featuresSvgPath,

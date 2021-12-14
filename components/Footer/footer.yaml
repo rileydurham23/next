@@ -21,6 +21,8 @@ launchpad:
         url: /database-access/
       - title: Teleport Application Access
         url: /application-access/
+      - title: Teleport Desktop Access
+        url: /desktop-access/
       - title: Teleport Features
         url: /features/
       - title: Teleport Pricing
