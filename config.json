@@ -22,11 +22,15 @@
     },
     {
       "name": "7.0",
-      "branch": "branch/v7",
-      "latest": true
+      "branch": "branch/v7"
     },
     {
       "name": "8.0",
+      "branch": "branch/v8",
+      "latest": true
+    },
+    {
+      "name": "9.0",
       "branch": "master"
     }
   ],
