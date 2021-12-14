@@ -18,6 +18,7 @@ interface Props {
     headerMode?: HeaderMode;
     headerBehaviour?: HeaderBehaviour;
     headerColor?: string;
+    previewImage?: string;
     border?: string;
     shadow?: boolean;
   };
@@ -31,7 +32,11 @@ export default function SitePage({ meta, children }: Props) {
 
   return (
     <>
-      <Head title={meta.title} description={meta.description} />
+      <Head
+        image={meta.previewImage}
+        title={meta.title}
+        description={meta.description}
+      />
       <Layout
         mode={headerMode}
         background={meta.hideWave ? "none" : background}

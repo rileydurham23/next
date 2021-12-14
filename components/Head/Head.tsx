@@ -29,7 +29,6 @@ const Head = ({
   const url = buildCanonicalUrl(propsUrl || router.asPath);
   const title = formatTitle(titleSuffix, propsTitle);
   const description = propsDescription || "";
-
   return (
     <NextHead>
       <title>{title}</title>

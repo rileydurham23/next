@@ -1,18 +1,29 @@
 import Box from "components/Box";
+import Button from "components/Button";
 import Flex from "components/Flex";
 import Image from "components/Image";
+import Link from "components/Link";
 import { Centrator } from "components/Layout";
 import { MarketoBrowserForm } from "components/MarketoForm";
 import shadowBg from "./assets/shadow.png";
 
 export interface BookBlockProps {
   children: React.ReactNode;
-  formId: string;
+  formId?: string;
+  pdfSource?: string;
+  emailNotRequiredForDownload: boolean;
   src: string;
   title: string;
 }
 
-export const BookBlock = ({ children, title, src, formId }: BookBlockProps) => {
+export const BookBlock = ({
+  children,
+  emailNotRequiredForDownload,
+  pdfSource,
+  title,
+  src,
+  formId,
+}: BookBlockProps) => {
   return (
     <Flex
       borderBottom="1px solid"
@@ -37,9 +48,25 @@ export const BookBlock = ({ children, title, src, formId }: BookBlockProps) => {
           >
             {children}
           </Box>
-          <Box maxWidth={["auto", "300px"]}>
-            <MarketoBrowserForm id={formId} minHeight="258px" />
-          </Box>
+          {emailNotRequiredForDownload ? (
+            <Box pt={4}>
+              <Button
+                as={Link}
+                fontSize="text-xl"
+                height="50px"
+                href={pdfSource}
+                shape="lg"
+                width={["100%", "300px"]}
+                variant="primary"
+              >
+                Download
+              </Button>
+            </Box>
+          ) : (
+            <Box maxWidth={["auto", "300px"]}>
+              <MarketoBrowserForm id={formId} minHeight="258px" />
+            </Box>
+          )}
         </Box>
 
         <Flex
