@@ -7,10 +7,12 @@ h1: SOC2 Compliance
 headerTitle: SOC2 Compliance
 headerDescription: How Teleport Access Plane helps you to implement SOC2 compliance for SSH, for Kubernetes and for internal web applications.
 layout: howItWorks
+reviews:
+  - airSlate1
 ---
 
 import NextImage from "next/image";
-import { Sidebar } from "components";
+import { Sidebar, Feedback } from "components";
 
 ## What is SOC2?
 
@@ -436,3 +438,5 @@ satisfy them.
 
 &nbsp;  
 Teleport helps achieve all these controls with minimal configuration and enforces them continuously which is important for SOC2 Type 2 reports which requires regular audits to ensure adherence to controls.
+
+<Feedback reviews={meta.reviews} />

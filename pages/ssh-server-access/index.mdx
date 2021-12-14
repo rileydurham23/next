@@ -3,6 +3,8 @@ title: SSH Server Access
 description: Teleport Server Access provides identity-based server access across all environments
 hideWave: true
 border: none
+reviews:
+  - awin2
 ---
 
 import {
@@ -18,6 +20,7 @@ import {
   VideoBanner,
   WorksWith,
   GridDisplay,
+  Feedback
 } from "components";
 
 
@@ -106,6 +109,11 @@ import {
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
+
+<Section bg="grayGradient">
+  <Feedback reviews={meta.reviews} />
+</Section>
+
 <VideoBanner title="Demo Video" videoId="tUXYtwP-Kvw" />
 <WorksWith title="Works with everything you have">
   Teleport Server Access is open source and it relies on open standards such as

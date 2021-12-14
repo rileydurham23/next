@@ -198,3 +198,33 @@ thredup2:
   person:
     name: Roman Chepurnyi
     title: Senior Director, Infrastructure and Security Engineering
+
+awin1:
+  text: Teleport was pivotal in earning ISO27k certification, and has made it possible for us to win larger business deals with companies that require us to reach certain security & compliance standards.
+  person:
+    name: Marcos Cherem
+    title: Head of IT Operations
+
+awin2:
+  text: Teleport makes it easy for us to access our on-prem Linux servers taking advantage of our SSO (single sign on) solution through a single access point. And, because Teleport uses short-lived certs, we avoid all of the overhead that comes with key management.
+  person:
+    name: Marcos Cherem
+    title: Head of IT Operations
+
+airSlate1:
+  text: Teleport enabled us to meet our security and compliance needs for SOC 2 audits, which are required by many of our customers.
+  person:
+    name: Eugene Gorelik
+    title: Head of Engineering
+
+airSlate2:
+  text: Teleport Database Access gives us query-level visibility in who is accessing our databases, and lets us control the level of access granted for different roles like DevOps or SREs.
+  person:
+    name: Eugene Gorelik
+    title: Head of Engineering
+
+airSlate3:
+  text: As a fast-growing company, creating our own infrastructure access management solution would have been complex and a waste of engineering resources. With Teleport, we get a zero-trust solution for infrastructure access so we can focus on building the best product for our customers.
+  person:
+    name: Eugene Gorelik
+    title: Head of Engineering
