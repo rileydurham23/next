@@ -4,7 +4,6 @@ import { loadSiteConfig, loadDocsConfig } from "./config";
 import { generateSitemap as sitemapGenerator } from "./sitemap";
 import {
   getPageInfo,
-  PageData,
   extensions,
   getURIFromPath,
   pagesRoot,
@@ -14,12 +13,7 @@ const { latest, versions, redirects } = loadSiteConfig();
 
 const NEXT_PUBLIC_DOCS_DIR = process.env.NEXT_PUBLIC_DOCS_DIR as string;
 
-const nextPages = [
-  new RegExp(`^${pagesRoot}/api/.*$`),
-  new RegExp(`^${pagesRoot}/_app.(${extensions.join("|")})$`),
-  new RegExp(`^${pagesRoot}/_document.(${extensions.join("|")})$`),
-  new RegExp(`^${pagesRoot}${NEXT_PUBLIC_DOCS_DIR}/.*`),
-];
+/* mdx pages with "noindex" in frontmatter should be excluded from sitemap */
 
 const filterNoIndexPage = (path: string) => {
   const isMdxPage = /\.mdx?$/.test(path);
@@ -28,12 +22,25 @@ const filterNoIndexPage = (path: string) => {
     return true;
   }
 
-  const { data } = getPageInfo(path);
+  const { data } = getPageInfo<{ noindex?: boolean }>(path);
 
-  const { frontmatter } = data as PageData;
+  const { frontmatter } = data;
 
-  return !frontmatter["noindex"];
+  return !frontmatter.noindex;
 };
+
+/*
+ * Filenames inside "pages" folder to exclude from sitemsp.
+ * Docs pages are also filtered here and are added separately later
+ * to filter only the current version.
+ */
+
+const nextPages = [
+  new RegExp(`^${pagesRoot}/api/.*$`),
+  new RegExp(`^${pagesRoot}/_app.(${extensions.join("|")})$`),
+  new RegExp(`^${pagesRoot}/_document.(${extensions.join("|")})$`),
+  new RegExp(`^${pagesRoot}${NEXT_PUBLIC_DOCS_DIR}/.*`),
+];
 
 const getNonDocsPaths = () => {
   return glob

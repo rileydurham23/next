@@ -9,6 +9,7 @@
 
 # production
 /.build
+/public/blog/index.xml
 /public/static/assets
 /public/next_sitemap.xml
 /public/algolia_searchmap.xml

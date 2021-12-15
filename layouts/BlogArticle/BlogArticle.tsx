@@ -2,7 +2,7 @@ import { MDXProvider } from "@mdx-js/react";
 import styled from "styled-components";
 import css from "@styled-system/css";
 import Drift from "react-driftjs";
-import { format, compareDesc } from "date-fns";
+import { format } from "date-fns";
 import NextImage, { ImageProps } from "next/image";
 import { components as baseComponents } from "layouts/SitePage";
 import Box from "components/Box";
