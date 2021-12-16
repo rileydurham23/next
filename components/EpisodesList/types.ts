@@ -39,6 +39,19 @@ export interface ResourceItem {
   href: string;
 }
 
+export interface AuditReport {
+  frontmatter: {
+    alternateTitle?: string;
+    auditPdf: string;
+    authors: string;
+    coverPhotoYear: string;
+    description: string;
+    publicationDate: string;
+    title: string;
+  };
+  uri: string;
+}
+
 export interface Tutorial {
   frontmatter: {
     alternateTitle?: string;

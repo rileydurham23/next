@@ -34,6 +34,7 @@ const config: MdxConfig = {
           },
           tutorial: "layouts/TutorialPage",
           press: "layouts/PressPage",
+          audits: "layouts/AuditsPage",
         },
         defaultLayout: "layouts/SitePage",
       },

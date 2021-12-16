@@ -8,11 +8,12 @@ import type {
   EpisodeKind,
   TechPaperBook,
   Tutorial,
+  AuditReport,
 } from "./types";
 import { ResourcesDropdown } from "./ResourcesDropdown";
 
 export interface EpisodesListProps {
-  episodes: PodcastEpisode[] | TechPaperBook[] | Tutorial[];
+  episodes: PodcastEpisode[] | TechPaperBook[] | Tutorial[] | AuditReport[];
   kind: EpisodeKind;
   needSizeLimit?: boolean;
 }

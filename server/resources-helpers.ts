@@ -1,5 +1,6 @@
 import type { BlogArticle } from "layouts/BlogArticle/types";
 import {
+  AuditReport,
   PodcastEpisode,
   TechPaperBook,
   Tutorial,
@@ -50,6 +51,19 @@ export const getResourcesData = (type: string) => {
           return (
             new Date(b.frontmatter.tutorialPublicationDate).getTime() -
             new Date(a.frontmatter.tutorialPublicationDate).getTime()
+          );
+        });
+    } else if (type === "audits") {
+      resourcesPageInfo = resourcesPageInfo
+        //we use a filter to exclude the index page
+        .filter(
+          (episode: AuditReport) =>
+            episode.frontmatter.title !== "Security Audit Reports"
+        )
+        .sort((a: AuditReport, b: AuditReport) => {
+          return (
+            new Date(b.frontmatter.publicationDate).getTime() -
+            new Date(a.frontmatter.publicationDate).getTime()
           );
         });
     }
