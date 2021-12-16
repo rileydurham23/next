@@ -1,17 +1,15 @@
 import { Meta, Story } from "@storybook/react";
-import { VideoColumn, VideoColumnProps } from "./VideoColumn";
+import { VideoRow, VideoRowProps } from "./VideoRow";
 
 const generateStoryComponent = () => {
-  const StoryComponent: Story<VideoColumnProps> = (args) => (
-    <VideoColumn {...args} />
-  );
+  const StoryComponent: Story<VideoRowProps> = (args) => <VideoRow {...args} />;
 
   return StoryComponent;
 };
 
 const meta: Meta = {
-  component: VideoColumn,
-  title: "Site/VideoColumn",
+  component: VideoRow,
+  title: "Site/VideoRow",
 };
 
 export default meta;
