@@ -5,10 +5,7 @@ h1: Basic Concepts
 title: "How Teleport Works: Basic Concepts"
 headerTitle: How Teleport Works
 headerDescription:
-  Teleport is a single binary which enables secure access to SSH
-  nodes, Kubernetes clusters, web apps, PostgreSQL and MySQL
-  databases behind NAT. Teleport is trivial to setup as a Linux
-  daemon or in a Kubernetes pod.
+  Teleport is a single binary which provides secure access to SSH or RDP hosts,  Kubernetes clusters, web apps, PostgreSQL and MySQL databases behind NAT. Teleport is trivial to setup as a Linux daemon or in a Kubernetes pod.
 description: How SSH access works? How Kubernetes access works? This guide to Teleport concepts and architecture for SSH access, Kubernetes access answers these questions.
 layout: howItWorks
 ---
@@ -18,16 +15,16 @@ import { Box, Flex, StructureDiagram } from "components";
 
 ## The Basics
 
-Teleport is an identity-aware, multi-protocol access proxy
-which understands SSH, HTTPS, Kubernetes API, MySQL and PostgreSQL wire
-protocols. It is completely transparent to client-side tools and designed to
-work with everything in today's DevOps ecosystem.
+Teleport is an identity-aware, multi-protocol access proxy which 
+implements protocols such as SSH, RDP,  HTTPS, Kubernetes API, MySQL, 
+PostgreSQL and others. It is completely transparent to client-side tools 
+and designed to work with everything in today's DevOps ecosystem.
+
 
 Inside the [downloaded tarball](/teleport/download/), you will find three
 binaries: the `teleport` daemon, the `tsh` client, and the `tctl` administration tool.
-They are dependency-free, written in a compiled language, and run on any
-UNIX-compatible operating system, such as Linux, FreeBSD, or macOS. Teleport is
-open source under the Apache 2 license and the source code is available on <a href="https://github.com/gravitational/teleport/" target="_blank">Github</a>.
+They are dependency-free, written in a compiled language. Teleport is
+open source and the source code is available on <a href="https://github.com/gravitational/teleport/" target="_blank">Github</a>.
 
 ## Teleport Architecture
 
@@ -84,9 +81,13 @@ organization’s cloud or on-premise environment.
 
 ## User Experience
 
-Teleport users who need access, must authenticate first by executing the `tsh login` command. This command opens a web browser to authenticate and exits
-upon successful authentication. This configures user's CLI environment with
-short-lived certificates for access.
+Users of [Teleport Desktop](https://goteleport.com/desktop-access/) access simply 
+use a browser to access Windows hosts.  
+
+Teleport users of SSH, Kubernetes, and other command line-based clients, must 
+authenticate first by executing the `tsh login` command. This command opens a 
+web browser to authenticate and exits upon successful authentication. This configures 
+users' CLI environment with short-lived certificates for access.
 
 After that, users will be able to access their SSH servers, Kubernetes clusters,
 web applications or databases. Teleport is backward compliant with existing
