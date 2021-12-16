@@ -68,7 +68,7 @@ export const Videos: Array<VideoItem> = [
   {
     author: "Ben Arent",
     date: "2021-05-20",
-    href: "/resources/guides/adding-your-first-database-to-teleport/",
+    href: "https://goteleport.com/resources/guides/adding-your-first-database-to-teleport/",
     labels: ["access control", "database access", "teleport"],
     title: "Adding Your First Database to Teleport",
     videoId: "PCYyTecSzCY",
