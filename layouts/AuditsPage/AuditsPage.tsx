@@ -4,6 +4,7 @@ import Centrator from "components/Layout";
 import dynamic from "next/dynamic";
 import Flex from "components/Flex";
 import Footer from "components/Footer";
+import Head from "components/Head";
 import Image from "components/Image";
 import Layout from "components/Layout";
 import Link from "components/Link";
@@ -82,83 +83,86 @@ export const AuditsPage = ({
   const convertedDate = convertDate(publicationDate);
 
   return (
-    <Layout>
-      <Section
-        bg="grayWave"
-        display="flex"
-        justifyContent="center"
-        width="100vw"
-        pt={0}
-      >
-        <Box py={[0, 11]}>
-          <Image
-            alt="audit report cover photo"
-            src={coverPhoto}
-            width="874"
-            height="456"
-          />
-        </Box>
-      </Section>
-
-      <Centrator
-        display="flex"
-        alignItems={[null, null, "center"]}
-        borderTop="1px solid #f0f2f4"
-        pt={0}
-      >
-        <Section bg="flatWhite" lineHeight="lg" px={[3, 11, 11, null]}>
-          <Box
-            color="dark-purple"
-            fontSize={["text-xl", "text-lg"]}
-            fontWeight="bold"
-            pb={[3, 1]}
-            pt={[5, 11]}
-          >
-            Published: {convertedDate}
+    <>
+      <Head title={alternateTitle || title} description={description} />
+      <Layout>
+        <Section
+          bg="grayWave"
+          display="flex"
+          justifyContent="center"
+          width="100vw"
+          pt={0}
+        >
+          <Box py={[0, 11]}>
+            <Image
+              alt="audit report cover photo"
+              src={coverPhoto}
+              width="874"
+              height="456"
+            />
           </Box>
-
-          <Box
-            fontSize={["banner", "header-2"]}
-            fontWeight={["black", "bold"]}
-            lineHeight="xl"
-            pb={[2, 0]}
-            pt={0}
-          >
-            {alternateTitle || title}
-          </Box>
-          <Box
-            as="p"
-            fontSize={["text-md", "text-xl"]}
-            lineHeight="lg"
-            margin={0}
-            pb={[4, 0]}
-            pt={3}
-          >
-            by {authors}
-          </Box>
-          <Flex color="darkest" flexDirection="column" lineHeight="lg">
-            <Box fontSize="text-lg" pb={[3, 0]} pt={[0, 5]}>
-              {description}
-            </Box>
-            <Button
-              as={Link}
-              href={auditPdf}
-              mb={[0, 5]}
-              mt={[0, 7]}
-              shape="lg"
-              width={["100%", 200]}
-            >
-              Download PDF
-            </Button>
-            <SSRLessShareButtons title={alternateTitle || title} />
-          </Flex>
         </Section>
-      </Centrator>
 
-      <Box mt={[5, 0]}>
-        <TryTeleport />
-      </Box>
-      <Footer />
-    </Layout>
+        <Centrator
+          display="flex"
+          alignItems={[null, null, "center"]}
+          borderTop="1px solid #f0f2f4"
+          pt={0}
+        >
+          <Section bg="flatWhite" lineHeight="lg" px={[3, 11, 11, null]}>
+            <Box
+              color="dark-purple"
+              fontSize={["text-xl", "text-lg"]}
+              fontWeight="bold"
+              pb={[3, 1]}
+              pt={[5, 11]}
+            >
+              Published: {convertedDate}
+            </Box>
+
+            <Box
+              fontSize={["banner", "header-2"]}
+              fontWeight={["black", "bold"]}
+              lineHeight="xl"
+              pb={[2, 0]}
+              pt={0}
+            >
+              {alternateTitle || title}
+            </Box>
+            <Box
+              as="p"
+              fontSize={["text-md", "text-xl"]}
+              lineHeight="lg"
+              margin={0}
+              pb={[4, 0]}
+              pt={3}
+            >
+              by {authors}
+            </Box>
+            <Flex color="darkest" flexDirection="column" lineHeight="lg">
+              <Box fontSize="text-lg" pb={[3, 0]} pt={[0, 5]}>
+                {description}
+              </Box>
+              <Button
+                as={Link}
+                href={auditPdf}
+                mb={[0, 5]}
+                mt={[0, 7]}
+                shape="lg"
+                width={["100%", 200]}
+              >
+                Download PDF
+              </Button>
+              <SSRLessShareButtons title={alternateTitle || title} />
+            </Flex>
+          </Section>
+        </Centrator>
+
+        <Box mt={[5, 0]}>
+          <TryTeleport />
+        </Box>
+        <Footer />
+      </Layout>
+    </>
   );
 };
