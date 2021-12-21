@@ -41,7 +41,6 @@ export { default as List } from "components/List";
 export { ListCardContainer } from "components/ListCard";
 export { ListCardItem } from "components/ListCard";
 export { default as ListCard } from "components/ListCard";
-export { default as LoginPage } from "components/LoginPage";
 export { default as Manifesto } from "components/Manifesto";
 export { default as MessageBanner } from "components/MessageBanner";
 export { default as NewsItem } from "components/NewsItem";
