@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { MDXProvider } from "@mdx-js/react";
-import Drift from "react-driftjs";
+import Drift from "components/Drift";
 import dynamic from "next/dynamic";
 import Section from "components/Section";
 import Head from "components/Head";
@@ -68,7 +68,7 @@ export const PodcastPage = ({
         <TryTeleport />
       </Layout>
       <Footer />
-      <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
+      <Drift />
     </>
   );
 };

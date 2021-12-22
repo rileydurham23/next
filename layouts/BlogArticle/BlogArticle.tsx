@@ -1,7 +1,7 @@
 import { MDXProvider } from "@mdx-js/react";
 import styled from "styled-components";
 import css from "@styled-system/css";
-import Drift from "react-driftjs";
+import Drift from "components/Drift";
 import { format } from "date-fns";
 import NextImage, { ImageProps } from "next/image";
 import Box from "components/Box";
@@ -114,7 +114,7 @@ export const BlogArticle = ({
         <TryTeleport />
       </Layout>
       <Footer />
-      <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
+      <Drift />
     </>
   );
 };

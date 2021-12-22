@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from "react";
 import { MDXProvider } from "@mdx-js/react";
-import Drift from "react-driftjs";
+import Drift from "components/Drift";
 import SectionHeader, { BGColor } from "components/SectionHeader";
 import Section from "components/Section";
 import Head from "components/Head";
@@ -106,7 +106,7 @@ export const ContentPage = ({
             <MDXProvider components={components}>{children}</MDXProvider>
           </Centrator>
         </Wrapper>
-        <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
+        <Drift />
         {accessPlane && (
           <SectionHeader
             mode="full"
