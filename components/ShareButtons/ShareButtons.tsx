@@ -13,16 +13,17 @@ import Box from "components/Box";
 
 export interface ShareButtonsProps {
   title: string;
+  isCompact?: boolean;
 }
 
-export default function ShareButtons({ title }: ShareButtonsProps) {
+export default function ShareButtons({ isCompact, title }: ShareButtonsProps) {
   let href = "";
   if (typeof window !== "undefined") {
     href = window.location.href;
   }
 
   return (
-    <Box mt={[5, 7]}>
+    <Box mt={isCompact ? 0 : [5, 7]}>
       <Box as="p" textTransform="uppercase">
         Share this page
       </Box>

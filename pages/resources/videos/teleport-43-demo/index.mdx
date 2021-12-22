@@ -1,0 +1,465 @@
+---
+title: "Teleport 4.3 | Demo and Presentation"
+alternateTitle: "Teleport 4.3 | Webinar and Demo"
+description: "Watch Gus Luxton discuss Teleport 4.3 showcasing the new UI, API driven approach, and expanded audit capabilities."
+layout: tutorial
+publicationDate: "2020-07-16"
+associatedLabels: ["teleport", "SSH", "infosec", "PAM", "Sales", "OSS"]
+videoId: "UIK3b42MHmM"
+videoLength: "43:50"
+---
+
+## Teleport 4.3 Overview and Demo
+
+Gus Luxton, from the Teleport Engineering team, discusses and demos Teleport 4.3 showcasing the new UI, API driven approach, and expanded audit capabilities
+
+### Features included in the Teleport 4.3 release:
+
+- **Brand New Web UI** The updated user interface is finally bringing the Web UI to feature parity with the command-line (CLI) client.
+- **Cluster View** allows users to see all clouds and computing environments in one place.
+- **Audit Log View** allows administrators to see what’s going on with a detailed view of all security events, not just recorded sessions.
+- **API Access** Our users have been requesting this for a very long time! We are starting with a plugin API to allow Teleport administrators to customize how user permissions are elevated and we’re providing Slack and PagerDuty integrations out of the box.
+
+### Learning more about Teleport 4.3
+
+- [Sign up for Teleport Cloud](https://goteleport.com/pricing/)
+- [Download Teleport](https://goteleport.com/teleport/download/)
+- Read the blog [Introducing Teleport 4.3 - Modern Replacement for OpenSSH](https://goteleport.com/blog/introducing-teleport-4-point-3-modern-replacement-for-openssh/)
+
+### Presentation on Teleport 4.3
+
+The slides from this webinar can be found on [Slideshare](https://www.slideshare.net/gravitationalco/gravitational-teleport-43-webinar-privileged-access-management-cybersecurity).
+
+## Details on Teleport 4.3
+
+(Transcript)
+
+**Mark:** Well, hello everyone. My name is Mark. I'll be your MC here today. Welcome to our Teleport 4.3 webinar, where we're going to dig
+down into what's new in Teleport 4.3. If you haven't read the blog, we'll give you some links to go do that after the show. But before we do
+that, I wanted to just put a poll up, so you should see a poll coming up in Zoom, just to tell us a little bit about where you are in your
+journey with Teleport. So are you using the open source? Are you using the enterprise version? Or, "Hey, what is Teleport? Never heard of
+it." So I'll give a little while for you all to populate the poll.
+
+[silence]
+
+**Mark:** Fantastic. So what I'm seeing on my poll result here is about 50% of you have never used Teleport before. The other vast majority
+are actually using our commercial version. So thank you so much. Thank you for using it. So without further ado, I'm going to hand the mic
+over to my colleague, Gus Luxton, who's sort of the Teleport guru and expert. We're going to close down the poll now and get into the beef
+of this. There is a little Q&A box at the bottom. At the end we will get into Q&A. So I will curate the Q&As and ask Gus at the end. So Gus,
+over to you.
+
+**Gus:** Thanks very much, Mark. Yeah, hi, everyone. I'm Gus Luxton. I'm on the Teleport team here at Teleport. May have spoken to some of
+you before in support channels and so forth. So hi to everyone. So today, I'm going to be going through a webinar with you. What I'm going
+to do, I'll be talking about Teleport. We'll go into some explanations about what it does. So if you've never used Teleport before, don't
+worry. We're going to go through and kind of explain what Teleport does and how it works and why it could be useful for you potentially. I'm
+also going to be talking about some of the new features and demonstrating some of the new features that are in Teleport 4.3 that we launched
+very recently.
+
+### Problems Solved by Teleport
+
+**Gus:** So I'm going to start off describing some of the problems that we try to solve with Teleport. So traditionally, managing access to
+servers, it might have involved sharing passwords. In a really primitive sort of situation, via password manager. Or more likely, what
+you've probably seen is something where you might upload your public key, your SSH public key, to an S3 bucket, for example. And then there
+might be some automation that kind of pushes those keys out to all of your servers so that when you try to log in, the server knows you're
+authorized. You present your private key, and it authenticates you and says, "Yes, this is the correct user." So if you've ever done that
+sort of thing, you probably know what we're talking about here.
+
+**Gus:** So that's a good approach for small organizations. It works quite well when you only have a few users and when you only have a few
+servers, when you know exactly who is involved and who's going to be logging in everywhere. Unfortunately, this doesn't really scale very
+well when your teams get bigger. You have to track whose SSH key is whose. You need to know all of that all the time because you can't have
+SSH keys deployed on machines and not know who they belong to. And when somebody leaves your organization, you have to make sure that that
+public key that they had is removed from all of your servers so that you revoke that person's right to log in, because you don't know who
+has that private key and who might be able to still use it to log in. That puts a lot of effort on your head. It's a lot of pressure. So if
+your infrastructure is public-facing at all and you leave that there, it could be a risk. There's also some possibilities that users can add
+their own SSH keys there. And if your automation only removes the keys that it knows about, there'll be keys left there that just can't be
+tracked and will need to be cleaned up. So if somebody loses a laptop, for example, or if they put their credentials on a USB key and then
+they lose that, they leave it somewhere, you need to revoke those credentials out of band as well. You need to be able to revoke those to
+ensure your security. So people having credentials which are kind of infinitely valid for access and don't have an expiration date on them,
+that's a bit of an open-ended problem. And it can definitely cause you headaches.
+
+**Gus:** And another thing is that once you give out credentials to somebody, you don't have a huge idea of what's going on. You can look at
+audit logs on the server. SSH will log it out for you. It will tell you, "Yes, user Gus logged in at this time." You can see the IP address
+that came from. You can see what public key I presented. What private key I presented, rather. You can see when I logged in and when I
+logged out, but you don't get a huge amount other than that. You can obviously add specific instrumentation. If you want to see things, in
+particular, you can look at them. But you might not have that ability to do that immediately. So wouldn't it be amazing if you could
+actually just record the entire session and see exactly what went on?
+
+### How Teleport Works
+
+**Gus:** And so here's a bit of an explanation about how Teleport works. So on the left-hand side here, you have your public network, which
+has users and groups on it. This can be the public internet, could be an internal office network, could be anything. But that's where your
+users are located. And they need to get to your infrastructure. In order to do that with Teleport, they go through what we call the auth
+server or the auth gateway. So they launch a log in request either via the web UI or via our command line tool, TSH, and the auth server
+goes to a database and authenticates that user to say, "Should they be allowed to log in here?" Now, that could be Teleport's own internal
+user database that it has. It could be an SSO provider. So it could be any kind of SAML-based or OIDC-based provider. And once it's
+authenticated the user, what Teleport does is it issues a short-lived SSH certificate from its own internal certificate authority. It
+manages the authority for you. It sets it up. You don't have to do anything manually. It just issues the certificates for you from there.
+And it logs the fact that that user was given a certificate.
+
+**Gus:** So you can also — with Teleport's own internal user database — you can add second factors as well. You can also enforce this via
+SSO. So you can say, "Well, not only does the user need to know a password, but they also need to present a TOTP code, like from Google
+Authenticator or Authy or so forth. Or they might need to use a U2F key like a YubiKey or a SoloKey to be able to log in as well." So you
+can enforce a second factor there as well. And once they've got that, they can connect in via the Teleport Bastion server. And any sessions
+that go via the Teleport Bastion server, Teleport will record them. It records it in an interactive format that's a bit like a video, so you
+can playback the video and see exactly what went on during the session. And we'll demonstrate that a little bit later. Adds details to the
+audit log as well about files that they download, files they upload. And it can also — with the enhanced session recording that we added in
+Teleport 4.2, you can also optionally record details of network connections as well and commands executed by script. And in our next
+webinar, which is coming up in a few weeks, Ev is going to talk about that, about the enhanced log in capabilities that we have.
+
+**Gus:** Once the Teleport certificate expires — so normally, the certificate would be issued for a period of time that you specify. Maybe a
+few hours. Say eight hours, for example. Once that certificate expires, that session is terminated. And then the user would need to log in
+to Teleport again and get another certificate. When you keep the authentication centralized like that, what it means is that you only need
+to enable and disable your users in one place. So if you deactivate a user in Teleport, they can't then get another certificate in future.
+And when their certificates expire, that's it. They can't log in anymore. So it takes the headache out of managing that user access for you.
+Teleport's also capable of providing proxy capabilities to Kubernetes as well. So while we talk here about AWS, Google Cloud, private
+clusters, we're talking about SSH, but we're also talking about Kubernetes as well. So Teleport can provide the proxy for the Kubernetes API
+server. So if you're using a cluster in EKS or in GKE, in AKS, any of the cloud Teleport — sorry, cloud Kubernetes' services, you can also
+proxy those through Teleport, manage your authentication, and track what's going on as well.
+
+### Why Teleport?
+
+**Gus:** So why should you use Teleport for this? Well, Teleport's fully compatible with the OpenSSH protocol. It uses SSH certificates
+internally, and it fits quite easily into your preexisting workflows. So even if you have OpenSSH hosts as well as Teleport hosts, Teleport
+can intercept those connections and record those as well, if you turn on proxy recording mode. SSHD understands the certificates that
+Teleport issues natively, so all you need to do is a couple of lines of config on SSHD to say, "Yes, you should trust any certificate that
+Teleport issues." And that gives you the ability to log into SSHD-based hosts as well. And also, because it's SSH, if you've got automated
+processes that are using SSH already to log into things, you can make use of those with Teleport as well. So you can issue slightly
+longer-lived keys for automated tasks like Ansible or Jenkins or other CI providers that need to do automated tasks. And those can also go
+through Teleport and still be audited as well. Teleport's model is open core, so the vast majority of Teleport's features are open source.
+They're in our GitHub repo. They're licensed under Apache 2.0 license, so you are completely free to fork the repo, to modify the code, to
+deploy your own version, do what you like with it. And all of that is available at no charge.
+
+**Gus:** Teleport gets independently audited for security by third parties, so it's been subject to a number of third-party external
+security reviews already. We contract a company. They come in — they check for the vulnerabilities in Teleport. They run penetration tests
+against Teleport. They make notes of all their findings. They write a report. And then we publish that report. We have a few of them so far.
+They're all available on our website under the resources section. You can go and read them. You can see what they tested, what they think
+about Teleport. They can see what vulnerabilities they found and how they were fixed and mitigated. We want people to have confidence in
+Teleport and in solutions that they use in general. So if you choose to use Teleport to manage your security, we want to make sure that you
+can trust it. We want you to know that Teleport is secure and it will work for you.
+
+**Gus:** Teleport's designed by engineers for engineers. A lot of other products that are out there, they look more towards management
+rather than to developers and engineers in general. They're very corporate-focused. So although they do a job, they're not particularly easy
+to use sometimes or very effective. Teleport, we've tried to build it from the ground up to just get out of the way and do as much as
+possible without hindering you in any way at all. So we want you to keep your existing workflow. We just want to change the way that you log
+in at the beginning of the day.
+
+**Gus:** As I mentioned earlier, Teleport provides full session replays and audit logs as well. So all of the events in the sessions that
+are going on in your clusters, anything facilitated by Teleport, there'll be recorded. You can provide them to auditor's on demand, for
+example. It can be very useful for compliance or accreditation standards that you need to keep to, that sort of thing. That's both for SSH
+and for kubectl exec sessions. So any kind of session that you have going on within your cluster, if you go through Teleport, we want to be
+able to provide you playback for it.
+
+### What's new in Teleport 4.3
+
+**Gus:** So what's new in Teleport 4.3? Well, Teleport 4.3 has a few great new features. I'm going to give an overview of them for you, and
+then I'll go into a little bit more detail about each of them. So firstly, we've overhauled Teleport's web UI completely from the ground up.
+We also have a new cluster view which will show you all of your managed clusters in one place. We've added Teleport's audit log and exposed
+it via the web UI. So previously, you had to get details from the audit log via the command line. But now they're available via the web UI
+as well. And we've also started the first steps towards adding an API in Teleport. So we allow programmatic interaction with a Teleport
+cluster. And I'll explain how that goes on shortly.
+
+#### New Web UI
+
+**Gus:** So first off, details about the new web UI. We completely rebuilt the web UI in Teleport 4.3. The reason is because it's been
+around for quite a long time. It's been around, actually, in its old form since around the first version of Teleport was released. That was
+four or five years ago. We've added lots of extra functionality since then, and the web UI hasn't completely kept up. We've gone with a new
+theme. And we've made a lot of subtle improvements to the login pages and to the whole user experience in general. We're intending for this
+to be better for users who can't use the command line tools that we offer or people who are on phones, tablets, things that don't have a
+command line because you can't run TSH on our Teleport login tool. Also, for Windows users who don't want a complicated SSH flow or anything
+like that, a web-based terminal may work just well. And what we've tried to do is we've tried to improve the web-based terminal experience.
+So we've added tabbed browsing. We've added shortcut keys. We've added all kinds of things for more power users who want more sessions going
+on at once.
+
+**Gus:** So here's the comparison between the old UI and the new UI. On the left we have the old Teleport login box. Might be familiar to
+some of you. We had local login credentials at the top, and we had an Auth0 button here, SSO login below that. It was always sometimes a bit
+confusing. People would go and they weren't sure which they needed to click on. They didn't know whether they needed to use an SSO provider,
+whether they should have had a username or password. Common feedback that we got. So in the new UI, we refined this completely. And if you
+have SSO providers like Auth0 authenticated now and set up in Teleport, we don't even offer the username and password sign-in box. If you
+don't have an SSO provider, you obviously see that. But you can manually go and click to see that as well.
+
+#### Cluster View
+
+**Gus:** One of the other things we've added is a cluster view. So in the older version of Teleport — we're showing it at the top here —
+your clusters were all in a drop-down list at the top of the page. They weren't very well sorted. They weren't easy to go through. There was
+no search. There was no refinement. The box could be very big if you had a lot of clusters. It wasn't very easy to navigate at all. One of
+the pieces of feedback that we got was that it was very difficult when you had multiple clusters. It couldn't really scale very well. So in
+Teleport 4.3, we changed that as well. So now we have a dedicated cluster view which shows when you first log in to your cluster. It shows
+you the roots of your cluster; it shows you each one. And if you have extra-trusted clusters, leaf clusters, it will show those as well. It
+also provides details about the version that's running in that cluster. So we can see we're running version 4.3.0 here. It tells you how
+many nodes there are there. And when you click on this, it takes you into the terminal view. And I'll show you that briefly as well. It also
+details the URL to each cluster and how you can access it. And this has a search box as well. So if you have lots of clusters, you can drill
+down in this view. And you can filter down to just see the cluster that you want, find it, and go in and manage it. That's what we wanted to
+make easier.
+
+#### Audit Log in the Web UI
+
+**Gus:** We've also exposed the audit log now within the Teleport web UI, so you can see events that are going on inside your cluster. This
+also has filtering capabilities. So you can drill down by date range, you can free search for server names, for IDs. You can search by event
+type. So if you only want to see when sessions end, you can look for that by searching for session ended. You can click on details tabs here
+as well to see the actual JSON event. So this is the actual block from the audit log itself. We're now pretty-printing that and giving you a
+means of viewing that within the server itself. Within the server, rather than needing to go directly to the command line to do those
+things.
+
+#### Teleport API
+
+**Gus:** We've also added the first implementation of a Teleport API in 4.3. So at the moment, we're supporting the concept of using
+plug-ins to allow role requests. So this is the idea where normally people have a given level of access, say, a development level of access.
+But occasionally, a developer might need to log into a more production-facing server to do something. What we can do now with Teleport is
+that you can allow that developer to request an elevated production role for a short period of time. You define what the period of time is,
+and you define what roles they're allowed to request. Using the Teleport plug-ins, you can link those up to an external service so that when
+a request is made, it sends through to Jira. It puts a ticket in Jira saying, "Hey, can I have elevated access, please?" It can make a
+request to Slack or Mattermost. It can trigger an escalation flow in PagerDuty and ask whether someone should be approved or not. And we
+also have support for GitLab as well. So that's the first kind of implementation of the Teleport API that we've got going on. We have these
+five plug-ins available. These are all open source as well. And they're available on GitHub, the Teleport plug-ins repo. You can go and read
+those, fork them, modify them, do whatever you like. We have an example, reference plug-in. They're all written in Go, just like Teleport
+itself. You can extend the reference plug-in to build your own integrations if you want, that kind of thing. And we are on adding more
+plug-ins as time goes on as well. I should also mention, as well, that we're also running feedback currently. We're looking to get feedback
+on things that people would like to see from a Teleport API. So if you've ever had any desire to programmatically interact with Teleport, we
+have a survey that's going on in our [community forum](https://github.com/gravitational/teleport/discussions). I'll give you the URL for
+that later on. It's a pinned post in there. You can go and see that.
+
+### Demo Time
+
+**Gus:** Okay. So we've got now to demo time. So I'm going to close this, and I'm going to show you a view of a Teleport cluster. So here is
+a nice, new web UI on a Teleport cluster that I set up. So as I mentioned before, we've refined this. The username and password boxes are
+still here, but by default, all you see is the SSO login. So if I click here and go to log in with Auth0 via an SSO provider, I can pick the
+Google provider and pick my Teleport Google account. It will sign me in and send me into the cluster. So this is the new cluster view that
+we mentioned initially. So you can search here for clusters. We've got two available. If I search for the leaf cluster, for example, we can
+see that the leaf cluster is the only one presented. You can search by any part of the — any part of the cluster name or the URLs or so
+forth. So if you've got lots of clusters, this is a great way to drill that down. Also, if you want to start sessions, you can click on
+here. So we've got the cluster terminal view. You can open that from the end here by going to open terminal, or you can click on the cluster
+terminal in itself. This is a new experience that we built in Teleport 4.3. So when you open the cluster terminal, you get a new browser tab
+pop up. And you can see what might look a little bit like the previous UI for starting sessions in Teleport. So it'll show you all of the
+nodes available to you in the Gus demo root cluster. And you can drop down and pick other clusters as well if you like, or you can go in via
+the other way. We've still got the search functionality as well. So if I want to search for node 0, I can search for that. And I still have
+the capability to connect to OpenSSH-based servers as well. So if I wanted to connect to an OpenSSH server on a random port or any host
+name, I can do that from here as well. And all of that experience will still come through the same new tabbed UI as before.
+
+**Gus:** So if I start a session and log in, we can see that I have command prompt here. I can do everything I would normally do on a
+server. If I think, "Oh well, I'm logged in to here, but actually I also need to be logged into the node," I could go to the new tab button
+at the top, and I can click on a new tab. I get the same UI. And I can log in to a node as well. And then once I've got that available, I
+can do all of the things I need to do on here. Because this is a tabbed UI and because we have that ability, I can use my alt key. So alt
+and 1, alt and 2 to switch between tabs. If I have more tabs, I can switch between all of them. So we're trying to get more of a power user
+experience in the browser. You've still got the same functionality as before to upload and download files. You can pull those to your local
+machine and upload them from your local machine if you have that stuff enabled as well. So this is the new UI that we've got going on. And
+we really hope that people find this useful, that the tabbed experience is better, that everything can be going on. If you exit a session
+and close it, the tab gets closed, and you go back to a new UI again. So this is very much more of a kind of power user experience that
+we're going for.
+
+**Gus:** If we go to the cluster management view, so if I close this tab, for example, I can go back here to my cluster view. I can log in
+to the cluster management view. So this is similar to the older Teleport UI, where you can still launch sessions from here as well. But this
+is where you also get all of the extra detail about sessions that are going on. So you can see sessions that are in progress. You can join
+them. You can have that ability to see those things.
+
+**Gus:** As I mentioned, we have the audit log now in the web UI. So this is the audit log for the cluster. And this is where you could play
+back sessions as well now. So when we have an event, we see here that a session has ended and we have the report, we can show the JSON, and
+it will show us the details of IP addresses, who connected from where, what the session was, what user it was. But all of this is available
+through the UI now as well. And each event has its own unique kind of description and ways to describe these things. If you want to search
+for particular events, you can filter down. "Only show me SSO logins," for example. "Only show me events that affect gus@goteleport.com,"
+for example. "Only show me trusted cluster functionality." So this is a way better way to search the UI, to search the event log and be able
+to get these details.
+
+**Gus:** If I want to play back a session, I can just look for session ended, for example. And this will show me all of the sessions that
+have ended recently. You can filter down by date range as well. So I can also go to the last seven days and see all the sessions that ended
+in the last seven days. It tells you how long each session was. Four minutes, an hour, so forth. And you can play back any of these. If you
+click on this, it'll open the session player. And we get the familiar Teleport experience, where you can see what's going on, you can see
+the commands that were run. It plays back just like a video. So if I scrub this back, it'll show me the actual commands as they were being
+typed. And I can see the experience in real time and know exactly what was happening and have those events mirrored in the audit log as
+well.
+
+**Gus:** So that largely covers what I was intending to show via the live demo. I just need to switch back here. So that's the new UI
+experience. That's everything there. We've overhauled the Auth Connector experience, so you can modify your Auth Connectors here. Your
+roles, the role experience is now a little bit better sorted. We've added some extra documentation. We've added new details on adding roles.
+So more of a kind of description inline editing experience. This has a built-in linter as well. So if you edit a role and you put something
+in that you're not supposed to, for example, it will say, "I don't understand that particular part of the —" if you misdefine a key or you
+do something that you shouldn't, it will give you advice about that as well. And you can log in and modify all of the roles to your heart's
+content.
+
+**Gus:** Trusted clusters as well. If you want to add trusted clusters, you can connect back to another cluster. We've got a UI for that as
+well. There's a link to the documentation, new graphics, and things like that. And also, we've added a help and support section. So there's
+links here direct to the quick start guide, to the admin guide for Teleport, ways to request new features and submit bug reports on GitHub,
+frequently asked questions, troubleshooting data, links to the blog. Essentially, we're trying to give you a much more presentable
+experience within Teleport itself. Ways to link out directly to exactly the information that you need. We also have the cluster info button
+here, which gives you the public URL, the facing URL, the name of the cluster, auth service, and proxy service versions too. So you'll be
+able to see at a glance whether your clusters need to be updated, whether they're out of date, that sort of thing as well.
+
+**Gus:** So that's pretty much it for the demo. As I mentioned, if anybody has any questions, it's time to go through them. So please, if
+you want to put them in the Q&A box in Zoom, we'll have people asking, and I'll do my best to answer.
+
+### Q&A
+
+**Mark:** Yeah, stump the team. Hey, fantastic job. Good job going through all that stuff. So yeah, if you do have questions, if you can put
+them into the little Q&A box, it just makes it the easiest to pick them out of there. And I've got quite a few here for you, Gus. So I'll
+first of all start by saying I doubt we'll get to answer all your questions here. There's a lot coming in. And I'll just try and sort of hit
+them as they came in. So —
+
+**Gus:** I'll try and keep my answers short [laughter].
+
+**Mark:** Yeah. Well, I would say for everyone that if you don't get your question answered here, definitely join us on our [community
+forum](https://github.com/gravitational/teleport/discussions). And you can also ask the questions there. So first question, does Teleport
+provide the ability to manage Linux SSH users and Kubernetes users?
+
+**Gus:** So Teleport itself does have PAM integration, so you can — with Teleport, you can define users that someone should be — Linux
+principals, like ECT user or Ubuntu root, that sort of thing, that a user should be allowed to log in as. And if you enable PAM support,
+then Teleport is capable of creating and provisioning those users for you. You effectively write the script that you want to run in when a
+given person tries to log in. And it will create the user if it doesn't exist. So you can configure that sort of thing. With regards to
+Kubernetes, Teleport doesn't manage Kubernetes' users directly. What it does is it uses Kubernetes' own role-based access control hierarchy
+to define whether you should be allowed to log in and what you should be allowed to do. So you can say if you log in as Gus to this cluster
+you should be given the Teleport user group within Kubernetes. And then in Kubernetes you can use role-binding, cluster role bindings, and
+roles to be able to define what the Teleport users group should be able to do. So if you have those things defined via your Kubernetes'
+provider already, Teleport can impersonate the user and then make sure that they're granted those permissions. If any of that's not clear —
+I'm sure I've not done a great job. I've only really scratched the surface of these things — we have some good examples in our Kubernetes
+documentation about how to do this. And also, we're always happy to help on the community forum or via support channels to set these things
+up. If you want to get Kubernetes going and you want to get these things working, then we can always assist with that.
+
+**Mark:** Gus, one maybe simple question. The stuff you've shown here today, is that available only in the enterprise version, the community
+version, or both?
+
+**Gus:** So the vast majority of what I showed is available in the open source, the community version. The two things that aren't are
+role-based access control, so the ability to define exactly what nodes you can log in to and what actions you can take within Teleport. So
+whether you can lock down being able to view the audit log, for example or only being able to start sessions on certain nodes. That's an
+enterprise feature. The other feature that is enterprise-only is integration with the single sign-on providers via SAML or OIDC. So if
+you're using something like Auth0 or Active Directory, OneLogin, Okta, any of those providers, then those would be enterprise features. The
+open-source version does have support for GitHub, so you can use GitHub as an identity provider in the open-source version. You can define
+GitHub teams and what logins in Teleport they should be allowed to use. And for a small enterprise, for a small team that uses GitHub
+extensively, it actually worked quite well. I use it personally for my own personal Teleport cluster here at home, and it works great. So
+you can do a lot of the stuff without the enterprise features. It's just the role-based access control and the single sign-on via SAML or
+[OIDC](https://goteleport.com/blog/how-oidc-authentication-works/) that are enterprise features.
+
+**Mark:** Great. Can Teleport safely and securely tunnel TCP traffic? Like a connection to a database, for example?
+
+**Gus:** Yes. So Teleport does. Just like SSH, Teleport does have support for port forwarding. And that includes TCP. It also has SOCKS
+proxy functionality a bit like Teleport — a bit like SSH does, rather. So SSH-D, for example, where you start a SOCKS proxy on a given
+server. You can do that with Teleport too; you could have a dynamic proxy. You can also port forward. So you can open up a local port. Say
+you want to connect to a Postgres server in production, for example. You can run a TSH command or an SSH command, in fact, as well, which
+will say, "I want to forward port 5432, the Postgres administration port, locally. I want to forward that to the remote server on port
+5432." And then when you connect to local hosts, it will connect you to the remote server, just the same way as SSH does. So yeah, you can —
+and all of that's done over the Teleport secure channels. So yep, you can absolutely tunnel TCP connections via Teleport in that way if you
+want.
+
+**Mark:** Perfect. The next question was, "Can I define which commands a Linux machine user can run via Teleport?"
+
+**Gus:** So Teleport doesn't currently provide that functionality to be able to do that. In conjunction with PAM and a few other things, if
+you were to have some kind of PAM stack setup which managed sudo access, for example, you can use sudo to limit the commands. Teleport
+doesn't have a built-in UI, for example, for you to be able to say, "Oh, I want user Gus to only be able to run PGSQL and so forth." You
+would need to do that via sudo, for example, or some kind of maybe restricted shell on your end, that kind of thing. So that would be more
+of a user — kind of a node-facing thing that you would need to set up. Teleport doesn't provide that functionality itself but can
+potentially integrate with things that do.
+
+**Mark:** A couple of these questions are around what Teleport can work in. So integration with DigitalOcean?
+
+**Gus:** There isn't any direct integration. But DigitalOcean Droplets are just virtual machines; they're just interactive instances. So
+theoretically, if you wanted to deploy the Teleport binary, we offer them for Linux, we offer them for Mac, we offer them for ARM-based
+processors. So yeah, you can run whatever distribution you have on your DigitalOcean Droplet. You can integrate with that as well. I'm not
+sure if DigitalOcean have gotten into the Kubernetes game. I know they've been kind of talking about that a little. Everyone kind of has.
+Linode, I think, have been looking into those things. But essentially, from the SSH point of view, yeah, you can run Teleport on any Linux
+machine, any macOS machine, that kind of thing. So yeah, pretty much DigitalOcean should be supported. And on the Kubernetes side, if you
+possibly were talking about that, if you have — essentially, Teleport can integrate with any Kubernetes API server that uses the same
+authentication primitives as kubectl itself does. Or if you can provide a kubeconfig to Teleport, it can use those things as well. So yeah,
+absolutely, it should be potentially fine with DigitalOcean.
+
+**Mark:** And what about GKE private clusters?
+
+**Gus:** Yeah, so GKE private clusters should be fine as well because, again, with the — one of the things that Teleport can do for you is,
+if you deploy Teleport inside the cluster, for example, and then expose access to Teleport via a load balancer to be able to get access to
+the front end or to log in via TSH and get a certificate, what Teleport can do is if your Kubernetes API endpoint is private, as it might be
+inside a GKE private cluster and not accessible from the internet, Teleport will still be able to connect to it. And Teleport has its own
+proxy port that Kubernetes will connect to. So you can expose the Kubernetes proxy to the outside world, and then keep your Kubernetes API
+server in GKE private. And you should be able to pass the connection through. So then you wouldn't need to expose any of that, and you can
+manage access and authentication and logging in via Teleport itself.
+
+**Mark:** Awesome. A couple of questions, I think, on the audit logs. So can it be sanitized to comply with GDPR requirements?
+
+**Gus:** That's a very good question. And I have to say, it's not one I've had before. The audit log [crosstalk] —
+
+**Mark:** Whoa! Do I get a prize for that? What's the prize [crosstalk] [laughter]?
+
+**Gus:** Maybe. I should have thought about GDPR. Being from the UK myself, I should have thought about this earlier, but. One of the things
+you can do — I mean, the audit log is stored in a kind of chunked event format. So essentially, everything that happens on screen, the raw
+terminal gets logged to disc and compressed and stored. So Teleport itself doesn't provide any way of kind of abstraction to sanitize that
+or purify it or do anything. But because the file is essentially just a compressed chunk file with text in it, you could potentially parse
+that file and — if you knew what you were searching for, you could — if you had lines that always took a certain form, like you always had
+email addresses or national insurance numbers or something on a given line, if you had those things, you could potentially run them through
+some kind of process to sanitize them. The audit log itself, even within Teleport's web UI, doesn't have anything to prevent that from being
+seen by end users, for example. So it's probably the sort of thing, in that instance, that you'd only really want to expose to kind of
+admins and compliance people who really need to be able to see exactly what. If there was a risk that you might leak information via there,
+then it would be probably best to stop people from having access to it.
+
+**Mark:** Keeping down in sort of the audit side of the world, can the audit data and audit log be sent to other SIEM solutions like Splunk
+or others?
+
+**Gus:** Yeah. Absolutely. Yeah. So Teleport can log to S3 and S3-like providers on the back end. So the audit logs can be sent into
+DynamoDB, they can be sent into Google's Firestore, Firebase, and ETCD clusters as well and things like that. So once you've got that data,
+you can configure exports on that side. So in AWS, for example, I know that you can deploy a Splunk connector, which will pass the database,
+pass the session logs, and upload those to Splunk for you. So there are ways. Teleport doesn't natively have support for Splunk or things
+like that. We are considering these things for future versions. We do want to kind of improve the flow and make Teleport able to directly
+submit to platforms like that. But at the moment, because the audit logs themselves are in JSON format, you can essentially pick them up and
+pull them through any kind of log slurping mechanism and put them into Splunk or another SIEM. So it is possible to do. It's JSON-formatted
+logs. But there's no kind of native support for that just yet.
+
+**Mark:** Great. I don't think it's part of audit, but maybe in a similar vein, is it possible to see timestamps in the playback? Looking at
+long-running user sessions, being able to see what the timestamp was?
+
+**Gus:** Yeah. So via the web UI and via the playback on the command line, you don't actually see the timestamps. What is does, if you have
+an hour-long session but there's a period where the user's just sat there at a prompt doing nothing for 45 minutes, that time will be
+compressed into nothing. So the audit logs, when you play them back, they only show periods of time where things were actually happening,
+where things were going on screen. And any time gets compressed where nothing's happening. But in the actual audit logs themselves — in the
+actual session recordings, rather, which are stored in storage, either in S3 or on the auth server's local storage, the timestamps of each
+event are actually stored in there. So if you wanted to see an exact timestamp at which something happened, you could load up the particular
+audit log and go through the JSON associated with that, and it has all of those timestamps there for you. So the data is there. It's just
+not exposed yet.
+
+**Mark:** Perfect. And then what is advanced auditing in the context of audit logs?
+
+**Gus:** So advanced auditing or enhanced session recording is the idea where using a BPF, so the Berkeley Packet Filter, the idea is that
+you can run Teleport in an enhanced auditing mode where it will use BPF, the kernel-level hooks essentially, on syscalls. It will log any
+processes that are spawned by scripts. So if you have a script that calls subprocesses for example, it will be able to log what subprocess
+the script started. It can also do things like if you make outbound network connections, it can log where you connected to, on what port,
+and how much data went back and forth. And there's other functionality as well. So it's essentially a kind of enhanced logging ability,
+which can give really kind of fine-grained detail into what's happening. So even if you're running a script which is kind of — it's not
+immediately obvious what it does, BPF can look underneath that and look at the kind of chain of calls that the script makes, can look at
+what binaries execute. It can look at that sort of thing and log all those things.
+
+**Gus:** Teleport does have support for that in, again, versions 4.2 and above. You need to be using a sufficiently new kernel. So I think
+it's after 4.18. Kernel 4.18 was when all the BPF hooks were introduced. So if you have a kernel that's 4.18 or newer, you should be able to
+get it to work. And the idea is that the audit log will have enhanced detail in there about what's going on. And as I think we mentioned
+before, there's another webinar going on in a few weeks which is to do with enhanced auditing and enhanced logging specifically. So if
+you're curious about that, make sure you sign up and come to that, because there'll be a much more detailed deep dive into how that works
+and what's going on with it.
+
+**Mark:** Perfect, Gus. And then one last question. There's definitely ones we didn't get to, so I apologize in advance for not getting to
+them. So the last question before we sort of wrap up is, how should Teleport be deployed if you have several GKE clusters and some VMs?
+Should we deploy a Teleport cluster in each GKE cluster and trust between Teleport clusters, or is it better in dedicated VMs?
+
+**Gus:** So it's up to you. There are two ways that you can deploy Teleport within Kubernetes. So the first way is that you just deploy
+Teleport in a pod inside your Kubernetes cluster. And if you do that, Teleport gets access to a service account and gets access to the API
+server directly via the kind of sockets that are provided within Teleport pods. Alternatively, what you can do is you can deploy Teleport
+outside of your Teleport cluster — sorry, outside of your Kubernetes cluster, and you can give Teleport a kubeconfig. So if you can generate
+a kubeconfig which has certificates in and the ability to run commands against your Kubernetes cluster, you can give that config to
+Teleport, and Teleport will proxy those connections for you and authenticate using the credentials you give it. So if you've got multiple
+GKE clusters, what you would probably want to do would be you'd deploy one Teleport auth and proxy pair inside each GKE cluster because
+Teleport can proxy on a one-to-one basis between Kubernetes and Teleport itself. So if you've got three clusters, you would want three
+Teleport proxies, one per cluster. So that would probably be the best way to do that. You deploy one Teleport auth and proxy pair per GKE
+cluster, and then if you want to link those back to somewhere central, like a management VM or an office VM or any kind of situation — it
+depends on the kind of architecture that you want, whether you want to keep things split by region or whether you want them all linked back
+to a central location, for example. But you could use Teleport's trusted cluster functionality to do that, to add each of your GKE clusters
+back to a root. And then you'd be able to authenticate via the root, and then go on to the GKE clusters, all via the same interface. So
+you'd only need to log in once. You get a certificate once. And then that certificate's automatically used and provisioned for you wherever
+you go. So if you've got a GKE cluster somewhere off in the distance and a local Teleport login, as long as you've got the permission and as
+long as that remote leaf cluster is linked back to your root Teleport cluster, you can do all of these things as described. This is a little
+bit of a more complex use case, so you might want to kind of — if you're thinking about these things, kind of make a post somewhere and talk
+about what you're proposing, and we'd be happy to kind of give you some guidance on what to do and the best way to go about it, for sure.
+
+### Conclusion
+
+**Mark:** Great. Gus, definitely appreciate that. Appreciate all of your questions and answers. And sorry we couldn't get to them all. We're
+going to just drop into the chat session here just links to the [community forum](https://github.com/gravitational/teleport/discussions). So
+definitely, ones that we didn't get to, answered there. And then Gus, if you can just move forward a slide, that would be awesome. And just
+sort of save the date. For everyone, the next webinar is on 6th of August, which will be around this practical guide to audit. Any of you
+that attended the webinar today, in terms of next steps, we'll send out a link to this webinar once we've got the recording probably by
+Monday. And then you can share it with your friends and colleagues and reread it again. As well as would love to see you in the community.
+The [slide](https://www.slideshare.net/gravitationalco/gravitational-teleport-43-webinar-privileged-access-management-cybersecurity) that
+Gus just went through — we'll put it up into SlideShare so everyone has access to that. And with that, again, thanks so much, Gus, for doing
+this. Thanks everyone for attending. And we'll see you on the 6th of August. Bye.
+
+**Gus:** Thanks, everyone.

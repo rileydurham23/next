@@ -1,0 +1,314 @@
+---
+title: "Teleport 4.4 SSH Compliance and Visibility"
+alternateTitle: "Teleport 4.4 | SSH Compliance and Visibility - Introduction and Demo"
+description: "What's new in the Teleport 4.4 release and a demo how it enables greater visibility into access and behavior."
+layout: tutorial
+publicationDate: "2020-10-07"
+associatedLabels:
+  ["teleport", "SSH", "infosec", "PAM", "Sales", "OSS", "ZeroTrust"]
+videoId: "x5iAv17PDWg"
+videoLength: "33:12"
+---
+
+## Teleport 4.4 SSH Compliance and Visibility - Overview
+
+Join Director of Product Ben Arent and CEO Ev Kontsevoy to learn about [Teleport](https://goteleport.com/)’s newest iteration! Teleport 4.4 enables greater visibility into access and behavior by adding Concurrent Session Control features to limit the number of concurrent sessions. Additionally, it can now restrict session sharing and handle idle sessions automatically, making it possible for the user to meet stronger compliance requirements. Ben and Ev will detail these new features, give a demo to show what they will look like in action, and answer all your burning questions.
+
+With Teleport 4.4, you can:
+
+- Automatically handle idle sessions and add restrictions on session sharing
+- Better control the maximum sessions designated for each role
+- Monitor and stream concurrent sessions
+
+### Key Topics on Teleport 4.4 Compliance and Visibility:
+
+- Teleport 4.4 allows users to exercise more granular controls.
+- Teleport is fully compatible with OpenSSH and can be quickly setup to record and audit all SSH activity.
+- Teleport has the ability to act as a compliance gateway for managing privileged access to Kubernetes clusters.
+- Teleport 4.0 has the foundation to meet [FedRAMP](https://goteleport.com/docs/enterprise/ssh-kubernetes-fedramp/) requirements for the purposes of accessing infrastructure. This includes support for [FIPS 140-2](https://en.wikipedia.org/wiki/FIPS_140-2), the Federal Information Processing Standard, which is the US-government-approved standard for cryptographic modules.
+- Teleport 4.4 extends Teleport FedRAMP controls to obtain AC-10 Session Control.
+
+### Expanding your knowledge on Teleport 4.4 Compliance and Visibility
+
+- [How to SSH properly](https://goteleport.com/blog/how-to-ssh-properly/)
+- [SSH Key Management](https://goteleport.com/blog/ssh-key-management/)
+- [FedRAMP Compliance for SSH and Kubernetes](https://goteleport.com/how-it-works/fedramp-ssh-kubernetes/)
+- [Audit Logging for SSH and Kubernetes](https://goteleport.com/how-it-works/audit-logging-for-ssh-and-kubernetes/)
+- [Teleport FAQ](https://goteleport.com/docs/faq/)
+
+### Learn more about Teleport 4.4 Compliance and Visibility
+
+- [Get Teleport](https://goteleport.com/pricing/)
+- [Learn More about Teleport Enterprise](https://goteleport.com/docs/enterprise/introduction/)
+
+### Slides for Teleport 4.4 Intro and Demo
+
+The slides for [Teleport 4.4 Intro and Demo](https://www.slideshare.net/gravitationalco/teleport-44-intro-and-demo-compliance-and-visibility) are on slide share.
+
+## Introduction - Teleport 4.4 Compliance and Visibility
+
+(The transcript of the session)
+
+**Ev:** Hello, everybody, and thank you for joining us. I'm Ev Kontsevoy, CEO of Teleport and I have Ben Arent joining me today. Ben runs
+product management for our open-source project called Teleport. And Teleport, for those of you who don't know, is an identity-aware access
+plane for SSH servers and Kubernetes clusters. As I said earlier, it's an open-source project so you can find it on GitHub and download it
+on our website. But today, we're not talking about Teleport in general. Today's topic is awfully specific. We're going to be talking about
+remote access sessions and session controls. So we'll cover questions like what is a remote session, how do you audit sessions, what kind of
+restrictions an organization should consider to enforce on sessions, and what kind of session controls need to be in place if you're trying
+to get [FedRAMP compliant](https://goteleport.com/how-it-works/fedramp-ssh-kubernetes/) or [SOC 2](https://goteleport.com/how-it-works/soc2-ssh-kubernetes/)
+compliant. So, Ben is our invited expert, and he will help us cover these topics. And hopefully, he'll show us a demo of how session control
+can be implemented in practice using an open-source tool like Teleport. We're just launching Teleport 4.4 which allows users to exercise
+more granular controls. But first, let's start with the basics. So Ben, tell us: What is an SSH session or a Kubernetes session?
+
+### Defining an SSH Session or a Kubernetes Session
+
+**Ben:** Thanks, Ev. So to step back a bit, SSH stands for Secure Shell. And a bit of internet history — we used to have Telnet for
+accessing machines. SSH was around as a cryptographic protocol for security accessing machines over unsecured network, that unsecured
+network being the internet. And many people on this call — I know we have lots of customers, who might be familiar with Teleport's SSH
+certificates — but many people will use SSH with public/private-key cryptography. This is where you would sort of run a command like rsa gen
+on your machine and then you'd publish your public key to the host, and then you'd use your private key and then everything's kind of
+encrypted through those public/private-key crypto. But in the case of Teleport, it uses SSH, but it uses SSH certificates which were
+introduced about seven years ago and you can think of this as instead of having an office with individual keys that you give out to people,
+it's more like a smartcard that you provide access. And once you get access to SSH, we also have things like interactive and non-interactive
+SSH sessions. Teleport covers both of these and we'll sort of dive a little bit deeper into those later on. And a Kubernetes session is a
+little different since it works on a HTTP API and so if you were to have a Kubernetes cluster and provide access to your developers, you
+might create a kubeconfig and use Kubernetes RBAC, but once you've given them that configuration, they sort of have access until you revoke
+it. And so Teleport — you can put Teleport in front of Kubernetes, and then it issues short-lived kubeconfigs so those developers only get
+access for that period of time that you need them to provide access.
+
+**Ev:** Nice. Nice. So do not use SSH public/private keys. That's something that we keep repeating over and over again and to control
+sessions effectively, you got to use Teleport with certificates. So, Ben, you've mentioned session control a couple of times, so once we
+understand what a session is — so what does it mean to apply session restrictions? What are the restrictions that an organization should
+consider applying to SSH or Kubernetes sessions?
+
+### Restrictions on Sessions
+
+#### Who’s Allowed to Access the System?
+
+**Ben:** Yeah. So I have restrictions on sessions and I'm going to go through, I think I have 10 points here starting with sort of the use
+case. So actually start off with who is allowed to access the system. And so for Teleport, we put a like IDP so this can be a SAML connector
+or [inaudible] also connect with Okta or Active Directory. And so you link people’s identities to Teleport's identities which links to
+sessions.
+
+#### How Long Can They Access the System?
+
+**Ben:** And then you can also say how long can those people access the system and this is one of the key components of how long do you want
+those certificates to be. If you have a really strict environment, you might want to say you can have access for an hour or it could be for
+the working day.
+
+**Ev:** Yes. Like someone just asked me a question on Twitter — I think about using SSH keys versus certificates for CICD pipeline like when
+you're deploying code. So one, a really cool way of using short-lived certificates. So you can issue a certificate per deployment, for
+example, so this way, if someone gets a possession of your CICD server, they can't really touch your production environment, so. These
+things work not just with humans, right, they work with robots as well.
+
+**Ben:** Yeah. Some customers sort of try and export like a one-year cert, but what we recommend is you can just have a coin drop that
+creates a certificate each day and so you can create a new one. So once the certificate expires, you can have like a one-hour overlap, those
+two certs and so even if someone did have access to your Jenkins, you have a continued process sort of renewing the certs which is a
+super-handy feature.
+
+#### What Did They Do During the Session?
+
+**Ben:** Next up, we have: What do they do during the session? sshd has the concept of like an audit log but it can be sort of difficult to
+configure and set up and Teleport provides a full JSON-based audit log that you can send to like a SIEM solution. We actually have a pretty
+[good webinar from Panther Labs](https://goteleport.com/resources/videos/ssh-best-practice/) about how you can sort of alert on these things back in our archive.
+
+#### What If They Step Away from the Computer?
+
+**Ben:** And what if you step away from the computer? This is what we call the idle session control and this is the case in which you leave
+your laptop open but there's no activity on interactive sessions, the session will terminate.
+
+#### Is The Session Being Shared?
+
+**Ben:** Is the session being shared? This is a unique feature to Teleport. I'll try and do a quick demo on this but this lets developers
+sort of pair a program or pair a debug and you can also limit this feature if you want to.
+
+#### How Many Sessions Can They Start?
+
+**Ben:** How many sessions can they start? So you can think of this as like you have the key card but you can only access one door at a
+time. This is one of the new additions in Teleport 4.4, and we'll sort do a bit of a deeper dive into this, but this is concurrent session
+control.
+
+#### What Happens When the Cert Expires?
+
+**Ben:** And then there's ones when the certificates expire — we have a flag that you can set up to automatically terminate the session.
+
+#### How Do I Stop a Session in Progress?
+
+**Ben:** And one thing that comes up pretty regularly is: How do I stop the session in progress? We have some of the machinery in session
+control, but in 2021, we're going to investigate session locking and this will be on the per-user basis and so if you happen to see any
+nefarious activity, you'll be able to lock a user's cert for a duration.
+
+### Session Controls to Support Compliance
+
+**Ev:** So these are restrictions that we recommend on SSH and Kubernetes sessions. And just to step back, why are we implementing these
+capabilities? Why do organizations want to do it? So on one hand, we believe this is just a common sense. You obviously want — first of all,
+you don't want to inconvenience engineers who are actually getting something done but at the same time, you do want to make sure that
+engineers don't have access to production systems, you want to make sure you have a central certificate authority that controls access. But
+another interesting and very important reason to be doing it is compliance and FedRAMP compliance specifically. So, Ben, can you tell us a
+little bit about how the session controls that we are adding to Teleport help organizations to implement FedRAMP compliance, for example,
+because it's one of the popular and stricter ones?
+
+### FedRAMP Controls
+
+**Ben:** Yeah. Just to give you a bit of background. So we have many customers who have solutions that they want to sell to the government
+and I think it was — do you know if it's about five or six years ago they started the FedRAMP program, Ev?
+
+**Ev:** I think so. Yeah. It was initially intended for infrastructure only but a lot of the standard is perfectly applicable to software as
+well so it's now getting kind of diluted to anything cloud the government wants to use.
+
+**Ben:** Yeah. And so in that case, any kind of tool that they want to acquire, you can use like the GovCloud for infrastructure and that
+sort of FedRAMP out-of-the-box. But if you put your software in the GovCloud and your developers gain access to it, so they need to obtain
+certain controls. And we have a list in docs here on “How It Works” page on all of the controls for FedRAMP for SSH. And one of the new
+additions in 4.4 is like AC-10 and this is limiting the number of concurrent sessions per assigned organization for the defined number. And
+this is another checklist. So we've had customers sort of as they've gone through the FedRAMP program and in order to be like, "Okay. You
+have sort of 20 of these 25 controls, you still have these 5 left." And then every six months, they need to report, okay, we're working with
+the Teleport team to get this last control. So I think this helps a lot of our current customers obtain the last check and get an auditor
+off their back.
+
+**Ev:** Yup. Yup. And so this is one of the things that will make it easier if you actually pay us even though Teleport is an open-source
+project but FedRAMP compliance assistance, this is something we charge money for. So speaking of financial questions like: "How do you guys
+make money if your product is open-source?" All right. So with this out of the way, how about we just stop talking and play with the
+product? Ben, can you please show us Teleport 4.4 and some of the examples of how session control could be used?
+
+### About the Demo Cluster
+
+**Ben:** Yeah. I'm just going to give you a bit of background, so it's an enterprise cluster. This is starting with FIPS and this is
+[inaudible] of our FedRAMP compliant Teleport module so it's compiled with BoringCrypto which is a NIST-recognized cryptographic module, and
+it does a few other kind of features so it always enables encryption at-rest. In my environment, I have been using DynamoDB and S3. This is
+an alpha and we have a RC today. So for customers who have been waiting for some of these features, now's probably a good time to try it on
+your staging environments and give us feedback and we'll have General Availability (GA) next week. So just going to dive in.
+
+### Demo Time
+
+**Ben:** So one of the first things I'm going to do is just log into my cluster. This is sort of familiar so it's like tsh login and here's
+my proxy I've set up. I'm using GitHub as my identity provider. Let me just open up here. And so this will go in. I've already authenticated
+with GitHub on my — I would normally have to kind of log in when I come back to my terminal, and I can see I've been logged into this
+cluster. I have the role, admin, and I have access to a range of nodes. And so once you sort of do the initial authentication, it's pretty
+easy, just do tsh ssh. [inaudible] this server. And like now, I'm on the EC2 host. I have my demo environment. So this is sort of a
+relatively familiar flow for people using SSH.
+
+**Ben:** Another benefit of Teleport — the proxy can provide a UI for both our audit log and viewing your clusters. Clusters, here, they can
+be different environments or network to quality so this could be your, if you had GovCloud set up, this would be a separate cluster and then
+you can link these two clusters together using Teleport's [trusted clusters](https://goteleport.com/docs/setup/admin/trustedclusters/). I have one of my test
+example. And you can see this is sort of mirroring what you saw on the command line experience so another helpful thing is you have labels
+in the command line that you can use to sort of filter and find your machines more easily because having this EC2 hostname isn't very easy
+to know what's inside that machine. And so these labels are also a fundamental component for filtering and then these are all based on
+[RBAC](https://goteleport.com/docs/access-controls/introduction/). And so in our rows, you can provide access to certain labels. And so a combination of your
+identity provider, labels or nodes. In RBAC, you can create very powerful restrictions on who gets access to which machines and these are
+also dynamic to [inaudible] labels so you could promote a machine from like a staging to production or if you do — running a migration, you
+can turn off access to that host.
+
+**Ev:** Yeah. My favorite use of labels is you can detect if a database is running on the machine, and if database is running, so then you
+label that machine that that's a database machine. And then, you could have role-based access rule that says only people in dba group can
+access machines with databases via SSH, something like that.
+
+**Ben:** And so that's got a range of options that you can provide per role. This is one of the new additions which is max_connections. And
+so this enforces the ability of only being able to have one connection to the host. And so, because I'm already logged in on the terminal,
+and I've just changed it, I'm not able to have another concurrent session for this user. And this also gets reported to Teleport's audit log
+as well. So just tweak my role and make it a bit more helpful. Having one role isn't the easiest to get started. And so there's a few other
+options here. So here we have Auth Connectors. Another pretty powerful feature, I don't know, Ev, do you have access to your —?
+
+**Ev:** Hold on a sec. Yeah, let me try to open it. So you want me to log in into the same cluster, right?
+
+**Ben:** Yeah. And so you can see here, this is the active session that I have, in process, in my terminal. Another powerful feature of
+Teleport is that Ev has the ability to join me in this session.
+
+**Ev:** You want me to do it?
+
+**Ben:** Yeah, go on. You can do it [crosstalk].
+
+**Ev:** All right. I'm typing something on my machine.
+
+**Ben:** And so you can see here, Ev's joined and here's myself. And so this is like a very powerful feature but this is also something that
+you might want to turn off. And this is another control that you have in Teleport's RBAC. And so if I exit this, there's no active sessions,
+but we also have a full audit log of what happened during the session and Teleport has this sort of DVR type functionality that you can come
+back and you can see the commands that were ran and this is where Ev sort of came onto my box. And I can just show you a few other things
+with this cluster. This is the combination of our proxy auth and the node, so I sort of have the ability to see the configuration. In here,
+you can see this is sort of set up so all our audit logs go to S3 and our events go to DynamoDB. And we also have client_idle_timeout — it’s
+30 minutes on this machine. This is sort of a bit hard to demo, but all of this is configurable on a per-cluster basis. And this is sort of
+an example of dynamic labels so you can [inaudible] any local file and sort of change whatever commands you want. So we have customers using
+EC2 tags for this as well. So Ev — is there any bit here that you think I've missed from my demo?
+
+**Ev:** No, I think it was a pretty decent overview. One question people might be asking: So what is that node that instead of listing its
+IP address, it says Tunnel? So what is that?
+
+**Ben:** Oh, yeah. That's a good point. So this is a node that dials back to the Teleport service. So historically, all of Teleport's nodes
+would have to connect in the same network space and sort of VPC, as it were, and then you'd connect those together using trusted clusters.
+This one connects back where the proxies, which can be publicly accessible on the internet. You can think of it as the hardened bastion
+host. And so, this one is in a sort of a separate VPC. It can be hardened. This could be even like an edge device or another [inaudible] so
+this can be a helpful way of sort of connecting more devices.
+
+**Ev:** Yeah. So the tunnel in this case, it means that it's a — so tunnel from where to where?
+
+**Ben:** This is a tunnel from another us-west region and it's in a different VPC.
+
+**Ev:** Yeah. So the node basically connects to this cluster and then Teleport uses that tunnel to establish connection from a user to that
+device.
+
+**Ben:** Yeah. But the interaction of Teleport's the same. It does support labels, but didn't add labels during my demo.
+**Ev:** All right. So thank you, Ben. That was a wonderful demonstration of Teleport 4.4. So now, let's see if anyone in the audience has
+any questions. So you could use Q&A button on Zoom to ask questions, and they will go to my user interface here. So we'll repeat what you're
+asking and we'll try our best to answer those. Is it just me, or there's no questions? All right. So if there are no questions — oh, hold on
+a second— there is one.
+
+### Q&A
+
+**Ben:** That's a question.
+
+**Ev:** Will the hostname be displayed in the tab of the session instead of the session's ID? That's a good one. That's a good one. So, Ben,
+can you show us the UI again so we can talk about this?
+
+**Ben:** Yeah. I think this could be — there was a bug in 4.4 so if I was to come in here, you'd see that this would be — this is now the
+hostname instead of the internal reference. I think that might answer the question, and this was fixed in 4.4.
+
+**Ev:** Can the question be displayed in the tab of this session? So basically, you're saying that that's what we're looking at — is a
+temporary UI bug that we're fixing, right?
+
+**Ben:** Yeah. This is just to show — so one of the technical concerns of hostnames is that people can — Teleport can support hosts with the
+same hostname because you can set your hostname to anything. So we sort of don't trust the hostnames so we have our own internal registry.
+But humans kind of understand the relation of what the hostname means and so —
+
+**Ev:** But are we fixing this though?
+
+**Ben:** Yeah. This is being fixed in 4.4.
+
+**Ev:** 4.4. Okay. So —
+
+**Ben:** Yeah. In this version. I think in 4.3, that was just a regression, but it didn't show.
+
+**Ev:** Yeah. Because Radislav says that it didn't work for him in 4.3.7. Okay. So it's good to know that we fixed it. And the second
+question is: Can you enforce to have a certain number of same kind of user like only two administrators? I’m trying to understand how to
+interpret this question. So if the question is like: there are only two admins within an organization, two real people, then the way you
+would enforce it, I guess, is you only have — like if you have a group called admins so that group will have two users. But if the question
+is like can we all have two admins logged in into the cluster at the same time, basically concurrent sessions per group?
+
+**Ben:** Oh, yeah. No, in this implementation, the concurrent sessions are per-individual. So if I give you two sessions, you get two, I get
+two. Yeah, it's not cluster-wide.
+
+**Ev:** Yeah. And Marco, if we're not answering your question, you can just clarify in chat so we tried our best to interpret the meaning of
+your question. Okay. Not much — okay. So that was — I didn't realize that things are disappearing here. Okay. Currently, the username on
+Teleport CLI is assumed to be either username from the machine you're using or a given explicitly — hold on. That was not a question. Ben, I
+think Radislav is asking if we plan to make it configurable, the username of Teleport CLI to be —
+
+**Ben:** Oh, instead of tsh?
+
+**Ev:** Yeah. Like if you don't give tsh user, it behaves exactly the same way as like open SSH commands so it takes the user of the machine
+and assumes that that's the user. So the question then becomes: Are we planning to make it configurable? It kind of is configurable already.
+If you show that tsh directory, there are these profile files that are created per cluster.
+
+**Ben:** Yeah. This one here.
+
+**Ev:** So if you show that — yeah, I'm on file.
+
+**Ben:** Yup.
+
+**Ev:** Yeah. So you could basically change the user in this file so that would be — and in default user for that cluster. Radislav, are we
+answering your question? All right. Awesome. So any other questions? Well, if there are no other questions, looks like we are about done.
+
+### Recommended Next Steps
+
+**Ev:** So thank you, Ben, very much for the fantastic demo and thank you, the audience for the great questions. Thank you all for attending
+and if you'd like to learn more about modern secure access to infrastructure, please check out [our blog](https://goteleport.com/blog) and
+[twitter](https://twitter.com/goteleport). Now, on behalf of Teleport, enjoy the rest of the day while you shelter in place and be safe.
+
+**Ben:** Thanks, everyone.

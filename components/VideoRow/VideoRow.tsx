@@ -17,7 +17,8 @@ export interface VideoItem {
 }
 
 export interface VideoRowProps {
-  tutorialLabels?: Array<string>;
+  associatedLabels?: Array<string>;
+  mainVideoId?: string;
   videos?: Array<VideoItem>;
 }
 
@@ -43,13 +44,15 @@ const getNVideos = (count: number, initialKeys: Array<string>) => {
   return videosToReturn;
 };
 
-const getVideoIdsWithLabelCounts = (tutorialLabels) => {
-  const tutorialLabelsSet = new Set(tutorialLabels);
+const getVideoIdsWithLabelCounts = (associatedLabels) => {
+  const associatedLabelsSet = new Set(associatedLabels);
 
   return Videos.reduce((labelCountsAccumulator, video) => {
     const count = video.labels.reduce(
       (countAccumulator, label) =>
-        tutorialLabelsSet.has(label) ? countAccumulator + 1 : countAccumulator,
+        associatedLabelsSet.has(label)
+          ? countAccumulator + 1
+          : countAccumulator,
       0
     );
 
@@ -61,14 +64,22 @@ const getVideoIdsWithLabelCounts = (tutorialLabels) => {
   }, {});
 };
 
-const getAssociatedVideos = (tutorialLabels: Array<string>) => {
-  if (tutorialLabels.length === 0) return getSortedVideos().slice(0, 4);
+const getAssociatedVideos = (
+  associatedLabels: Array<string>,
+  mainVideoId: string
+) => {
+  if (associatedLabels.length === 0)
+    return getSortedVideos()
+      .filter((video) => video.videoId !== mainVideoId)
+      .slice(0, 4);
 
-  const matchingLabelsCounts = getVideoIdsWithLabelCounts(tutorialLabels);
+  const matchingLabelsCounts = getVideoIdsWithLabelCounts(associatedLabels);
   const countKeys = Object.keys(matchingLabelsCounts).sort(
     (a, b) => matchingLabelsCounts[b] - matchingLabelsCounts[a]
   );
-  const selectedKeys = countKeys.slice(0, 4);
+  const selectedKeys = countKeys
+    .filter((videoId) => videoId !== mainVideoId)
+    .slice(0, 4);
   const videoRemainder = 4 - selectedKeys.length;
 
   if (videoRemainder) {
@@ -114,8 +125,8 @@ export const VideoItem = ({ author, href, title, videoId }: VideoItem) => {
   );
 };
 
-export const VideoRow = ({ tutorialLabels }: VideoRowProps) => {
-  const selectedVideos = getAssociatedVideos(tutorialLabels);
+export const VideoRow = ({ associatedLabels, mainVideoId }: VideoRowProps) => {
+  const selectedVideos = getAssociatedVideos(associatedLabels, mainVideoId);
 
   return (
     <StyledRow>
@@ -138,7 +149,7 @@ export const VideoRow = ({ tutorialLabels }: VideoRowProps) => {
 
 const StyledRow = styled(Flex)(
   css({
-    justifyContent: ["center", "center", "space-between"],
+    justifyContent: ["center", "center", "flex-start"],
     mb: [1, 11],
     flexFlow: ["row wrap", null],
     mt: [2, null],

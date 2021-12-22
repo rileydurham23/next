@@ -56,7 +56,18 @@ export interface Tutorial {
   frontmatter: {
     alternateTitle?: string;
     description: string;
-    tutorialPublicationDate: string;
+    publicationDate: string;
+    title: string;
+    videoId: string;
+  };
+  uri: string;
+}
+
+export interface Webinar {
+  frontmatter: {
+    alternateTitle?: string;
+    description: string;
+    publicationDate: string;
     title: string;
     videoId: string;
   };

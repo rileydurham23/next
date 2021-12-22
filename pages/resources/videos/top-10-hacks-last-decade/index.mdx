@@ -1,0 +1,379 @@
+---
+title: "Top 10 Hacks of The Past Decade"
+description: "Research on the biggest hacks of the last decade and lessons learned so we don't repeat these same mistakes."
+layout: tutorial
+publicationDate: "2021-01-14"
+associatedLabels:
+  [
+    "teleport",
+    "SSH",
+    "infosec",
+    "breaches",
+    "applications",
+    "kubernetes",
+    "hacks",
+    "RBAC",
+    "segmentation",
+    "secrets",
+  ]
+videoId: "YUEQnuWo2KQ"
+videoLength: "41:07"
+---
+
+## Top 10 Hacks of the Last Decade - Overview
+
+Security breaches have become a normal part of our lives over the past decade, but each hack comes with its own complications and ramifications. In this webinar, Teleport Tech Writer Virag Mody will dive deep into the details of the top 10 hacks of the past decade and how they affected the way we approach cybersecurity. The presentation includes breaches from:
+
+- Solarwinds
+- Panama Papers
+- Operation Aurora
+- Equifax
+- Capital One
+- Cambridge Analytica
+
+### Key Topics on Top 10 Hacks of the Last Decade
+
+- Cybersecurity is quite a proactive industry, but it is also reactive
+  in the face of novel threats
+- The top 10 hacks of the last decade include the Solarwinds, Panama Papers, Operation Aurora, Equifax, Capital One, and Cambridge Analytica hacks.
+- The context of the 10 hacks covered here underscores the importance of best practices such as segmentation, secrets, and role-based access control (RBAC).
+- [Teleport](https://goteleport.com/pricing/) is built with the above three best practices in mind and is therefore able to enforce them.
+- Teleport is an open-source [Unified Access Plane](https://goteleport.com), i.e. a smart proxy that understands all common remote access protocols.
+- Teleport enables engineers to quickly access any computing resource anywhere on the planet.
+
+### Expanding Your Knowledge on Top 10 Hacks of the Last Decade
+
+- [Teleport Quick Start](https://goteleport.com/docs/getting-started/)
+- [Teleport Unified Access Plane](https://goteleport.com/)
+- [Teleport Application Access](https://goteleport.com/docs/application-access/introduction/)
+- [Teleport Kubernetes Access Guide](https://goteleport.com/docs/kubernetes-access/introduction/)
+
+## Slides - Top 10 Hacks of the Last Decade
+
+The slides for [Top 10 Hacks of the Last Decade](https://www2.slideshare.net/gravitationalco/top-10-hacks-of-the-last-decade/) are now available.
+
+## Introduction - Top 10 Hacks of the Last Decade
+
+(The transcript of the session)
+
+**Virag:** My name is Virag. I'm a technical writer here at [Teleport](https://goteleport.com/pricing/), and today we're going to be talking
+about the top 10 hacks of the last decade. Quick administrative thing, we do have some time for Q&A at the end, so if you would like to ask
+any questions, just submit them in the question box and we'll get to them later. All right. Let's get to it. So cybersecurity is quite a
+proactive industry, but it is also reactive in the face of novel threats. And so I think going through these 10 notable hacks — that you'll
+see here on the left — of the past decade will give us some context into what today's cybersecurity best practices are and why they're so
+important. So we'll take a look at what happened with each hack, how did it happen, and what changed afterwards. And then at the end, we'll
+talk a little bit about Teleport, which is built with the best practices in mind. All right. Now the fun stuff.
+
+### Overview of the Last Decade's Top 10 Hacks
+
+#### Operation Aurora
+
+**Virag:** Operation Aurora. Operation Aurora was publicized in 2010 by Google, but it affected many more companies than just Google. You'll
+see here Adobe, Juniper Networks, Dow Chemical, Morgan Stanley, and about two dozen others. The intent of Operation Aurora was IP theft in
+the form of source code, particularly source code for internal applications and proprietary software. Now, what's interesting about
+Operation Aurora is that attacks on corporate networks were not new at the time, they'd been happening for a while, but the level of
+sophistication of this attack was never before seen. And it indicated that the resources, the talent, and even the budget available was
+something that small-scale operations did not have access to. So how did it occur?
+
+**Virag:** Operation Aurora exploited an Internet Explorer zero-day. So what the attackers did was they targeted employees at these
+companies with a spear-phishing campaign. The users or employees, they received plausible emails, plausible chat messages with a link that
+sent them to a server way off somewhere in the world. Once they click the link, a JavaScript program would run in their browser. That
+program would exploit the Internet Explorer zero-day to install the malware that was Operation Aurora — sorry, installed malware that opened
+a backdoor for access and allowing them to search internal networks, which eventually led them to repositories for source code. We don't
+know exactly what source code was stolen. We do know that for Google, a program called GAIA, which was an SSO — sort of like a prototypical
+SSO software was stolen. What happened afterwards? If you're familiar with Operation Aurora, it might be because that was the genesis for
+the BeyondCorp campaign. So four years later, after the attack, Google released a research paper called BeyondCorp: A New Approach to
+Enterprise Security. And the model that they proposed would implement zero trust at scale. Zero trust principles had been discussed for
+quite a bit of time, and there may have even been some small-scale POCs, but nothing had ever been implemented at the scale that Google was
+proposing. And so they sort of became the de facto leader in modern cybersecurity practices.
+
+#### Stuxnet
+
+**Virag:** Right. Next up is Stuxnet, also in 2010. Stuxnet was a computer worm that targeted industrial SCAD systems. SCAD being
+supervisory, control, and data acquisition systems. What's interesting is that Stuxnet was very precisely designed to target SCAD systems.
+And we know this because whenever Stuxnet encountered a machine that did not have the right configuration, it would just stay dormant. It's
+a very precise attack, very intentional, but unfortunately, an error during a software update unintentionally released Stuxnet out into the
+greater world over the internet. And as a result, even though Iran was primarily targeted — and it still did suffer the majority of the
+damage — other countries like Indonesia, India, and Azerbaijan also saw the effects of Stuxnet. Now, what do I mean by unintentionally
+released on the internet? The facilities that were targeted were air gap environments, which means they had no access to the internet. So in
+order to deploy Stuxnet into the plan, the attackers targeted contractors that they believed to be working at the plant, put Stuxnet onto a
+USB, which would then eventually get plugged into a machine in the plant, and that's how it proliferated.
+
+**Virag:** As I mentioned, the worm was quite sophisticated. Again, we know that because it was very precise and very targeted, and as a
+result, it consisted of quite a few different modules, including the payload which was delivered by the worm, a link file which would
+execute different copies of the worm as it proliferated, the rootkit which would prevent detection from malware or human operators, and a
+command and control network which allowed remote access to issue commands as well as push software updates, which is what led to the error
+in the first place. The worm worked by exploiting a number of different zero-days, as well as searching the internal network for shared
+secrets and credentials that were lying around in certain places. And the worm particularly targeted PLCs or programmable logic controllers
+that would control the centrifuges at the plant. And over time, the worm slowly put more and more pressure through the PLCs onto the
+centrifuges, which would eventually cause them to get damaged over time, all the while, it was feeding back inaccurate information back to
+the centrifuge operators. So they thought everything was fine until a bunch of centrifuges started going offline for no perceptible or
+perceivable reason. What happened afterwards?
+
+**Virag:** The Stuxnet attack was the first attack on any type of industrial infrastructure at this level. It had been hypothesized that
+this would be possible, but nothing before had really been seen. And because of the error that released Stuxnet out on the internet, this
+became a very publicized incident and it effectively weaponized cyberspace, which we'll see the effects of that later on and we continue to
+see the effects of it today, basically, kicking off another arms race for cyberwarfare.
+
+#### Mt. Gox
+
+**Virag:** Next up is Mt. Gox. So departing a bit from the other two, Mt. Gox was the largest Bitcoin exchange in 2014, traded about 70% of
+all volume at the time. And in a matter of a couple of weeks, this exchange stopped all trades and all withdrawals. Soon after, some
+internal documents were released and it was found out that 850,000 Bitcoin had been stolen, which is the largest theft to date. At the time,
+that was about $450 million; now, that's over 34 billion. I believe Bitcoin's price is something around 38, 39 thousand dollars today, so
+it's a massive amount of money, and that's the reason that it's on this list. Of those 850,000, only 200,000 bitcoin were ever recovered.
+The other 650 are still out there, unknown where they are or who stole them. How did it occur? So this was primarily a result of a very
+poorly managed codebase. I think given the infancy of sort of the crypto-movement, no one at Mt. Gox had expected that they would reach this
+scale, that their exchange would be so popular, and as a result, they were not using any type of best practices.
+
+**Virag:** So in 2011, someone, the unknown someone, stole credentials from an auditor that had been working with Mt. Gox, which had very
+privileged access to Mt. Gox's servers. And in a matter of three years, they slowly siphoned Bitcoin out of a hot wallet — a hot wallet
+being something that's connected to the internet — and they matched those transactions as just normal exchange transactions. And so in 2014,
+when all of the Bitcoin in Mt. Gox exchange was basically liquidated and they became insolvent, they realized that someone had been
+siphoning off Bitcoin for these three years. What happened afterwards? It started a very heated debate about centralized exchanges, very
+similar to the types of conversations that we have about enterprise companies trusting third parties with private data. Nowadays, these
+third parties usually have to go through a variety of different vendor security procedures and hold some liability. But again, given the
+infancy of the crypto-space, everything was done purely based on implied trust or good faith. And nowadays, that's a little bit different.
+So you might be familiar with the centralized exchanges — Binance and Coinbase — and they have much more transparent operations as well as
+certain insured deposits. But if you ask any diehard crypto fan, they'll tell you, "Don't ever use a centralized exchange; always use a
+decentralized exchange." And that is exactly because of Mt. Gox.
+
+#### Panama Papers
+
+**Virag:** All right. Panama Papers. So I'm sure all of you are familiar with the Panama Papers incident, which expose a number of
+high-ranking officials that were using an offshore company to hide income and evade taxes. The company managing all of these operations was
+Mossack Fonseca, the law firm, and that was the company that was targeted by sort of a lone hacker. The Panama Papers hack ended up being
+the largest leak in history, with over 2.6 terabytes of data being leaked and given to journalists and reporters to investigate. So how did
+it occur? Honestly, we don't know how it occurred, mostly because there were so many vulnerability and exploits that there were a number of
+different ways that this could have happened. For example, Mossack Fonseca ran outdated versions of very important software, including the
+Drupal customer management system, an open-source software, as well as an outdated version of WordPress for their web servers. Now, this
+version of WordPress was particularly known to be vulnerable to something called the Revolutionary Slider Exploit. The Revolution Slider was
+a plugin that was used by WordPress, which could be exploited to gain shell-level access onto the web servers. On top of that, emails were
+not encrypted or encrypted over TLS, and the webserver and the email servers existed on the same network with no firewall separating them.
+So there's a number of ways this could have possibly happened. And the main takeaway — what happened afterwards, it reinforces the basic
+principles, make sure that you segment your networks, make sure that you encrypt your data, make sure that you're updating software,
+especially if you're using open-source software.
+
+**Virag:** What is interesting about the Panama Papers? It serves as a pretty good warning for companies that are storing sensitive customer
+information because not only is your reputation at stake, the Panama Papers set precedent for illegal data or illegally obtained data being
+used as evidence in prosecution. So if you ever need another reason to make sure you're keeping customer data private, there you go. You can
+add it to the list.
+
+#### The DNC Hack
+
+**Virag:** The DNC hack. So the DNC hack was really accumulation of multiple hacks perpetrated by the same group, most notably the DNC, the
+Democratic National Committee, as well as the Hillary Clinton presidential campaign. As a result, just a few months prior to the 2016 US
+election, 50 000 emails were published on WikiLeaks. And that just dominated the news cycle for quite a bit of time. How did it occur? The
+Clinton campaign actually had some pretty strong security measures in place. They enforced two-factor authentication, they wiped their
+servers, and they did regular phishing drills. And so after trying to target campaign email accounts, the group Fancy Bear opted to target
+private accounts instead of people that were working on the campaign. They targeted people through a spear-fishing campaign, they got one
+person to send their credentials into a compromised website, and that's how they were able to get access to that person's inbox and extract
+these 50,000 emails. On top of that, the group were also able to obtain admin credentials to the DNC network, which gave them privileged
+access, and they basically searched the network for machines that were connected to it and installed both X-Agent and X-Tunnel. X-Agent
+being a software that logs keystrokes and X-Tunnel being a software that created a backdoor to extract data.
+
+**Virag:** And as such, over 300 gigabytes of data from the DNC was exfiltrated and sent through a number of buffer servers to obfuscate
+what was going on. So what happened afterwards? I think in the same way that Stuxnet normalized cyberwarfare for sort of industrial
+operations, the DNC hack did so for election procedures, in the sense that this very publicized incident sort of set the groundwork, the
+precedent for this to continue to happen in more of a public manner. As a result, the US spent billions of dollars trying to upgrade their
+security infrastructure for upcoming elections and voting cycles, sort of — especially the president with — or especially important in 2020
+and into 2021 with COVID, sort of disrupting how we normally do voters or elections, as well as the DNC opted to use specialized hardware.
+They moved a lot of their operations to the cloud, which had some degree of security baked into it, and they started employing regular
+phishing drills as well.
+
+#### Equifax
+
+**Virag:** Equifax. Equifax is probably the largest hack of 2017 and definitely stands out in recent memory. Equifax is one of the largest
+credit reporting agencies in the world, meaning that they have access to very sensitive personal and financial information, including things
+like addresses, social security numbers, driver IDs, and much more. And the reason that this hack was so substantial is because of the scale
+of — or the number of people that were affected, particularly in America, with over 143 million Americans, which accounts for about 40% of
+the population.
+
+**Virag:** How did it occur? Apache had issued a security notice that they had found a vulnerability in Apache Struts, which is an
+open-source framework for building Java web apps. And they released a notice saying that they had updated the patch, updated the software,
+and patched the vulnerability, which would allow anyone to remotely inject code via HTTP headers. And due to some error on Equifax's part,
+they did not upgrade the software or the latest software release that Apache had recommended. And as a result, when Apache sent out this
+public notice, a bunch of people in the hacker community started scanning the web for this vulnerability, which led them to Equifax. And so
+once within the network, for a matter of months, the hackers basically just jumped from database to database extracting information. And the
+reason that Equifax never caught on to what was going on was because they didn't renew the license to a third-party software that they were
+using to inspect traffic and so it just went under the radar. What happened afterwards? There really isn't that much fallout. Obviously,
+their stock went down, but within a matter of a few months, it sort of got back to normal. They had to pay $1.4 billion in upgrades and
+security upgrades and another 1.4 billion in claims, which came out to about 125 a person, really not that much considering the scale of
+what had happened. But what it does demonstrate is that legacy companies are pretty slow to modernize, right? And we know this, right?
+Companies that have existed for 100 years have a lot of operational and technical debt, and things like implementation and governance can
+get overlooked. But the moral here is that even though modernizing is daunting, not modernizing is definitely much worse.
+
+#### WannaCry
+
+**Virag:** WannaCry 2017, excuse me. So WannaCry was a ransomware attack that affected hundreds of thousands of Windows machines over 150
+countries. The attackers basically ransomed access to files and machines in return for Bitcoin. Often, this exchange was not honored.
+Bitcoin would be sent, access would not be granted because the hackers have no incentive to do so. For the most part, this affected UK
+hospitals as well as some major railway networks as well and private companies throughout the world. What's important to note is how quickly
+WannaCry spread. This happened in a matter of just a few hours, and it took basically everyone in the world by storm because there was very
+little time to react. How exactly did it happen? So there's a company — or there's a group known as the Shadow Brokers and they stole NSA
+tools and published them on the internet. When that happened, the NSA informed Microsoft that, "Hey, we had known about this exploit for a
+while. We'd sort of been storing it. But it has been stolen, and so you should patch it right now," which Microsoft did. But usually, these
+patches take some time for all the companies that are using the outdated version to update. And in that time, hackers were able to execute
+this hack. They did so using two tools from the NSA: EternalBlue and DoublePulsar.
+
+**Virag:** EternalBlue allowed or exploited a problem with the Windows operating system that would incorrectly read network packets, and so
+hackers stored — they delivered code that was arbitrarily executed using that exploit. Within that code was the DoublePulsar payload.
+DoublePulsar would effectively create a backdoor, and that was used to deliver the WannaCry ransomware. When this happened, there was a
+malware reverse engineer that was taking a look into this. He looked in the code, he noticed that there was a DNS kill switch, and once he
+registered the domain just a few hours after this happened, the ransomware virus sort of slowed down to a crawl. What happened afterwards?
+So EternalBlue and DoublePulsar are still threats now, still right now. Another major hack was NotPetya in 2017, the same year. But there
+have been — even in more recent years, there have been incidents where EternalBlue and DoublePulsar had been co-components of a hack. This
+increased more public scrutiny on the NSA, which at the time had already been criticized after Snowden went public in 2014. And as a result,
+Congress passed what is known as the Patch Act, which balanced the need for vulnerability disclosure as well as national security.
+
+#### Cambridge Analytica
+
+**Virag:** Cambridge Analytica. So Cambridge Analytica isn't a hack, per se, but I think it merits being on this list. What happened? So in
+2018, the whistle was blown on a major data harvesting operation in which 87 million Americans had much of their data scraped from Facebook,
+which was used to create these very high definition psychographic profiles, which were then sold to companies for very targeted advertising.
+How did it happen? 300,000 users had accepted the terms of This Is Your Digital Life. This was like a sort of personality quiz, right, that
+sort of reads your profile and says, "This is what your star sign is," very sort of catchy things like that. These terms of service were
+quite abusive that effectively allowed the company behind This Is Your Digital Life to harvest your data, but more importantly, harvest the
+data of your Facebook friends really without their consent. At the very least, things like public profiles, page likes, birthday, and
+location were harvested, and in some cases, even more private information like access to photos, timeline, and even private messages. What
+happened afterwards? So like I said, this wasn't exactly a hack. There were no stolen passwords. The data capture was largely consensual.
+And if that's the case, I think that's even more problematic because that shows the lack of privacy constraints and data protection for
+users is a feature of Facebook and not a bug. And we realize that now.
+
+**Virag:** And so as a result, Facebook was fined $5 billion, they had to go through certain changes to their internal operations, but more
+importantly, Cambridge Analytica was the basis for the passing of CCPA, the California Consumer Privacy Act, which sort of set the standard
+for data privacy in the US. And as the saying goes, as California goes, so goes the country. So we can expect to see sort of the
+ramifications of Cambridge Analytica to continue for quite a long time. And then some companies also took this opportunity to change their
+privacy policies. They minimized API access to external parties and they even just banned the use of cookies in certain cases.
+
+#### Capital One
+
+**Virag:** Capital One, this was another major hack that happened in 2019. And sort of any security professional sort of worst nightmare,
+mainly because the hack was perpetrated by an ex-Amazon employee who knew more about the infrastructure that Capital One's resources were
+running on than the security professionals themselves. It's never a great situation to be in. What this ex-Amazon employee did was she
+exploited a misconfigured web application firewall and was able to steal over a hundred thousand social security numbers, as well as one
+million social insurance numbers — which is sort of the Canadian equivalent of a Social Security Number — as well as some very detailed
+private banking information or financial information like bank accounts and credit card applications. Capital One was quick to catch onto
+this mainly because the hacker admitted guilt over GitHub and Slack. Those messages are actually available. It's quite interesting to read.
+
+**Virag:** How exactly did it occur? So the details aren't fully disclosed, but most cybersecurity professionals agree that this was a
+server-side request forgery. So what happened is within cloud services, certain HTTP communications are just considered trusted, and this
+web app firewall was one of those applications. And so the hacker who had compromised the web app firewall was able to send a custom request
+to Amazon's metadata services which returned, basically, AWS IAM credentials which gave the hacker access to an S3 bucket that contained a
+bunch of customer information. What exactly happened afterwards? This bought a lot of attention to server-side request forgery attacks. SSRF
+attacks were nothing new at the time, but they hadn't received a lot of attention because they require very in-depth information about the
+infrastructure that is being exploited, which in this case is exactly what happened, right? It's just an Amazon employee that knew about
+AWS. And so as we continue to use APIs, SaaS applications, and host resources on clouds, there will continue to be a sort of an assumed
+degree of trust that we need to be aware of. And so this has put a lot of pressure on public clouds to find a way to mitigate these types of
+attacks, and also made cybersecurity teams aware that these attacks exist.
+
+#### SolarWinds
+
+**Virag:** Finally, on our list, number 10 is SolarWinds. So this happened at the end of 2020 and it's still going on, basically, at least
+the investigation is going on. It's arguably the most consequential hack of all time given the length and the duration of the hack as well
+as the scope. Basically, this happened through supply chain attack, through a software called Orion, which is an IT management and
+monitoring software that is used by over 18,000 customers from SolarWinds, which includes nearly all of the Fortune 500 companies and a
+number of government agencies as well. So a supply chain attack, basically, means that the malware is injected upstream, and so a trusted
+component of the Orion software was compromised. This component would give backdoor access to third-party servers and — sorry, excuse me,
+supply chain attack is effectively the malware is installed upstream. That malware or that software is then pushed out to customers, so
+whenever you update any type of proprietary software that you might be using from a vendor or supplier. And that is how it is able to
+infiltrate your system, right? So your company is not directly attacked. It is the supplier vendor or the supplier that you are using that
+is targeted, and then it goes downstream into your network.
+
+**Virag:** And so in this case, this was a trusted component that allowed backdoor access to third-party servers over HTTP. This component
+was trusted because before it was pushed out, it would be digitally signed by SolarWinds. So anything that did not have this digital
+signature, you would know had been compromised. So anything that had the digital signature was signed upstream, and therefore, considered
+trusted. Within this component was the malware Sunburst, which gave attackers the ability to transfer and execute files, reboot machines,
+disable services, profile networks, and exfiltrate data. And again, because this was a supply chain attack and so this trusted component was
+compromised, all the activity and all the traffic was masked as just normal network traffic as part of the protocol. And so this persisted
+for about six or nine months before any of the 18,000 companies realized what was going on. I think FireEye was the one to sort of sound the
+alarm on this. What happened afterwards? Again, this is an ongoing investigation. It will require months of work to understand the full
+extent of the damage, and years to mitigate that damage and clean up the systems that had been infected. This only adds to sort of the
+growing concern about cyberwarfare, especially as more and more government operations continue to go online. So yeah, this is interesting.
+We'll see what ends up happening as a result of this. Definitely keep your eye out on the news.
+
+### Best Practices
+
+**Virag:** So at this point, I want to sort of transition to talking about best practices. And my hope is that having gone through the
+context of these 10 hacks, they'll add some color to why these practices are so important. Excuse me. The first one on our list — we have
+three — is segmentation.
+
+#### Segmentation
+
+**Virag:** The majority of the hacks that we covered had very poor network segmentation, and as a result, many of the hacks had much worse
+outcomes and could have been mitigated and stopped very early on. I think Equifax is sort of your perfect example of this, mainly because
+the hacker was able to infiltrate into one database and just jump from database to database to database, which were not segmented in any
+way. Now, if we think back, networks were originally designed for groups of clustered resources, right? So this was whenever you needed to
+create a database, that database would exist in a very specified geographic region, right, in the office, basically, within a network
+perimeter. And so networks make authentication decisions based on location using IP addresses and metadata. But nowadays, we know that the
+modern infrastructure and modern operations are much different. Use APIs. We have SaaS applications. We have instances running in the cloud.
+We use our personal devices to access company resources. And this level of interconnectivity means that the assumed trust in networks
+deteriorates quite quickly.
+
+**Virag:** And so segmentation sort of creates these barriers within the network and prevents a lot of lateral movement, which is how many
+of the hacks occur, right? They enter through one endpoint and they move laterally within the network. So segmentation prevents that type of
+lateral movement, better yet, just don't trust networks at all, right? Don't even bother with network segmentation, just go straight to the
+application layer. And in front of each server, each database application, even Kubernetes clusters, microservices has its own
+authentication procedure. And as a result, if you ever need to hop from one resource to another, you have to go through this authentication
+procedure, which you can see here on the right as sort of the [Zero Trust](https://goteleport.com/resources/videos/devops-zero-trust-hype/)
+model.
+
+#### Secrets
+
+**Virag:** Secrets, so the best practices for secrets will tell you that issue — secrets need to be issued on a per-person basis, they need
+to be automated in their issuance, rotated, stored in a hardened location, and encrypted. That itself is quite a tall order. And then you
+sort of tack on the fact that modern infrastructure is very distributed and sort of decentralized, right? You can package different
+components of infrastructure into an image and just scale them up and down as needed. And so as a result, you have basically this gigantic
+pile of secrets that start to accumulate, especially if you're running dozens of instances, temporary instances in a day. You're just going
+to bury it under a pile and it becomes much easier to just share credentials, whether that means you hardcode them into applications or you
+just store the same credential on multiple local client machines.
+
+**Virag:** Examples of this from the hacks include Stuxnet, Mt. Gox, and DNC. The DNC hack in which credentials were stolen after hackers
+were able to gain access into the network and look for those credentials that were just lying around.
+
+#### RBAC
+
+**Virag:** The next one, the final one is [role-based access control](https://goteleport.com/docs/enterprise/introduction/#rbac/), so —
+excuse me. Credentials, typically, have sort of two very basic levels of access if you were to boil it down, privileged and unprivileged,
+right? So this is like your — and if you're talking like SSH — sorry, shell users, that would be your admin and your normal user. But the
+reality is that even within this unprivileged set, there are different layers of permissions. And so in order to sort of follow this
+principle of this privilege, we need to be able to set these allow and deny rules within this unprivileged set of users. But the problem is
+that most of the secrets that authenticate and authorizes users are dumb secrets, basically, right? They're just a static string of
+characters, whether it's like an SSH key or like a Bearer Token. So to enforce role-based access control, you need to have information like
+role, like name, like position, like team, and then you can enforce some type of rules engine based on that information.
+
+**Virag:** One example of this would be the Capital One hack, right? So that was a server-side request forgery in which a web app firewall
+was able to request permissions for credentials. And there was no reason that a firewall should be able to have that type of permission. And
+so role-based access control and the role being what about firewall? You can set allow and deny roles, and so you would deny it the ability
+to receive any type of credential.
+
+### How Teleport Works
+
+**Virag:** So moving on to talk about Teleport. As I said before, Teleport is built with the three principles that I just described in mind.
+And I think the best way to sort of exemplify that is to walk through a quick scenario that any one of your colleagues may find themselves
+in. So let's assume that I'm working from home. I think we can all assume that. But I'm working from home, it's after hours, and I need to
+run diagnostics on a production server. So I sit down on my computer, I boot up my client, and I SSH into an AWS instance. Standing in front
+of that instance is a proxy, this authentication gateway. The proxy receives my request and it notices that I'm not logged in, in any way,
+so it redirects me via like OAuth or OIDC to an SSO provider — so using like Okta or Gmail or Auth0 — and I sign in with my SSO provider.
+That basically outsources the process of authentication onto an identity provider and that is exactly what identity providers are supposed
+to be doing, authenticating an identity, because they are the central store of identity information.
+
+**Virag:** And after I do that, the IDP authenticates me and I receive a short-lived certificate that has basically an expiry time. I give
+the certificate to the auth proxy. It validates that the certificate has been signed by an external certificate authority, which sort of
+adds this extra layer of security because the only way to present a valid certificate is to have it signed by a certificate authority, which
+can only be done if you were to validly sign into whatever your identity provider is. Once it validates — yeah, once it authenticates the
+certificate, it authorizes me access to the AWS instance. But because I'm offering a certificate and not just a static key, that certificate
+contains identity information that gets populated after a successful SSO. So it takes information from the identity manager or the identity
+provider like role, like name, like team, and it can enforce these allow and deny roles that the administrator has set up. So let's say that
+because it's after hours, I'm not allowed to write anything to production servers, but I can read from production servers. Now, if I wanted
+to change that, I could put in a request over something like PagerDuty and escalate and get permission in real time to write if I needed
+that. All this activity ends up getting logged, whether it is in the form of, quite literally, a video recording of the session or just a
+structured event log.
+
+**Virag:** So that is how Teleport is able to enforce these principles that we've talked about: segmentation by having a proxy in front of
+each resource, role-based access control by taking information from the identity provider and enforcing identity-based roles, as well as
+using a certificate that rotates, that is automatically issued, that has an expiry so you don't have to worry about secrets. If you're
+interested in Teleport, Teleport is an open-source tool. You can go to the [download page](https://goteleport.com/download/) and just play
+with it yourself. We also have a recently launched self-service option. And on the screen, you can see that Teleport is available for
+Kubernetes and SSH. We also recently launched an application version for HTTP, and soon we will launch a version for database access as
+well.

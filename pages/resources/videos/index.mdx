@@ -1,0 +1,22 @@
+---
+title: Webinars and Videos
+description: A collection of videos and webinars that showcase technical conversations about using Teleport
+bgWave: wave-on-gray
+border: none
+layout: content
+logo:
+  image: ./assets/resources.svg
+  alt: videos title image
+needWrapper: true
+subtitle: Teleport Access Plane
+tryTeleport: true
+---
+
+import { EpisodesList } from "components";
+import { getResourcesData } from "server/resources-helpers";
+
+<EpisodesList episodes={props.episodes} id="videos" kind="webinar" />
+
+export async function getStaticProps(context) {
+  return { props: { episodes: getResourcesData("videos") } };
+}

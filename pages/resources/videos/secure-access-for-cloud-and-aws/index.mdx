@@ -1,0 +1,273 @@
+---
+title: "Securely Access Compute Resources in Cloud"
+alternateTitle: "How to Securely Access Compute Resources in Cloud Environments"
+description: "Infrastructure Security best practices for the cloud and AWS - certificate authorities, are so important, and how to create a more secure infrastructure access process for the cloud."
+layout: tutorial
+publicationDate: "2020-09-21"
+associatedLabels:
+  ["teleport", "SSH", "infosec", "PAM", "Sales", "OSS", "ZeroTrust"]
+videoId: "CTewLcYpSx0"
+videoLength: "29:24"
+---
+
+## Securely Access Compute Resources in Cloud - Overview
+
+Virag Mody, Technical Writer for Teleport, gave a concise talk on Infrastructure Security best practices for SKILupDays DevSecOps 2020. In the talk, he covers why certificate authorities are so important, and what individuals can do to create a more secure infrastructure access process.
+
+### Four Principles to Securely Access Compute Resources in Cloud
+
+- Base Decisions on Identity, Not Secrets
+- Make It Easy to Use
+- No Private Networks, Only Public
+- Centralize Audit and Logging
+
+### What is next?
+
+- [Get Started with Teleport](https://goteleport.com/pricing/)
+- [Read Best Practices for Secure Infrastructure Access TechPaper](https://goteleport.com/resources/white-papers/secure-infrastructure-access/)
+
+## Introduction - Securely Access Compute Resources in Cloud
+
+(Transcription)
+
+**Virag:** Hi, everyone. My name is Virag Mody. I want to thank all of you for taking the time to attend this talk. I know all of us have
+busy schedules, so on behalf of everyone at Teleport, thanks for taking the half hour. Some quick administrative stuff before we really get
+into it. The title of this talk is “How to Securely Access Compute Resources in Cloud Environments”. And for the bulk of this talk, we will
+be talking about this topic at a conceptual level, but if you do stick around towards the end, there's going to be some type of sort of
+applied demonstration with SSH certificates. Again, my name is Virag Mody. I am a technical writer for Teleport, the open-source company. We
+have two tools, both of which are open source. The first is Teleport, which provides secure access for developers that doesn't get in the
+way and has inspired much of this topic, as well as Gravity, which is an application deployment tool for deploying into your restricted,
+regulated, or remote environments.
+
+### Breaking It Down
+
+**Virag:** So the first thing I'd like to do is define our topic a little bit more. When I wrote this title, initially, it kind of just
+seems like a word salad of buzzwordy type stuff. So why don't we narrow down the scope and really figure out what we're going to be talking
+about here? So the first thing is secure access. What do I mean by secure access? I just mean any type of sort of reliable way to
+authenticate and authorize, right, so we know who is accessing this resource and what are they allowed to do. And authentication
+authorization isn't new by any means, right? Even in the world of networking, we've had passwords for decades. But the context in which I'm
+talking about secure access is authenticating and authorizing against multiple data points, right? Lots of information, not just this string
+of characters. And we'll talk a little bit about where the information comes from and how it can be used.
+
+**Virag:** The next segment is what is compute resources? Well, that's just any infrastructure resource that has some type of processing
+capability. So in cloud environments, most of this is virtualized. We're talking about servers, clusters, applications, databases, but
+there's also that hardware element, right? You have your desktops and any other sort of devices that may be part of your network. And then
+finally, cloud environments, which seems like the most self-explanatory, right? We're talking just hybrid, multi-cloud, VPCs, but more
+broadly, I'm talking about any sort of elastic environment that is focused on providing high availability and has resilient architecture. So
+another way to say how to securely access compute resources in cloud environments is how to authenticate and authorize access to elastic
+infrastructure.
+
+### IT Stack is Abstracted and Decentralized
+
+**Virag:** So how do we know this is a problem, right? How do we know that I'm not just trying to sell you on something? I'm not just snake
+oil salesman. Well, I think there are two trends that are causing this challenge, right? So the first is abstraction. Second is
+decentralization. And I think this image by Gartner on the screen really captures this well, right? So you have all these different X as a
+Service hosting solutions that have taken all these different elements of the IT stack, compartmentalized them, and then using microservices
+and orchestration have abstracted them so that you can use some type of hosting solution on some server located in God knows where. And so
+you have this extreme sense of abstraction that lets us move at very quick speeds and do more than ever, but it comes at a cost. And
+similarly with decentralization. Like I said, you are using multiple data centers around the world. If you have high availability, then you
+might be spinning up — if your West Coast servers go down, you might need to spin up your East Coast servers. And God forbid you're using
+edge devices, right, and then you've expanded your network by orders of magnitude.
+
+### “Map is Not the Territory”
+
+**Virag:** And, well, this problem — I mean, well, this trend in and of itself isn't really a problem. It isn't really a cause for concern.
+I think the way that we enforce access policies, they weren't designed to be compatible with this type of ephemeral infrastructure. So it's
+not just the way we access it, but it's also the way that we enforce that access. And nothing is more exemplary of this than how much we
+rely on networks for this exact purpose, right? So we rely heavily on networks to distinguish between who is a trusted actor and who is a
+non-trusted actor in our system. And when I talk about networks, I like to think about this concept of the map is not the territory. So what
+does that mean? Well, it means the map is not the territory, right? The map is an abstraction. It is a representation. It is a substitute of
+the territory. And similarly, a network is an abstraction of the thing itself, the thing itself being user behavior or behavior as a whole.
+It does not always represent the behavior in its entirety because it is an abstraction; it is a substitute. And so when we look at closely
+at what we're asking the network to do and what it is actually capable of doing, we start to see some incongruencies.
+
+**Virag:** An example that I like to use is the fact that infrastructure is no longer static, right? It's fairly dynamic. And so previously,
+with the network, we were using these substitute variables as placeholders for behavior. We were using IP addresses and [inaudible] ports
+and all these different types of things that would be a substitute for what was actually going on in the system. But nowadays, those
+variables are constantly changing, right? We have dynamic infrastructure. And so for the network to keep pace with what's going on in the
+territory, in the system, there needs to be this constant update of firewall rules, routing rules, API rules, access control lists. And you
+can automate that as much as possible, but there's always going to be a lag. There's always going to be a delay of what your network is
+telling you is going on and what is actually going on. And that doesn't make network security irrelevant, right? If anything, I think
+networks are going to become even more important as cloud computing continues to move into adolescence and edge computing starts to become a
+thing. But the processes of authentication and authorization need to happen elsewhere.
+
+### Four Principles
+
+**Virag:** So that brings me to this slide. This is arguably the most important slide of the deck because it answers the question of how do
+you access compute resources in cloud environments in a secure manner? And the answer is to separate the processes of authentication and
+authorization and let the resources themselves enforce the access policy. So how do we go from this type of model to something that looks
+more like this? Well, that's why we have these four principles. And this is, again, the meat of the presentation. This is why it's so
+important. These four principles are the principles that we've built Teleport on, right? They're the principles that we believe are required
+to secure access for modern infrastructure, for modern environments.
+
+#### Base Decisions on Identity, Not Secrets
+
+**Virag:** So the first and arguably the most important principle is to base decisions on identity and not secrets. Another way to say that
+is to grant access based on who and not the what. And so why is that the case, right? I mean, we've been using secrets for, again, decades
+now. Why the change? Well, I see secrets as having two big issues. The known issue, right, the one that all of us know is that if a secret
+falls into the wrong hands, it can be used maliciously and cause some type of irreparable damage. But the lesser known weakness of secrets
+is the fact that a secret isn't a reliable source of authentication. It isn't a reliable form of authentication. Now, originally, secrets
+are meant to be a one-to-one mapping of the person that is supposed to hold the secret, right? You issue a secret to a person, and that's
+it. But obviously, we know that's not the case, right? Secrets are shared all the time. And so when a host is presented with a secret that
+it is validated to use or to authorize for, the person that's presenting that secret is not always the person that the host is supposed to
+expect. And so just by dint of presenting the secret, you've both authorized and authenticated in the same step, and that's not good, right?
+
+**Virag:** And that's what brings me to identity because identity has a lot more information that you can authenticate against. It is a much
+richer profile than a secret, than just a random string of characters, which is what I was talking about before, when we defined secure
+access. So how do you do that? Well, you need an identity store. You need a centralized location where you can reliably source identity
+information that is accurate, that is truthful, that is up to date. And so if you're an enterprise, you might be using an identity provider
+like Okta, like Active Directory. If you're more into open-source solutions, you might be using Keycloak; you might be using Gluu. But the
+point is all those applications take the burden of authentication off of the resources, right, off of the network because you're now able to
+outsource a process of authentication to this entity that is tasked with that exact objective, right? It contains all of the identity
+information, and so it is the best way to authenticate against.
+
+**Virag:** And there's also some advantages for authorization as well. It's not just authentication, which we've now separated into its own
+sort of process. The identity information can also enforce more authorization controls, right? So with identity, you can prescribe certain
+groupings, certain roles, certain permissions associated with that identity, right, so like interns, SREs, sysadmins, things like that.
+Those identities all have their own set of variables, their own set of identification information. And so similarly, you can create these
+very granular enforcement policies that derives its information from this identity information, right? So you can see very specific things
+like developers aren't allowed to access production environments after working hours. That's not something you can do with a key. That's not
+something you can do with a secret. You need to know identity for that.
+
+#### Make It Easy to Use
+
+**Virag:** So the next point is make it easy to use, right? The theme of this conference is DevSecOps. So what's more DevSecOps than having
+some type of security measures that developers actually like to use? And that's not BS. I mean, we've had Teleport users come to us with
+feedback saying that they enjoy using our product because it's easy for them and they understand the security implications involved. And
+what's important to know and recognize and incorporate is the fact that developer teams are busy. They move quickly. They have multiple
+deadlines. They push dozens of updates in a day. And so if you make it difficult for them to actually use the tools they need to do their
+job, they're going to create back doors, right? They're going to hardcode secrets into applications. They're going to generate a private key
+that you don't know about. And so even if you are the most well-intentioned and have the strictest security controls in place, if those
+controls are complicated or inconvenient, you're inevitably going to create a less secure state. So the second principle, just make it easy
+to use, right? Make a developer friendly.
+
+#### No Private Networks, Only Public
+
+**Virag:** The next point is don't trust private networks. Just assume that there are no private networks. Assume that there are only public
+networks. And while that may seem like a drastic point to make, I don't think it's too far from the truth because nowadays, we're exposing
+our private networks more and more to the public domain, to the public internet, right? We have all these API, X as a Service, public
+cloud-driven applications that we all use, and so more and more we're increasing the surface area of our internal networks that are exposed
+to the public. And so that makes it more difficult to sort of assume that we can distinguish between who is public and who's private, right,
+who is allowed to enter our system and who is not allowed to enter our system. And so if you get away with this idea of private networks
+existing altogether, it solves two very important problems. So the first is having poor internal protections, right? Having just poor
+internal network security. And if we assume, if we predicate, that we can have a private network where people within the network are allowed
+to be there, right - they've made it past the bouncer — there isn't really a need for strict internal controls.
+
+**Virag:** But that's not always the case, right? And I think a great example of that is the 2014 Target hack where hackers were able to
+enter Target's internal network, and they were able to traverse horizontally. They went from HVAC data processing all the way to payments
+processing, and they stole a bunch of credit card information. Those two units, those two operations, entirely unrelated. You should not be
+able to go from HVAC data to payment processing. And so if you assume that the entire network is public, you're going to bake those controls
+in just by default because you can't assume that anyone is safe. You have to assume that everyone might be a malicious actor. And the second
+advantage has to do with encryption, right? So encryption best practices say to encrypt all the time, everywhere, end to end, right? Data in
+transit, data at rest, data in processing, just encrypt all of it. But again, if you can assume that the people in the private network have
+made it past some degree of security scrutinization, those measures become a little bit more relaxed. But again, if you assume no private
+network exists, then your default mode is to implement best practices.
+
+#### Centralize Audit and Logging
+
+**Virag:** 00:15:19.443 And the final principle has to do with centralizing your auditing and monitoring. And I like to think of logging as
+sort of like a hygiene habit, right? You could think of it as similar to maintaining poor good habits. If you have poor good habits, then as
+you grow and as things get more complex, it's going to be more difficult to unravel that gigantic mess. And the same thing is true with
+logging habits. And nowadays, it's extremely important to make sure you centralize this now rather than later because there's never been
+more logs to aggregate, right? Each progressive layer of abstraction creates its own set of logs. You have server logs. You have VM logs,
+application logs, container logs, Kubernetes logs. And every time you spin an instance, right, an ephemeral instance, even for like five
+minutes, you basically create an entire cross-section of the IT stack of logs. And it's very easy for that stuff to get lost in the noise
+because it's just for five minutes. So similar to identity, find a place to centralize all that information where you can aggregate, parse,
+analyze, dispose of, what have you, just in one place.
+
+**Virag:** And this is extremely important for DevSecOps as well because DevSecOps is developer teams working with security teams working
+with operations teams, right? And they need to be able to operate on the same information. There needs to be information symmetry. And so if
+you have all these logs that are siloed in their own locations, it's going to be very difficult to make informed decisions about what needs
+to be done. So centralize your logs. And another advantage I think is important mentioning has to do with compliance. So I think nowadays,
+compliance is almost the cost of entry into a lot of different markets, right? You have your SOX, your HIPAA, your PCI, your GDPR. And
+having some type of centralized logging and monitoring is almost a prerequisite to pass those certifications.
+
+### Why SSH Certificates?
+
+**Virag:** So recapping just a little bit, right, the way to secure access to your infrastructure is by separating the processes of
+authentication and authorization and letting the resources themselves do the process — or enforce those access policies. And to demonstrate
+this, I think, for most of the remainder of this talk, I want to take these principles and apply them specifically to SSH certificates. Now,
+if you've worked with SSH at all, you know that common industry leaders or best practices will tell you that you should be using
+certificates instead of keys, that certificates are safer than keys. They're more reliable. And I think we all intuitively sort of know that
+to be true, but if we look at what makes SSH certificates safer through the lens of these four principles, it makes a lot more sense.
+
+**Virag:** So before we get into it, I just want to recap what certificates are. I think, for the most part, we know all this, so I'll make
+it brief. But certificates are just a way to connect to a remote shell, right? They serve a similar function as keys in that sense, but
+unlike keys, certificates have multiple properties. They have identity information, they have principles, they have permissions, they have
+expiring dates, and that's all metadata that keys do not have. And another advantage of certificates or another sort of feature of
+certificates is that you don't have to track the keys that are generated, right? All you need to do is track the certificate authority that
+creates those certificates. So instead of having this laundry list of authorized keys or known hosts, all you need to do is have the public
+key for the associated certificate authorities. And you know that any certificate that has been signed by the paired private key is a valid
+certificate. It's something that you can authenticate against. And so then you can just easily, SSH using those certificates.
+
+### Live Demo
+
+**Virag:** So just quickly, as a transition to the sort of live demonstration, the process of using a certificate is to, one, request a
+certificate from a certificate authority, right? Then the certificate authority will check its rules and make sure whether — or invalidate
+whether or not it is even allowed to issue you a certificate for what you're asking for. If it is, it'll sign a key and issue a certificate
+with all that metadata information. You will then present the certificate to the server that you're trying to SSH into. And at that point,
+the server will authenticate your user certificate, but your client machine will also authenticate the host certificate. And I want to
+demonstrate why that's important. So let's quickly jump into our demo environments. So I've set all this up already. I have certificate
+authorities, I have certificates, and I've added the public keys to one another. So let's quickly see that.
+
+**Virag:** So here, on my top terminal, is my client machine. On my bottom terminal is my server machine. So in my client machine, we have
+the use certificate authority and its paired public key. We have keys that we have created and then certificates that we've signed with the
+certificate authority. Similarly, down here on my server machine, we have the host certificate authority, and we have the host certificate
+authority associated public key. Now, both of these machines have the other's certificate authority public key known to them. So they know
+that any time a certificate authority has signed a certificate with a private key, it can validate against that — it can validate that
+signature against the public key that is known to it. So on the server side here, we have the user certificate authority public key. And
+when it comes to — when it comes to our client machine — oh, what am I doing? This is the host certificate authority public key. And so this
+is how the machines know that whatever certificate has been presented that has been signed by the appropriate certificate authority you can
+authenticate. So let's do that. Let's see that in action.
+
+**Virag:** Well, the first thing I'm going to do is just take a look at my logs here and SSH using the certificate. So we've done this
+successfully, right? We have SSHed as the user Virag. And I want to highlight two things here. So the first is the authentication of the
+host certificate. So we can see here on my client machine that we have authenticated the host certificate that has an identity as
+example.domain.io, right? And this can be an IP address. This can be some type of internal DNS system that you have running. And so this
+lets the client machine know that, hey, you can connect to the server. It is safe to do so. And similarly down here, we have the same thing,
+except the other way around, where the server machine knows that a user, Virag, has SSHed using a certificate and used a certificate that is
+valid. And the importance of this goes back to what I was saying about these private and public networks, right, that private networks just
+don't exist. There's only public networks. And if you're able to authenticate both ends of the connection, then both of these machines can
+exist on public networks, and it would make absolutely no difference. So looking more at these logs, we're seeing these names, like Virag.
+My email is here. And so this is the identity information that I was talking about. So let's take a look at that.
+
+**Virag:** I want to highlight two certificates. Here we go. Okay. So in this case, this is a certificate. The one that you're looking at
+right now, this is a certificate that I just used to SSH into our server here. And the two things I want to point out are this key ID and
+these principals. So your key ID is just the identity string. It's the ID string associated with the certificate. And your principal is a
+user that you are logging into apps. And the reason that this information is important and valuable is because you can set permissions based
+on this identity information, sort of what I was saying earlier. So for Linux, the simplest thing that you can do is grant pseudo rights to
+a user, and you can enforce that by using certificates because you have a principal that is logging in as that user, which you've identified
+has pseudo rights or doesn't have pseudo rights.
+
+**Virag:** So in this case, my principal Virag does not have pseudo rights, but in this case, my principal sysadmin does have pseudo rights.
+And you can script all this too, right? None of this needs to be done manually. If you're using something like AWS Session Manager or using
+Ansible, you can have your certificate authority pull identity information and enforce the policies that you want. And so let's take a look
+at that, right? Let's take a look at that in the logs. So I'm going to — let's take a look at the first time I SSHed, right? I was able to
+SSH as user Virag, which has the ID virag@goteleport.com. And so I know exactly the person and the group that they belong to. So what
+happens if this person tries to do something that they're not supposed to, right? What happens if I try and get pseudo rights?
+
+**Virag:** Well, you find out that, like I said, Virag does not have pseudo rights, and this information is reflected in the logs, whereas
+if I were to log in as sysadmin, I do have those rights, so I can pseudo, and now I have root. And again, all this information is reflected
+in the logs, right? So if you have this group, sysadmin, and you're like, "Oh, who is this person that just got root access to my server?"
+well, you can look back at the certificate and say, "Okay. This is the principal sysadmin, but I know that. Oh, okay. It was
+virag@goteleport.com. Let me go ask him what he was up to." And so this is how identity information is used to enforce your access policy.
+And so the more identity information you have, the more granular you can get with those policies. And so for the sake of this presentation,
+I think that's all I really have time for.
+
+### How Teleport Works
+
+**Virag:** And so I do want to quickly wrap up on this. And I'd like to do that by talking just a little bit about Teleport. Please feel
+free to stay if you'd like to learn. So setting up an SSH certificate and setting up a certificate authority is just an absolute pain. I'm
+speaking from personal experience. And there are a bunch of off-the-shelf solutions that do that for you. And so you don't need to go out
+and do it yourself. Teleport is one of the solutions. Teleport is open source, and it has all the principles that we just discussed earlier,
+right? So similarly, your certificate authority pulls identity information to enforce some type of role-based access control to all of your
+disparate cloud environments. And all that information is available for auditing in one place. And Teleport supports both SSH and
+Kubernetes. Like I said, it's open source, so feel free to go check it out, download it if you'd like to, play around with it. If you don't
+have the time for that, just send us an email, and we're happy to set up a demo for you personalized to what you guys need.
+
+### Conclusion
+
+**Virag:** So that's about it. I want to thank all of you for attending. Again, really appreciate your time. All of us are busy. If you'd
+like to learn more about Teleport, you can check us out at [goteleport.com](https://goteleport.com/). We have a pretty good
+[blog](https://goteleport.com/blog), where you can learn about Teleport or just about the industry as a whole. And if you'd like to follow
+us for updates, check us out on [Twitter](https://twitter.com/goteleport). Thanks and have a nice weekend, everyone.

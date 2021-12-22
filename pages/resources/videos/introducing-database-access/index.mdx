@@ -1,0 +1,505 @@
+---
+title: "Introducing Teleport Database Access"
+alternateTitle: "Preview & Demo: Introducing Teleport Database Access"
+description: "Learn how to approach secure database access at your company and why it’s an essential part of the access plane."
+layout: tutorial
+publicationDate: "2021-08-18"
+associatedLabels:
+  [
+    "teleport",
+    "SSH",
+    "infosec",
+    "access plane",
+    "applications",
+    "audit log",
+    "database access",
+    "kubernetes",
+  ]
+videoId: "wNCpYIDG1qM"
+videoLength: "58:06"
+---
+
+## Preview & Demo: Introducing Teleport Database Access - Overview
+
+Most of the world’s PII is in a database, but is access to databases secure enough? Companies are unable to
+maintain fine-grain control over access to their data and cannot map database activity-specific identities. This
+complicates auditing and compliance and compromises database security. Join Teleport engineer, Roman Tkachenko, as he
+dives into the kinds of questions you need to be able to answer to secure database access:
+
+- How do I provide access to a specific database?
+- Which user ran “select \*” on production?
+- Who connected to the database as “postgres”?
+- How do I connect to the database in a different cluster?
+
+Learn about the best way to approach secure database access at your company or organization and why this is an essential
+part of the access plane.
+
+### Key Topics on Preview & Demo: Introducing Teleport Database Access
+
+- Protecting and segmenting access to data or different data stores is
+  a challenge for organizations.
+- Teleport provides a secure and unified experience that doesn't stand
+  in the way of users.
+- Teleport Database Access allows organizations to use Teleport as a
+  proxy to provide secure access to their databases while improving
+  both visibility and access control.
+- With Database Access, users can provide secure access to databases without exposing them over the public network
+  through Teleport's reverse tunnel subsystem; control access to specific database instances as well as individual
+  databases and database users through Teleport's RBAC model; and track individual users' access to databases as well as
+  query activity through Teleport's audit log.
+- Follow the Teleport blog and roadmap on GitHub to learn about Teleport Database Access developments.
+
+### Expanding Your Knowledge on Preview & Demo: Introducing Teleport Database Access
+
+- [Teleport Database Access](https://goteleport.com/docs/database-access/getting-started/)
+- [Teleport Quick Start](https://goteleport.com/docs/getting-started/)
+- [Teleport Access Plane](https://goteleport.com/)
+- [Teleport Application Access](https://goteleport.com/application-access/)
+- [Teleport Kubernetes Access Guide](https://goteleport.com/docs/kubernetes-access/introduction/)
+
+### Learn More About Preview & Demo: Introducing Teleport Database Access
+
+- [Read the Teleport Admin Guide](https://goteleport.com/docs/)
+- [Download Teleport](https://goteleport.com/download/)
+
+## Introduction - Preview & Demo: Introducing Teleport Database Access
+
+(The transcript of the session)
+
+**Roman:** All right. Hey, everyone. Welcome to the [Teleport Database Access](https://goteleport.com/docs/database-access/introduction/)
+webinar. My name is Roman, and I'm an engineer on the Teleport Database Access team. And today, I'm just going to talk to you about —
+present you Teleport Database Access, give a brief overview of what it is, why we're building it, how it works, give a quick demo of the
+functionality, right? And we'll have some time for Q&A as well at the end. So let's go over the agenda real quick, right? So first, we're
+going to talk about the actual problem of securing database access, right, to find a problem space, understand why we're building this in
+the first place. Then we're going to spend a couple more minutes looking at how it works, right, talking about its architecture on a very
+high level, just so you understand what's going on behind the scenes. So then, we'll do a quick overview of the features, jump into a quick
+demo, and talk about some release schedule, about what's on the roadmap, and hopefully have some time for some questions as well at the end.
+
+### Problem: Secure Database Access
+
+**Roman:** All right. So let's get into it. So first, before we actually talk about Teleport specific kind of database access, why we are
+building it, let's take a look at the actual problem space, right? So when you think about what it means to provide a secure access to a
+database, what does it mean? Right? So what's the actual problem space here? And so a few things come to mind here right away. So the most
+obvious concern probably is protecting and segmenting access to your data or different data stores that you're using to work up in the
+organization. So this issue, if you think about it, has really multiple angles to it. One being, for example, the question of network
+isolation. So do I expose the database endpoint directly to my users, or do I require some sort of VPN, which usually, are cumbersome to set
+up, maintain and use — things like that. So in addition, organizations of any size or company of any size likely have multiple different
+instances of databases they want to protect. And you can have a production database, you can have a staging, a [inaudible] database, maybe a
+database with some sensitive customer data that requires some special treatment, and so on and so forth. And so when thinking about setting
+up access to all these different databases, you're inevitably faced with questions like, how do I give my engineers full access to staging
+and be able to grant them temporary access to production in case of emergency, for example? Or how do I make sure that my QA team only has
+access to QA databases, things like that?
+
+**Roman:** So you can control access on the level of individual database server usually by using databases on grant systems, but providing
+access to different kind of database instances and servers, especially if they're of different types in a coherent fashion may not be as
+straightforward of an issue. So another question that comes up is a question of identity. And in many cases, the same database account or
+set of accounts tend to be used for database access by different people, right? It's similar to a problem, which hopefully is not as common
+these days, but it used to be back in the days when all developers were engineers, used to connect to servers using the same Linux account,
+right? There's obviously an anti-pattern, and there are multiple obvious issues with this approach, everyone is kind of aware of. One being,
+it obviously raises identity of a person connecting to the server or database. It basically obfuscates the audit trail completely, right? It
+makes replication painful and so on and so forth. And so in a context of database specifically, many database servers support external auth
+systems such as LDAP, for example, but they generally come with a pretty hefty maintenance burden and pretty painful to integrate with and
+befriend them, so to speak, with different identity providers. So the ability to, basically, be able to add a single sign-on, SSO flow to a
+database, login would allow to answer questions like, "Who connected to this production database as Postgres user?" for example, right, in
+case you were using Postgres.
+
+**Roman:** So on a very relevant note, a proper database, access audit trail is basically a must for various compliance reasons. So it
+should be able to answer the questions like who executed, like select wildcard SQL statement on the production database, right, or tried to
+access the data that we shouldn't have to detect things like data exfiltration, for example. And combined with identity information we
+discussed a minute ago, this would give us a complete picture of what's going on with the database access. Setting this up natively in the
+database, again, especially for traditional relational ones is generally not as straightforward and poses quite a challenge as most of the
+time, the best you can really do is enable verbose logging, for example, or maybe install a third-party plugin that does this, which is
+usually kind of database specific, and pretty hard to do, and maintain especially in scenarios where you have multiple different database
+instances in your company. Yeah, and another bonus point here that's worth mentioning is also if you are able to ship the audit logs to some
+external system for future analysis, for example. And one last issue I just wanted to mention before we move on here, which may not be as
+common, but which larger organizations are bound to run into, potentially is providing access to databases in different environments and
+controlling access to them in a unified manner. So an example would be having databases deployed in multiple clusters or data centers and
+wanting to control access to all of them through a single unified access point.
+
+**Roman:** So you can see these are just some of the questions to think through when thinking about the problem of securing or protecting
+the database access and addressing each of these issues individually, can pose a challenge. But combined together, it makes it quite hard to
+provide a secure and unified experience that doesn't really stand in the way of your users. And so we're building the database access to
+help overcome some of these challenges. All right. So now, let's take a look at this — it's probably every engineer's favorite slide, with a
+lot of arrows and squares. And so this slide really gives a high-level overview of how Teleport Database Access works, right?
+
+### How It Works
+
+**Roman:** So for folks who are familiar with Teleport, this should look pretty familiar, as it's very similar to how a server Kubernetes or
+application access work. For newcomers, it should give a pretty good high-level overview — a high-level understanding of the overall
+architecture. So this diagram shows an example of database deployment. So in it, we have the following components. So first, let me turn on
+the pointer. So the first component we're going to look at is called a [Teleport
+Proxy](https://goteleport.com/docs/setup/admin/#teleport-proxy-ha/). And Teleport Proxy is, basically, a stateless service that performs a
+function of an authentication gateway. It serves a Web UI and accepts, in our case, Teleport database client connections as well. So within
+the Database Access context, this is, basically, the piece where your database clients connect to, and it's usually exposed on a public
+network to users.
+
+**Roman:** Then, there is a Teleport Auth Server, which is basically a cluster certificate for a team that handles authentication,
+authorization, and performs the job of issuing short-lived client certificates to the users, including database access users. So Teleport,
+just as a quick background for folks who don't know, Teleport relies heavily on public infrastructure internally, right? And it pretty much
+uses client certificates, SSH certificates, or X509 tier-1 certificates as a primary means of authentication. And so this is what Teleport
+Auth Server does. And next, finally, we have another component that's called Teleport Database Service, which is a new [inaudible]. And it
+basically is the database access's brain that actually connects to all the databases, performs database authentication, does protocol
+parsing. And it connects back to the main Teleport cluster by establishing an SSH reverse tunnel to the proxy. So in this architecture and
+this model, users do not need to have direct connectivity to the Database Service or any of the databases even, right, that it proxies, but
+rather, as long as it can dial back to the cluster's proxy service, it can be located behind the firewall, for example. And another thing to
+mention here is that you can obviously have multiple database services connected back to the cluster. The [inaudible] database service can
+be connected to multiple databases as well. So the deployment strategies can be pretty flexible.
+
+**Roman:** All right, now that we're familiarized with the architecture, let's take a quick look at the typical flow that Database Access's
+users go through when they want to connect to the database. So first, the user logs into the cluster by issuing a tsh login command, right?
+So for folks not familiar with Teleport, people who run this command to go through authentication flow, and they can authenticate using
+their username and password or second factor or go through an SSO flow and have Teleport Auth Server, issue them a short-lived client
+certificate that they then use. Once they have been issued a client certificate, they basically use or pick a database they want to connect
+to. And we'll obviously see all of those things in the demo, which we're going to do in a minute.
+
+**Roman:** So once they have chosen the database they want to connect to, they can connect to it using this standard database client. You
+can use in case of Postgres, it's psql — a standard client tool, mysql in case of MySQL, or any of the graphical UI clients also. And so
+connect to the proxy using client certificates issued by auth to authenticate and the proxy authenticates the connection, dispatches it to
+appropriate database service based on the routing information encoded in the cert and over the reverse tunnel. And from there on out,
+database service can start proxying the traffic between the database client, the users, and the actual database. And so you can also see
+here on the right. So there's some examples of a database that may be connected to a database service and authentication methods used,
+right? So for self-hosted databases, the preferred authentication method is client certificates. And in case of AWS, for example, it's IAM
+authentication. All right. So that's the architecture. Hopefully, it's now more or less clear how it works under the hood.
+
+### Features Overview
+
+**Roman:** Let's quickly go over some of the features of database access. So first, like explained on the previous slides, it's possible to
+connect multiple instances of supporting databases to a single teleport cluster and also configure appropriate role-based access control
+rules to allow or deny access to specific database instances based on the identity information propagated from your SSO provider, for
+example, as well as restrict access to specific database accounts or in some cases for some databases, even individual logical databases
+within your database servers, which is the case, for Postgres, for example. Then security-wise, which is technically not a feature, strictly
+speaking, but rather a property of a system which I already mentioned. But for mentioning it again is the Teleport users short certs, client
+certs are issued by the observer to authenticate the database and users get issued short-lived credentials so that they expire after some
+period of time, which is configurable, to authenticate with the database. And all communications, obviously between the users and Teleport,
+as well as communication between internal Teleport components, relies on mutual TLS for authentication as well.
+
+**Roman:** So next, Teleport — talking about audit log, going back to those problems that we discussed on the first slide. So Teleport
+actually captures all SQL statements executed by users connected to the database, which we'll also see during the demo, and ships them to
+the audit log, to the Teleport standard audit log, which already collects information from all the other subsystems like server access and
+others, which can also be configured to be shipped to some external system for future analysis. Database Access also has obviously been one
+of Teleport’s features. It has a first-class integration with such Teleport features as Access Workflows that allow the users to temporarily
+request unlimited permissions. For example, if you want to access some particular piece of infrastructure or a database, in this case, they
+don't normally have access to. And finally, Trusted Cluster support is also there, right, to provide unified access to the databases in
+different clusters or environments.
+
+### Demo Time!
+
+**Roman:** All right, so now is everyone's favorite part, demo time. Let me exit my presentation here and let's hope that the demo gods are
+in a good mood today and jump into it. So hopefully everyone can see my screen. I'll need my terminal, my editor, and my browser for this.
+So I'm going to switch between those. And let us start by looking at my cluster's configuration, right? So in my case, for this demo, I have
+just a single node cluster that runs all three of the services. If you remember back to the diagram, auth service, proxy service, and
+database service running in the same process, just for the demo purposes. And let's take a look at the database service configuration a bit
+closer. So you can see — and this is regular Teleport YAML file for folks who have used Teleport before. So as you can see, the database
+service in my case provides access or is connected, I should say, to multiple different database instances, right? So each of these blocks
+here represents a single database connection. And you can see I have a healthy mix of Postgres and MySQL databases here deployed in
+different environments. So I have two instances of self-hosted DBs, which are just running docker container somewhere. And then I have a
+Postgres RDS instance, Postgres Aurora cluster, end point and MySQL or endpoint as well, right?
+
+**Roman:** So this database service is connected to multiple databases. And each of these, as you can see, can be assigned a set of static
+or dynamic labels that can be used to allow or deny access through teleports, RBAC (role-based access control). And you can see that in this
+case have — so the local database that I have just have the label environment, local and the others have environments set to AWS. All right.
+Now that we've pretty much laid out the playing field, let me go to my terminal and start doing things, right? So first thing that I can do
+or that I will do rather, I'm going to be copy and paste and commands from my cheat sheet here. But the first thing that I do is I really
+need to do this first authentication step that I mentioned on the architecture slide to authenticate with my Auth Server of my cluster and
+[inaudible] much short-lived cert. And so going to execute the tsh login command, which hopefully succeeds. It takes me through the SSO
+authentication flow because I have a couple of SSO providers configured for my cluster. And if I go here to the Teleport control panel of my
+cluster, I can see I have Okta and GitHub, in this case, configured. So that logged me in and retrieved me a client certificate, right? So
+now I'm authenticated to the cluster, I have credentials, and in order to be able — let's say, I want to see what kind of databases I have
+access to and connect to one of those, right? So for that, I can execute the command that's called tsh db ls.
+
+**Roman:** All right, so that basically — once I've run this command, you can notice I'm presented with a table that shows me all the
+databases that I can see, so to speak, and connect to right now. And you can notice — going back to the cloud configuration file — you can
+notice that I'm only shown two of the databases that are available to me. And so this is because my current Teleport’s role, which we can
+see here, which is called admin, but it actually kind of provides access to only a subset of all the databases that we'll see in a second.
+So it only allows me to see the databases or access the databases with a particular label. So let's switch back. Let me enter my control
+panel here of my cluster and demonstrate real quick the role. So this is the admin role, the role that I got when I went through that SSO
+flow. And you can see that the way it's configured is I'm only allowed to see the databases where the label of set to local, right? So
+that's why I can't basically see any of the other databases connected to my cluster. So, okay, that's fine for now. All right, so let's try
+to just connect to one of these databases and see what happens.
+
+**Roman:** And like we learned before, Teleport uses client certs as a primary method of authentication, and this is obviously the case for
+database access as well. And in order to actually connect to one of these databases, the first thing what I should do is to retrieve these
+credentials, these short-lived credentials, this short-lived client cert for the database I want to connect to, right? And so the command
+that I'm going to run is called tsh db ls login, very similar to tsh login or other counterpart login commands that we have for Kubernetes
+and whatnot. But in this case, it's called db login. And if we take a look at the flags here, in more detail, you can see that I'm
+specifying the name of a database I want to log into. So in my case, I just want to get into this Postgres DB and it runs in Docker on my
+machine. And I'm also specifying a couple of flags. So this is the user that I want to kind of connect as, and the database, the logical
+database within this Postgres server that I want to connect to, right? And these are just specified here for convenience. They will serve as
+a default username and database name. They can obviously be overwritten on the command-line when actually connecting to the database, right?
+So let me go ahead and launch this command.
+
+**Roman:** So now I've retrieved my short-lived credentials and got issued the client cert and now I can actually go ahead and establish a
+connection to the database just using normal psql command-line tool. And the output of this command actually gives you a little hint. And
+before I do that, let me also show the output of tsh db ls. You can see that it's now indicating that I'm logged into this particular
+database and gives me a quick hint on how to actually connect to this database. All right.
+
+**Roman:** So now I'm inside the database. Let's execute a couple of queries. Just something simple. So it doesn't like sampling my database
+here. So now, let's go back to my Teleport control panel, and just take a look at the audit log capabilities, right? So just to reiterate, I
+basically logged into the database. I executed a couple of queries. And if I go back to my audit log here, this is just standard Teleport
+audit log UI. You can see a number of audit events have popped up here, that basically tell me that my particular user, Teleport user in
+this case, connected to a particular database on a particular database server, and executed this query, and that query, right? So in this
+case, this particular query is actually what psql sends to the server when you do this backslash L to see the list of all available
+databases. And for each audit event, obviously, we can see some of the details, more detailed information in a structured form that tells
+you a particular session ID that can help you to correlate the events within the session, like a full query text, database account name, and
+so on, and so forth.
+
+**Roman:** Cool. So now, while I'm still here, let me try something else, right? You can see that I have a number of different databases
+here, logical databases, so Postgres treats those like completely separate entities, right? So you have to actually reestablish connection
+if you want to change the different database. So let's see what happens if I try to reconnect to the database that my Teleport role doesn't
+have access to or that doesn't allow me to connect to, right? So in this case, I can basically switch my connection to any of the others
+from the current database, right, just because Teleport RBAC, kicks in and doesn't allow me — returns me access denied there. All right. So
+let me close this session for now and make sure — so yeah, the database access denied event has also been captured in the audit log, as well
+as the disconnect event. So for the next scenario, let's kind of quickly take a look at the feature we call Access Workflows and then how it
+integrates with the database access. And so for this scenario, let's assume that I need an emergency access to one of the other databases
+that I can't normally see, like to some Aurora instance for example. And let me go ahead and execute this, the command, just copying it over
+here. So it's a tsh login command with a request roles flag which basically, what it does, is on behalf of my user, it sends a request to
+temporarily grant my user this additional role. And in my case, the role that I know will grant me access to these other kind of set of
+databases called db.
+
+**Roman:** So I'm going to go ahead and request this additional role for my account. And in my case, I'm just going to go ahead and approve
+my own request. And I'm doing this from the command-line, just for the sake of speed. But Teleport Access Workflows can also integrate with
+Slack, PagerDuty and a number of other providers. And in the 6.0, upcoming 6.0 release, you will also be able to approve or deny request for
+a Teleport Web UI as well, right? But for the time being, I have approved my request. Oh, my request got approved, right? So I've been
+granted an additional role which is indicated by this line here in tsh status now. And now let's see. So now when I run the tsh db login
+command, I have gained access to a kind of broader set of databases. In my case, all the databases with the AWS label have also become
+available to me. And I can really — from here now I can do the same thing I just did with Postgres. So just for the sake of trying it out,
+let's try to log into this MySQL Aurora database, right? So the process is absolutely the same, very similar to Postgres. So I've retrieved
+the credentials. I'll extend this a little [inaudible]. So you can see you can be logged into multiple databases at the same time. So they
+don't interfere with each other. And I retrieve the credentials for MySQL instance. And now I can use standard MySQL command-line client to
+connect to an Aurora instance as well.
+
+**Roman:** So show schemas. Run a couple of queries and make sure I take a look at the audit log as well to make sure that these queries
+have been captured for this instance as well. So one last thing I wanted to demonstrate is that graphical clients can also be used with
+database access and for this — as long as they support client certificate health, which most of them do. And let's take a look at pgAdmin
+here, which is a standard, so to speak, Postgres graphical UI client.
+
+**Roman:** So let's go ahead and quickly go over how you would configure pgAdmin to talk to — I'm going to use the same local instance to
+connect and for this, just going to go ahead, create a different instance of the connection. I'm going to call it local. When populating all
+the fields here, I actually don't need the port, don't need the username, but rather just need to specify the name of the connection service
+file or other section in a Postgres connection service file that tsh db login command updates. And verify full SSO mode. So let me set the
+connection. And so you can see that the connection has been established. We have connected to all — we can see all the databases within my
+local Postgres DBMS. And from here, I can execute basic queries and so on and so forth. And you can see that two of the databases I actually
+don't have access to and if I try to access, I get the same access denied error, just because my Teleport role doesn't allow me to connect
+to those and obviously everything you do through pgAdmin gets captured in the audit log as well. So you can see that there's a lot of stuff
+going on here, lot of queries sort of runs behind the scenes. Alright, so let me quickly disconnect it from here. Close pgAdmin and wrap up
+the demo by just logging out of everything and finishing up my session.
+
+**Roman:** Alright, so this concludes the demo. Hope it was interesting and useful. So let's get back to our slides for now. Just have a
+couple more slides to go over. Alright, so here, I just wanted to say a couple of words about how database access fits in with the rest of
+the Teleport ecosystem. So if you're somewhat familiar with Teleport, already you know that it started as a server access tool aiding RBAC,
+auditing session recording capabilities on top of the SSH protocol. And over time, we really added support for accessing Kubernetes clusters
+and with the most recent 5.0 release, application access as well, making it the first step toward what we call a [Teleport Access
+Plane](https://goteleport.com/). And the idea is that of Teleport Access Plane as a central gateway, providing access to any infrastructure
+resource. And so database access really is just another, albeit quite big piece of this puzzle and sort of a logical continuation of the
+whole AP idea that builds on top of the existing, robust teleport platform and just sits there alongside all the other resources like
+servers, Kubernetes clusters, and applications.
+
+### Release Schedule
+
+**Roman:** Cool. So let's talk about — release schedule a little bit, what's going to support it, what's on the roadmap as we keep kind of
+working on building the Database Access and making it better. And so initially, we're focusing on supporting two of the most popular,
+traditional open source databases, which are Postgres and MySQL. So Postgres support is already available in the 6.0 offer release, which we
+published a couple of weeks ago. And it includes support, as you could have probably told from the architecture and from what we've seen
+right now, it includes support for both self-hosted Postgres databases as well as Amazon, RDS, and Aurora Postgres flavor instances. So
+MySQL support is coming next with the same deployment modes of self-hosted and AWS hosted databases, and it will be available in the 6.0
+general that will be able to release — that's slated to release in a couple of weeks on March 1st. Probably chances are — it will land in
+one of the beta releases we're going to be putting up pretty soon in the next few days. And yeah, like I already mentioned, we're going to
+be working on improving the Database Access, building out, right, adding more features and protocols over the course of this year and
+beyond. So stay tuned and feel free to follow our [blog](https://goteleport.com/blog/) and our roadmap on GitHub to kind of see where it's
+moving.
+
+**Roman:** And finally, for the next steps — just wanted to leave a couple of helpful resources, hopefully, that you might want to check out
+if you want to learn about database access in more detail or even kick some tires in it. So there is first, there's a quick 5, 10 minutes
+getting started guide that we've created, that should help you set up Database Access in an Aurora instance. Then there is a more in-depth
+documentation which we're actually working on overhauling for the big 6.0 release. So hopefully it'll be even more useful then, but feel
+free to check it out. It has a ton of information, including more detailed architecture and the [RFD
+document](https://github.com/gravitational/teleport/blob/024fd582e62560ffc925cd4b4d42c156043c041b/rfd/0011-database-access.md/). And yes, so
+finally everything we've talked about before and everything we've seen is available in the open source version. So you can go ahead and
+download that alpha release I mentioned before, even right now by going to our downloads page and trying it in action, right? Yeah. And
+finally, I think that's it for me. Thank you for your attention, everyone. Hopefully, that was useful and interesting. And I think we do
+have some time left for questions and answers.
+
+### Q&A
+
+**Anadelia:** Yes, we have several questions and we still have plenty of time, so if you have any questions please submit them through the
+Q&A. The first question here, I believe this might have been already answered, but I'll ask anyway. It says, I see that an AWS RDS Aurora is
+supported. Is AWS RDS MySQL supported?
+
+**Roman:** Yes. Yes, it's supported.
+
+**Anadelia:** Perfect. Next question here is how are other databases added to Teleport once Teleport is deployed? Can it be added through
+the API CLA?
+
+**Roman:** It's a good question. So right now, it's added through this static configuration file like I’ve shown during the demo. And we do
+plan to eventually add support for adding databases. Adding and removing databases dynamically through the API or maybe even like through
+some sort of self-registration when it comes to Kubernetes or things like that. So, yeah.
+
+**Anadelia:** Perfect. Next question, I know we already answered part of this, but the question was around what other databases are
+supported, whether a Snowflake or Redis are part of that?
+
+**Roman:** Yeah. It's a good question. Again, like so like I said first, we're just want to focus on covering the — like the large part of
+the landscape, right? There is when it comes to databases, there's probably like an infinite playing field, infinite tale of databases to
+support. So I feel like Postgres and MySQL cover a lot of this. For the next, there is no — at the moment, there is no Snowflake or Redis. I
+would say kind of stay tuned and follow our roadmap to see what next protocols will be. Again, we certainly have plans to keep adding more
+database support, but we haven't kind of ironed out the full list of those that we'll add. Probably will be mostly driven by customer
+demand, I would say, right? So, yeah.
+
+**Anadelia:** Perfect. Thank you. Next question here was the YAML file that you showed at the beginning, which lists the databases with
+their environment tags, what is the client — was that the client configuration file or the server config?
+
+**Roman:** Yeah. So, the YAML file I showed in the beginning is the server configuration. So it was actually the configuration for Teleport
+database service as well as Teleport auth service and Teleport proxy service. So, for the client configuration, if you mean like a database
+client configuration, like a Psql, MySQL, or any of the graphical. So you don't need to worry about any — doing any special configuration
+for standard CLI clients. For example, for psql, MySQL, you don't need to edit any contact files because tsh db login command will do
+everything for you. If you're interested in a little bit more details, we're using — for Postgres, it's connection service file, right?
+Which tsh will preconfigure when you log into a database for MySQL. It's the option file I believe it's called. So for those, you don't need
+to worry about them. For graphical clients, you do need, obviously, to configure them to point to a proper database host, which in our case
+is going to be Teleport proxy address and the credentials. But we will have detailed instructions about how to configure various graphical
+clients with step-by-step instructions and screenshots and other stuff in our documentation pretty soon. So, yeah, chances are if you're
+using any of the graphical clients to connect to the database, it'll be kind of present in our docs — how to configure those.
+
+**Anadelia:** Thank you. Next question we have here is how do you manage the database credentials?
+
+**Roman:** This is a good question. This is kind of like a pretty broad topic, right? So when it comes to — depends on what you mean,
+exactly. So there are multiple kind of layers to it as I think. So first, there is credentials — what I would call database accounts, which
+are the accounts that you provision within the database — database users, right? So you can have like — an example would be Postgres user
+that by default is a superuser in every Postgres database or MySQL user. Or I think the section called root in MySQL, right, that you have
+in the MySQL database. And so these accounts obviously, still need to be kind of present in the database itself and provisioned. And then
+when it comes to Teleport — as I'd shown the role before me — am I still sharing?
+
+**Anadelia:** Yes.
+
+**Roman:** I'm still sharing my screen so I don't just talk, and rather show. If I go back to my roles section here, I can take a look at my
+role. But if you already can see that in addition to this field that's showing db labels, which controls access to all the database servers
+have access to. I've also have control over what database accounts my role can use, right? So in my case, the role that I used in the
+beginning of a demo, which only allowed me to see the local databases, it basically allowed me to connect either to use a database account
+named Postgres or a root or r0mant. So if I try to connect to any database using any different database account name, the attempt would be
+obviously rejected, right? So that's how the mapping works on the Teleport side — or rather, how it's enforced on the RBAC layer.
+
+**Roman:** So now, once the user has connected to the database, right, so Teleport basically controls — at this stage, it controls the
+access to the database. So once you have connected to the database successfully, whatever you can do inside the database is governed or
+controlled by the databases on a grant system. So you can configure different grants in both Postgres and MySQL, right, to grant users
+access to specific parts of the database, like specific tables, run specific queries, so on and so forth. And plus, when it comes to the
+roles here, an important kind of property of the Teleport RBAC, which is kind of convenient, I think, is that all of these fields can be
+templated. So you can see there is template variables examples shown here, and those values can be propagated from your identity provider as
+well. So let's say in my case, I have my cluster connected to Okta and GitHub. We also support [OIDC
+connectors](https://goteleport.com/docs/enterprise/sso/oidc/). And you can use your identity provider basically, as a central inventory to
+define, for example, which users or groups have access, or can connect to which databases or use which database accounts, right? So these
+things basically can come from your identity provider this way when you sort of go through the SSO flow. These fields will be kind of
+substituted with assertions in case of SAML, or claims in case of OIDC, right, coming from your identity provider. And this way, Teleport
+will enforce proper RBAC on those. So hopefully that answers the question.
+
+**Anadelia:** And there's a clarifying question on this: The r0mant user that you're showing us here has a password. If so, where is that
+password configured?
+
+**Roman:** Yes. So this user, it doesn't have password, right? In this case, like I mentioned before, Teleport uses client cert
+authentication mechanism currently to connect to the self-host databases. So rather, I should say, there's actually two cases here, right?
+So there's self-hosted database and there's RDS or Aurora database, which kind of have a little bit different authentication model. So in
+self-hosted database, we're using client certificate authentication. So you'll configure your database users to authenticate not using a
+password, but rather using the client certificate, which Teleport database servers generates on kind of a demand on the behalf of the user,
+right? So in my case, this r0mant user, for example, it doesn't have a password in the Postgres database, but rather it requires a valid
+client certificate signed by a proper certificate authority to pass authentication successfully. So then, the second scenario, in case of
+AWS Aurora database or just regular RDS, there we use IAM authentication, in which case Teleport basically handles the generation of a
+proper IAM token on behalf of the user and using that as a password to authenticate for the database.
+
+**Anadelia:** Thank you. And you may have answered part of this question, but does Teleport RBAC support managing permissions for specific
+tables or views? Support managing specific actions such as "read" and "write" on those tables or views?
+
+**Roman:** Right, yeah, it's a good question. So, as I explained currently, it supports the connection part. So it enforces a connection as
+a proper user or a proper database name. And once the user has connected this, whatever they can do within the database, it's still governed
+by the database on grand model. In future, we do have plans to look at the more extensive — how you would name it — a more extensive RBAC
+model for databases, potentially, where you can control what specific parts of a database, like what specific tables the users have access
+to, right? Or what specific actions they can take within the database. So, yeah, but not in the initial release — is the short answer.
+
+**Anadelia:** Thank you. Still have quite a few questions, so we'll keep going here. Next one is, Postico is a very popular database access
+tool that is widely used [inaudible]. And I don't believe it has option to enter a service. Do you know if this feature works with Postico?
+
+**Roman:** Yeah. So we'll take a look at — I can't recall off the top of my head. Unfortunately, I think we've looked at Postico. I don't
+remember honestly if we had gotten it to work successful or not. I think so. As long — you don't necessarily need to specify service, right?
+You can also specify, like enter all of those — when configuring a GUI client, you can basically manually enter address of the database like
+hostname, port, or paths to all the secret files, and let me actually show you real quick. So if I go, I'm not logged in, so let me, just
+for the sake of giving a complete answer here. Logged into the database to be — log in. Let's say I'm going to log into this Postgres. And
+so if I execute, let's tsh db config command. So this command, we specifically implemented it to ease the process of configuring GUI
+clients. And you can see that it gives you pretty much all the information you normally need to configure a connection to a GUI client. So,
+yeah, as long as Postico supports client cert auth, you should have no trouble getting to work, right? We'll obviously also consider adding
+this to our guides for graphical clients. So, yeah.
+
+**Anadelia:** Thank you. Next question here is more around how Teleport compares to PAM tools.
+
+**Roman:** It's a good question. So I mean, Teleport, in general, is sort of a PAM tool, right? So it's a kind of privileged access
+management tool. When it comes specifically to database access, if you mean configuring PAM within a database to authenticate, it comes with
+its own, I guess, kind of maintenance burden, right? You need to have a separate PAM tool and configure it in every single database to refer
+to that PAM tool to authenticate or provision user for you. So, yeah, it's kind of a broad question, to be honest. I'm not sure how much in
+a detail you want to go into this right now. But in a nutshell, I think we do say that basically Teleport is a privileged access manager
+tool, if you want to kind of simplify things a little bit, right, with a ton of additional features on top of that, such as kind of
+structured audit logging, session recording, access to all these different types of resources with the idea of being kind of a universal
+gateway to let go of your infrastructure resources, things like that.
+
+**Anadelia:** That's great. Thank you. Next question here is, is the idea that the proxy component can be deployed anywhere and the database
+services deployed potentially on-prem behind the firewall? Just wondering if you have considered combining the proxy and the database
+service components?
+
+**Roman:** Yeah, it's a good question. Yes. So you can — let me read this components to — yeah, so like I said, deployment model is pretty
+flexible, right? So you can have database service be co-located with a proxy within the same process, or you can have the DB service sit
+behind the firewall on-prem. And like I said, it doesn't even require — in this case, you don't even need to expose the database service
+publicly anywhere, so it can sit behind the firewall as long as it has this outbound tunnel to the proxy. So yeah, for this demo you might
+have noticed I have — like I mentioned, I was using a single process mode where I run everything kind of in the same process, which is
+obviously not suitable for production, right? But for quick trying out of — it's a pretty convenient mode of operation as well. Yeah, but in
+general, you can by all means, you can have your database service sit somewhere behind the firewall in a bunker without any ingress, right?
+Only allowing outgoing connection to the proxy service, which is probably — from a security standpoint — is kind of the preferred approach.
+
+**Anadelia:** Thank you. Right. Still got a couple of more questions here. Next one is what is the level of access control on the — on
+database level for user? Can we restrict specific tables like SQL operations such as insert, update?
+
+**Roman:** Yeah, I think I've answered it already before. so, at the moment, Teleport kind of controls the connection layer, right? So, it
+only allows you to connect as a specific database account to a specific database or potential specific logical database in case of Postgres
+as well. And in future, we certainly do have plans to look at more in-depth access controls, including or restricting specific tables, or
+maybe [inaudible] security data obfuscation, things like that. So stay tuned to see how it will develop.
+
+**Anadelia:** Thank you. And final question here in the queue is — will Teleport actually connect to the actual database via generic
+database user? For example, how many users should I create on the database site for Teleport?
+
+**Roman:** Let me see. How many databases? Yeah, so Teleport — yes, so you do need to have — so yes. When teleport connects to a database,
+it connects to the particular database account, right, that you actually specify yourself. So, for example, in this case, I'm connecting as
+my default kind of user, whatever it may be, right? But it can also override this — am I still sharing, by the way? Yeah. I think I am.
+
+**Anadelia:** Yes.
+
+**Roman:** Yes. So I can specify, I don't know, like user=qwerty, which I shouldn't have access to — connect as this user. But this is how
+you specify user to connect, right? So when it comes to Teleport — to users on the Teleport side, you — it's not really — basically, you
+don't need to create a specific user on the Teleport side per user in a database. So I think the general model that would be not too painful
+to maintain and make sense is have a — for example, preset number of database accounts within the database with predefined permissions. So,
+for example, I don't know, I could have viewer role, right, that only is allowed to see a part of the database, execute select, specific
+statements, and so on, so forth. We've kept more privileged role that can perform some TTL or like inserts and things like that. And then
+you just map users of your organization to whatever database accounts they can assume when connecting to the database, right? So in my case,
+for example, if I don't have access to a database user called admin, I won't be allowed access to the database as user admin, right? So I
+think it's rather a question of like create — Teleport user usually maps to like a particular person in kind of your company or
+organization, right, which usually comes from your identity provider. And then from there, you can really configure role-based access
+control to grant or deny access to a particular database instances or database accounts. Hopefully, that's clear and we can talk more if it
+was not.
+
+**Anadelia:** Thank you. And we did get a couple more questions. I know we're approaching the hour. So next question here is whether there's
+any plans on improving the installation process and the questions around helm charts or perhaps chart for service.
+
+**Roman:** Yeah. I think we certainly — yeah. We certainly do have plans on improving that. So I believe we do have a helm chart that can
+install like a — they're basically for Kubernetes access, right, for application access as well. So, yeah, obviously database access will
+get integrated into all that machinery as well, right? So, yeah, the simpler the installation process, certainly the better. If you do have
+any specific suggestions on improving those, something you are struggling with, something you don't like, if you like could be better, we're
+always welcome kind of GitHub issues. Feel free to go ahead and — if it's something specific for database access, feel free to kind of mark
+it with an appropriate label and we'll certainly kind of open to improve in that part.
+
+**Anadelia:** Thank you. And a couple of more questions here, which I think we can ask in one. Do you currently support databases for other
+cloud providers? And there's also questions around support for CockroachDB.
+
+**Roman:** Yeah. So CockroachDB is not supported at the moment. For other cloud providers — so as a first step, we're targeting Aurora and
+RDS. And we're also going to look at making it work with Google Cloud SQL as well, right? So I haven't taken a very close look at it yet,
+but I do think as long as the cloud provider supports client certificate authentication, it kind of should work out of the box, right? For
+some cloud providers like Google Cloud SQL, I know it does require a little bit of kind of tweaking to make it work in a kind of
+user-friendly fashion, which is going to be also going to be our focus after initial release. So, yeah, stay tuned.
+
+### Conclusion
+
+**Anadelia:** Thank you. And that is all the time we have. We really appreciate everyone for joining today. You will be receiving the
+recording of this webinar along with the slides. And thank you, Roman, for a great presentation.
+
+**Roman:** All right. Thank you, folks. That's it. Thanks, everyone.

@@ -4,22 +4,23 @@ import {
   PodcastEpisode,
   TechPaperBook,
   Tutorial,
+  Webinar,
 } from "components/EpisodesList/types";
 import { getPagesInfo } from "./pages-helpers";
 
-export const getResourcesData = (type: string) => {
+type ResourceType = "podcast" | "white-papers" | "guides" | "audits" | "videos";
+
+export const getResourcesData = (type: ResourceType) => {
   let resourcesPageInfo = [];
 
   try {
-    resourcesPageInfo = getPagesInfo(`resources/${type}/**/*.mdx`).map(
+    resourcesPageInfo = getPagesInfo(`resources/${type}/*/*.mdx`).map(
       ({ data }) => data
     );
 
     if (type === "podcast") {
-      resourcesPageInfo = resourcesPageInfo
-        //we use a filter to exclude the index page
-        .filter((episode: PodcastEpisode) => episode.frontmatter.podcastName)
-        .sort((a: PodcastEpisode, b: PodcastEpisode) => {
+      resourcesPageInfo = resourcesPageInfo.sort(
+        (a: PodcastEpisode, b: PodcastEpisode) => {
           const aNumberEpisode = Number(
             a.frontmatter.podcastName.split("-")[0]
           );
@@ -27,45 +28,40 @@ export const getResourcesData = (type: string) => {
             b.frontmatter.podcastName.split("-")[0]
           );
           return bNumberEpisode - aNumberEpisode;
-        });
+        }
+      );
     } else if (type === "white-papers") {
-      resourcesPageInfo = resourcesPageInfo
-        //we use a filter to exclude the index page
-        .filter(
-          (episode: TechPaperBook) =>
-            episode.frontmatter.title !== "Tech Papers"
-        )
-        .sort((a: TechPaperBook, b: TechPaperBook) => {
+      resourcesPageInfo = resourcesPageInfo.sort(
+        (a: TechPaperBook, b: TechPaperBook) => {
           return (
             new Date(b.frontmatter.publicationDate).getTime() -
             new Date(a.frontmatter.publicationDate).getTime()
           );
-        });
+        }
+      );
     } else if (type === "guides") {
-      resourcesPageInfo = resourcesPageInfo
-        //we use a filter to exclude the index page
-        .filter(
-          (episode: Tutorial) => episode.frontmatter.tutorialPublicationDate
-        )
-        .sort((a: Tutorial, b: Tutorial) => {
-          return (
-            new Date(b.frontmatter.tutorialPublicationDate).getTime() -
-            new Date(a.frontmatter.tutorialPublicationDate).getTime()
-          );
-        });
+      resourcesPageInfo = resourcesPageInfo.sort((a: Tutorial, b: Tutorial) => {
+        return (
+          new Date(b.frontmatter.publicationDate).getTime() -
+          new Date(a.frontmatter.publicationDate).getTime()
+        );
+      });
     } else if (type === "audits") {
-      resourcesPageInfo = resourcesPageInfo
-        //we use a filter to exclude the index page
-        .filter(
-          (episode: AuditReport) =>
-            episode.frontmatter.title !== "Security Audit Reports"
-        )
-        .sort((a: AuditReport, b: AuditReport) => {
+      resourcesPageInfo = resourcesPageInfo.sort(
+        (a: AuditReport, b: AuditReport) => {
           return (
             new Date(b.frontmatter.publicationDate).getTime() -
             new Date(a.frontmatter.publicationDate).getTime()
           );
-        });
+        }
+      );
+    } else if (type === "videos") {
+      resourcesPageInfo = resourcesPageInfo.sort((a: Webinar, b: Webinar) => {
+        return (
+          new Date(b.frontmatter.publicationDate).getTime() -
+          new Date(a.frontmatter.publicationDate).getTime()
+        );
+      });
     }
   } catch (e) {
     console.error(e);

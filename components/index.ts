@@ -37,6 +37,7 @@ export { default as Icon } from "components/Icon";
 export { default as Image } from "components/Image";
 export { default as ImageAndContent } from "components/ImageAndContent";
 export { default as JobList } from "components/JobList";
+export { default as JoinTheCommunity } from "components/JoinTheCommunity";
 export { default as Link } from "components/Link";
 export { default as List } from "components/List";
 export { ListCardContainer } from "components/ListCard";

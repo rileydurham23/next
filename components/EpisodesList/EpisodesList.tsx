@@ -9,11 +9,17 @@ import type {
   TechPaperBook,
   Tutorial,
   AuditReport,
+  Webinar,
 } from "./types";
 import { ResourcesDropdown } from "./ResourcesDropdown";
 
 export interface EpisodesListProps {
-  episodes: PodcastEpisode[] | TechPaperBook[] | Tutorial[] | AuditReport[];
+  episodes:
+    | AuditReport[]
+    | PodcastEpisode[]
+    | TechPaperBook[]
+    | Tutorial[]
+    | Webinar[];
   kind: EpisodeKind;
   needSizeLimit?: boolean;
 }

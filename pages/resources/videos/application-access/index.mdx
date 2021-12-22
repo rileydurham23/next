@@ -1,0 +1,343 @@
+---
+title: "Teleport Application Access"
+alternateTitle: "Secure Access to Web Applications & RESTful APIs with Teleport Application Access"
+description: "Learn how Teleport Application Access can protect access to web applications, use RBAC, and access protected apps' RESTful APIs."
+layout: tutorial
+publicationDate: "2021-04-14"
+associatedLabels:
+  [
+    "teleport",
+    "teleport application access",
+    "SSH",
+    "infosec",
+    "unified access plane",
+    "applications",
+    "audit log",
+  ]
+videoId: "xOLKVJnrBT0"
+videoLength: "39:48"
+---
+
+## Teleport Application Access - Overview
+
+Are you nervous about web applications exposed to the public Internet? Would your users revolt if they had to use a VPN
+every time they viewed a dashboard?
+
+It's a headache to secure access to internal apps and dashboards while simultaneously maintaining ease of use, granular
+access policies, and visibility for audits and compliance!
+
+Watch this webinar to learn how Teleport Application Access can help you to:
+
+- Protect access to your web application without using VPNs or other complex solutions.
+- Use role-based access controls to make sure users can only access resources they are allowed to.
+- Access the protected apps' RESTful APIs with tools like curl or Postman.
+
+### Key Topics on Secure Access to Web Applications & RESTful APIs with Teleport Application Access
+
+- Because organizations often don't have an easy and secure way to
+  ensure consistent user identity across different environments, they are often forced to use directory-based
+  authentication services, which are difficult to set up and expensive to maintain.
+- While organizations lack visibility into what users are doing when logged into their systems,
+  having a detailed and accurate audit trail is very important for security and compliance reasons. - Teleport
+  Application Access is designed to provide secure access to internal dashboards and applications, such as internal
+  control panels; Wikis/tooling that's only available on the VPN; infrastructure dashboards such as Kubernetes or
+  Grafana; and developer tools such as Jenkins, Gitlab or Opsgenie. - Teleport Application Access gives users fast
+  access to web apps and the ability to control user access by role.
+
+### Expanding Your Knowledge on Secure Access to Web Applications & RESTful APIs with Teleport
+
+Application Access
+
+- [Teleport Application Access](https://goteleport.com/application-access)
+- [Get started in 10 minutes](https://goteleport.com/docs/application-access/getting-started/)
+- [Documentation](https://goteleport.com/docs/application-access/introduction)
+- [Teleport Quick Start](https://goteleport.com/docs/quickstart/)
+- [Teleport Access Plane](https://goteleport.com/)
+- [Teleport Kubernetes Access Guide](https://goteleport.com/docs/kubernetes-access/introduction/)
+
+### Learn More About Secure Access to Web Applications & RESTful APIs with Teleport Application Access
+
+- [Read the Teleport Admin Guide](https://goteleport.com/docs/)
+- [Download Teleport](https://goteleport.com/download/)
+
+## Introduction - Secure Access to Web Applications & RESTful APIs with Teleport Application Access
+
+(The transcript of the session)
+
+**Roman:** Welcome, everyone. Welcome to the Teleport Application Access webinar. Let's get started. And let's walk over the agenda first
+and see what we're going to address during this presentation and demo, right? So first, the main topic for today is, obviously, secure
+access for your web applications, right? And we're going to talk about the actual securing web applications problem first, right, the
+various issues that users and engineers encounter when they're trying to get a secure access to their infrastructure and their applications,
+what it means, and how [Teleport Application Access](https://goteleport.com/application-access) can help you solve some of these issues,
+right? So why we're building Teleport Application Access for you. Now, we'll also take a quick peek into the Application Access architecture
+so you folks understand how it works and what kind of benefits it provides, what kind of features it has and what kind of use cases it can
+cover, right? So to see if it would be a good fit for you to use. And the Teleport Application Access and Teleport itself is an open-source
+product, right? So everything we're going to be talking about today and seen today during the demo, you will be able to just go ahead and
+try it out yourself right after this presentation. And finally, we'll do you know a, hopefully, informative and detailed demo. So we'll see
+Teleport Application Access connection. And at the end, we'll probably have some time left for a Q&A.
+
+### Problem: Insecure & Hard-to-Access Applications
+
+**Roman:** All right. So let's get into it. So what is the actual problem with what we're trying to solve here? Right? So in today's
+cloud-native environments, engineers and just regular users usually have many different endpoints they need to be able to log into, which
+are often spread across many networks, such as data centers, there is DPCs of different cloud providers, and so on and so forth. And so
+despite all these security obstacles, which make accessing these systems quite a hassle — I mean, the [inaudible] comply with security
+standards, such as SOC 2, PCI, FedRAMP, or others for multiple reasons. So first, there is no, usually, great way to ensure consistent user
+identity between all these different environments, assuming there's even any security at all. So organizations are often forced to use
+directory-based authentication services, which are difficult to set up and expensive to maintain. Or worse yet, they resort to using shared
+credentials, which makes it pretty much impossible to answer the questions like who did what in a system. So in addition to the inconsistent
+identity, we often also issue long-lasting security keys and username password credentials for different systems that can be leaked and
+compromised. So if the past decade, with its 10-out-of-15 largest data breaches in history has taught us anything is that the equation is
+not if my password gets compromised but rather when. So persistent credentials are not great from a security standpoint.
+
+**Roman:** So finally, there's no good visibility into what users are doing when they are logged into these systems. And having a detailed
+and accurate audit trail is very important for security and compliance reasons. And so all of these combined with [inaudible] identity
+information, persistence, and shared security credentials, becomes pretty easy to see that calling a system without these properties secure
+would be somewhat of a stretch. So now, if you notice when talking on the previous slide for all these points, I never explicitly said
+server anywhere, right? Because that's kind of rather — because this is one of those cases when a generalization kind of works out in our
+favor, right? So all the points that I just made can be equally true for accessing servers, databases, and in our case, web applications,
+right, which are our main topic for today. So historically, Teleport [started](https://goteleport.com/about/) by making it easier for
+engineers to connect to servers and Kubernetes clusters. And when talking with the community about what problems they want to solve with
+Application Access, they share the very similar feedback with us. So for many users accessing their developer infrastructure is pretty
+frustrating because they can only get to it via VPN. And I can speak to it from experience as well, right? Pretty much a majority of
+engineers and users experience this themselves. At the same time, with all these security obstacles, there's security compliance problems
+with tracking who is doing what in these systems.
+
+**Roman:** Now, many of our users also need to secure access to their operational control panels. So every company has a slew of their
+home-built ones and a lot of open-source infrastructure, dashboards like Kubernetes dashboard, phpMyAdmin. All of these are famous for not
+having a very strong security and could benefit from a solution that kind of enhances their security capabilities. And then there's
+compliance issues for applications that hold customer data. This might be your own internal kind of operational applications, or this could
+be the customer's infrastructure, such as a managed service or a dedicated tenant. And in such a use case, your customers will be imposing
+any compliance requirements that they want to your company. And so we're building Application Access to help solve these challenges.
+
+### How Application Access Works
+
+**Roman:** Now, let's go ahead and take a look at how Teleport Application Access works, right, in a little bit of detail. So for those
+folks who are not yet familiar with Teleport — I was a bit new to teleport - it's an open-source product that provides secure access to your
+infrastructure. So now for a quick architecture tour — very quick, I promise — let's walk over the main pieces of Teleport architecture. So
+two of the components that are common for all types of access, like servers, databases, and applications, like in our case here, are
+[Teleport Auth](https://goteleport.com/docs/enterprise/ssh-kubernetes-fedramp/#teleport-auth-server/), or Auth server, and Teleport proxy
+server, right, which are depicted here with these rectangles.
+
+**Roman:** So Proxy Server is the cluster's authentication gateway. It is the main user-facing component, and this is where all the clients
+connect to when they want to, let's say, connect to a web application, right? So you can see if the client wants to use a browser to connect
+to the application or just cURL to call an application. So API, this is the proxy's endpoint, is where they're connected to. So Proxy also
+serves the cluster's web UI, right? And yeah, like I said, it serves as a web UI and as a cluster authentication endpoint. Now, Auth Server,
+which usually sits somewhere deep in your infrastructure, not accessible from the outside, is the cluster certificate [inaudible]. Auth
+handles user authentication, authorization, integrates with SSO providers, and issues short-lived client certificates to users, which
+Teleport uses for authentication with everything. So, together, Proxy and Auth comprise what we call an access plane. So the access plane
+has a number of additional kind of functionality to it, such as access workflows, for example, which allows the users to temporarily elevate
+their privileges and gain access to resources such as web applications, which they normally don't have access to.
+
+**Roman:** So finally, Teleport Application Access Server, so these two components here, they take care of forwarding web applications,
+traffic from the proxy to the target applications. So app server establishes an SSH reverse-style connection back to the proxy over which
+the web application traffic is forwarded. So the actual applications that are sitting behind these app servers, again, they can reside
+anywhere, right? They can reside in a cloud provider VPC, in a private network behind a firewall and completely be inaccessible from the
+outside, right? So as long as the application servers can dial back to the proxy, these components can pretty much reside anywhere. So there
+are multiple ways users can connect to these web applications, right? So one is by using a web browser, obviously. And we'll see this
+connection during the demo, is when the users would connect to the Teleport, which provides a web application catalog, and they'll be able
+to kind of choose the particular application they're interested in and navigate to it using their web browser, right, or by navigating
+directly to the application's public address, bypassing proxy pretty much completely. Another way, Application Access also supports CLI
+flow, right, which is suitable for various programmatic API calls and things like that. And so this is also supported when the users, for
+example, may want to interact with a particular application's API using tools like cURL or Postman or even programmatically.
+
+**Roman:** And so one cool thing about this architecture is that even the applications that don't necessarily support TLS or potentially
+even lack their own authentication capabilities can be put behind the app access and take advantage of enhanced security in the form of
+mutual TLS authentication, role-based access control, and so on and so forth, like session recording. And we're going to take a look at both
+of these scenarios, accessing apps with just your browser and calling their APIs during our demo. Right. Let's move on.
+
+### Features & Use Cases
+
+**Roman:** Before we dive into the demo, actually, let's just recap some of the features that Application Access provides. Right. So first,
+it's obviously quickly finding and connecting to applications, or users can gain fast access to web apps and control the user access by
+role. So Teleport maintains a dynamic catalog of web apps that users can quickly find and connect to. And the users' access authorizations
+allow them to only see access apps that they have access to, right? So for example, the role an engineer has should dictate whether and what
+kind of access they have to a particular web application. So this allows companies to practice least-privilege access policies with their
+internal apps, for example.
+
+**Roman:** Now, adding compliance security to apps without modification is another kind of cool part about this because every organization
+probably has apps with no security controls whatsoever and many more with very simplistic unintegrated username/password credentials. And so
+Teleport's ability to proxy authorized access into applications allows you to, essentially, wrap compliance security around each user
+session without necessarily having to modify a third-party app. So you can restrict access to just the users who should have those
+privileges and capture their activity for future auditability. This also helps, obviously, eliminate the need to manage a lot of shared
+secrets. So finally, supporting role-based features and custom apps is also pretty cool. So it is more helpful in the case where your
+engineers are creating your own internal apps, right, using app access to add SSO authentication flow and even implement authorization using
+information provided by Teleport in the JWT tokens, right? So we'll see this during the demo, but Teleport sends a signed JWT token with
+each web application quest, which web app can integrate with to potentially implement authorizations in the app itself, right? So some
+third-party applications actually support JWT authentication out of the box.
+
+### Demo
+
+**Roman:** All right. Great. So now, it's that time, right, so let's go ahead and jump into the demo. Let me just figure out how to close my
+presentation here. And for the demo, I'm going to start by logging into my Teleport cluster, right? So you will notice — again, for folks
+who are not yet very familiar with Teleport, this is what the Teleport proxy UI login screen looks like, right? If you remember from our
+architecture diagram, proxy is the only user-facing component. And here, I have a couple of SSO providers configurates, so I'm just going to
+go ahead and use GitHub to log into my cluster. Right. So with this cluster, I have a handful of web applications connected to it. And once
+we're inside here, let's navigate to the Applications tab. So this is the clusters' application catalog, right, that displays all web apps
+that are currently available to me. So you will notice I only have two, right, which is [inaudible], like I mentioned before. And the
+displayed applications, obviously, are subject to users' authorization check. So in my particular case, I always see these two just because
+my Teleport user's role, and I'm logged in as this r0manT user, as you can see, in the top-right corner. My role only allows me to see these
+two applications. And before actually trying to do anything with that, let's go to this team section here and inspect my user, right? So you
+can see I have the admin role in my control panel. And if I go to my role stamp and pull up the description of my role, you can see that
+this admin role, despite being called admin, right, it actually only allows me to see only applications with these particular labels.
+
+**Roman:** So Teleport role-based access control model relies on our labels tool for authorization decisions, right? So every resource you
+connect to Teleport, which in our case is web apps can be marked with static or dynamic labels, which are then used in RBAC to allow or deny
+access, right? And so in my particular case, my role only allows me to see the applications that are marked with environment label with
+[inaudible] like home and dev, right, which is why I see only these two. And we'll take a look at how I can gain access to the other
+applications in a minute as well. So now, these applications, like I mentioned, they can be deployed anywhere, right? So in my case, most of
+the apps I'm showing during the demo actually run just in Docker containers on my laptop or on my local network. And let's start with
+something simple and just access one of these apps. So I'm going to start with this dumper app. And the dumper app is a very simple web app
+that just dumps all the headers of the request in the response, right? This app, actually, comes built in with Teleport Application Access,
+so you can enable this application just by a configuration parameter. And it's not super useful, but it does have some troubleshooting and
+debugging value to it, which is why we included this. So for example, you can make sure that things are working correctly, right, and it
+also allows us to actually inspect the request of — a particular HTTP request that Teleport Application Access sends to kind of each
+application.
+
+**Roman:** So for example, here, you can see — let's see what we have here. So first, we see that there is a set of these X-Forwarded
+headers that Teleport injects into each request with information about original hostname, about the target application protocol and server
+name, and so on and so forth, which is sometimes useful when you want to integrate with various reverse proxies and so on. Now, one
+particular interesting bit of information is this Teleport-Jwt-Assertion header that we see here. This is a signed JWT token that Teleport
+injects into each request with proxy to web applications, which, potentially, applications can use to automatically authenticate and
+authorize the user. We'll come back and take a look in more detail at this current JWT token in a few minutes later during this demo. Now,
+other types of applications that can benefit from additional protection are various control panels, internal dashboards. In my case, here, I
+have this control panel for my router. So routers don't usually boast high security, and I'm better off not being exposed on public internet
+pretty much at all. So I don't have one of those traditional routers, unfortunately, or fortunately. I don't know why I have this Google
+Nest router, which only serves the status page, which is just connected to my application access cluster as well, right? But this way, you
+could also connect your own router page or any other — we have folks who are using Application Access, actually, internally to connect to
+their Synology dashboards and so on and so forth.
+
+**Roman:** So now, as I mentioned earlier, there are actually more apps that are connected to my cluster, which we can currently see, right,
+just because of my user's permissions. So now, let's take a look at how I can use this access workflow system, which I mentioned before, to
+get access to other applications, right? So this access workflows system allows me to temporarily elevate privileges in order to gain access
+to services where I normally don't have access to. It's built on top of role-based access control. And what it comes down to is — to a
+user's ability to request another role, right? So my user right now, as we saw, has an admin role, which only allows it to see those
+particular applications. I also have another role that is called app, which we'll take a look at it, consider it. It allows access via
+wildcards to everything pretty much connected to this cluster, right? And let me go ahead and request a role for my user assignment. Should
+go to the Activity tab, [Access Requests](https://goteleport.com/features/access-requests/), and let me put in an access request for this
+particular role. So I can put in an optional reason for request, right, and send it. And so normally, request went to a pending state.
+Normally, access workflows can be integrated with third-party services and tools like Slack or Mattermost or PagerDuty. So authorized people
+could go ahead and take a look at a particular access request and approve it or decline it. In my case, I'm going to do like a simple way
+and just approve my own request from the terminal. So I'm going to do this in the background real quick.
+
+**Roman:** Right. So I approved my own request. You can see it went to the approved state right now. And now I can press this Assume button
+to assume an additional role, right, for my session. So now my user should have access to a wider range of applications that are connected
+to my cluster, right? And you can see that there's more appeared here. And I also have various tools, like I have Grafana connected, I have
+this kind of Node-Red application. We can just pull up here and see if it's working. So this is a WebSockets-based application, right, which
+Teleport [inaudible] application access also supports. So I just connected it as an example of an application you can use. You know what
+else? I have pgAdmin dashboard here to access my databases, right, which are also connected to Application Access. And really, they'll serve
+as a good example of the apps that you can connect to the Application Access. So now let's talk a little bit about different authentication
+options. So if a web application that you were accessing from here has its own login page and makes you to go through its own authentication
+flow, you will obviously be kind of presented with a second login screen, right, when you go to a particular app and will be asked to log in
+to that app. But as we saw in the beginning of the demo, Teleport sends a signed JWT token with each request forwarded to the application.
+So apps can choose to integrate with it to use identity of the Teleport user, right? So let's go back to our dumper application here for a
+moment, pull it up again, and see in a little bit more detail what kind of information this token carries.
+
+**Roman:** So let me go ahead and copy it. Then I'm going to go to just jwt.io because it has this neat token decoder and just inspect what
+kind of information is in the payload, right? So we can see that there's a set of standard claims. So this section is actually the actual
+payload that is encoded into this token, right? There's a second part of this token. So we can see that there's audience, obviously, which
+is the application URL that this token or this request is actually intended for. Then there are some standard JWT claims like expiration
+date and not-before date, right? The issuer in our case is the cluster name, a Teleport cluster name that signed this particular token. Sub
+is a standard claim for the actual identity of a user or something that's this token is intended for. And then there is a couple of custom
+claims that we also inject such as username, which, in our case, actually equals to sub and the roles of this particular user, right? So
+then we can see that, in my case, I have this admin role, which is default role for my user. And I also requested an additional app role
+using access workflows, which is also now being sent in a token, obviously, before the session. And so applications can integrate with these
+JWT tokens to implement their own authentication and authorization flows, right? Now, let's go back here. And obviously, this is kind of
+most useful when you are working on your own kind of internal applications and have ability to add these JWT token integration to them,
+right?
+
+**Roman:** However, some third-party apps actually do support JWT authentication out of the box. And I think more and more applications,
+actually, add support for it. And one such application is Grafana, which I'm pretty sure everyone is familiar with. So this is one of your
+authentication methods that Grafana supports. I don't think it's actually even been released now. It was merged in kind of mainline just a
+few days ago, and I'm running Grafana on master here to demonstrate this ability. But let me first go to Grafana and — I'm going to directly
+right now, not through the Application Access just to demonstrate how to configure it. So I'm logged into it as an admin. And if I into
+Grafana dashboard settings, you can see that I have JWT authentication enabled, and I specified the name of the header from which Grafana
+should extract the token, right? And jwk_set_file is also kind of here, so Grafana can actually validate that this token was signed in by an
+appropriate Teleport authority. And you can specify Teleport provides it a URL with a key set file. But I'm just using a local file for
+simplicity here. And a particular kind of claim, token claim, right, where to extract the username from. And so now, with all this
+configuration in place, if I go ahead and try to access my Grafana instance, you can see I'm not actually presented with a login screen, but
+rather, I'm being taken directly to Grafana dashboard. And if you take a look at my user, you can see that I'm logged in as a same user as
+my Teleport user here, right? So because the foreigner extracted the JWT token from the request and signed me in as kind of this particular
+Teleport user, so it mapped my Teleport user onto its own internal r0mant user, in this case.
+
+**Roman:** So yeah. JWT tokens are a pretty cool kind of method of authenticating in third-party or internal applications that support this
+type of authentication just because it basically alleviates all the kind of necessity to implement this functionality in these applications
+themselves. Now, before we move on to the next part of the demo, which will be terminal based, we'll go ahead and take a look at this Audit
+Log tab here, right? So like I mentioned before, audit capabilities, hitting like an audit trail is important for security and compliance
+reasons. And with Teleport App Access, every application section is getting captured in the audit log in the form of five-minute chunks that
+contain all HTTP requests that occurred within that interval for that session, right? So if we expand the details for a particular session,
+you can see that each session is also associated with the particular Teleport user. So it's kind of pretty easy to keep track of who did
+what, when they connected to the application. And the information about the user, obviously can come from your SSO provider. In my case, if
+you remember, in the beginning, I logged into my cluster using my GitHub SSO connector. So this way, you kind of get the whole chain linked
+together, right, where your SSO user is getting eventually linked to a particular activity in a particular application.
+
+**Roman:** All right. So for the final part of the demo, let me go ahead and share my terminal now because, here, we're going to take a look
+at accessing the application's HTTP API's over Application Access. So Teleport supports CLI app access flow, and it will be very familiar to
+existing Teleport users. But again, for folks who are kind of newish to it, we can start by just logging into the Teleport cluster, right?
+And the command is [tsh](https://goteleport.com/docs/cli-docs/#tsh/) login, and I specify it, like my proxy endpoint. And this will take me
+for the same SSO login flow which I used in my UI but only for CLI, right? And by the way, the application access CLI flow, that we're going
+to be taking a look at, is a new feature in 6.1 release, which we just put out just a few days ago, I think on Friday or Monday. So yeah,
+we're going to have another webinar sometime next month, I think, to go into more detail about the features that were released as a part of
+6.1. And Anadelia will put a link to that webinar In the Slack channel if you're interested in checking it out. But otherwise, let's keep
+looking at this app access CLI flow, right? So now as I'm logged into my cluster here, I can use — so, again, for folks who are familiar
+with Teleport or not familiar, there's a tsh ls command that gives you all the servers that are currently registered in the cluster, right?
+
+**Roman:** Then by the same analogy, there is a new command that's called tsh app ls that shows you all the applications that are connected
+to the cluster. And here, again, I see the same tool, which I originally saw in my control panel, right, just because my permissions only
+allow me to see these two. And now, let's say I wanted to make a request to one of these applications, right? So let's say, let's take this
+dumper app again as an example. So, in response, I would expect it to return me a header. And so in order to call the application's API, the
+first step I need to do is to retrieve a client certificate, right? Like I mentioned, at the beginning, Teleport uses client certs for
+authentication with everything, and web apps are not an exception. So if I execute this tsh app login command, what it'll do is it will
+retrieve credentials for these particular applications, as in credentials, specifically meaning x509 short-lived cert for this app, and
+gives me an example cURL command that I can use with proper paths to all the secrets filled in and the application public URL filled in, so
+I can just copy and paste it — which, in this case, it's a very simple app, it replies to any request. So I don't need to modify this
+command. I just can call it like this, right? So this way, basically, I used cURL to call these apps’ API. And as expected, the response —
+it just gave me all the same headers which we saw before when we went through for the UI access flow, right?
+
+**Roman:** So now, let's, for the sake of a demo, try to log into different applications, so this Wi-Fi router thing that I have, and you
+can be logged into multiple apps at the same time, right, like we're seeing here. So I can also use various similar kind of flow to call my
+router's API if I want to. So I think it's api/v1/status path to do something a little bit and spit me out the status of my Wi-Fi router.
+Hopefully, it's working. So now, let's say I also want to make a request to my Grafana instance, right? And, again, similar to our UI
+example, I don't see it right now, just because my user doesn't have permission, so I actually need to go through the same request approval
+workflow as I did before to gain additional access. And to do that, I can execute this tsh login --request-roles=app command, right, which,
+again, similar to user interface, it puts in an additional role request for myself, which I'm again going to go ahead and approve for myself
+now using the CLI flow. Now that I've assumed an additional role, you can see my status not changed to include this app role and we do tsh
+app ls, as expected. I can now see all the other apps that are actually connected to my cluster and can interact with them as well.
+
+**Roman:** And let's just go ahead and log into this Grafana application here and just try to call its API, again, for the sake of the demo.
+So if I do it, please wait, right — so I know the Grafana has this API user's endpoint, which requires like a privileged user. And
+obviously, if you remember, when we're talking about how Grafana is configured, it uses JWT authentication. So in my case, it authenticates
+me automatically as this r0mant user, which is just a regular standard user, which apparently doesn't have permissions to call this user's
+API, which is why I've got this permission tonight there. But what I could do is just authenticate as a user, which, in my case, is just
+default installation. So I didn't change the admin password or anything in the test installation. But if I provide a basic auth header to
+cURL, you can see that it actually now lets me through. So that is just to demonstrate that all the headers are kind of getting passed
+through Application Access so you can supply authentication and so on and so forth when calling applications API's. All right. Once we're
+done here, let me go ahead and log out of everything. So the tsh app logout command clears all the credentials that were retrieved, right,
+because we're using short-lived mutual TLS, short-lived client certificates. Those credentials would have expired on their own in a few
+hours, but it's always a good practice to can explicitly remove all secrets when you no longer need them. And let me log out of all of my
+Teleport cluster as well.
+
+**Roman:** All right. So this concludes our demo. I hope it was informative and useful. And let's get back to our presentation to wrap up if
+I find my browser. All right. So before we wrap up here, I just wanted to mention that web applications, which were our main topic for
+today, is a part of a larger Teleport access plane, which also can provide access to servers, Kubernetes clusters, and databases, such as
+Postgres, MySQL, and MongoDB with the same features as RBAC auditing session, recording access workflows, and so on, so forth. So if you're
+interested in any of these other types of accesses as well, feel free to check it out. Now, for the next steps, you just can take a look at
+our Application Access documentation, right, and our Getting Started guide, which is really, really, really quick. So it really gets you
+started in 10 minutes. And everything we've talked about today is open source, so you can go ahead and download the open-source edition of
+Teleport right after this call if you're interested and start playing with it and try out all the things that we've seen today during the
+demo. So go ahead and start exploring. Thank you, everyone, for attention. And now, Anadelia, we have some time left for Q&A.
+
+### Q&A
+
+**Anadelia:** Excellent. Thank you for a great presentation, Roman. It looks like we don't have any questions at the moment, but if people
+want to reach out to you after this presentation, what is the best way to get in touch with you?
+
+**Roman:** Oh, yeah, so I think a good way would be to, first of all, join our community Slack, which is, I believe, just
+goteleport.slack.com, right? If you have a link handy, Anadelia, it might be helpful to put it in chat. And we have the GitHub discussions
+as well, right? So we're using GitHub discussions to facilitate like discussions with the open-source community. So if you're running into
+any issues, have any questions for us, feel free to use either community Slack or GitHub discussions, and we'll be happy to chat to you.
+
+**Anadelia:** Perfect. Thank you. Thank you, Roman, for a great presentation. This recording will be sent out to everyone who has joined
+today, so you should expect to see that later today in your inbox, and we will see you at the next webinar.
+
+**Roman:** Thanks, everyone.
