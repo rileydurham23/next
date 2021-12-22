@@ -2,7 +2,7 @@ import NextImage from "next/image";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Section from "components/Section";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import sanfrancisco from "./assets/sanfrancisco.jpg";
 import seattle from "./assets/seattle.jpg";
 import toronto from "./assets/toronto.jpg";

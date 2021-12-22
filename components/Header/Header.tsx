@@ -7,7 +7,7 @@ import Link from "components/Link";
 import Logo from "components/Logo";
 import Menu from "components/Menu";
 import HeadlessButton from "components/HeadlessButton";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import blockBodyScroll from "utils/block-body-scroll";
 import HeaderCTA from "./HeaderCTA";
 

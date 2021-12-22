@@ -1,7 +1,7 @@
 import css from "@styled-system/css";
 import Image from "next/image";
 import Box from "components/Box";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Flex from "components/Flex";
 
 interface SectionStepsItemProps {

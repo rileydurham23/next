@@ -1,7 +1,7 @@
 import css from "@styled-system/css";
 import Box from "components/Box";
 import Button from "components/Button";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Section from "components/Section";
 import Link from "components/Link";
 import { transition } from "components/system";

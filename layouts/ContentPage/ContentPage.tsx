@@ -1,10 +1,11 @@
 import { Fragment, useMemo } from "react";
 import { MDXProvider } from "@mdx-js/react";
+import Centrator from "components/Centrator";
 import Drift from "components/Drift";
 import SectionHeader, { BGColor } from "components/SectionHeader";
 import Section from "components/Section";
 import Head from "components/Head";
-import Layout, { Centrator } from "components/Layout";
+import Layout from "components/Layout";
 import Footer from "components/Footer";
 import NextImage, { ImageProps } from "next/image";
 import TryTeleport from "components/TryTeleport";

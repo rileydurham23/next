@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
 import Link from "components/Link";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Section from "components/Section";
 import Flex from "components/Flex";
 import Box from "components/Box";

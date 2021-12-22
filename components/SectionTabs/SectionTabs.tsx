@@ -5,7 +5,7 @@ import Box from "components/Box";
 import Flex from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 import Image from "components/Image";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import { transition, variant } from "components/system";
 
 interface SectionTabsItemProps {

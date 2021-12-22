@@ -3,7 +3,7 @@ import css from "@styled-system/css";
 import { all, StyledSystemProps } from "components/system";
 import Box from "components/Box";
 import Heading from "components/Heading";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Button from "components/Button";
 import Link from "components/Link";
 import CrewGallery from "components/CrewGallery";

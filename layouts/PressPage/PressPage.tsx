@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
 import { compareDesc } from "date-fns";
+import Centrator from "components/Centrator";
 import Drift from "components/Drift";
 import SectionHeader from "components/SectionHeader";
 import Head from "components/Head";
-import Layout, { Centrator } from "components/Layout";
+import Layout from "components/Layout";
 import Button from "components/Button";
 import Footer from "components/Footer";
 import OurOffices from "components/OurOffices";

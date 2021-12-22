@@ -3,7 +3,7 @@ import css from "@styled-system/css";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Link from "components/Link";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 
 export interface TOCLayoutProps {
   children?: React.ReactNode;

@@ -1,5 +1,5 @@
 import Box, { BoxProps } from "components/Box";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Heading from "components/Heading";
 import spacecraftUrl from "./assets/spaceship.png";
 

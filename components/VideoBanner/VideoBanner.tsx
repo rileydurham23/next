@@ -1,5 +1,5 @@
 import Section from "components/Section";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Box from "components/Box";
 import Video from "components/Video";
 import { BGColor } from "components/Section";

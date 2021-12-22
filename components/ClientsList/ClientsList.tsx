@@ -3,7 +3,7 @@ import css from "@styled-system/css";
 import { useState } from "react";
 import Flex from "components/Flex";
 import Box, { BoxProps } from "components/Box";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Company, { CompanyId, data } from "components/Company";
 import { StyledSystemProps } from "components/system";
 import { Dropdown } from "components/Dropdown";

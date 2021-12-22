@@ -1,4 +1,4 @@
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import wave from "./fixtures/wave.svg";

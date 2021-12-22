@@ -1,9 +1,9 @@
 import Box from "components/Box";
 import Button from "components/Button";
+import Centrator from "components/Centrator";
 import Flex from "components/Flex";
 import Image from "components/Image";
 import Link from "components/Link";
-import { Centrator } from "components/Layout";
 import { MarketoBrowserForm } from "components/MarketoForm";
 import shadowBg from "./assets/shadow.png";
 

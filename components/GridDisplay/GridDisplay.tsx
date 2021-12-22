@@ -4,7 +4,7 @@ import Section from "components/Section";
 import Box from "components/Box";
 import Heading from "components/Heading";
 import Icon, { IconProps, IconName } from "components/Icon";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import type { BGColor } from "components/Section/Section";
 import { GridTile } from "./GridTile";
 import { GridCard } from "./GridCard";

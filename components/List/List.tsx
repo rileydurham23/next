@@ -6,7 +6,7 @@ import { variant } from "styled-system";
 import Heading from "components/Heading";
 import Box, { BoxProps } from "components/Box";
 import Icon, { IconName } from "components/Icon";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import terminalUrl from "./assets/terminal.png";
 import waveUrl from "./assets/wave.png";
 import AvatarItem from "./AvatarItem";
