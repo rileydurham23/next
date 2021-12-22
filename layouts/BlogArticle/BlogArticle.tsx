@@ -4,7 +4,6 @@ import css from "@styled-system/css";
 import Drift from "react-driftjs";
 import { format } from "date-fns";
 import NextImage, { ImageProps } from "next/image";
-import { components as baseComponents } from "layouts/SitePage";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import FeaturedArticleCards from "./FeaturedArticleCards";
@@ -17,48 +16,7 @@ import Tags from "components/Tags";
 import TryTeleport from "components/TryTeleport";
 import SearchSite from "components/SearchSite";
 import divider from "./asstes/divider.png";
-
-const articleText = styled("p")(
-  css({
-    fontSize: ["text-xl", "header-4"],
-    m: 0,
-    "& + p": {
-      mt: 5,
-    },
-  })
-);
-
-const itemList = styled("li")(
-  css({
-    fontSize: ["text-xl", "header-4"],
-    lineHeight: "lg",
-    mt: 3,
-  })
-);
-
-const header2 = styled("h2")(
-  css({
-    fontWeight: "bold",
-    mt: 6,
-    color: "dark-purple",
-  })
-);
-
-const header3 = styled("h3")(
-  css({
-    fontSize: "header-4",
-    lineHeight: "lg",
-    mt: 6,
-  })
-);
-
-const components = {
-  ...baseComponents,
-  h2: header2,
-  h3: header3,
-  p: articleText,
-  li: itemList,
-};
+import { components } from "./components";
 
 interface BlogArticleProps {
   meta: {
@@ -173,12 +131,21 @@ const StyledWrapper = styled(Centrator)(
     px: [4, "110px"],
     pt: [4, "90px"],
     mt: [-3, -7],
+
+    "& p": {
+      fontSize: ["text-xl", "header-4"],
+    },
+
+    "& video": {
+      mt: 5,
+    },
   })
 );
 
 const StyledTitle = styled(Box)(
   css({
-    text: ["header-2", "header-1"],
+    fontSize: ["header-2", "header-1"],
+    lineHeight: ["xl", "xxl"],
     px: 3,
     width: ["100%", "auto"],
     order: [2, "unset"],

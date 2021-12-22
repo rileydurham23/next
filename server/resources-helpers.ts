@@ -95,7 +95,7 @@ const getArticlesList = () => {
   return articlesPageInfo;
 };
 
-export const getFeaturedListAndTags = () => {
+export const getArticlesListAndTags = (limit?: number) => {
   const articlesList = getArticlesList();
 
   const rawAllTags: Set<string> = new Set();
@@ -105,6 +105,6 @@ export const getFeaturedListAndTags = () => {
 
   return {
     tags: Array.from(rawAllTags),
-    list: articlesList.slice(0, 4),
+    list: limit ? articlesList.slice(0, limit) : articlesList,
   };
 };

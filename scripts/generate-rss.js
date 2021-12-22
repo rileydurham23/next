@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === "development") {
 const { generateRss } = require("../.build/server/rss");
 
 const RSS_FILE_FOLDER = resolve("./public/blog");
-const RSS_FILE_NAME = resolve(RSS_FILE_FOLDER, "index.xml");
+const RSS_FILE_NAME = resolve(RSS_FILE_FOLDER, "rss.xml");
 
 const rss = generateRss();
 

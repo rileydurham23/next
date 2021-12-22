@@ -5,7 +5,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkLayout from "./remark-layout";
 import remarkImportFiles from "./remark-import-files";
-import { getFeaturedListAndTags } from "./resources-helpers";
+import { getArticlesListAndTags } from "./resources-helpers";
 
 interface MdxConfig {
   rehypePlugins: PluggableList;
@@ -26,7 +26,7 @@ const config: MdxConfig = {
           blogArticle: {
             path: "layouts/BlogArticle",
             metaProcessor: async (config: Record<string, unknown>) => {
-              const data = await getFeaturedListAndTags();
+              const data = await getArticlesListAndTags(4);
               config.featuredList = data.list;
               config.articleTags = data.tags;
               return config;
