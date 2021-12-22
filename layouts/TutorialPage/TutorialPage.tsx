@@ -70,7 +70,7 @@ export const TutorialPage = ({
           justifyContent="space-evenly"
           px={[4, 4, 0]}
         >
-          <Section>
+          <Section bg="flatWhite">
             <Centrator
               alignItems={[null, null, "center"]}
               background="transparent"
