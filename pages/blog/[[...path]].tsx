@@ -12,29 +12,61 @@ import SearchSite from "components/SearchSite";
 import Link from "components/Link";
 import { getArticlesListAndTags } from "server/resources-helpers";
 
-export async function getStaticProps() {
-  return { props: { data: await getArticlesListAndTags() } };
+export async function getStaticPaths() {
+  const articlesAndTags = await getArticlesListAndTags();
+  const tags = articlesAndTags.tags;
+
+  const paths = tags.map((tag) => ({
+    params: { path: ["tags", tag] },
+  }));
+
+  paths.unshift({ params: { path: null } });
+
+  return { paths, fallback: false };
 }
 
-function BlogIndexPage({ data }) {
-  const newArticles = data.list.slice(0, 5).map((art, index) => {
+export async function getStaticProps({ params }) {
+  const { tags, list: full_list } = await getArticlesListAndTags();
+  let list = full_list;
+  let tag = null;
+  if (params.path) {
+    tag = params.path.pop().toLowerCase();
+    list = list.filter((art) =>
+      art.frontmatter.tags.some((artTag) => artTag === tag)
+    );
+  }
+
+  return {
+    props: {
+      tag,
+      tags,
+      articles: list,
+    },
+  };
+}
+
+function BlogIndexPage({ articles = [], tags = [], tag }) {
+  const newArticles = articles.slice(0, 5).map((art, index) => {
     return (
       <Box as="li" key={index}>
         <ArticleCard meta={art} needImg />
       </Box>
     );
   });
-  const restArticles = data.list.slice(5).map((art, index) => {
+  const restArticles = articles.slice(5).map((art, index) => {
     return (
       <Box as="li" key={index}>
         <ArticleCard meta={art} />
       </Box>
     );
   });
-  const tags = data.tags.map((tag, index) => {
+  const tagsList = tags.map((tag, index) => {
     return (
       <Box as="li" marginRight={[2, 0]} key={index}>
-        <StyledTags scheme="site" href="#">
+        <StyledTags
+          scheme="site"
+          href={`/blog/tags/${encodeURIComponent(tag)}`}
+        >
           {tag}
         </StyledTags>
       </Box>
@@ -44,7 +76,7 @@ function BlogIndexPage({ data }) {
   return (
     <>
       <Head
-        title="The Teleport Blog"
+        title={!!tag ? `Blog articles on ${tag}` : "Blog"}
         description="Welcome to the Teleport Blog! We write about operating cloud software in production"
       />
       <Layout border="none" behaviour="floating">
@@ -57,17 +89,21 @@ function BlogIndexPage({ data }) {
           <StyledWrapper>
             <Box maxWidth="920px" mt={["3", "0"]}>
               <StyledTitle as="h2" text="text-xl">
-                Articles
+                {`Articles ${!!tag ? `by topic ${tag}` : ""}`}
               </StyledTitle>
               <Box as="ul" listStyle="none" mt="3" mb="6">
                 {newArticles}
               </Box>
-              <StyledTitle as="h2" text="text-xl" mt={["8", "11"]}>
-                Additional articles
-              </StyledTitle>
-              <Box as="ul" listStyle="none" mt="3" mb="6">
-                {restArticles}
-              </Box>
+              {!!restArticles.length && (
+                <>
+                  <StyledTitle as="h2" text="text-xl" mt={["8", "11"]}>
+                    Additional articles
+                  </StyledTitle>
+                  <Box as="ul" listStyle="none" mt="3" mb="6">
+                    {restArticles}
+                  </Box>
+                </>
+              )}
             </Box>
             <StyledSideWrapper>
               <SearchSite />
@@ -81,7 +117,7 @@ function BlogIndexPage({ data }) {
                   display={["flex", "block"]}
                   flexWrap="wrap"
                 >
-                  {tags}
+                  {tagsList}
                 </Box>
               </StyledWrapperTags>
             </StyledSideWrapper>
@@ -163,6 +199,12 @@ const StyledTags = styled(Link)(
     lineHeight: "lg",
     textDecoration: "none",
     color: "dark-gray",
+    "&:visited": {
+      color: "dark-gray",
+    },
+    "&:hover, &:focus, &:active": {
+      color: "light-purple",
+    },
   })
 );
 

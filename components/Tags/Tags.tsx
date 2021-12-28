@@ -1,7 +1,7 @@
-import { useCallback, MouseEvent } from "react";
 import { BoxProps } from "components/Box";
 import styled from "styled-components";
 import { css, all, transition } from "components/system";
+import Link from "components/Link";
 
 type Size = "sm" | "default";
 
@@ -16,7 +16,7 @@ const getSizeStyle = (size: Size) => {
     }
     default:
       return {
-        fonSize: "text-sm",
+        fontSize: "text-sm",
         lineHeight: "md",
         px: 3,
       };
@@ -29,21 +29,16 @@ type TagsProps = {
 } & BoxProps;
 
 export function Tags({ tags, size, ...props }: TagsProps) {
-  const handleClick = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    const button = e.target as HTMLButtonElement;
-    //TODO: in the next task
-    console.log(button.innerText);
-  }, []);
-
   return (
     <StyledUL {...props}>
       {tags.map((tag, index) => (
         <li key={index}>
-          <StyledButton {...getSizeStyle(size)} onClick={handleClick}>
+          <StyledLink
+            href={`/blog/tags/${encodeURIComponent(tag)}`}
+            {...getSizeStyle(size)}
+          >
             {tag}
-          </StyledButton>
+          </StyledLink>
         </li>
       ))}
     </StyledUL>
@@ -65,13 +60,16 @@ const StyledUL = styled("ul")(
   all
 );
 
-const StyledButton = styled("button")(
+const StyledLink = styled(Link)(
   css({
+    display: "block",
+    color: "darkest",
     borderWidth: "1px",
     borderColor: "lighter-gray",
     borderStyle: "solid",
     backgroundColor: "white",
     borderRadius: "default",
+    textDecoration: "none",
     cursor: "pointer",
     transition: transition([
       ["borderColor", "interaction"],
