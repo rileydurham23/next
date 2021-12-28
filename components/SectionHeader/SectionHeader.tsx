@@ -23,7 +23,7 @@ export interface SectionHeaderProps {
   title: string;
   description?: React.ReactNode;
   descriptionTextWidth?: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   children?: React.ReactNode;
   mode?: string;
   bg?: BGColor;

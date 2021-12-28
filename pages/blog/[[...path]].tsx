@@ -5,11 +5,13 @@ import Head from "components/Head";
 import Centrator from "components/Centrator";
 import Layout from "components/Layout";
 import Box from "components/Box";
+import Flex from "components/Flex";
 import SectionHeader from "components/SectionHeader";
 import Footer from "components/Footer";
 import ArticleCard from "components/ArticleCard";
 import SearchSite from "components/SearchSite";
 import Link from "components/Link";
+import rss from "./assets/rss.svg";
 import { getArticlesListAndTags } from "server/resources-helpers";
 
 export async function getStaticPaths() {
@@ -81,7 +83,11 @@ function BlogIndexPage({ articles = [], tags = [], tag }) {
       />
       <Layout border="none" behaviour="floating">
         <SectionHeader
-          subtitle="Article & News"
+          subtitle={
+            <StyledSubtitle as="p">
+              Article & News <StyledRSS href="/blog/rss.xml"></StyledRSS>
+            </StyledSubtitle>
+          }
           title="Teleport Blog"
           bg="wave-on-gray"
         />
@@ -148,6 +154,33 @@ const StyledTitle = styled(Box)(
   css({
     textTransform: "uppercase",
     color: "dark-gray",
+  })
+);
+
+const StyledSubtitle = styled(Flex)(
+  css({
+    m: 0,
+    alignItems: "center",
+  })
+);
+
+const StyledRSS = styled(Link).attrs({ "aria-label": "rss feed" })(
+  css({
+    ml: 1,
+    p: 2,
+
+    "&::before": {
+      content: '""',
+      display: "block",
+      width: "16px",
+      height: "16px",
+      backgroundColor: "dark-purple",
+      maskImage: `url(${rss})`,
+    },
+
+    "&:hover::before, &:focus::before": {
+      backgroundColor: "light-purple",
+    },
   })
 );
 

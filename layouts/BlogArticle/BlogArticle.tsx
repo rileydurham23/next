@@ -14,9 +14,11 @@ import Centrator from "components/Centrator";
 import Layout from "components/Layout";
 import Section from "components/Section";
 import Tags from "components/Tags";
+import Link from "components/Link";
 import TryTeleport from "components/TryTeleport";
 import SearchSite from "components/SearchSite";
-import divider from "./asstes/divider.png";
+import divider from "./assets/divider.png";
+import rss from "./assets/rss.svg";
 import { components } from "./components";
 
 interface BlogArticleProps {
@@ -66,7 +68,7 @@ export const BlogArticle = ({
       >
         <Section py={[6, 11]} bg="flatWhite">
           <Centrator flexDirection="column" textAlign="center">
-            <b>RSS</b>
+            <StyledLink href="/blog/rss.xml" ariaLabel="rss feed"></StyledLink>
             <Flex justifyContent="space-between" flexWrap={["wrap", "unset"]}>
               <Box
                 width="200px"
@@ -151,5 +153,26 @@ const StyledTitle = styled(Box)(
     width: ["100%", "auto"],
     order: [2, "unset"],
     mt: [3, 0],
+  })
+);
+
+const StyledLink = styled(Link).attrs({ "aria-label": "rss feed" })(
+  css({
+    width: "fit-content",
+    alignSelf: "center",
+    p: 2,
+
+    "&::before": {
+      content: '""',
+      display: "block",
+      width: "16px",
+      height: "16px",
+      backgroundColor: "darkest",
+      maskImage: `url(${rss})`,
+    },
+
+    "&:hover::before, &:focus::before": {
+      backgroundColor: "light-purple",
+    },
   })
 );

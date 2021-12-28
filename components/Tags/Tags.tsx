@@ -53,8 +53,9 @@ const StyledUL = styled("ul")(
     m: 0,
     p: 0,
 
-    "& li + li": {
-      ml: 3,
+    "& li": {
+      mr: 3,
+      mb: 2,
     },
   }),
   all
