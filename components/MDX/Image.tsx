@@ -35,7 +35,7 @@ const getImage = (
 ) => {
   if (imagePositioning) {
     return (
-      <Flex justifyContent={imagePositioning} width="100%">
+      <Flex as="span" justifyContent={imagePositioning} width="100%">
         <NextImage {...imageProps} />
       </Flex>
     );
@@ -56,7 +56,6 @@ export const Image = ({
     const imageTemp = {
       ...props,
       layout: "intrinsic",
-      sizes: "(min-width: 1460px) 900px, 100vw",
     };
 
     return imageTemp as NextImageProps;
@@ -64,7 +63,7 @@ export const Image = ({
 
   return (
     <Flex
-      as="figure"
+      as="span"
       mx={xMargin}
       my={yMargin}
       flexDirection="column"

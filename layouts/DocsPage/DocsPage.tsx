@@ -15,12 +15,7 @@ import { DocsContext } from "./context";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navigation, { getCurrentCategoryIndex } from "./Navigation";
-import {
-  NavigationCategory,
-  VersionsInfo,
-  PageMeta,
-  LayoutName,
-} from "./types";
+import { PageMeta, LayoutName } from "./types";
 
 const getContentWidth = (layout: LayoutName) => {
   switch (layout) {
