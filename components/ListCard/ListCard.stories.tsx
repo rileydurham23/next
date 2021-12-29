@@ -22,7 +22,7 @@ Default.args = {
   bg: "purple",
   children: (
     <>
-      <ListCardItem icon="circleCheck">
+      <ListCardItem icon="success">
         RBAC is used to secure the infrastructure and meet compliance
         requirements around privileged (SSH) access. Specifically, it enables
         security and systems engineers to enforce security and compliance

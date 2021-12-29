@@ -51,7 +51,7 @@ Default.args = {
         subtitle="Teleport was built from the ground up to support highly elastic, cloud-native infrastructure being accessed by multiple teams. Teleport integration with Kubernetes extends Teleport benefits to teams who have adopted Kubernetes-based operations:"
       >
         <>
-          <ListCardItem icon="circleCheck">
+          <ListCardItem icon="success">
             Unified cluster level permissions. Teleport seamlessly integrates
             with Kubernetes role based access controls so you can connect
             permissions set in your identity manager with permissions for your
@@ -59,19 +59,19 @@ Default.args = {
             access as well. This makes it impossible to bypass Kubernetes RBAC
             via SSH or vice versa.
           </ListCardItem>
-          <ListCardItem icon="circleCheck">
+          <ListCardItem icon="success">
             Audit log and session recording. Teleport`s strong audit and
             compliance features apply to Kubernetes clusters as well.
             Interactive sessions or remote commands launched via kubectl are
             recorded and can be replayed for compliance, knowledge sharing or
             root-cause analyses.
           </ListCardItem>
-          <ListCardItem icon="circleCheck">
+          <ListCardItem icon="success">
             Federate trust across Kubernetes clusters. Teleport`s trusted
             clusters allows you to configure trust across Kubernetes clusters in
             order to manage permissions across teams and organizations.
           </ListCardItem>
-          <ListCardItem icon="circleCheck">
+          <ListCardItem icon="success">
             A bridge from legacy workflows. Using a single tool like Teleport to
             manage both SSH access to your servers and to Kubernetes API
             endpoints allows you to seamlessly support both modern and legacy
