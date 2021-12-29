@@ -30,4 +30,6 @@ export interface PageMeta {
   githubUrl: string;
   layout?: LayoutName;
   videoBanner?: VideoBarProps;
+  navigation: NavigationCategory[];
+  versions: VersionsInfo;
 }

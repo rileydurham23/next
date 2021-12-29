@@ -6,7 +6,6 @@ import rehypeImages from "./rehype-images";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
-import remarkImportVariables from "./remark-import-variables";
 import remarkIncludes from "./remark-includes";
 import remarkLayout from "./remark-layout";
 import remarkLinks from "./remark-links";
@@ -14,16 +13,14 @@ import remarkVariables from "./remark-variables";
 import remarkCodeSnippet from "./remark-code-snippet";
 import remarkImportFiles from "./remark-import-files";
 import { fetchVideoMeta } from "./youtube-meta";
+import { getPageMeta } from "./docs-helpers";
 
 const defaultExportTemplate = () => `
 export default function Wrapper (props) {
   return (<Layout
     {...props}
     meta={meta}
-    navigation={navigation}
-    versions={versions}
     tableOfConents={tableOfConents}
-    githubUrl={githubUrl}
   />);
 };
 `;
@@ -35,20 +32,24 @@ interface MdxConfig {
 const config: MdxConfig = {
   remarkPlugins: [
     remarkFrontmatter,
-    remarkImportVariables,
     [
       remarkLayout,
       {
         defaultLayout: {
           path: "layouts/DocsPage",
-          metaProcessor: async (config: Record<string, unknown>) => {
+          metaProcessor: async (
+            config: Record<string, unknown>,
+            vfile: VFile
+          ) => {
+            const pageMeta = getPageMeta(vfile);
+
             const { videoBanner } = config;
 
             if (typeof videoBanner === "string") {
               config.videoBanner = await fetchVideoMeta(videoBanner);
             }
 
-            return config;
+            return { ...config, ...pageMeta };
           },
         },
         defaultExportTemplate,

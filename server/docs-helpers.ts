@@ -1,7 +1,7 @@
 import { resolve, join } from "path";
-import { loadSiteConfig } from "./config";
+import { loadDocsConfig, loadSiteConfig } from "./config";
 
-const { branches } = loadSiteConfig();
+const { branches, versions, latest } = loadSiteConfig();
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
 export const getVersion = (filepath: string) => {
@@ -40,4 +40,21 @@ export const getGithubURL = (filepath: string) => {
   return branches[current]
     ? `${ghIssuePath}&title=[v.${current}]%20${filepath.replace(root, "")}`
     : ghIssuePath;
+};
+
+export const getPageMeta = (vfile: VFile) => {
+  const current = getVersion(vfile.path);
+  const { navigation } = loadDocsConfig(current);
+
+  const githubUrl = getGithubURL(vfile.path);
+
+  return {
+    navigation,
+    githubUrl,
+    versions: {
+      current,
+      latest,
+      available: versions,
+    },
+  };
 };
