@@ -4,8 +4,7 @@ import { Lato, UbuntuMono } from "components/Fonts";
 import GlobalStyles from "components/GlobalStyles";
 import * as NextImage from "next/image";
 // https://storybook.js.org/addons/storybook-addon-next-router
-// import { RouterContext } from "next/dist/shared/lib/router-context"; // next 11.2
-import { RouterContext } from "next/dist/next-server/lib/router-context"; // next < 11.2
+import { RouterContext } from "next/dist/shared/lib/router-context"; // next 12
 
 // NextImage will not work with Storybook out of the box
 // because we don't have a server to process images in it,
