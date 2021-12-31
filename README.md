@@ -62,6 +62,18 @@ Now run one of the following commands:
 - `yarn storybook` – runs [Storybook](https://storybook.js.org/) instance at the `6006` port. You can check existing components here and try different options.
 - `yarn build-storybook` – builds static version of Storybook.
 
+### Previewing changes locally with Docker
+
+To preview local changes you've made to `teleport/docs` with Docker, you can run
+
+```bash
+NEXT_PATH=/abs/path/to/next
+TELEPORT_PATH=/abs/path/to/teleport
+SEM_VER=9.0 # Change this to whatever the latest version is
+
+docker run --rm -ti -v $NEXT_PATH:/src -v $TELEPORT_PATH:/src/content/$SEM_VER -w /src -p 3000:3000 node:12-slim yarn dev
+```
+
 ## `config.json`
 
 File that configures build options:
