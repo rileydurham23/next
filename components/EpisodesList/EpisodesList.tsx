@@ -24,12 +24,7 @@ export interface EpisodesListProps {
   needSizeLimit?: boolean;
 }
 
-export default function EpisodesList({
-  episodes,
-  kind: typeEpisode,
-}: EpisodesListProps) {
-  const card = CARD_DATA[typeEpisode];
-
+export default function EpisodesList({ episodes }: EpisodesListProps) {
   return (
     <Flex justifyContent="center" flexDirection="column">
       <Box>
@@ -43,27 +38,35 @@ export default function EpisodesList({
         gridTemplateColumns="repeat(auto-fill, minmax(280px, 1fr) )"
         gridGap={[3, 5]}
       >
-        {episodes.map(({ frontmatter, uri }) => (
-          <GridTile
-            width="auto"
-            key={uri}
-            title={
-              frontmatter.cardTitle ? frontmatter.cardTitle : frontmatter.title
-            }
-            cardBG={card.cardBG}
-            cardBC={card.cardBC}
-            href={uri}
-            smallIcon={true}
-            src={card.src}
-            caption={card.caption}
-            resourcesCard
-            needDescriptionMargin={false}
-          >
-            <Box as="p">
-              {frontmatter.brief ? frontmatter.brief : frontmatter.description}
-            </Box>
-          </GridTile>
-        ))}
+        {episodes.map(({ frontmatter, episodeKind, uri }) => {
+          const card = CARD_DATA[episodeKind];
+
+          return (
+            <GridTile
+              caption={card.caption}
+              cardBC={card.cardBC}
+              cardBG={card.cardBG}
+              href={uri}
+              key={uri}
+              needDescriptionMargin={false}
+              smallIcon={true}
+              src={card.src}
+              title={
+                frontmatter.cardTitle
+                  ? frontmatter.cardTitle
+                  : frontmatter.title
+              }
+              width="auto"
+              resourcesCard
+            >
+              <Box as="p">
+                {frontmatter.brief
+                  ? frontmatter.brief
+                  : frontmatter.description}
+              </Box>
+            </GridTile>
+          );
+        })}
       </Grid>
     </Flex>
   );

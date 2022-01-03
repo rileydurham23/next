@@ -1,6 +1,7 @@
 import type { BlogArticle } from "layouts/BlogArticle/types";
 import {
   AuditReport,
+  EpisodeKind,
   PodcastEpisode,
   TechPaperBook,
   Tutorial,
@@ -8,14 +9,64 @@ import {
 } from "components/EpisodesList/types";
 import { getPagesInfo } from "./pages-helpers";
 
-type ResourceType = "podcast" | "white-papers" | "guides" | "audits" | "videos";
+interface PageDataWithEpisodeKind extends MDXPageData<MDXPageFrontmatter> {
+  episodeKind: EpisodeKind;
+}
 
-export const getResourcesData = (type: ResourceType) => {
+type EpisodeKindUriMap = {
+  [K in EpisodeKind]: string;
+};
+
+// this is implemented in order to be exhaustive of the available keys for types of resources
+// added in the future
+const episodeKindUriMap: EpisodeKindUriMap = {
+  podcast: "podcast",
+  tutorial: "guides",
+  auditReport: "audits",
+  techPaper: "white-papers",
+  webinar: "videos",
+};
+
+export const addResourceKind = (
+  data: MDXPageData<MDXPageFrontmatter>
+): PageDataWithEpisodeKind => {
+  const { uri } = data;
+  const episodeKindUri = uri.split("/")[2];
+  let episodeKind: EpisodeKind;
+
+  let episodeKindUriMapKey: EpisodeKind;
+
+  for (episodeKindUriMapKey in episodeKindUriMap) {
+    const value = episodeKindUriMap[episodeKindUriMapKey];
+
+    if (value === episodeKindUri) {
+      episodeKind = episodeKindUriMapKey;
+    }
+  }
+
+  if (!episodeKind) {
+    throw new Error(`Unexpected uri episode kind: ${episodeKindUri}`);
+  }
+
+  return { ...data, episodeKind };
+};
+
+export const getAllResourcesData = () => {
+  const allPagesInformation = getPagesInfo(`resources/*/*/*.mdx`);
+  const mappedInformation = allPagesInformation.map(({ data }) =>
+    addResourceKind(data)
+  );
+  return mappedInformation.sort((a, b) =>
+    a.frontmatter.publicationDate < b.frontmatter.publicationDate ? 1 : -1
+  );
+};
+
+export const getResourcesData = (type: string) => {
   let resourcesPageInfo = [];
 
   try {
     resourcesPageInfo = getPagesInfo(`resources/${type}/*/*.mdx`).map(
-      ({ data }) => data
+      ({ data }) => addResourceKind(data)
     );
 
     if (type === "podcast") {

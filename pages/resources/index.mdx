@@ -1,0 +1,23 @@
+---
+title: Teleport Resource Center
+description: A collection of helpful resources that include tech papers, webinars, tutorials, and more.
+border: none
+hideWave: true
+layout: content
+logo:
+  image: ./assets/resources.svg
+  alt: title image
+subtitle: Teleport Access Plane
+needWrapper: true
+bgWave: wave-on-gray
+tryTeleport: true
+---
+
+import { EpisodesList } from "components";
+import { getAllResourcesData } from "server/resources-helpers";
+
+<EpisodesList episodes={props.episodes} />
+
+export async function getStaticProps(context) {
+  return { props: { episodes: getAllResourcesData() } };
+}

@@ -24,6 +24,7 @@ interface PodcastPageProps {
     description: string;
     podcastName: string;
     noindex?: boolean;
+    publicationDate: string;
   };
   children: React.ReactNode;
 }

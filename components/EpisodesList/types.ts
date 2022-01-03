@@ -3,6 +3,7 @@ export interface PodcastEpisode {
     podcastName: string;
     title: string;
     description: string;
+    publicationDate: string;
   };
   uri: string;
 }
