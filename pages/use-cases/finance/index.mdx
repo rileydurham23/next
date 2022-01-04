@@ -2,7 +2,7 @@
 title: Stop sacrificing speed for security
 subtitle: Financial Services
 headerDescription: Our unique approach to identity-aware access is not only more secure; it improves developer productivity.
-description: Teleport is the easiest, most secure way to access all your infrastructure. That's why we're trusted by the world's leading financial services companies. 
+description: Teleport is the easiest, most secure way to access all your infrastructure. That's why we're trusted by the world's leading financial services companies.
 hideWave: true
 reviews:
   - nasdaq
@@ -22,7 +22,7 @@ import {
   TryTeleport,
   WorksWith,
 } from "components";
-import { Finance1, Finance2 } from "components/AnnouncementBar/data";
+import { Finance } from "components/AnnouncementBar/data";
 import blockchain from "./assets/for-blockchain.svg";
 import fintech from "./assets/for-fintech.svg";
 import finserv from "./assets/for-finserv.svg";
@@ -38,11 +38,7 @@ import finserv from "./assets/for-finserv.svg";
   >
     ![teleport powering the world](./assets/powering-the-world@2x.png)
   </SectionHeader>
-  <AnnouncementBar
-    backgroundColor="transparent"
-    inLivingColor
-    rows={[Finance1, Finance2]}
-  />
+  <AnnouncementBar type="big" rows={Finance} />
 </Section>
 
 <Section width="100%" bg="flatWhite">

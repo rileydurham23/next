@@ -24,7 +24,7 @@ import {
   TryTeleport,
   WorksWith,
 } from "components";
-import { SaaS1, SaaS2 } from "components/AnnouncementBar/data";
+import { SaaS } from "components/AnnouncementBar/data";
 import secteams from "./assets/for-secteams.svg";
 import startups from "./assets/for-startups.svg";
 import largorgs from "./assets/for-largorgs.svg";
@@ -41,18 +41,12 @@ import largorgs from "./assets/for-largorgs.svg";
     ![secure access for saas](./assets/hero-aws@2x.png)
   </SectionHeader>
   <NewsItem display="flex" flexDirection="row" alignItems="center">
-    Teleport is available in the 
-    <Link
-      href="https://aws.amazon.com/marketplace/pp/prodview-syjxiiw25cr3u?sr=0-1&ref_=beagle&applicationId=AWSMPContessa"
-    >
+    Teleport is available in the
+    <Link href="https://aws.amazon.com/marketplace/pp/prodview-syjxiiw25cr3u?sr=0-1&ref_=beagle&applicationId=AWSMPContessa">
       <Image ml="10px" src="./assets/aws-marketplace-logo.svg" />
     </Link>
-</NewsItem>
-  <AnnouncementBar
-    backgroundColor="lightest-gray"
-    inLivingColor
-    rows={[SaaS1, SaaS2]}
-  />
+  </NewsItem>
+  <AnnouncementBar type="big" rows={SaaS} />
 </Section>
 
 <Section width="100%" bg="flatWhite">

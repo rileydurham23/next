@@ -5,7 +5,8 @@ h1: TODO
 hideWave: true
 border: none
 ---
-import NextImage from "next/image"
+
+import NextImage from "next/image";
 import {
   AnimationHeader,
   AnnouncementBar,
@@ -22,12 +23,8 @@ import {
   VideoBanner,
   WorksWith,
 } from "components";
-import {
-  CompactClients1,
-  CompactClients2,
-  CompactClients3,
-} from "components/AnnouncementBar/data";
-import { ProductCard } from "components/GridDisplay"
+import { CompactClients } from "components/AnnouncementBar/data";
+import { ProductCard } from "components/GridDisplay";
 
 <Section bg="grayWave">
   <AnimationHeader
@@ -208,11 +205,7 @@ $ helm install
   </Terminal>
 </EasyStart>
 <Section bg="flatWhite" px={10} py={10}>
-  <AnnouncementBar
-    caseStudy
-    title
-    rows={[CompactClients1, CompactClients2, CompactClients3]}
-  />
+  <AnnouncementBar type="case" rows={CompactClients} />
 </Section>
 <TryTeleport/>
 

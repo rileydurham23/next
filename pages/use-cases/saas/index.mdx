@@ -24,7 +24,7 @@ import {
   TryTeleport,
   WorksWith,
 } from "components";
-import { SaaS1, SaaS2 } from "components/AnnouncementBar/data";
+import { SaaS } from "components/AnnouncementBar/data";
 import secteams from "./assets/for-secteams.svg";
 import startups from "./assets/for-startups.svg";
 import largorgs from "./assets/for-largorgs.svg";
@@ -40,11 +40,7 @@ import largorgs from "./assets/for-largorgs.svg";
   >
     ![secure access for saas](./assets/secure-access-for-saas@2x.png)
   </SectionHeader>
-  <AnnouncementBar
-    backgroundColor="lightest-gray"
-    inLivingColor
-    rows={[SaaS1, SaaS2]}
-  />
+  <AnnouncementBar inLivingColor rows={SaaS} />
 </Section>
 
 <Section width="100%" bg="flatWhite">

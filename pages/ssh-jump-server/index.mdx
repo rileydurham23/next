@@ -25,11 +25,7 @@ import {
   TryTeleport,
 } from "components";
 
-import {
-  CompactClients1,
-  CompactClients2,
-  CompactClients3,
-} from "components/AnnouncementBar/data";
+import { CompactClients } from "components/AnnouncementBar/data";
 
 import { ProductCard } from "components/GridDisplay";
 
@@ -42,10 +38,7 @@ import { ProductCard } from "components/GridDisplay";
   subtitle={meta.subtitle}
   title={meta.title}
 >
-  <Flex
-    flexDirection={["column", "row"]}
-    width={["100%", "inherit"]}
-  >
+  <Flex flexDirection={["column", "row"]} width={["100%", "inherit"]}>
     <Button
       as={Link}
       href="/pricing/"
@@ -257,11 +250,7 @@ import { ProductCard } from "components/GridDisplay";
   </GridDisplay>
 
   <Box pt={5} pb={100}>
-    <AnnouncementBar
-      rows={[CompactClients1, CompactClients2, CompactClients3]}
-      caseStudy
-      title
-    />
+    <AnnouncementBar type="case" rows={CompactClients} />
   </Box>
 </Centrator>
 <TryTeleport />

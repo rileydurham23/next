@@ -15,11 +15,7 @@ import {
   Section,
   TryTeleport,
 } from "components";
-import {
-  CompactClients1,
-  CompactClients2,
-  CompactClients3,
-} from "components/AnnouncementBar/data";
+import { CompactClients } from "components/AnnouncementBar/data";
 
 <Section bg="grayWave" borderBottom="light-gray">
   <Centrator py={3}>
@@ -84,11 +80,7 @@ Zero Trust elevates security concerns from the lower layers of the OSI model to 
 </Section>
 </Centrator>
 
-<Section bg="flatWhite" px={10} py={10}>
-  <AnnouncementBar
-    caseStudy
-    title
-    rows={[CompactClients1, CompactClients2, CompactClients3]}
-  />
+<Section bg="flatWhite" p={10}>
+  <AnnouncementBar type="case" rows={CompactClients} />
 </Section>
 <TryTeleport />

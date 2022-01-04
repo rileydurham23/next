@@ -20,7 +20,7 @@ import {
   TryTeleport,
   WorksWith,
 } from "components";
-import { Internet1, Internet2 } from "components/AnnouncementBar/data";
+import { Internet } from "components/AnnouncementBar/data";
 import ecomm from "./assets/for-ecomm.svg";
 import appdev from "./assets/for-appdev.svg";
 import gaming from "./assets/for-gaming.svg";
@@ -36,11 +36,7 @@ import gaming from "./assets/for-gaming.svg";
   >
     ![modern access solution](./assets/a-modern-access-solution@2x.png)
   </SectionHeader>
-  <AnnouncementBar
-    backgroundColor="lightest-gray"
-    inLivingColor
-    rows={[Internet1, Internet2]}
-  />
+  <AnnouncementBar type="big" rows={Internet} />
 </Section>
 
 <Section width="100%" bg="flatWhite">
