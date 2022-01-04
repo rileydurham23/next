@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { css } from "components/system";
 
-import { EnterpriseSignup } from "components";
+import EnterpriseSignup from "components/EnterpriseSignup";
 import Pattern1 from "components/Pattern1";
 import Box from "components/Box";
 import Flex from "components/Flex";

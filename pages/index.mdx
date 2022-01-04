@@ -7,24 +7,20 @@ border: none
 ---
 
 import NextImage from "next/image";
-import {
-  AnimationHeader,
-  AnnouncementBar,
-  EasyStart,
-  GridDisplay,
-  Link,
-  MessageBanner,
-  NewsItem,
-  Section,
-  SectionTabs,
-  TerminalAnimation,
-  Terminal,
-  TryTeleport,
-  VideoBanner,
-  WorksWith,
-} from "components";
+import AnimationHeader from "components/AnimationHeader";
+import AnnouncementBar from "components/AnnouncementBar";
+import EasyStart from "components/EasyStart";
+import GridDisplay, { ProductCard } from "components/GridDisplay";
+import Link from "components/Link";
+import NewsItem from "components/NewsItem";
+import Section from "components/Section";
+import SectionTabs from "components/SectionTabs";
+import TerminalAnimation from "components/TerminalAnimation";
+import Terminal from "components/Terminal";
+import TryTeleport from "components/TryTeleport";
+import VideoBanner from "components/VideoBanner";
+import WorksWith from "components/WorksWith";
 import { CompactClients } from "components/AnnouncementBar/data";
-import { ProductCard } from "components/GridDisplay";
 
 <Section bg="grayWave">
   <AnimationHeader

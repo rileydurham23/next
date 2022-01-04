@@ -20,8 +20,11 @@ clients:
   - twitch
 ---
 
+import ClientsList from "components/ClientsList";
+import Feedback from "components/Feedback";
+import SectionPlan from "components/SectionPlan";
+import Section from "components/Section";
 import data from "./data.yaml";
-import { ClientsList, Feedback, SectionPlan, Section } from "components";
 
 <SectionPlan title={meta.h1} plans={data.plans} />
 
