@@ -323,4 +323,12 @@ export const Videos: Array<VideoItem> = [
     title: "Introduction to Teleconsole",
     videoId: "R8CnrnquS_s",
   },
+  {
+    author: "Jonathon Canada",
+    href: "https://goteleport.com/resources/videos/mfa-everything/",
+    title: "MFA Everything",
+    date: "2021-12-27",
+    labels: ["mfa", "sso", "security", "teleport", "access", "kubernetes"],
+    videoId: "H0_PfKS53gg",
+  },
 ];
