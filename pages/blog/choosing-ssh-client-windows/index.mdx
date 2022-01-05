@@ -12,6 +12,8 @@ tags:
 layout: blogArticle
 ---
 
+import BlogImage from "components/BlogImage";
+
 In today’s IT environments, operating systems blend into each other. In on-premises and hybrid or public cloud scenarios, Windows clients connect to Linux-based web servers and Kubernetes containers or microservices.
 
 There are several Windows-friendly SSH clients available to keep these connections secure. In this article, we’ll explore the more common ones and compare the core characteristics of the following five clients:
@@ -34,7 +36,7 @@ You can manually create SSH connections, import them from other instances, or cr
 
 The application is a portable executable, so you don’t have to run through an installation process.
 
-![Solar-PuTTY](./assets/solar-putty.png)
+<BlogImage src="./assets/solar-putty.png" alt="Solar-PuTTY" />
 
 Key Solar-PuTTY features include its overall ease of use, its multiple tabs capability, the different ways to create a new session, and a search bar to find the SSH target using various controls such as IP address, name, or part of the name. You can also define different colors for connections, integrate with scripts, and export or import session configuration settings.
 
@@ -46,11 +48,7 @@ KiTTY is another free, open-source tool based on the original PuTTY software. Yo
 
 Once it’s running, you’ll notice KiTTY is almost identical to the traditional PuTTY. It has some exciting feature differences, though, including a sessions filter, logon scripts, Zmodem integration, duplicate sessions, automatic saving, and color coding, to name just a few.
 
-<Figure
-  imagePositioning="center"
->
-  ![KiTTY](./assets/kitty@2x.png)
-</Figure>
+<BlogImage src="./assets/kitty@2x.png" width="50%" alt="KiTTY" />
 
 If you’re familiar with PuTTY and seek a comprehensive version without a learning curve, KiTTY might be a client to consider.
 
@@ -60,7 +58,7 @@ SecureCRT by VanDyke Software has the significant benefit of being multi-platfor
 
 SecureCRT has a [long list of features](https://www.vandyke.com/products/securecrt/features.html). The most important are multi-protocol support, session layout customization, temporary firewall bypass for SSH and Telnet, a wide range of terminal emulation support, and built-in secure file transfer protocols.
 
-![Solar-PuTTY](./assets/securecrt.png)
+<BlogImage src="./assets/securecrt.png" alt="SecureCRT" />
 
 SecureCRT recognizes SSH, Telnet, rlogin, Serial, TAPI, RAW, local shell, and RDP. This variety makes it one of the more complete remote management clients available in a single tool. [At around $100 per user](https://www.vandyke.com/pricing/index.html), it might be a bit pricey if all you’re looking for is basic SSH client functions, though.
 
@@ -70,7 +68,7 @@ MobaXterm is one of the most versatile terminal clients available, supporting ma
 
 MobaXterm is available as a free Home Edition. You can select the paid Professional Edition subscription in a more corporate setup, [priced at around $70 per user](https://mobaxterm.mobatek.net/download.html). Having customer support and a more customizable version of the tool are among the most significant benefits.
 
-![MobaXterm](./assets/moba.png)
+<BlogImage src="./assets/moba.png" alt="MobaXterm" />
 
 ## mRemoteNG
 
@@ -78,7 +76,7 @@ The mRemoteNG tool is based on a fork of mRemote, one of Windows’s more popula
 
 You can [download](https://mremoteng.org/download) a stable, preview, or nightly-updated version of mRemoteNG as a ZIP or MSI package.
 
-![mRemoteNG](./assets/mremoteng.png)
+<BlogImage src="./assets/mremoteng.png" alt="mRemoteNG" />
 
 From mRemoteNG’s Connections pane, you can nicely define a hierarchy of endpoints and specify configuration settings such as hostname/IP address, credentials, and port for each connection. Using mRemoteNG is intuitive for any Windows user, and it’s comfortable to jump across different sessions.
 
@@ -87,4 +85,3 @@ From mRemoteNG’s Connections pane, you can nicely define a hierarchy of endpoi
 With such a wide range of SSH on Windows clients to choose from, it’s important to find one that offers the right feature set, interface, and cost for your situation. We hope that our comparison of the core characteristics of Solar-PuTTY, KiTTY, SecureCRT, MobaXterm, and mRemoteNG helps you make your decision.
 
 If you are looking for a [Windows SSH CLI client](https://goteleport.com/docs/installation/#windows-tsh-client-only), check out [Teleport](https://goteleport.com/docs/setup/reference/cli/#tsh) `tsh`. Teleport is a unified access plane that enables identity-based access to SSH, and `tsh` is an SSH CLI tool by Teleport compatible with both OpenSSH and Teleport servers.
-
