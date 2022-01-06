@@ -16,9 +16,13 @@ const labelObject = {
 };
 interface SubscriptionFormProps {
   isViolet?: boolean;
+  callbackName?: string;
 }
 
-const SubscriptionForm = ({ isViolet }: SubscriptionFormProps) => {
+const SubscriptionForm = ({
+  isViolet,
+  callbackName,
+}: SubscriptionFormProps) => {
   const {
     disabled,
     UID,
@@ -29,7 +33,7 @@ const SubscriptionForm = ({ isViolet }: SubscriptionFormProps) => {
     submitted,
     onChange,
     onSubmit,
-  } = useNewsletter();
+  } = useNewsletter(callbackName);
   const WrapperInput = isViolet ? Box : Fragment;
   const wrapperProps = isViolet ? labelObject : undefined;
 
@@ -135,7 +139,7 @@ export function EmailSubscribeViolet({ ...props }: FlexProps) {
         }
       </Box>
       <Box minHeight="40px">
-        <SubscriptionForm isViolet />
+        <SubscriptionForm callbackName="violetSubscription" isViolet />
       </Box>
     </StyledSection>
   );

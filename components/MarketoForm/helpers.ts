@@ -89,11 +89,17 @@ export const submitForm = async (
   }
 };
 
+interface UseMarketoFormProps {
+  callbackName?: string;
+  fallbackData?: MarketoFormDataAPIResponse;
+}
+
 export const useMarketoForm = (
   id: string,
-  fallbackData?: MarketoFormDataAPIResponse
+  options: UseMarketoFormProps = {}
 ) => {
-  const UID = `marketo_${id}`;
+  const { callbackName, fallbackData } = options;
+  const UID = `marketo_${callbackName || id}`;
 
   const {
     disabled,
