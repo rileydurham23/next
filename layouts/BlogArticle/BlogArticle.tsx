@@ -27,7 +27,7 @@ interface BlogArticleProps {
     description: string;
     articleTitle: string;
     date: Date;
-    logo: { image: Exclude<ImageProps["src"], string>; alt: string };
+    logo?: { image: Exclude<ImageProps["src"], string>; alt: string };
     author: string;
     tags: string[];
     noindex?: boolean;
@@ -87,13 +87,15 @@ export const BlogArticle = ({
             >
               {format(new Date(date), "MMM d, yyyy")} by {author}
             </Box>
-            <NextImage
-              src={logo.image}
-              width={1240}
-              height={704}
-              layout="intrinsic"
-              alt={logo.alt}
-            />
+            {logo && (
+              <NextImage
+                src={logo.image}
+                width={1240}
+                height={704}
+                layout="intrinsic"
+                alt={logo.alt}
+              />
+            )}
           </Centrator>
           <StyledWrapper>
             <MDXProvider components={components}>{children}</MDXProvider>
@@ -133,7 +135,6 @@ const StyledWrapper = styled(Centrator)(
     backgroundPosition: "top center",
     px: [4, "110px"],
     pt: [4, "90px"],
-    mt: [-3, -7],
 
     "& p": {
       fontSize: ["text-xl", "header-4"],
