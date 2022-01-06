@@ -324,6 +324,14 @@ export const Videos: Array<VideoItem> = [
     videoId: "R8CnrnquS_s",
   },
   {
+    author: "Travis Gary",
+    date: "2021-12-02",
+    href: "https://goteleport.com/esources/videos/infra-as-code-not-jira-tickets/",
+    labels: ["infrastructure", "jira", "security", "audit", "teleport"],
+    title: "Infra-as-Code Not Jira Tickets to Pass Audits",
+    videoId: "8XEzepW_Jtk",
+  },
+  {
     author: "Jonathon Canada",
     href: "https://goteleport.com/resources/videos/mfa-everything/",
     title: "MFA Everything",
