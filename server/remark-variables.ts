@@ -1,3 +1,15 @@
+/*
+ * This plugin will resolve (=variable=) syntax and include veriables value into the page.
+ * We wrote separate plugin instead of using {variable} syntax because we need to use them inside
+ * code blocks and includes and we can't do it with {}.
+ *
+ * Source of variables is "content/X.X/docs/config.json" file.
+ *
+ * This plugin can also work as a linter plugin for remark-lint.
+ *
+ * See tests and fixtures for more examples.
+ */
+
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
 import { VFile } from "vfile";

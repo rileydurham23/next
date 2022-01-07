@@ -1,3 +1,7 @@
+/*
+ * Generates rss feed file.
+ */
+
 const { resolve } = require("path");
 const { writeFileSync, existsSync, mkdirSync } = require("fs");
 const dotEnv = require("dotenv");

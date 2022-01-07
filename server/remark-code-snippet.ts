@@ -1,3 +1,28 @@
+/*
+ * This plugin will transform code snippets like this:
+ *
+ * ```code
+ * # Copy and Paste the below and run on the Teleport Auth server.
+ * $ cat > api-role.yaml <<ENDOFMESSAGE
+ * kind: role
+ * metadata:
+ *   name: api-role
+ * spec:
+ *   allow:
+ *     rules:
+ *       - resources: ['role']
+ *         verbs: ['read']
+ *   deny:
+ *     node_labels:
+ *       '*': '*'
+ * version: v3
+ * ```
+ *
+ * To the widget in which every command can be copied separately.
+ *
+ * See fixtures/includes and tests for more examples.
+ */
+
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
 import { VFile } from "vfile";

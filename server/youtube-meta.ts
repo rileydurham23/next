@@ -1,3 +1,7 @@
+/*
+ * Gets YouTube video metadate given video ID.
+ */
+
 import got from "got";
 
 const { YOUTUBE_API_KEY } = process.env;

@@ -1,3 +1,7 @@
+/*
+ * Collection of helpers for gathering metainformation from mdx files.
+ */
+
 import glob from "glob";
 import { resolve, join } from "path";
 import { readSync } from "to-vfile";

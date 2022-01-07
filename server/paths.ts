@@ -14,7 +14,9 @@ const { latest, versions, redirects } = loadSiteConfig();
 
 const NEXT_PUBLIC_DOCS_DIR = process.env.NEXT_PUBLIC_DOCS_DIR as string;
 
-/* mdx pages with "noindex" in frontmatter should be excluded from sitemap */
+/*
+ * Excludes mdx pages with "noindex" in frontmatter from sitemap
+ */
 
 const filterNoIndexPage = (path: string) => {
   const isMdxPage = /\.mdx?$/.test(path);
@@ -43,6 +45,11 @@ const nextPages = [
   new RegExp(`^${pagesRoot}${NEXT_PUBLIC_DOCS_DIR}/.*`),
 ];
 
+/*
+ * We generate nonDocs and docs path separately because different sitempast require
+ * different sets of docs names.
+ */
+
 const getNonDocsPaths = () => {
   return glob
     .sync(join(pagesRoot, `**/*.{${extensions.join()}}`))
@@ -51,19 +58,25 @@ const getNonDocsPaths = () => {
     .map((path) => getURIFromPath(path));
 };
 
-type Identity = (path: string) => boolean;
+/*
+ * Returns all slugs for one docs version with normalized paths.
+ */
 
-const getSlugsForVersion = (version: string, filter: Identity = () => true) => {
+const getSlugsForVersion = (version: string) => {
   const root = join("/ver", version);
   const path = resolve("content", version, "docs/pages");
 
   return glob
     .sync(join(path, "**/*.mdx"))
-    .filter(filter)
+    .filter(filterNoIndexPage)
     .map((filename) =>
       filename.replace(/\/?(index)?.mdx?$/, "/").replace(path, root)
     );
 };
+
+/*
+ * Converts paths to absolute from relative (we need sitemaps to have absolute paths).
+ */
 
 const normalizeDocSlug = (slug: string, version: string) => {
   const isLatest = version === latest;
@@ -74,11 +87,16 @@ const normalizeDocSlug = (slug: string, version: string) => {
   );
 };
 
+/*
+ * Generates sitemap used by search engines.
+ * Only have paths for current version of docs.
+ */
+
 export const generateSitemap = () => {
   const sitePages = getNonDocsPaths().map((loc) => ({ loc }));
-  const currentDocPages = getSlugsForVersion(latest, filterNoIndexPage).map(
-    (slug) => ({ loc: normalizeDocSlug(slug, latest) })
-  );
+  const currentDocPages = getSlugsForVersion(latest).map((slug) => ({
+    loc: normalizeDocSlug(slug, latest),
+  }));
 
   sitemapGenerator({
     pages: [...sitePages, ...currentDocPages],
@@ -86,12 +104,17 @@ export const generateSitemap = () => {
   });
 };
 
+/*
+ * Generates sitemap used by Algolia indexer.
+ * Have paths for all versions of docs and no other pages.
+ */
+
 export const generateFullSitemap = () => {
   const docPages = [];
 
   versions.forEach((version) => {
     docPages.push(
-      ...getSlugsForVersion(version, filterNoIndexPage).map((slug) => ({
+      ...getSlugsForVersion(version).map((slug) => ({
         loc: normalizeDocSlug(slug, version),
       }))
     );
@@ -102,6 +125,11 @@ export const generateFullSitemap = () => {
     path: resolve("public", "algolia_searchmap.xml"),
   });
 };
+
+/*
+ * Each version of docs has its own set of redirects in their config.json files.
+ * Here we load and merge them all with the redirects list from the main config.json.
+ */
 
 export const getRedirects = () => {
   const result = versions.flatMap((version) => {

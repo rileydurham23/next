@@ -1,3 +1,8 @@
+/*
+ * Bunch of helper utils use to create different kinds of mdx nodes.
+ * Used inside remark and rehype plugins.
+ */
+
 import { createEstree } from "./estree-helpers";
 import stringifyObject from "stringify-object";
 

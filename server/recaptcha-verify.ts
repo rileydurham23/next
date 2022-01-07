@@ -1,3 +1,7 @@
+/*
+ * Server side recaptch varification logic. Used by forms.
+ */
+
 import got from "got";
 
 const {

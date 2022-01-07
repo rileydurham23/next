@@ -1,3 +1,15 @@
+/*
+ * This plugin resolves relative links to absolute values and removes [index].mdx part.
+ *
+ * Docs use relative links to other pages iwth file extendions an the end.
+ * E. g. "../getting-started/index.mdx". Its convenient because we don't need
+ * to update links between versions and we can validate them with remark-lint.
+ * But such links will not work on the site, because Next needs absolute paths.
+ *
+ * We do this transformation on server, because we can't distinguish between
+ * "page/idex.mdx" and "page.mdx" on the client and cant update paths accordingly.
+ */
+
 import { Transformer } from "unified";
 import { Link } from "mdast";
 import visit from "unist-util-visit";

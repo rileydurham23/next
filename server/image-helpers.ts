@@ -2,6 +2,10 @@ import { existsSync, readFileSync } from "fs";
 import probe from "probe-image-size";
 import { resolve, dirname } from "path";
 
+/*
+ * Will return path to asset if it exists in filesystem or undefined.
+ */
+
 export const getValidAssetPath = (
   source: string,
   path: string
@@ -10,6 +14,12 @@ export const getValidAssetPath = (
 
   return existsSync(src) ? src : undefined;
 };
+
+/*
+ * Get scale ratio for images from filenames.
+ *
+ * E. g. image@2x.png will return 2.
+ */
 
 const imgSizeRegExp = /@([0-9.]+)x/; // E.g. image@2x.png
 
@@ -22,6 +32,11 @@ export const getScaleRatio = (src: string): number => {
     return 1;
   }
 };
+
+/*
+ * Read image's dimensions from the file's metadata and scale them using
+ * scale ratio in the filename.
+ */
 
 export const getDimensions = (
   source: string,

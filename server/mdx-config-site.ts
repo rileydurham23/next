@@ -14,7 +14,7 @@ interface MdxConfig {
 
 const config: MdxConfig = {
   remarkPlugins: [
-    remarkFrontmatter,
+    remarkFrontmatter, // Converts frontmatter to remark node, used by remark-layout
     [
       remarkLayout,
       {
@@ -27,8 +27,8 @@ const config: MdxConfig = {
             path: "layouts/BlogArticle",
             metaProcessor: async (config: Record<string, unknown>) => {
               const data = await getArticlesListAndTags(4);
-              config.featuredList = data.list;
-              config.articleTags = data.tags;
+              config.featuredList = data.list; // Four last articles
+              config.articleTags = data.tags; // Fill tags list for all blog posts
               return config;
             },
           },
@@ -39,10 +39,13 @@ const config: MdxConfig = {
         defaultLayout: "layouts/SitePage",
       },
     ],
-    remarkGFM,
-    remarkImportFiles,
+    remarkGFM, // Adds tables
+    remarkImportFiles, // Replaces paths to files with imports
   ],
-  rehypePlugins: [rehypeFixTags, [rehypeHighlight, { plainText: ["text"] }]],
+  rehypePlugins: [
+    rehypeFixTags, // Fix bugs in mdx@2.0.0-next, can b removed after update to stable one.
+    [rehypeHighlight, { plainText: ["text"] }], // Adds syntax highlighting
+  ],
 };
 
 export default config;

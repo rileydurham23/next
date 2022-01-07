@@ -1,3 +1,7 @@
+/*
+ * Helper functions to generate props for "resources/*" pages.
+ */
+
 import type { BlogArticle } from "layouts/BlogArticle/types";
 import {
   AuditReport,

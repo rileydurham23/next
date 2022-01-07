@@ -1,4 +1,5 @@
 // Temporarily fixes https://github.com/mdx-js/mdx/issues/1451
+// Can be removed after update to stable version of mdx v2
 
 import { Node } from "unist";
 import visit from "unist-util-visit";
