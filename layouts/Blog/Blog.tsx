@@ -12,40 +12,6 @@ import ArticleCard from "components/ArticleCard";
 import SearchSite from "components/SearchSite";
 import Link from "components/Link";
 import rss from "./assets/rss.svg";
-import { getArticlesListAndTags } from "server/resources-helpers";
-
-export async function getStaticPaths() {
-  const articlesAndTags = await getArticlesListAndTags();
-  const tags = articlesAndTags.tags;
-
-  const paths = tags.map((tag) => ({
-    params: { path: ["tags", tag] },
-  }));
-
-  paths.unshift({ params: { path: null } });
-
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }) {
-  const { tags, list: full_list } = await getArticlesListAndTags();
-  let list = full_list;
-  let tag = null;
-  if (params.path) {
-    tag = params.path.pop().toLowerCase();
-    list = list.filter((art) =>
-      art.frontmatter.tags.some((artTag) => artTag === tag)
-    );
-  }
-
-  return {
-    props: {
-      tag,
-      tags,
-      articles: list,
-    },
-  };
-}
 
 function BlogIndexPage({ articles = [], tags = [], tag }) {
   const newArticles = articles.slice(0, 5).map((art, index) => {

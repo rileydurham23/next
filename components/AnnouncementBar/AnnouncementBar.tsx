@@ -56,7 +56,6 @@ export const AnnouncementBar = ({
     }, 5000);
 
     return () => {
-      console.log("cleanup");
       clearInterval(interval);
     };
   }, [rows.length, currentRow, animationPaused]);

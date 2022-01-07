@@ -2,7 +2,6 @@ import { PluggableList } from "unified";
 import rehypeFixTags from "./rehype-fix-tags";
 import rehypeHeaders from "./rehype-headers";
 import rehypeHighlight from "rehype-highlight";
-import rehypeImages from "./rehype-images";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
@@ -65,7 +64,6 @@ const config: MdxConfig = {
   rehypePlugins: [
     rehypeFixTags,
     rehypeSlug,
-    rehypeImages,
     [
       rehypeHighlight,
       {

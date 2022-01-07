@@ -64,18 +64,6 @@ const getSlugsForVersion = (version: string, filter: Identity = () => true) => {
     );
 };
 
-const getSlugDataListForVersion = (version: string) => {
-  const root = join("/ver", version);
-  const path = resolve("content", version, "docs/pages");
-
-  return getSlugsForVersion(version).map((filename) => {
-    return {
-      slug: filename.replace(/\/?(index)?.mdx?$/, "/").replace(path, root),
-      version,
-    };
-  });
-};
-
 const normalizeDocSlug = (slug: string, version: string) => {
   const isLatest = version === latest;
 
@@ -84,12 +72,6 @@ const normalizeDocSlug = (slug: string, version: string) => {
     (isLatest ? slug.replace(`/ver/${latest}`, "") : slug)
   );
 };
-
-export const getLatestVersionRewirites = () =>
-  getSlugDataListForVersion(latest).map(({ slug, version }) => ({
-    source: normalizeDocSlug(slug, version),
-    destination: NEXT_PUBLIC_DOCS_DIR + slug,
-  }));
 
 export const generateSitemap = () => {
   const sitePages = getNonDocsPaths().map((loc) => ({ loc }));

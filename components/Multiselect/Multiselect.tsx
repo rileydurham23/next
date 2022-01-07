@@ -36,7 +36,7 @@ export type MultiselectProps<T> = {
 } & (StringOptions | ObjectOptions<T>) &
   BoxProps;
 
-const echo = <T extends unknown>(thing: T): T => thing;
+const echo = <T,>(thing: T): T => thing;
 
 export default function Multiselect<T>({
   icon,

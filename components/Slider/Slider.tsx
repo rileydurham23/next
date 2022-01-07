@@ -19,7 +19,7 @@ export interface SliderProps {
 
 const DEFAULT_CHANGE_THROTTLE = 100;
 
-const echo = <T extends unknown>(thing: T): T => thing;
+const echo = <T,>(thing: T): T => thing;
 
 export default function Slider({
   onChange,
