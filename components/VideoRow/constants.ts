@@ -182,7 +182,7 @@ export const Videos: Array<VideoItem> = [
   {
     author: "Steven Martin, Vance McCarthy",
     date: "2020-09-28",
-    href: "https://goteleport.com/resources/videos/rbac-for-ssh-and-kubernetes-access/",
+    href: "https://goteleport.com/resources/videos/RBAC-for-SSH-and-Kubernetes-Access/",
     labels: [
       "teleport",
       "SSH",
