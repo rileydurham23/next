@@ -1,7 +1,7 @@
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
 import { VFile } from "vfile";
-import { loadDocsConfig } from "./config";
+import { loadConfig } from "./config-docs";
 import { getVersion } from "./docs-helpers";
 import updateMessages from "./update-vfile-messages";
 
@@ -74,7 +74,7 @@ export default function remarkVariables(
     const lastErrorIndex = vfile.messages.length;
     const version = getVersion(vfile.path);
 
-    const { variables } = loadDocsConfig(version);
+    const { variables } = loadConfig(version);
     const regExps = generateRegexps(variables);
     const varNames = regExps.map(({ path }) => path);
 

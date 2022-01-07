@@ -1,6 +1,7 @@
 import glob from "glob";
 import { resolve, join } from "path";
-import { loadSiteConfig, loadDocsConfig } from "./config";
+import { loadConfig as loadDocsConfig } from "./config-docs";
+import { loadConfig as loadSiteConfig } from "./config-site";
 import { generateSitemap as sitemapGenerator } from "./sitemap";
 import {
   getPageInfo,

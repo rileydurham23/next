@@ -1,5 +1,6 @@
 import { resolve, join } from "path";
-import { loadDocsConfig, loadSiteConfig } from "./config";
+import { loadConfig as loadDocsConfig } from "./config-docs";
+import { loadConfig as loadSiteConfig } from "./config-site";
 
 const { branches, versions, latest } = loadSiteConfig();
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;

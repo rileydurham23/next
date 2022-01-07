@@ -5,14 +5,14 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 const mdxSiteOptions = require("./.build/server/mdx-config-site");
 const mdxDocsOptions = require("./.build/server/mdx-config-docs");
-const { loadSiteConfig } = require("./.build/server/config");
+const { loadConfig } = require("./.build/server/config-site");
 const {
   getRedirects,
   generateSitemap,
   generateFullSitemap,
 } = require("./.build/server/paths");
 
-const { latest } = loadSiteConfig();
+const { latest } = loadConfig();
 const PAGES_DIRECTORY = resolve(__dirname, "pages");
 const CONTENT_DIRECTORY = resolve(__dirname, "content");
 
