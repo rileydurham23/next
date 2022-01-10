@@ -12,8 +12,15 @@ import ArticleCard from "components/ArticleCard";
 import SearchSite from "components/SearchSite";
 import Link from "components/Link";
 import rss from "./assets/rss.svg";
+import Pagination from "components/Pagination";
 
-function BlogIndexPage({ articles = [], tags = [], tag }) {
+function BlogIndexPage({
+  articles = [],
+  tags = [],
+  tag,
+  currentPage,
+  maxPages,
+}) {
   const newArticles = articles.slice(0, 5).map((art, index) => {
     return (
       <Box as="li" key={index}>
@@ -75,6 +82,13 @@ function BlogIndexPage({ articles = [], tags = [], tag }) {
                     {restArticles}
                   </Box>
                 </>
+              )}
+              {maxPages > 1 && (
+                <Pagination
+                  currentPage={currentPage}
+                  maxPage={maxPages}
+                  baseUrl={!!tag ? `/blog/tags/${tag}` : "/blog"}
+                />
               )}
             </Box>
             <StyledSideWrapper>
