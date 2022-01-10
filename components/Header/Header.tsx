@@ -45,11 +45,13 @@ const Header = ({ mode, headerColor, border, shadow = false }: HeaderProps) => {
           alignItems="center"
         >
           <Centrator>
-            <Logo
-              width={["121px", "150px"]}
-              height={["24px", "30px"]}
-              color="dark-purple"
-            />
+            <Link href="/">
+              <Logo
+                width={["121px", "150px"]}
+                height={["24px", "30px"]}
+                color="dark-purple"
+              />
+            </Link>
           </Centrator>
         </Flex>
       );
