@@ -4,7 +4,7 @@ import Section from "components/Section";
 import Box from "components/Box";
 import Heading from "components/Heading";
 import Icon, { IconProps, IconName } from "components/Icon";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import type { BGColor } from "components/Section/Section";
 import { GridTile } from "./GridTile";
 import { GridCard } from "./GridCard";
@@ -38,7 +38,7 @@ const GTC = {
   productCard: [
     "minmax(340px, 560px)",
     "repeat(2, minmax(140px, 400px))",
-    "repeat(4, minmax(140px, 294px))",
+    "repeat(5, minmax(140px, 294px))",
   ],
   benefitCard: [
     "minmax(340px, 560px)",
@@ -137,7 +137,7 @@ function GridDisplay({
           mt={centralHeading ? [3, 2] : productCard ? 3 : 7}
           mb={6}
           //the minimum width of the outer grid container
-          minWidth={["340px", "800px", "980px"]}
+          minWidth={[null, "800px", "980px"]}
           //the widths of individual columns
           gridTemplateColumns={GTC[cardStyle]}
           gridGap={GG[cardStyle]}

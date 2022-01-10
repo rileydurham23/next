@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-**Node.js 12+ is installed in the system.**
+**Node.js 14+ is installed in the system.**
 
-If you don't have Node.js installed, or its version is smaller than 12, follow
+If you don't have Node.js installed, or its version is smaller than 14, follow
 [this guide](https://nodejs.org/en/download/package-manager/) to install it.
 
 **`yarn` is installed in the system as a package manager.**
@@ -54,13 +54,26 @@ Now run one of the following commands:
 - `yarn lint-check` – checks JS and TS files for errors, but doesn't fix them. Checked in CI and on commit.
 - `yarn typecheck` – validates TypeScript type-related errors. Used on CI.
 - `yarn git-update` – shortcut for submodule update, also used as part of `yarn update-and-build`.
-- `yarn build-loaders` – builds custom webpack loaders.
+- `yarn build-node` – builds configs and plugins for mdx.
+- `yarn generate-rss` – gnrates rss-feed for blog.
 - `yarn add-symlinks` – creates symlinks from different versions of docs to `pages` directory.
 - `yarn markdown-lint` – lints `*.mdx` files inside `content/**/docs/pages/` folders for syntax errors.
 - `yarn markdown-lint-external-links` – same as `yarn markdown-lint` but checks that external links work. Separate command because of slowness.
 - `yarn markdown-fix` – fixes syntax automatically in `*.mdx` files inside `content/**/docs/pages/`.
 - `yarn storybook` – runs [Storybook](https://storybook.js.org/) instance at the `6006` port. You can check existing components here and try different options.
 - `yarn build-storybook` – builds static version of Storybook.
+
+### Previewing changes locally with Docker
+
+To preview local changes you've made to `teleport/docs` with Docker, you can run
+
+```bash
+NEXT_PATH=/abs/path/to/next
+TELEPORT_PATH=/abs/path/to/teleport
+SEM_VER=9.0 # Change this to whatever the latest version is
+
+docker run --rm -ti -v $NEXT_PATH:/src -v $TELEPORT_PATH:/src/content/$SEM_VER -w /src -p 3000:3000 node:12-slim yarn dev
+```
 
 ## `config.json`
 

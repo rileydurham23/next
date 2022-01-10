@@ -1,3 +1,7 @@
+/*
+ * Wrapper around GTM calls to prevent erros then used locally with disabled GTM.
+ */
+
 interface Event {
   [key: string]: unknown;
   event: string;

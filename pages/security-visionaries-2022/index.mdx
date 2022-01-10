@@ -3,15 +3,14 @@ title: Security Visionaries 2022
 description: Computer security is no longer about data; it's about life and property.
 headerMode: simple
 shortFooter: true
+previewImage: "security-visionaries.png"
 headerDescription: Come hear what some of the world’s foremost security researchers, practitioners and thinkers see on the security horizon for 2022.
 ---
 import styled from "styled-components";
 import { css } from "components/system";
-import {
-  Link,
-  List,
-  SignupDescription,
-} from "components";
+import Link from "components/Link";
+import List from "components/List";
+import SignupDescription from "components/SignupDescription";
 import { MarketoBrowserForm } from "components/MarketoForm";
 
 <List
@@ -21,16 +20,17 @@ import { MarketoBrowserForm } from "components/MarketoForm";
   grid="avatar"
   description={
     <SignupDescription description={meta.headerDescription} fontSize="text-xl">
-        <MarketoBrowserForm id="1192" p={4} mt={["auto", "auto", "-99px"]} mr={["auto", "auto", "-40px"]} bg="white" borderRadius="md" boxShadow="0 0 64px rgba(0, 0, 0, 0.32)" css={css({fieldset: {div: {label: {ml: 3}}}})}/>
+        <MarketoBrowserForm id="1192" p={4} mt={["auto", "auto", "125px"]} mr={["auto", "auto", "-40px"]} bg="white" borderRadius="md" boxShadow="0 0 64px rgba(0, 0, 0, 0.32)" css={css({fieldset: {div: {label: {ml: 3}}}})}/>
     </SignupDescription>
   }
 >
   <List.AvatarItem
     src="./assets/bruce@2x.png"
     title="Securing a World of Physically Capable Computers"
-    speaker={<Link scheme="site" href="https://www.leadingauthorities.com/speakers/bruce-schneier">Bruce Schneier – Security Technologist &amp; Guru</Link>}
+    speaker={<Link scheme="site" href="https://www.schneier.com/">Bruce Schneier – Security Technologist &amp; Guru</Link>}
     date= "Jan 18, 11am PT"
     brief="Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data authentication and integrity will ..."
+    style={{ marginRight: "65px"}}
   >
     Computer security is no longer about data; it's about life and property. This 
     change makes an enormous difference, and will shake up our industry in many ways. 
@@ -48,9 +48,10 @@ import { MarketoBrowserForm } from "components/MarketoForm";
     src="./assets/troy@2x.png"
     title="Lessons From Billions of Breached Records"
     speaker={<Link scheme="site" href="https://www.troyhunt.com/">Troy Hunt – Information Security Author &amp; Instructor at Pluralsight, Founder of Have I Been Pwned</Link>}
-
+    
     date="Feb 16, 11am PT"
     brief="Security flaws, hackers and data breaches are the new normal. It’s not just those of us in the industry facing these foes every single day, it’s everyone. Whether you’re online or offline, you simply ..."
+    style={{ marginRight: "65px"}}
   >
     Security flaws, hackers and data breaches are the new normal. It’s not just those of us in the 
     industry facing these foes every single day; it’s everyone. Whether you’re online or offline, 
@@ -73,6 +74,7 @@ import { MarketoBrowserForm } from "components/MarketoForm";
 
     date="Mar 15, 10am PT"
     brief="Our collective cybersecurity posture is dramatically different from 18 months ago. New and clever data breaches pepper the news and the security industry megaphone touts numerous new defensive technologies..."
+    style={{ marginRight: "65px"}}
   >
   Our collective cybersecurity posture is dramatically different from 18 months ago. New and clever data breaches pepper the news and the security industry megaphone touts numerous new defensive technologies. We will explore current threats, data breaches, and the new reality of risk to identify what security controls are actually needed for enterprises that are moving fast, leaning into new technology, and want effective security defenses
   </List.AvatarItem>
@@ -84,6 +86,7 @@ import { MarketoBrowserForm } from "components/MarketoForm";
 
     date="Apr 2022"
     brief="More coming soon"
+    style={{ marginRight: "65px"}}
   >
   </List.AvatarItem>
   

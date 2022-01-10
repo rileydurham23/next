@@ -1,5 +1,5 @@
-import { Centrator } from "components/Layout";
 import Box from "components/Box";
+import Centrator from "components/Centrator";
 import Flex from "components/Flex";
 import wavelight from "/sharedAssets/images/wave-light.png";
 

@@ -5,21 +5,24 @@ import styled from "styled-components";
 
 import Box from "components/Flex";
 import { components as baseComponents } from "layouts/SitePage";
+import Centrator from "components/Centrator";
 import Flex from "components/Flex";
 import Head from "components/Head";
+import JoinTheCommunity from "components/JoinTheCommunity";
 import Layout from "components/Layout";
+import Section from "components/Section";
 import TryTeleport from "components/TryTeleport";
 import Video from "components/Video";
-import VideoColumn from "components/VideoColumn";
+import VideoRow from "components/VideoRow";
 
 interface TutorialPageProps {
   meta: {
     alternateTitle?: string;
     description: string;
+    associatedLabels?: Array<string>;
     title: string;
-    tutorialPublicationDate: string;
+    publicationDate: string;
     videoId: string;
-    videoLength: string;
   };
   children: React.ReactNode;
 }
@@ -33,7 +36,7 @@ const SSRLessShareButtons = dynamic(() => import("components/ShareButtons"), {
 });
 
 export const TutorialPage = ({
-  meta: { alternateTitle, description, title, videoId, videoLength },
+  meta: { alternateTitle, description, title, associatedLabels, videoId },
   children,
 }: TutorialPageProps) => {
   return (
@@ -42,86 +45,99 @@ export const TutorialPage = ({
       <Layout
         behaviour="floating"
         border="none"
-        lineHeight="lg"
         hideWave="true"
+        lineHeight="lg"
         pt={[6, 11]}
       >
-        <Flex backgroundColor="black" justifyContent="center" width="100%">
-          <Video
-            hasRoundedEdges={false}
-            height={439}
-            videoId={videoId}
-            width={780}
-          />
-        </Flex>
-
-        <Flex
-          background="linear-gradient(125deg,#f0f2f4,#fff)"
+        <Section
+          alignItems="center"
+          bg="grayWave"
+          display="flex"
           flexDirection="column"
-          px={[3, 9]}
-          py={[1, 3]}
+          px={[0, 4]}
         >
-          <Box
-            as="h3"
-            color="darkest"
-            fontSize="text-xl"
-            lineHeight="lg"
-            margin="0"
-            padding="0"
-          >
-            {alternateTitle || title}
-          </Box>
-          <Box
-            as="p"
-            fontSize={["text-sm", "text-md"]}
-            lineHeight="md"
-            margin={0}
-            padding={0}
-          >
-            Video Length: {videoLength}
-          </Box>
-        </Flex>
+          <Flex flexDirection="column">
+            <StyledTitleBox as="h3">{alternateTitle || title}</StyledTitleBox>
+            <StyledVideo borderRadius="none" videoId={videoId} />
+            <VideoRow
+              associatedLabels={associatedLabels}
+              mainVideoId={videoId}
+            />
+          </Flex>
+        </Section>
         <Flex
           flexDirection={["column", "row"]}
           justifyContent="space-evenly"
-          pl={[1, 4]}
+          px={[4, 4, 0]}
         >
-          <Flex
-            flexBasis="fit-content"
-            flexDirection="column"
-            maxWidth={["97%", "73%"]}
-            px={[4, 6]}
-            py={1}
-          >
-            <MDXProvider components={components}>
-              <TextContainer>{children}</TextContainer>
-            </MDXProvider>
-            <Box mt={[0, 3]}>
-              <SSRLessShareButtons title={alternateTitle || title} />
-            </Box>
-          </Flex>
-          <VideoColumn />
-        </Flex>
+          <Section bg="flatWhite">
+            <Centrator
+              alignItems={[null, null, "center"]}
+              background="transparent"
+              borderTop="1px solid #f0f2f4"
+              display="flex"
+              flexDirection="column"
+              pt={0}
+            >
+              <Flex flexBasis="fit-content" flexDirection="column">
+                <MDXProvider components={components}>
+                  <TextContainer>{children}</TextContainer>
+                </MDXProvider>
+                <JoinTheCommunity />
 
+                <Box pb={[1, 11]} pt={[0, 2]}>
+                  <SSRLessShareButtons
+                    title={alternateTitle || title}
+                    isCompact
+                  />
+                </Box>
+              </Flex>
+            </Centrator>
+          </Section>
+        </Flex>
         <TryTeleport />
       </Layout>
     </>
   );
 };
 
+const StyledTitleBox = styled(Box)(
+  css({
+    fontSize: ["header-3", "header-2"],
+    fontWeight: "black",
+    lineHeight: "lg",
+    maxWidth: "1040px",
+    mb: [3, 0],
+    mt: [3, 11],
+    mx: [4, 0, 0],
+    order: [1, 0],
+  })
+);
+
+const StyledVideo = styled(Video)(
+  css({
+    maxHeight: "590px",
+    maxWidth: "min(100vw, 1048px)",
+    my: [1, 6],
+  })
+);
+
 const TextContainer = styled(Flex)(
   css({
     color: "darkest",
     flexDirection: "column",
-    lineHeight: "28px",
+    maxWidth: "1040px",
     h2: {
-      fontSize: "22px",
-      mt: 3,
+      fontSize: "md",
+      fontWeight: "bold",
+      mb: 3,
+      mt: [2, 5],
       "&:first-child": {
-        mt: [2, 5],
+        mt: [2, 11],
       },
     },
     p: {
+      lineHeight: "28px",
       mb: 3,
     },
   })

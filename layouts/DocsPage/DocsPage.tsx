@@ -15,12 +15,7 @@ import { DocsContext } from "./context";
 import Header from "./Header";
 import Footer from "./Footer";
 import Navigation, { getCurrentCategoryIndex } from "./Navigation";
-import {
-  NavigationCategory,
-  VersionsInfo,
-  PageMeta,
-  LayoutName,
-} from "./types";
+import { PageMeta, LayoutName } from "./types";
 
 const getContentWidth = (layout: LayoutName) => {
   switch (layout) {
@@ -34,19 +29,22 @@ const getContentWidth = (layout: LayoutName) => {
 };
 
 interface DocsPageProps {
-  navigation: NavigationCategory[];
-  versions: VersionsInfo;
   meta: PageMeta;
   tableOfConents: HeaderMeta[];
-  githubUrl: string;
   children: React.ReactNode;
 }
 
 const DocsPage = ({
-  navigation,
-  versions,
-  githubUrl,
-  meta: { h1, title, description, layout, videoBanner },
+  meta: {
+    h1,
+    title,
+    description,
+    layout,
+    videoBanner,
+    navigation,
+    versions,
+    githubUrl,
+  },
   tableOfConents,
   children,
 }: DocsPageProps) => {

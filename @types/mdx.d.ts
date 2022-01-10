@@ -1,3 +1,4 @@
+declare type VFile = import("vfile").VFile;
 declare module "@mdx-js/react" {
   import * as React from "react";
 
@@ -48,4 +49,15 @@ declare module "*.mdx" {
   export default MDXComponent;
 
   export const meta: Record<string, unknown> | undefined;
+}
+
+declare type MDXPageFrontmatter = Record<string, unknown>;
+
+declare interface MDXPageData<T = MDXPageFrontmatter> {
+  uri: string;
+  frontmatter: T;
+}
+
+declare interface MDXPage<T = MDXPageFrontmatter> extends VFile {
+  data: MDXPageData<T>;
 }

@@ -1,7 +1,7 @@
 import css from "@styled-system/css";
 import Box from "components/Box";
 import { FlexProps } from "components/Flex";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Video from "components/Video";
 import { P } from "components/MDX";
 

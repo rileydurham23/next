@@ -1,6 +1,6 @@
 import Box from "components/Box";
 import Flex from "components/Flex";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Section, { BGColor } from "components/Section";
 import { GreatPlaceImage } from "./GreatPlaceImage";
 

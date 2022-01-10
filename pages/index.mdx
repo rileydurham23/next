@@ -5,29 +5,22 @@ h1: TODO
 hideWave: true
 border: none
 ---
-import NextImage from "next/image"
-import {
-  AnimationHeader,
-  AnnouncementBar,
-  EasyStart,
-  GridDisplay,
-  Link,
-  MessageBanner,
-  NewsItem,
-  Section,
-  SectionTabs,
-  TerminalAnimation,
-  Terminal,
-  TryTeleport,
-  VideoBanner,
-  WorksWith,
-} from "components";
-import {
-  CompactClients1,
-  CompactClients2,
-  CompactClients3,
-} from "components/AnnouncementBar/data";
-import { ProductCard } from "components/GridDisplay"
+
+import NextImage from "next/image";
+import AnimationHeader from "components/AnimationHeader";
+import AnnouncementBar from "components/AnnouncementBar";
+import EasyStart from "components/EasyStart";
+import GridDisplay, { ProductCard } from "components/GridDisplay";
+import Link from "components/Link";
+import NewsItem from "components/NewsItem";
+import Section from "components/Section";
+import SectionTabs from "components/SectionTabs";
+import TerminalAnimation from "components/TerminalAnimation";
+import Terminal from "components/Terminal";
+import TryTeleport from "components/TryTeleport";
+import VideoBanner from "components/VideoBanner";
+import WorksWith from "components/WorksWith";
+import { CompactClients } from "components/AnnouncementBar/data";
 
 <Section bg="grayWave">
   <AnimationHeader
@@ -42,31 +35,36 @@ import { ProductCard } from "components/GridDisplay"
   <TerminalAnimation text="homepage"/>
   </AnimationHeader>
   <NewsItem newsImg>
-    [Teleport 7.0](https://goteleport.com/blog/secure-access-mongodb/) &nbsp; Brings Identity-based Access to MongoDB
+    [Teleport 8.0](https://goteleport.com/blog/rdp-access-for-windows-browser/) &nbsp; Brings Identity-based Access to Windows
   </NewsItem>
   <AnnouncementBar />
 </Section>
 <GridDisplay productCard cardStyle="productCard" bg="wavelight">
   <ProductCard 
-  title="Teleport Server Access" 
+  title="Server Access" 
   src="../sharedAssets/images/server.svg" 
   href="/ssh-server-access" 
   description="For SSH servers behind NAT in multiple environments."/>
   <ProductCard 
-  title="Teleport Kubernetes Access" 
+  title="Kubernetes Access" 
   src="../sharedAssets/images/kubernetes.svg" 
   href="/kubernetes-access" 
   description="For Kubernetes clusters behind NAT in multiple environments."/>
   <ProductCard 
-  title="Teleport Application Access" 
+  title="Application Access" 
   src="../sharedAssets/images/application.svg" 
   href="/application-access" 
   description="For web applications behind NAT in multiple environments."/>
   <ProductCard 
-  title="Teleport Database Access" 
+  title="Database Access" 
   src="../sharedAssets/images/database.svg" 
   href="/database-access" 
   description="For databases behind NAT in multiple environments."/>
+  <ProductCard 
+  title="Desktop Access" 
+  src="../sharedAssets/images/desktop.svg" 
+  href="/desktop-access" 
+  description="For Windows servers & desktops in multiple environments."/>
 </GridDisplay>
 <Section bg="grayWave">
   <SectionTabs 
@@ -181,7 +179,14 @@ import { ProductCard } from "components/GridDisplay"
 <WorksWith title="Works with everything you have">
   Teleport is open source and it relies on open standards such as SSH, HTTPS, SAML, OpenID connect and others. Deployed as a single-binary drop-in replacement for OpenSSH, it seamlessly integrates with the rest of your stack.
 </WorksWith>
-<EasyStart>
+<EasyStart
+  description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
+  listDescription="Teleport consists of just two binaries."
+  listItems={[
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
+  ]}
+>
   <Terminal>
 ```
 # on a client
@@ -196,11 +201,7 @@ $ helm install
   </Terminal>
 </EasyStart>
 <Section bg="flatWhite" px={10} py={10}>
-  <AnnouncementBar
-    caseStudy
-    title
-    rows={[CompactClients1, CompactClients2, CompactClients3]}
-  />
+  <AnnouncementBar type="case" rows={CompactClients} />
 </Section>
 <TryTeleport/>
 

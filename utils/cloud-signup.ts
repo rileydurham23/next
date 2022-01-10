@@ -1,3 +1,7 @@
+/*
+ * Initializes sign-up widget from the main app. Can be removed if we delete sign-up page.
+ */
+
 import { load as loadRecaptcha } from "./recaptcha";
 
 const API_URL = process.env.NEXT_PUBLIC_TELEPORT_API_URL;

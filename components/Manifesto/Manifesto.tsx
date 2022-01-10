@@ -5,7 +5,7 @@ import css from "@styled-system/css";
 import { all, StyledSystemProps } from "components/system";
 import Box from "components/Box";
 import Flex from "components/Flex";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Heading from "components/Heading";
 import theme from "components/theme";
 

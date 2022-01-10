@@ -4,7 +4,7 @@ import { all, transition, StyledSystemProps } from "components/system";
 import Box, { BoxProps } from "components/Box";
 import Image from "components/Image";
 import Flex, { FlexProps } from "components/Flex";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Link from "components/Link";
 import Filters, { useFilters } from "./Filters";
 import Summary from "./Summary";

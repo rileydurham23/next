@@ -1,6 +1,5 @@
 import { MDXProvider } from "@mdx-js/react";
-// Drift is the chatbot - should be avaialble on all pages
-import Drift from "react-driftjs";
+import Drift from "components/Drift";
 import Layout from "components/Layout";
 import { HIWHeader } from "./HIWHeader";
 import Footer from "components/Footer";
@@ -67,7 +66,7 @@ export default function HowItWorksPage({ meta, children }: Props) {
         <TryTeleport />
       </Layout>
       <Footer short={Boolean(meta.shortFooter)} />
-      <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
+      <Drift />
     </>
   );
 }

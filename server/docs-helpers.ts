@@ -1,7 +1,12 @@
-import { resolve, join } from "path";
-import { loadSiteConfig } from "./config";
+/*
+ * Bunch of helper functions to help with docs generation.
+ */
 
-const { branches } = loadSiteConfig();
+import { resolve } from "path";
+import { loadConfig as loadDocsConfig } from "./config-docs";
+import { loadConfig as loadSiteConfig } from "./config-site";
+
+const { branches, versions, latest } = loadSiteConfig();
 const { NEXT_PUBLIC_GITHUB_DOCS } = process.env;
 
 export const getVersion = (filepath: string) => {
@@ -9,28 +14,25 @@ export const getVersion = (filepath: string) => {
   return result ? result[1] : "";
 };
 
+/*
+ * Used by some remark plugins to resolve paths to assets based on the
+ * current docs folders. E. g. remark-includes.
+ */
+
 export const getVersionRootPath = (filepath: string) => {
   const version = getVersion(filepath);
 
   if (version) {
     return resolve(`content/${version}`);
   } else {
-    // CI task for linting stores files in the roor of the content folder
+    // CI task for linting stored files in the root of the content folder
     return resolve("content");
   }
 };
 
-export const getVersionDocsPath = (filepath: string) => {
-  const root = getVersionRootPath(filepath);
-
-  return join(root, "docs");
-};
-
-export const getVersionConfigPath = (filepath: string) => {
-  const docs = getVersionDocsPath(filepath);
-
-  return resolve(docs, "docs/config.json");
-};
+/*
+ * Generates link to use in "Improve" button on the docs pages.
+ */
 
 export const getGithubURL = (filepath: string) => {
   const current = getVersion(filepath);
@@ -40,4 +42,25 @@ export const getGithubURL = (filepath: string) => {
   return branches[current]
     ? `${ghIssuePath}&title=[v.${current}]%20${filepath.replace(root, "")}`
     : ghIssuePath;
+};
+
+/*
+ * Generates props for docs page, based on the page location in the FS.
+ */
+
+export const getPageMeta = (vfile: VFile) => {
+  const current = getVersion(vfile.path);
+  const { navigation } = loadDocsConfig(current);
+
+  const githubUrl = getGithubURL(vfile.path);
+
+  return {
+    navigation,
+    githubUrl,
+    versions: {
+      current,
+      latest,
+      available: versions,
+    },
+  };
 };

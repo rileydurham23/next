@@ -1,0 +1,265 @@
+---
+title: "Tokens, TLS and Teleport"
+alternateTitle: "How to best use and secure tokens for Teleport"
+description: "In this webinar, Ben Arent and Steven Martin show how to use Tokens to add resources to Teleport."
+layout: tutorial
+publicationDate: "2021-06-30"
+associatedLabels:
+  [
+    "teleport",
+    "tokens",
+    "SSH",
+    "tls",
+    "access plane",
+    "certificates",
+    "kubernetes",
+    "automation",
+  ]
+videoId: "ffNi9FsRmFw"
+videoLength: "30:34"
+---
+
+## Tokens, TLS and Teleport - Overview
+
+This webinar is a deep dive into how to use Tokens to add resources to Teleport, and shows you a range of options and
+operational best practices for securing tokens. This webinar will be useful for people getting started with Teleport
+and we’ll cover some advanced deployment issues and real-world scenarios with Steven Martin.
+
+### Key Topics on Tokens, TLS and Teleport
+
+- Teleport is an access plane for accessing infrastructure that generates tokens as securely as possible.
+- Teleport focuses on using dynamic tokens rather than static API keys.
+- A range of join tokens is available.
+- A command-line tool such as tctl or auth rotate rotates the Teleport internal certificate authority in case there's a public issue or something gets compromised.
+- Teleport recently released an official Terraform provider that lets you have more control over fundamental basics of Teleport
+- The Teleport provision token provides all the capabilities of what you want to add. When creating these tokens, also create a role and a user for providing these tokens.
+
+### Expanding Your Knowledge on Key Topics on Tokens, TLS and Teleport
+
+- [Teleport Getting Started](https://goteleport.com/docs/getting-started/)
+- [Teleport Access Plane](https://goteleport.com)
+- [Terraform Provider](https://goteleport.com/docs/setup/guides/terraform-provider/)
+- [Teleport Provision Tokens](https://goteleport.com/docs/ver/7.0/setup/reference/terraform-provider/#teleport_provision_token)
+
+### Learn more about Tokens, TLS and Teleport
+
+- [Read the Teleport Admin Guide](https://goteleport.com/docs/)
+- [Download Teleport](https://goteleport.com/download/)
+
+## Introduction - Tokens, TLS and Teleport
+
+(The transcript of the session)
+
+**Ben:** We have a good amount of attendees, so we're going to kick things off. So firstly, thanks for joining today. It's great. We have a
+small audience here so please feel free to ask questions as you go along. Kick things off. So yeah, thanks for joining. So today we're going
+to cover sort of beginner to advanced content both for people who are thinking of using Teleport and also people who are running Teleport at
+scale. Please leave questions in the Q&A box. I have it open here. I'll be keeping an eye open. So if you have a question pop up, feel free
+to ask them as the webinar starts and you can also email us any questions. Send it to me first, but Steven's email is also here. He's
+available to answer any questions on his demo. And we have our social channels. We'll also be recording this webinar and be putting it on
+our YouTube channel. And lastly, if you have any questions, probably one of the best places to get feedback and answers is to just join our
+community Slack channel. It's goteleport.com/slack. And we have about 600 people including majority of the Teleport team. We have people
+asking questions from initial setup to sort of advanced configuration options, and we're more than happy to help out our community users and
+our enterprise users.
+
+**Ben:** So what is Teleport? Teleport is an access plane for accessing infrastructure. We started off with just providing support for
+servers, and it's a real upgrade from moving from public-private keys to short-lived certificates. So one of the key benefits of Teleport is
+the ability to provide access to infrastructure but without having to worry about onboarding and offboarding public-private keys. And after
+about three years of providing server access, we added initial Kubernetes cluster access by providing short-lived Kubeconfigs instead of
+having to send people Kubeconfigs that last for a long period of time. So if someone's machine was compromised there's no ability for access
+to credentials. We [inaudible] access the cluster without people having to go through an SSO flow again. And last year we added
+applications. These are primarily internal applications. I can give a little demo later. And everything is audited and reported and provided
+the behind the secure backend of Teleport. And this year we've had a database support. Same thing again. So short-lived credentials for
+humans accessing databases, so you can know what your team's doing and what tables they're accessing and what commands they're running.
+
+**Ben:** So Teleport, how does it work? This is an example from our database slide, but the same concepts work for all of the other
+products. So we have end-users who are connecting using their command-line tools. This goes through to the Teleport service which is a
+combination of a public proxy and a more secure hardened Auth Service. This would talk to your SSO provider, and this deals with all your
+certificates. And in the case of our database service, this has a reverse tunnel which provides the credentials to these databases. And so
+for an end-user what it looks like is — they will do a tsh login, get their credentials for whichever database they want. Then they can just
+go about their day-to-day job using PSQL or a GUI. And it's the same for Kubernetes. You could just kubectl, or ssh. You can use our
+command-line tsh ssh. But this is our TLS & Tokens Edition. So we have tokens and certificates sort of all-around Teleport. And one of the
+reasons for this webinar is — we see lots of people sort of get confused because we have a range of options that depending upon your setup
+you might want to go with one because it's more secure than the other. And our TLS endpoint — I'll cover in the end. We've made some
+improvements. This is just fixing the secure endpoint that your end clients will connect to.
+
+### Why tokens?
+
+**Ben:** So why this topic? Why tokens vs. API keys? And I think one thing that's sort of a bit unique for Teleport is the way in which we
+generate tokens. We sort of try and create them as secure as possible. So we focus a lot on using dynamic tokens than, let's say, maybe a
+static API key. And I'll show you an example of what these tokens mean. So many tokens in the world of Teleport — they get created and I'm
+going to show this diagram. And the token is only used for the initial joining of the cluster. This is both for node database and
+Kubernetes. Once they've made that initial connection, it's all a mutual TLS connection. And we have other tools too. So once this
+connection happens, that token is no longer needed. So you can make a very short-lived token. Then you can use a command-line tool such as
+tctl or auth rotate which will completely rotate the Teleport internal certificate authority in case there's a public issue or something
+gets compromised.
+
+**Ben:** So talking of systems being compromised, we have this attack tree available and there's a few possible ways in which Teleport could
+be potentially compromised. One is stealing or brute-forcing a [inaudible] token. And this is why we would suggest not using static tokens.
+So if a static token was leaked on GitHub, for example, someone could create a malicious node that looks exactly like one of your production
+nodes. This could sort of have escalation to other parts of the system. And more importantly, if you're setting Teleport in a
+high-availability setup, you might have a proxy token and you definitely don't want a proxy service to be compromised because then it's sort
+of game over. So these are some of the concerns that you might want to think about as far as token management and token hygiene.
+
+**Ben:** So join tokens. We have a range that are available. Starting at the top, if you're setting Teleport in high-availability mode,
+you'll want to have tokens for adding new proxies or service. These can be both static and dynamic. The same with inviting users. You may
+want to just offload this to a SSO provider, but if you do have a dedicated user sort of backup, you will also have an invite token and this
+is dynamic. And then we have our services. So if you're adding a new node or Kubernetes database, this can also be static and dynamic. And
+then lastly, we have a trusted cluster. This is a feature of Teleport in which you can connect multiple clusters together to provide secure
+access to ones that are possibly in [inaudible] or in secure environments. So I think we had a question. What is the plan going forward to
+handle dynamic Kubernetes environments in a [inaudible] way where short-lived tokens don't work? Yeah. We're going to answer this later on.
+So we'll come back to that one. But everyone else, feel free to ask any questions.
+
+**Ben:** So static tokens — this is a terrible example of a static token. We have four tokens here, and the proxy token is just five X's. So
+obviously this is a token that would be very easily brute-forced. So we'd recommend firstly, if you're going to use static tokens, create
+very long tokens and make sure that they're sufficiently random. But this is another example in which you can create all of these other
+services. They could have the same static token. So this is in the auth service. If you would have your node, you would then just hardcode
+that static token to gain access. And then taking those up a notch, we have dynamic tokens. And so I'm just going to walk through — so the
+command is tctl tokens add --type=node. And so we have the role available, we have the token which is quite long and random. Next up we have
+the CA PIN. And the CA PIN is a sort of an important feature if you're using, let's say, the IP address. So we can assume that in some
+environments, in a zero-trust environment, that someone could spoof the 192 IP address. And so this is a hashed version of the auth CA. And
+so you can use this to make sure that your node is joining the right Teleport certificate authority. And then lastly, we have the Auth
+Server IP and port. In this setup, this is an internal network in which everything doesn't go over the public internet and so it's over 3025. If you're using a hosted version this would go over 443, and this auth server IP would be the fully qualified domain name of your
+cluster.
+
+### Terraform HA example
+
+**Ben:** And then another example: we'd also recommend not adding tokens themselves but instead using a file. All auth services support
+using file. Example — so you can use the same tctl tokens add [inaudible] grep for the token and save it out to a file. Distribute this file
+among your servers and have a central place. I'm going to show you how we do this with our AWS Terraform example. And then when you reload
+it, you can reload this in line, but it's the same thing if you're using YAML. You just add it in the token file. Then lastly, we also have
+the Teleport certificate authority — and the certificate authority, databases or OpenSSH. Our OpenSSH support requires you to do a lot more
+work, and this is kind of why we recommend using Teleport because we do things such as automatically rotating the Teleport CA. But you can
+manage this all yourselves if you want to. For databases, often you'll need to export a range of certificates to connect to those databases.
+But it's the same thing — you are using either auth sign or export to get credentials from Teleport CA. And as I mentioned earlier, we had
+sort of examples of publishing tokens to a sort of central secret manager. For Terraform HA example, which is available on our examples on
+GitHub, the Teleport auth publishes a token to secrets manager, and then these tokens obtain them using a defined role.
+
+**Ben:** The file is a little bit all over the place but I'm going to go through sort of an example. So in the nodes themselves, we have
+this SSM git token and we have an identity role, which basically you can see that we get the parameter, we decrypt it and then we save this
+to the token file. And so when all of these nodes join, no tokens are shared between. Everything is sort of encrypted. And taking our
+Terraform one step further, we recently released an official Terraform provider. This Terraform provider lets you have more control over
+sort of some fundamental basics of Teleport, and Steven's going to walk us through this. But we have this [Teleport provision
+token](https://goteleport.com/docs/ver/7.0/setup/reference/terraform-provider/#teleport_provision_token/) that provides all of the
+capabilities of what you want to add. And so you can add this as part of creation. And another thing, I think Steven might touch on this,
+but when you're creating these tokens you also want to create a role and a user for providing these tokens. So you also have an audit log
+and you see what's happening. And so this Terraform has the ability to list all [inaudible] for all of these resources and we've exported
+example here which we'll be able to use for our [Terraform Provider](https://goteleport.com/docs/setup/guides/terraform-provider/).
+
+**Ben:** And then lastly, we've done a lot of work in Teleport 6 on our API, and Steven's going to do a deep-dive into how you can use
+Teleport without API. So it's onto the demo. I'm going to stop sharing and pass it over to Steven.
+
+### Teleport API Demo
+
+**Steven:** Thanks, Ben. So this is the Enterprise tenant which is on our Teleport Pro — our hosted service as has been mentioned. And in
+this example, you can see, I have an app, database, and web server available. In this case, I want to expose a Jenkins service that's
+available. Now you'll notice that none of these are labelled as Jenkins. So I haven't yet added that service into here. I want to add the
+SSH as well as the web interface and that the web application would go here. It's not available yet. Now in terms of how I'm going to add
+that, I'm going to use a combination of the Terraform provider as well as our API call. What a Terraform provider does is also use the API,
+and essentially as Ben was stepping through basically to configure specific roles, and then you can issue identities or identity credentials
+so that the Terraform provider or your API can authenticate and then retrieve or post its specific information. Now all of this information
+in terms of how to get it started it is in our documentation. This is a great guide to get started on the API which walks you through, like
+you need, a Go environment of 1.16+, what kind of users you need for using it, creating a Go project. And then we even have very
+straightforward sample code. It's a case of just pinging it. I'll show an example of mine of how I get the tokens. And then we also have our
+Terraform provider information which again is a very straightforward way to use Terraform whether or not you're familiar with Terraform. You
+could also use this in combination if you're going to build up a node and then send in a token or configure a role for a specific node. So
+it's very straightforward there. Now, in terms of looking at how this was configured, let's take a look first at the Terraform.
+
+**Steven:** So in this case, we wanted to expose both SSH and an application. So I need a node and app type token. And you'll notice here in
+terms of my Terraform, I have my provider. It's a gravitational.com/teleport provider. I have a variable of the token itself. So it's
+something I'm going to set prior to invoking this configuration. I'm saying, "Well, what is the address?" Again that's my Enterprise tenant.
+A bit of a Star Trek fan. That's why I chose that. And then I have my identity file path, which again is a credential I've already issued
+from my Auth Server, that it's allowed to call to that. And then here's the actual configuration of the token. So I'm taking in the variable
+Teleport token. So that's an input I'm giving. I'm giving it the roles of node and app. I could also give it Kubernetes and database, but
+I'd say it's good to confine it to specifically what you're going to use because for the security protocols Ben went over earlier. I'm also
+giving a label. So you can label these tokens as well. Not just setting the specific roles. As well, I can give a description. So let's take
+a look at the tokens we have right now. And I'd already logged into my Enterprise tenant. This is all you can see your status of where you
+logged in, who you're logged in as, and your roles. And then we'll take a look at, "Well, what tokens are available?" We can see I'd already
+made one there. So I'm going to go ahead and remove that token and create another one. Ever list again we have none. I'm going to set that
+variable. And I'm using uuid which gives me a sufficient-length token as opposed to just randomly typing or giving too short. Now once I've
+given that I can then apply. And it will confirm with me that I do want to add this token. I'm using that UUID value. It's going to credit.
+It tells me that it has applied the resource, and then we can take a look at the list of tokens. And that is now available with an
+expiration time.
+
+**Ben:** Now in terms of retrieving that token, we are very similar to that client example you saw. This is a Go program that can call into.
+It's using an API token user credentials. It's calling into the proxy. In this case, it's going to retrieve tokens. It's going to actually
+print them out in a JSON format and I'm going to pass to another script. It's also looking to see if this matches a particular nodeType
+which either is a default, I think, a node or database. I look for a database by default or if the person passed in a certain parameter it
+will just look for those and then it puts out in a nice JSON format. Now in terms of the Jenkins machine, we want to add on, this is the
+terminal. I'd already logged in prior to this and we can take a look at — there is a Jenkins running. We can see it's exposed on 8081. This
+machine is actually restricted. The only port that's open is for myself coming in from my terminal. So there's no either internal or
+external access, but I want to expose the Jenkins. There's no existing Teleport running. So we want to install that, and this is a script
+I've configured to do that where I — and this is all available on our installation process. I'm going to add the repository for Teleport.
+I'm going to install it. I'm setting [inaudible] environment variables that are used to retrieve that token. How it retrieves it. And then
+because it's coming in a JSON format, I'm going to pass that to JQ, so I can pull out the specific token I want. I made a very simple
+Teleport YAML identifying the node name, using that token to proxy and then particular node ID. Often it's good with your applications. Not
+just using a generic Grafana or Prometheus. It's a good idea to label them as well as uniquely identify them and that would be easier on
+your users especially if there's a large number of items.
+
+**Steven:** I then move the YAML file and then start the service. When you use our repository approach, it will automatically set up a
+service that you can run. All right. Why don't we go ahead and run that? So it's going to pull down the latest version of Teleport 6.2.6.
+Setting up. Okay. And then we can always check the status of that. You can see that is running. It's connected. We go back and refresh. We
+now see that Jenkins server with tier:dev type:build. I can go in as my username. Again I can see the Docker status that's available, and
+then I can also see the application that was [inaudible] that jenkins423. And now I'm in Jenkins. I'm using the subdomain of my [inaudible]
+to access [inaudible]. As you can see, this application wasn't available publicly. So we've gone through a full range of creating a token
+with the API via Terraform. We've been able to retrieve it. We've then used that token to make Teleport services available back to a
+Teleport Pro [inaudible]. And now the user can directly interact with those services.
+
+**Ben:** That was a great demo, Steven. Thank you. Let me get my screen-share back. Okay. If anyone has any questions about the demo, I know
+a lot was covered there, feel free to ask us or — Steven is that demo — is that code going to be available afterwards just for people to —?
+
+**Steven:** I can definitely share it, and we can create links. Probably in our GitHub discussions is where I'll put that.
+
+### What should I do for Robot & CI/CD?
+
+**Ben:** Awesome. Okay. So I didn't know you were going to do Jenkins. So Jenkins is a great example of another thing that comes which is
+people often ask: "What do I do for robots and CI/CD services?" As far as those services communicating with just sort of your infrastructure
+and nodes. And of late we've seen many CI/CD services being sort of the weak points in people's infrastructure that have been sort of
+vulnerable to different attacks. And so you'd want to make sure that the tokens you have on these services aren't very long-lived tokens. So
+going from sort of the least secure to the most secure, these are our sort of recommendations. You could just use a static join token or you
+create a long-lived token. One every year and then have to renew it. But what we'd recommend would be using our API to create either a
+nightly, weekly, monthly rotation of those keys, and with Teleport, you can see you can create as many tokens as you want and just let them
+expire so you can have a little bit of overlap and you'll always have a token that's available to work. And I've even seen one of our
+customers — they create a token per CI run as another way of sort of really shoring up your CI infrastructure. And this goes back to our
+question. We had a question around our Teleport Kube agent and our Teleport Pro users have run into this issue too — that the way in which
+the Kube agent currently works is if once the pod has joined if the service was to restart or renew, you will lose that short-lived token
+and so the pod won't be able to join. Our kind of hack is to send a very long token which isn't very necessarily ideal and our plan is to
+use Kubernetes-native mutual TLS secret store to keep that connection alive and then also work with [inaudible]. If you're interested, just
+subscribe to this issue 5585, and I think it's not going to be in Teleport 7, but I think soon it'll be available and the more people that
+want it the more likely it will sort of get in mainstream faster.
+
+**Ben:** Okay. Lastly, TLS, this is probably just a quick sort of chapter but for people starting often what happens is once they set up
+Teleport they ran into 'The connection's not private. This cert authority is sort of invalid, and everything should be sort of secure with
+Teleport. So in Teleport 6.0, we improved ‘teleport configure’ to have acme support, and this will obtain TLS certificates for you without
+having to install Let's Encrypt and decoding them yourselves. So this makes setup much easier. The one caveat is that the cluster name has
+to exactly match the top-level domain name. So tele.example.com has to be where Teleport will be running for this to work. As part of this
+sort of Acme TLS certificate, we will also obtain \*.tele.example.com and this is used for this application. So if you saw in Steven's case
+he had I think it was jenkins458.enterprise.teleport.sh. And so if you want application support, just to get this working, you need to set
+up a wildcard DNS entry which is sort of a bit unique. You don't necessarily see it that often but everything else will work. All this is
+outlined in our sort of configure Teleport and our application guide.
+
+**Ben:** And then another improvement — we have a request for discussion number 35. This is going to be focusing on simplified node joining
+for AWS, and it will use the embedded identity document that's available with AWS instances and instead of having to use SSM or distributed
+token you will — this is an example on a node but in the Teleport auth and proxy, you'll just define which accounts will you accept nodes
+joining. And this can make your setup much easier. This is still in the design stage. It's currently going through a security review. So if
+you're interested, this is a great time to sort of dive into the discussion and give us more feedback. But expect this sort of later in the
+summer. So brings us to the end. Often we have a good recommended next steps, but it's probably a good time to just do a token audit.
+There's not necessarily any wrong way to be distributing the tokens but there's always ways in which you could probably improve the security
+posture. We're always here to help. If you're new to Teleport, I recommend downloading it, getting started. Start with static token. Try
+dynamic and then go to the API and sort of see how it fits with your workflow. And you can check us out on GitHub.
+
+### Q&A
+
+**Ben:** So last up, feel free to ask us any questions. Oh, we've answered the dynamic question. So is there any other questions from the
+audience? Feel free to type it in the chat. One thing I often hear, "Will it be recorded and shared?" Yeah. We'll likely put it on YouTube
+later today and then we'll have a full transcription probably in a week or so. All right. Just give you a couple more minutes to type your
+questions, but it looks like no one has any more questions which is probably a good sign. So if you have anything else, please just join us
+in the Slack room or you can just email us. Thanks for joining today. Hopefully, this was helpful. Also if there's any topic — oh, we have
+one for Dave. Is it possible to add a local user for your token? Yes. And to add a local user via token you use ‘tctl users add’ and then
+Teleport will generate a sort of token for you which will be short-lived, and then that user can set up. For creating local users depending
+on how you defined your cluster, they may be prompted with requesting either a QR code or a hardware token. It's kind of up to you how you
+configure Teleport. And any other questions? All right. Thanks, everyone for joining today. Steven, do you have any closing thoughts?
+
+**Steven:** Yeah. No, just please check out Teleport. There's a lot of good examples in the docs in terms of just of getting started. It's
+very easy to set up your own environment quickly. If you have an RDS database get that connected. We step you through that whole process. So
+we'd just love to hear about your interaction with it. Questions on these topics like tokens and we're interested in making sure it's clear
+why we take this approach and how to integrate it in your environment.

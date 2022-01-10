@@ -1,5 +1,5 @@
 import css from "@styled-system/css";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Heading from "components/Heading";

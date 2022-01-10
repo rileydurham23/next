@@ -1,3 +1,13 @@
+/*
+ * This plugin will resolve (!filename!) syntax and include file's content
+ * Inside the page. mdx and md files will also be parsed to AST and then used as normal
+ * mdx content. Paths to includes are resolved form the version repo root.
+ *
+ * This plugin can also work as a linter plugin for remark-lint.
+ *
+ * See tests and fixtures for more examples.
+ */
+
 import { Parent } from "unist";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";

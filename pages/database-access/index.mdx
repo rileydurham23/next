@@ -6,24 +6,21 @@ border: none
 reviews: 
   - roadie1
   - linxo2
+  - airSlate2
   - linxo3
 ---
 
-import {
-  AnimationHeader,
-  AnnouncementBar,
-  EasyStart,
-  Feedback,
-  MessageBanner,
-  ProductBanner,
-  Section,
-  TerminalAnimation,
-  Terminal,
-  TryTeleport,
-  VideoBanner,
-  WorksWith,
-  GridDisplay,
-} from "components";
+import AnimationHeader from "components/AnimationHeader";
+import AnnouncementBar from "components/AnnouncementBar";
+import EasyStart from "components/EasyStart";
+import GridDisplay from "components/GridDisplay";
+import ProductBanner from "components/ProductBanner";
+import Section from "components/Section";
+import Terminal from "components/Terminal";
+import TerminalAnimation from "components/TerminalAnimation";
+import TryTeleport from "components/TryTeleport";
+import VideoBanner from "components/VideoBanner";
+import WorksWith from "components/WorksWith";
 
 <Section bg="grayWave">
   <AnimationHeader
@@ -117,12 +114,14 @@ import {
   X.509 certificates, HTTPS, SAML, OpenID connect and others. Deployed as a
   single-binary, it seamlessly integrates with the rest of your stack.
 </WorksWith>
-
-<Section bg="purple">
-  <Feedback reviews={meta.reviews} dark />
-</Section>
-
-<EasyStart>
+<EasyStart
+  description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
+  listDescription="Teleport consists of just two binaries."
+  listItems={[
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
+  ]}
+>
   <Terminal>
 ```
 # on a client

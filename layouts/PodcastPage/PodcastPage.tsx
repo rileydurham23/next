@@ -1,10 +1,11 @@
 import { useRef, useEffect } from "react";
 import { MDXProvider } from "@mdx-js/react";
-import Drift from "react-driftjs";
 import dynamic from "next/dynamic";
+import Centrator from "components/Centrator";
+import Layout from "components/Layout";
+import Drift from "components/Drift";
 import Section from "components/Section";
 import Head from "components/Head";
-import Layout, { Centrator } from "components/Layout";
 import Footer from "components/Footer";
 import TryTeleport from "components/TryTeleport";
 import { components as baseComponents } from "layouts/SitePage";
@@ -23,6 +24,7 @@ interface PodcastPageProps {
     description: string;
     podcastName: string;
     noindex?: boolean;
+    publicationDate: string;
   };
   children: React.ReactNode;
 }
@@ -68,7 +70,7 @@ export const PodcastPage = ({
         <TryTeleport />
       </Layout>
       <Footer />
-      <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
+      <Drift />
     </>
   );
 };

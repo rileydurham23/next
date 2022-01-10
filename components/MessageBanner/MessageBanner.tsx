@@ -3,7 +3,7 @@ import Link from "components/Link";
 import Box from "components/Box";
 import Button from "components/Button";
 import Section from "components/Section";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 
 export interface MessageBannerProps {
   title: string;

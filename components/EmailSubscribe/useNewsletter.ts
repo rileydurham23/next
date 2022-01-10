@@ -2,7 +2,7 @@ import { useCallback, useState, useMemo } from "react";
 import { useDefaultFormValues, useMarketoForm } from "components/MarketoForm";
 import fallbackData from "./data.json";
 
-export const useNewsletter = () => {
+export const useNewsletter = (callbackName?: string) => {
   const {
     disabled,
     data,
@@ -10,10 +10,10 @@ export const useNewsletter = () => {
     submitted,
     onSubmit: onFormSubmit,
     UID,
-  } = useMarketoForm(
-    process.env.NEXT_PUBLIC_EMAIL_SUBSCRIPTION_FORM_ID,
-    fallbackData as unknown as MarketoFormDataAPIResponse
-  );
+  } = useMarketoForm(process.env.NEXT_PUBLIC_EMAIL_SUBSCRIPTION_FORM_ID, {
+    callbackName,
+    fallbackData: fallbackData as unknown as MarketoFormDataAPIResponse,
+  });
 
   const initialValues = useDefaultFormValues(data ? data.fields : []);
 

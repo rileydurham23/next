@@ -1,0 +1,166 @@
+---
+title: Windows RDP Desktop Access
+description: Teleport Desktop Access provides identity-based access for Windows Servers and Desktops.
+hideWave: true
+border: none
+---
+
+import NextImage from "next/image";
+import AnimationHeader from "components/AnimationHeader";
+import AnnouncementBar from "components/AnnouncementBar";
+import ApplicationAnimation from "components/ApplicationAnimation";
+import EasyStart from "components/EasyStart";
+import GridDisplay from "components/GridDisplay";
+import ProductBanner from "components/ProductBanner";
+import Section from "components/Section";
+import TryTeleport from "components/TryTeleport";
+import VideoBanner from "components/VideoBanner";
+import WorksWith from "components/WorksWith";
+
+<Section bg="grayWave">
+  <AnimationHeader
+    title="Teleport Desktop Access"
+    subtitle="Teleport Access Plane"
+    description={
+      <>
+        Identity-based, passwordless access to Windows hosts across all cloud, on-premises, and edge environments.
+      </>
+    }
+  >
+  <ApplicationAnimation animationType="desktop"/>
+  </AnimationHeader>
+  <AnnouncementBar />
+</Section>
+<Section bg="waveLight">
+  <ProductBanner
+    imgPosition="right"
+    title="Passwordless access for your Windows infrastructure"
+    src="../assets/passwordless.png"
+    alt="a diagram of server architecture"
+    description="Upgrade your entire Windows fleet to security best practices, including SSO, MFA, and passwordless just-in-time access via short-lived certificates."
+  >
+    <ProductBanner.Item title="Active Directory integration">
+      Provide role-based access to any Windows Server or Desktop via integration with your Active Directory or any SSO provider.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Biometric access">
+      Teleport provides a secure, passwordless login experience to Windows machines using your favorite hardware device.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Browser-based access">
+      Achieve RDP connectivity to your Windows hosts using TLS via any modern web browser.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+<Section bg="grayWave">
+  <ProductBanner
+    imgPosition="left"
+    title="A single Access Plane for mixed environments"
+    src="../assets/access-desktop.png"
+    alt="a diagram of server architecture"
+    description="Most organizations run Windows workloads alongside Linux servers, SQL & NoSQL databases, Kubernetes clusters, and a variety of internal applications like Jenkins, GitLab, Grafana, and more."
+  >
+    <ProductBanner.Item title="RDP & SSH">
+      Teleport supports access protocols for Windows & Linux in addition to Kubernetes, databases and more so you can use the same tools to manage your entire fleet.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Fine-grained access">
+      Provide fine-grained access to the underlying Windows machine and/or the applications running on top.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Unified Solution">
+      Use the same Teleport UI, CLI and API to manage access to your entire infrastructure.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+<Section bg="waveLight">
+  <ProductBanner
+    imgPosition="right"
+    subtitle="Teleport Access Plane"
+    title="Easy, secure infrastructure access"
+    src="../assets/the-easiest.png"
+    alt="a diagram of server architecture"
+    description="Teleport is the easiest, most secure way to access all your infrastructure. The open-source Teleport Access Plane consolidates the four essential infrastructure access capabilities every security-conscious organization needs."
+  >
+    <ProductBanner.Item title="Teleport Connect" src="../assets/connect.svg">
+      Securely connect to your global infrastructure regardless of network boundaries.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Teleport Authenticate" src="../assets/authenticate.svg">
+      Replace <em style={{color: "#512FC9", fontSize: "18px", fontStyle: "normal", fontFamily: "'Ubuntu Mono', 'Courier New', Courier, monospace" }}>admin</em> accounts with identity-based access for your infrastructure. 
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Teleport Authorize" src="../assets/authorize.svg">
+      Implement fine-grained access controls for every employee and service accessing your infrastructure.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Teleport Audit" src="../assets/audit.svg">
+      Achieve complete visibility into infrastructure access and behavior so you can meet and exceed compliance objectives.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+<VideoBanner title="Demo Video" videoId="n2h0GisWdss" />
+<WorksWith title="Works with everything you have">
+  Teleport Desktop Access works with Windows Servers 2012 RD and Windows 10 or newer. 
+  Users can login with Active Directory, or any other SSO provider. 
+  Teleport also works with the rest of your Linux, Kubernetes, and DevOps Stack.
+</WorksWith>
+<EasyStart
+  bg="flatWhite"
+  description="Teleport is easy to deploy and use. We believe that simple and easy-to-use software is key to first-class security because it reduces the risk of a human error."
+  listDescription="Teleport Desktop Access is just a single binary."
+  listItems={[
+    <>Download and install the <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> service.</>, 
+    <>Connect to your Windows-based infrastructure via a browser.</>
+  ]}
+  mode="bigImage"
+>
+  <NextImage src="./assets/DesktopAccess@2x.png" alt="Desktop Access Diagram" layout="fill" objectFit="contain"/>
+</EasyStart>
+<TryTeleport/>
+<GridDisplay
+  centralHeading={true}
+  title="Learn more about Teleport Desktop Access"
+  subtitle="Explore resources"
+  titleFontSize="header-1"
+  titleFontWeight="black"
+
+  >
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Key feature listing and details"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="FEATURES"
+    href="/features"
+  >
+    Nearly all Teleport features are available in the open source package.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="tutorial"
+    title="Five-minute demo of Teleport"
+    src="../assets/tutorial.svg"
+    smallIcon={true}
+    caption="DEMO"
+    href="/resources/videos/teleport-43-shortdemo/"
+  >
+    This short video shows the basic capabilities of Teleport. Quickly
+    access any computing resource anywhere.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Teleport Quick Start Guide"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="DOCS"
+    href="/docs"
+  >
+    Developer Documentation for using Teleport. This tutorial will guide
+    you through the steps needed to install and run Teleport on Linux
+    machines.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Deep dive into how Teleport works"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="HOW IT WORKS"
+    href="/teleport/how-it-works"
+  >
+    Learn the fundamentals of how Teleport works. The following is a
+    series of articles describing key Teleport concepts.
+  </GridDisplay.Tile>
+</GridDisplay>

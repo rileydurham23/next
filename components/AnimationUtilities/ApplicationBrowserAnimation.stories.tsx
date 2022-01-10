@@ -1,8 +1,13 @@
-import { ApplicationBrowser } from "./ApplicationBrowserAnimation";
+import {
+  ApplicationBrowser,
+  AnimationProps,
+} from "./ApplicationBrowserAnimation";
 import { Meta, Story } from "@storybook/react";
 
 const generateStoryComponent = () => {
-  const StoryComponent: Story = (args) => <ApplicationBrowser {...args} />;
+  const StoryComponent: Story<AnimationProps> = (args) => (
+    <ApplicationBrowser {...args} />
+  );
 
   return StoryComponent;
 };
@@ -16,4 +21,6 @@ export default meta;
 
 export const Default = generateStoryComponent();
 
-Default.args = {};
+Default.args = {
+  animationType: "application",
+};

@@ -7,7 +7,7 @@ import Link from "components/Link";
 import Logo from "components/Logo";
 import Menu from "components/Menu";
 import HeadlessButton from "components/HeadlessButton";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import blockBodyScroll from "utils/block-body-scroll";
 import HeaderCTA from "./HeaderCTA";
 
@@ -105,10 +105,10 @@ const StyledHeader = styled(Flex)(
 const StyledLogoLink = styled(Link)(
   css({
     color: "dark-purple",
+    flexDirection: "row",
     fontSize: "text-xl",
     fontWeight: "700",
     lineHeight: "80px",
-    margin: "0 40px 0 0",
     px: "32px",
     textDecoration: "none",
     transition: transition([["background", "interaction"]]),
@@ -154,6 +154,7 @@ const StyledContentWrapper = styled(Flex)(
 const StyledHamburger = styled(HeadlessButton)(
   css({
     color: "dark-purple",
+    cursor: "pointer",
     display: ["block", "none"],
     height: "48px",
     outline: "none",

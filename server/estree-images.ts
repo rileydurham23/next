@@ -5,6 +5,28 @@ import { Node } from "acorn";
 import { simple, base } from "acorn-walk";
 import { isLocalAssetFile } from "../utils/url";
 
+/*
+ * Given an estree of an abject, will check if
+ * the object props name in included in the propsList,
+ * have a file name inside, this file exists,
+ * its extension is in extWhiteList and not,
+ * in extBlackList.
+ *
+ * Used mostly for finiding asset filenames in frontmatter and replacing them
+ * with imports.
+ *
+ * E. g. config like this:
+ *
+ * {
+ *   propsList: ["src", "href", "poster", "image"],
+ *   extWhiteList: [],
+ *   extBlackList: ["mdx", "md", "css", "ts", "tsx", "js", "jsx"],
+ * }
+ *
+ * Will return field named "image" from frontmatter if it includes path to existing
+ * file with the extension "png", but not with extension "js".
+ */
+
 interface VisitImagePathsParams {
   tree: Node;
   path: string;

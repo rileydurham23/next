@@ -8,21 +8,21 @@ reviews:
   - elastic
   - carta
   - vmware
+  - airSlate1
+  - awin1
 ---
 
-import {
-  AnnouncementBar,
-  CenterCard,
-  EasyStart,
-  Feedback,
-  ProductBanner,
-  Section,
-  SectionHeader,
-  Terminal,
-  TryTeleport,
-  WorksWith,
-} from "components";
-import { SaaS1, SaaS2 } from "components/AnnouncementBar/data";
+import AnnouncementBar from "components/AnnouncementBar";
+import CenterCard from "components/CenterCard";
+import EasyStart from "components/EasyStart";
+import Feedback from "components/Feedback";
+import ProductBanner from "components/ProductBanner";
+import Section from "components/Section";
+import SectionHeader from "components/SectionHeader";
+import Terminal from "components/Terminal";
+import TryTeleport from "components/TryTeleport";
+import WorksWith from "components/WorksWith";
+import { SaaS } from "components/AnnouncementBar/data";
 import secteams from "./assets/for-secteams.svg";
 import startups from "./assets/for-startups.svg";
 import largorgs from "./assets/for-largorgs.svg";
@@ -38,11 +38,7 @@ import largorgs from "./assets/for-largorgs.svg";
   >
     ![secure access for saas](./assets/secure-access-for-saas@2x.png)
   </SectionHeader>
-  <AnnouncementBar
-    backgroundColor="lightest-gray"
-    inLivingColor
-    rows={[SaaS1, SaaS2]}
-  />
+  <AnnouncementBar inLivingColor rows={SaaS} />
 </Section>
 
 <Section width="100%" bg="flatWhite">
@@ -202,7 +198,14 @@ import largorgs from "./assets/for-largorgs.svg";
   </WorksWith>
 </Section>
 
-<EasyStart>
+<EasyStart
+  description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
+  listDescription="Teleport consists of just two binaries."
+  listItems={[
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
+  ]}
+>
       <Terminal>
 ```
 # on a client

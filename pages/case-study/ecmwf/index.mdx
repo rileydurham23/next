@@ -19,12 +19,9 @@ tryTeleport: true
 accessPlane: true
 ---
 
-import {
-  Link,
-  Feedback,
-  Quote
-} from "components";
-
+import Feedback from "components/Feedback";
+import Link from "components/Link";
+import Quote from "components/Quote";
 
 The ECMWF needs to safely and securely grant remote shell access to a supercomputer while knowing little about the end users. So when they modernized, European Centre for Medium-Range Weather Forecasting (ECMWF) chose Teleport. On one hand, the ECMWF was founded to provide mission-critical weather services to its members across Europe. On the other, they had to protect computing clusters that forecast models from unwanted access. The catch? A healthy portion of their ecosystem consisted of third party users connecting remotely from a Member State. In other words, the ECMWF had to open their facilities to researchers they did not have explicit contracts with and cannot know in advance. With Teleport, they have enough control to feel comfortable exposing endpoints to anyone its Member States had authorized.
 

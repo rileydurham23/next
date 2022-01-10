@@ -23,6 +23,12 @@
   caseStudy: /case-study/anaconda/
   industry:
     - Technology
+- id: airSlate1
+  title: airSlate
+- id: airSlate2
+  title: airSlate
+- id: airSlate3
+  title: airSlate
 - id: airtable
   title: Airtable
   industry:
@@ -44,6 +50,10 @@
   caseStudy: /case-study/auth0/
   industry:
     - Technology
+- id: awin1
+  title: Awin
+- id: awin2
+  title: Awin
 - id: axonius
   title: Axonius
   industry:

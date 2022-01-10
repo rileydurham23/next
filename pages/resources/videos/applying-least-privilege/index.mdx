@@ -1,0 +1,273 @@
+---
+title: "Applying Least Privilege in Kubernetes"
+alternateTitle: "How to Apply Least Privilege in Kubernetes"
+description: "Jonathon Canada discusses best practices for implementing least privilege and enforcing zero trust principles within Kubernetes clusters."
+layout: tutorial
+publicationDate: "2021-09-29"
+associatedLabels: ["access", "teleport", "kubernetes", "zero trust", "rbac"]
+videoId: "JWUjV6wWIJ4"
+videoLength: "31:36"
+---
+
+## Overview
+
+Scalability and Cloud-Native have driven the demand for Kubernetes, but the developer now has the harder task of building applications in a
+secure manner. This talk will focus on best practices for implementing least privilege and enforcing zero trust principles within Kubernetes
+clusters. A how-to for implementing robust Role-Based Access Control (RBAC) tied into the corporate SSO/Identity provider using Teleport.
+
+## Applying Least Privilege in Kubernetes
+
+(transcript)
+
+**Vance:** 00:00:00.457 And now it’s time for the Teleport session at the Application Architecture Summit, where we’ll learn how to bring
+security to your Kubernetes projects. Let me introduce our speaker today, Jonathan Canada, senior solutions engineer at Teleport. Jonathan,
+welcome.
+
+**Jonathon:** 00:00:14.257 Thank you so much.
+
+**Vance:** 00:00:15.567 We’re glad to have Jonathan with us this morning. He is a Certified Kubernetes Administrator and a Certified
+Kubernetes App Developer. And before joining Teleport, he served at IBM and Palo Alto Networks. So he knows a lot about distributed
+environments. His session this morning, Applying Least Privilege in Kubernetes for those of you using Kubernetes for scale and cloud-native
+apps, Jonathan shares a valuable how-to session for securing Kubernetes. We’ll get some best practices for least privilege and zero trust
+with Kubernetes clusters. And Jonathan’s also going to give us a great demo on how Teleport really assist the security process. Just a quick
+note before we begin, feel free to download Jonathan’s slides. You’ll find they’re really valuable. Just hit the red button on the view
+screen. You’ll also see some links with some great resources also available free for you. And we love questions. So to share yours, just
+type in the submit a question box. So with that, Jonathan, let me turn it right to you and tell us about applying least privilege in
+Kubernetes.
+
+**Jonathon:** 00:01:13.550 All right. Thank you so much. So as I get into it, first let me talk about the agenda for today’s session. So
+I’ll start with a high-level overview of security, discussing attack surfaces, security architecture, and zero trust concepts. I’ll then
+move into speaking about using a unified access plane, also known as an access gateway, for accessing infrastructure. I’ll next discuss
+native RBAC capabilities within Kubernetes. Then, I’ll provide an overview of my demo environment, as well as the architecture of Teleport,
+followed by a demo. And of course, lastly, I will answer any questions that have been added to the Q&A chat.
+
+### Security overview
+
+**Jonathon:** 00:02:04.358 So in this section, I’ll define a few key security concepts so that we at least have a common set of definitions
+to work from. First one is an attack surface. So you can see the definition here, according to NIST. The real takeaway from this is that an
+attack surface describes all of the vectors for exploitation. So as you start adding things, infrastructure, people, applications to an
+environment that can increase the attack surface and add additional vectors for malicious actors to exploit an environment.
+
+**Jonathon:** 00:02:48.815 This slide discusses the different technology layers that you’ll find within an organization. As you look at each
+layer, you’ll want before an attack surface analysis for each one. So this first bullet point, networks, and infrastructure, some questions
+to ask for this are, how our users and devices accessing your networks and servers? Is SSH being used? What other protocols might be used
+throughout the network? Is it necessary to have all of those turned on? Applications. What applications are you running in your network? Who
+has access to those? How are those being secured, as well as the underlying operating system and host? And how is that data being protected?
+
+**Jonathon:** 00:03:38.417 Then, you have your endpoints. So how do you control which users are authorized to access different parts of your
+network and the different hosts, the different servers? Lastly, cloud. Are there any misconfigurations throughout your cloud environment? Do
+you have open S3 buckets? Are API keys not being shared or not rotated? And the point of this is a Kubernetes deployment covers all of these
+layers. So Kubernetes can have applications running in its clusters. You have to think about the infrastructure that those clusters are
+running on and also the endpoints that your users are accessing the Kubernetes clusters from.
+
+**Jonathon:** 00:04:23.567 The last high-level security concept I’ll mention here is zero trust. So according to Forrester, these are the
+three main concepts of a zero-trust environment. So definitely keep this in mind as you go about implementing a Kubernetes cluster. And how
+Teleport can help an organization achieve zero trust-based off these three concepts, at least at a high level, is Teleport uses end-to-end
+TLS encryption. So all resources can be accessed securely, regardless of the location of those resources. So even if they’re on-prem, if
+they’re in the cloud, Teleport can be used to securely access everything. With Teleport, you can map identities that exist within your SSO
+to groups that exist within your Kubernetes clusters. So that’s taking advantage of Kubernetes’ native RBAC capabilities, which I’ll discuss
+in a few slides. Lastly, with Teleport, you can capture every single kubectl request, as well as every kubectl exec session. So you can have
+every action a user takes within your Kubernetes cluster tied back to their specific identity as it is within your SSO. And additionally,
+have an entire screen capture of what they are doing when they exec into a particular pod.
+
+### Access plane
+
+**Jonathon:** 00:05:59.658 So I’ll now discuss using a unified access plane. So when you talk Kubernetes, as I mentioned before, there’s
+going to be multiple layers that you have to think about securing. And also, you have to think about multiple clusters. Most organizations
+will have multiple environments, maybe development clusters, staging clusters, production clusters, etc. You might have multiple clusters
+per region. But in order to deal with all of these multiple clusters, you really want to centralize the access. So you want to really pipe
+all of your developer access to your clusters through a single gateway so that you can enforce your policies there. And with that gateway,
+that’s also a great place to attach your single sign-on identities, any requests, and any modifications. So with that, you can get
+accountability and user attribution from everyone in your organization about who does what and when through your production and staging
+environments or any other environments that you might have. So you really want to make sure that the Gateway only allows SSO users through
+and records their identity with any of their requests.
+
+**Jonathon:** 00:07:23.988 The other thing, too, is even though you’re using Kubernetes, and it hides a lot of the underlying hardware and
+infrastructure, as I mentioned before, it’s all still there under the hood. So there’s still operating systems. There’s still applications
+that are running their servers. And you most likely will still manage all of those systems that Kubernetes is running on via SSH or
+something similar. So you don’t want to forget about those aspects. So do all of that same enforcement that I’ve mentioned for Kubernetes as
+you do for accessing that underlying infrastructure. So that means attaching your SSO identities to all of your access control. When using
+SSO identities, you should map users and groups in your identity provider to groups that you create within your Kubernetes clusters. And
+that group mapping within Kubernetes can be created using Kubernetes’ role-based access control, which is what I will now get into in these
+next slides.
+
+### Role-based access control (RBAC) with Kubernetes
+
+**Jonathon:** 00:08:38.570 So this is Kubernetes’ definition of what role-based access control is. The point of this is used least privilege
+and grant access based off of a user’s role within your organization. Now, as far as native Kubernetes RBAC goes, the two main ways of doing
+that are using either roles or cluster roles. So again, these definitions come straight from the Kubernetes’ documentation. But in my demo,
+I will demonstrate using a Kubernetes’ role rather than a cluster role to limit a group to a single namespace. So be on the lookout for that
+in my demo.
+
+**Jonathon:** 00:09:24.832 So an overview of my demo environment and architecture of how Teleport works. Here on the left side will be me.
+This is some user who needs access to some piece of infrastructure. With Teleport, you can access as SSH servers, Kubernetes clusters,
+databases, as well as internal web applications. In this demo, I’m going to focus on Kubernetes’ access. So how I go about getting a
+kubeconfig that I can use for interacting with my Kubernetes clusters is I will use `tsh`, which is Teleport’s CLI tool. So I’ll use tsh to
+log into a Teleport proxy that I’ve set up in my own environment. And I’ve also set up an integration with my SSO provider. I’m using Auth0.
+
+**Jonathon:** 00:10:22.988 So when I do this `tsh login` to Teleport proxy, it’s going to start the SSO sign-in. So that’s going to handle
+the authentication side of my Teleport cluster. The things that I’m actually authorized to access will be based on a Teleport role that I’ll
+receive. So with Teleport, you’re able to map the groups that exist within your identity provider to roles that you can create within
+Teleport. So some of those things you can specify in a Teleport role are what users somebody is allowed to SSH as, how long their access is
+good for, what Kubernetes groups they get to be a part of, and also what labels they are allowed or not allowed to access. So with Teleport,
+you can associate labels with all of your infrastructure and then allow or deny based on those labels.
+
+**Jonathon:** 00:11:24.494 So assuming I have authenticated via SSO, I receive some Teleport role that authorizes me to access my Kubernetes
+clusters. The things that are authorized in that Teleport role get encoded into short-lived certificates that are then issued to me, and
+that also includes a short-lived kubeconfig. So with Teleport, you don’t have to worry about people sharing their kubeconfigs. Once you have
+Teleport, people will have short-lived kubeconfigs automatically appended to their local kubeconfig. And as I mentioned during my previous
+slides, every action that a user does using kubectl will be recorded and tied to their identity as it is within your SSO. So you don’t have
+to guess who did this random kubectl created some resource. You’ll see specifically which user did that action.
+
+### Demo environment overview
+
+**Jonathon:** 00:12:26.691 I will now switch over into my demo environment. So in my slide, I mentioned how users will always log in through
+the Teleport proxy. The proxy also serves a UI that can be accessed in a Web browser. So this that I have on my screen is a Teleport proxy
+in my Teleport cluster. Auth0 is what I’m using for SSO. So if I click this Auth0 button, it does my SSO sign-in. Then, I choose my Google
+account here for Teleport. And when I arrive in here, I’ve set this up so I have an admin role that I receive. So I’m able to see all of the
+servers that are part of my Teleport cluster applications that I have, my Kubernetes clusters, as well as databases that I’ve added to my
+Teleport cluster. And if you’ll notice for all of those that I click through, I have labels for each of these. So with these labels, you can
+associate labels with all of your infrastructure, and then in your Teleport roles, allow or deny access based on those labels. So since I’m
+the admin, I’ve set it up so I can see everything.
+
+### Demo
+
+**Jonathon:** 00:13:49.362 What I’ll do now is I’ll switch over into my terminal window so I can show you what happens when I login in a
+terminal window and start accessing my Kubernetes clusters in my terminal window. Here in my terminal window, I’m going to use TSH to log
+into the same proxy that I was interacting with in my Chrome browser. So if I hit Enter, it’s going to start this single sign-on flow again.
+So just like before, I’ll choose my Teleport account. It tells me login successful. So if I return to my terminal window, I can see
+information about what I’m authorized to do. So what Teleport cluster and logged into, Teleport roles I receive, other information,
+Kubernetes groups I get to be a part of. And if I do tsh kube ls, I’m able to see those same three Kubernetes clusters that we saw in my web
+browser. And if I issue a kubectl command — so a `kubectl get pods` — you’ll notice right now it selected this first Kubernetes cluster. So
+that returned information. If I take this to exec into that pod, Teleport is going to capture everything that I do in this session. This
+exec session here. So if I exit, I’ll return to my web browser so that you can see the audit logs that Teleport is capturing.
+
+**Jonathon:** 00:15:42.816 So here, back in my web browser, if I go back to the audit log, here’s where I can see these Kubernetes requests.
+So if I view the details on one of these, Teleport is creating these JSON formatted logs. So this was my GET. Pods. What namespace it was
+in. And as I mentioned, everything I do is tied to my specific identity. The other thing I can do is if I click this button, this is the
+playback of when I exec’d into this pod. This can also be played back in my terminal window. It doesn’t have to be in this web browser that
+you do this.
+
+**Jonathon:** 00:16:28.529 So this time, I’ll do `tsh login` again, but I will choose my personal Gmail account that I’ve set up to receive
+a role that by default does not have permission to access anything. So if I hit Enter, it brings up the SSO sign-in again. This time, I
+choose my personal Gmail account. And if I return to my terminal window, here I can see that I’ve received some role called `contractor`. If
+I try to view the Kubernetes clusters that are part of this Teleport cluster using `tsh kube ls`, I can’t see anything here. But what I can
+do with Teleport is I can request a more privileged role. So the role that I’m going to request is a role called devrole. And if I go into
+my Chrome browser, I can show you what is authorized with that `devrole`. So here in roles, let me look at this devrole. So when I request
+the devrole and approve that request, I will be allowed to access any applications that have a label of type equals kube. I will be able to
+be part of the devs Kubernetes group that I’ve created in my Kubernetes clusters. I will also only be able to access Kubernetes clusters
+that have this label of environment equals staging. So as this admin user, if you recall, I can see all three of these Kubernetes clusters.
+With that devrole, they will only be able to see these two because of this environment equals staging label.
+
+**Jonathon:** 00:18:15.984 So if I return to my terminal window, I’m going to request that devrole. You can see seeking a request approval.
+What I’ve also done is I’ve set up an integration with Slack. So that any requests for a more privileged role will go through the Slack
+channel that I’ve set up so I can see that this user is requesting this role. Here’s a link that I can follow. If I follow this link, it
+takes me back to where I’m logged in as this admin user and I can approve or deny this request. I’ll approve it. I can provide a message if
+I want. Submit my review. I return to my terminal window. You can see that the approval was received. The reason. Go ahead. Which gave me
+updated certificates. And now you can see I’ve received this devrole, which now gives me an additional user I could SSH as, as well as a
+Kubernetes group that I can be a part of. And you can see that my access is only valid for about an hour. So now if I do my tsh kube ls, it
+shows those two clusters because they have the label of environment equals staging. And now if I do my-- let me first select one of those.
+
+**Jonathon:** 00:19:51.836 So I’ve selected that first Kubernetes cluster. If I try to do kubectl get pods in the default namespace, it’s
+going to return an error. What I’ve also done for this user is I’m enforcing per-session MFA. So even though they have authenticated,
+they’ve received certificates, in order for them to actually use those certificates, they need to either use a YubiKey or an authenticator
+app of some kind. So I just tapped my YubiKey. And as I said, I’m forbidden from doing that action of get pods in the default namespace. The
+reason for that is because I’ve created a Kubernetes role for the devs group and the devs group is only allowed to do actions in the dev
+namespace that I’ve created. So if I do `kubectl get pods`, specify the namespace of dev, tap my YubiKey again, so now it returns stuff. So
+this user, they can only be a part of the devs group. They can only access those clusters that have the label that has been specified in the
+Teleport role that they’ve received.
+
+**Jonathon:** 00:21:09.192 One very last thing that I will show in here is I can also lock a user out. So even though they have valid
+certificates, I can force them to no longer be able to use those certificates. So if I return to my Chrome browser where I’m here as my
+admin user and I’m going to ssh into this one server. So if I SSH, I’ll just go as root to use `tctl`. So tctl is an admin tool from
+Teleport. So I can use this to lock that user. And I’m going to lock them out for five minutes. So a lock has been created for them. If I
+try to do kubectl or anything, you can see that there’s this lock targeting me. So in addition to all these controls in place, role-based
+access control, you can take it a step further and lock users out if you need.
+
+**Jonathon:** 00:22:30.870 I will now return to my slides. To summarize what was covered, remember that Kubernetes expands the attack
+surface of your environment. So if you introduce a new layer, you have to make some other layer less relevant. So turn off SSH for the
+majority of your engineering team. Having both present increases the probability of you getting compromised. If you do have SSH enabled in
+your Kubernetes clusters, make sure to apply role-based access control and synchronize the two so that they have the same authentication
+gateway and the same access gateway. Access to all your different environments — dev, prod, etc. — should all be controlled through the same
+gateway for access and for authentication. Role-based access tied to your SSO identities should also be used. And be sure to also regularly
+inspect and audit all access. Thank you for attending today’s session. For next steps, here are a few links I recommend viewing. I highly
+recommend watching this first webinar, Best Practices for Auditing Kubernetes, to learn about additional best practices on auditing,
+logging, and alerting in Kubernetes. Also, check us out on GitHub. And finally, we are hiring for multiple roles, so please join us if
+you’re excited about what we’re doing here. Now, for Q&A.
+
+### Q&A
+
+**Vance:** 00:24:10.854 Jonathan, thanks for a great session. And we love demos here to see exactly how the front-line folks actually put
+technology solutions to work. So thanks for that too. A really great session. Thanks.
+
+**Jonathon:** 00:24:22.247 Thank you.
+
+**Vance:** 00:24:23.705 So Jonathan, a lot to digest here. Just before we get into some of the Teleport implementation questions that we
+have, let’s kind of just explore at the first level. You mentioned a couple of times Kubernetes expands the attack surface. A couple of
+comments and notes here. Where do you see the most prevalent vulnerabilities? And if you can, how frequently do they occur?
+
+**Jonathon:** 00:24:43.464 They occur very frequently. What I see is people using a lot of just default configurations with Kubernetes. I
+think a lot of organizations, as I mentioned in my slides, kind of forget about how many pieces are part of Kubernetes. So the operating
+systems that Kubernetes is running on, forgetting to patch those operating systems. Not limiting network connectivity between different
+pods, different Kubernetes clusters. A big one that I see is people just sharing kubeconfigs. So they’ll create their Kubernetes cluster,
+generate a kubeconfig that allows somebody to be part of the System Masters Group, and then just give that same kubeconfig to everyone. So
+that kubeconfig is now out in the wild. There’s no expiration on it, and it has the keys to the kingdom for the Kubernetes clusters. So the
+big thing is making sure that you’re scanning your containers and pods for vulnerabilities, misconfigurations. A great starting place for
+securing Kubernetes clusters is also the recent NSA and CISA guidance. They came out with a guide called Kubernetes Hardening Guidance. And
+it was created as a response to the rise in supply chain attacks via Kubernetes. So definitely a great resource to use.
+
+**Vance:** 00:26:18.199 Very good. Very good. So let’s get into a couple of implementation questions here. And the first one kind of goes to
+the whole issue of how difficult it is to do access control for Kubernetes without Teleport. And I know you gave some good demos, but the
+question here says, how do you add Kubernetes clusters to a Teleport cluster?
+
+**Jonathon:** 00:26:38.539 There’s a few ways to do that. Definitely, the easiest and quickest way is we have a home chart that installs a
+Teleport agent into your Kubernetes cluster. So the first thing you would do is you would set up a Teleport cluster. So you would have your
+Teleport proxy, your Teleport authentication server. And that can be located in Kubernetes. That can be located on virtual machines. So if
+you’re in the cloud, you see two instances, for example. Once you have that Teleport cluster set up, when you install the Teleport agent
+into your Kubernetes cluster, that Teleport agent, it’s installing a Teleport pod into your Kubernetes cluster. That pod will then establish
+a reverse tunnel back to your Teleport proxy. Once that’s established, that Kubernetes cluster will appear as part of your Teleport cluster,
+just like you saw in my demo where I had those three Kubernetes clusters. And then when some user issues kubectl commands against that
+Kubernetes cluster, Teleport is proxying all of those requests and capturing all those audit logs. Another way is you can take your
+kubeconfigs from your clusters. You can put them directly onto your Teleport proxy. So that’s another method of adding all of your
+Kubernetes clusters. But I think the best way is that kube agent method that I’ve described.
+
+**Vance:** 00:28:15.724 Very good. Very good. And here’s another related question on getting started with Teleport. We use a security
+information event management platform. Can Teleport logs be sent to the SIEM?
+
+**Jonathon:** 00:28:28.012 Absolutely. We have several native integrations with AWS, GCP. We’ve also created a Fluentd plugin. Fluentd’s an
+open source event handler. So you can use that to send the logs to wherever you need. Also, because most of our customers are self-hosting
+Teleport, we do have a SaaS offering called Teleport Cloud. But if you are self-hosting Teleport, it’s easy to send those logs wherever you
+need to.
+
+**Vance:** 00:28:59.751 Jonathan, you mentioned SSH. A lot of people are familiar with it. Use it, in fact. Just out of curiosity, does
+Teleport support any other protocols?
+
+**Jonathon:** 00:29:08.385 It does. It supports MySQL, PostgreSQL, MongoDB, Redshift, and HTTPS too for the applications. So if you have
+internal web applications, you can use Teleport for accessing those. Very soon, we will also be releasing support for remote desktop
+protocol and accessing Windows servers. So that’s something we are super excited about. And we are continuing to work on and we’ll soon be
+adding additional databases as well.
+
+**Vance:** 00:29:44.494 So, Jonathan, this has been fantastic. I see time is running out, but we can’t let you go without giving us a hint
+as to how folks can learn more and maybe even go hands-on with Teleport. Give us a sense of what the next step would be for our audience
+this time.
+
+### Next steps
+
+**Jonathon:** 00:29:59.137 Yeah. So for next steps, there definitely is a trial available for Enterprise features. You can go to our website
+to request more info on that. You can also go to our GitHub repository and start using our open source offering right now. So on there,
+you’ll find Docker Compose examples. Helm charts you can use for installing Teleport into Kubernetes. We have Terraform templates that you
+can use. So go to our GitHub right now. You’ll be able to see all that and right away, start using Teleport.
+
+**Vance:** 00:30:34.939 Fantastic. Fantastic. Jonathan Canada, senior solutions engineer at Teleport. Thanks again for a great session.
+Kubernetes is getting more and more momentum all the time, especially among our audience here at the integration developer news, and we
+really appreciate getting a sense of what the latest way is to make securing Kubernetes clusters really easy. Really appreciate the session
+and thanks for the questions.
+
+**Jonathon:** 00:30:57.175 Thank you so much. I really appreciate you having me here. Thank you.
+
+**Vance:** 00:31:01.123 Our pleasure, for sure. Our pleasure. And just a quick note, Jonathan mentioned some great next steps, as well as
+some ways to learn more about Teleport. Luckily, we have most of those right here under the view screen, including that link to the open
+source GitHub and the free trial. So be sure to take a look at those assets along with the other PDFs we have here in the room. And as you
+can tell, there is a ton going on at Teleport these days. We didn’t have room for everything. So here is a handy slide that’ll take you to
+some other great assets. Just download Jonathan slides this morning and all these links will be live. Thanks again, everyone, and thanks for
+some great questions.

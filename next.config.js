@@ -5,21 +5,25 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 const mdxSiteOptions = require("./.build/server/mdx-config-site");
 const mdxDocsOptions = require("./.build/server/mdx-config-docs");
-const { loadSiteConfig } = require("./.build/server/config");
+const { loadConfig } = require("./.build/server/config-site");
 const {
   getRedirects,
-  getLatestVersionRewirites,
   generateSitemap,
   generateFullSitemap,
 } = require("./.build/server/paths");
 
-const { latest } = loadSiteConfig();
+const { latest } = loadConfig();
 const PAGES_DIRECTORY = resolve(__dirname, "pages");
 const CONTENT_DIRECTORY = resolve(__dirname, "content");
 
 module.exports = withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-  rewrites: async () => getLatestVersionRewirites(),
+  rewrites: async () => [
+    {
+      source: "/docs/:path*",
+      destination: `/docs/ver/${latest}/:path*`,
+    },
+  ],
   redirects: async () => getRedirects(),
   images: {
     path: "/_next/image/",

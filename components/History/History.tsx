@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
 import { all, StyledSystemProps } from "components/system";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Heading from "components/Heading";
 import Box from "components/Box";
 import { ReactNode } from "react";

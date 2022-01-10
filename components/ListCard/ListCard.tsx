@@ -84,7 +84,7 @@ export type ListCardItemProps = {
 
 export const ListCardItem = ({
   children,
-  icon = "circleCheck",
+  icon = "success",
   iconColor = "dark-purple",
   mode = "normal",
   title,

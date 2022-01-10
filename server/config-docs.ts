@@ -1,19 +1,104 @@
+/*
+ * Each version of the docs has it's own config stored at
+ * /content/X.X/docs/config.json. This file normalises and validates
+ * these config files.
+ */
+
+import Ajv from "ajv";
+import { validateConfig, redirectsSchemaFragment } from "./config-common";
 import { Redirect } from "next/dist/lib/load-custom-routes";
 import { resolve } from "path";
 import { existsSync, readFileSync } from "fs";
 import { isExternalLink, isHash, splitPath } from "../utils/url";
 import { NavigationCategory, NavigationItem } from "../layouts/DocsPage/types";
-import getConfig from "./config-site";
+import { loadConfig as loadSiteConfig } from "./config-site";
 
+const { latest } = loadSiteConfig();
 export interface Config {
   navigation: NavigationCategory[];
   variables?: Record<string, unknown>;
   redirects?: Redirect[];
 }
 
-const normalizeDocsUrl = (version: string, url: string, raw?: boolean) => {
-  const { latest } = getConfig();
+const getConfigPath = (version: string) =>
+  resolve("content", version, "docs/config.json");
 
+/*
+ * Try to load config file and throw error if it does not exists.
+ */
+
+export const load = (version: string) => {
+  const path = getConfigPath(version);
+
+  if (existsSync(path)) {
+    const content = readFileSync(path, "utf-8");
+
+    return JSON.parse(content) as Config;
+  } else {
+    throw Error(`File ${path} does not exists.`);
+  }
+};
+
+/*
+ * This a JSON schema describing content/X.X/docs/config.json file format, if actual config
+ * have wrong fields or don't have something required, it will throw error then we try
+ * to start dev or build mode.
+ */
+
+const ajv = new Ajv();
+
+const validator = ajv.compile({
+  type: "object",
+  properties: {
+    variables: {
+      type: "object",
+    },
+    navigation: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          icon: { type: "string" },
+          title: { type: "string" },
+          entries: {
+            type: "array",
+            items: {
+              type: "object",
+              $id: "navigation-item",
+              properties: {
+                title: { type: "string" },
+                slug: { type: "string" },
+                entries: {
+                  type: "array",
+                  items: { $ref: "navigation-item" },
+                },
+              },
+              required: ["title", "slug"],
+              additionalProperties: false,
+            },
+          },
+        },
+        required: ["title", "icon", "entries"],
+        additionalProperties: false,
+      },
+      minItems: 1,
+      uniqueItems: true,
+    },
+    redirects: redirectsSchemaFragment,
+  },
+  required: ["navigation"],
+  additionalProperties: false,
+});
+
+/*
+ * We store relative paths in the config so we don't need to change them all
+ * when we add new version, but for next/link and next/router to work they should be absolte.
+ * So we are adding "/docs/ver/X.X/" or just "/docs/" for the current version here.
+ *
+ * Also we check that all links ends with "/: for consistency.
+ */
+
+const normalizeDocsUrl = (version: string, url: string, raw?: boolean) => {
   if (isExternalLink(url) || isHash(url)) {
     return url;
   }
@@ -48,6 +133,10 @@ const normalizeDocsUrls = (
   });
 };
 
+/*
+ * Here we normalize urls in the "navigation" section.
+ */
+
 const normalizeNavigation = (
   version: string,
   navigation: NavigationCategory[]
@@ -58,6 +147,10 @@ const normalizeNavigation = (
       entries: normalizeDocsUrls(version, category.entries),
     };
   });
+
+/*
+ * Here we normalize urls in the "redirects" section.
+ */
 
 const normalizeRedirects = (
   version: string,
@@ -72,20 +165,9 @@ const normalizeRedirects = (
   });
 };
 
-const getConfigPath = (version: string) =>
-  resolve("content", version, "docs/config.json");
-
-export const load = (version: string) => {
-  const path = getConfigPath(version);
-
-  if (existsSync(path)) {
-    const content = readFileSync(path, "utf-8");
-
-    return JSON.parse(content) as Config;
-  } else {
-    throw Error(`File ${path} does not exists.`);
-  }
-};
+/*
+ * Apply config normalizations (update urls, etc).
+ */
 
 export const normalize = (config: Config, version: string): Config => {
   config.navigation = normalizeNavigation(version, config.navigation);
@@ -99,4 +181,14 @@ export const normalize = (config: Config, version: string): Config => {
   }
 
   return config;
+};
+
+/* Load, validate and normalize config. */
+
+export const loadConfig = (version: string) => {
+  const config = load(version);
+
+  validateConfig(validator, config as unknown as Record<string, unknown>);
+
+  return normalize(config, version);
 };

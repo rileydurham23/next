@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import type { AppProps } from "next/app";
@@ -9,6 +10,53 @@ import { GTMPageView } from "utils/gtm";
 import { utmValidator, gValidator } from "utils/utm-cookies";
 import { Lato, UbuntuMono } from "components/Fonts";
 import GlobalStyles from "components/GlobalStyles";
+
+const { NEXT_PUBLIC_GTM_ID } = process.env;
+const { NEXT_PUBLIC_GTAG_ID } = process.env;
+
+const Analytics = () => {
+  return (
+    <>
+      {NEXT_PUBLIC_GTM_ID && (
+        <>
+          {/* Google Tag Manager */}
+          <Script id="script_gtm">
+            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                  })(window,document,'script','dataLayer','${NEXT_PUBLIC_GTM_ID}');`}
+          </Script>
+
+          {/* End Google Tag Manager */}
+          {/* Google Tag Manager (noscript) */}
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${NEXT_PUBLIC_GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+            }}
+          />
+          {/* End Google Tag Manager (noscript) */}
+        </>
+      )}
+      {NEXT_PUBLIC_GTAG_ID && (
+        <>
+          {/* GTag */}
+          <Script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${NEXT_PUBLIC_GTAG_ID}`}
+          />
+          <Script id="script_gtag">
+            {`window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', "${NEXT_PUBLIC_GTAG_ID}");`}
+          </Script>
+          {/* End GTag */}
+        </>
+      )}
+    </>
+  );
+};
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -56,23 +104,29 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   if (router.route.startsWith("/docs/")) {
     return (
-      <DocsContextProvider>
+      <>
+        <Analytics />
+        <DocsContextProvider>
+          <ThemeProvider theme={theme}>
+            <Lato />
+            <UbuntuMono />
+            <GlobalStyles />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </DocsContextProvider>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Analytics />
         <ThemeProvider theme={theme}>
           <Lato />
           <UbuntuMono />
           <GlobalStyles />
           <Component {...pageProps} />
         </ThemeProvider>
-      </DocsContextProvider>
-    );
-  } else {
-    return (
-      <ThemeProvider theme={theme}>
-        <Lato />
-        <UbuntuMono />
-        <GlobalStyles />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      </>
     );
   }
 };

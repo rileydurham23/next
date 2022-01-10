@@ -1,10 +1,11 @@
 import { Fragment, useMemo } from "react";
 import { MDXProvider } from "@mdx-js/react";
-import Drift from "react-driftjs";
+import Centrator from "components/Centrator";
+import Drift from "components/Drift";
 import SectionHeader, { BGColor } from "components/SectionHeader";
 import Section from "components/Section";
 import Head from "components/Head";
-import Layout, { Centrator } from "components/Layout";
+import Layout from "components/Layout";
 import Footer from "components/Footer";
 import NextImage, { ImageProps } from "next/image";
 import TryTeleport from "components/TryTeleport";
@@ -106,7 +107,7 @@ export const ContentPage = ({
             <MDXProvider components={components}>{children}</MDXProvider>
           </Centrator>
         </Wrapper>
-        <Drift appId={process.env.NEXT_PUBLIC_DRIFT_ID} />
+        <Drift />
         {accessPlane && (
           <SectionHeader
             mode="full"

@@ -24,7 +24,7 @@ const TopLinks: Array<TopLink> = [
     hrefName: "Quickstart Guide",
   },
   {
-    iconName: "documents",
+    iconName: "stack",
     href: "https://goteleport.com/docs/",
     hrefName: "Developer Docs",
   },

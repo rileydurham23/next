@@ -5,21 +5,15 @@ hideWave: false
 border: none
 ---
 
-import {
-  AnnouncementBar,
-  Box,
-  Section,
-  PageIntro,
-  TryTeleport,
-  Flex
-} from "components";
 import NextImage from "next/image";
-import { Centrator } from "components/Layout";
-import {
-  CompactClients1,
-  CompactClients2,
-  CompactClients3,
-} from "components/AnnouncementBar/data";
+import AnnouncementBar from "components/AnnouncementBar";
+import Box from "components/Box";
+import Centrator from "components/Centrator";
+import Flex from "components/Flex";
+import PageIntro from "components/PageIntro";
+import Section from "components/Section";
+import TryTeleport from "components/TryTeleport";
+import { CompactClients } from "components/AnnouncementBar/data";
 
 <Centrator maxWidth="1240px" padding={["0 16px", "32px 80px 32px 32px"]}>
   <PageIntro
@@ -36,32 +30,33 @@ import {
   <Centrator maxWidth="960px"  px={[0, 3]} pb={[0, 8]}>
     <Section bg="flatWhite" fontColor="darkest" lineHeight="md" fontSize="text-lg" >
 
-    ## What is wrong with PAM 1.0?
+      ## What is wrong with PAM 1.0?
 
-    Legacy solutions for privileged access management were optimized for a traditional IT-centric, perimeter-based operational model that has been superseded by cloud computing. PAM 1.0 is characterized by:
+      Legacy solutions for privileged access management were optimized for a traditional IT-centric, perimeter-based operational model that has been superseded by cloud computing. PAM 1.0 is characterized by:
 
-    - Heavy reliance on information security teams for implementation and maintenance.
+      - Heavy reliance on information security teams for implementation and maintenance.
 
-    - Predominantly closed-source, proprietary solutions without the oversight of the open source security community.
+      - Predominantly closed-source, proprietary solutions without the oversight of the open source security community.
 
-    - Perimeter-based approach to security instead of adhering to Zero Trust principles, where networks no longer matter and cloud environments, remote workers, and edge servers are all first-class citizens.
+      - Perimeter-based approach to security instead of adhering to Zero Trust principles, where networks no longer matter and cloud environments, remote workers, and edge servers are all first-class citizens.
 
-    - Hostile user experience, particularly for developers, leading to reduced workforce flexibility and lower productivity.
+      - Hostile user experience, particularly for developers, leading to reduced workforce flexibility and lower productivity.
 
-    - Inability to take advantage of cloud-native technologies to operate at scale.
+      - Inability to take advantage of cloud-native technologies to operate at scale.
 
-    ## What is PAM 2.0?
+      ## What is PAM 2.0?
 
-    The next generation of PAM solutions must address the deficiencies of the legacy implementations above. Teleport does this by providing secure access for developers without getting in the way of their productivity. Teleport is different from legacy PAM solutions in the following ways:
+      The next generation of PAM solutions must address the deficiencies of the legacy implementations above. Teleport does this by providing secure access for developers without getting in the way of their productivity. Teleport is different from legacy PAM solutions in the following ways:
 
-    - Open source and developer-friendly, offering high-quality user experience and APIs for customization.
+      - Open source and developer-friendly, offering high-quality user experience and APIs for customization.
 
-    - Designed and built with a focus on cloud and edge computing.
+      - Designed and built with a focus on cloud and edge computing.
 
-    - Developers working from home or in coworking locations are first-class citizens.
+      - Developers working from home or in coworking locations are first-class citizens.
 
-    {/* SECURE INFRASTRUCTURE */}
-    ## Teleport Benefits
+      {/* SECURE INFRASTRUCTURE */}
+      ## Teleport Benefits
+
       <Flex flexDirection={["column", "row"]} justifyContent="space-between" alignItems="center" mt={-3}>
         <Box width={["100%", "50%"]}>
           #### SECURE YOUR INFRASTRUCTURE & MEET COMPLIANCE REQUIREMENTS
@@ -83,8 +78,8 @@ import {
         </Box>
       </Flex>
 
-    {/* HAVE COMPLETE VISABILITY DETAIL */}
-    <Flex flexDirection={["column", "row"]} justifyContent="space-between" alignItems="center" >
+      {/* HAVE COMPLETE VISABILITY DETAIL */}
+      <Flex flexDirection={["column", "row"]} justifyContent="space-between" alignItems="center" >
         <Box width={["100%", "58%"]} px={3}>
           <Flex my={4}  borderRadius="default" overflow="hidden">
             <NextImage
@@ -106,7 +101,7 @@ import {
         </Box>
       </Flex>
 
-    {/* IOT DETAIL  */}
+      {/* IOT DETAIL  */}
       <Flex flexDirection={["column", "row"]} justifyContent="space-between" alignItems="center" >
         <Box maxWidth={["100%", "41%"]} px={3} pb={2}>
           #### ONE GATEWAY FOR ALL OF YOUR CLOUDS, ON-PREMISE, EDGE AND IOT DEVICES.
@@ -128,17 +123,10 @@ import {
           </Flex>
         </Flex>
       </Flex>
-
     </Section>
   </Centrator>
-
   <Section bg="flatWhite" pt={3} pb={10}>
-    <AnnouncementBar
-      caseStudy
-      title
-      rows={[CompactClients1, CompactClients2, CompactClients3]}
-    />
+    <AnnouncementBar type="case" rows={CompactClients} />
   </Section>
-
 </Section>
 <TryTeleport />

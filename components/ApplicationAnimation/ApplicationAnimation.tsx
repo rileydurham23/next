@@ -3,7 +3,11 @@ import { AnimatedResetButton } from "components/AnimationUtilities/AnimationUtil
 import { ApplicationBrowser } from "components/AnimationUtilities/ApplicationBrowserAnimation";
 import Flex from "components/Flex";
 
-export const ApplicationAnimation = () => {
+export interface AnimationProps {
+  animationType: "application" | "desktop";
+}
+
+export const ApplicationAnimation = ({ animationType }: AnimationProps) => {
   const [containerState, setContainerState] = useState(0);
 
   return (
@@ -40,7 +44,7 @@ export const ApplicationAnimation = () => {
         maxWidth="588px"
         borderRadius="0 0 8px 8px"
       >
-        <ApplicationBrowser />
+        <ApplicationBrowser animationType={animationType} />
       </Flex>
     </Flex>
   );

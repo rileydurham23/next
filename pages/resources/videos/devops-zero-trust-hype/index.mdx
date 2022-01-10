@@ -1,0 +1,527 @@
+---
+title: "Zero Trust - Separating out Fact from Fiction"
+alternateTitle: "Is your Organization Compatible with Zero Trust?"
+description: "DevOps.com discussion on separating the Zero Trust marketing fluff from the practical aspects of Zero Trust and how it impacts your organization."
+layout: tutorial
+publicationDate: "2020-07-28"
+associatedLabels:
+  ["teleport", "SSH", "infosec", "PAM", "Sales", "OSS", "ZeroTrust"]
+videoId: "fNpCkm-MqiE"
+videoLength: "53:02"
+---
+
+## Zero Trust - Overview
+
+DevOps.com discussion on separating the Zero Trust marketing fluff from the real world. In this webinar, Teleport CEO, Ev Kontsevoy sits
+down with Virag Mody and talks through the practical aspects of Zero Trust and what is Zero Trust reality vs Zero Trust hype.
+
+[Zero Trust](https://goteleport.com/blog/vpns-and-zero-trust-thoughts-on-the-evolving-nature-of-remote-access/) has become the latest
+framework to solve all of our security woes. On its face, calling this framework Zero Trust doesn’t really make sense, since we’ll always
+have trust somewhere in the systems we deploy. Regardless, it has become the accepted terminology to help create the competitive matrices
+easily consumed by the Fortune 500 C-suite.
+
+Learn about how to bypass the buzzwords and how to break down Zero Trust in practical terms by comparing them with “traditional” network
+security models while focusing on the access portions of our networks that have traditionally been defended by VPNs.
+
+### Understanding More about Zero Trust
+
+- [VPNs and Zero Trust: Thoughts on the Evolving Nature of Remote Access](https://goteleport.com/blog/vpns-and-zero-trust-thoughts-on-the-evolving-nature-of-remote-access/)
+- [From Zero to Zero Trust](https://goteleport.com/blog/zero-to-zero-trust/)
+- [Applying the Principles of Zero Trust to SSH](https://goteleport.com/blog/applying-principles-of-zero-trust-to-ssh/)
+
+### Going beyond Zero Trust
+
+- [Sign up for Teleport Account](https://goteleport.com/pricing/)
+- [Download Telport](https://goteleport.com/teleport/download/)
+
+## Is Your Organization Compatible with Zero Trust - The details
+
+(Transcription)
+
+**Charlene:** Good afternoon, good morning, or good evening depending upon where you are in the world and welcome to today's DevOps.com
+webinar. I'm Charlene O'Hanlon, moderator for today's event, and I welcome you. As always, we have a great webinar in tap, but, before we
+get started, we do have a few housekeeping items we need to go over. First of all, today's event is being recorded, so if you miss any or
+all of the event, you will have the opportunity to access it later on. Following today's webinar, we will be sending out an email that
+contains a link to access the webinar on demand. And we are taking questions from the audience, so if at any time during today's
+presentation you have a question for either of our speakers, please, don't wait, don't hesitate, just use your GoToWebinar control panel and
+submit your questions, and we will try to get to as many as we can during the webinar today. Also happening at the end of today's webinar,
+we'll be doing a drawing for four $25 Amazon gift cards. So please stick around, hopefully, you'll be one of our four lucky winners. All
+right, with that, let's go ahead and kick off today's webinar which is, Is Your Organization Compatible With Zero Trust? Our speakers today
+are Virag Mody, who is enterprise sales development at Teleport, and Ev Kontsevoy, who is the CEO of Teleport. Gentlemen, thank you so much
+for joining me today. I really appreciate it.
+
+**Virag:** Thank you, Charlene.
+
+**Ev:** Thank you.
+
+**Virag:** Hi, everyone. Thank you for attending this webinar. We really appreciate your time. My name is Virag Mody, and for the next 45
+minutes or so, we're going to be discussing the challenges of modern network infrastructure and how it can be tackled with this so-called
+Zero Trust security model. Now, our goal here is to sort of separate the marketing fluff from perhaps some of the more salient principles of
+[Zero Trust](https://goteleport.com/blog/zero-to-zero-trust/). And, without a doubt, the term Zero Trust has definitely been co-opted for
+marketing, but I think to dismiss it as such would be a bit of a disservice because when you cut through the noise, there's something worth
+uncovering. And so to help us with the exercise, I'd like to introduce my cohost, the CEO and founder of Teleport, Ev Kontsevoy.
+
+### About Teleport
+
+**Ev:** Hey, thank you Virag. I don't quite like the fact that I was introduced as CEO of Teleport, but I'm an engineer, and I also don't
+like marketing fluff. So I'm covering what Zero Trust is all about — it’s very interesting for me personally. A little bit about myself, I
+was at a — I spent some part of my career at Rackspace, a significant cloud provider where we had seven different regions all over the
+world, and each region would be broken into multiple different form factors. We had private cloud and public cloud, and we rented dedicated
+servers. So it's so much infrastructure everywhere and with all kinds of customers. So, obviously, we were frustrated with the complexity of
+how you securely access this infrastructure, how you run the same application in many different regions at the same time. And customers
+would come to us asking exact same questions. So my experience there was just to realize that the world is confused what to do with all this
+complexity, especially with the shortage of talent that we have on security and on engineering side of the business in general. And that's
+really why we started this company, is just to dramatically simplify the problem of accessing infrastructure. And, yeah, happy to be here
+and talk about what we can do about it.
+
+**Virag:** Well, thanks for joining us. So like we were saying, given that Zero Trust is an evolution of ongoing security practices, I think
+it's important to take a quick moment and just talk about what has changed within organizations that has led to this new way of thinking.
+And nowadays —
+
+**Ev:** You mean like what — you mean like what used to be before, right?
+
+**Virag:** Right, exactly, what came before and what's changed over time. And currently a lot of modern infrastructure is fairly distributed
+whether it's across multiple clouds, whether it's on-prem, if you're using something as a service, what have you. But, earlier on, that
+surface area was significantly smaller, right, going back to sort of the founding days of networking where geographically, devices were
+significantly clustered together, the number of devices within a network was definitely more manageable, and all the resources that were
+being accessed and all the applications were entirely on-premise.
+
+### Perimeter Security Model
+
+**Ev:** So let's kind of dive into that and maybe use a simpler analogy. So basically what you're describing is what used to be called a
+perimeter security, right? it's a traditional model, and it makes perfect sense. Back in the day, even before we had computers, how do we,
+as humans, think about security? How do we secure our stuff, our possessions? So we basically have — let's just imagine you have an
+apartment or house. So everything inside of that house is yours, and you obviously own all of these things, the microwave, the fridge, the
+TV set. But you don't want strangers to be using these things. You don't want them to come in and eat your food. So you put a door — and,
+actually, I see the slide that Virag put on there, so it talks about perimeter security models. So you have your apartment on the right with
+all of your appliances inside it like resources. So the door is what you use to regulate who gets access to your stuff, and whoever has the
+key, that person can come in and eat an apple out of your fridge. In this model, everything that's inside is automatically trusted. So if a
+person is inside of the apartment, it means that the fridge makes no assumptions about that person other than full access because you are on
+the inside. And so many of our systems today are basically designed with this, what I would call apartment security in mind, that we trust
+you based on where you are, not based on who you are. And if you are inside of the apartment, you're one of us. And if you're outside,
+you're one of them. So no access. And, look, this worked really, really well for a long time.
+
+**Virag:** Yeah. I think you sort of hit the nail on the head there, right, with this sort of apartment analogy where those within the
+apartment are considered sort of part of the group, right? They're safe. They're secure. And those that are outside of the apartment are
+untrusted. And so, conceptually, we started with this model where you had an us versus them sort of topological map of the network. And this
+was the perimeter model, [inaudible] model, whatever you'd like to call it, but as networking technology advanced over the time, this
+infrastructure, right, sort of the complexity within the apartment started to sprawl quite a bit. And, one, we saw devices that were allowed
+to access a network sort of grow exponentially and the geographic locations that they were located was spread out. We saw incomplete
+protections within the network. So, like you were saying, if you were within the apartment, you can open up a fridge, you can open up a
+microwave, you could do whatever you'd like. And so it was very easy to enter the network and then traverse from one point to another even
+if they were completely unrelated. And, finally - oops, sorry, working from home - the applications and the systems that organizations are
+used to using started to communicate over the web instead of just being on-premise, right, as you had sort of the API economy explode, and
+you have all these X as a service platforms come out.
+
+**Ev:** Yes. So the scaling, basically. We are operating at a much grander scale today. Think about a company like Netflix. So imagine you
+are an engineer on Netflix team. So what does it mean for Netflix to deploy into production? What is production for Netflix? Well, it's a
+collection of data centers all over the world that's where your video is being streamed from, right? So then you have the control, play, and
+all the menus, and the store hosted from multiple AWS regions and maybe they're even using some additional cloud providers too. Maybe
+they're using some machine learning capabilities on Azure in addition to AWS. But then they also have code running in millions of smart
+devices like in the inside of TVs and Playstations and probably some other things. But then in addition to that, think about the workforce.
+Do they all sit in the same building? No, but they probably have engineers scattered all over the world, not even in the same country.
+
+**Ev:** So it's easy to see that the apartment security model doesn't really work. The house security model is completely broken because
+Netflix is not really deploying within a secure perimeter anymore. The deployment target is planet Earth. It's actually one of the reasons
+why we called our company Teleport. So that is really why we are now being forced to adopt this Zero Trust model. So let's talk about what
+this actually mean, right?
+
+### Zero Trust Model
+
+**Virag:** Yeah. Yeah. Let's jump right into it. So I guess, no, start with the first question, what is Zero Trust? How would you define it?
+
+**Ev:** So you're asking me?
+
+**Virag:** Yeah, sorry. [laughter]
+
+**Ev:** All right. So let's move on to the next slide. So if the apartment model is not working, so what does it actually mean, [Zero
+Trust](/blog/zero-to-zero-trust/)? Look, as an engineer, I have a strange feeling towards the term Zero Trust. On one hand, I like it. On
+the other hand — simply because it starts with a Z, it's a really cool word like zero. It's very absolute, very, very definite. But, at the
+same time, from an engineering perspective, there's no meaning in it. What does it mean, Zero Trust? So, from an engineering perspective, I
+think it's a really simple concept. So what does it mean to move your organization towards a Zero Trust future, or what does it mean to
+build a Zero Trust system? Well, first of all, by going back to the apartment model, it means, the first principle, continuous
+authentication and authorization. What does it mean? It means that the door shouldn't matter. It means that your apartment is wide open and
+everyone can come in, but your fridge and your refrigerator and your TV and every resource you have inside, they need to assume that whoever
+is talking to them is a complete stranger, and they always have to authenticate and authorize. From practical terms, it means that every —
+as an engineer, it's a very healthy assumption to make that every machine on your infrastructure is fully exposed to the internet. There is
+no firewall in front of it. Every port is open. Not even iptables is present. Now, design your system to be secure under these conditions.
+So that's what it means to constantly doing authentication, authorization. And, by the way, it's a fool's errand unless you do the second
+principle, which means encryption all the time.
+
+**Ev:** Enter the encryption all the time simply because — look, if you're not encrypting, what's the point of authenticating and
+authorizing if everyone can steal a packet? And, finally, I would say the third principle of what it means to do Zero Trust properly is to
+authenticate against user's identity and use metadata if possible. So what does that actually mean? Again, going back to previous analogy
+with this apartment and a door. So whoever had the key could come in. It means that your entire security model is just basically — it was
+based on possession of a secret. Key is a secret. It's basically a physical object. And it's true with computers as well. But if you are
+moving into identity-based authentication, it means that you need to authenticate and authorize based on who that person is and also based
+on that metadata. So if you combine with the previous principle of continuous authentication authorization, it means that now you could say,
+"Well, if you're an employee of this company, and you are an intern, yeah, sure you could use the TV — I'm sorry, you could use the fridge,
+but you cannot use the freezer." So combining these three principles that's what it means, I think, to start moving your project or maybe
+your entire organization towards this kind of Zero Trust future.
+
+### Zero Trust Model Vs. Perimeter Security Model
+
+**Virag:** Yeah. And I want to sort of call out the difference between what we're talking about with Zero Trust from the sort of previous
+apartment security model where the implicit assumption, even if you were to use common networking security tools like VLANs, passing hosts,
+[VPNs](https://goteleport.com/blog/vpns-and-zero-trust-thoughts-on-the-evolving-nature-of-remote-access/), the implicit assumption is still
+that you can distinguish between people who are allowed in the network and people who are not. But moving to a Zero Trust model means that
+no one in the network is trusted to begin with, right? So as you were saying, really, anything can be exposed to the public internet. But
+through the methods of continuous authentication and authorization, through identity-based access, and through sort of end-to-end
+encryption, we're removing this idea that there is a safe space and an unsafe space, right? There is an us versus them. That no longer
+continues to exist. Instead, we have identity-based authentication. We no longer have location-based authentication authorization, right?
+
+**Ev:** Exactly. Location, it's a good thing you're bringing this up is that so frequently, engineers, they make security assumptions or
+even performance assumptions, all kinds of assumptions based on location of something. Location of an employee, location of a user, and
+sometimes location of a computing device, location of a server. And that is a bad assumption to make. So if, from the beginning, you can
+just assume that user can come from anywhere, hacker can come from anywhere, and the server itself could be anywhere, you don't rely on the
+server being behind a specific VPN, you don't rely — I'm sorry, behind specific firewall on the VPC. And you don't have to rely on obsolete
+solutions like we — that's actually on VPNs. I'm just observing this interesting phenomena that there are so many legacy solutions out there
+
+- VPNs is a good example - that they're just now finding the need, like, "Oh, we need to urgently rebrand ourselves
+  because VPNs are getting obsolete. Well, let's call ourselves a Zero Trust VPN." That makes no sense whatsoever. It's like selling
+  fat-free butter. VPN, by definition, the value of a VPN, where you say, "Here's IP address on one network, and IP address on another
+  network, and they can now talk to each other." But IP address identifies location, so which means, again, you're making this assumption
+  that it's really important for me to talk to a device at a specific address, which is very much not what Zero Trust is about. There's
+  probably not a single hardcoded IP address anywhere and Netflix software stack simply because making these assumptions is just absolutely
+  not something you should be doing in 2020.
+
+**Virag:** Yeah. I think you make a great point. I kind of want to dig into that a little bit to sort of this idea that VPNs are becoming
+obsolete almost seems a bit of a drastic sort of new way of thinking. But if we take a look at the popular sort of Zero Trust
+implementations that already exist, perhaps one of the most commonly known one is Google's BeyondCorp, right? And their sort of tagline is,
+networking without VPNs. So let's talk about that a little more, right? Why do you think this concept of Zero Trust negates the need for a
+VPN? What's different?
+
+**Ev:** Well, because VPN is the door in that apartment model. Excuse me. Let me just turn off the phone here a little bit. Because if you
+want location to be completely irrelevant in your system, it means that you need to define like — these are services I care about. These are
+my resources, could be databases, could be API endpoints. It could be whatever, things you type into your browser or things you feed into,
+and like API endpoint for microservice. So —
+
+**Virag:** Just to reiterate, why is location no longer relevant?
+
+**Ev:** Because then you don't have to build your security principles. Because if you make it as your assumption that this location is
+different from that location, it means that people on your team, they will start to dial in location into security assumptions. So from a
+security perspective, it should be completely irrelevant where a particular resource is located because if you violate this principle and
+then you have a hacker at a secure location, then it's not really Zero Trust anymore because in this kind of Zero Trust world, again, what
+you should embrace is this assumption that my resource, maybe my database, or my microservice is running on the machine accessible from a
+public internet. So that's what it means to have no location is that it has an endpoint. It could be hit from Australia. It could be hit
+from Africa. You're not limiting access to that machine from a specific VPC anymore. Again, you don't have to do that. That's the assumption
+that's healthy to make. So if all of your resources within your organization are built and protected with this assumption, then, of course,
+sure, put them on a VPC. But now if someone breaks into your VPC, it absolutely doesn't matter because everything is designed with this
+assumption that's it's in an open internet. And that's why VPNs makes no sense from a security perspective simply because they just
+represent a door into your apartment. And if you're saying apartment don't matter, then why would you need doors?
+
+#### Target's Retail Store Hack in the Context of Zero Trust
+
+**Virag:** That actually reminds there is a really prominent hack that happened back in 2014. So, Target, the retail store, was the victim
+of a major hack. I think thousands, if not more, or like tens of thousands of email and credit card information was released and stolen. And
+I think the way that that happened is really indicative of why the perimeter model is no longer sufficient or at least this way of thinking
+geographically based on your location is no longer sufficient. So what happened was, Target had contracted a third-party vendor for HVAC
+services. And the data that was being gathered by this HVAC service was fed into Target's larger network. And so what happened was there
+were these hackers that somehow got the access credentials to that HVAC unit, to that HVAC network, and were able to transverse from the
+HVAC unit all the way to the payments network within Target [laughter] because once they were accepted, right, we talked about this, once
+you're within the perimeter, you are an accepted, trusted agent. And there are no real restrictions within the network, right? There's no
+sort of — or very minimal additional segmentation. And so they were able to move from HVAC all the way to payments and were able to get away
+with all this credit card information. And this was 2014, right? Not a very long time ago.
+
+**Ev:** Not a long time ago. Yeah. It's basically like calling a repair technician to come and fix your AC in your apartment, and if you're
+using perimeter security, whoever hacks that technician, they get access to your fridge and they eat all the food, so, which means that your
+fridge should never trust anyone who is in the apartment. So this is where Zero Trust comes from. So you see, it's not just marketing
+bullshit. It makes perfect sense. This is why at the end of the day, I tend to like the term.
+
+**Virag:** So if you were to contextualize the Target hack in the terms of Zero Trust, right, if we're looking at this diagram on the screen
+right now, how could things have gone differently if they had a different model?
+
+**Ev:** So an organization like a Target, so they would need, first of all, to have a single source of truth that enumerates all people and
+all pieces of software, basically, all the robots, that should have access to resources. So you could use things like Active Directory for
+it, Okta. There are plenty of identity kind of platforms out there. They could even use things like GitHub or Google Apps. So then, they
+should have created a special group called maintenance for - I don't know - HVAC, right? And they should have added people who have access
+to HVAC to it. And before that contractor showed up, they should have asked for a certificate because certificate-based authentication is
+way better than key-based authentication because it includes all of this metadata about the person and it also expires automatically. So,
+maintenance people, they would use that certificate to access HVAC. And in the apartment analogy, it means that the certificate will — the
+fridge will give them access denied. The TV will give them access denied. Everything in that apartment will become completely locked down
+and only the air conditioning would be available for servicing. And even that will be automatically revoked at the end of the day because
+that's really how certificates work.
+
+**Ev:** I'm also noticing we're not really talking about [Teleport](https://goteleport.com/) which is our solution we're supposed to plug,
+right [laughter], because that's exactly what Teleport does for your infrastructure, for your SSH nodes and for Kubernetes clusters. So it
+basically completely moves away from keys and implements all of these Zero Trust principles for all of infrastructure access. Anyway, in
+this case, going back to Target, even if that contractor was compromised, okay, someone would have hacked into a fridge for eight hours —
+not fridge. I'm sorry. The air conditioning. So but the damage would have been limited both in scope and duration.
+
+**Virag:** And so that sort of brings me to my next point. This topic, as Zero Trust has gained a lot of momentum in recent years — I think
+originally it was sort of posed by an analyst at Forrester I think back in 2010. But, recently, we're seeing it a lot more. We went to RSA
+earlier this year, and it was sort of plastered everywhere, right? So what has changed? Why now? Why are we having this discussion now and
+not 3, 4 years ago?
+
+#### The Relevance of Zero Trust Today
+
+**Ev:** Actually, I think we did start this conversation 3, 4 years ago, but if you'll say why not 10, 20 years ago? Look, I think it's a
+carrot and a stick kind of situation. On the stick side, something is pushing us. We basically have no choice but to adopt this model. And
+the short answer there is scale. So my Netflix example, it might sound extreme to you, but, generally, what happens with technology is that
+what is extreme today will be the norm tomorrow. Today, you can go to San Francisco start-up scene, and you will notice that there are tons
+of start-ups, companies with 15, 20, 30 employees. And they already have multi-thousand server farms. They already use multiple cloud
+offerings. They already want to have presence in Asia, and they already have people who are remote. They already have employees who want to
+use their own devices. They are already using contractors and security auditors and whatnot. Now, look, that's like a two-year-old company,
+and they're already having to solve this scale problems that used to be common for large companies in the past. So apartment-based,
+perimeter-based security doesn't work for them anymore. So that's the stick. And now on the carrot side, we are now actually starting to get
+a new generation of tools that embrace this design by default, so it's just getting easier. And sometimes these tools are even more
+convenient than the old tools that we used to have for perimeter-based security. Again, [Teleport](https://goteleport.com/) , our own
+solution, is kind of similar to that. Again, it's open source, just like open SSH is. It has exact same command line. It doesn't require you
+to hire security professionals because it has all these defaults dialed in already, basically gives you Zero Trust by default, and you have
+to put in a lot of effort to misconfigure it, so. And the combination of these factors is what I think is moving us slowly into that
+direction.
+
+**Virag:** Yeah. And on the tool side, I also want to mention I think this current trend of designing applications using microservice
+architecture, specifically the tools that are enabled by Docker and Kubernetes. One of the key tenets of Zero Trust is being able to sort of
+wrap each individual resource around with its own sort of security protocol, right, this ability to authenticate and authorize based on the
+identity provider. And, originally, when you had these monolithic applications, you weren't able to sort of abstract these individual
+services. But now using microservice architecture, you can. And, as a result, all these individual resources, whether the databases, whether
+the applications, whether they're infrastructure, they themselves can be accessed using certificates, which isn't exactly possible for
+certain applications that are already in production when we're talking about, say, the legacy companies, right? And that leads me to my next
+question, which is, is Zero Trust really achievable for all organizations? Is that something that, whether you're a fresh start-up one year
+out or if you are AT&T and you've been around for over 100 years, is that something that you can meaningfully achieve?
+
+**Ev:** Again, everything is on a scale, right? So we all have legacy systems. We all have things we've invested in the past. And they're
+working just fine. And we manage to secure them, and they're doing just okay with the scale we have. Again, don't fix that's not broken.
+That's obviously something that's important to keep in mind. Don't re-architect for re-architecting sake. But also let's keep in mind too
+that even today, when you're starting a new project — and, look, software is not built from scratch. We're always standing on the shoulders
+of giants. We use a ton of open source in production. But it's important to pay attention to the default. For example, this weekend you
+probably saw it in the news, there was this new hack that someone was deleting thousands of databases all over the internet. It's because
+people had their database servers completely unprotected. So why are they exposed? Well, it's just because most databases, when you install
+them by default, their default configuration is not Zero Trust friendly. What does it mean? Encryption is not turned on. Even authentication
+is not turned on. If you're on Debian or Fedora, you apt-get or rpm install MySQL and then you get it up and running. So what you will see,
+you will see that MySQL is listening on unencrypted connection and there is no username and password most of the time, but not all of us. It
+might be limited to localhost connections only, but it might not. But even that is, again, a little bit of violation of open trust because
+if you're only listening on localhost, you're assuming that who is on this machine, they can access you.
+
+**Ev:** But anyway, so it's just dealing with this kind of legacy baggage of wrong defaults, I think, is a kind of big obstacle, which means
+that an organization, in order to implement Zero Trust, like, yes, you do need the — you need to have a certain degree of kind of technical
+competency on your teams. Having teams who understand at least some security is important, which brings me to this kind of one big
+overarching problem for all of this thing is basically talent shortage. We see talent shortage everywhere: design, development, security,
+infrastructure security. It's hard to find good people everywhere, which brings me back to — again, if you don't have a competent security
+team, just pay attention to products that are easier to use, based on open source and open standards because it gives you flexibility to
+move around. And that's really what Teleport exists to help people with, is that we are open source, open standards company that tries to
+make tools that doesn't require a PhD in infrastructure security to operate. And, look, we're not the only company that does that. Again,
+HashiCorp Vault is another fantastic example of you get something complex wrapped in a really, really neat package. And there are other
+examples out there. So, yeah, so companies that are not Netflix, companies that are not Google, they need to look for solutions that are
+built to kind of mimic and emulate Netflix and Google experiences but with much smaller requirements to kind of [inaudible] that are using
+those solutions.
+
+**Virag:** So I want to go to the attendee questions in a second here. But sort of just to wrap up here, talking about a zero organization,
+what do you think are some blockers for Zero Trust adoption, right? If you're looking for the right tools, if you're looking for the right
+talent, what are some challenges you can expect along the way?
+
+**Ev:** Oh, I think I mentioned couple of those. We can just quickly go over again. So a lot of our solutions that we're forced to build on
+top of, right, because there is, for example, no better open source relational database than Postgres. For most operating systems, the way
+you install Postgres, no, it doesn't have encryption turned on, and sometimes it doesn't have authentication. So it's just dealing with
+older software that by — actually, Postgres supports all these things. It can turn all of this on. But this kind of culture of having
+defaults that are optimized for ease of use as opposed to security, so that is definitely a challenge. And the second one is this confusion
+that exists in the marketplace because, look, there are plenty of legacy vendors out there. In fact, they already built their systems. I was
+using VPN as a poster child of that, but there are other technologies that basically make zero sense in the Zero Trust world. But they will
+be rebranding themselves. They will be slapping like, "Hey, now built with Zero Trust." And just making those technology choices is
+sometimes complicated.
+
+**Virag:** That's the marketing fluff, right?
+
+**Ev:** Yeah. Yeah. The marketing fluff gets in the way. It turns off —
+
+**Virag:** Really turns off the engineers. Well, thanks, Ev. So why don't we jump right into the audience questions now? It looks like we
+have a few. Charlene, do you want to take over here?
+
+### Q&A
+
+**Charlene:** Yeah, absolutely. We have received a couple of questions, but there's plenty of time for audience questions. If you do have
+one, just go ahead and use your GoToWebinar control panel and submit your question. Let's dive right into the first one here. So, this is
+for you, Ev. So when you said zero fat in butter, I think fat in butter — I think of fat in butter as a good thing. What is a good thing
+about Zero Trust model in regard to the fat or certain dependencies like certs? And how do you compare that to something like JumpCloud, or
+how do you compare to something like JumpCloud in regard to extending Active Directory and/or replacing Active Directory?
+
+**Ev:** [laughter] I like this butter. Look, I also like fat in my butter. I was referring to buying zero fat, no-fat butter has a bad
+taste.
+
+**Charlene:** Right. Right. Right. [laughter]
+
+**Ev:** I think we are on the same page. I haven't looked at JumpCloud for a while, so I don't exactly remember what their today's offering
+looks like. But extending Active Directory or replacing Active Directory question is an interesting one. I wouldn't replace Active
+Directory. Active Directory is a fine storage for your groups, for your users. It could be that single source of truth that you need in your
+organization to keep your workforce organized. But extending there, it means that, let's say, you're running internal application for your
+organization. And if your applications that are you're building yourself, if they have their own users databases, if they have their own
+role-based access control, so they have their own group definition, so this is you drifting away from this kind of Zero Trust concept
+because you already have all of that in Active Directory.
+
+**Ev:** So just configure everything. You authenticate users based on Active Directory identity, configure your application. So build your
+application to enforce role-based access control that you have already defined using Active Directory. So just utilize these investments
+you've made previously. And then there's, obviously, these kind of technical bits that — turn on encryption because if encryption is turned
+on, then it makes no sense if you're using these things or not, which also brings me to the second question I see there in chat is, how do
+you achieve Zero Trust? What are the steps to follow?
+
+**Ev:** Again, that's a really broad question. And if we remember that everything exists on this kind of spectrum, so you can slowly
+marching towards it. Start with the simplest thing, just enable encryption everywhere. And what's interesting is that most products and most
+open source solutions, they always give you this choice. And there's always this kind of default thing. So what I like about the newer
+tools, they make encryption easier by default and they make you do extra work to not have encryption. For example, Kubernetes, right, we all
+migrate into Kubernetes. So you could run Kubernetes on — and Kubernetes uses etcd as a data store. You could install etcd without
+encryption, but you have to type something like dash, dash, like warning dangerous, dash, dash [laughter] unencrypted. No. Don't do that.
+Just generate certificates, seed your cluster with certificates, make sure etcd is encrypted because, otherwise, what is the point because
+all of Kubernetes security machinery that comes later, they will be compromised forever because your etcd, which stores all of these things,
+is going to unencrypted. Yeah. Start there. And then, start migrating your applications to respect identity stored in your Active Directory.
+That would be next step.
+
+**Ev:** Again, our solution, [Teleport](https://goteleport.com/) — it does this for your infrastructure access. So a lot of organizations we
+see today, they have their regular users, people who work in accounting, marketing, whatever. They have this as a corporate, SSO second
+factor — all of these wonderful things. And then they have engineers that live in Ireland. They say, "Oh, we engineers don't need all of it.
+We're just going use these SSH keys that we're going to store in one pass, whatever." So that's your weak link. Why don't your engineers use
+an exact same identity-based identification to access infrastructure to run deployments? So that's basically where
+[Teleport](https://goteleport.com/) goes. Again, they don't have to pay us for it. It's open source. It comes with all these things. Start
+there. So that would be a first step.
+
+**Charlene:** Excellent. All right. Well, we've gotten a couple more questions. And before we get to those, there was another question in
+the butter fat question that we didn't address, and that is: What is a good thing about Zero Trust model in regard to the fat or certain
+dependencies like certifications?
+
+**Ev:** Hold on. I'm trying to find — dependencies like certifications. I'm not sure I understand what that means. If the person means that
+Zero Trust is a little bit more complicated because now you need to set up certificate authorities, yes. It is true. And this is what I was
+referring to, is that if you were to go and implement all these practices, just absolutely from scratch, you will have to have a competent
+security team that knows how to set these things up. But we are now moving into this world where there is new generation of solution
+providers who take care of these things for you. Again, I already plugged our own product multiple times. But, look, I encourage you to use
+Google. And I already mentioned HashiCorp Vault. Vault can be used to issue certificates, for example. Yes, you have to invest in this basic
+infrastructure to set this up.
+
+**Charlene:** All right —
+
+**Virag:** And, Ev, if you don't mind —
+
+**Charlene:** Go ahead.
+
+**Virag:** I also want to take a crack at the question. So another thing that I want to mention, looking at the diagram here, there's a
+major difference between the way that, say, certifications integrate themselves into a Zero Trust model versus something like simple,
+impersonal, dumb SSH keys. And the important thing there is that these certificates contain a lot more information about the identity of the
+person or the machine that is trying to access these resources. And so you can implement rules based on the metadata included within these
+certificates. And you can say things like, "Okay. This role is an intern. Therefore, they are not allowed access to staging environments or
+production environments. They're only allowed access to dev environments," right? Or we see something like the auditing logs here, and you
+can sort of recursively use that information to create even more narrow enforcement policies, where if you have some type of log saying,
+"Okay. This person ran this command. Automatically revoke their certificate because they're not allowed to do that," right?
+
+**Ev:** Yeah. Yeah. So, yeah, you basically referring to this question that I think Ken was asking, the thoughts on role-based versus
+attribute-based. A role is just an attribute. It's just one of these things that you could use to reason about what kind of access a person
+could have. So one of these capabilities that we're working on Teleport side is specifically it's called workflow API or it's like custom
+authorization. It's like you want in your organization to implement all kinds of rules. Maybe sometimes it can be a silly rule like if your
+last name starts with a K, you should not be able to access MongoDB staging instance between 2:00 and 4:00 pm, right? You will never be able
+to implement this rule using roles, right? But if you can implement — if you could write a tiny Python script that takes — it's basically a
+function that takes a person's identity, and then put all this logic in there in Python, and then it outputs like a boolean value, true or
+false, access denied, access granted, so you can feed that into Teleport, and every time someone to execute SSH command or access a
+Kubernetes cluster, we will run that for you. And so that allows you to implement any kind of security policy you want. So this is kind of
+the future that we're slowly moving towards, and look for solutions that enable similar capabilities for your systems.
+
+**Charlene:** All right. Great. We have a question here about the overhead that Zero Trust adds to existing systems. What do you think about
+that? Is that a misnomer? Is it something that organizations need to contend with?
+
+**Ev:** So, if I understand properly, what does Zero Trust add to existing systems, or maybe I missed it?
+
+**Charlene:** Yeah. The question is what do you think about Zero Trust and the overhead it adds over existing systems?
+
+**Ev:** So I think not being dogmatic is important. Let's do what makes sense. Personally, when I see what tools and solutions we use
+internally, a lot of software, even legacy software, can be configured with these kind of Zero Trust principles in mind. Our Jenkins server,
+for example, is configured — it pulls identities of developers from GitHub. We turned off its own internal database of users. Obviously,
+encryption is enabled. For example, even if we don't expose Jenkins publicly, it's still on a fully protected HTTPS endpoint even if we're
+only hitting it externally. It means if someone ever, for example, borrows my laptop and then tries to do something on Jenkins, well, they
+still have to go through GitHub to touch the Jenkins instance. So it's a perfect example of super legacy thing that we configured according
+to those principles.
+
+**Ev:** Again, Zero Trust is not a new technology. It's just a set of assumptions that you just assume that are true forever and ever and
+ever, and then you use whatever tools you have to implement them. I also wanted to address Alan's question that he says that certificate
+management is a nightmare. Yes. It has always been and it's becoming less and less so. On one hand, as engineers, we understand that
+certificates give — they have superpowers. They give you this magical ability to have this apartment where all of your devices — let people
+use portions of what's inside, like freezer versus the rest of the fridge. Okay. No question. And they expire automatically. And they give
+you fantastic audit logging, by the way, because inside of a certificate, you can inject so much metadata and all of that goes into your
+audit log that you will not get a rich visibility like that if you let people use just binary keys.
+
+**Ev:** Now, on the management side, we just need better tools. If you ask me why we built [Teleport](https://goteleport.com/), we actually
+had it on the slide because specifically to make it simple. Teleport has automatic certificate rotation. Your entire cluster, all of your
+nodes, all of your users, everything is certificate based, and it's full in autopilot, and you could have a sysadmin that manages it without
+even understanding what certificate is. So that knowledge is no longer necessary. And this is actually what happens with technology in
+general. We move forward and the tools become simpler and more powerful at the same time. Sometimes, they become more powerful and more
+complex, but, eventually, we figure this out and we simplify. That's really what this industry is all about.
+
+**Charlene:** All right.
+
+**Ev:** So, yes. It's complicated, but it's temporary. We're working on it.
+
+**Charlene:** [laughter] Excellent. Excellent. Well, a quick reminder to the audience. We have probably about seven minutes or so left in
+our question and answer period, so if you have a question, please go ahead and use your GoToWebinar control panel and submit it, and we'll
+just keep rolling right along here. Let's see. We do have a couple more questions. Does the presence and number of custom applications along
+with potential inherent technical debt present a challenge to enterprise adoption? If you believe so, what are some ways forward to overcome
+this challenge to successfully implement Zero Trust models?
+
+**Ev:** So this question is related to the previous one. Look, and sometime the answer is: there is nothing that can be done. I'm sorry, but
+this is true. I have seen legacy systems that are just engineered, I know, to run on a single super protected server, and there is nothing
+that can be done about it. And maybe the answer is, don't waste your time and just move forward and whatever new projects you're starting,
+let's just make these assumptions true. But sometimes it still pays to at least do an audit. Like you say, "These are five things we try to
+make true. Let's go and audit what we have today and see what it would cost me to — try to —" Again, turning encryption everywhere,
+sometimes it's really expensive and it's a nightmare. Sometimes it's relatively painless. Again, I'm not one of these technologist who
+always advocates for the latest and greatest. I do understand that system like the maintenance is very complicated topic, and, yeah,
+sometimes, there is no easy answer, not in 45 minutes on a webinar with a stranger on the internet.
+
+**Charlene:** [laughter] All right. Maybe in a bar with a beer, and —
+
+**Ev:** Yeah. Case-by-case basis. It's always an interesting conversation to have, but I would not try to generalize here because I
+understand that people's jobs and budgets depend on it and availabilities — it's serious business.
+
+**Charlene:** Absolutely, absolutely. All right guys. We have a couple more minutes left, so go ahead and get your question in if you have
+one. Here's one for you. What is a developer-friendly description of Zero Trust? Not that they don't understand the refrigerator concept.
+
+**Ev:** Oh, oh, we can go to those three principles and just compress them to three words: continuous authentication, authorization,
+encryption, and everything used to be based on identity, not on a binary key. So now it's not bullshit anymore, if we use very serious
+sounding words.
+
+**Charlene:** Exactly. Nothing marketing fluff about that one. Okay. Next question here. Are there any drawbacks to Zero Trust?
+
+**Ev:** Oh, yeah. We just covered it. The increased complexity especially in the early days. There is no doubt in my mind that eventually it
+will be factored into all the new software. It will be the default. It will be actually the easiest way to set things up. But, right now,
+we're in a transitional period where everything takes a little bit more effort.
+
+**Charlene:** Okay. All right, guys, that's actually our last question right now. So I think, Virag, I'm going to go ahead and send it back
+on over to you so you can do your conclusion, and then we'll move forward with the Amazon gift card drawing, so.
+
+### Recommended Next Steps
+
+**Virag:** Yeah. Sounds great, Charlene. Thank you. So, yeah, we're coming up on our time here. I want to thank everyone that took the time
+out of their busy schedule to attend today. We're very grateful, very appreciative. It's nice. So we've covered quite a bit in the past 45
+minutes to an hour about Zero Trust and, specifically, how its principles are better suited to handle the security challenges modern
+organizations face today. And before we sort of wrap up, Ev, is there anything else you'd like to mention before we close off?
+
+**Ev:** Not really. Really happy to be here. Thank you all for showing up. Thank you for very insightful and real-world questions because I
+do understand that we're all facing very difficult situations. Again, to remind everyone, especially engineers, what Zero Trust means, it's
+continuous authentication, authorization, and encryption. And you authenticate and authorize based on identity, again. And go check out what
+Teleport does because we would love to make this much, much easier for you. But the only problem we're focused on right now is
+infrastructure and Kubernetes access. So we can't really help you, not yet, with Zero Trust answer to all of your needs, but at least, on
+the infrastructure level, I do think we have pretty easy- to-use solutions.
+
+**Virag:** So if you'd like to learn more about Zero Trust modern security practices or really just Teleport as a whole, feel free to check
+out [our blog](https://goteleport.com/blog). And on behalf of everyone here at Teleport, have a nice day, take care, and be safe. Charlene?
+
+### Conclusion
+
+**Charlene:** All right. Yeah. All right. Great. Thank you, Virag. Let's see. I'm a little off of my schedule here [laughter]. So I just
+want to remind the audience that today's event has been recorded. So if you missed any or all of the event, you will have the opportunity to
+access it later on. Following today's webinar we are going to be sending out an email that contains a link to access the webinar on demand.
+And the webinar is also going to be living on the DevOps.com website, so you can always go find it there. Just go to devops.com/webinars.
+Look in the On Demand section and it should be right there waiting for you.
+
+**Charlene:** Okay. I did mention at the top of the hour that we would be doing a drawing for four $25 Amazon gift cards, so without further
+ado, let's go ahead and do that now. Our first winner today is Frank R. Congratulations, Frank. Our second winner today is Ken L.
+Congratulations, Ken. Our third winner today is Mirin L. Congratulations, Mirin. And our final winner today is Nicholas D. Congratulations
+to all four of you, and please check your inbox. We will be sending you information on your Amazon gift card. If you don't see it in your
+inbox, please check your spam folder. Ev and Virag, thank you both so much for a great presentation, lots of good interesting information.
+And, Ev, I have to tell you that your refrigerator analogy has made me hungry. So I'm going to go have lunch now.
+
+**Ev:** Yeah. Got to keep your food secure. [laughter]
+
+**Charlene:** Exactly. Thank you both so much for your time, your expertise. I really appreciate it, and I know the audience did too, so
+thanks again.
+
+**Virag:** Thank you, Charlene.
+
+**Ev:** Thank you.
+
+**Charlene:** Also want to thank the audience for joining me today. This is Charlene O'Hanlon, and I'm signing off. Have a great day,
+everybody, and please stay safe.

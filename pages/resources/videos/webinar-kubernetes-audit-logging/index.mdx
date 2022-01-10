@@ -1,0 +1,415 @@
+---
+title: "Best Practices in Kubernetes Audit Logging"
+description: "Ev Kontsevoy and Andrew Lytvynov discuss Kubernetes audit logs, what they look like in Sumo Logic and benefits using secure access tools - Teleport."
+layout: tutorial
+publicationDate: "2020-08-05"
+associatedLabels: ["teleport", "SSH", "infosec", "PAM", "Sales", "OSS", "k8s"]
+videoId: "XPpOZ_hiy1g"
+videoLength: "43:13"
+---
+
+## Best Practices in Kubernetes Auditing - Overview
+
+In this webinar, Ev Kontsevoy and Andrew Lytvynov have a conversation about Kubernetes audit logs, what they may look like in a platform like Sumo Logic, and the added benefits one could receive from using a secure access tool like Teleport for audit logs and alerts. Audit logs allow administrators a birds eye view of all security events, which makes them an essential part of any organization’s cybersecurity infrastructure.
+
+### Key Topics Covered in Auditing Kubernetes
+
+- Kubernetes native audit logging
+- Supplemental access logs from other sources
+- How to make these logs more practical
+- Log aggregation and processing
+- Log-based alerting
+
+### Key Takeaways to ensure successful K8s Auditing
+
+- K8s expands your attack surface as yet another platform layer
+- Minimize access to SSH
+- Synchronize SSH access with K8s
+- Consolidate access across all K8s clusters
+- Aggregate all types of audit information across all clusters in one place
+- Export audit logs into a specialized SIEM or logging platform
+- Treat audit as monitoring. Make effective use of audit data
+
+### Expanding your knowledge for Auditing K8s
+
+- [How Teleport Works](https://goteleport.com/how-it-works/)
+- [Get Teleport](https://goteleport.com/pricing/)
+
+## Auditing Kubernetes the Details
+
+(transcript)
+
+**Ev:** All right, shall we get started? It's 10:02. So I think it's time. So hello, everyone and thank you for joining us this morning. I'm
+Ev Kontsevoy, CEO of Teleport, and today we are going to be talking about Kubernetes security. All right, security is a big topic. And to be
+more specific, and also to make this time count to make it more efficient, we're going to zoom in, in just one aspect of Kubernetes security
+and that is the best practices for auditing it. As we go, please feel free to ask questions. Notice there's a little Q&A button on Zoom. You
+can click on it anytime and type in your question. And as we go, we'll be collecting questions and then we'll be answering them at the end.
+Also before we jump into juicy details and demo, we are — I want to introduce you to Andrew Lytvynov, a senior security engineer here at
+Teleport. Hey, Andrew, you have to unmute. So what makes you a good expert to talk about Kubernetes security features?
+
+**Andrew:** Hey, everyone. Yeah. I know a little bit about Kubernetes security. I worked for about two years on Google Kubernetes team, on
+the security team specifically and was pretty heavily involved with Sigaf, contributing various security features and fixes to Kubernetes
+itself. And right now, I'm also working on [Teleport](https://goteleport.com/), which among many other things, does security access control
+for Kubernetes and also audit logging for it.
+
+**Ev:** Yeah. So in case the audience doesn't know, Teleport is an open-source project that Teleport is working on that allows you to
+control access to all of your servers to your Kubernetes clusters and everything else. Also, let me introduce myself real quick. So why am I
+here? Why am I qualified to be on this panel? Well, that's because, again, I co-founded Teleport several years ago, engineer by training.
+And prior to starting this project, we were all basically working on cloud infrastructure at Rackspace, which back in the day, was one of
+the leading cloud providers, seven data centers, regions all over the world, many different infrastructure form factors. And all of our
+customers were constantly basically asking us for advice, "How to make my environment secure? How do I unify my security practices across
+cloud, on-prem, VMware, Openstack, AWS, Rackspace, Azure." And that's really why Teleport got started. And that's why we started working on
+this project.
+
+### Changes to Consider in Adopting Kubernetes
+
+**Ev:** So with introductions out of the way, let's dive into the main topic. Okay. Kubernetes. As organizations adopt Kubernetes as a
+primary method of getting their applications deployed, they have to remember that it's just yet another platform that they're running on and
+it's not really replacing anything else. It's running on top. It's just yet another layer of the technology stack. So it only adds to the
+surface area of a possible attack. Let's just remember that. And also let's go over what are the other basic layers that exist. So if you
+building on top Linux, which is obvious in this case, so that's one layer that you have to protect and you have to take care of. So the
+operating system layer of your stack. Then if you're running on a cloud platform like AWS or Azure, so remember that's another surface area,
+right, because someone can gain access to your AWS environment and then operating system security kind of doesn't matter at that point. So
+Kubernetes is one of those things. So Kubernetes lands on top of those two, and again, that's just another door that someone can access, and
+that's another way how your production environment can be compromised. I don't have to hack into a Kubernetes account. I don't have to hack
+into Linux servers if I can hack into Kubernetes API. So Andrew, from a security and audit perspective and keeping what I just said in mind,
+what are the changes that you think engineering teams need to consider when adopting Kubernetes?
+
+**Andrew:** So when you adopt Kubernetes, odds are that you will end up with multiple clusters. You'll have your development, staging,
+production, whatever, or you can have clusters per region, for example. But in order to deal with all of those, you really want to
+centralize the access. So you want to pipe all of your developer access to your clusters to a single choke point such that you can enforce
+your policies there.
+
+**Ev:** Like a gateway?
+
+**Andrew:** Like a gateway. Right. And while you have that in place, it's a really nice place to attach your SSO identities to any requests
+and any modifications. That way, you get accountability from everyone in your organization, but who does what to your production or staging
+environments? So you really want to make sure that the gateway only allows SSO users through and records that identity with a request. The
+other thing is, even though you're using Kubernetes and it hides a lot of the ugliness of the underlying hardware and infrastructure, it's
+still is all there. The servers are still there. They're still operating systems, and most likely, you still manage everything under
+Kubernetes via SSH or something similar. So you don't want to forget about those aspects. And if you are not relying on SSH, you can just
+disable it entirely. If you are relying on it, a good practice is to synchronize access. So try to use the same gateway that you used for
+Kubernetes to go with SSH. And then also obviously do all of the same enforcement that you do for Kubernetes. So attach SSO identities, do
+access control, all of that. So don't forget about [SSH](https://goteleport.com/blog/how-to-ssh-properly/). And then the other thing that
+all of this extra complexity, all this extra code on top will cause more changes and generate more audit logs. You have to think about
+collecting some new types of audit log data.
+
+### Multiple Types of Audit Log Data
+
+**Ev:** So you mentioned multiple types of audit data. So that might be a question-raising statement because as most Kubernetes users are
+aware, well, Kubernetes has just a single audit log. So what do you mean by multiple types of audit data?
+
+**Andrew:** Yeah, so as I mentioned already, all the underlying infrastructure is still there. So you still have all of your existing audit
+logs from SSH, from your operating system package of this, what have you, but Kubernetes also has nice instructions on top that also
+generate their own logs. So one example is network logging. If you use something like Calico or any other networking plugin, they usually
+are able to generate net logs. It records what services talk to each other and who's talking to your services externally. Another thing you
+want to look at is a runtime logs. So basically, that's execution logs. What binaries are your pods executing? And what changes are they
+making to the file system, and things like Falco can give you that pretty easily. And the most impactful thing if you just want to do one
+and you don't want to deal with all this third-party software, you want to enable the Kubernetes native audit log, and that's basically
+logging all of the access to the Kubernetes API. So any changes to your cluster resources, and this logging is controlled by the native
+Kubernetes audit policy.
+
+**Ev:** Audit policy. So we should dive into that, but I just wanted to make an interesting observation. As you were describing, all this
+additional things that run inside or alongside Kubernetes and all of those things generate their own audit information, that actually
+reminds me of this analogy. It's how people say that a data center is now a computer, and Kubernetes is an operating system for that
+computer. So if you're going to draw the analogy between a single server and Linux and how Linux has VAR logs, and Linux itself, for
+example, like when the kernel is booting, it's placing its own kind of logs in there, but then most applications, if they're well-designed
+that run on Linux, they’re supposed to put their logs in there. So that was kind of historically how we have been doing logging on Linux.
+And now with Kubernetes basically same thing. We have Kubernetes itself producing logs and then we have all these other things inside of
+Kubernetes doing it. And I guess our view is that you should centralize and audit all of those things in one place. So going back to
+Kubernetes audit policy that you mentioned, so what is it? For those in the audience who don't know, what is it? How do you use it? What are
+the best practices for tuning it?
+
+### What is Kubernetes Audit Policy?
+
+**Andrew:** Yeah. So audit policy is this native Kubernetes configuration object which you provide to your API server. And basically, it
+dictates what kind of requests you log and how much information you log about them. So, in terms of what requests, you can say only log
+anything that's done to pods or anything that's done to secrets, or everything that's done to any of the core APIs but none of the
+extensions or custom resource definitions. And then, how much log? You get the choice of logging at the start of the request, at the end of
+the request. You get to choose logging, whether you want to log the entire request and response body or just the metadata, so what's the
+URLs, the research name, who did the request, and so on. You might be wondering why don't you just log everything, all requests, responses,
+just everything that it provides. And the reason is that Kubernetes API and control plane tend to be very spammy, and if you logged
+everything, you would just get an avalanche of logs that are mostly just noise and it would eat up your storage bills. And you would not be
+able to find anything useful in between there. So you want to tune for only things that you actually might care about. It's kind of
+intimidating to figure out what you want, might care about in the future, and, for example, has a policy that's publicly available if you
+search on Google and it's a good starting point that has a good balance between comprehensive log and reducing the amount of that log.
+Another kind of high-level thing to understand about audit policy is that it really only defines what you log. It doesn't define where you
+log it, and so for that, your logs, after you configure the policy, they end up in a configurable audit sync.
+
+#### Using Audit Logs Effectively
+
+**Ev:** Thank you. So that brings me to another point that I think we want to make in this webinar — that auditing is only useful if you
+actually have a good plan in place how to use that information. In other words, the audit logs, they must be used effectively. Simply
+dumping them into one dark place is just not helpful. So consider using a log aggregation and analysis tools. For example, we'll be doing
+the [webinar](https://goteleport.com/about/events) later with the CEO of a company called Panther, so they have an open-source tool actually
+allows you to look into these things in real-time and define certain rules. So think about using security logging and auditing almost like
+another defensive weapon to prevent problems from occurring or detecting them early as opposed to being just like another track or forensic
+tool that you just consult when you're crafting your postmortems of successful attacks on your infrastructure. And as a basic step, just
+consider consolidating all of your audit logging into a single system, just a basic step, just have it all in one place because this allows
+you to do all these advanced things in the future. And speaking of consolidation, Andrew, what have you seen in the wild because you've been
+helping Teleport users for a while now?
+
+#### Log Aggregation Tools
+
+**Andrew:** Yeah. So, out there, there's really a ton of options. You have a lot of pretty mature SaaS providers, so if it's Splunk, or Sumo
+Logic, Graylog, other. And basically, it's like — SaaS, it's a third-party service that does all of the log aggregation storage for you. You
+ship off the logs to them. Usually, we webhook or something similar. And they do all the processing. You use their web UIs to deal with it,
+search it. Then usually, most cloud providers will have some sort of an offering in their platform built-in, which is called I think
+[inaudible] on Google and centralized logging on AWS. But the idea is that really, those integrate pretty well with that specific cloud
+provider, but they're not that great when you want to ingest logs from anywhere else. So if you run on multiple clouds, probably not the
+best option, but it's still there. You can also go for self-hosted if you have the know-how in-house to run this type of software. One of
+the most popular things here is the ELK Stack, which stands for Elasticsearch, Logstash, and Kibana. Those are three separate services that
+complement each other. They're all built by Elastic. And they really are meant to be like a comprehensive solution for logging and
+monitoring and utilization of all that stuff. There is other sort of self-hosted log aggregations tools if you search. But I guess the
+biggest problem here is that you will end up with a paradox of choice. There's just so many good options that are all pretty mature that
+you're just stuck evaluating when you need to pick one.
+
+**Ev:** So let's just say I'm using Splunk. It's a not an unreasonable choice, and it's fairly popular and well, so then what? What do I get
+if I use Splunk and I want to collect a Kubernetes audit?
+
+**Andrew:** So after you set up log ingestion into Splunk from Kubernetes, you get — it's one of the more mature offerings, and it has
+really powerful search, so you can search through all of your logs that you have ingested from anywhere, Kubernetes, all of your clusters,
+anything else, SSH, within seconds, and it's really flexible. It's not just the [inaudible]. You can extract [inaudible] from there and so
+on. So that's really good for forensics. So after something happened, either a security incident or just a block in production, you can use
+that to figure out what went wrong and what the sequence of actions was. But another thing that Splunk and others offer that's way more
+powerful in your searching is treating logs as if they're monitoring. So you can create these saved searches that will extract some data
+from logs, some fields, or just count the logs matching a certain search query and present them to you as a metric. And that is very
+powerful because you can build sort of dashboards that give you a much better idea of what's happening than just scanning through thousands
+and thousands of tax lines. But also, you can start creating alerts from that, which, for example, you can say, oh if something is starting
+to read my Kubernetes secrets 100 times per second, alert me. Something's wrong. And alerts are, again, pretty flexible. They can go to a
+bunch of different destinations, so it can be slack or email or they can even page your on-call engineer if it's something really scary.
+
+**Ev:** Yeah. And I'm assuming that it's not just Splunk. So similar solutions all for similar capabilities. And let's spice it up. So let's
+say what — let's do a quick demo. For example, something that a reasonably competent engineer can set up in less than a day, very simple
+environment, using mostly open-source tools and whatever they have already. So, Andrew, can I pass it back to you? Let's show a demo of how
+this might all look like.
+
+### Security Attack Demo
+
+**Andrew:** Yup. I'll just grab my screen. Okay. Hopefully, you can all see that. So let's imagine a scenario where I am an attacker and I
+have compromised a laptop of one of your engineers. So I have a shell open remotely into that engineer's machine. They don't know about it.
+No one knows about it. And essentially, I have access to anything that that person has. And this engineer happens to be your lead DevOps
+person who has admin access to all the clusters.
+
+**Ev:** Yeah, the worst possible scenario. Yeah.
+
+**Andrew:** Yeah. Worst possible sort of cyber risk scenario you can imagine. So as an attacker, my first reaction, assuming I sort of did
+some reconnaissance, I know that this company is running Kubernetes and relying on it a lot, my first thing that I will try to do is just to
+just dump all of the secrets on all the namespaces in whatever cluster that this engineer was working with. So basically, this gives me a
+bunch of these tokens that — a lot of them will be tokens for Kubernetes service accounts, so you can impersonate any service account that
+this cluster has. Some of them will be some other secrets. Some are maybe data credentials and so on. That's pretty bad. Another thing I
+might want to try as an attacker is run some malware, install some malware or ransomware or anything else on inside of the cluster itself.
+So in this case, I was trying to log into the Kube API server and run this command. So just pull a script that I wrote and put on my website
+and pipe it into Bastion, right? In this case, it didn't work, but whatever. And if I'm a careful attacker and I'm trying to be really
+sneaky about what I'm doing, I don't — so I can just start a shell inside of the pod instead of passing the command line such that no one
+really knows what I'm doing.
+
+**Andrew:** So from the outside perspective, it looks like I'm just logging into a pod in my cluster and doing some maintenance work or
+whatever. But here, I can do whatever I want and it's all kind of obscure and hidden. So this is kind of what an attacker might try in this
+really bad scenario. But now let's sort of switch our imaginary location. And I'm the security engineer on the team right now. And the way I
+have set up our infrastructure is, first of all, I have this audit policy defined for the Kubernetes cluster, and this basically just says
+whenever any response is finished to the Kubernetes API to log the metadata of it, like log wish request, which URL was hit to log the
+username and so on. And this is like — it's very minimalistic. Very basic. It's not really what you should be doing but it was very easy to
+set up and gives you a good enough amount of information. And from an architectural point of view, so here's what this little demo
+infrastructure setup looks like.
+
+### Teleport in This Scenario
+
+**Andrew:** You have your user making requests to [Teleport](https://goteleport.com/), and Teleport just works as a gateway in this
+scenario. The reason is, if I had multiple Kubernetes clusters behind it, I could use just the same gateway for all of that. And also, if I
+wanted to SSH into some nodes, I can do that through Teleport as well. So it's kind of a central gateway for everything. Then when a request
+makes it to the Kube API server, the audit policy kicks in. It says, "Hey, log this metadata about this request." And I've configured it to
+write to Fluentd as a webhook. I'll explain what Fluentd is in a second. And it's basically just pipes the same audit log over to Sumo
+Logic, which is the log aggregation platform that we're using in this case. It's similar to Splunk in a lot of ways and just something I
+could set up pretty quickly. And also, at the same time as the API server is logging its own audit log, Teleport is also logging its own
+view of what happened into the same log aggregation platform. So everything is collected over here.
+
+**Andrew:** So just to mention, Fluentd is this great plumbing tool for logging. It's basically this intermediate service that sits in
+between your log sources and your log syncs or destinations and abstracts them away. So you can have multiple log inputs. It can be
+collecting files, it can be collecting Kubernetes API logs, except anything from a webhook, and then do some internal parsing and then
+output that into any number of output sources. In this case, it uses Sumo Logic but it could be sending them to some archival storage on S3
+and also to Sumo Logic and also to somewhere else. So it's this very flexible tool. It lets you insulate yourself from what your log
+aggregation provider is and what your sources are.
+
+**Andrew:** Another slightly more detailed diagram is what happens when I do exec specifically. So Teleport will treat exec specially,
+relative to other commands. And in addition to doing all the logging as you usually have into Sumo Logic, we also record the entire session.
+So everything that happened. If it was a shell, everything'll happen in a shell, all the commands that were executed and so on. And it gives
+you a much more complete view of what happens than just the log of the request. So let me switch you over here. So here I have my Sumo Logic
+page. So again, I'm a security engineer who is investigating what the hell is happening with our infrastructure. Was there a bunch of
+malware getting installed? And it's taking long to load. Okay. The logging usually takes a few minutes to propagate. There are good reasons
+for that. Most of the intermediate steps will try to batch logs to kind of handle a large volume. So here we are looking at my previous
+attempts. I was just doing exactly the same request before. So this is just a Kubernetes API log, right? So here is an example of when I did
+kubectl get secrets and all-namespaces. So you can see that I'm getting secrets, unlimited namespaces so you can see who did it. So this is
+my username. That's my SSO username attached to the request. Also, the groups I was using, source IPs and so on. So a lot of useful
+information and you can sort of build alerts on top of this.
+
+**Andrew:** When I did kubectl exec, it shows up as a pods create request because of how the API works, but basically, it's the exact
+subresource on the pods that you create. And you can kind of just see the command in here. It's kind of obscure URL encoded but it's there.
+And again, all the same information. You can see who did this, when, what their user agent was, a bunch of stuff. But then when I was using
+— when I was just creating a shell directly, instead of passing a script into ctl exec, you can see that I started a shell but you don't
+really know what I did there. So you know that there was an interactive shell that “awly” opened. But that's about all you know. So to
+complement that, let me show you the Teleport logs. This is the stuff that Teleport has collected while all of this was happening. So for
+the first command executed, it shows us that there was an exec command. It shows us the exact command they passed in much more clearly then
+Kubernetes logged us.
+
+**Ev:** Yeah. Basically —
+
+**Andrew:** Just basic code. Yeah.
+
+**Ev:** It's like Teleport shows what is inside of that session. Kubernetes tells you that interactive session took place, but then in
+Teleport, you could see more.
+
+**Andrew:** Yes. And then also, if you do a fully-drive session and type in a bunch of stuff, you see it happening in Teleport and you see a
+bunch of the same information and who was involved, right, who did this? But also, who used the session ID, you can actually replay
+everything that that person did in that session. So in this case, I'm on my security engineer machine. And if I run this command, I'm not
+doing anything right now. This is Teleport showing me what the person in that session typed. Right? So this is really powerful. You sort of
+peek through the attempt of this attacker to obscure their actions and you can see exactly what they did thanks to Teleport being in the way
+and intercepting all this.
+
+**Ev:** People often ask: "Is this a video?"
+
+**Andrew:** So the way [Teleport](https://goteleport.com/) stores this is actually raw bytes that were sent over the socket as the person
+was typing stuff. So this is actual keystrokes, and then we sort of replay them against your local terminal. So it looks kind of like a
+video, and you can sort of look at it and view it as a video on the web UI. But really, it's just a raw bytes of everything that was
+happening. Another thing, so I didn't set this up for the lack of time, but you can set up metrics based on logs. In Sumo Logic and the
+other providers, it's kind of like a fancy language you have to figure out. But after you do, you can convert all of these logs that I was
+showing you before into metrics, and then you can write alerts on them. So alerts, for example, any one on call, whenever any user logs in
+to a Kube system pod. So no one should ever really log in to Kube system. That should be the control plane that's left alone. But if someone
+does, this is really suspicious, and you should get an alert on that. But that is the end of the demo. Let me stop sharing.
+
+### Key Takeaways
+
+**Ev:** Thank you, Andrew. So let's get our kind of — so what are the key takeaways that we tried to introduce in this limited time we had?
+So let's go over them. So just remembering that Kubernetes expands the attack service of your environment. And to address that, the second
+point we were trying to make is that if you introduce in one layer, you have to make some other layer less relevant. Turn SSH off for
+majority of your engineering team. They shouldn't need it anymore because you're using Kubernetes. Having both present and having both not
+synchronized just increases probability of you getting compromised. So that brings me to the third point here that we want to make — that if
+you do have SSH access enabled, if you have Kubernetes, apply role-based access control, synchronize the two, have exact same certificate
+authority, exact same authentication gateway and access gateway, letting access to your engineers to both of these resources, Kubernetes and
+SSH.
+
+**Ev:** And also, which is point number four, you should have, if you can, a single gateway that is used for all of your infrastructure
+footprint. We see all the time when company's basically have this islands where they say, "Oh, it's a staging environment. It doesn't really
+matter," or, "That's our research lab. They have their own auth." Look, it's not even like a matter of convenience. You could actually have
+groups and roles. Role-based access control was invented specifically to partition your infrastructure into this environment. So do not
+create separate authentication and access endpoints because things happen all the time. Valuable data might end up in staging by accident. A
+same machine could be transferred without re-provisioning front staging to production environment or vice versa and it might have data on
+it. Just treat everything you have as one giant secure thing. These tools that we're talking about here — Teleport, Kubernetes, Alert Logic
+— they make it easy. So I would even argue that it's easier to treat everything all at once versus setting up multiple authentication
+endpoints.
+
+**Ev:** Also, on consolidation, I want to mention something else that we haven't really covered. It's that we see a lot of organizations use
+very separate kinds of access paths for engineers and for everybody else. My guess is that it's historical. So for example, if they
+purchased some application access product from a company and that was sold to protect a part of your workforce. So they go and roll it out
+for the rest of the company, but engineers usually say like, "Oh, we're fine. We have our own thing we secure. We are engineers, after all,
+are the experts." Yeah. Don't do that. Again, in 2020, there's no reason for everybody at the company to be using exact same SSO, and it
+doesn't matter if they are themselves a security engineer or they're working in marketing.
+
+**Ev:** Finally, well not finally, the next thing we talked about is — aggregate all types of audit information across all clusters in one
+place. Don't audit Kubernetes in isolation. Again, Kubernetes — think a bit of an operating system. Sure, it has its own logs, but then you
+have a SSH, and then you have applications and you have additional middleware. The best practice is to synchronize them all because, again,
+you don't really know of what a portion of your stack might be under attack, and you probably want to enforce the same rules. And you want
+to have a single dashboard or a set of dashboards showing you what's going on, which brings me to — there was actually a question that we'll
+probably get to. So export audit logs into specialized platforms that allow you to do all kinds of fancy things. This is not something
+Teleport does. It's a separate market. Again, we showed you Alert Logic you could do a lot of interesting things with ELK Stack. You could
+do Splunk, and there are a lot of specialized tools.
+
+### Q&A
+
+**Ev:** And finally, treat the audit information — basically, security monitoring is regular monitoring. Make effective use of this data.
+Don't just dump it into one giant black bag hoping it will be useful one day. So that's, I think, the key points we wanted to convey. Now,
+let's take a look at your questions. First, I want to go over questions that have been answered as Andrew was doing the demo. So the first
+one was: Why didn't the first attack work? Well, that's because evil.com, as Andrew was showing to download an evil script, obviously was
+not a real domain, with a real script. So the second question was: So does Teleport work like a Bastion, or it only handles authentication?
+And the answer to that, it's both actually. Teleport, if you look at — if you go to [goteleport.com](https://goteleport.com/), then click on
+[how Teleport works](https://goteleport.com/how-it-works/), it shows that Teleport consists of three small services. So one of them is a
+Bastion-like proxy. We call it proxy because we believe it's technically a better term. And then there is also certificate authority, the
+off server. So it handles both. And from a user experience perspective — what it does — it forces all users to go through exact same SSO
+process, both for Kubernetes and for SSH access. Now, let's go to questions that we haven't had a chance to answer yet. So we're going to
+click here. So how does Teleport compare to other proprietary solutions — none- open-source? Andrew, do you want to answer this? You want me
+to take a stab or shall we — I don't like to talk bad about competing solutions. The obvious answer: they are proprietary and closed source.
+The founding team of Teleport — we believe that security cannot be closed source because you get best security when the whole world — the
+security researchers and security engineers from companies like Google, that's how Andrew actually found Teleport because he discovered
+Teleport source code. That's how you can really say, "We are secure," because the whole world is your auditor. And Andrew, if you want to
+add anything to that.
+
+**Andrew:** Yeah. I mean, that's a very major point that you can audit exactly what Teleport does. You can understand we have a lot of
+documentation about the internal architecture details. You can understand what's happening under the hood. Just have to put a bunch of trust
+into a brand or vendor, right? The other thing is that Kubernetes gives — sorry, Teleport — gives you this sort of universal overarching
+solution that integrates very well. So it was originally built for SSH, integrates really well with that, but then also Kubernetes. And the
+design of the architecture is such that it's extendable to work with any other protocols or any other remote access. There are some things
+we have in the works for non-Kubernetes, non-SSH stuff. But it's too early to make promises. But the idea is that Teleport is really good at
+handling authentication, authorization, and then where you pipe your data to and from is kind of a pluggable thing. Yeah.
+
+**Ev:** Okay. So we're getting more questions. So let me go bottom up because I hope I'm pronouncing your name properly. Zeke Ruslan was
+asking if Teleport can be used to access internal web applications rather than SSH. The answer is soon. It's one of the most common requests
+we're getting. Like examples include internal Wikis in Jenkins. So that is something we're working on and it will be announced, hopefully.
+Again, I'm not going to give you a deadline, but it's coming. It's coming. We're very excited about it. So then does Teleport support log
+forward into SIM tools? Andrew?
+
+**Andrew:** So Teleport, by default, writes logs to a local file, but you can configure it write to a couple other destinations. So I
+believe we support S3. We support Google Cloud Storage, maybe one or two others that I forget. But the way you would set this up with a SIM
+in practice is by using something like Fluentd. So that's exactly the reason why Fluentd exists, is to do all of this plumbing so you don't
+have to teach every tool that can emit audit logs to know about every destination, every seam that could accept audit logs. So Fluentd is
+the solution there.
+
+**Ev:** Okay. Moving up. So can Teleport be used as a VPN solution other than for SSH access? The answer is no. It's not like VPNs are not —
+Teleport is an opinionated system. And we probably all heard this kind of term Zero Trust, which a lot of engineers just dismiss as
+marketing speak. But Teleport is designed with this view that all of your important things that you're accessing, they should have public
+endpoint. That public endpoint should be encrypted, protected by identity and audit. So that kind of removes the need for VPN in this world.
+And it also kind of goes back to this earlier question. How is Teleport different from legacy and proprietary solutions? We believe because
+Teleport is built with this cloud-native view, and also, we also believe that you are using multiple clouds at the same time. And we don't
+believe that location or the network affinity of a resource should even matter. A Teleport gives you access to Kubernetes clusters that
+could be on any cloud without any VPNs. It could be inside of a self-driving vehicle. Teleport supports that. That's why it's called
+Teleport — it creates this illusion that all of your company compute is in the same room with you. That's really how it's different from a
+lot of other tools that are built with this — there's IP address, IP address all the time. VPNs have to stitch things together. With
+Teleport, these things don't matter.
+
+**Ev:** So another question is: Can Teleport use or integrate with another certificate authority like Vault instead of being its own? So I
+will offer part of the answer. Andrew can probably add to it. What we've observed is that, Teleport and Vault, they usually belong to
+different parts of an organization, where Vault is something applications use to store secrets. That's how most frequently it is being used.
+So Vault then becomes part of your application stack. It's something that maybe you are deploying actually alongside with your code or your
+deploy, whereas Teleport is protector of your infrastructure. And oftentimes, it helps to have these two concerns being separated. In other
+words, if you lose one, you still have the other. So linking them together, where your application domain and your infrastructure domain
+share the same source of — the same authority might not be a best idea. Andrew, do you have anything to add here?
+
+**Andrew:** Yeah. And I don't know this about Vault specifically, but one thing to know is that there's different kinds of CAs. So most of
+the time when people talk about CAs, they talk about X509, so TLS-type CAs, right? But that's not the universal kind, so when you use SSH,
+you use an SSH CA. And it's using different formats. Basically, you can't just take a TLS CA and plug it into your SSH. So that's one thing
+that a lot of secret stores might not handle out of the box well. And the other thing is kind of similar —
+
+**Ev:** Let's just be specific. Vault —
+
+**Andrew:** I don't know about Vault. I don't know if they do. But I would assume that most less mature ones would not handle SSH CAs. The
+other thing kind of similar to what I was saying is that if Vault is running on a server somewhere, which is most likely the case, it's not
+running locally and you use Teleport to access your servers, if all goes down, you can't access your servers, but you can also not access
+Vault to fix it, right? So it's kind of a chicken-and-egg problem, and it would be very scary to gain access to Vault itself with Teleport.
+Yeah, it's not a dependency you really want to introduce necessarily. It's better to split those concerns.
+
+**Ev:** Right. So the next question is: If a user is running as AWS SSO user, AWS shows user who is performing operations in CloudTrail. Can
+we get user attribution in this case within Kubernetes, EKS specifically, as well as using GT? What is GT in this case?
+
+**Andrew:** I think it's CT, CloudTrail.
+
+**Ev:** Okay, CloudTrail, yeah. Basically, we need to know the AWS SSO user, not the mapped Kubernetes user, because that is based on a
+role. Andrew, that goes to you. That's awfully specific for me.
+
+**Andrew:** I'm not too familiar what protocol AWS SSO uses under the hood. So if it is something like
+[OIDC](https://goteleport.com/blog/how-oidc-authentication-works/) or YAML, it's connectively integrated with Teleport, in which case, you
+can pipe all that stuff and the Teleport audit log will tell you the SSO identity on the Teleport log site. But the Kubernetes log will not
+see it, naturally. You could define a Teleport role such that it stores — or it directly plumbs the SSO username over to a Kubernetes
+username. And it kind of makes sense. You would write our back policies on Kubernetes to map against the SSO users you have. But if anybody
+else is using some sort of proprietary SSO protocol, it might not work as well. And another thing we are sort of working on for a
+near-future release is getting Teleport to produce audit logs about every single Kubernetes request and not just the exec-style requests. So
+that means that you would really have very little need to look at Kubernetes audit log and all of the same information you can get from
+Teleport log, and that would always have SSO identities attached.
+
+### Recommended Next Steps
+
+**Ev:** Fantastic. Thank you very much. So do we have any other questions? All right, no other questions. And it's already 10:46. So looks
+like we are about done. Thank you, Andrew, for showing us the light. Thank you for answering questions. Everyone else, thank you for asking
+very smart and interesting questions, and thank you for attending. And if you'd like to learn more about modern secure access, if you want
+to learn more about Teleport, look, it's an open-source thing. Go [Download Teleport](https://goteleport.com/teleport/download/), play with
+it, dive into the code. I used to be a contributor myself. That code is very easy to understand. Enjoy this little tool. And also check out
+our [blog](https://goteleport.com/blog/). Obviously, follow us on [Twitter](https://twitter.com/goteleport), and on behalf of Teleport,
+enjoy the rest of the day. Be happy sheltering in place, and stay safe.

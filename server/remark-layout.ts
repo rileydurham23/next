@@ -4,6 +4,7 @@
  */
 
 import { Transformer } from "unified";
+import type { VFile } from "vfile";
 import yaml from "js-yaml";
 import stringifyObject from "stringify-object";
 import find from "unist-util-find";
@@ -16,6 +17,7 @@ type ExportTemplate = (metaKey: string) => string;
 
 interface LayoutOptions {
   path: string;
+  metaProcessor?: (meta: Meta, vfile: VFile) => Promise<Meta>;
   importTemplate?: ImportTemplate;
   exportTemplate?: ExportTemplate;
 }
@@ -28,7 +30,7 @@ interface RemarkLayoutOptions {
   skipMeta?: boolean;
   skipLayout?: boolean;
   metaKey?: string;
-  metaProcessor?: (meta: Meta) => Promise<Meta>;
+  defaultMetaProcessor?: (meta: Meta, vfile: VFile) => Promise<Meta>;
 }
 
 const importTemplatePlaceholder: ImportTemplate = (layoutPath: string) =>
@@ -46,17 +48,19 @@ export default function Wrapper (props) {
 };
 `;
 
+const metaProcessorPlaceholder = (meta: Meta) => Promise.resolve(meta);
+
 export default function remarkLayout({
   layouts = {},
   defaultLayout,
   defaultImportTemplate = importTemplatePlaceholder,
   defaultExportTemplate,
+  defaultMetaProcessor = metaProcessorPlaceholder,
   skipMeta = false,
   skipLayout = false,
   metaKey = "meta",
-  metaProcessor = (meta) => Promise.resolve(meta),
 }: RemarkLayoutOptions): Transformer {
-  return async (root: MdxastRootNode) => {
+  return async (root: MdxastRootNode, vfile: VFile) => {
     const node = find(root, (node: Node) => node.type === "yaml");
 
     if (!node) {
@@ -68,11 +72,16 @@ export default function remarkLayout({
     const layout =
       (meta.layout && layouts[meta.layout as string]) || defaultLayout;
 
+    const metaProcessor =
+      typeof layout !== "string" && layout.metaProcessor
+        ? layout.metaProcessor
+        : defaultMetaProcessor;
+
     if (!skipMeta) {
       root.children.push(
         createMdxjsEsmNode(
           `export const ${metaKey} = ${stringifyObject(
-            await metaProcessor(meta)
+            await metaProcessor(meta, vfile)
           )};`
         )
       );

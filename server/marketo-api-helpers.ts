@@ -1,8 +1,8 @@
 import got from "got";
 import NodeCache from "node-cache";
-import { loadSiteConfig } from "./config";
+import { loadConfig } from "./config-site";
 
-const { allowedMarketoIds } = loadSiteConfig();
+const { allowedMarketoIds } = loadConfig();
 
 const { MARKETO_ENDPOINT_URL, MARKETO_CLIENT_ID, MARKETO_CLIENT_SECRET } =
   process.env;

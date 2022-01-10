@@ -2,28 +2,25 @@
 title: Stop sacrificing speed for security
 subtitle: Financial Services
 headerDescription: Our unique approach to identity-aware access is not only more secure; it improves developer productivity.
-description: Teleport is the easiest, most secure way to access all your infrastructure. That's why we're trusted by the world's leading financial services companies. 
+description: Teleport is the easiest, most secure way to access all your infrastructure. That's why we're trusted by the world's leading financial services companies.
 hideWave: true
 reviews:
   - nasdaq
   - carta
 ---
 
-import {
-  AnnouncementBar,
-  CenterCard,
-  EasyStart,
-  Feedback,
-  Flex,
-  ProductBanner,
-  Section,
-  SectionHeader,
-  Terminal,
-  TryTeleport,
-  WorksWith,
-} from "components";
-import Centrator from "components/Layout";
-import { Finance1, Finance2 } from "components/AnnouncementBar/data";
+import AnnouncementBar from "components/AnnouncementBar";
+import CenterCard from "components/CenterCard";
+import EasyStart from "components/EasyStart";
+import Feedback from "components/Feedback";
+import Flex from "components/Flex";
+import ProductBanner from "components/ProductBanner";
+import Section from "components/Section";
+import SectionHeader from "components/SectionHeader";
+import Terminal from "components/Terminal";
+import TryTeleport from "components/TryTeleport";
+import WorksWith from "components/WorksWith";
+import { Finance } from "components/AnnouncementBar/data";
 import blockchain from "./assets/for-blockchain.svg";
 import fintech from "./assets/for-fintech.svg";
 import finserv from "./assets/for-finserv.svg";
@@ -39,11 +36,7 @@ import finserv from "./assets/for-finserv.svg";
   >
     ![teleport powering the world](./assets/powering-the-world@2x.png)
   </SectionHeader>
-  <AnnouncementBar
-    backgroundColor="transparent"
-    inLivingColor
-    rows={[Finance1, Finance2]}
-  />
+  <AnnouncementBar type="big" rows={Finance} />
 </Section>
 
 <Section width="100%" bg="flatWhite">
@@ -187,7 +180,14 @@ import finserv from "./assets/for-finserv.svg";
   </WorksWith>
 </Section>
 
-<EasyStart>
+<EasyStart
+  description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
+  listDescription="Teleport consists of just two binaries."
+  listItems={[
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
+  ]}
+>
       <Terminal>
 ```
 # on a client

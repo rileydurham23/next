@@ -5,7 +5,7 @@ border: none
 hideWave: true
 layout: content
 logo:
-  image: ./assets/resources.svg
+  image: ../assets/resources.svg
   alt: title image
 subtitle: Teleport Access Plane
 needWrapper: true
@@ -13,7 +13,7 @@ bgWave: wave-on-gray
 tryTeleport: true
 ---
 
-import { EpisodesList } from "components";
+import EpisodesList from "components/EpisodesList";
 import { getResourcesData } from "server/resources-helpers";
 
 <EpisodesList id="tech-paper" episodes={props.episodes} kind="techPaper" />

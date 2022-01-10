@@ -1,6 +1,6 @@
 import Flex from "components/Flex";
 import Box from "components/Box";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import NextImage from "next/image";
 
 /**

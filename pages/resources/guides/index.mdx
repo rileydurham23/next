@@ -5,14 +5,14 @@ bgWave: wave-on-gray
 border: none
 layout: content
 logo:
-  image: ./assets/resources.svg
+  image: ../assets/resources.svg
   alt: title image
 needWrapper: true
 subtitle: Teleport Access Plane
 tryTeleport: true
 ---
 
-import { EpisodesList } from "components";
+import EpisodesList from "components/EpisodesList";
 import { getResourcesData } from "server/resources-helpers";
 
 <EpisodesList episodes={props.episodes} id="tutorial" kind="tutorial" />

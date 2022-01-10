@@ -5,7 +5,7 @@ type Props = {
   src?: string;
   width?: number;
   height?: number;
-  hasRoundedEdges?: boolean;
+  borderRadius?: "sm" | "md" | "lg" | "default" | "none";
 } & BoxProps;
 
 const toSrc = (id: string): string => `https://www.youtube.com/embed/${id}`;
@@ -15,7 +15,7 @@ export default function Video({
   videoId,
   width = 640,
   height = 360,
-  hasRoundedEdges,
+  borderRadius = "md",
   ...props
 }: Props) {
   const src = videoId ? toSrc(videoId) : rawSrc;
@@ -24,7 +24,7 @@ export default function Video({
       <Box
         width="100%"
         position="relative"
-        borderRadius={hasRoundedEdges ? "md" : ""}
+        borderRadius={borderRadius}
         overflow="hidden"
         pb={`${(height / width) * 100}%`}
       >

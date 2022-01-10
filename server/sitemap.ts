@@ -1,3 +1,7 @@
+/*
+ * Simple sitemap generator.
+ */
+
 import { writeFileSync } from "fs";
 import { format } from "date-fns";
 
@@ -17,13 +21,6 @@ interface SitemapPage {
     | "never";
   priority?: number;
 }
-
-/** loseProduct checks if the location is in "pages/products/**" and 
-  if so removes "/products" from the location string;
-  Example of final output from generateSitemapPage:
-  <loc>"https://goteleport.com/products/database-access"</loc> 
-    => <loc>"https://goteleport.com/database-access"</loc>
-*/
 
 const generateSitemapPage = ({
   loc,

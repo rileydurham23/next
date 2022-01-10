@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Flex from "components/Flex";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 
 /**
  * This is the News component on the homepage underneath Get Started button in the header

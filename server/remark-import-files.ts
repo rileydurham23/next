@@ -1,3 +1,13 @@
+/*
+ * This plugin will transform paths to assets to the "import" declarations.
+ *
+ * Works with both html and markdown images and links, props of the React components
+ * mentioned in propsList (default is ["src", "href", "poster", "image"]).
+ * And also with frontmatter fileds in the same list.
+ *
+ * Will ignore files that does not exist and files with blacklisted extensions like js or ts.
+ */
+
 import { Transformer } from "unified";
 import visit from "unist-util-visit";
 import { VFile } from "vfile";

@@ -1,5 +1,5 @@
 import NextImage from "next/image";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Flex from "components/Flex";
 import Box from "components/Box";
 import Badge, { IconSize } from "components/Badge";

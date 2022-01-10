@@ -1,6 +1,6 @@
 import Box from "components/Box";
 import type { BGColor } from "components/Section/Section";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import Flex from "components/Flex";
 import Section from "components/Section";
 

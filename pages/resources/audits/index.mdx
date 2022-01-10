@@ -1,0 +1,23 @@
+---
+title: Security Audit Reports
+description: All of the Teleport security audits. You can download a PDF of each security audit for Teleport Products.
+bgWave: wave-on-gray
+border: none
+layout: content
+logo:
+  image: ../assets/resources.svg
+  alt: title image
+needWrapper: true
+subtitle: Teleport Access Plane
+tryTeleport: true
+---
+
+import EpisodesList from "components/EpisodesList";
+import { getResourcesData } from "server/resources-helpers";
+
+<EpisodesList episodes={props.episodes} id="auditReport" kind="auditReport" />
+
+export async function getStaticProps(context) {
+  return { props: { episodes: getResourcesData("audits") } };
+
+}

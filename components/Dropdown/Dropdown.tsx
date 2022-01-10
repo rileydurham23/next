@@ -27,9 +27,9 @@ export type DropdownProps<T> = {
 } & BoxProps;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const echo = <T extends unknown>(thing: T): any => thing;
+const echo = <T,>(thing: T): any => thing;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const echoOption = <T extends unknown>(options: T[], id: string): any => id;
+const echoOption = <T,>(options: T[], id: string): any => id;
 
 const defaultIcon = <Icon name="arrow" size="sm" />;
 

@@ -19,7 +19,8 @@ tryTeleport: true
 accessPlane: true
 ---
 
-import { Box, Link, Flex, Feedback, Quote } from "components";
+import Feedback from "components/Feedback";
+import Quote from "components/Quote";
 
 For ExtraHop, the bar for security is high. With their cloud-hosted network detection software, it has to be [security best practices](/resources/white-papers/secure-infrastructure-access/) or bust. So when developer shortcuts started becoming possible vulnerabilities, ExtraHop used Teleport to secure access to their servers and Kubernetes clusters without sacrificing speed. Within a couple months, they had an identity-based approach to authorizing each Kubernetes API query or ssh command — all the while making sure ExtraHop’s internal security team had the logs they needed for compliance and reference. With plenty of tweaks left to make, ExtraHop will continue using Teleport to sharpen up their and their customers’ security.
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { all, css, StyledSystemProps } from "components/system";
 import PageIntro, { Props as PageIntroProps } from "components/PageIntro";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import { toFlexAlign } from "utils/align";
 import earthUrl from "./assets/earth.jpg";
 

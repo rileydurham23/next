@@ -7,10 +7,13 @@ description: How to implement certificate-based authentication for SSH and Kuber
 headerTitle: Certificate-Based Authentication
 headerDescription: All forms of access based on shared secrets are insecure. Certificate-based access is the better option. This section explains how Teleport implements certificate-based authentication for SSH, Kubernetes and other supported protocols
 layout: howItWorks
+reviews:
+  - awin2
 ---
 
 import NextImage from "next/image";
-import { Flex, Figure, Sidebar } from "components";
+import Feedback from "components/Feedback";
+import Sidebar from "components/Sidebar";
 
 ## The Basics
 
@@ -79,6 +82,8 @@ depending on the identity store. In this example the identity store is Github:
 Upon successful authentication, an SSH certificate will be stored in the user's `~/.tsh/keys` directory and loaded into an `ssh-agent`, if there is one running. If Kubernetes support is enabled, an x509 certificate for Kubernetes will be stored there as well, and `~/.kube/config` will be updated with it.
 
 The Teleport client stores the proxy service URL in `~/.tsh/profile`. The user does not need to use the `--proxy` flag again. They can edit the profile file when connecting to multiple Teleport clusters.
+
+<Feedback reviews={meta.reviews} />
 
 ## Authentication for Services
 

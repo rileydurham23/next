@@ -1,129 +1,138 @@
-import type { LogoName } from "./AnnouncementBar";
+import * as logos from "./logos";
+import type { LogoName } from "./types";
 
-interface RenderableCompany {
-  imageName: LogoName;
+type LogoConfig =
+  | LogoName
+  | {
+      src: LogoName;
+      url: string;
+    };
+
+export interface Logo {
+  src: string;
   url?: string;
 }
 
-export type LogoRow = Array<LogoName>;
-export type CaseStudyRow = Array<RenderableCompany>;
+export type LogoRow = Logo[];
 
-//STANDARD GRAY SET
-export const Gray1: LogoRow = [
-  "google",
-  "nasdaq",
-  "crypto",
-  "samsung",
-  "hp",
-  "ibm",
-];
-export const Gray2: LogoRow = [
-  "carta",
-  "square",
-  "snowflake",
-  "sumologic",
-  "doordash",
-];
+const expandLogo = (logo: LogoConfig): Logo => {
+  if (typeof logo === "object") {
+    return {
+      src: logos[logo.src],
+      url: logo.url,
+    };
+  }
 
-export const Gray3: LogoRow = [
-  "dk",
-  "accenture",
-  "gitlab",
-  "freshworks",
-  "zynga",
-];
+  return { src: logos[logo] };
+};
 
-// SAAS PAGE
-export const SaaS1: LogoRow = [
-  "colorSnowflake",
-  "colorAirtable",
-  "colorElastic",
-  "colorAuth0",
-  "colorCarta",
-  "colorVmware",
-];
+const expandConfig = (rows: LogoConfig[][]): LogoRow[] =>
+  rows.map((row) => row.map((logo) => expandLogo(logo)));
 
-export const SaaS2: LogoRow = [
-  "colorSumologic",
-  "colorGladly",
-  "colorGusto",
-  "colorOrbit",
-  "colorFlywheel",
-];
+// Standard Gray Set
 
-export const SaaS3: LogoRow = [];
+export const Gray: LogoRow[] = expandConfig([
+  ["bwGoogle", "bwNasdaq", "bwCrypto", "bwSamsung", "bwHp", "bwIbm"],
+  ["bwCarta", "bwSquare", "bwSnowflake", "bwSumologic", "bwDoordash"],
+  ["bwDk", "bwGitlab", "bwAccenture", "bwFreshworks", "bwZynga"],
+]);
 
-//Finance Page
-export const Finance1: LogoRow = [
-  "colorNasdaq",
-  "colorSquare",
-  "colorGoldman",
-  "colorMoodys",
-  "colorCrypto",
-  "colorWise",
-];
-export const Finance2: LogoRow = [
-  "colorMayStreet",
-  "colorMX",
-  "colorFolio",
-  "colorGSR",
-  "colorCarta",
-  "colorSpotOn",
-];
+// SaaS Page
 
-export const Finance3: LogoRow = [];
+export const SaaS: LogoRow[] = expandConfig([
+  [
+    "colorSnowflake",
+    "colorAirtable",
+    "colorElastic",
+    "colorAuth0",
+    "colorCarta",
+    "colorVmware",
+  ],
+  [
+    "colorSumologic",
+    "colorGladly",
+    "colorGusto",
+    "colorOrbit",
+    "colorFlywheel",
+  ],
+]);
 
-//Internet & Entertainment Page
-export const Internet1: LogoRow = [
-  "colorZynga",
-  "colorDraftKings",
-  "colorDoorDash",
-  "colorTwitch",
-  "colorRushStreet",
-  "colorEpicGames",
-];
+// Finance Page
 
-export const Internet2: LogoRow = [
-  "colorWish",
-  "colorCoupang",
-  "colorTokopedia",
-  "colorBigCommerce",
-  "colorThredUp",
-  "colorShadeStore",
-];
+export const Finance: LogoRow[] = expandConfig([
+  [
+    "colorNasdaq",
+    "colorSquare",
+    "colorGoldman",
+    "colorMoodys",
+    "colorCrypto",
+    "colorWise",
+  ],
+  [
+    "colorMayStreet",
+    "colorMX",
+    "colorFolio",
+    "colorGSR",
+    "colorCarta",
+    "colorSpotOn",
+  ],
+]);
+
+// Internet & Entertainment Page
+
+export const Internet: LogoRow[] = expandConfig([
+  [
+    "colorZynga",
+    "colorDraftKings",
+    "colorDoorDash",
+    "colorTwitch",
+    "colorRushStreet",
+    "colorEpicGames",
+  ],
+
+  [
+    "colorWish",
+    "colorCoupang",
+    "colorTokopedia",
+    "colorBigCommerce",
+    "colorThredUp",
+    "colorShadeStore",
+  ],
+]);
 
 // CompactClientsList
 // When determining order, make sure logos with case-study urls always appear in the first 3 positions
 // otherwise they are not displayed on mobile
 
-export const CompactClients1: Array<RenderableCompany> = [
-  { imageName: "colorAuth0", url: "/case-study/auth0/" },
-  { imageName: "colorAirtable" },
-  {
-    imageName: "colorElastic",
-    url: "/case-study/elastic-testimonial/",
-  },
-  { imageName: "colorCrypto" },
-  { imageName: "colorDoorDash" },
-];
-export const CompactClients2: Array<RenderableCompany> = [
-  { imageName: "colorGitlab" },
-  { imageName: "colorGusto" },
-  {
-    imageName: "colorNasdaq",
-    url: "/case-study/nasdaq-testimonial/",
-  },
-  { imageName: "colorHPE" },
-  { imageName: "colorIBM" },
-];
-
-export const CompactClients3: Array<RenderableCompany> = [
-  { imageName: "samsung" },
-  {
-    imageName: "colorSumologic",
-    url: "/case-study/sumologic-testimonial/",
-  },
-  { imageName: "colorSwisscom" },
-  { imageName: "colorThreatstack" },
-  { imageName: "colorTwitch" },
-];
+export const CompactClients: LogoRow[] = expandConfig([
+  [
+    { src: "colorAuth0", url: "/case-study/auth0/" },
+    "colorAirtable",
+    {
+      src: "colorElastic",
+      url: "/case-study/elastic-testimonial/",
+    },
+    "colorCrypto",
+    "colorDoorDash",
+  ],
+  [
+    "colorGitlab",
+    "colorGusto",
+    {
+      src: "colorNasdaq",
+      url: "/case-study/nasdaq-testimonial/",
+    },
+    "colorHPE",
+    "colorIBM",
+  ],
+  [
+    "colorSamsung",
+    {
+      src: "colorSumologic",
+      url: "/case-study/sumologic-testimonial/",
+    },
+    "colorSwisscom",
+    "colorThreatstack",
+    "colorTwitch",
+  ],
+]);

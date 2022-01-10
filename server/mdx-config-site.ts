@@ -5,6 +5,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkLayout from "./remark-layout";
 import remarkImportFiles from "./remark-import-files";
+import { getArticlesListAndTags } from "./resources-helpers";
 
 interface MdxConfig {
   rehypePlugins: PluggableList;
@@ -13,7 +14,7 @@ interface MdxConfig {
 
 const config: MdxConfig = {
   remarkPlugins: [
-    remarkFrontmatter,
+    remarkFrontmatter, // Converts frontmatter to remark node, used by remark-layout
     [
       remarkLayout,
       {
@@ -22,16 +23,29 @@ const config: MdxConfig = {
           howItWorks: "layouts/HowItWorksPage",
           events: "layouts/EventsPage",
           podcast: "layouts/PodcastPage",
+          blogArticle: {
+            path: "layouts/BlogArticle",
+            metaProcessor: async (config: Record<string, unknown>) => {
+              const data = await getArticlesListAndTags(4);
+              config.featuredList = data.list; // Four last articles
+              config.articleTags = data.tags; // Fill tags list for all blog posts
+              return config;
+            },
+          },
           tutorial: "layouts/TutorialPage",
           press: "layouts/PressPage",
+          audits: "layouts/AuditsPage",
         },
         defaultLayout: "layouts/SitePage",
       },
     ],
-    remarkGFM,
-    remarkImportFiles,
+    remarkGFM, // Adds tables
+    remarkImportFiles, // Replaces paths to files with imports
   ],
-  rehypePlugins: [rehypeFixTags, [rehypeHighlight, { plainText: ["text"] }]],
+  rehypePlugins: [
+    rehypeFixTags, // Fix bugs in mdx@2.0.0-next, can b removed after update to stable one.
+    [rehypeHighlight, { plainText: ["text"] }], // Adds syntax highlighting
+  ],
 };
 
 export default config;

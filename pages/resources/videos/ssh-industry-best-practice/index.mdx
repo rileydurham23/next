@@ -1,0 +1,531 @@
+---
+title: "SSH Access - Industry Best Practices"
+description: "How to level up your SSH Access game — keys to certificates, funneling your access through a bastion server, setting up 2-factor authentication."
+layout: tutorial
+publicationDate: "2020-09-09"
+associatedLabels:
+  ["teleport", "SSH", "infosec", "PAM", "Sales", "OSS", "ZeroTrust"]
+videoId: "2vVEmxp0eys"
+videoLength: "50:53"
+---
+
+## SSH Industry Best Practices Overview
+
+Join Teleport engineer Gus Luxton as he discusses best practices for [SSH access](https://goteleport.com/blog/how-to-ssh-properly/) with DevOps.com on how to level up your SSH game — including switching from keys to certificates, funneling your access through a bastion server, setting up 2-factor authentication and cross-referencing your users with an external identity provider.
+
+### Key Topics on SSH Industry Best Practices:
+
+- Switch from Public Keys to Certificates.
+- Use a highly available Bastion Host as an Access Gateway
+- Enforce Second Factor Authentication (2FA)
+- Get User Identities from an Identity Provider
+
+### Expanding your knowledge on SSH Industry Best Practices
+
+- [How to SSH properly](https://goteleport.com/blog/how-to-ssh-properly/)
+- [SSH Key Management](https://goteleport.com/blog/ssh-key-management/)
+- [Applying the Principles of Zero Trust to SSH](https://goteleport.com/blog/applying-principles-of-zero-trust-to-ssh/)
+
+### Learn more about SSH Industry Best Practices
+
+- [Get Teleport](https://goteleport.com/pricing/)
+
+## Slides on - Industry Best Practices for SSH Access
+
+The slides for [Industry Best Practices for SSH Access](https://www.slideshare.net/gravitationalco/industry-best-practices-for-ssh-devopscom-webinar) are posted.
+
+## Introduction - Industry Best Practices for SSH Access
+
+(The transcript of the session)
+
+### Introduction
+
+**Charlene:** Well, good afternoon, good morning, or good evening, depending upon where you are in the world, and welcome to today's
+DevOps.com webinar. I'm Charlene O'Hanlon, moderator for today's event, and I welcome you. We have a great webinar on tap. But before we get
+started, we do have a few housekeeping items we need to go over. First of all, today's event is being recorded, so if you miss any or all of
+the event, you will have the opportunity to access it later on demand. Following today's webinar, we will be sending out an email that
+contains a link to access the webinar on demand.
+
+**Charlene:** And we are taking questions from the audience. So if at any time during today's presentation, you have a question for our
+speaker, please don't wait. Don't hesitate. Just use your GoToWebinar control panel and submit your question, and we'll try to get to as
+many as we can near the end of today's webinar. Also at the end of today's webinar, we are doing a drawing for four $25 Amazon gift cards,
+so please stick around. Hopefully, you'll be one of our four lucky winners. All right. With that, let's go ahead and kick off today's
+webinar, which is Industry Best Practices for SSH Access. Our speaker today is Gus Luxton, who is solutions engineer at Teleport. Hi, Gus.
+Thanks for joining me today. Really appreciate it.
+
+**Gus:** Hey. It's good to be here.
+
+**Charlene:** Excellent. Excellent. Well, I am going to be here, advancing the slides on your behalf. So just go ahead and give me a verbal
+cue whenever you need me to advance the slides. Otherwise, I'll put myself on mute and let you get to it.
+
+**Gus:** Yep. No, absolutely. That sounds great. Okay. So hi, everybody. As Charlene said, I'm Gus Luxton. I'm a solutions engineer at
+Teleport. And today I'm going to be talking about industry best practices for SSH access. So just a little bit about me, I've worked at
+Teleport for a couple of years, and before that, I worked at Facebook. I worked for a financial trading exchange in London, and I was a PHP
+developer. So I've done a little bit of everything. But I've kind of seen states of computers at various sizes, Facebook-scale, smaller
+scale, and kind of mid-range. So I've got some knowledge about these things, and I'd like to kind of share those things with you. So next
+please, Charlene.
+
+### Why Securing SSH is Important
+
+**Gus:** Okay. So let's talk a little bit about why securing access via SSH is important. So managing access to servers, traditionally, in
+the past has involved sharing maybe a password and a username with somebody. You could do that via a password manager. You could write it on
+a Post-it note and give it to somebody. You could do all kinds of things with it. That's not particularly secure because anyone who has that
+password is able to authenticate with that username and get in. So we moved on to SSH keys. So SSH keys are very useful. You generate a key
+pair. You keep the private part yourself, and you put the public part on any servers you want to access. And when you go to access them, you
+authenticate yourself with a cryptographic operation and that logs you in.
+
+**Gus:** Now, if you want to use that on a bigger scale, you need to be able to copy those public keys around to multiple different servers.
+You might be able to automate that with Ansible or SaltStack or Puppet or any other kind of configuration management solution. But the
+problem with that is it doesn't scale very well when your organization grows. So to add new users, you have to rerun that process every time
+to add a new user's key. And then when someone leaves, you have to be able to remove their credentials as well. And it's important to be
+able to do those things within a short period of time. So that can make onboarding and offboarding pretty tricky.
+
+**Gus:** The other thing is that credential leaks and security compromises are a very real risk. If you write down that password on a
+Post-it note and leave it somewhere, anyone who gets access to it can use it. And even with a private key, if you put that on a USB stick
+and then leave that USB stick somewhere, anyone who finds that key may be able to use it. You can encrypt them. You can put passwords on
+them and that kind of thing, but you're still in a position where your credentials being compromised is a risk because anyone who has that
+key is able to log in as you. And then once you do have access via these methods, there's not a lot of visibility into what's going on. You
+don't necessarily know which key was used to log in and you don't know what people are doing when they do connect. So that's some of the
+issues and some of the reasons why securing SSH is important. Next.
+
+### What the Webinar Will Cover
+
+**Gus:** Okay. So here's a summary of the things that I'm going to talk about today. So Step no. 1 is that you should switch from using
+public keys to using SSH certificates instead. It doesn't have to be hard. It's actually not too tricky at all. So we're going to talk about
+how to do that. Step 2: you should look at using a highly available bastion host as an access gateway to your servers. Step 3: you should
+enforce the use of a second factor for any SSH logins. And Step 4, you should get your user identities from an external identity provider.
+Next.
+
+### Step 1: Switch from Public Keys to Certificates
+
+**Gus:** Okay. So, Step 1: switch from public keys to certificates. So here are some benefits of public keys. Public keys, in general, have
+much greater entropy than a shared password because they are generally 2048-, 3072-, 4096-bits long. They're very long values. So greater
+entropy means it's much harder for them to be cracked or guessed. In fact, it's pretty much impossible as far as we know, even with the
+advent of quantum computing and things like that. At the moment, keys generally cannot be broken within a reasonable time frame, so they are
+assumed to be secure. You can't keylog a private key because nobody ever actually types one. Nobody's going to sit there and type out 4096
+bits of value. They're all provided by files, so nobody ever types that in. They can't be keylogged. And, as I mentioned just earlier, it's
+a cryptographically secure operation. So you're using the power of mathematics to authenticate that the person who is using a private key to
+access your server actually has that key in their possession. And that's a reasonable assumption that you can make. Next.
+
+#### The Cons of Public Keys
+
+**Gus:** So that was some of the pros of public keys. But here are some of the downsides of it and some of the reasons why you might want to
+switch from using them and use something different, like certificates, instead. So it can be hard to keep track of which key goes where. So
+keys, they don't expire by default either. So private keys, by default, are infinitely valid. If you add one onto a system and you forget
+about it, then you've given that person who has that private key perpetual access to your system until such time as you go and remove the
+public keys so that they can't log in anymore. That's a bit of a risk. It's also hard to distribute the keys without building an external
+process to do so. So you need to put every single key that you want to provide access to on every single system that you want them to get
+access to. So you need to build some process for distribution. And let's be honest, we're all too busy to do that. Even if you have
+something like that already, you've got to scale it up. You've got to make it work for all of your machines. And, generally, fixing the
+problems with it is something that nobody really has the time for.
+
+**Gus:** So there's also a lack of accountability about which key belongs to who. So when you add a public key to a system, you can put a
+comment on it saying, "Oh, this is Gus's key. This is Jade's key. This is Charlene's key." Whoever. However, that's just reliant on the fact
+that those values are set in the file themselves. You don't necessarily know that that comment is 100% correct. There's nothing built into
+the key itself to identify it. You're just relying on that comment being set correctly. And if someone were to go in and change that
+comment, you might lose track of the key. It also makes it hard to enforce credential rotation without building a separate process to do so.
+So the majority of people who use public-key authentication, they just go and run ssh-keygen once, they generate themselves a private key,
+which they keep, and then they copy that public key over to every server they want to access. And that pretty much stays that way forever.
+Sometimes people will go and regenerate them, but then when you do that, you've got to go and copy the public version over again, and that's
+quite a tricky process. It's something that is risky. And if your keys are compromised or stolen, you've suddenly got a pretty big security
+breach on your hands. Next.
+
+#### Some Benefits of Certificates
+
+**Gus:** So, certificates. They have all of the pros that I mentioned with public keys, and they don't have any of those explicit downsides.
+So you add the public key of a certificate authority, the authority that issues all of your certificates. You add that to a server once, and
+then any certificate that it issues is valid from that point onwards. So if you're familiar with the concept of public-key cryptography at
+all, for example, using web servers or anything like that, that is generally the same principle. So you have a certificate authority, you
+trust that certificate authority, and then any certificate that it signs is considered valid. You can add metadata to every certificate that
+you issue. So you could put in an email address, or an internal username, or some kind of internal ticket reference to your ticketing
+system. Anything that you'd like. Any reference that will make it easy for you to be able to track down those values in future, you can add
+any of those values you like. It's a free-form field. And anytime that that certificate is used to log in, those values appear as well.
+
+**Gus:** Certificates are easy to issue and easy to reissue as well. You can make them expire every 12 hours if you desire. It's that easy.
+And all you need is a quick process to issue a new certificate, and it works exactly the same way as before. So because you don't need to
+copy any of that data around to all your servers, you can just reissue the certificates as often as you desire, as often as you feel
+necessary. And that means that the shorter the validity of those certificates, the more secure you are. Because any compromised credentials
+are only valid for a very short period of time. Makes them not useful at all. You can also revoke the certificates by ID, or by sequence
+number, or by timestamp, anything like that. So it's very simple to make them invalid if you want to. And rotating credentials becomes much
+simpler. You can set up a brand new certificate authority if you want, start issuing certificates from that with a grace period, and that
+will allow people to get new certificates. Next.
+
+#### Example of Certificate Metadata
+
+**Gus:** So here's an example of some metadata that's set on a certificate. So we can see here that this is an OpenSSH user certificate. We
+can see the public key that is used for it and we can see the key of the signing certificate authority as well, which will authenticate that
+authority from all the others. We can see it has a key ID associated with it as well. So gus@goteleport.com is that ID. You can set that to
+whatever you like. It has a serial number. You can issue the same certificate with a higher serial and it will invalidate the older versions
+if you desire. You can set a validity period on them. So this certificate was valid for 24 hours, but you could make it whatever period of
+time you'd like. Also, you can add extra metadata, like principals for example.
+
+**Gus:** So I've added EC2-user and Gus to this certificate. This can control which principals or Unix logins you're allowed to use when you
+log into a system. So that certificate will only allow you to authenticate as those users. Even if you put this on the system and you tried
+to log in as root, the system will just block you and say, "No. You're not authorized to log in as root." And that means you can
+authenticate that and manage which logins people are allowed to use centrally. And there are other extensions on the certificate as well. So
+this one has permit X11 forwarding for graphical applications, older graphical applications. It allows the forwarding of an SSH agent. You
+can disallow that if you don't want people to be forwarding their agents all over the place. It allows port forwarding, it allows
+interactive terminals, and it allows you to manage user RC file. So those are optional extensions that you can include on certificates as
+well. Next.
+
+**Gus:** So there's even more to this than that as well because certificates — they don't just authenticate users to hosts, as in the
+traditional method, to say to a host, "Yes, I am this user." You can also use them to authenticate hosts to users. So has anyone seen a
+prompt like that at the top before? So fairly common with SSH. It's asking you to trust the key fingerprint of the server that you're
+connecting to. This model's called trust on first use or TOFU, if you want a snappy short acronym for it. But it represents quite an
+insecure fundamental model. The problem is that most people will just type yes, as I did in the screenshot. They just type yes to that
+prompt. Originally, the idea of trust on first use was that you're supposed to go to some external source and you're supposed to validate
+that the key fingerprint that you're being presented is exactly the correct one. So you're supposed to go and look it up on the wiki or a
+central directory or something to say, "Yes, this is exactly the correct fingerprint for the server." And if it doesn't match, you're
+supposed to type no and disconnect and run a mile away from that host because you can't trust it. But in 99% of cases, people don't validate
+those at all and they just blindly trust them. And if there's a malicious server behind that, you could be giving it credentials. You could
+be passing it details. This doesn't need to happen with certificate authorities because you can issue host certificates as well.
+
+**Gus:** So I can set up a host certificate authority, issue a certificate for that IP address there, and I can put the fingerprint of my
+host certificate authority in my known hosts file locally. And then if I connect to a host which has a certificate issued by that host
+certificate authority, I know that I can trust it because it's already been validated for me. So those TOFU problems can be a thing of the
+past if you switch to using host certificates. And the message below as well, "The remote host identification has changed," we've all
+probably seen that from time to time as well. And you have to go through and find the correct line in your known hosts file, go and remove
+it, and then reconnect and type yes again and that kind of thing. That doesn't have to happen if you host certificates either because of the
+fact that if you reissue a host certificate or you rebootstrap the host, you put a new host there.
+
+**Gus:** This happens quite often with hosts behind load balancers. So if you have a load balancer with three hosts behind it and you
+connect to that over SSH, each of those hosts will have a different fingerprint, but the hostname that you're using to connect will be the
+same. So those messages can be a pain. And host certificates can solve that problem for you as well because you issue a host certificate for
+each of the hosts behind the load balancer from your host certificate authority, and all of a sudden, your local SSH client knows although
+each of those has a different fingerprint, it's all been issued by the same certificate authority and you know that it can be trusted. Next.
+
+### Step 2: Using a Bastion Server for Access
+
+**Gus:** Okay. So we're moving on to Step 2. So Step 2 is the idea of using a bastion server for access. So in an era of more remote work,
+we're all connecting to servers from different locations all over the place. Could be dynamic IPs, could be mobile data, could be hot spots,
+could be anything like that. This could be quite a nightmare to keep track of. Who is that user? Where are they connecting from? How can I
+be sure — how can I lock down my infrastructure to make sure that only legitimate users can connect? Whitelisting is pretty much impossible,
+as far as I'm concerned. With dynamic IP addresses, it's very unlikely that you're going to always know exactly what IP address your end
+users are connecting from, particularly with mobile data and things as well.
+
+**Gus:** So bastion servers can be highly available. As I mentioned before, you can put a few of them behind a load balancer. You can issue
+host certificates from all of them so you can authenticate them correctly, and then you can enforce that all of your users connect via that
+bastion server. There's no need for a VPN. You can put the bastion server out on the internet because the only access that will be allowed
+to it is access using certificates that you trust. So given that certificates are cryptographically secure, you can be pretty certain that
+nobody's going to be able to get access outside of zero-days and vulnerabilities and things like that, which can be a risk, but largely
+mitigated.
+
+**Gus:** It doesn't have to be very difficult to set up access to a bastion server either. SSH supports the use of [jump
+hosts](https://goteleport.com/blog/ssh-jump-server/) with the -j flag. You can instantly connect. From there, you can put all of your
+traffic through a bastion server with just one extra flag to your SSH command, and everything will just work the way that you expect. You
+can add it into your configs. You can make your existing workflow work that way. It becomes much easier to block or revoke access when you
+know that all your connections are going to come from a limited number of bastion servers, because you can revoke certificates on those
+bastions and deny people access. You can terminate all their existing sessions. You can lock everybody out if you desire that. The use of a
+bastion server also gives a central location for logging and auditing access to your fleet of servers. The log files on your bastions can be
+very valuable. You can see exactly who is connecting and when. You can do analysis on those things. You can ship those logs off to some kind
+of SIEM provider, something that will analyze your logs and alert on them for you, if you desire. So those are some good reasons for using a
+bastion server. Next.
+
+### Step 3: Enforce the Use of a Second Factor
+
+**Gus:** Step 3. How about enforcing the use of a second factor? So two-factor authentication is defined normally as requiring multiple
+factors from a list. So the list could be something you know, like a password, traditionally. It could be something you have, like an
+authenticator app or SMS, for example. And it could be something you are, like your fingerprint, a retina scan, analysis of your voice,
+something like that. There is a star after SMS, and I'll get to that in a moment. You need to present two of these factors to be granted
+access. The likelihood that your password gets stolen, that's fairly reasonable. But the likelihood that your password gets stolen and you
+lose your finger at the same time, that's pretty small. It reduces the risk, needing to provide two factors. And there's lots of
+flexibilities in ways that you can enforce this as well.
+
+**Gus:** So you can use TOTP, time-based one-time password applications, things like Authy, Google Authenticator — any of those kinds of
+things. You're probably familiar with the model: you scan the QR code, you get a new code every 30 seconds, and then you type that in, and
+that authenticates you. You can use push services like Duo, for example, Okta, Auth0, any number of other providers that do the same thing.
+Most of these have PAM, or, pluggable authentication modules, available for Linux machines. So you can set up and manage all of those via
+your PAM config. The installation procedure is pretty simple. It doesn't take too much. Once you've got your — once you've got that set up,
+you do that on your bastions and you're enforcing two-factor authentication. Authy also has a good solution as well. It's a script that runs
+on SSH logins, and you can enforce two-factor via that as well.
+
+**Gus:** Now, the star after SMS that I mentioned as well, SMS authentication has some problems. It's actually not very secure at all
+because it's worryingly easy to take over somebody's cell phone number. If you can do some social engineering and convince a phone provider
+that they should port your number to a different provider or they should give you access or anything like that, that means the SMS
+authentication is actually not particularly secure at all. So a word of advice, I don't recommend using it as a second factor. And if you do
+use it, I recommend switching to something else because there's been a number of high-profile attacks on all kinds of systems that have
+happened as a result of using SMS authentication. Next.
+
+### Step 4: Get Identity from a Third Party
+
+**Gus:** So, Step 4. Get your user identity from a third-party service. So do you really know who all of your users are? Could you make a
+list of all of them? Could you write them all down? And could you do that for 100 users? 1,000 users? 10,000 users? How easy is it to know
+exactly who all of your users are? And then what happens when a user leaves? You want to be able to revoke someone's access. But how do you
+know that you've removed all of their keys? This is the problem. You have a list of public keys, for example, on a server. How do you know
+you've removed the right one? You're relying on the comment on that public key being absolutely valid to say, "Yes, this is Gus's identity
+and I've removed it from all of the servers." But what happened if Gus put another key on there that you didn't know about with a different
+comment and that stays? What if you have some other random key with a random name and you can't really identify that? How about a
+development VM that you don't know that exists? It's not something that any — and the key has been left on there, but it's still on the
+internet and someone could get access. All of these things are risks. They're all things that you need to evaluate.
+
+**Gus:** This is all something that you can attempt to avoid by using an identity provider as the single source of truth for all of your
+users. So if you put all of your users into an identity database that's managed outside — it could be something like Active Directory if
+you're Microsoft users. It could be Okta. It could be OneLogin, Auth0. You can even use something like GitHub. You add GitHub users to teams
+and you can use that to say, "Yes, this user is a member of my team." And when you want to revoke their access, you remove them from the
+team and then their access can be gone. That's one place to add users when they join and one place to remove them when they leave. So if you
+use this to create a process where you need to log in with an identity provider and that allows you to then get a certificate, then you can
+embed the identity provider's identity, the email address, for example, of the user, into that certificate and then use that identity for
+all access. And then every time that user logs in, you're getting that email address, that identity in your log files saying, "Yes.
+`gus@goteleport.com` logged in with a certificate at this time from this IP address," and you've got all of that information available to
+you. If someone leaves, you remove them from the identity provider and then they can't issue certificates anymore and their access is gone.
+Next.
+
+### Summary of the Four Steps Covered
+
+**Gus:** Okay. So yeah, summary of what we just talked about. So Step 1: it's a good idea to switch from using public keys to using
+certificates for all the reasons I mentioned. Trust users from a central user certificate authority and trust hosts from a host certificate
+authority. You can make your SSH experience a lot better by doing these two things. And it doesn't have to be difficult. I wrote a blog
+post, How to SSH Properly, that has detailed technical steps in about how to do this. If you're curious, just google How to SSH Properly and
+all of the data is there. Step 2: use a bastion host. So put all of your access through a limited set of servers and limit access to all of
+your infrastructure from those bastion servers only. So configure your infrastructure to only allow access from the bastions. Set up a few
+bastions, put them behind a load balancer, and then enforce all of your access going via there. Scales reasonably well. Step 3: enforce the
+use of a second factor. So allow users to add a second factor to their systems so that you can enforce they need a password and a token or a
+password and a fingerprint or anything else. Two factor's always better than one. And Step 4: get your user identities from an external
+provider. So onboard your users in one central location and offboard them in one central location. That gives you good ideas to be carrying
+on with. Next.
+
+### How Can You Do This Easily?
+
+**Gus:** So how can you do this easily? Well, there's a few different ways. As I mentioned, I wrote the blog post, How to SSH Properly,
+detailing how you can do this with ssh-keygen and OpenSSH, open-source PAM modules, any of these things. There's a great blog post there. If
+you don't fancy doing something like that or you're curious about a project that would do it for you, give Teleport a try. So Teleport's an
+open-source system. It's written in Go. It's been written by engineers for engineers. So Teleport tries to just get out of the way. It works
+well with existing SSH workflows. You can use an SSH client if you want to connect. It puts all of your access through a bastion server. It
+adds identity provider via GitHub in the open-source version or by SAML or
+[OIDC](https://goteleport.com/blog/how-oidc-authentication-works/) in the enterprise versions. It pushes access through the bastion server,
+as I mentioned, and it uses SSH certificates internally. So it can set up a certificate authority for you, one for your users and one for
+your hosts. You can add all of your hosts into your fleet, and all of your access will be managed automatically. All of the fingerprints
+will be deployed for you. You can put that in your known hosts file and then authenticate that you trust your hosts.
+
+**Gus:** It doesn't get in the way. We're attempting to get out of the way. We want to just allow you to continue using SSH access and just
+get a certificate at the beginning of the day and use that. So that's a system that — it works well. We use it constantly. It's something
+that you can do very simply. And it's fully compatible with SSH, so all the certificates internally are SSH-based. You can use ssh-keygen to
+view the certificates. You can look at all these things. So all your existing SSH-based tooling will still work. It also has audit logging
+embedded and it will allow you to write out to external providers, external databases, sources, all of these kinds of things as well. Next.
+
+### Recommended Next Steps
+
+**Gus:** So we're pretty much at the end here. I've added some next steps here. So, as I mentioned, the “How To SSH Properly” blog post. You
+can use that URL, or you can google “How to SSH Properly”, and all the instructions are in there. Give Teleport a try. We're on GitHub. You
+can go and read the code, go and look at it, download it, run it. Give it a try. See what you think. We'd love your feedback. We're always
+curious to find out what people think. So with that, I think that's the end of my presentation, so we'll go to questions. Are there any —?
+
+### Q&A Time
+
+**Charlene:** Excellent. We are about 29 minutes past the hour, so we have plenty of time for a question-and-answer period. If you do have a
+question, please go ahead and use your GoToWebinar control panel and submit your questions. Looks like right now we do not have any
+questions in, but I'm sure that's going to change very quickly. So while we are waiting to see if any questions come in, I do want to just
+remind the audience that today's event is being recorded. So if you miss any or all of it or if you just want to listen to it again, you'll
+have the opportunity to do so. Okay. It looks like we've gotten a couple of questions in here. Let's see. So let's see. The first one here
+is: How can we generate SSH activity log for monitoring?
+
+**Gus:** So SSH, by default, logs a reasonable amount of data. So when you log in with a user certificate via SSH, or via a key, or with a
+password, SSH writes that information out to your SSHD log. And if you configure some process to get those logs and push them out to a
+centralized system, you can do aggregation with that. So you might use something like Fluentd, for example. So Fluentd can pick up log files
+and can ship them to a central destination, like an S3 bucket or some other kind of centralized data storage, NFS, whatever you would like.
+You can sort of, essentially, pick up the SSH log files and push them to somewhere centralized, and then you can do analysis on them from
+there. Yeah.
+
+**Charlene:** Okay. All right. Great. Next question here. So how can I exactly switch from using key to certificates?
+
+**Gus:** So the exact details about how to do it — I didn't put a ton of kind of technical slides in this presentation with sort of commands
+and things like that, mainly because it would largely be echoing the stuff that I wrote in the How To SSH Properly blog post. So what I
+would advise is go and have a look at that. It's full of the technical, the commands, the ssh-keygen commands, the modifications that you
+need to make to your SSH config and why you're doing them. It explains the flags that you're using and how you can modify them and things
+like that. So that's probably the best way to do it. But I'll give a brief summary of how you can switch.
+
+**Gus:** To use user certificates for authentication, what you need to do is generate a user certificate authority with ssh-keygen and some
+flags, and then you issue keys and you sign them with the user certificate authority. Again, ssh-keygen commands. And then you change the
+config of your SSH daemon, so etc/sshd/sshd_config. You modify that to say, "I want you to trust all certificates issued from this
+certificate authority." And you give it the public key of the certificate authority. You restart SSH and then it will trust any certificates
+that people use to authenticate. You can provide a certificate using SSH -i, the identity flag on the command line. You can add them to an
+SSH agent, so SSH agents support certificates as well. You can add them in and they'll automatically be used when you connect to servers.
+Again, all the detail of exactly how to do this is in the “How to SSH Properly” blog post. So go and read that. And if you have any
+questions, you can post on our [Teleport community forum](https://github.com/gravitational/teleport/discussions), and I'll be happy to
+answer them.
+
+**Charlene:** Excellent. Excellent. Okay. Gosh, we've gotten a lot of questions in. Next one here. Okay. So wouldn't this be a burden to
+organizations? More tools, more setup, more learning curve?
+
+**Gus:** I mean, I suppose any kind of change is a potential burden, but I guess the question is, which is a better situation? So you can
+continue with the current model of — if you're using keys, you can continue with that, but, I mean, if the organization's never going to
+grow beyond 20 people, then maybe that's not a big problem. Maybe it is an acceptable amount of overhead, and maybe you do always know who's
+accessing your machines, and you know exactly who's going to be connecting, and you can keep an eye on that sort of thing. So for smaller
+organizations, yeah, it might well be too much overhead, but for a larger organization, 50, 100, 1,000 people, when you get up to any of
+those kinds of levels, the management of SSH keys becomes more of an overhead.
+
+**Gus:** If you set up a process for issuing certificates, if it works well for one person, it can work well for 100 people or 1,000 people.
+And sometimes the benefit of that, knowing that your certificates are only valid for a short period of time and issuing those things, that
+can be more — that can be more beneficial than the overhead of having to set it up in the first place. Because once you've done this,
+largely, it's a process that you don't need to do too many times, or once you've done it once, you know how to do it again. And it gets
+around a lot of the issues of syncing keys out to servers and having to run that every time you get a new user onboarding or a user leaving.
+So yeah, it can be overhead, but there's good reasons to do it in many circumstances.
+
+**Charlene:** All right. Great. Plenty of time for questions, guys. If you do have one for Gus, just go ahead and use your GoToWebinar
+control panel and send it on in. Next question. Do you have Terraform integration?
+
+**Gus:** I don't know whether the question's for kind of the blog post or for Teleport. I can answer for both. So in the blog post, it's
+just command-line commands. How to do this on a one-off test machine basis or how to do that kind of thing. You could theoretically
+Terraform these things. You could set up a machine for a certificate authority, a centralized machine to issue those certificates and keep
+them securely. I haven't written an example about how to do that. But, actually, that's not a bad idea, and that could be a good way to
+extend the blog post for the future. And I'll answer the question for the perspective of Teleport as well. So Teleport does have deployment
+examples for using with Terraform, for use with CloudFormation, for use with Ansible, for use with a variety of other tools as well. So
+yeah, it is possible to integrate or to set up Teleport clusters using Terraform. We've got examples for how to do that in our GitHub repo.
+
+**Charlene:** Excellent. Next question. What are popular ways of sharing short-living certificates? Email, Slack, something else?
+
+**Gus:** Yeah, that's a pretty good question. So, I mean, ideally, the private key material that makes up a certificate, you don't really
+want to be sharing that outside of the user who's supposed to be using them. So what you would probably want to do to build a process for —
+you'd want to build a process for issuing certificates. So a kind of a — maybe a web UI or some kind of service that you connect to, like a
+remote procedure call-type thing, a web service that you can — you set it up to log in and authenticate. And then when you've authenticated
+successfully, it generates you a certificate and sends it immediately back to your client machine. So you would generate that certificate
+and copy it down to your client machine using probably [scp](https://goteleport.com/blog/scp-familiar-simple-insecure-slow/) or — although
+there's a bootstrapping thing there because you need to be able to get access in the first place. So, potentially, yeah, there's a few
+different kind of options or different ways to do that.
+
+**Gus:** Again, I don't want to sort of bang the drum about Teleport, but it does make this a lot easier. It has built-in processes for kind
+of issuing certificates and it has a command-line tool called TSH, which you can use to log into a cluster and get certificates, and it kind
+of manages and automates that part for you. Outside of that, to do it with SSH natively, you'd need some kind of access to the server that
+issues the certificates or a kind of front-end wrapper to that. So a way to call the process remotely, like a script which connects for you
+and issues a certificate and downloads it for you. So, ideally, you want to keep your private keys secure. I wouldn't send the keys
+themselves over Slack or something. You could if you really wanted to, but it's probably best to — you kind of lose the accountability then.
+If you share a key with somebody else, then you're not sure who's using it. It could be one of any number of people who it's been shared
+with, so.
+
+**Charlene:** All right. So many great questions. Next one here. Are there examples of Teleport being used with Ansible?
+
+**Gus:** Yes, there are. Yeah. So we have some — so there's two different ways. We have some scripts. There's a number of open-source
+scripts as well for kind of all roles for installing Teleport using Ansible. There's quite a lot of those if you google for them. We have an
+example, I think, in our repo as well. So that's for kind of installing a Teleport cluster using Ansible. But then if you actually want to
+use Teleport to connect to hosts, to run Ansible on them, you can do that as well. So Teleport will work. You can override your Ansible
+commands. So in your ansible.cfg, you can override your SSH command. You can give it some common arguments. You could say, "Run SSH with a
+config file, SSH whatever." So you can use SSH natively or you can use the TSH client as well. You should be able to run TSH SSH. TSH is
+Teleport's internal, kind of own certificate-issuing and SSH client. You can use that as well. You can set up your config files and run
+Ansible over Teleport-based connections as well. I've done that numerous times. It works well.
+
+**Charlene:** All right. Great. Next question here, and you might have to help me with this one. How does this tool fit with having IAAC
+systems? I don't know if he means to infrastructure as code or infrastructure as a service or —
+
+**Gus:** Yeah. Sounds like it. Yeah.
+
+**Charlene:** Yeah. Okay. Great.
+
+**Gus:** Yeah. So it depends. I mean, if you have — so from a perspective of issuing certificates, you can absolutely use certificates for
+things like if you have a Jenkins server, for example, that runs CI processes, or some kind of centralized infrastructure as code system. I
+covered a little bit of that answer with the stuff about Ansible, for example. So you can use — if you're connecting to hosts via SSH, you
+can absolutely use user certificates for those as well. You can issue them for a specific principal. So you could issue a certificate that
+only allows a Jenkins user or an Ansible user or a Puppet user to connect, for example. So you could issue a certificate which is designed
+exclusively to be used by automation and which is valid for a short period of time. And you could integrate that with your process, such
+that when the infrastructure as code pipeline needs to run it first goes and generates itself a new certificate or requests a new
+certificate. You log that, and then that certificate's used for the duration of the connection.
+
+**Gus:** So that's from kind of a generic principal perspective. How can you do this with certificates in general? And, again, yeah, from a
+Teleport perspective, it can work with Ansible. It can work with anything that can use SSH as a transport. So you can issue short-lived
+certificates or longer-lived certificates if you want from Teleport and then use those with automation or infrastructure as code pipelines
+or things like that. You could also deploy clusters via a Teleport cluster or a CA server or something via infrastructure as code as well if
+you wanted.
+
+**Charlene:** Great. All right, guys. It is about 19 minutes to the top of the hour. There's still time for questions. If you do have one,
+go ahead and use your GoToWebinar control panel and submit it, and we'll keep plugging along until we run out of questions. Next question.
+Very interesting presentation. We would like to use these mechanisms on embedded devices. These devices do not always have a correct time.
+Only sometimes NTP sync is possible. Can we use the system of certificates [laughter]?
+
+**Gus:** That is an interesting question. Theoretically. I mean — it depends how far your clock is out of sync. I mean, you absolutely can.
+So you can make certificates valid for as short a period of time, as little as a second, if you want, or as long as years. They can be
+infinitely valid too if you want, although that does remove some of the benefit of using them, the kind of automatic expiry. So I think if
+you could assert that your clock would be accurate within a given sort of value - so if we're not talking that it's years out of sync or
+anything like that - you can still use them. It's just that your — if your clock was set to before the time that the certificate was issued
+at, then you might get a not yet valid-type error. So it would be a harder problem to solve. I don't think it would be entirely impossible.
+You'd just have to — you'd have to establish a window for what your clock skew might be. Is it going to be two years in the past? Might it
+be two years in the future? And make sure that you issue certificates within that period.
+
+**Gus:** I mean — if you wanted to get really smart, you could even have a system where it would log how far the clock was out of sync for
+each of your individual hosts. And then when you issue the certificates, you could issue certificates from within a particular time frame. I
+don't know. I don't think that would work super well. I'm kind of intrigued about a situation where you wouldn't — I guess if you have
+internet connectivity not all the time, necessarily, then maybe NTP wouldn't be reliable. That's an interesting one. But yeah, definitely.
+If you had some idea of the time window, you could probably still use it. Or you could make the certificates infinitely valid and you still
+get the benefits of allowing access only to certain principals, for example, or adding extensions in to say, "No, you can't port forward
+with this certificate," or, "No, you can only run single commands. You can't have an interactive session." And you'd still get the embedded
+data about which certificate. So the identity, the email address, or the ticket reference or username or whatever that you have. You'd still
+get those benefits. So there's still some perks to using certificates, even if you can't necessarily rely on the expiry behavior.
+
+**Charlene:** Interesting. All right. All right. Next question. Can you use PKI certs for GitHub?
+
+**Gus:** That's a more generic kind of question. So GitHub itself, actually — as far as I know, GitHub doesn't support certificate
+authorities yet. So if you set up a certificate authority and issue a certificate from it, you can't add that public certificate fingerprint
+to GitHub and have it work. I think I read a blog post from them a while back about how they want to add this, but it's kind of on the to-do
+list and it hasn't happened yet. Some things I know that do support it, Bitbucket, for example. So Bitbucket does support the use of
+certificate authorities and public-key certificate or public certificate fingerprints. It does support that. I believe GitLab does as well,
+so maybe GitLab Enterprise. I think you can also use certificates there. So, again, I mean, I wish GitHub would support it because it's a
+great use case and it would be a brilliant idea to allow that, but I just don't think GitHub itself — the hosted version of GitHub. The
+private version may have support for it, but I don't believe GitHub.com does yet.
+
+**Charlene:** Excellent. Okay. Next question. Do you plan to integrate a logger that records the session for a full logged session?
+
+**Gus:** So to do this via a kind of strictly SSH-based tooling is reasonably tricky because you need to be able to kind of — you need to be
+able to intercept that session. You could possibly do it via some kind of scripting if you were to kind of configure your bastion servers
+and then put some kind of scripts in place there where you could connect, and it would maybe make the connection for you and then record the
+input and output of the session. I didn't add it into the blog post because, one, the post was already pretty long, and two, honestly, it's
+quite a hard problem to solve with SSH natively. I haven't looked in great detail into how to do it, but there isn't kind of an easy, "Oh
+yeah, just turn on X option in the config and restart to make it work."
+
+**Gus:** So doing it with SSH kind of tooling natively is, as far as I know, reasonably tricky. But, of course, from a
+[Teleport](https://goteleport.com/) perspective, Teleport does do this for you. So Teleport supports session recording out of the box. And
+it supports that for either running Teleport on the node — so Teleport has a node service that resembles SSH as well. So it's SSH compatible
+and will allow you to do that. But also you can record sessions on your proxy and Teleport will man-in-the-middle those for you and record
+the session input and the session output. So you can get full session playback for all SSH sessions via Teleport if you configure it that
+way. So that would be — I don't want to sound like a shill. That would be my encouraged way of doing it.
+
+**Charlene:** Excellent. All right. Next question. Is the support for a CRL URL included to avoid distributing CRL files?
+
+**Gus:** So with Teleport itself, CRL and revocation is something we're still kind of working on. The built-in kind of expiry property is
+something that we're using to do that, but we are working on kind of actively being able to revoke certificates. For SSHD and for OpenSSH in
+general, you can sync a — I believe you can get your CRL, your revocation list, from a central location. So if you were to push that CRL up
+to an S3 bucket or some kind of centralized storage, then yeah, you could have SSHD pull that CRL whenever anyone tries to log in and then
+use that to validate. That would be a good addition to the blog post, actually, to explain how to do that and how to set that up. But you
+should be able to — you should be able to do that. I believe SSH has support for pulling from a URL natively. Otherwise, you'd have to
+synchronize the file by some other method, and then you're kind of in the same position where you've got to push that list to all your
+servers and you're not much better off than when you're using public keys. So yeah, definitely the URL would be a preferable method.
+
+**Charlene:** All right. Great. It looks like that's all the questions that we have right now. If you have a question, there's still a
+little bit of time. So just use your GoToWebinar control panel and go ahead and get it on in. We actually did get another comment from
+Matthias, who asked about the time element question. He said it can be years out of sync initially, so.
+
+**Gus:** Yeah. Yeah. Again —
+
+**Charlene:** Sounds like a difficult problem.
+
+**Gus:** I think so. I think in that situation, yeah, you'd have to have a very long validity period on your certificates, so. But as I say,
+there are still perks to doing it and still benefits, namely the fact that you only have to sync one fingerprint out to your servers. You
+don't have to push — you don't have to update it every single time you get a new user. So you can do that, and it's definitely a valid use
+case. So yeah, it's an intriguing use case, though, for sure, embedded devices. I hadn't really thought about — I haven't really thought
+about that. We get questions fairly often about how to do this for things like firewalls and switches and kind of Cisco devices, Juniper,
+whatever, anything that have kind of an embedded SSH service, but a proprietary configuration interface or whatever. So if they run SSHD,
+you can absolutely use certificates with those as well. But sometimes the embedded versions of SSHD that they run are not as fully featured
+as OpenSSH, so your mileage may vary. But definitely worth a try.
+
+**Charlene:** All right. All right. Well, it looks like that is all that we have for the question-and-answer period. As I said before, if
+you have a question for Gus, we can probably slip one or two more in before we close things out. But even if you have a question after that,
+before the end of the webinar, you can certainly go ahead and use the GoToWebinar control panel and submit the question because the folks at
+Teleport are getting a copy of all the questions that are asked. And so if we don't address it here during the webinar, I'm sure they'll be
+more than happy to follow up with you offline and get your question answered.
+
+### Closing Words
+
+**Charlene:** And while we are waiting, once again, I do want to remind the audience that today's event has been recorded. So if you missed
+any or all of the event or, as I said before, if you just want to watch it again, you will have the opportunity to do so. Following today's
+webinar, we are sending out an email that contains a link to access the webinar on demand. And the webinar is also going to be living on the
+— I believe it's the Security Boulevard website. So you can always go look for it there. Just go to securityboulevard.com/webinars, look in
+the on-demand section, and it should be right there waiting for you. Okay. It looks like we don't have any more questions coming in. So I do
+want to thank the audience for so many great questions that did come in. I was very, very impressed at the quality of the questions.
+
+**Gus:** Yeah. Thank you.
+
+**Charlene:** So thank you —
+
+**Gus:** They were good.
+
+**Charlene:** Yes. Yeah. They were really great. And also, Gus, want to thank you for a great presentation. And also want to thank the
+audience for your patience as we worked through a couple of technical difficulties on this webinar. I think we pulled it off pretty well,
+but, again, I do want to thank you all for your patience as we got through those. So I guess, with that, this is Charlene O'Hanlon, and I'm
+going to go ahead and sign off now. I hope everybody has a great day, and please stay safe.

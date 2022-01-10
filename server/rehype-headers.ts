@@ -1,4 +1,9 @@
-/* inspired by docusaurus-mdx-loader */
+/*
+ * inspired by docusaurus-mdx-loader.
+ *
+ * Gathers info about headers used on the page to use in the right navigation column,
+ * and exports it as "export const tableOfContents = { ... };".
+ */
 
 import { Transformer } from "unified";
 import { Element } from "hast";

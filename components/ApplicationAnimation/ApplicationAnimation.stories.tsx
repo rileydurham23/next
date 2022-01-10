@@ -1,8 +1,10 @@
 import { Meta, Story } from "@storybook/react";
-import { ApplicationAnimation } from "./ApplicationAnimation";
+import { ApplicationAnimation, AnimationProps } from "./ApplicationAnimation";
 
 const generateStoryComponent = () => {
-  const StoryComponent: Story = (args) => <ApplicationAnimation {...args} />;
+  const StoryComponent: Story<AnimationProps> = (args) => (
+    <ApplicationAnimation {...args} />
+  );
 
   return StoryComponent;
 };
@@ -16,4 +18,6 @@ export default meta;
 
 export const Default = generateStoryComponent();
 
-Default.args = {};
+Default.args = {
+  animationType: "application",
+};

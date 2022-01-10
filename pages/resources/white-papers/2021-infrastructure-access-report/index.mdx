@@ -1,0 +1,47 @@
+---
+title: Teleport State of Infrastructure Access and Security Report 2021
+description: "The 2021 State of Infrastructure Access and Security Report seeks to better understand the challenges facing IT, DevOps and security professionals. Featuring survey data from 1,000 respondents, the Report offers a representative sample of the common beliefs held by industry professionals, as well as the actions being taken to maintain security in an era of unparalleled complexity. Companies are simultaneously embracing long term work-from-home along with new cloud-native tools such as containers, Kubernetes, and new database types that add new layers to the already existing IT stack. This dramatic increase in complexity has made the challenge of securing the network perimeter go from difficult to nearly impossible. Meanwhile, the massive employee turnover now known as the “Great Resignation” has dramatically increased the risk of former employees maintaining access to company infrastructure. All this and more is detailed in the 2021 State of Infrastructure Access and Security Report."
+brief: The 2021 State of Infrastructure Access and Security Report seeks to better understand...
+publicationDate: "2021-12-14"
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+---
+
+import BookBlock from "components/BookBlock";
+import ClientsList from "components/ClientsList";
+import PromoPointsBlock from "components/PromoPointsBlock";
+
+<BookBlock
+  title={meta.title}
+  src="../assets/cover-infrastructure.png"
+  formId="1227"
+  display="flex"
+  flexDirection="column"
+  pdfSource="https://goteleport.com/pdf/state-of-infrastructure-access-2021.pdf"
+>
+  {meta.description}
+</BookBlock>
+<PromoPointsBlock
+  title="Download the PDF to learn:"
+  src="../assets/engineers.svg"
+>
+  <PromoPointsBlock.Item icon="bolt">
+    What 1000 of your peers are thinking about security
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="card">
+    The biggest risks in information security
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="shieldCheck">
+    Tops areas to focus in 2022
+  </PromoPointsBlock.Item>
+</PromoPointsBlock>
+<ClientsList clients={meta.clients} contrasted />

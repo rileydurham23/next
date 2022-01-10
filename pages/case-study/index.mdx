@@ -10,6 +10,7 @@ reviews:
   - sumologic
   - extrahop
   - ecmwf
+  - airSlate3
 images:
   imgCity:
     image: ./assets/city-tile.jpg
@@ -149,14 +150,12 @@ clients:
   - zapier
 ---
 
-import {
-  SectionHeader,
-  StatsContainer,
-  BaitCard,
-  ClientsList,
-  Feedback,
-  Flex,
-} from "components";
+import BaitCard from "components/BaitCard";
+import Feedback from "components/Feedback";
+import Flex from "components/Flex";
+import ClientsList from "components/ClientsList";
+import SectionHeader from "components/SectionHeader";
+import StatsContainer from "components/StatsContainer";
 
 <SectionHeader
   subtitle="Trusted by leading companies"

@@ -1,7 +1,7 @@
 import css from "@styled-system/css";
 import Box, { BoxProps } from "components/Box";
 import Flex from "components/Flex";
-import { Centrator } from "components/Layout";
+import Centrator from "components/Centrator";
 import SectionPlanCard from "./SectionPlanCard";
 
 export type PlanProps = {

@@ -9,22 +9,20 @@ reviews:
   - carta
 ---
 
-import {
-  AnnouncementBar,
-  CenterCard,
-  EasyStart,
-  Feedback,
-  Image,
-  Link,
-  NewsItem,
-  ProductBanner,
-  Section,
-  SectionHeader,
-  Terminal,
-  TryTeleport,
-  WorksWith,
-} from "components";
-import { SaaS1, SaaS2 } from "components/AnnouncementBar/data";
+import AnnouncementBar from "components/AnnouncementBar";
+import CenterCard from "components/CenterCard";
+import EasyStart from "components/EasyStart";
+import Feedback from "components/Feedback";
+import Image from "components/Image";
+import Link from "components/Link";
+import NewsItem from "components/NewsItem";
+import ProductBanner from "components/ProductBanner";
+import Section from "components/Section";
+import SectionHeader from "components/SectionHeader";
+import Terminal from "components/Terminal";
+import TryTeleport from "components/TryTeleport";
+import WorksWith from "components/WorksWith";
+import { SaaS } from "components/AnnouncementBar/data";
 import secteams from "./assets/for-secteams.svg";
 import startups from "./assets/for-startups.svg";
 import largorgs from "./assets/for-largorgs.svg";
@@ -41,18 +39,12 @@ import largorgs from "./assets/for-largorgs.svg";
     ![secure access for saas](./assets/hero-aws@2x.png)
   </SectionHeader>
   <NewsItem display="flex" flexDirection="row" alignItems="center">
-    Teleport is available in the 
-    <Link
-      href="https://aws.amazon.com/marketplace/pp/prodview-syjxiiw25cr3u?sr=0-1&ref_=beagle&applicationId=AWSMPContessa"
-    >
+    Teleport is available in the
+    <Link href="https://aws.amazon.com/marketplace/pp/prodview-syjxiiw25cr3u?sr=0-1&ref_=beagle&applicationId=AWSMPContessa">
       <Image ml="10px" src="./assets/aws-marketplace-logo.svg" />
     </Link>
-</NewsItem>
-  <AnnouncementBar
-    backgroundColor="lightest-gray"
-    inLivingColor
-    rows={[SaaS1, SaaS2]}
-  />
+  </NewsItem>
+  <AnnouncementBar type="big" rows={SaaS} />
 </Section>
 
 <Section width="100%" bg="flatWhite">
@@ -176,7 +168,14 @@ but necessary to control costs, as well as ensure security and compliance.
   </WorksWith>
 </Section>
 
-<EasyStart>
+<EasyStart
+  description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
+  listDescription="Teleport consists of just two binaries."
+  listItems={[
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
+  ]}
+>
   <Terminal>
 ```
 # on a client

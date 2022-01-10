@@ -11,27 +11,18 @@ border: none
 import css from "@styled-system/css";
 import styled from "styled-components";
 
-import {
-  AnnouncementBar,
-  Box,
-  Button,
-  Centrator,
-  Flex,
-  GridDisplay,
-  Image,
-  Link,
-  ListCardItem,
-  SectionHeader,
-  TryTeleport,
-} from "components";
-
-import {
-  CompactClients1,
-  CompactClients2,
-  CompactClients3,
-} from "components/AnnouncementBar/data";
-
-import { ProductCard } from "components/GridDisplay";
+import AnnouncementBar from "components/AnnouncementBar";
+import Box from "components/Box";
+import Button from "components/Button";
+import Centrator from "components/Centrator";
+import Flex from "components/Flex";
+import GridDisplay, { ProductCard } from "components/GridDisplay";
+import Image from "components/Image";
+import Link from "components/Link";
+import { ListCardItem } from "components/ListCard";
+import SectionHeader from "components/SectionHeader";
+import TryTeleport from "components/TryTeleport";
+import { CompactClients } from "components/AnnouncementBar/data";
 
 <SectionHeader
   bg="wave-on-gray"
@@ -42,10 +33,7 @@ import { ProductCard } from "components/GridDisplay";
   subtitle={meta.subtitle}
   title={meta.title}
 >
-  <Flex
-    flexDirection={["column", "row"]}
-    width={["100%", "inherit"]}
-  >
+  <Flex flexDirection={["column", "row"]} width={["100%", "inherit"]}>
     <Button
       as={Link}
       href="/pricing/"
@@ -190,7 +178,7 @@ import { ProductCard } from "components/GridDisplay";
       mb={6}
     >
       <Flex flexDirection="column">
-        <ListCardItem icon="documents">Event logging for audits</ListCardItem>
+        <ListCardItem icon="stack">Event logging for audits</ListCardItem>
         <ListCardItem icon="bolt">
           Short-lived certificate authentication
         </ListCardItem>
@@ -229,34 +217,35 @@ import { ProductCard } from "components/GridDisplay";
       src="../../sharedAssets/images/server.svg"
       description="For SSH servers behind NAT in multiple environments."
       href="/ssh-server-access/"
-      title="Teleport Server Access"
+      title="Server Access"
     />
     <ProductCard
       src="../../sharedAssets/images/kubernetes.svg"
       description="For Kubernetes clusters behind NAT in multiple environments."
       href="/kubernetes-access/"
-      title="Teleport Kubernetes Access"
+      title="Kubernetes Access"
     />
     <ProductCard
       src="../../sharedAssets/images/application.svg"
       description="For web applications behind NAT in multiple environments."
       href="/application-access/"
-      title="Teleport Application Access"
+      title="Application Access"
     />
     <ProductCard
       src="../../sharedAssets/images/database.svg"
       description="For databases behind NAT in multiple environments."
       href="/database-access/"
-      title="Teleport Database Access"
+      title="Database Access"
     />
+    <ProductCard 
+      title="Desktop Access" 
+      src="../../sharedAssets/images/desktop.svg" 
+      href="/desktop-access" 
+      description="For Windows servers & desktops in multiple environments."/>
   </GridDisplay>
 
   <Box pt={5} pb={100}>
-    <AnnouncementBar
-      rows={[CompactClients1, CompactClients2, CompactClients3]}
-      caseStudy
-      title
-    />
+    <AnnouncementBar type="case" rows={CompactClients} />
   </Box>
 </Centrator>
 <TryTeleport />

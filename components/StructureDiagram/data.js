@@ -83,6 +83,12 @@ const DiagramData = {
       "Teleport is an identity-aware application proxy. This means that any web application running on LAN/VPC can be exposed to the outside world via an HTTP/TLS endpoint served by a Teleport proxy. This dramatically simplifies managing security and authentication for internal web apps.",
     lines: "proxy",
   },
+  desktop: {
+    title: "Desktop Access",
+    description:
+      "Provide role-based access to any Windows Server or Desktop via integration with your Active Directory or any SSO provider. Achieve RDP connectivity to your Windows hosts using TLS via any modern web browser.",
+    lines: "proxy",
+  },
 };
 
 export default DiagramData;

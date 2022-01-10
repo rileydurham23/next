@@ -4,7 +4,7 @@ import { resolve } from "path";
 import remark from "remark";
 import mdx from "remark-mdx";
 import remarkVariables, { RemarkVariablesOptions } from "./remark-variables";
-import { load, normalize, Config } from "./config-docs";
+import { loadConfig, Config } from "./config-docs";
 
 jest.mock("./config-docs");
 
@@ -24,11 +24,9 @@ const config: Config = {
   },
 };
 
-const mockedLoad = load as jest.Mock<Config>;
-const mockedNormalize = normalize as jest.Mock<Config>;
+const mockedLoadConfig = loadConfig as jest.Mock<Config>;
 
-mockedLoad.mockImplementation(() => config);
-mockedNormalize.mockImplementation(() => config);
+mockedLoadConfig.mockImplementation(() => config);
 
 const transformer = (
   vfileOptions: VFileOptions,
