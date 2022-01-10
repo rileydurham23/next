@@ -1,0 +1,47 @@
+---
+title: Download Teleport
+subtitle: Community Edition
+description: Teleport provides simple secure access to SSH servers, Kubernetes clusters, PostgreSQL databases and web apps behind NAT, in any environment. It's a certificate authority with an integrated identity-aware proxy.
+headerBehaviour: floating
+headerMode: full
+border: none
+---
+
+import Download from "components/Download";
+import Flex from "components/Flex";
+import Link from "components/Link";
+import Section from "components/Section";
+import SectionHeader from "components/SectionHeader";
+
+<SectionHeader
+  title={meta.title}
+  subtitle={meta.subtitle}
+  description={meta.description}
+  descriptionTextWidth="1000px"
+  bg="wave-on-gray"
+>
+  <Flex flexDirection="column">
+    Additional ways to install teleport
+    <ul>
+      <li>
+        <Link href="https://goteleport.com/docs/getting-started/">
+          Teleport Quickstart Guide
+        </Link>
+      </li>
+      <li>
+        <Link href="https://goteleport.com/installing/">
+          Install from Source
+        </Link>
+      </li>
+      <li>
+        <Link href="https://quay.io/repository/gravitational/teleport?tab=tags">
+          Install using Docker
+        </Link>
+      </li>
+    </ul>
+  </Flex>
+</SectionHeader>
+<Section bg="flatWhite">
+
+  <Download />
+</Section>
