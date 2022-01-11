@@ -43,7 +43,7 @@ const HeaderCTA = () => {
         <Box position="relative" width={["100%", "auto"]} ref={ref}>
           <StyledCTA
             as="a"
-            href="https://dashboard.gravitational.com/web/"
+            href="https://teleport.sh/"
             onClick={toggleSignIn}
             variant="secondary"
           >
@@ -60,7 +60,7 @@ const HeaderCTA = () => {
           >
             <DropdownMenu title="Sign in to Teleport">
               <DropdownMenuItem
-                href="/login/"
+                href="https://teleport.sh/"
                 icon="clouds"
                 title="Teleport Cloud Login"
                 description="Login to your Teleport Account"

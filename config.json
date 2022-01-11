@@ -39,6 +39,11 @@
       "source": "/enterprise-trial/",
       "destination": "/teleport-demo/",
       "permanent": true
+    },
+    {
+      "source": "/login/",
+      "destination": "https://teleport.sh",
+      "permanent": true
     }
   ],
   "allowedMarketoIds": [
