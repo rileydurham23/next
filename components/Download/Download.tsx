@@ -6,35 +6,51 @@ import styled from "styled-components";
 import * as _ from "lodash";
 import Box from "components/Box";
 import Centrator from "components/Centrator";
-import GitHubButton from "react-github-btn";
+import { Star } from "react-github-buttons";
 // import Section from "components/Section";
 
-const gravity =
-  "https://dashboard.gravitational.com/webapi/releases-oss?product=gravity&page=0";
+// const gravity =
+//   "https://dashboard.gravitational.com/webapi/releases-oss?product=gravity&page=0";
 const teleport =
   "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
 
-const fetchDownloads = (): Promise<unknown> => {
-  const url =
-    "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
+// const fetchDownloads = (): Promise<unknown> => {
+//   const url =
+//     "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
 
-  return fetch(url).then((response) => response.json());
-};
+//   return fetch(url).then((response) => response.json());
+// };
 
-interface ReturnObject {
-  props: any;
+// interface ReturnObject {
+//   props: any;
+// }
+
+// const getServerSideProps = (context): Promise<ReturnObject> => {
+//   return fetchDownloads().then((response) => {
+//     // console.log(response);
+//     return {
+//       props: {},
+//     };
+//   });
+// };
+
+interface Download {
+  displaySize: string;
+  name: string;
+  sha: string;
+  url: string;
 }
 
-const getServerSideProps = (context): Promise<ReturnObject> => {
-  return fetchDownloads().then((response) => {
-    // console.log(response);
-    return {
-      props: {},
-    };
-  });
-};
+interface Version {
+  downloads: Array<Download>;
+  descriptionMarkdown: string;
+  id: string;
+  prerelease: boolean;
+  publishedAt: string;
+  version: string;
+}
 
-const groupByMajorVersions = (allReleases, product) => {
+const groupByMajorVersions = (allReleases, product): Array<Version> => {
   const versions = {};
 
   allReleases.forEach((release) => {
@@ -52,7 +68,7 @@ const groupByMajorVersions = (allReleases, product) => {
 
   const sortedVersions = _(versions).toPairs().sortBy(0).fromPairs().value();
   const versionsArray = _.values(sortedVersions).reverse();
-
+  console.log(versionsArray);
   return versionsArray;
 };
 
@@ -61,25 +77,12 @@ export const Download = (product: "teleport" | "gravity") => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showNotes, setShowNotes] = useState(false);
-  const url = product === "teleport" ? teleport : gravity;
+  // const url = product === "teleport" ? teleport : gravity;
+  const url =
+    "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
 
   const renderGithubStars = () => {
-    const url =
-      product === "teleport"
-        ? "https://github.com/gravitational/teleport"
-        : "https://github.com/gravitational/gravity";
-
-    return (
-      <GitHubButton
-        href={url}
-        data-icon="octicon-star"
-        data-size="large"
-        data-show-count="true"
-        aria-label="Star repo on GitHub"
-      >
-        Star
-      </GitHubButton>
-    );
+    return <Star owner="gravitational" repo="teleport" />;
   };
 
   const renderNotesToggle = () => {
@@ -110,7 +113,12 @@ export const Download = (product: "teleport" | "gravity") => {
       });
   }, [url]);
 
-  return <Centrator>adsfadfadf</Centrator>;
+  return (
+    <Centrator>
+      {renderNotesToggle()}
+      {renderGithubStars()}
+    </Centrator>
+  );
 };
 
 const StyledNotesButton = styled("button")(
