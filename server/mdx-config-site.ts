@@ -47,7 +47,7 @@ const config: MdxConfig = {
     remarkImportFiles, // Replaces paths to files with imports
   ],
   rehypePlugins: [
-    [rehypeHighlight, { plainText: ["text"] }], // Adds syntax highlighting
+    [rehypeHighlight, { plainText: ["text", "prolog", "Dockerfile"] }], // Adds syntax highlighting
   ],
 };
 
