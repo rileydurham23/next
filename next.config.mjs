@@ -1,22 +1,24 @@
 /* eslint-env node */
-const { resolve } = require("path");
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-const mdxSiteOptions = require("./.build/server/mdx-config-site");
-const mdxDocsOptions = require("./.build/server/mdx-config-docs");
-const { loadConfig } = require("./.build/server/config-site");
-const {
+import { resolve } from "path";
+import bundleAnalyzer from "@next/bundle-analyzer";
+import mdxSiteOptions from "./.build/server/mdx-config-site.mjs";
+import mdxDocsOptions from "./.build/server/mdx-config-docs.mjs";
+import { loadConfig } from "./.build/server/config-site.mjs";
+import {
   getRedirects,
   generateSitemap,
   generateFullSitemap,
-} = require("./.build/server/paths");
+} from "./.build/server/paths.mjs";
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
 
 const { latest } = loadConfig();
-const PAGES_DIRECTORY = resolve(__dirname, "pages");
-const CONTENT_DIRECTORY = resolve(__dirname, "content");
+const PAGES_DIRECTORY = resolve("pages");
+const CONTENT_DIRECTORY = resolve("content");
 
-module.exports = withBundleAnalyzer({
+export default withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   rewrites: async () => [
     {
@@ -67,7 +69,7 @@ module.exports = withBundleAnalyzer({
         options.defaultLoaders.babel,
         {
           loader: "@mdx-js/loader",
-          options: mdxDocsOptions.default,
+          options: mdxDocsOptions,
         },
       ],
     });
@@ -79,7 +81,7 @@ module.exports = withBundleAnalyzer({
         options.defaultLoaders.babel,
         {
           loader: "@mdx-js/loader",
-          options: mdxSiteOptions.default,
+          options: mdxSiteOptions,
         },
       ],
     });

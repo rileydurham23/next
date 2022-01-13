@@ -5,13 +5,14 @@
  * Acorn's config and plugins list is copied from mdx parser.
  */
 
+import type { Property, ObjectExpression } from "estree-jsx";
+
 import acorn, { Parser } from "acorn";
 import acornJsx from "acorn-jsx";
-import { Property, ObjectExpression } from "estree-jsx";
 
 const AcornParser = Parser.extend(acornJsx());
 
-export const createEstree = (value): acorn.Node => {
+export const createEstree = (value: string): acorn.Node => {
   return AcornParser.parse(value, {
     ecmaVersion: 2020,
     sourceType: "module",

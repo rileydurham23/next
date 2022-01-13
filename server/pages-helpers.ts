@@ -2,6 +2,8 @@
  * Collection of helpers for gathering metainformation from mdx files.
  */
 
+import type { MDXPage, MDXPageData, MDXPageFrontmatter } from "./types-unist";
+
 import glob from "glob";
 import { resolve, join } from "path";
 import { readSync } from "to-vfile";
@@ -41,9 +43,9 @@ export const getPageInfo = <T = MDXPageFrontmatter>(
   let result: MDXPage<T> = cache[path] as MDXPage<T>;
 
   if (!result) {
-    const file: MDXPage<T> = readSync(path, "utf-8");
+    const file = readSync(path, "utf-8") as MDXPage<T>;
 
-    const { data } = matter(file.contents as string);
+    const { data } = matter(file.value);
 
     file.data = {
       frontmatter: data,
