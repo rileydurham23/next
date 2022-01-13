@@ -89,6 +89,7 @@ const config: MdxConfig = {
         aliases: {
           bash: ["bsh", "systemd", "code", "powershell"],
           yaml: ["conf", "toml"],
+          plainText: ["prolog", "Dockerfile"],
         },
       },
     ], // Adds syntax highlighting
