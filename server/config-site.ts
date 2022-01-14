@@ -2,12 +2,10 @@
  * this is the main config loading and normalization logic.
  */
 
-import type { Redirect } from "next/dist/lib/load-custom-routes";
-
 import Ajv from "ajv";
-import { resolve } from "path";
+import { Redirect } from "next/dist/lib/load-custom-routes";
 import { validateConfig, redirectsSchemaFragment } from "./config-common";
-import { loadJson } from "./json";
+import config from "../config.json";
 
 interface Config {
   versions: {
@@ -26,10 +24,6 @@ interface NormalizedConfig {
   redirects?: Redirect[];
   allowedMarketoIds: number[];
 }
-
-export const load = () => {
-  return loadJson(resolve("config.json")) as Config;
-};
 
 /*
  * This a JSON schema describing config.json file format, if actual config
@@ -101,9 +95,7 @@ export const normalize = ({
 /* Load, validate and normalize config. */
 
 export const loadConfig = () => {
-  const config = load();
+  validateConfig(validator, config);
 
-  validateConfig<Config>(validator, config);
-
-  return normalize(config);
+  return normalize(config as Config);
 };

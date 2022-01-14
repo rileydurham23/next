@@ -2,8 +2,8 @@
  * Helper functions to generate props for "resources/*" pages.
  */
 
-import type { BlogArticaleFrontmatter } from "layouts/BlogArticle/types";
-import type {
+import type { BlogArticle } from "layouts/BlogArticle/types";
+import {
   AuditReport,
   EpisodeKind,
   PodcastEpisode,
@@ -11,8 +11,6 @@ import type {
   Tutorial,
   Webinar,
 } from "components/EpisodesList/types";
-import type { MDXPageData, MDXPageFrontmatter } from "./types-unist";
-
 import { getPagesInfo } from "./pages-helpers";
 
 interface PageDataWithEpisodeKind extends MDXPageData<MDXPageFrontmatter> {
@@ -131,10 +129,16 @@ const getArticlesList = () => {
   let articlesPageInfo = [];
 
   try {
-    articlesPageInfo = getPagesInfo<BlogArticaleFrontmatter>(`blog/**/*.mdx`, {
-      filter: ({ layout }) => layout === "blogArticle",
-      sort: "date",
-    }).map(({ data }) => data);
+    articlesPageInfo = getPagesInfo(`blog/**/*.mdx`)
+      .map(({ data }) => data)
+      .filter(
+        (article: BlogArticle) => article.frontmatter.layout === "blogArticle"
+      )
+      .sort(
+        (a: BlogArticle, b: BlogArticle) =>
+          new Date(b.frontmatter.date).getTime() -
+          new Date(a.frontmatter.date).getTime()
+      );
   } catch (e) {
     console.error(e);
   }

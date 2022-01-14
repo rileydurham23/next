@@ -1,14 +1,9 @@
-import { suite } from "uvu";
-import * as assert from "uvu/assert";
-
 import { CURRENT_YEAR } from "./date";
 
-const Suite = suite("utils/date");
+describe("utils/date", () => {
+  it("CURRENT_YEAR should be dynamically current year", () => {
+    const year = new Date().getFullYear();
 
-Suite("CURRENT_YEAR should be dynamically current year", () => {
-  const year = new Date().getFullYear();
-
-  assert.equal(CURRENT_YEAR, year);
+    expect(CURRENT_YEAR).toEqual(year);
+  });
 });
-
-Suite.run();

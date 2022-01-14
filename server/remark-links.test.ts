@@ -1,98 +1,90 @@
-import { suite } from "uvu";
-import * as assert from "uvu/assert";
-
-import { VFile, VFileOptions } from "vfile";
-import { remark } from "remark";
+import vfile, { VFileOptions } from "vfile";
+import remark from "remark";
 import mdx from "remark-mdx";
 import remarkLinks from "./remark-links";
 
-const transformer = (options: VFileOptions) => {
-  const file = new VFile(options);
+const transformer = (options: VFileOptions) =>
+  remark().use(mdx).use(remarkLinks).processSync(vfile(options)).toString();
 
-  return remark().use(mdx).use(remarkLinks).processSync(file).toString();
-};
+describe("utils/remark-links", () => {
+  it("Removes .md and and adds './'", () => {
+    const result = transformer({
+      contents: "[Some link](workflow.mdx)",
+      path: "/docs/enterprize/index.mdx",
+    });
 
-const Suite = suite("utils/remark-links");
-
-Suite("Removes .md and and adds './'", () => {
-  const result = transformer({
-    value: "[Some link](workflow.mdx)",
-    path: "/docs/enterprize/index.mdx",
+    expect(result).toEqual("[Some link](./workflow/)\n");
   });
 
-  assert.equal(result, "[Some link](./workflow/)\n");
-});
+  it("Removes .md and and adds '../'", () => {
+    const result = transformer({
+      contents: "[Some link](workflow.md)",
+      path: "/docs/enterprize.md",
+    });
 
-Suite("Removes .md and and adds '../'", () => {
-  const result = transformer({
-    value: "[Some link](workflow.md)",
-    path: "/docs/enterprize.md",
+    expect(result).toEqual("[Some link](../workflow/)\n");
   });
 
-  assert.equal(result, "[Some link](../workflow/)\n");
-});
+  it("Replaces index.md with the '/'", () => {
+    const result = transformer({
+      contents: "[Some link](workflow/index.md)",
+      path: "/docs/enterprize/index.md",
+    });
 
-Suite("Replaces index.md with the '/'", () => {
-  const result = transformer({
-    value: "[Some link](workflow/index.md)",
-    path: "/docs/enterprize/index.md",
+    expect(result).toEqual("[Some link](./workflow/)\n");
   });
 
-  assert.equal(result, "[Some link](./workflow/)\n");
-});
+  it("Correctly resolves parent folder", () => {
+    const result = transformer({
+      contents: "[Some link](../workflow.md)",
+      path: "/docs/enterprize.md",
+    });
 
-Suite("Correctly resolves parent folder", () => {
-  const result = transformer({
-    value: "[Some link](../workflow.md)",
-    path: "/docs/enterprize.md",
+    expect(result).toEqual("[Some link](../../workflow/)\n");
   });
 
-  assert.equal(result, "[Some link](../../workflow/)\n");
-});
+  it("Correctly resolves root paths", () => {
+    const result = transformer({
+      contents: "[Some link](/workflow.md)",
+      path: "/docs/enterprize.md",
+    });
 
-Suite("Correctly resolves root paths", () => {
-  const result = transformer({
-    value: "[Some link](/workflow.md)",
-    path: "/docs/enterprize.md",
+    expect(result).toEqual("[Some link](/workflow/)\n");
   });
 
-  assert.equal(result, "[Some link](/workflow/)\n");
-});
+  it("Correctly resolves links with hashes", () => {
+    const result = transformer({
+      contents: "[Some link](workflow.mdx#anchor)",
+      path: "/docs/enterprize.md",
+    });
 
-Suite("Correctly resolves links with hashes", () => {
-  const result = transformer({
-    value: "[Some link](workflow.mdx#anchor)",
-    path: "/docs/enterprize.md",
+    expect(result).toEqual("[Some link](../workflow/#anchor)\n");
   });
 
-  assert.equal(result, "[Some link](../workflow/#anchor)\n");
-});
+  it("Correctly resolves non .md paths", () => {
+    const result = transformer({
+      contents: "[Some link](../image.png)",
+      path: "/docs/index.md",
+    });
 
-Suite("Correctly resolves non .md paths", () => {
-  const result = transformer({
-    value: "[Some link](../image.png)",
-    path: "/docs/index.md",
+    expect(result).toEqual("[Some link](../image.png)\n");
   });
 
-  assert.equal(result, "[Some link](../image.png)\n");
-});
+  it("Leave external links as is", () => {
+    const result = transformer({
+      contents: "[Some link](https://yandex.ru/workflow.md)",
+      path: "/docs/enterprize.md",
+    });
 
-Suite("Leave external links as is", () => {
-  const result = transformer({
-    value: "[Some link](https://yandex.ru/workflow.md)",
-    path: "/docs/enterprize.md",
+    expect(result).toEqual("[Some link](https://yandex.ru/workflow.md)\n");
   });
 
-  assert.equal(result, "[Some link](https://yandex.ru/workflow.md)\n");
-});
+  it("Work with mdx components", () => {
+    const result = transformer({
+      contents: '<Component href="../workflow.mdx"/>',
+      path: "/docs/enterprize/index.mdx",
+    });
 
-Suite("Work with mdx components", () => {
-  const result = transformer({
-    value: '<Component href="../workflow.mdx"/>',
-    path: "/docs/enterprize/index.mdx",
+    expect(result).toEqual('<Component href="../workflow/"/>\n');
   });
-
-  assert.equal(result, '<Component href="../workflow/"/>\n');
 });
-
-Suite.run();

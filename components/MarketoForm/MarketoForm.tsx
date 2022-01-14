@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import css from "@styled-system/css";
 import { Form } from "react-final-form";
 import Link from "components/Link";
@@ -202,3 +203,16 @@ export const MarketoBrowserForm = ({
     </Flex>
   );
 };
+
+export const StyledMarketoBrowserForm = styled(MarketoBrowserForm)(
+  css({
+    fieldset: {
+      div: {
+        flexDirection: "column",
+        label: {
+          ml: "5",
+        },
+      },
+    },
+  })
+);

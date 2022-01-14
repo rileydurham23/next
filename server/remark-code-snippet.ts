@@ -23,22 +23,16 @@
  * See fixtures/includes and tests for more examples.
  */
 
-import type { Transformer } from "unified";
-import type { Code as MdastCode, Paragraph as MdastParagraph } from "mdast";
-import type {
-  MdxastNode,
-  MdxJsxFlowElement,
-  MdxJsxTextElement,
-} from "./types-unist";
-
-import { visit } from "unist-util-visit";
+import { Transformer } from "unified";
+import visit from "unist-util-visit";
+import { VFile } from "vfile";
 
 const RULE_ID = "code-snippet";
 
-const isCode = (node: MdxastNode): node is MdastCode =>
+const nodeIsCode = (node: MdxastNode) =>
   node.type === "code" && node.lang === "code";
 
-const getCommandNode = (content: string, prefix = "$"): MdxJsxFlowElement => ({
+const getCommandNode = (content: string, prefix = "$") => ({
   type: "mdxJsxFlowElement",
   name: "Command",
   attributes: [],
@@ -63,7 +57,7 @@ const getCommandNode = (content: string, prefix = "$"): MdxJsxFlowElement => ({
   ],
 });
 
-const getSpanNode = (content: string, attributes = []): MdxJsxTextElement => ({
+const getSpanNode = (content: string, attributes = []) => ({
   type: "mdxJsxTextElement",
   name: "span",
   attributes,
@@ -75,7 +69,7 @@ const getSpanNode = (content: string, attributes = []): MdxJsxTextElement => ({
   ],
 });
 
-const getPNode = (content: string): MdastParagraph => ({
+const getPNode = (content: string) => ({
   type: "paragraph",
   children: [
     {
@@ -93,9 +87,9 @@ export interface RemarkCodeSnippetOptions {
 export default function remarkCodeSnippet(
   { lint }: RemarkCodeSnippetOptions = { resolve: true }
 ): Transformer {
-  return (root, vfile) => {
-    visit(root, isCode, (node: MdastCode, index, parent) => {
-      const content: string = node.value;
+  return (root: MdxastRootNode, vfile: VFile) => {
+    visit<MdxastNode>(root, [nodeIsCode], (node) => {
+      const content: string = node.value as string;
       const codeLines = content.split("\n");
       const children = [];
 
@@ -188,12 +182,12 @@ export default function remarkCodeSnippet(
         }
       }
 
-      parent.children[index] = {
-        type: "mdxJsxFlowElement",
-        name: "Snippet",
-        attributes: [],
-        children,
-      } as MdxJsxFlowElement;
+      node.type = "mdxJsxFlowElement";
+      node.name = "Snippet";
+      node.attributes = [];
+      delete node.lang;
+      delete node.meta;
+      node.children = children;
     });
   };
 }

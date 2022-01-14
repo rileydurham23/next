@@ -64,7 +64,7 @@ export const Image = ({
 
   return (
     <Flex
-      as="figure"
+      as="span"
       mx={xMargin}
       my={yMargin}
       flexDirection="column"
