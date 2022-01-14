@@ -39,73 +39,85 @@ import WorksWith from "components/WorksWith";
 <Section bg="waveLight">
   <ProductBanner
     imgPosition="right"
-    title="Secure your servers & meet compliance requirements"
+    title="Easily secure your servers using security best practices"
     subtitle="For DevSecOps"
     src="../assets/server-access.png"
     alt="a diagram of server architecture"
-    description="Teleport delivers industry best practices for SSH and RDP access with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates and leave SSH keys behind."
+    description="Teleport delivers industry best practices for SSH access with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates and leave SSH keys behind."
   >
-    <ProductBanner.Item title="Access Controls" src="../assets/soc2.png">
-      Teleport offers all required server access controls to implement
-      compliance standards such as SOC2, PCI, and FedRAMP.
+    <ProductBanner.Item title="Certificate-based access">
+      Certificate-centric design enables Teleport to deliver SSO, RBAC, per-session MFA, and other modern security best practices for SSH access.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Access Requests" src="../assets/cert.png">
-      Move away from root accounts with just-in-time privilege escalation for
-      administrative tasks.
+    <ProductBanner.Item title="TLS routing">
+      Certificate-based protocol negotiation shrinks the network attack surface area of all your Linux servers to a single TCP/IP port and reduces operational overhead.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Per Session MFA" src="../assets/sso.png">
-      Easily implement multi-factor authentication across your organization
-      without relying on device management systems.
+    <ProductBanner.Item title="Access Requests">
+      Move away from root accounts with just-in-time SSH privilege escalation for administrative tasks. Access requests can be approved via Slack or other supported plug-ins.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
+
 <Section bg="grayWave">
   <ProductBanner
     imgPosition="left"
-    title="Access that doesn't get in the way"
-    subtitle="For Developers"
-    src="../assets/access-anywhere-alt.png"
+    title="Meet compliance requirements"
+    subtitle="For Compliance-Minded Engineers"
+    src="../assets/meet_compliance_requirements@2x.png"
     alt="a diagram of server architecture"
-    description="Teleport delivers industry best practices for SSH and RDP access with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates and leave SSH keys behind."
+    description="Teleport was designed to continuously maintain compliance and pass audits with minimal configuration. The supported standards include SOC2, FedRAMP, HIPAA, ISO 27001, PCI and more."
   >
-    <ProductBanner.Item title="Session Sharing" src="../assets/cert.png">
-      Invite colleagues to collaborate in a shared terminal session. Record
-      sessions for knowledge sharing purposes.
+    <ProductBanner.Item title="Advanced authorization">
+      Use the authorization mechanism best suited for your compliance requirements such as RBAC, per-session MFA, and dual authorization for privileged operations.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Live Server Catalog" src="../assets/catalog.svg">
-      List servers across all environments and see which servers are online with
-      a single CLI command or via a live view in a browser.
+    <ProductBanner.Item title="FIPS mode">
+      Avoid human errors using Teleport FIPS mode which rejects configuration options unless they are compliant with FIPS 140-2, also known as the Federal Information Processing Standard.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Plugins and API" src="../assets/plugins.svg">
-      Automate access provisioning and request approvals using your favorite
-      programming language.
+    <ProductBanner.Item title="Session controls">
+      Implement moderated sessions, enforce concurrent session restrictions, proactive session termination and identity locking across your entire infrastructure footprint.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
 <Section bg="wavelight">
   <ProductBanner
     imgPosition="right"
-    title="Complete visibility into access and behavior"
-    subtitle="For Security Professionals"
-    src="../assets/db-access.png"
+    title="Access that doesn't get in the way"
+    subtitle="For Developers"
+    src="../assets/globe-laptop-image@2x-right-side.png"
     alt="a diagram of server architecture"
-    description="Teleport provides a live view and an audit log for server sessions, filesystem changes, data transfers, command executions, and other security events making it easy to see what’s happening and who is responsible."
+    description="Designed for cloud-native workloads across multiple environments, Teleport works with existing CI/CD solutions, in a terminal, and in a browser. SSH permissions are always in sync with other layers of your stack removing the need to juggle shared secrets, or hop between VPNs and multiple access points."
   >
-    <ProductBanner.Item title="Session Recording" src="../assets/recording.svg">
-      Every interactive session is recorded for future replay and can be
-      analyzed by other tools for behavior anomalies.
+    <ProductBanner.Item title="Live server inventory">
+      With a real-time inventory of all your Linux servers in the cloud, on-prem, or edge, resource discovery, and maintenance are easy.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Audit Log" src="../assets/events.svg">
-      All security events including the filesystem and network activity are
-      recorded and can be exported into SIEM solutions.
+    <ProductBanner.Item title="Shared sessions">
+      See all live interactive SSH sessions across your entire fleet. Easily join another user’s session for pair programming or debugging.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Live View" src="../assets/live-view.svg">
-      All online servers, active sessions, access requests are visible with a
-      single CLI command or in a browser.
+    <ProductBanner.Item title="Access as code">
+      Automate access provisioning and access request approvals using your favorite programming language.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
-
+<Section bg="grayWave">
+  <ProductBanner
+    imgPosition="left"
+    title="Complete visibility into access and behavior"
+    subtitle="For Security Professionals"
+    src="../assets/database-image@2x-right-side.png"
+    alt="a diagram of server architecture"
+    description="Teleport provides a live view and an audit log for server sessions, filesystem changes, data transfers, command executions, and other security events making it easy to see what’s happening and who is responsible."
+  >
+    <ProductBanner.Item title="Session Recording">
+      Every interactive session is recorded for future replay and can be
+      analyzed by other tools for behavior anomalies.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Unified audit log">
+      Consolidate all security events across all environments in a single source of truth and export them into a SIEM solution of your choice.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Kernel level logging">
+      Teleport offers enhanced session recordings based on BPF events so every system call during an SSH session can be audited.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
 <Section bg="grayGradient">
   <Feedback reviews={meta.reviews} />
 </Section>
@@ -120,7 +132,7 @@ import WorksWith from "components/WorksWith";
   description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
   listDescription="Teleport consists of just two binaries."
   listItems={[
-    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>,
     <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
   ]}
 >
