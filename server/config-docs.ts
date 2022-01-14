@@ -4,10 +4,9 @@
  * these config files.
  */
 
-import type { Redirect } from "next/dist/lib/load-custom-routes";
-
 import Ajv from "ajv";
 import { validateConfig, redirectsSchemaFragment } from "./config-common";
+import { Redirect } from "next/dist/lib/load-custom-routes";
 import { resolve } from "path";
 import { existsSync, readFileSync } from "fs";
 import { isExternalLink, isHash, splitPath } from "../utils/url";
@@ -189,7 +188,7 @@ export const normalize = (config: Config, version: string): Config => {
 export const loadConfig = (version: string) => {
   const config = load(version);
 
-  validateConfig<Config>(validator, config);
+  validateConfig(validator, config as unknown as Record<string, unknown>);
 
   return normalize(config, version);
 };

@@ -2,7 +2,7 @@
  ** Helper for adding linter errors to vfile for using with remark-lint
  */
 
-import type { VFile } from "vfile";
+import { VFile } from "vfile";
 
 interface UpdateMessagesOptions {
   vfile: VFile;

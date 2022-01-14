@@ -3,14 +3,13 @@
  * All fronmatter fields except `layout` and privded to the wrapper component as `meta` prop.
  */
 
-import type { Transformer } from "unified";
+import { Transformer } from "unified";
 import type { VFile } from "vfile";
-import type { Node as UnistNode, Parent as UnistParent } from "unist";
-
 import yaml from "js-yaml";
 import stringifyObject from "stringify-object";
 import find from "unist-util-find";
 import { createMdxjsEsmNode } from "./mdx-helpers";
+import { Node } from "unist";
 
 type Meta = Record<string, unknown>;
 type ImportTemplate = (layoutPath: string) => string;
@@ -61,8 +60,8 @@ export default function remarkLayout({
   skipLayout = false,
   metaKey = "meta",
 }: RemarkLayoutOptions): Transformer {
-  return async (root: UnistParent, vfile: VFile) => {
-    const node = find(root, (node: UnistNode) => node.type === "yaml");
+  return async (root: MdxastRootNode, vfile: VFile) => {
+    const node = find(root, (node: Node) => node.type === "yaml");
 
     if (!node) {
       return;

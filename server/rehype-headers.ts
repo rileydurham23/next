@@ -5,13 +5,11 @@
  * and exports it as "export const tableOfContents = { ... };".
  */
 
-import type { Transformer } from "unified";
-import type { Element } from "hast";
-import type { Parent } from "unist";
-
-import { visit } from "unist-util-visit";
-import { headingRank } from "hast-util-heading-rank";
-import { toString } from "hast-util-to-string";
+import { Transformer } from "unified";
+import { Element } from "hast";
+import visit from "unist-util-visit";
+import rank from "hast-util-heading-rank";
+import toString from "hast-util-to-string";
 import { createMdxjsEsmExportNode } from "./mdx-helpers";
 
 interface HeaderMeta {
@@ -29,13 +27,13 @@ export default function rehypeHeaders({
   name = "tableOfConents",
   maxLevel,
 }: RehypeHeadersOptions): Transformer {
-  return (root: Parent) => {
+  return (root: MdxastRootNode) => {
     const headers: HeaderMeta[] = [];
 
-    visit(root, "element", (node: Element) => {
-      if (headingRank(node) && headingRank(node) <= maxLevel) {
+    visit<Element>(root, "element", function (node) {
+      if (rank(node) && rank(node) <= maxLevel) {
         headers.push({
-          rank: headingRank(node),
+          rank: rank(node),
           id: node.properties?.id as string,
           title: toString(node),
         });
