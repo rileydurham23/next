@@ -1,6 +1,7 @@
 export {
   MarketoForm as default,
   MarketoBrowserForm,
+  StyledMarketoBrowserForm,
   RecaptchaTOC,
 } from "./MarketoForm";
 export {
