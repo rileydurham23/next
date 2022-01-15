@@ -5,6 +5,7 @@ hideWave: true
 border: none
 ---
 
+import Section from "components/Section";
 import AnimationHeader from "components/AnimationHeader";
 import AnnouncementBar from "components/AnnouncementBar";
 import EasyStart from "components/EasyStart";
@@ -34,7 +35,7 @@ import WorksWith from "components/WorksWith";
 <Section bg="wavelight">
   <ProductBanner
     imgPosition="right"
-    title="Secure Kubernetes & meet compliance requirements"
+    title="Easily secure your Kubernetes clusters using security best practices"
     subtitle="For DevSecOps"
     src="../assets/k8s-access.png"
     alt="a diagram of server architecture"
@@ -44,44 +45,42 @@ import WorksWith from "components/WorksWith";
       </>
       }
   >
-    <ProductBanner.Item title="Access Controls" src="../assets/soc2.png">
-      Teleport offers all required server access controls to implement
-      compliance standards such as SOC2, PCI, and FedRAMP.
+    <ProductBanner.Item title="Access Requests">
+      Move away from admin accounts with just-in-time Kubernetes privilege
+      escalation for administrative tasks. Access requests can be approved via
+      Slack or other supported plug-ins.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Access Requests" src="../assets/cert.png">
-      Move away from root accounts with just-in-time privilege escalation for
-      administrative tasks.
+    <ProductBanner.Item title="TLS routing">
+      Certificate-based protocol negotiation shrinks the network attack surface
+      area of all your Kubernetes clusters to a single TCP/IP port and reduces
+      operational overhead.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Per Session MFA" src="../assets/sso.png">
-      Easily implement multi-factor authentication across your organization
-      without relying on device management systems.
+    <ProductBanner.Item title="Per Session MFA">
+      Implement multi-factor authorization of privileged operations for already logged in users.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
 <Section bg="grayWave">
   <ProductBanner
     imgPosition="left"
-    title="Access that doesn't get in the way"
-    subtitle="For Developers"
-    src="../assets/access-anywhere-alt.png"
+    title="Meet compliance requirements"
+    subtitle="For Compliance-Minded Engineers"
+    src="../assets/meet_compliance_requirements@2x.png"
     alt="a diagram of server architecture"
     description={
       <>
-        A single sign-on gives engineers instant Kubernetes access across all environments. Leave behind configuration complexity, juggling of shared keys, hopping between VPNs and bastion hosts.
+        Teleport was designed to continuously maintain compliance and pass audits with minimal configuration. The supported standards include SOC2, FedRAMP, HIPAA, ISO 27001, PCI and more.
       </>
       }
   >
-    <ProductBanner.Item title="Session Sharing" src="../assets/cert.png">
-      Invite colleagues to collaborate in a shared terminal session. Record
-      sessions for knowledge sharing purposes.
+    <ProductBanner.Item title="Advanced authorization">
+      Use the authorization mechanism best suited for your compliance requirements such as RBAC, per-session MFA, and dual authorization for privileged operations.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Live Server Catalog" src="../assets/catalog.svg">
-      List servers across all environments and see which servers are online with
-      a single CLI command or via a live view in a browser.
+    <ProductBanner.Item title="FIPS mode">
+      Avoid human errors using Teleport FIPS mode which rejects configuration options unless they are compliant with FIPS 140-2, also known as the Federal Information Processing Standard.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Plugins and API" src="../assets/plugins.svg">
-      Automate access provisioning and request approvals using your favorite
-      programming language.
+    <ProductBanner.Item title="Session controls">
+      Implement moderated sessions, enforce concurrent session restrictions, proactive session termination and identity locking across your entire infrastructure footprint.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
@@ -94,25 +93,46 @@ import WorksWith from "components/WorksWith";
     alt="a diagram of server architecture"
     description={
       <>
-        Teleport provides a live view and the audit log of kubectl sessions and access events for all Kubernetes clusters across all environments, making it easy to see what’s happening and who is responsible.
-
+        Teleport provides a live view and the audit log of all user sessions and access events for all Kubernetes clusters across all environments, making it easy to see what’s happening and who is responsible.
       </>
       }
 >
-
-    <ProductBanner.Item title="Session Recording" src="../assets/recording.svg">
-      Every interactive session is recorded for future replay and can be
-      analyzed by other tools for behavior anomalies.
+    <ProductBanner.Item title="Session Recording">
+      Every interactive kubectl session is recorded for future replay and can be analyzed by other tools for behavior anomalies.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Audit Log" src="../assets/events.svg">
-      All kubectl sessions and security events are logged and exported to SIEM solutions as a single source of truth.
+    <ProductBanner.Item title="Unified audit log">
+      Consolidate all security events across all clusters in a single source of truth and export them into a SIEM solution of your choice.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Live View" src="../assets/live-view.svg">
+    <ProductBanner.Item title="Live View">
       All online clusters, active kubectl sessions, access requests are visible with a single CLI command or in a browser.
     </ProductBanner.Item>
-
   </ProductBanner>
 </Section>
+<Section bg="grayWave">
+  <ProductBanner
+    imgPosition="left"
+    title="Secure access that doesn't get in the way"
+    subtitle="For Developers"
+    src="../assets/access-anywhere-alt.png"
+    alt="a diagram of server architecture"
+    description={
+      <>
+        A single login gives engineers access to all Kubernetes clusters across all environments. Leave behind configuration complexity, juggling of shared credentials, hopping between VPNs and access points.
+      </>
+      }
+  >
+    <ProductBanner.Item title="Live Cluster Inventory">
+      List all available Kubernetes clusters across all environments with a single CLI command or via a web browser.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Access as Code">
+      Automate access provisioning and request approvals across all clusters using your favorite programming language.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Teleport Terminal">
+      Save time with the superpowers of Teleport’s remote-first terminal app for interacting with cloud-native CLI environments like kubectl.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+
 <VideoBanner title="Demo Video" videoId="2diX_UAmJ1c" />
 <WorksWith title="Works with everything you have">
   Teleport Kubernetes Access is open source and it relies on open standards such as
@@ -123,7 +143,7 @@ import WorksWith from "components/WorksWith";
   description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
   listDescription="Teleport consists of just two binaries."
   listItems={[
-    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>,
     <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
   ]}
 >
