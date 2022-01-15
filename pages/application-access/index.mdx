@@ -23,7 +23,7 @@ import WorksWith from "components/WorksWith";
     subtitle="Teleport Access Plane"
     description={
       <>
-        Implement security, meet compliance requirements and have complete visibility into access and behavior across all your web apps deployed behind NAT across all environments.      
+        Identity-based access to CI/CD pipelines, AWS console, monitoring dashboards, code repositories, and other internal web applications across all environments.
       </>
     }
   >
@@ -34,70 +34,95 @@ import WorksWith from "components/WorksWith";
 <Section bg="flatWhite">
   <ProductBanner
     imgPosition="right"
-    title="Secure web apps &amp; meet compliance requirements"
+    title="Easily enforce security for your entire DevOps toolkit"
     subtitle="For DevSecOps"
     src="../assets/application-diagram.png"
     alt="a diagram of server architecture"
     description={
       <>
-        Implement industry best practices for web application access with minimal configuration. Easily enforce MFA and SSO, and bring existing applications into compliance with security standards.
+        Teleport Application Access brings industry best practices for accessing internal web apps, replacing VPNs with a modern, identity-based zero-trust approach.
       </>
       }
   >
-    <ProductBanner.Item title="Access Controls" >
-      Teleport offers all web access controls to meet compliance requirements for SOC2, PCI, and FedRAMP. 
+    <ProductBanner.Item title="Single Sign On with MFA " >
+      Teleport brings security best practices and compliance controls to all internal web apps, including SSO, MFA with auto-expiring certificates tied to a user identity.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Access Requests" >
-      Move away from root accounts with just-in-time privilege escalation for administrative tasks.
+    <ProductBanner.Item title="Unified Access Policy" >
+      Easily implement unified role-based access controls (RBAC) across all internal web applications using JWT tokens.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Session Controls" >
-      Define and enforce policy to handle idle user sessions, concurrent sessions for all web applications across all environments.
+    <ProductBanner.Item title="TLS routing" >
+      Certificate-based protocol negotiation shrinks the network attack surface area of all your web applications to a single public DNS endpoint with a single TCP/IP port.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
 <Section bg="grayWave">
   <ProductBanner
     imgPosition="left"
-    title="Access that doesn't get in the way"
-    subtitle="For Developers"
-    src="../assets/application-laptop.png"
+    title="Meet compliance requirements"
+    subtitle="For Compliance-Minded Engineers"
+    src="../assets/meet_compliance_requirements@2x.png"
     alt="a diagram of server architecture"
     description={
       <>
-A single sign-on gives engineers access to all web apps running across all clouds. No need to wrestle with VPNs, manage public IPs, DNS records or SSL certificates for every application.      </>
+        Teleport was designed to continuously maintain compliance and pass audits with minimal configuration. The supported standards include SOC2, FedRAMP, HIPAA, ISO 27001, PCI and more.
+      </>
       }
   >
-    <ProductBanner.Item title="Live Catalog" >
-      Teleport application launcher allows users to see and access all available web apps with a single click.
+    <ProductBanner.Item title="Advanced authorization" >
+      Use the authorization mechanism best suited for your compliance requirements such as RBAC, per-session MFA, and dual authorization for privileged operations.
     </ProductBanner.Item>
-    <ProductBanner.Item title="AuthZ as a Service" >
-      Build faster by easily adding identity-based authentication with SSO and RBAC to your own applications.
+    <ProductBanner.Item title="FIPS mode" >
+      Avoid human errors using Teleport FIPS mode which rejects configuration options unless they are compliant with FIPS 140-2, also known as the Federal Information Processing Standard.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Plugins and API" >
-      Customize access requests and integrate access workflows using your favorite programming language.
+    <ProductBanner.Item title="Session controls" >
+      Implement moderated sessions, enforce concurrent session restrictions, proactive session termination and identity locking across your entire infrastructure footprint.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
 <Section bg="wavelight">
   <ProductBanner
     imgPosition="right"
+    title="Reduce operational overhead of securing internal web applications"
+    subtitle="For Developers"
+    src="../assets/laptop-application-image@2x-right-side.png"
+    alt="a diagram of server architecture"
+    description={
+      <>
+        Managing domain names, HTTPS certificates and firewall rules for accessing internal web applications is a thing of the past.
+      </>
+      }
+  >
+    <ProductBanner.Item title="Endpoint Management" >
+      Teleport Application Access automatically configures DNS, manages x.509 certificates and network ports, making it painless to self-host a large number of internal web apps.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Access Provisioning" >
+      Cloud infrastructure is elastic, and so are engineering teams. Provisioning and deprovisioning access to internal DevOps tooling to new team members or new cloud environments is instant with Teleport Application Access.
+    </ProductBanner.Item>
+    <ProductBanner.Item title="Application Launcher" >
+      Modern engineering teams use dozens of tools to build, ship and run their applications. Teleport Application Launcher puts the entire DevOps toolbox at your fingertips without having to deal with numerous login prompts.
+    </ProductBanner.Item>
+  </ProductBanner>
+</Section>
+<Section bg="grayWave">
+  <ProductBanner
+    imgPosition="left"
     title="Complete visibility into access and behavior"
     subtitle="For Security Professionals"
-    src="../assets/complete-visibility.png"
+    src="../assets/pam-working-image@2x-right-side.png"
     alt="a diagram of server architecture"
     description={
       <>
 Teleport provides a live view and an audit log for user sessions for all web applications across  all environments, making it easy to see what’s happening and who is responsible.      </>
       }
 >
-    <ProductBanner.Item title="Live Catalog" >
-      The application catalog provides a live view of all active endpoints across all environments.
+    <ProductBanner.Item title="Unified Audit Log" >
+      Teleport Application Access maintains the detailed audit log of the humans and machines who are accessing your private applications. The audit can be expired to a SIEM solution of your choice.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Audit Log" >
-      All security events from all web apps are recorded and can be exported into SIEM solutions.    
+    <ProductBanner.Item title="Unified Session Management" >
+      All live user sessions across all internal web applications and cloud environments always go  through Teleport, making it easy to see what is happening and maintain compliance.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Activity Stream" >
-      Administrators can list all live user sessions for all applications, getting an instant picture of what’s happening.    
+    <ProductBanner.Item title="Live Application Catalog" >
+      Teleport automatically registers internal applications with the live application catalog, providing a live view of all active endpoints across all environments.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
@@ -109,7 +134,7 @@ Teleport provides a live view and an audit log for user sessions for all web app
   description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
   listDescription="Teleport consists of just two binaries."
   listItems={[
-    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certifcates.</>,
     <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
   ]}
 >
