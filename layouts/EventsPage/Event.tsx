@@ -7,17 +7,28 @@ import Link from "components/Link";
 import Icon from "components/Icon";
 
 const formatDate = (start: Date, end?: Date): string => {
-  const startString = format(start, "yyyy, MMM d");
+  const parsedStart = new Date(start);
+  const resetStartDate = new Date(
+    parsedStart.setDate(parsedStart.getDate() + 1)
+  );
+
+  const startString = format(resetStartDate, "yyyy, MMM d");
 
   if (!end) {
     return startString;
   }
 
+  const parsedEnd = new Date(end);
+  const resetEndDate = new Date(parsedEnd.setDate(parsedEnd.getDate() + 1));
+
+  const endString = format(resetEndDate, "yyyy, MMM d");
+  const otherEndStringFormat = format(resetEndDate, "d");
+
   if (start.getMonth() === end.getMonth()) {
-    return `${startString}-${format(end, "d")}`;
+    return `${startString}-${otherEndStringFormat}`;
   }
 
-  return `${startString} - ${format(end, "yyyy, MMM d")}`;
+  return `${startString} - ${endString}`;
 };
 
 export interface EventProps {

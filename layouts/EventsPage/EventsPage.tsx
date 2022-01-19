@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
-import { add, sub, compareAsc, isAfter, isBefore } from "date-fns";
+import {
+  add,
+  compareAsc,
+  isAfter,
+  isBefore,
+  parseISO,
+  startOfDay,
+} from "date-fns";
 import Centrator from "components/Centrator";
 import Drift from "components/Drift";
 import SectionHeader from "components/SectionHeader";
@@ -15,16 +22,18 @@ import teleportGreenBg from "./assets/virtual_events_green_logo@2x.png";
 import webinarIcon from "./assets/webinar.svg";
 
 const sortEvents = (events: EventProps[]) => {
-  const now = Date.now();
+  const now = startOfDay(new Date(Date.now()));
   const monthFromNow = add(now, { days: 30 });
+
   const sortedEvents = events
     //sorts events in ascending order
     .sort(({ start: startA }, { start: startB }) => compareAsc(startA, startB))
     //preserves events that are are in the future, ongoing, or have ended within the last three days
     .filter(({ start, end }) => {
-      return end
-        ? isAfter(sub(end, { days: 2 }), now)
-        : isAfter(sub(start, { days: 2 }), now);
+      const startDate = typeof start === "string" ? parseISO(start) : start;
+      const endDate = typeof end === "string" ? parseISO(end) : end;
+
+      return endDate ? isAfter(endDate, now) : isAfter(startDate, now);
     });
 
   return {
