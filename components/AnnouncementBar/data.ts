@@ -32,7 +32,7 @@ const expandConfig = (rows: LogoConfig[][]): LogoRow[] =>
 // Standard Gray Set
 
 export const Gray: LogoRow[] = expandConfig([
-  ["bwGoogle", "bwNasdaq", "bwCrypto", "bwSamsung", "bwHp", "bwIbm"],
+  ["bwGoogle", "bwNasdaq", "bwMoodys", "bwSamsung", "bwHp", "bwIbm"],
   ["bwCarta", "bwSquare", "bwSnowflake", "bwSumologic", "bwDoordash"],
   ["bwDk", "bwGitlab", "bwAccenture", "bwFreshworks", "bwZynga"],
 ]);
@@ -65,7 +65,7 @@ export const Finance: LogoRow[] = expandConfig([
     "colorSquare",
     "colorGoldman",
     "colorMoodys",
-    "colorCrypto",
+    "colorCarta",
     "colorWise",
   ],
   [
@@ -73,7 +73,7 @@ export const Finance: LogoRow[] = expandConfig([
     "colorMX",
     "colorFolio",
     "colorGSR",
-    "colorCarta",
+    "colorTribal",
     "colorSpotOn",
   ],
 ]);
@@ -112,7 +112,43 @@ export const CompactClients: LogoRow[] = expandConfig([
       src: "colorElastic",
       url: "/case-study/elastic-testimonial/",
     },
-    "colorCrypto",
+    "colorMoodys",
+    "colorDoorDash",
+  ],
+  [
+    "colorGitlab",
+    "colorGusto",
+    {
+      src: "colorNasdaq",
+      url: "/case-study/nasdaq-testimonial/",
+    },
+    "colorHPE",
+    "colorIBM",
+  ],
+  [
+    "colorSamsung",
+    {
+      src: "colorSumologic",
+      url: "/case-study/sumologic-testimonial/",
+    },
+    "colorSwisscom",
+    "colorThreatstack",
+    "colorTwitch",
+  ],
+]);
+
+export const CompactClientsPAM: LogoRow[] = expandConfig([
+  [
+    { src: "colorAuth0", url: "/case-study/auth0/" },
+    "colorAirtable",
+    {
+      src: "colorElastic",
+      url: "/case-study/elastic-testimonial/",
+    },
+    {
+      src: "colorCarta",
+      url: "/case-study/carta-testimonial/",
+    },
     "colorDoorDash",
   ],
   [
