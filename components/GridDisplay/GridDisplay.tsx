@@ -8,6 +8,7 @@ import Centrator from "components/Centrator";
 import type { BGColor } from "components/Section/Section";
 import { GridTile } from "./GridTile";
 import { GridCard } from "./GridCard";
+import { NewProductCard } from "./NewProductCard";
 
 /**
  * Card/Tile display component with integral background, icon and title element.
@@ -18,7 +19,7 @@ import { GridCard } from "./GridCard";
 
 export interface GridDisplayProps {
   children: React.ReactNode;
-  cardStyle?: "productCard" | "benefitCard" | "default";
+  cardStyle?: "productCard" | "benefitCard" | "default" | "newProductCard";
   productCard?: boolean;
   bg?: BGColor;
   centralHeading?: boolean;
@@ -31,6 +32,7 @@ export interface GridDisplayProps {
   subtitleFontSize?: string | string[];
   iconName?: IconName;
   iconSize?: IconProps["size"];
+  bigLeftHeading?: boolean;
 }
 
 //grid template columns
@@ -41,6 +43,11 @@ const GTC = {
     "repeat(5, minmax(140px, 294px))",
   ],
   benefitCard: [
+    "minmax(340px, 560px)",
+    "repeat(2, minmax(140px, 400px))",
+    "repeat(3, minmax(140px, 400px))",
+  ],
+  newProductCard: [
     "minmax(340px, 560px)",
     "repeat(2, minmax(140px, 400px))",
     "repeat(3, minmax(140px, 400px))",
@@ -56,6 +63,7 @@ const GTC = {
 const GG = {
   productCard: [3, 3],
   benefitCard: [3, 6],
+  newProductCard: [3, 7],
   default: [3, 3],
 };
 
@@ -74,6 +82,7 @@ function GridDisplay({
   iconSize,
   description,
   subtitleFontSize = ["text-md", "text-xl"],
+  bigLeftHeading = false,
 }: GridDisplayProps) {
   return (
     <Section
@@ -84,7 +93,7 @@ function GridDisplay({
       <Centrator
         pb={centralHeading ? [0, 11] : "auto"}
         flexDirection="column"
-        alignItems="center"
+        alignItems={bigLeftHeading ? "left" : "center"}
       >
         {title && (
           <Flex
@@ -92,7 +101,7 @@ function GridDisplay({
             pb={centralHeading ? [0, 6] : "auto"}
           >
             {/** Icon and Title elements */}
-            {centralHeading ? (
+            {centralHeading || bigLeftHeading ? (
               <Flex flexDirection="column" pt={[4, 7, 11]}>
                 <Heading
                   title={title}
@@ -101,14 +110,17 @@ function GridDisplay({
                   titleLineHeight={titleLineHeight}
                   titleFontWeight={titleFontWeight}
                   subtitleFontSize={subtitleFontSize}
-                  align="center"
+                  textAlign={bigLeftHeading ? "left" : "center"}
+                  mb={bigLeftHeading ? 3 : 0}
                 />
                 {description && (
                   <Box
                     color="darkest"
-                    fontSize={["text-lg", "text-xl"]}
+                    fontSize={
+                      bigLeftHeading ? "text-lg" : ["text-lg", "text-xl"]
+                    }
                     lineHeight="lg"
-                    textAlign="center"
+                    textAlign={bigLeftHeading ? "left" : "center"}
                   >
                     {description}
                   </Box>
@@ -151,5 +163,6 @@ function GridDisplay({
 
 GridDisplay.Tile = GridTile;
 GridDisplay.Card = GridCard;
+GridDisplay.NewProductCard = NewProductCard;
 
 export default GridDisplay;
