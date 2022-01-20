@@ -94,6 +94,29 @@ export default function remarkCodeSnippet(
       const children = [];
 
       for (let i = 0; i < codeLines.length; i++) {
+        const hasVariables = codeLines[i].includes("$var(");
+        const variable = /(\$var\(+\w+\))/g;
+
+        if (hasVariables) {
+          const variablesValue = [];
+          const rawVariablesValue = codeLines[i]
+            .split(" ")
+            .filter((elem) => variable.test(elem));
+
+          rawVariablesValue.forEach((value) =>
+            variablesValue.push(value.slice(5, -1))
+          );
+
+          const varFromUser = "MY_DATA";
+          variablesValue.forEach(
+            (value) =>
+              (codeLines[i] = codeLines[i].replace(
+                `$var(${value})`,
+                varFromUser
+              ))
+          );
+        }
+
         const hasLeadingDollar = codeLines[i][0] === "$";
         const hasHost = codeLines[i][0] === ">" && codeLines[i].includes("$");
         const hasGrate = codeLines[i][0] === "#";
