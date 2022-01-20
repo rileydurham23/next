@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "cleanup-serverless": "rm -rf ./.next/server/chunks/static/images",
+    "cleanup-serverless": "rm -rf ./.next/server/chunks/static/media",
     "git-update": "git submodule update --remote",
     "build-node": "rm -rf .build && tsc --build tsconfig.node.json",
     "add-symlinks": "node ./scripts/add-symlinks.js",

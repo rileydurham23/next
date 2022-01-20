@@ -25,8 +25,9 @@ module.exports = withBundleAnalyzer({
     },
   ],
   redirects: async () => getRedirects(),
+  outputFileTracing: false,
   images: {
-    path: "/_next/image/",
+    path: "/_next/image",
     disableStaticImages: true,
     domains: ["i.ytimg.com"],
   },
@@ -39,7 +40,7 @@ module.exports = withBundleAnalyzer({
       generateSitemap();
       generateFullSitemap();
     }
-    config.output.assetModuleFilename = "static/images/[hash][ext]";
+    config.output.assetModuleFilename = "static/media/[hash][ext]";
 
     config.module.rules.push({
       test: /\.(png|jpg|webp|gif|mp4|webm|ogg|swf|ogv|woff2)$/i,

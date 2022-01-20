@@ -30,6 +30,20 @@ function addPaths(articlesList, pathsArray, tag) {
   }
 }
 
+function removeImage(articles, pageNumber) {
+  if (pageNumber === "1") {
+    for (let i = 0; i < articles.length; i++) {
+      if (i > 4) {
+        delete articles[i].frontmatter.logo;
+      }
+    }
+  } else {
+    articles.forEach((art) => delete art.frontmatter.logo);
+  }
+
+  return articles;
+}
+
 export async function getStaticPaths() {
   const articlesAndTags = await getArticlesListAndTags();
   const tags = articlesAndTags.tags;
@@ -67,18 +81,22 @@ export async function getStaticProps({ params }) {
   const initialPageCount = ARTICLES_BY_PAGE * (Number(pageNumber) - 1);
   const finalPageCount = ARTICLES_BY_PAGE * Number(pageNumber);
   let articles = list.slice(initialPageCount, finalPageCount);
+  //remove pictures from the frontmatter of all but the first five articles on the first page
+  let articlesWithoutImages = removeImage(articles, pageNumber);
 
   if (tag) {
     const articlesByFilter = getArticlesByTag(list, tag);
     maxPages = Math.ceil((articlesByFilter.length + 1) / ARTICLES_BY_PAGE);
     articles = articlesByFilter.slice(initialPageCount, finalPageCount);
+    //remove pictures from the frontmatter of all but the first five articles on the first page
+    articlesWithoutImages = removeImage(articles, pageNumber);
   }
 
   return {
     props: {
       tag,
       tags,
-      articles,
+      articles: articlesWithoutImages,
       currentPage: pageNumber,
       maxPages,
     },

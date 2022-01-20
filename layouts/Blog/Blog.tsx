@@ -75,9 +75,11 @@ function BlogIndexPage({
               </Box>
               {!!restArticles.length && (
                 <>
-                  <StyledTitle as="h2" text="text-xl" mt={["8", "11"]}>
-                    Additional articles
-                  </StyledTitle>
+                  {currentPage === "1" && (
+                    <StyledTitle as="h2" text="text-xl" mt={["8", "11"]}>
+                      Additional articles
+                    </StyledTitle>
+                  )}
                   <Box as="ul" listStyle="none" mt="3" mb="6">
                     {restArticles}
                   </Box>
