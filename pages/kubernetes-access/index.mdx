@@ -10,6 +10,7 @@ import AnnouncementBar from "components/AnnouncementBar";
 import EasyStart from "components/EasyStart";
 import GridDisplay from "components/GridDisplay";
 import ProductBanner from "components/ProductBanner";
+import Section from "components/Section";
 import Terminal from "components/Terminal";
 import TerminalAnimation from "components/TerminalAnimation";
 import TryTeleport from "components/TryTeleport";
@@ -43,17 +44,17 @@ import WorksWith from "components/WorksWith";
       </>
       }
   >
-    <ProductBanner.Item title="Access Requests">
+    <ProductBanner.Item title="Access requests">
       Move away from admin accounts with just-in-time Kubernetes privilege
       escalation for administrative tasks. Access requests can be approved via
-      Slack or other supported plug-ins.
+      Slack or other supported plugins.
     </ProductBanner.Item>
     <ProductBanner.Item title="TLS routing">
       Certificate-based protocol negotiation shrinks the network attack surface
       area of all your Kubernetes clusters to a single TCP/IP port and reduces
       operational overhead.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Per Session MFA">
+    <ProductBanner.Item title="Per-session MFA">
       Implement multi-factor authorization of privileged operations for already logged in users.
     </ProductBanner.Item>
   </ProductBanner>
@@ -62,7 +63,7 @@ import WorksWith from "components/WorksWith";
   <ProductBanner
     imgPosition="left"
     title="Meet compliance requirements"
-    subtitle="For Compliance-Minded Engineers"
+    subtitle="For compliance-minded engineers"
     src="../assets/meet_compliance_requirements@2x.png"
     alt="a diagram of server architecture"
     description={
@@ -86,7 +87,7 @@ import WorksWith from "components/WorksWith";
   <ProductBanner
     imgPosition="right"
     title="Complete visibility into access and behavior"
-    subtitle="For Security Professionals"
+    subtitle="For security professionals"
     src="../assets/complete-visibility.png"
     alt="a diagram of server architecture"
     description={
@@ -95,14 +96,14 @@ import WorksWith from "components/WorksWith";
       </>
       }
 >
-    <ProductBanner.Item title="Session Recording">
+    <ProductBanner.Item title="Session recording">
       Every interactive kubectl session is recorded for future replay and can be analyzed by other tools for behavior anomalies.
     </ProductBanner.Item>
     <ProductBanner.Item title="Unified audit log">
       Consolidate all security events across all clusters in a single source of truth and export them into a SIEM solution of your choice.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Live View">
-      All online clusters, active kubectl sessions, access requests are visible with a single CLI command or in a browser.
+    <ProductBanner.Item title="Live view">
+      All online clusters, active `kubectl` sessions, and access requests are visible with a single CLI command or in a browser.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
@@ -110,32 +111,32 @@ import WorksWith from "components/WorksWith";
   <ProductBanner
     imgPosition="left"
     title="Secure access that doesn't get in the way"
-    subtitle="For Developers"
+    subtitle="For developers"
     src="../assets/access-anywhere-alt.png"
     alt="a diagram of server architecture"
     description={
       <>
-        A single login gives engineers access to all Kubernetes clusters across all environments. Leave behind configuration complexity, juggling of shared credentials, hopping between VPNs and access points.
+        A single login gives engineers access to all Kubernetes clusters across all environments. Leave behind configuration complexity, juggling of shared credentials, and hopping between VPNs and access points.
       </>
       }
   >
-    <ProductBanner.Item title="Live Cluster Inventory">
+    <ProductBanner.Item title="Live cluster inventory">
       List all available Kubernetes clusters across all environments with a single CLI command or via a web browser.
     </ProductBanner.Item>
-    <ProductBanner.Item title="Access as Code">
+    <ProductBanner.Item title="Access as code">
       Automate access provisioning and request approvals across all clusters using your favorite programming language.
     </ProductBanner.Item>
     <ProductBanner.Item title="Teleport Terminal">
-      Save time with the superpowers of Teleport’s remote-first terminal app for interacting with cloud-native CLI environments like kubectl.
+      Save time with the superpowers of Teleport’s remote-first terminal app for interacting with cloud-native CLI environments like `kubectl`.
     </ProductBanner.Item>
   </ProductBanner>
 </Section>
 
 <VideoBanner title="Demo Video" videoId="2diX_UAmJ1c" />
 <WorksWith title="Works with everything you have">
-  Teleport Kubernetes Access is open source and it relies on open standards such as
+  Teleport Kubernetes Access is open source and relies on open standards such as
   X.509 certificates, HTTPS, SAML, OpenID connect and others. Deployed as a
-  single-binary, it seamlessly integrates with the rest of your stack.
+  single binary, it seamlessly integrates with the rest of your stack.
 </WorksWith>
 <EasyStart
   description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
@@ -179,13 +180,13 @@ $ helm install
   </GridDisplay.Tile>
   <GridDisplay.Tile
     cardBG="tutorial"
-    title="Five minute demo of Teleport"
+    title="Five-minute demo of Teleport"
     src="../assets/tutorial.svg"
     smallIcon={true}
     caption="DEMO"
     href="/resources/videos/teleport-43-shortdemo/"
   >
-    This short video shows the basic capabilities of Teleport, Quickly
+    This short video shows the basic capabilities of Teleport. Quickly
     access any computing resource anywhere.
   </GridDisplay.Tile>
   <GridDisplay.Tile

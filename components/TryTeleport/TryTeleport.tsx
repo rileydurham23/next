@@ -36,7 +36,7 @@ const TryTeleport = () => {
           mb={[2, 3]}
           width={["100%", "auto"]}
         >
-          Get started
+          Get Started
         </Button>
         <Link
           href="/docs/"
