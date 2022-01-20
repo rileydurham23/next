@@ -1,9 +1,14 @@
+import { suite } from "uvu";
+import * as assert from "uvu/assert";
+
 import capitalize from "./capitalize";
 
-describe("utils/capitalize", () => {
-  it("Transform first letter of the first word to uppercase", () => {
-    const result = capitalize("lorem ipsum dolor sit amet");
+const Suite = suite("utils/capitalize");
 
-    expect(result).toEqual("Lorem ipsum dolor sit amet");
-  });
+Suite("Transform first letter of the first word to uppercase", () => {
+  const result = capitalize("lorem ipsum dolor sit amet");
+
+  assert.equal(result, "Lorem ipsum dolor sit amet");
 });
+
+Suite.run();

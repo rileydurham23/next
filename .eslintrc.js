@@ -1,13 +1,12 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "jest", "react-hooks", "jsx-a11y"],
+  plugins: ["@typescript-eslint", "react-hooks", "jsx-a11y"],
   extends: [
     "next",
     "prettier",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:jest/recommended",
     "plugin:jsx-a11y/recommended",
   ],
   rules: {
@@ -16,9 +15,6 @@ module.exports = {
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/no-var-requires": 0,
     "@next/next/no-img-element": 0,
-  },
-  env: {
-    "jest/globals": true,
   },
   settings: {
     react: {
