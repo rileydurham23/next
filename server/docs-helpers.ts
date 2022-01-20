@@ -2,8 +2,6 @@
  * Bunch of helper functions to help with docs generation.
  */
 
-import type { VFile } from "vfile";
-
 import { resolve } from "path";
 import { loadConfig as loadDocsConfig } from "./config-docs";
 import { loadConfig as loadSiteConfig } from "./config-site";

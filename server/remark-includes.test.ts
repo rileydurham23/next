@@ -1,108 +1,107 @@
-import { suite } from "uvu";
-import * as assert from "uvu/assert";
-
-import { VFile, VFileOptions } from "vfile";
+import vfile, { VFileOptions } from "vfile";
 import { readFileSync } from "fs";
 import { resolve } from "path";
-import { remark } from "remark";
-import remarkMdx from "remark-mdx";
+import remark from "remark";
+import mdx from "remark-mdx";
 import remarkGFM from "remark-gfm";
 import remarkIncludes, { RemarkIncludesOptions } from "./remark-includes";
+import { getVersionRootPath } from "./docs-helpers";
+
+jest.mock("./docs-helpers");
+
+const mockedGetVersionRootPath = getVersionRootPath as jest.Mock<string>;
+
+mockedGetVersionRootPath.mockImplementation(() =>
+  resolve("server/fixtures/includes/")
+);
 
 const transformer = (
   vfileOptions: VFileOptions,
   pluginOptions: RemarkIncludesOptions = { resolve: true }
-) => {
-  const file = new VFile(vfileOptions);
-
-  file.data.docsRoot = resolve("server/fixtures/includes/");
-
-  return remark()
-    .use(remarkMdx)
-    .use(remarkGFM)
+) =>
+  remark()
+    .use(mdx)
     .use(remarkIncludes, pluginOptions)
-    .processSync(file);
-};
+    .use(remarkGFM)
+    .processSync(vfile(vfileOptions));
 
-const Suite = suite("server/remark-includes");
+describe("server/remark-includes", () => {
+  it("Fixture match result on resolve", () => {
+    const contents = readFileSync(
+      resolve("server/fixtures/includes-source.mdx"),
+      "utf-8"
+    );
 
-Suite("Fixture match result on resolve", () => {
-  const value = readFileSync(
-    resolve("server/fixtures/includes-source.mdx"),
-    "utf-8"
-  );
-
-  const result = transformer({
-    value,
-    path: "/content/4.0/docs/pages/filename.mdx",
-  }).toString();
-
-  const expected = readFileSync(
-    resolve("server/fixtures/includes-result.mdx"),
-    "utf-8"
-  );
-
-  assert.equal(result, expected);
-});
-
-Suite("Returns correct warnings on lint", () => {
-  const value = readFileSync(
-    resolve("server/fixtures/includes-source.mdx"),
-    "utf-8"
-  );
-
-  const result = transformer(
-    {
-      value,
+    const result = transformer({
+      contents,
       path: "/content/4.0/docs/pages/filename.mdx",
-    },
-    { lint: true, resolve: false }
-  );
+    }).toString();
 
-  const errors = result.messages.map(({ message }) => message);
+    const expected = readFileSync(
+      resolve("server/fixtures/includes-result.mdx"),
+      "utf-8"
+    );
 
-  const expectedErrors = [
-    "Includes only works if they are the only content on the line",
-    "Wrong import path non-existing.mdx in file /content/4.0/docs/pages/filename.mdx.",
-  ];
+    expect(result).toEqual(expected);
+  });
 
-  assert.equal(errors, expectedErrors);
-});
+  it("Returns correct warnings on lint", () => {
+    const contents = readFileSync(
+      resolve("server/fixtures/includes-source.mdx"),
+      "utf-8"
+    );
 
-Suite("Leave includes in place on { resolve: false }", () => {
-  const value = readFileSync(
-    resolve("server/fixtures/includes-source.mdx"),
-    "utf-8"
-  );
+    const result = transformer(
+      {
+        contents,
+        path: "/content/4.0/docs/pages/filename.mdx",
+      },
+      { lint: true, resolve: false }
+    );
 
-  const result = transformer(
-    {
-      value,
+    const errors = result.messages.map(({ message }) => message);
+
+    const expectedErrors = [
+      "Includes only works if they are the only content on the line",
+      "Wrong import path non-existing.mdx in file /content/4.0/docs/pages/filename.mdx.",
+    ];
+
+    expect(errors).toEqual(expectedErrors);
+  });
+
+  it("Leave includes in place on { resolve: false }", () => {
+    const contents = readFileSync(
+      resolve("server/fixtures/includes-source.mdx"),
+      "utf-8"
+    );
+
+    const result = transformer(
+      {
+        contents,
+        path: "/content/4.0/docs/pages/filename.mdx",
+      },
+      { lint: false, resolve: false }
+    ).toString();
+
+    expect(contents).toEqual(result);
+  });
+
+  it("Multiple includes resolve in code block", () => {
+    const contents = readFileSync(
+      resolve("server/fixtures/includes-multiple-source.mdx"),
+      "utf-8"
+    );
+
+    const result = transformer({
+      contents,
       path: "/content/4.0/docs/pages/filename.mdx",
-    },
-    { lint: false, resolve: false }
-  ).toString();
+    }).toString();
 
-  assert.equal(value, result);
+    const expected = readFileSync(
+      resolve("server/fixtures/includes-multiple-result.mdx"),
+      "utf-8"
+    );
+
+    expect(result).toEqual(expected);
+  });
 });
-
-Suite("Multiple includes resolve in code block", () => {
-  const value = readFileSync(
-    resolve("server/fixtures/includes-multiple-source.mdx"),
-    "utf-8"
-  );
-
-  const result = transformer({
-    value,
-    path: "/content/4.0/docs/pages/filename.mdx",
-  }).toString();
-
-  const expected = readFileSync(
-    resolve("server/fixtures/includes-multiple-result.mdx"),
-    "utf-8"
-  );
-
-  assert.equal(result, expected);
-});
-
-Suite.run();

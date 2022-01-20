@@ -4,20 +4,17 @@
  * content of `/content/X.X/docs/` folders.
  */
 
-import type { VFile } from "vfile";
-import type { PluggableList } from "unified";
-
+import { PluggableList } from "unified";
+import rehypeFixTags from "./rehype-fix-tags";
 import rehypeHeaders from "./rehype-headers";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkIncludes from "./remark-includes";
-import remarkDocs from "./remark-docs";
 import remarkLayout from "./remark-layout";
 import remarkLinks from "./remark-links";
 import remarkVariables from "./remark-variables";
-import remarkNonExplicitTags from "./remark-non-explicit-tags";
 import remarkCodeSnippet from "./remark-code-snippet";
 import remarkImportFiles from "./remark-import-files";
 import { fetchVideoMeta } from "./youtube-meta";
@@ -38,16 +35,12 @@ export default function Wrapper (props) {
 };
 `;
 interface MdxConfig {
-  providerImportSource: string;
   rehypePlugins: PluggableList;
   remarkPlugins: PluggableList;
 }
 
 const config: MdxConfig = {
-  providerImportSource: "@mdx-js/react",
   remarkPlugins: [
-    remarkNonExplicitTags, // Enables styling of html tags in HTML, like `<li>`
-    remarkDocs, // Adds docs-related vars to vfile.data for other plugins to use
     remarkFrontmatter, // Converts frontmatter to remark node, used by remark-layout
     [
       remarkLayout,
@@ -82,14 +75,12 @@ const config: MdxConfig = {
     remarkLinks, // Make links in docs absolute with /ver/X.X included
   ],
   rehypePlugins: [
+    rehypeFixTags, // Fix bugs in mdx@2.0.0-next, can b removed after update to stable one.
     rehypeSlug, // Adds ids to headers to use in anchors
     [
       rehypeHighlight,
       {
-        aliases: {
-          bash: ["bsh", "systemd", "code", "powershell"],
-          yaml: ["conf", "toml"],
-        },
+        aliases: { bash: ["bsh", "systemd", "code"], yaml: ["conf", "toml"] },
       },
     ], // Adds syntax highlighting
     [rehypeHeaders, { maxLevel: 2 }], // Adds export tableOfContent with info about headers

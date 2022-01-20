@@ -1,15 +1,14 @@
-import { suite } from "uvu";
-import * as assert from "uvu/assert";
-
-import { VFile, VFileOptions } from "vfile";
+import vfile, { VFileOptions } from "vfile";
 import { readFileSync } from "fs";
 import { resolve } from "path";
-import { remark } from "remark";
+import remark from "remark";
 import mdx from "remark-mdx";
 import remarkVariables, { RemarkVariablesOptions } from "./remark-variables";
-import type { Config } from "./config-docs";
+import { loadConfig, Config } from "./config-docs";
 
-const docsConfig: Config = {
+jest.mock("./config-docs");
+
+const config: Config = {
   navigation: [
     {
       icon: "stack",
@@ -25,60 +24,57 @@ const docsConfig: Config = {
   },
 };
 
+const mockedLoadConfig = loadConfig as jest.Mock<Config>;
+
+mockedLoadConfig.mockImplementation(() => config);
+
 const transformer = (
   vfileOptions: VFileOptions,
   pluginOptions: RemarkVariablesOptions = { resolve: true }
-) => {
-  const file = new VFile(vfileOptions);
-
-  file.data.docsConfig = docsConfig;
-
-  return remark()
+) =>
+  remark()
     .use(mdx)
     .use(remarkVariables, pluginOptions)
-    .processSync(file);
-};
+    .processSync(vfile(vfileOptions));
 
-const Suite = suite("utils/remark-variables");
+describe("utils/remark-variables", () => {
+  it("Fixture match result", () => {
+    const contents = readFileSync(
+      resolve("server/fixtures/variables-source.mdx"),
+      "utf-8"
+    );
 
-Suite("Fixture match result", () => {
-  const value = readFileSync(
-    resolve("server/fixtures/variables-source.mdx"),
-    "utf-8"
-  );
-
-  const result = transformer({
-    value,
-    path: "/content/4.0/docs/pages/filename.mdx",
-  }).toString();
-
-  const expected = readFileSync(
-    resolve("server/fixtures/variables-result.mdx"),
-    "utf-8"
-  );
-
-  assert.equal(result, expected);
-});
-
-Suite("Returns correct warnings on lint", () => {
-  const value = readFileSync(
-    resolve("server/fixtures/variables-source.mdx"),
-    "utf-8"
-  );
-
-  const result = transformer(
-    {
-      value,
+    const result = transformer({
+      contents,
       path: "/content/4.0/docs/pages/filename.mdx",
-    },
-    { lint: true, resolve: false }
-  );
+    }).toString();
 
-  const errors = result.messages.map(({ message }) => message);
+    const expected = readFileSync(
+      resolve("server/fixtures/variables-result.mdx"),
+      "utf-8"
+    );
 
-  const expectedErrors = ["Non existing varaible name (=variable=)"];
+    expect(result).toEqual(expected);
+  });
 
-  assert.equal(errors, expectedErrors);
+  it("Returns correct warnings on lint", () => {
+    const contents = readFileSync(
+      resolve("server/fixtures/variables-source.mdx"),
+      "utf-8"
+    );
+
+    const result = transformer(
+      {
+        contents,
+        path: "/content/4.0/docs/pages/filename.mdx",
+      },
+      { lint: true, resolve: false }
+    );
+
+    const errors = result.messages.map(({ message }) => message);
+
+    const expectedErrors = ["Non existing varaible name (=variable=)"];
+
+    expect(errors).toEqual(expectedErrors);
+  });
 });
-
-Suite.run();

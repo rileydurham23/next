@@ -8,24 +8,18 @@
  * See tests and fixtures for more examples.
  */
 
-import type { Parent } from "unist";
-import type { Content, Code, Text } from "mdast";
-import type { VFile } from "vfile";
-
+import { Parent } from "unist";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
-import { visitParents } from "unist-util-visit-parents";
-
-import { fromMarkdown } from "mdast-util-from-markdown";
-
-import { mdxjs } from "micromark-extension-mdxjs";
-import { gfm } from "micromark-extension-gfm";
-import { frontmatter } from "micromark-extension-frontmatter";
-
-import { mdxFromMarkdown } from "mdast-util-mdx";
-import { gfmFromMarkdown } from "mdast-util-gfm";
-import { frontmatterFromMarkdown } from "mdast-util-frontmatter";
-
+import { VFile } from "vfile";
+import visit from "unist-util-visit-parents";
+import fromMarkdown from "mdast-util-from-markdown";
+import syntax from "micromark-extension-mdxjs";
+import gfmSyntax from "micromark-extension-gfm";
+import mdx from "mdast-util-mdx";
+import { fromMarkdown as gfmFromMarkdown } from "mdast-util-gfm";
+import frontmatter from "mdast-util-frontmatter";
+import { getVersionRootPath } from "./docs-helpers";
 import updateMessages from "./update-vfile-messages";
 
 const includeRegexpBase = "\\(!([^!]+)!\\)`?";
@@ -36,14 +30,10 @@ const globalIncludeRegexp = new RegExp(includeRegexpBase, "g");
 interface ResolveIncludesProps {
   value: string;
   filePath: string;
-  rootDir: string;
 }
 
-const resolveIncludes = ({
-  value,
-  filePath,
-  rootDir,
-}: ResolveIncludesProps) => {
+const resolveIncludes = ({ value, filePath }: ResolveIncludesProps) => {
+  const rootDir = getVersionRootPath(filePath);
   let error: string;
 
   const result = value.replace(includeRegexp, (_, includePath) => {
@@ -63,7 +53,7 @@ const resolveIncludes = ({
 
 const numIncludes = (value: string) => value.match(globalIncludeRegexp).length;
 
-const isInclude = (node: Code | Text): node is Code | Text =>
+const hasInclude = (node: MdxastNode) =>
   typeof node.value === "string" && includeRegexp.test(node.value);
 
 export interface RemarkIncludesOptions {
@@ -74,25 +64,16 @@ export interface RemarkIncludesOptions {
 export default function remarkIncludes(
   { lint, resolve }: RemarkIncludesOptions = { resolve: true }
 ) {
-  return (root: Content, vfile: VFile) => {
-    if (!vfile.data.docsRoot) {
-      throw new Error(
-        'Please add "remark-docs" to mdx remarkPlugins before "remark-icludes"'
-      );
-    }
-
-    const rootDir = vfile.data.docsRoot as string;
-
+  return (root: MdxastNode, vfile: VFile) => {
     const lastErrorIndex = vfile.messages.length;
 
-    visitParents(root, [isInclude], (node, ancestors: Parent[]) => {
+    visit<MdxastNode>(root, [hasInclude], (node, ancestors: MdxastNode[]) => {
       if (node.type === "code") {
         const noIncludes = numIncludes(node.value);
         for (let i = 0; i < noIncludes; i++) {
           const { result, error } = resolveIncludes({
             value: node.value,
             filePath: vfile.path,
-            rootDir,
           });
 
           if (resolve) {
@@ -112,7 +93,6 @@ export default function remarkIncludes(
               const { result, error } = resolveIncludes({
                 value: node.value,
                 filePath: vfile.path,
-                rootDir,
               });
 
               const path = node.value.match(exactIncludeRegexp)[1];
@@ -120,11 +100,11 @@ export default function remarkIncludes(
               if (resolve) {
                 if (path.match(/\.mdx?$/)) {
                   const tree = fromMarkdown(result, {
-                    extensions: [mdxjs(), gfm(), frontmatter()],
+                    extensions: [syntax(), gfmSyntax()],
                     mdastExtensions: [
-                      mdxFromMarkdown,
-                      gfmFromMarkdown(),
-                      frontmatterFromMarkdown(["yaml"]),
+                      mdx.fromMarkdown,
+                      gfmFromMarkdown,
+                      frontmatter.fromMarkdown,
                     ],
                   });
 

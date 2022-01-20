@@ -1,6 +1,6 @@
-import remarkVariables from "./.build/server/remark-variables.mjs";
-import remarkIncludes from "./.build/server/remark-includes.mjs";
-import remarkCodeSnippet from "./.build/server/remark-code-snippet.mjs";
+const remarkVariables = require("./.build/server/remark-variables");
+const remarkIncludes = require("./.build/server/remark-includes");
+const remarkCodeSnippet = require("./.build/server/remark-code-snippet");
 
 const configFix = {
   settings: {
@@ -22,9 +22,9 @@ const configLint = {
   plugins: [
     "frontmatter",
     "mdx",
-    [remarkVariables, { resolve: true, lint: true }],
-    [remarkIncludes, { lint: true }],
-    [remarkCodeSnippet, { lint: true }],
+    [remarkVariables.default, { resolve: true, lint: true }],
+    [remarkIncludes.default, { lint: true }],
+    [remarkCodeSnippet.default, { lint: true }],
     "preset-lint-markdown-style-guide",
     ["lint-table-pipe-alignment", false],
     ["lint-table-cell-padding", false],
@@ -59,4 +59,4 @@ if (process.env.WITH_EXTERNAL_LINKS) {
   ]);
 }
 
-export default process.env.FIX ? configFix : configLint;
+module.exports = process.env.FIX ? configFix : configLint;

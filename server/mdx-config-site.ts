@@ -1,23 +1,19 @@
-import type { PluggableList } from "unified";
-
+import { PluggableList } from "unified";
+import rehypeFixTags from "./rehype-fix-tags";
 import rehypeHighlight from "rehype-highlight";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkLayout from "./remark-layout";
-import remarkNonExplicitTags from "./remark-non-explicit-tags";
 import remarkImportFiles from "./remark-import-files";
 import { getArticlesListAndTags } from "./resources-helpers";
 
 interface MdxConfig {
-  providerImportSource: string;
   rehypePlugins: PluggableList;
   remarkPlugins: PluggableList;
 }
 
 const config: MdxConfig = {
-  providerImportSource: "@mdx-js/react",
   remarkPlugins: [
-    remarkNonExplicitTags, // Enables styling of html tags in HTML, like `<li>`
     remarkFrontmatter, // Converts frontmatter to remark node, used by remark-layout
     [
       remarkLayout,
@@ -47,7 +43,8 @@ const config: MdxConfig = {
     remarkImportFiles, // Replaces paths to files with imports
   ],
   rehypePlugins: [
-    [rehypeHighlight, { plainText: ["text", "prolog", "Dockerfile"] }], // Adds syntax highlighting
+    rehypeFixTags, // Fix bugs in mdx@2.0.0-next, can b removed after update to stable one.
+    [rehypeHighlight, { plainText: ["text"] }], // Adds syntax highlighting
   ],
 };
 
