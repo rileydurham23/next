@@ -1,4 +1,4 @@
-# Web Staging
+# Web Deployment
 ## Author: Cole Styron
 ## Status: draft
 
