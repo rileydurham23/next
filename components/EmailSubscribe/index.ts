@@ -1,1 +1,1 @@
-export { EmailSubscribe, EmailSubscribeViolet } from "./EmailSubscribe";
+export { EmailSubscribe } from "./EmailSubscribe";

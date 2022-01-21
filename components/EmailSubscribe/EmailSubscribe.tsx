@@ -1,9 +1,8 @@
 import { Fragment } from "react";
 import styled from "styled-components";
-import { css, all, transition } from "components/system";
+import { css, transition } from "components/system";
 import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
-import Section from "components/Section";
 import { RecaptchaTOC } from "components/MarketoForm";
 import { useNewsletter } from "./useNewsletter";
 
@@ -127,24 +126,6 @@ export function EmailSubscribe({ ...props }: FlexProps) {
   );
 }
 
-export function EmailSubscribeViolet({ ...props }: FlexProps) {
-  return (
-    <StyledSection bg="purple" {...props}>
-      <Box as="h2" text={["text-xl", "header-3"]}>
-        Teleport cybersecurity blog posts and tech news
-      </Box>
-      <Box as="p" text="text-md">
-        {
-          "Every other week we'll send a newsletter with the latest cybersecurity news and Teleport updates."
-        }
-      </Box>
-      <Box minHeight="40px">
-        <SubscriptionForm callbackName="violetSubscription" isViolet />
-      </Box>
-    </StyledSection>
-  );
-}
-
 const StyledInput = styled(Box)(
   css({
     boxSizing: "border-box",
@@ -188,19 +169,4 @@ const StyledButton = styled(Box)(
       pointerEvents: "none",
     },
   })
-);
-
-const StyledSection = styled(Section)(
-  css({
-    display: "flex",
-    flexDirection: "column",
-    color: "white",
-    pt: [4, 3],
-    pb: [3, 4],
-    px: [4, 5],
-    mt: 6,
-    borderRadius: "16px",
-    boxShadow: "0 0 12px rgba(0, 0, 0, 0.32)",
-  }),
-  all
 );
