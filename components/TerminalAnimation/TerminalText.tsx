@@ -55,7 +55,7 @@ const H3 = (
     </AnimatedFadeIn>
     <Flex flexDirection="column">
       <StyledCertBox>SSH</StyledCertBox>
-      <StyledCertBox>Kubernets API</StyledCertBox>
+      <StyledCertBox>Kubernetes API</StyledCertBox>
       <StyledCertBox>PostgreSQL</StyledCertBox>
       <StyledCertBox>Jenkins</StyledCertBox>
       <StyledCertBox>Grafana</StyledCertBox>
