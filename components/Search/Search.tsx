@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { css, wrapper, StyledSystemWrapperProps } from "components/system";
 import Icon from "components/Icon";
 import { SearchStyles } from "./SearchStyles";
-import docVersions from "../../config.json";
+import docVersions from "../../config";
 
 export interface SearchProps {
   id?: string;

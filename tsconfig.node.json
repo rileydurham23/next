@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "lib": ["esnext"],
-    "target": "es5",
+    "target": "esnext",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "baseUrl": ".",
     "resolveJsonModule": true,

@@ -1,12 +1,13 @@
+import type { Property, Literal, Identifier, ObjectExpression } from "estree";
+import type { Node } from "acorn";
+
 import { resolve, dirname } from "path";
 import { existsSync } from "fs";
-import { Property, Literal, Identifier, ObjectExpression } from "estree";
-import { Node } from "acorn";
 import { simple, base } from "acorn-walk";
 import { isLocalAssetFile } from "../utils/url";
 
 /*
- * Given an estree of an abject, will check if
+ * Given an estree of an object, will check if
  * the object props name in included in the propsList,
  * have a file name inside, this file exists,
  * its extension is in extWhiteList and not,

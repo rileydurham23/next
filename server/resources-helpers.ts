@@ -2,7 +2,7 @@
  * Helper functions to generate props for "resources/*" pages.
  */
 
-import {
+import type {
   AuditReport,
   EpisodeKind,
   PodcastEpisode,
@@ -10,6 +10,8 @@ import {
   Tutorial,
   Webinar,
 } from "components/EpisodesList/types";
+import type { MDXPageData, MDXPageFrontmatter } from "./types-unist";
+
 import { getPagesInfo } from "./pages-helpers";
 
 interface PageDataWithEpisodeKind extends MDXPageData<MDXPageFrontmatter> {

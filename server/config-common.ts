@@ -35,9 +35,9 @@ export const redirectsSchemaFragment = {
  * If validation return erros, write them to console and exit.
  */
 
-export const validateConfig = (
+export const validateConfig = <T = Record<string, unknown>>(
   validator: ValidateFunction,
-  config: Record<string, unknown>
+  config: T
 ) => {
   if (!validator(config)) {
     console.error(validator.errors);

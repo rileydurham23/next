@@ -8,9 +8,13 @@
  * Will ignore files that does not exist and files with blacklisted extensions like js or ts.
  */
 
-import { Transformer } from "unified";
-import visit from "unist-util-visit";
-import { VFile } from "vfile";
+import type { Transformer } from "unified";
+import type { VFile } from "vfile";
+import type { Node as UnistNode, Parent as UnistParent } from "unist";
+import type { Image as MdastImage, Link as MdastLink } from "mdast";
+import type { MdxastNode, ProgramEsmNode, MdxAnyElement } from "./types-unist";
+
+import { visit } from "unist-util-visit";
 import { isLocalAssetFile, relatify } from "../utils/url";
 import {
   updateOrCreateAttribute,
@@ -33,41 +37,40 @@ interface RemarkImportFilesOptions {
   extBlackList?: string[];
 }
 
-const isMdxNode = ({ type }) =>
+const isMdxNode = (node): node is MdxAnyElement =>
   [
     "mdxJsxTextElement",
     "mdxJsxFlowElement",
     "mdxBlockElement",
     "mdxSpanElement",
-  ].includes(type);
+  ].includes(node.type);
 
 const isMDXNodeWithAttributes = (
   node: MdxastNode,
   { extWhiteList, extBlackList, propsList }: RemarkImportFilesOptions
-): boolean =>
+): node is MdxAnyElement =>
   isMdxNode(node) &&
-  !!filterByAttibuteName((node as MdxJsxFlowElement).attributes, propsList) &&
-  isLocalAssetFile(
-    filterByAttibuteName((node as MdxJsxFlowElement).attributes, propsList)
-      .value,
-    { extWhiteList, extBlackList }
-  );
+  !!filterByAttibuteName(node.attributes, propsList) &&
+  isLocalAssetFile(filterByAttibuteName(node.attributes, propsList).value, {
+    extWhiteList,
+    extBlackList,
+  });
 
 const isLink = (
   node: MdxastNode,
   { extWhiteList, extBlackList }: RemarkImportFilesOptions
-): boolean =>
+): node is MdastLink =>
   node.type === "link" &&
   isLocalAssetFile(node.url, { extWhiteList, extBlackList });
 
 const isImage = (
   node: UnistNode,
   { extWhiteList, extBlackList }: RemarkImportFilesOptions
-): boolean =>
+): node is MdastImage =>
   node.type === "image" &&
-  isLocalAssetFile(node.url, { extWhiteList, extBlackList });
+  isLocalAssetFile((node as MdastImage).url, { extWhiteList, extBlackList });
 
-const isMetaNode = (node: MdxastNode) =>
+const isMetaNode = (node: MdxastNode): node is ProgramEsmNode =>
   node.type === "mdxjsEsm" && /export const meta = /.test(node.value);
 
 const importFactory = () => {
@@ -90,7 +93,7 @@ const importFactory = () => {
 
 interface UpdateFilePathOptions {
   vfile: VFile;
-  node: MdxJsxFlowElement;
+  node: MdxAnyElement;
   propsList: string[];
   createImport: (path: string) => string;
 }
@@ -139,7 +142,7 @@ const defaultOptions = {
 export default function remarkImportFiles(
   options: RemarkImportFilesOptions
 ): Transformer {
-  return (root: MdxastRootNode, vfile: VFile) => {
+  return (root: UnistParent, vfile) => {
     const { imports, createImport } = importFactory();
 
     const pluginOptions = { ...defaultOptions, ...options };
@@ -184,9 +187,11 @@ export default function remarkImportFiles(
 
         parent.children.splice(index, 1, newNode);
       } else if (isLink(node, pluginOptions)) {
+        const { url, children } = node;
+
         const newNode = createMdxJsxFlowElement("a", {
-          href: node.url,
-          children: node.children,
+          href: url,
+          children,
         });
 
         updateFilePath({ vfile, node: newNode, propsList, createImport });
@@ -195,7 +200,7 @@ export default function remarkImportFiles(
       } else if (isMDXNodeWithAttributes(node, pluginOptions)) {
         updateFilePath({
           vfile,
-          node: node as MdxJsxFlowElement,
+          node,
           propsList,
           createImport,
         });
