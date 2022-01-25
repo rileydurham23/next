@@ -73,6 +73,7 @@ import { CompactClients } from "components/AnnouncementBar/data";
     title="Access that doesn't get in the way" 
     description="A single sign-on allows discovery and instant access to all layers of your tech stack behind NAT across clouds, data centers, or on the edge. There is no more juggling of shared secrets, SSH keys, or hopping between VPNs and multiple access points.">
     <SectionTabs.Item
+      alignItems="center"
       src="./assets/catalog.svg"
       title="Unified Resource Catalog"
       description="There is no need to maintain inventories. Enjoy the live view of all servers, Kubernetes clusters, internal applications, databases, and live sessions across all environments."
@@ -80,6 +81,7 @@ import { CompactClients } from "components/AnnouncementBar/data";
       <NextImage src="./assets/resource-catalog-browser@2x.png" alt="resource catalog" height={524} width={832}/>
     </SectionTabs.Item>
     <SectionTabs.Item
+      alignItems="center"
       src="./assets/recording.svg"
       title="Session Recording"
       description="Invite colleagues to collaborate in a shared session. Work together to troubleshoot a problem on a remote server or on each others’ laptops. Record sessions for knowledge-sharing purposes."
@@ -119,6 +121,7 @@ import { CompactClients } from "components/AnnouncementBar/data";
     title="Easily implement security and compliance" 
     description="Use Teleport to adopt industry best practices for access across all protocols and all environments with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates.">
     <SectionTabs.Item
+      alignItems="center"
       src="./assets/grant-access.svg"
       title="Access Requests"
       description={
@@ -130,14 +133,15 @@ import { CompactClients } from "components/AnnouncementBar/data";
       <NextImage src="./assets/access-request-browser@2x.png" alt="resource catalog" height={524} width={832}/>
     </SectionTabs.Item>
     <SectionTabs.Item
+      alignItems="center"
       src="./assets/sso.png"
       title="Access Controls"
       description="Use flexible access controls to implement compliance standards such as SOC2, PCI, and FedRAMP. Teleport can bring new and legacy resources into compliance."
     >
-        <NextImage src="./assets/compliance@2x.png" alt="resource catalog" height={524} width={832}/>
-
+      <NextImage src="./assets/compliance@2x.png" alt="resource catalog" height={524} width={832}/>
     </SectionTabs.Item>
     <SectionTabs.Item
+      alignItems="center"
       src="./assets/federation.svg"
       title="Session Controls"
       description="Define and enforce policy to handle idle sessions, concurrent sessions, and to share and record interactive sessions across all protocols and environments."
@@ -148,11 +152,12 @@ import { CompactClients } from "components/AnnouncementBar/data";
 </Section>
 <Section bg="grayWave">
   <SectionTabs 
-  narrowTabs
+    narrowTabs
     alignment="tabsLeft"
     title="Complete visibility into access and behavior" 
     description="Teleport records interactive sessions, filesystem changes, data transfers, command executions and other security events across all environments into a structured audit log, making it easy to see what’s happening and who is responsible.">
     <SectionTabs.Item
+      alignItems="center"
       src="./assets/catalog.svg"
       title="Unified Resource Catalog"
       description="There is no need to maintain inventories. Enjoy the live view of all servers, Kubernetes clusters, internal applications, databases, and live sessions across all environments."
@@ -160,6 +165,7 @@ import { CompactClients } from "components/AnnouncementBar/data";
       <NextImage src="./assets/resource-catalog-browser@2x.png" alt="resource catalog" height={524} width={832}/>
     </SectionTabs.Item>
     <SectionTabs.Item
+      alignItems="center"
       src="./assets/live-view.svg"
       title="Live Session View"
       description="Teleport maintains a list of live sessions across all protocols and environments, providing a picture of what’s happening. Each session is recorded and tied to identities of humans and machines involved."
@@ -167,6 +173,7 @@ import { CompactClients } from "components/AnnouncementBar/data";
         <NextImage src="./assets/active-sessions-browser@2x.png" alt="resource catalog" height={524} width={832}/>
     </SectionTabs.Item>
     <SectionTabs.Item
+      alignItems="center"
       src="./assets/events.svg"
       title="Audit Log"
       description="Teleport streams recorded sessions and security events to a centralized destination of choice such as SIEM solutions to help integrate access events into a single source of truth."
