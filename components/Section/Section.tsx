@@ -17,7 +17,8 @@ export type BGColor =
   | "purpleStars"
   | "flatGray"
   | "flatWhite"
-  | "double";
+  | "double"
+  | "midnight";
 
 const getBG = (color: BGColor) => {
   switch (color) {
@@ -47,6 +48,8 @@ const getBG = (color: BGColor) => {
         backgroundPosition: "center center",
         backgroundSize: "cover",
       };
+    case "midnight":
+      return { backgroundColor: "#01172C" };
     case "purple":
       return {
         backgroundImage: `url(${wavePurpleBG}), linear-gradient(125deg,#512fc9,#651fff)`,

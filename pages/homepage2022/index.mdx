@@ -8,9 +8,11 @@ border: none
 
 import AnimationHeader from "components/AnimationHeader";
 import AnnouncementBar from "components/AnnouncementBar";
+import ForkRibbon from "components/ForkRibbon";
 import NewsItem from "components/NewsItem";
 import ProductSection from "components/ProductSection";
 import Section from "components/Section";
+import TerminalAnimation from "components/TerminalAnimation";
 import TryTeleport from "components/TryTeleport"
 
 <Section bg="white">
@@ -25,6 +27,28 @@ import TryTeleport from "components/TryTeleport"
   >
   </AnimationHeader>
   <AnnouncementBar />
+</Section>
+<ForkRibbon backgroundColor="#a70000"/>
+<Section bg="midnight">
+    <AnimationHeader
+    variant="builtForEngineers"
+    title="Built for Engineers"
+    subtitle="Open Source"
+    description={
+      <>
+        Teleport is easy to deploy and use. We believe that simplicity and 
+        good user experience are key to first-class security.
+        <br />
+        <br />
+        Teleport is open source and it relies on open standards such as 
+        SSH, HTTPS, SAML, OpenID connect and others. Deployed as a single-binary 
+        drop-in replacement for OpenSSH, it seamlessly integrates with the rest 
+        of your stack.
+      </>
+    }
+  >
+    <TerminalAnimation text="homepage"/>
+  </AnimationHeader>
 </Section>
 <ProductSection />
 <TryTeleport />

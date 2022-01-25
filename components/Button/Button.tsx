@@ -76,6 +76,14 @@ const Button = styled("button")<ButtonProps>(
           bg: "rgba(255, 255, 255, 0.12)",
         },
       },
+      "secondary-gray": {
+        bg: "transparent",
+        borderColor: "#A8AFB2",
+        color: "#A8AFB2",
+        "&:hover, &:active, &:focus, &:hover": {
+          bg: "rgba(255, 255, 255, 0.12)",
+        },
+      },
     },
   }),
   variant({
