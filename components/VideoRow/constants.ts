@@ -339,4 +339,20 @@ export const Videos: Array<VideoItem> = [
     labels: ["mfa", "sso", "security", "teleport", "access", "kubernetes"],
     videoId: "H0_PfKS53gg",
   },
+  {
+    author: "Cody J. Brown, Colin Wood",
+    href: "https://goteleport.com/resources/videos/reduce-complexity-increase-security/",
+    title: "Reduce Complexity to Increase Security",
+    date: "2022-01-12",
+    labels: [
+      "teleport",
+      "SSH",
+      "access plane",
+      "infrastructure",
+      "audit log",
+      "kubernetes",
+      "security",
+    ],
+    videoId: "fvm2MIK1ZmE",
+  },
 ];
