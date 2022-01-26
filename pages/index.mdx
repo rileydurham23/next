@@ -28,7 +28,7 @@ import { CompactClients } from "components/AnnouncementBar/data";
     subtitle="Teleport Access Plane"
     description={
       <>
-        Teleport allows engineers and security professionals to unify access for SSH servers, Kubernetes clusters, web applications, and databases across all environments.      
+        Teleport allows engineers and security professionals to unify access for SSH servers, Kubernetes clusters, web applications, and databases across all environments.
       </>
     }
   >
@@ -40,37 +40,37 @@ import { CompactClients } from "components/AnnouncementBar/data";
   <AnnouncementBar />
 </Section>
 <GridDisplay productCard cardStyle="productCard" bg="wavelight">
-  <ProductCard 
-  title="Server Access" 
-  src="../sharedAssets/images/server.svg" 
-  href="/ssh-server-access" 
+  <ProductCard
+  title="Server Access"
+  src="../sharedAssets/images/server.svg"
+  href="/ssh-server-access"
   description="For SSH servers behind NAT in multiple environments."/>
-  <ProductCard 
-  title="Kubernetes Access" 
-  src="../sharedAssets/images/kubernetes.svg" 
-  href="/kubernetes-access" 
+  <ProductCard
+  title="Kubernetes Access"
+  src="../sharedAssets/images/kubernetes.svg"
+  href="/kubernetes-access"
   description="For Kubernetes clusters behind NAT in multiple environments."/>
-  <ProductCard 
-  title="Application Access" 
-  src="../sharedAssets/images/application.svg" 
-  href="/application-access" 
+  <ProductCard
+  title="Application Access"
+  src="../sharedAssets/images/application.svg"
+  href="/application-access"
   description="For web applications behind NAT in multiple environments."/>
-  <ProductCard 
-  title="Database Access" 
-  src="../sharedAssets/images/database.svg" 
-  href="/database-access" 
+  <ProductCard
+  title="Database Access"
+  src="../sharedAssets/images/database.svg"
+  href="/database-access"
   description="For databases behind NAT in multiple environments."/>
-  <ProductCard 
-  title="Desktop Access" 
-  src="../sharedAssets/images/desktop.svg" 
-  href="/desktop-access" 
+  <ProductCard
+  title="Desktop Access"
+  src="../sharedAssets/images/desktop.svg"
+  href="/desktop-access"
   description="For Windows servers & desktops in multiple environments."/>
 </GridDisplay>
 <Section bg="grayWave">
-  <SectionTabs 
+  <SectionTabs
     narrowTabs
     alignment="tabsLeft"
-    title="Access that doesn't get in the way" 
+    title="Access that doesn't get in the way"
     description="A single sign-on allows discovery and instant access to all layers of your tech stack behind NAT across clouds, data centers, or on the edge. There is no more juggling of shared secrets, SSH keys, or hopping between VPNs and multiple access points.">
     <SectionTabs.Item
       src="./assets/catalog.svg"
@@ -113,10 +113,10 @@ import { CompactClients } from "components/AnnouncementBar/data";
   </SectionTabs>
 </Section>
 <Section bg="grayWave">
-  <SectionTabs 
+  <SectionTabs
   narrowTabs
     alignment="tabsRight"
-    title="Easily implement security and compliance" 
+    title="Easily implement security and compliance"
     description="Use Teleport to adopt industry best practices for access across all protocols and all environments with minimal configuration. Easily enforce MFA, RBAC, and SSO using identity-based short-lived certificates.">
     <SectionTabs.Item
       src="./assets/grant-access.svg"
@@ -147,10 +147,10 @@ import { CompactClients } from "components/AnnouncementBar/data";
   </SectionTabs>
 </Section>
 <Section bg="grayWave">
-  <SectionTabs 
+  <SectionTabs
   narrowTabs
     alignment="tabsLeft"
-    title="Complete visibility into access and behavior" 
+    title="Complete visibility into access and behavior"
     description="Teleport records interactive sessions, filesystem changes, data transfers, command executions and other security events across all environments into a structured audit log, making it easy to see what’s happening and who is responsible.">
     <SectionTabs.Item
       src="./assets/catalog.svg"
@@ -183,7 +183,7 @@ import { CompactClients } from "components/AnnouncementBar/data";
   description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
   listDescription="Teleport consists of just two binaries."
   listItems={[
-    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certificates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certificates.</>,
     <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
   ]}
 >
@@ -204,4 +204,3 @@ $ helm install
   <AnnouncementBar type="case" rows={CompactClients} />
 </Section>
 <TryTeleport/>
-
