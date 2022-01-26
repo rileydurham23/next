@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Flex from "components/Flex";
 import Logo from "components/Logo";
@@ -6,8 +6,30 @@ import NextImage from "next/image";
 import Icon, { IconName } from "components/Icon";
 import avatar from "./assets/avatar.png";
 import AnimationScreens from "./AnimationScreens";
+import { items } from "./constants";
 
 const ApplicationShell = () => {
+  const [currentItem, setCurrentItem] = useState(0);
+  const [animationPaused, setAnimationPaused] = useState(false);
+
+  useEffect(() => {
+    //current and currentItem values that are array indices
+    let current = currentItem;
+
+    const interval = setInterval(() => {
+      if (animationPaused) return;
+
+      //are we at the end of the array? then start over at 0.
+      const next = current < items.length - 1 ? current + 1 : 0;
+
+      setCurrentItem(next);
+      current = next;
+    }, 2000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentItem, animationPaused]);
   return (
     <Flex
       height={400}
@@ -49,20 +71,34 @@ const ApplicationShell = () => {
             <Icon size="xs" name="arrow" ml={2} />
           </Flex>
         </Flex>
-        <SidebarItem src="server" infra="Servers" />
-        <SidebarItem src="database" infra="Databases" />
-        <SidebarItem src="kubernetes" infra="Kubernetes" />
-        <SidebarItem src="window" infra="Applications" />
-        <SidebarItem src="desktop" infra="Desktops" />
-        <SidebarItem src="bell" infra="Activity" />
-        <SidebarItem src="team" infra="Team" />
+        {items.map((item, i) => {
+          return (
+            <Flex
+              height={[34, 40]}
+              key={item.name}
+              //pauses and restarts animation on hover
+              onMouseEnter={() => setAnimationPaused(true)}
+              onMouseLeave={() => setAnimationPaused(false)}
+              //sets this item as "current"
+              onClick={() => setCurrentItem(i)}
+            >
+              <SidebarItem
+                id={i}
+                src={item.name as IconName}
+                infra={item.infra as infraType}
+                selected={currentItem === i}
+              />
+            </Flex>
+          );
+        })}
       </Flex>
       {/* Main Window */}
       <Flex flexDirection="column" width="100%">
         {/* TopBar */}
         <TopBar application="Application" applicationNumber="1250" />
         {/* Central Screen */}
-        <AnimationScreens screen1="servers" />
+        {/* Sets the central screen to the index of the current item */}
+        {AnimationScreens[currentItem]}
       </Flex>
     </Flex>
   );
@@ -135,27 +171,20 @@ type infraType =
   | "Team";
 
 interface SidebarItemProps {
+  id: number;
   src: IconName;
   infra: infraType;
+  selected: boolean;
 }
 
-const SidebarItem = ({ src, infra }: SidebarItemProps) => {
-  const [selected, setSelected] = useState(false);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    setSelected(!selected);
-  };
-
+function SidebarItem({ src, infra, selected }: SidebarItemProps) {
   return (
     <Flex
       width="100%"
-      height={[34, 40]}
       justifyContent="flex-start"
       alignItems="center"
       color={selected ? "code" : "#607D8B"}
       bg={selected ? "#fbfbfc" : "white"}
-      onClick={handleClick}
     >
       <Flex
         bg="dark-purple"
@@ -164,10 +193,10 @@ const SidebarItem = ({ src, infra }: SidebarItemProps) => {
         visibility={selected ? "inherit" : "hidden"}
         mr={2}
       />
-      <Icon name={src} width="18px" color={selected ? "code" : "#D2DBDF"} />
-      <Flex marginLeft="12px" fontSize="text-sm" fontWeight="300">
+      <Icon name={src} size="sm" color={selected ? "code" : "#D2DBDF"} />
+      <Flex ml="12px" fontSize="text-sm">
         {infra}
       </Flex>
     </Flex>
   );
-};
+}

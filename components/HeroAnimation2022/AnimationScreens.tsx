@@ -1,35 +1,18 @@
 import Flex from "components/Flex";
 import styled from "styled-components";
 
-type infra =
-  | "servers"
-  | "databases"
-  | "kubernetes"
-  | "applications"
-  | "desktops"
-  | "activity"
-  | "teams";
-
-interface AnimationScreensProps {
-  screen1: infra;
-}
-
-const AnimationScreens = ({ screen1 }: AnimationScreensProps) => {
-  const screen = {
-    servers: <Servers />,
-    databases: <Databases />,
-    kubernetes: <K8s />,
-    applications: <Flex height={320} width={440} bg="light-gray" />,
-    desktops: <Flex height={320} width={440} bg="light-gray" />,
-    activity: <Flex height={320} width={440} bg="light-gray" />,
-    teams: <Flex height={320} width={440} bg="light-gray" />,
-  };
-
-  return screen[screen1];
-};
+const AnimationScreens = [
+  <Servers key={"Servers"} />,
+  <Databases key={"Databases"} />,
+  <K8s key={"K8s"} />,
+  <Flex key={"Applications"} height={320} width={440} bg="light-gray" />,
+  <Flex key={"Desktops"} height={320} width={440} bg="light-gray" />,
+  <Flex key={"Activity"} height={320} width={440} bg="light-gray" />,
+  <Flex key={"Team"} height={320} width={440} bg="light-gray" />,
+];
 
 // K8S TABLE
-const K8s = () => {
+function K8s() {
   return (
     <StyledTable>
       <header>
@@ -104,10 +87,10 @@ const K8s = () => {
       </table>
     </StyledTable>
   );
-};
+}
 
 // DATABASE TABLE
-const Databases = () => {
+function Databases() {
   return (
     <StyledTable>
       <header>
@@ -188,10 +171,10 @@ const Databases = () => {
       </table>
     </StyledTable>
   );
-};
+}
 
 // SERVER TABLE
-const Servers = () => {
+function Servers() {
   return (
     <StyledTable>
       <header>
@@ -263,7 +246,7 @@ const Servers = () => {
       </table>
     </StyledTable>
   );
-};
+}
 
 const StyledTable = styled("div")`
   background: #fff;
