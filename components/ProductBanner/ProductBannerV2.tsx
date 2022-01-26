@@ -142,7 +142,7 @@ const Top = styled(Flex)(
 
 const Bottom = styled(Box)(
   css({
-    pt: [1, 11],
+    pt: [1, 6],
     width: "100%",
   })
 );
