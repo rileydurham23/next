@@ -93,7 +93,7 @@ const StyledH3 = styled("h3")(
 );
 
 export const components = {
-  inlineCode: Code,
+  code: Code,
   img: Image,
   iframe: IFrame,
   h1: StyledH1,
@@ -105,7 +105,7 @@ export const components = {
   li: LI,
   table: StyledTable,
   video: Video,
-  code: BaseCode,
+  pre: BaseCode,
   a: function Link(props: LinkProps) {
     return <BaseLink {...props} scheme="site" />;
   },

@@ -10,10 +10,11 @@
  * "page/idex.mdx" and "page.mdx" on the client and cant update paths accordingly.
  */
 
-import { Transformer } from "unified";
-import { Link } from "mdast";
-import visit from "unist-util-visit";
-import { VFile } from "vfile";
+import type { Transformer } from "unified";
+import type { Link as MdastLink } from "mdast";
+import type { EsmNode, MdxAnyElement, MdxastNode } from "./types-unist";
+
+import { visit } from "unist-util-visit";
 import { isExternalLink, isHash, isPage } from "../utils/url";
 
 interface ObjectHref {
@@ -61,32 +62,30 @@ const isLocalHref = (href?: string | EsmNode) => {
   return !isExternalLink(href) && !isHash(href) && isPage(href);
 };
 
-const isMdxComponentWithLocalHref = (node: MdxastNode): boolean => {
+const isMdxComponentWithLocalHref = (
+  node: MdxastNode
+): node is MdxAnyElement => {
   return (
     mdxNodeTypes.has(node.type) &&
-    !!(node as MdxAnyElement).attributes.find(
+    (node as MdxAnyElement).attributes.some(
       ({ name, value }) =>
         name === "href" && isLocalHref(value as string | EsmNode)
     )
   );
 };
 
-const isRemarkLinkWilthLocalHref = (node: MdxastNode): boolean => {
+const isRemarkLinkWilthLocalHref = (node: MdxastNode): node is MdastLink => {
   return node.type === "link" && isLocalHref(node.url);
 };
 
-const isLocalLink = (node: MdxastNode): boolean => {
-  return isMdxComponentWithLocalHref(node) || isRemarkLinkWilthLocalHref(node);
-};
-
 export default function remarkLinks(): Transformer {
-  return (root: MdxastRootNode, vfile: VFile) => {
+  return (root, vfile) => {
     const basename = vfile?.basename || "";
 
-    visit<Link | MdxAnyElement>(root, [isLocalLink], (node) => {
-      if (node.type === "link") {
+    visit(root, (node: MdxastNode) => {
+      if (isRemarkLinkWilthLocalHref(node)) {
         node.url = updateHref(basename, node.url) as string;
-      } else if (mdxNodeTypes.has(node.type)) {
+      } else if (isMdxComponentWithLocalHref(node)) {
         const hrefAttribute = node.attributes.find(
           ({ name }) => name === "href"
         );

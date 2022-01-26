@@ -12,6 +12,7 @@ import ApplicationShell from "components/HeroAnimation2022";
 import AnnouncementBar from "components/AnnouncementBar";
 import Flex from "components/Flex";
 import ForkRibbon from "components/ForkRibbon";
+import { NewHomepage } from "components/AnnouncementBar/data";
 import NewsItem from "components/NewsItem";
 import ProductSection from "components/ProductSection";
 import Section from "components/Section";
@@ -33,7 +34,7 @@ import TryTeleport from "components/TryTeleport"
   >
   <ApplicationShell/>
   </AnimationHeader>
-  <AnnouncementBar />
+  <AnnouncementBar inLivingColor rows={NewHomepage} type="newHomepage" />
 </Section>
 
 <AccessPlane />

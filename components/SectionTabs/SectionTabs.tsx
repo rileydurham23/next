@@ -7,6 +7,8 @@ import HeadlessButton from "components/HeadlessButton";
 import Image from "components/Image";
 import Centrator from "components/Centrator";
 import { transition, variant } from "components/system";
+import { Property } from "csstype";
+import { ResponsiveValue, RequiredTheme } from "styled-system";
 
 interface SectionTabsItemProps {
   children: React.ReactNode;
@@ -16,6 +18,7 @@ interface SectionTabsItemProps {
   src: string;
   title: string;
   alignment?: "tabsLeft" | "tabsRight";
+  alignItems?: ResponsiveValue<Property.AlignItems, RequiredTheme>;
   narrowTabs?: boolean;
   onChange?: (id: number) => void;
 }
@@ -29,6 +32,7 @@ const SectionTabsItem = ({
   src,
   title,
   narrowTabs,
+  alignItems = "stretch",
   onChange = () => undefined,
 }: SectionTabsItemProps) => {
   return (
@@ -67,7 +71,7 @@ const SectionTabsItem = ({
         right={alignment === "tabsLeft" ? 0 : narrowTabs ? 400 : 490}
         bottom="0"
         left={alignment === "tabsRight" ? 0 : narrowTabs ? 400 : 490}
-        alignItems="stretch"
+        alignItems={alignItems}
       >
         {children}
       </Flex>
@@ -149,7 +153,7 @@ export const SectionTabs = ({
           flexDirection="column"
           alignItems={alignment === "tabsRight" ? "flex-end" : "flex-start"}
         >
-          <Box maxWidth={narrowTabs ? ["100%", "340px"] : ["auto", "400px"]}>
+          <Box maxWidth={narrowTabs ? ["100%", "340px"] : ["100%", "400px"]}>
             {childTabProps.map((props, id) => (
               <SectionTabsItem
                 alignment={alignment}

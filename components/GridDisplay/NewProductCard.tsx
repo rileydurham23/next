@@ -117,6 +117,7 @@ const PamCardContainer = styled(Box)(
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
     height: "320px",
+    display: ["none", "inherit"],
   })
 );
 

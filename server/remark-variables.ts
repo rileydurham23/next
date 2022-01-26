@@ -10,13 +10,14 @@
  * See tests and fixtures for more examples.
  */
 
-import { Transformer } from "unified";
-import visit from "unist-util-visit";
-import { VFile } from "vfile";
-import { loadConfig } from "./config-docs";
-import { getVersion } from "./docs-helpers";
-import updateMessages from "./update-vfile-messages";
+import type { Transformer } from "unified";
+import type { Literal as MdastLiteral, Link as MdastLink } from "mdast";
+import type { VFile } from "vfile";
+import type { Config as DocsConfig } from "./config-docs";
+import type { MdxElement, MdxastNode } from "./types-unist";
 
+import { visit } from "unist-util-visit";
+import updateMessages from "./update-vfile-messages";
 interface GeneratedRegexp {
   regexp: RegExp;
   path: string;
@@ -55,7 +56,7 @@ const variableRegExp = /\(=\s?(.+?)\s?=\)/g;
 
 const lintVars = (
   vfile: VFile,
-  node: MdxastNode,
+  node: MdastLiteral | MdastLink | MdxElement,
   value: string,
   variables: string[]
 ) => {
@@ -69,7 +70,7 @@ const lintVars = (
   });
 };
 
-const nodeHasValue = (node: MdxastNode) => typeof node.value === "string";
+const nodeHasValue = (node: MdastLiteral) => typeof node.value === "string";
 const nodeIsLink = (node: MdxastNode) => node.type === "link";
 const nodeIsAJsx = (node: MdxastNode) =>
   ["mdxBlockElement", "mdxJsxTextElement"].includes(node.type);
@@ -82,27 +83,30 @@ export interface RemarkVariablesOptions {
 export default function remarkVariables(
   { resolve, lint }: RemarkVariablesOptions = { resolve: true }
 ): Transformer {
-  return (root: MdxastNode, vfile) => {
-    const lastErrorIndex = vfile.messages.length;
-    const version = getVersion(vfile.path);
+  return (root, vfile) => {
+    if (!vfile.data.docsConfig) {
+      throw new Error(
+        'Please add "remark-docs" to mdx remarkPlugins before "remark-variables"'
+      );
+    }
 
-    const { variables } = loadConfig(version);
+    const { variables } = vfile.data.docsConfig as DocsConfig;
+    const lastErrorIndex = vfile.messages.length;
+
     const regExps = generateRegexps(variables);
     const varNames = regExps.map(({ path }) => path);
 
-    visit<MdxastNode>(root, [nodeHasValue], (node) => {
-      if (typeof node.value === "string") {
-        if (resolve) {
-          node.value = replaceVars(node.value as string, regExps);
-        }
+    visit(root, [nodeHasValue], (node: MdastLiteral) => {
+      if (resolve) {
+        node.value = replaceVars(node.value as string, regExps);
+      }
 
-        if (lint) {
-          lintVars(vfile, node, node.value as string, varNames);
-        }
+      if (lint) {
+        lintVars(vfile, node, node.value as string, varNames);
       }
     });
 
-    visit<MdxastNode>(root, [nodeIsLink], (node) => {
+    visit(root, [nodeIsLink], (node: MdastLink) => {
       if (node.url) {
         if (resolve) {
           node.url = replaceVars(node.url as string, regExps);
@@ -114,7 +118,7 @@ export default function remarkVariables(
       }
     });
 
-    visit<MdxastNode>(root, [nodeIsAJsx], (node) => {
+    visit(root, [nodeIsAJsx], (node: MdxElement) => {
       if (node.attributes) {
         Object.values(node.attributes as { value: string }[]).forEach(
           (attribute) => {

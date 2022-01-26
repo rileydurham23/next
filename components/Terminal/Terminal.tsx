@@ -37,13 +37,14 @@ const Dots = (props: FlexProps) => {
 
 export const Terminal = ({ children, ...props }: TerminalProps) => {
   return (
-    <Box
+    <Flex
       {...props}
       bg="code"
       borderRadius="md"
       boxShadow="0 4px 32px rgba(0, 0, 0, 0.24)"
       overflow="hidden"
       width="100%"
+      flexDirection="column"
     >
       <Box
         position="relative"
@@ -53,11 +54,14 @@ export const Terminal = ({ children, ...props }: TerminalProps) => {
         textAlign="center"
         color="rgba(255, 255, 255, 0.56)"
         bg="#010b1c"
+        flexShrink={0}
       >
         <Dots position="absolute" top="0" left="0" />
         Terminal
       </Box>
-      <Box>{children}</Box>
-    </Box>
+      <Flex flexGrow={1} alignItems="stretch">
+        {children}
+      </Flex>
+    </Flex>
   );
 };

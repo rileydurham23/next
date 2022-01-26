@@ -3,6 +3,15 @@
  * Used inside remark and rehype plugins.
  */
 
+import type {
+  EsmNode,
+  ProgramEsmNode,
+  MdxJsxAttribute,
+  MdxJsxAttributeValue,
+  MdxAnyElement,
+  MdxastNode,
+} from "./types-unist";
+
 import { createEstree } from "./estree-helpers";
 import stringifyObject from "stringify-object";
 
@@ -23,10 +32,7 @@ export const createMdxJsxAttributeValueExpression = (
     type: "mdxJsxAttributeValueExpression",
     value: `"${value}"`,
     data: {
-      // For some reason estre parser didn't add "comments" field
-      // and mdx@2.0.0-next.9 is throwing error without it.
-      // Will be fixed in mdx@2.0.0-rc.1
-      estree: { ...createEstree(value), comments: [] },
+      estree: createEstree(value),
     },
   };
 };
@@ -57,11 +63,11 @@ export const createMdxjsEsmImportNode = (
 export const createMdxJsxFlowElement = (
   name: string,
   { children = [], ...props }: Record<string, unknown>
-): MdxJsxFlowElement => {
+): MdxAnyElement => {
   return {
     type: "mdxJsxFlowElement",
     name,
-    children: children as UnistNode[],
+    children: children as MdxastNode[],
     attributes: Object.entries(props)
       .filter(([, value]) => typeof value !== undefined)
       .map(([name, value]) => ({
@@ -86,7 +92,7 @@ export const getAttribute = (attributes: MdxJsxAttribute[], name: string) => {
 };
 
 export const updateOrCreateAttribute = (
-  node: MdxJsxFlowElement,
+  node: MdxAnyElement,
   name: string,
   value: MdxJsxAttributeValue
 ) => {

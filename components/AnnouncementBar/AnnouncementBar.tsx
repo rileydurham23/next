@@ -5,7 +5,7 @@ import Link from "components/Link";
 import { LogoRow, Logo, Gray } from "./data";
 import { transition, variant } from "components/system";
 
-type AnnouncementBarType = "case" | "big" | "default";
+type AnnouncementBarType = "case" | "big" | "default" | "newHomepage";
 
 export interface ItemProps {
   src: string;
@@ -124,6 +124,10 @@ const StyledRowWrapper = styled("div")<{ variant: AnnouncementBarType }>(
       case: {
         height: ["60px", "120px"],
       },
+      newHomepage: {
+        backgroundColor: "transparent",
+        height: "112px",
+      },
     },
   })
 );
@@ -160,6 +164,10 @@ const StyledRow = styled("div")<{
       big: {
         py: "21px",
       },
+      newHomepage: {
+        py: "21px",
+        px: 11,
+      },
     },
   })
 );
@@ -188,7 +196,6 @@ const StyledCase = styled("div")<{
       : {},
   })
 );
-
 const StyledImage = styled("img")<{ variant: AnnouncementBarType }>(
   css({
     display: "flex",
@@ -210,6 +217,12 @@ const StyledImage = styled("img")<{ variant: AnnouncementBarType }>(
       case: {
         maxWidth: ["100%", "144px"],
         maxHeight: "80%",
+      },
+      newHomepage: {
+        maxWidth: [120, 160],
+        minWidth: [null, 80],
+        maxHeight: "100%",
+        marginRight: 5,
       },
     },
   })
