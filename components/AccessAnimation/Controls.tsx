@@ -10,6 +10,7 @@ const authorize = require("./assets/authorize.svg");
 const connect = require("./assets/connect.svg");
 const fingerprint = require("./assets/fingerprint.svg");
 
+// each pie slice needed its own transform_origin depending on where they were located
 const determineTransformOrigin = (id) => {
   switch (id) {
     case "default":

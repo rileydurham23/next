@@ -15,6 +15,10 @@ const AccessPlane = () => {
   const contentEntry = content[currentId];
   const subtitle = "Teleport Access Features";
 
+  // 'currentId' is set in Controls, but is needed in ProductBannerV2's TopText.
+  // Because state needs to be shared between sibling components, state is set/managed
+  // by their least common ancestor
+
   const handleChange = (id: ContentKey) => {
     setCurrentId(id);
   };

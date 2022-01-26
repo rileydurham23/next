@@ -15,29 +15,29 @@ interface OrbitProps {
   timeOffset: string;
 }
 
-export const BackgroundAnimation = () => {
-  return (
-    <BackgroundAnimationContainer>
-      <Container>
-        {[1, 2, 3, 4].map((n) => (
-          <Orbit
-            direction={n % 2 === 0 ? "clockwise" : "counter-clockwise"}
-            distance={n + 1}
-            key={n}
-            speed={n * 0.2}
-            timeOffset={`${n * -13}s`}
-          >
-            <PlanetContainer>
-              <Planet />
-              <Planet />
-            </PlanetContainer>
-          </Orbit>
-        ))}
-      </Container>
-    </BackgroundAnimationContainer>
-  );
-};
+export const BackgroundAnimation = () => (
+  <BackgroundAnimationContainer>
+    <Container>
+      {[1, 2, 3, 4].map((n) => (
+        <Orbit
+          direction={n % 2 === 0 ? "clockwise" : "counter-clockwise"}
+          distance={n + 1}
+          key={n}
+          speed={n * 0.2}
+          // timeOffset was used to allow for the planets to be staggered on their orbits
+          timeOffset={`${n * -13}s`}
+        >
+          <PlanetContainer>
+            <Planet />
+            <Planet />
+          </PlanetContainer>
+        </Orbit>
+      ))}
+    </Container>
+  </BackgroundAnimationContainer>
+);
 
+// width and height are set at 100% so the component can be rendered at any arbitrary size
 const BackgroundAnimationContainer = styled(Box)(
   css({
     backgroundColor: "white",
@@ -79,6 +79,8 @@ const Container = styled(Flex)(
   })
 );
 
+const SPACE_BETWEEN_ORBITS = 6;
+
 const Orbit = styled(Flex)<OrbitProps>`
   align-items: center;
   animation-delay: ${({ timeOffset }) => timeOffset};
@@ -91,17 +93,21 @@ const Orbit = styled(Flex)<OrbitProps>`
   animation-timing-function: linear;
   border: 1px solid #d2dbdf;
   border-radius: 50%;
-  bottom: ${({ distance }) => `${distance * 6}%`};
+  bottom: ${({ distance }) => `${distance * SPACE_BETWEEN_ORBITS}%`};
   justify-content: space-between;
-  left: ${({ distance }) => `${distance * 6}%`};
+  left: ${({ distance }) => `${distance * SPACE_BETWEEN_ORBITS}%`};
   position: absolute;
-  right: ${({ distance }) => `${distance * 6}%`};
-  top: ${({ distance }) => `${distance * 6}%`};
+  right: ${({ distance }) => `${distance * SPACE_BETWEEN_ORBITS}%`};
+  top: ${({ distance }) => `${distance * SPACE_BETWEEN_ORBITS}%`};
 `;
+
+const PLANET_SIZE = 12;
 
 const Planet = styled(Box)(
   css({
-    border: "0.4rem solid #D2DBDF",
+    width: `${PLANET_SIZE}px`,
+    backgroundColor: "#D2DBDF",
+    height: `${PLANET_SIZE}px`,
     borderRadius: "circle",
   })
 );
