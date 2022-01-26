@@ -208,8 +208,9 @@ git checkout -b nico/events
    **IMPORTANT!**
 
    - spacing and indentation matter. Make sure your event entry matches the indentation of the events already on the page.
-   - `start` and `end` are in YYYY-MM-DD format.
    - `link` must be a url link in quotation marks.
+   - `start` and `end` are in YYYY-MM-DD format.
+   - If event is just one day, only provide `start` date. Remove `end` from your entry.
 
 ```
  - title: Example Event
