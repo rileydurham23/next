@@ -7,21 +7,11 @@ import { resolve } from "path";
 import { remark } from "remark";
 import mdx from "remark-mdx";
 import remarkVariables, { RemarkVariablesOptions } from "./remark-variables";
-import type { Config } from "./config-docs";
 
-const docsConfig: Config = {
-  navigation: [
-    {
-      icon: "stack",
-      title: "Documentation",
-      entries: [{ title: "Introduction", slug: "/" }],
-    },
-  ],
-  variables: {
-    version: "1.0",
-    teleport: {
-      version: "1.0.1",
-    },
+const variables: Record<string, unknown> = {
+  version: "1.0",
+  teleport: {
+    version: "1.0.1",
   },
 };
 
@@ -31,11 +21,9 @@ const transformer = (
 ) => {
   const file = new VFile(vfileOptions);
 
-  file.data.docsConfig = docsConfig;
-
   return remark()
     .use(mdx)
-    .use(remarkVariables, pluginOptions)
+    .use(remarkVariables, { variables, ...pluginOptions })
     .processSync(file);
 };
 

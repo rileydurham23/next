@@ -13,46 +13,42 @@
 import type { Transformer } from "unified";
 import type { Literal as MdastLiteral, Link as MdastLink } from "mdast";
 import type { VFile } from "vfile";
-import type { Config as DocsConfig } from "./config-docs";
-import type { MdxElement, MdxastNode } from "./types-unist";
+import type { MdxElement } from "./types-unist";
 
 import { visit } from "unist-util-visit";
 import updateMessages from "./update-vfile-messages";
-interface GeneratedRegexp {
-  regexp: RegExp;
-  path: string;
-  value: string;
-}
 
-const generateRegexps = (vars: Record<string, unknown>, prefix?: string) => {
-  let result: GeneratedRegexp[] = [];
+type NameMap = Record<string, string>;
 
-  Object.entries(vars).forEach(([key, value]) => {
+const generateNameMap = (
+  variables: Record<string, unknown>,
+  prefix?: string
+) => {
+  let result: NameMap = {};
+
+  Object.entries(variables).forEach(([key, value]) => {
     const path = prefix ? `${prefix}.${key}` : key;
 
     if (typeof value === "object") {
-      result = [
+      result = {
         ...result,
-        ...generateRegexps(value as Record<string, unknown>, path),
-      ];
+        ...generateNameMap(value as Record<string, unknown>, path),
+      };
     } else {
-      result.push({
-        regexp: new RegExp(`\\(=\\s?${path}\\s?=\\)`, "g"),
-        path,
-        value: value as string,
-      });
+      result[path] = value as string;
     }
   });
 
   return result;
 };
 
-const replaceVars = (value: string, regExps: GeneratedRegexp[]) =>
-  regExps.reduce((result, { regexp, value }) => {
-    return result.replace(regexp, value.toString());
-  }, value);
-
 const variableRegExp = /\(=\s?(.+?)\s?=\)/g;
+
+const replaceVars = (value: string, names: NameMap) =>
+  value.replace(
+    variableRegExp,
+    (base: string, name: string) => names[name] || base
+  );
 
 const lintVars = (
   vfile: VFile,
@@ -70,69 +66,76 @@ const lintVars = (
   });
 };
 
-const nodeHasValue = (node: MdastLiteral) => typeof node.value === "string";
-const nodeIsLink = (node: MdxastNode) => node.type === "link";
-const nodeIsAJsx = (node: MdxastNode) =>
+type LocalNode = MdastLink | MdastLiteral | MdxElement;
+
+const nodeHasValue = (node: LocalNode): node is MdastLiteral =>
+  typeof (node as MdastLiteral).value === "string";
+const nodeIsLink = (node: LocalNode): node is MdastLink => node.type === "link";
+const nodeIsAJsx = (node: LocalNode): node is MdxElement =>
   ["mdxBlockElement", "mdxJsxTextElement"].includes(node.type);
 
+type Variables = Record<string, unknown>;
+
 export interface RemarkVariablesOptions {
+  variables?: Variables | ((vfile: VFile) => Variables);
   resolve?: boolean;
   lint?: boolean;
 }
 
-export default function remarkVariables(
-  { resolve, lint }: RemarkVariablesOptions = { resolve: true }
-): Transformer {
+export default function remarkVariables({
+  resolve = true,
+  lint,
+  variables = {} as Variables,
+}: RemarkVariablesOptions = {}): Transformer {
   return (root, vfile) => {
-    if (!vfile.data.docsConfig) {
-      throw new Error(
-        'Please add "remark-docs" to mdx remarkPlugins before "remark-variables"'
-      );
+    let resolvedVariables: Variables;
+
+    if (typeof variables === "function") {
+      resolvedVariables = variables(vfile);
+    } else {
+      resolvedVariables = variables;
     }
 
-    const { variables } = vfile.data.docsConfig as DocsConfig;
     const lastErrorIndex = vfile.messages.length;
 
-    const regExps = generateRegexps(variables);
-    const varNames = regExps.map(({ path }) => path);
+    const nameMap = generateNameMap(resolvedVariables);
+    const names = Object.keys(nameMap);
 
-    visit(root, [nodeHasValue], (node: MdastLiteral) => {
-      if (resolve) {
-        node.value = replaceVars(node.value as string, regExps);
-      }
-
-      if (lint) {
-        lintVars(vfile, node, node.value as string, varNames);
-      }
-    });
-
-    visit(root, [nodeIsLink], (node: MdastLink) => {
-      if (node.url) {
+    visit(root, (node: LocalNode) => {
+      if (nodeHasValue(node)) {
         if (resolve) {
-          node.url = replaceVars(node.url as string, regExps);
+          node.value = replaceVars(node.value, nameMap);
         }
 
         if (lint) {
-          lintVars(vfile, node, node.url as string, varNames);
+          lintVars(vfile, node, node.value as string, names);
         }
-      }
-    });
+      } else if (nodeIsLink(node)) {
+        if (node.url) {
+          if (resolve) {
+            node.url = replaceVars(node.url, nameMap);
+          }
 
-    visit(root, [nodeIsAJsx], (node: MdxElement) => {
-      if (node.attributes) {
-        Object.values(node.attributes as { value: string }[]).forEach(
-          (attribute) => {
-            if (typeof attribute.value === "string") {
-              if (resolve) {
-                attribute.value = replaceVars(attribute.value, regExps);
-              }
+          if (lint) {
+            lintVars(vfile, node, node.url, names);
+          }
+        }
+      } else if (nodeIsAJsx(node)) {
+        if (node.attributes) {
+          Object.values(node.attributes as { value: string }[]).forEach(
+            (attribute) => {
+              if (typeof attribute.value === "string") {
+                if (resolve) {
+                  attribute.value = replaceVars(attribute.value, nameMap);
+                }
 
-              if (lint) {
-                lintVars(vfile, node, attribute.value, varNames);
+                if (lint) {
+                  lintVars(vfile, node, attribute.value, names);
+                }
               }
             }
-          }
-        );
+          );
+        }
       }
     });
 
