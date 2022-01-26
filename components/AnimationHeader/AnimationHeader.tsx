@@ -6,7 +6,7 @@ import Link from "components/Link";
 import { DATA } from "./data";
 
 export interface AnimationHeaderProps {
-  variant?: "default" | "builtForEngineers";
+  variant?: "default" | "builtForEngineers" | "heroAnimation";
   subtitle: string;
   title: string;
   description: React.ReactNode;
