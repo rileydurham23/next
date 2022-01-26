@@ -59,7 +59,7 @@ const Popover = ({
     }
 
     return (
-      <Box layout="flex" justify="space-between">
+      <Box display="flex" justifyContent="space-between">
         <TextTitle>{title}</TextTitle>
         <IconButton
           size="small"

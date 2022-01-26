@@ -6,7 +6,13 @@ import styled from "styled-components";
 import * as _ from "lodash";
 import Box from "components/Box";
 import Centrator from "components/Centrator";
+import Flex from "components/Flex";
+
 import { Star } from "react-github-buttons";
+// import DownloadRow from "./DownloadRow";
+
+import { DownloadTable } from "components/Download";
+
 // import Section from "components/Section";
 
 // const gravity =
@@ -68,7 +74,6 @@ const groupByMajorVersions = (allReleases, product): Array<Version> => {
 
   const sortedVersions = _(versions).toPairs().sortBy(0).fromPairs().value();
   const versionsArray = _.values(sortedVersions).reverse();
-  console.log(versionsArray);
   return versionsArray;
 };
 
@@ -77,7 +82,6 @@ export const Download = (product: "teleport" | "gravity") => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showNotes, setShowNotes] = useState(false);
-  // const url = product === "teleport" ? teleport : gravity;
   const url =
     "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
 
@@ -113,13 +117,25 @@ export const Download = (product: "teleport" | "gravity") => {
       });
   }, [url]);
 
+  console.log("!!!!", downloads);
+
   return (
-    <Centrator>
-      {renderNotesToggle()}
-      {renderGithubStars()}
-    </Centrator>
+    <Container>
+      <Top>
+        {renderNotesToggle()}
+        {renderGithubStars()}
+      </Top>
+      <DownloadTable />
+    </Container>
   );
 };
+
+const Top = styled(Flex)(
+  css({
+    alignItems: "left",
+    justifyContent: "left",
+  })
+);
 
 const StyledNotesButton = styled("button")(
   css({
@@ -134,5 +150,13 @@ const StyledNotesButton = styled("button")(
     margin: "0 32px 0 0",
     display: "inline-block",
     padding: "0 24px",
+  })
+);
+
+const Container = styled(Flex)(
+  css({
+    flexDirection: "column",
+    px: 11,
+    pt: 5,
   })
 );

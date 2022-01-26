@@ -1,65 +1,63 @@
-import _ from "lodash";
-
-function isAMD64(name) {
+const isAMD64 = (name) => {
   return name.indexOf("x86_64") !== -1 || name.indexOf("amd64") !== -1;
-}
+};
 
-function isi386(name) {
+const isi386 = (name) => {
   return name.indexOf("386") !== -1;
-}
+};
 
-function isCentos6FIPS(name) {
+const isCentos6FIPS = (name) => {
   return name.indexOf("-centos6-fips") !== -1;
-}
+};
 
-function isCentos6(name) {
+const isCentos6 = (name) => {
   return name.indexOf("-centos6") !== -1;
-}
+};
 
-function isCentos7FIPS(name) {
+const isCentos7FIPS = (name) => {
   return name.indexOf("-centos7-fips") !== -1;
-}
+};
 
-function isCentos7(name) {
+const isCentos7 = (name) => {
   return name.indexOf("-centos7") !== -1;
-}
+};
 
-function isFIPS(name) {
+const isFIPS = (name) => {
   return name.indexOf("-fips") !== -1;
-}
+};
 
-function isGo197(name) {
+const isGo197 = (name) => {
   return name.indexOf("-go1.9.7") !== -1;
-}
+};
 
-function isRPM(name) {
+const isRPM = (name) => {
   return name.indexOf(".rpm") !== -1;
-}
+};
 
-function isDEB(name) {
+const isDEB = (name) => {
   return name.indexOf(".deb") !== -1;
-}
+};
 
 // Use more explicit string matches here to avoid matching 'arm64'
-function isARM(name) {
+const isARM = (name) => {
   return (
     name.indexOf("-arm-") !== -1 ||
     name.indexOf(".arm.") !== -1 ||
     name.indexOf("_arm.") !== -1
   );
-}
+};
 
-function isARM64(name) {
+const isARM64 = (name) => {
   return name.indexOf("arm64") !== -1;
-}
+};
 
-function isTeleportPKG(name) {
+const isTeleportPKG = (name) => {
   return name.indexOf("teleport") !== -1 && name.indexOf(".pkg") !== -1;
-}
+};
 
-function isTshPKG(name) {
+const isTshPKG = (name) => {
   return name.indexOf("tsh") !== -1 && name.indexOf(".pkg") !== -1;
-}
+};
 
 export const getDownloadInfo = (name) => {
   let data = { icon: "", name: "", meta: "" };
@@ -163,4 +161,69 @@ export const getDownloadInfo = (name) => {
   }
 
   return data;
+};
+
+// export const copyToClipboard = (event) => {
+//   stop(event);
+//   const input = event.target.parentElement.querySelector("input");
+//   const button = event.target.parentElement.querySelector("button");
+//   copy(input.value);
+//   input.focus();
+//   input.setSelectionRange(0, input.value.length);
+//   button.textContent = "Copied!";
+// };
+
+export const isMacOs = (name) => {
+  let isMac = false;
+
+  if (
+    name.indexOf("-darwin-") !== -1 ||
+    isTeleportPKG(name) ||
+    isTshPKG(name)
+  ) {
+    isMac = true;
+  }
+
+  return isMac;
+};
+
+export const isWindows = (name) => {
+  let isWin = false;
+
+  if (name.indexOf("-windows-") !== -1) {
+    isWin = true;
+  }
+
+  return isWin;
+};
+
+export const isLinux = (name) => {
+  let isLnx = false;
+
+  if (!isMacOs(name) && !isWindows(name)) {
+    isLnx = true;
+  }
+
+  return isLnx;
+};
+
+export const groupByOS = (downloads) => {
+  const sortedDownloads = {
+    mac: [],
+    windows: [],
+    linux: [],
+  };
+
+  downloads.forEach((release) => {
+    const name = release.name;
+    if (isWindows(name)) {
+      sortedDownloads.windows.push(release);
+    } else if (isMacOs(name)) {
+      sortedDownloads.mac.push(release);
+    } else {
+      sortedDownloads.linux.push(release);
+    }
+  });
+
+  return sortedDownloads;
 };
