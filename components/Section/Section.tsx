@@ -6,6 +6,7 @@ import wavePurpleBG from "./assets/wavePurple.png";
 import doubleWave from "./assets/wave-double.png";
 import wavelight from "./assets/wave-light.png";
 import stars from "./assets/stars.png";
+import lines from "./assets/lines.png";
 
 export type BGColor =
   | "squares"
@@ -18,6 +19,7 @@ export type BGColor =
   | "flatGray"
   | "flatWhite"
   | "double"
+  | "lines"
   | "midnight";
 
 const getBG = (color: BGColor) => {
@@ -77,6 +79,11 @@ const getBG = (color: BGColor) => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center center",
         backgroundSize: "cover",
+      };
+    case "lines":
+      return {
+        backgroundColor: "#FBFBFC",
+        backgroundImage: `url(${lines})`,
       };
     default:
       return {
