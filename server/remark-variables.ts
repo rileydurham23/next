@@ -72,7 +72,7 @@ const nodeHasValue = (node: LocalNode): node is MdastLiteral =>
   typeof (node as MdastLiteral).value === "string";
 const nodeIsLink = (node: LocalNode): node is MdastLink => node.type === "link";
 const nodeIsAJsx = (node: LocalNode): node is MdxElement =>
-  ["mdxBlockElement", "mdxJsxTextElement"].includes(node.type);
+  ["mdxJsxFlowElement", "mdxJsxTextElement"].includes(node.type);
 
 type Variables = Record<string, unknown>;
 

@@ -23,12 +23,7 @@ interface ObjectHref {
 
 type Href = string | ObjectHref;
 
-const mdxNodeTypes = new Set([
-  "mdxBlockElement",
-  "mdxSpanElement",
-  "mdxJsxFlowElement",
-  "mdxJsxTextElement",
-]);
+const mdxNodeTypes = new Set(["mdxJsxFlowElement", "mdxJsxTextElement"]);
 
 function isPlainString(href): href is string {
   return typeof href === "string";

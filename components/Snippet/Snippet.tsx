@@ -22,11 +22,5 @@ const StyledPre = styled(Pre)(
     "& pre": {
       color: "#75715e",
     },
-
-    "& p": {
-      margin: 0,
-      fontSize: "text-md",
-      lineHeight: "md",
-    },
   })
 );

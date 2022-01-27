@@ -60,10 +60,6 @@ const Pre = ({ children, ...props }: CodeProps) => {
         "&:last-child": {
           mb: 0,
         },
-        "& span[data-type='descr']": {
-          whiteSpace: "break-spaces",
-          wordBreak: "break-word",
-        },
       })}
       {...props}
     >

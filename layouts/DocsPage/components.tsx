@@ -1,5 +1,5 @@
 import Admonition from "components/Admonition";
-import Command from "components/Command";
+import Command, { CommandLine, CommandComment } from "components/Command";
 import BaseLink from "components/Link";
 import Notice from "components/Notice";
 import Snippet from "components/Snippet";
@@ -63,6 +63,8 @@ export const components = {
   video: Video,
   Admonition,
   Command,
+  CommandLine,
+  CommandComment,
   Tabs,
   TabItem,
   Tile,

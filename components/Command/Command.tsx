@@ -7,6 +7,23 @@ import { FlexProps } from "components/Flex";
 import HeadlessButton from "components/HeadlessButton";
 
 const TIMEOUT = 1000;
+
+export interface CommandLineProps {
+  children: ReactNode;
+}
+
+export function CommandLine(props: CommandLineProps) {
+  return <StyledCommandLine {...props} />;
+}
+
+export interface CommandCommentProps {
+  children: ReactNode;
+}
+
+export function CommandComment(props: CommandCommentProps) {
+  return <StyledCommandComment {...props} />;
+}
+
 export interface CommandProps {
   children: ReactNode;
 }
@@ -58,33 +75,6 @@ const shiftButton = keyframes`
   }
 `;
 
-const StyledCommand = styled("div")(
-  css({
-    boxSizing: "border-box",
-    flexDirection: "column",
-    position: "relative",
-    color: "white",
-    bg: "code",
-    mx: -3,
-    px: 3,
-    fontSize: ["text-sm", "text-md"],
-    lineHeight: "md",
-    transition: transition([["backgroundColor", "interaction"]]),
-
-    "& > span:first-of-type::before": {
-      content: "attr(data-content)",
-    },
-
-    "&:hover, &:focus": {
-      backgroundColor: "darkest",
-    },
-
-    "&:hover button, &:focus button": {
-      display: "flex",
-    },
-  })
-);
-
 const StyledHeadlessButton = styled(HeadlessButton)(
   css({
     display: "none",
@@ -117,5 +107,47 @@ const StyledHeadlessButton = styled(HeadlessButton)(
     position: "initial",
     transform: "translateX(0)",
     ml: -1,
+  })
+);
+
+const StyledCommandLine = styled("span")(
+  css({
+    display: "block",
+  })
+);
+
+const StyledCommand = styled("div")(
+  css({
+    boxSizing: "border-box",
+    flexDirection: "column",
+    position: "relative",
+    color: "white",
+    bg: "code",
+    mx: -3,
+    px: 3,
+    fontSize: ["text-sm", "text-md"],
+    lineHeight: "md",
+    transition: transition([["backgroundColor", "interaction"]]),
+    [`& ${StyledCommandLine}:first-of-type::before`]: {
+      content: "attr(data-content)",
+    },
+    "&:hover, &:focus": {
+      backgroundColor: "darkest",
+    },
+    [`&:hover ${StyledHeadlessButton}, &:focus ${StyledHeadlessButton}`]: {
+      display: "flex",
+    },
+  })
+);
+
+const StyledCommandComment = styled("p")(
+  css({
+    margin: 0,
+    fontSize: "text-md",
+    lineHeight: "md",
+    "&[data-type='descr']": {
+      whiteSpace: "break-spaces",
+      wordBreak: "break-word",
+    },
   })
 );
