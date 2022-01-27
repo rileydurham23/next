@@ -20,7 +20,7 @@ const productCards = [
   {
     title: "Application Access",
     description:
-      "For your internal apps including AWS Console, CI/CD, version control, and monitoring.",
+      "For your DevOps toolkit including AWS Console, CI/CD, version control, and monitoring.",
     image: "application",
     href: "/application-access/",
     cardBG: "lightPurple",
@@ -52,7 +52,7 @@ const ProductSection = () => {
         bg="flatWhite"
         bigLeftHeading={true}
         title="Teleport Products"
-        description="The Teleport Access Plane consists of five products to deliver protocol-aware capabilities for all your infrastrucure."
+        description="The Teleport Access Plane consists of five products to deliver protocol-aware capabilities deep into your infrastrucure."
       >
         {productCards.map((card, index) => (
           <NewProductCard
