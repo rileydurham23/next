@@ -9,6 +9,7 @@ import lines from "./assets/lines.png";
 import edge from "./assets/edge-color.svg";
 
 export type BGColor =
+  | "code"
   | "squares"
   | "wavelight"
   | "grayGradient"
