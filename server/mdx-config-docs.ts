@@ -29,11 +29,11 @@ import { getPageMeta } from "./docs-helpers";
  * It is added by rehype-headers after we finish inserting layout.
  */
 
-const defaultExportTemplate = () => `
+const defaultExportTemplate = (metaKey: string) => `
 export default function Wrapper (props) {
   return (<Layout
     {...props}
-    meta={meta}
+    ${metaKey}={${metaKey}}
     tableOfConents={tableOfConents}
   />);
 };

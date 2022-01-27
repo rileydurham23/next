@@ -15,10 +15,11 @@ import { createMdxjsEsmNode } from "./mdx-helpers";
 type Meta = Record<string, unknown>;
 type ImportTemplate = (layoutPath: string) => string;
 type ExportTemplate = (metaKey: string) => string;
+type MetaProcessor = (meta: Meta, vfile: VFile) => Promise<Meta>;
 
 interface LayoutOptions {
   path: string;
-  metaProcessor?: (meta: Meta, vfile: VFile) => Promise<Meta>;
+  metaProcessor?: MetaProcessor;
   importTemplate?: ImportTemplate;
   exportTemplate?: ExportTemplate;
 }
@@ -28,37 +29,27 @@ interface RemarkLayoutOptions {
   defaultLayout?: string | LayoutOptions;
   defaultImportTemplate?: ImportTemplate;
   defaultExportTemplate?: ExportTemplate;
-  skipMeta?: boolean;
-  skipLayout?: boolean;
   metaKey?: string;
-  defaultMetaProcessor?: (meta: Meta, vfile: VFile) => Promise<Meta>;
+  defaultMetaProcessor?: MetaProcessor;
 }
 
 const importTemplatePlaceholder: ImportTemplate = (layoutPath: string) =>
   `import Layout from "${layoutPath}";`;
 
-const exportTemplateWithoutMetaPlacehoder: ExportTemplate = () => `
+const exportTemplatePlacehoder: ExportTemplate = (metaKey) => `
 export default function Wrapper (props) {
-  return <Layout {...props} />;
+  return <Layout {...props} ${metaKey}={${metaKey}} />;
 };
 `;
 
-const exportTemplateWithMetaPlacehoder: ExportTemplate = (metaKey: string) => `
-export default function Wrapper (props) {
-  return <Layout {...props} ${metaKey}={meta} />;
-};
-`;
-
-const metaProcessorPlaceholder = (meta: Meta) => Promise.resolve(meta);
+const metaProcessorPlaceholder: MetaProcessor = (meta) => Promise.resolve(meta);
 
 export default function remarkLayout({
   layouts = {},
   defaultLayout,
   defaultImportTemplate = importTemplatePlaceholder,
-  defaultExportTemplate,
+  defaultExportTemplate = exportTemplatePlacehoder,
   defaultMetaProcessor = metaProcessorPlaceholder,
-  skipMeta = false,
-  skipLayout = false,
   metaKey = "meta",
 }: RemarkLayoutOptions): Transformer {
   return async (root: UnistParent, vfile: VFile) => {
@@ -73,48 +64,37 @@ export default function remarkLayout({
     const layout =
       (meta.layout && layouts[meta.layout as string]) || defaultLayout;
 
+    if (!layout) {
+      console.error(
+        'Neither named layout, nor "defaultLayout" found in config.'
+      );
+
+      return;
+    }
+
     const metaProcessor =
       typeof layout !== "string" && layout.metaProcessor
         ? layout.metaProcessor
         : defaultMetaProcessor;
 
-    if (!skipMeta) {
-      root.children.push(
-        createMdxjsEsmNode(
-          `export const ${metaKey} = ${stringifyObject(
-            await metaProcessor(meta, vfile)
-          )};`
-        )
-      );
+    const metaValue = stringifyObject(await metaProcessor(meta, vfile));
+
+    let path: string;
+    let importTemplate: ImportTemplate = defaultImportTemplate;
+    let exportTemplate: ExportTemplate = defaultExportTemplate;
+
+    if (typeof layout === "string") {
+      path = layout;
+    } else {
+      path = layout.path;
+      importTemplate = layout.importTemplate || importTemplate;
+      exportTemplate = layout.exportTemplate || exportTemplate;
     }
 
-    if (!skipLayout) {
-      if (!layout) {
-        console.error(
-          'Neither named layout, nor "defaultLayout" found in config.'
-        );
-
-        return;
-      }
-
-      let path: string;
-      let importTemplate: ImportTemplate = defaultImportTemplate;
-      let exportTemplate: ExportTemplate =
-        defaultExportTemplate ||
-        (skipMeta
-          ? exportTemplateWithoutMetaPlacehoder
-          : exportTemplateWithMetaPlacehoder);
-
-      if (typeof layout === "string") {
-        path = layout;
-      } else {
-        path = layout.path;
-        importTemplate = layout.importTemplate || importTemplate;
-        exportTemplate = layout.exportTemplate || exportTemplate;
-      }
-
-      root.children.unshift(createMdxjsEsmNode(importTemplate(path)));
-      root.children.push(createMdxjsEsmNode(exportTemplate(metaKey)));
-    }
+    root.children.unshift(createMdxjsEsmNode(importTemplate(path)));
+    root.children.push(
+      createMdxjsEsmNode(`export const ${metaKey} = ${metaValue};`)
+    );
+    root.children.push(createMdxjsEsmNode(exportTemplate(metaKey)));
   };
 }

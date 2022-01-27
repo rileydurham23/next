@@ -12,7 +12,8 @@ import type { Parent } from "unist";
 import { visit } from "unist-util-visit";
 import { headingRank } from "hast-util-heading-rank";
 import { toString } from "hast-util-to-string";
-import { createMdxjsEsmExportNode } from "./mdx-helpers";
+import stringifyObject from "stringify-object";
+import { createMdxjsEsmNode } from "./mdx-helpers";
 
 interface HeaderMeta {
   rank: number;
@@ -42,6 +43,8 @@ export default function rehypeHeaders({
       }
     });
 
-    root.children.unshift(createMdxjsEsmExportNode(name, headers));
+    root.children.unshift(
+      createMdxjsEsmNode(`const ${name} = ${stringifyObject(headers)};`)
+    );
   };
 }
