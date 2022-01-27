@@ -37,6 +37,7 @@ const ApplicationShell = () => {
       borderRadius="md"
       bg="#F1F3F5"
       ml={[0, 3]}
+      overflow="hidden"
       boxShadow="0px 0px 24px rgba(0, 0, 0, 0.24)"
       mt={[5, 0]}
     >
@@ -113,14 +114,12 @@ interface TopBarProps {
 
 const TopBar = ({ application, applicationNumber }: TopBarProps) => {
   return (
-    <Flex width="100%" height={60} borderBottom="1px solid #DBE2E6">
+    <Flex height={60} mx={[4, 4]} borderBottom="1px solid #DBE2E6">
       <Flex
         flexDirection="column"
         justifyContent="center"
         alignItems="flex-start"
         width={["28%", "40%"]}
-        ml={[3, 4]}
-        mr={[3, 0]}
       >
         <Flex
           fontSize={["text-md", "text-lg"]}
@@ -151,9 +150,11 @@ const TopBar = ({ application, applicationNumber }: TopBarProps) => {
           Add {application}
         </Flex>
       </Flex>
+
       <Flex alignItems="center" justifyContent="center" mx={[2, 3]}>
         <Icon name="bell" size="md" color="dark-gray" />
       </Flex>
+
       <Flex alignItems="center" justifyContent="center" mr={[3, 0]}>
         <NextImage src={avatar} alt="avatar" height={28} width={28} />
       </Flex>

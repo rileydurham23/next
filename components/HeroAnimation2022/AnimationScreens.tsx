@@ -6,10 +6,88 @@ const AnimationScreens = [
   <Databases key={"Databases"} />,
   <K8s key={"K8s"} />,
   <Flex key={"Applications"} height={320} width={440} bg="light-gray" />,
-  <Flex key={"Desktops"} height={320} width={440} bg="light-gray" />,
+  <Desktops key={"Desktops"} />,
   <Flex key={"Activity"} height={320} width={440} bg="light-gray" />,
   <Flex key={"Team"} height={320} width={440} bg="light-gray" />,
 ];
+
+// K8S TABLE
+function Desktops() {
+  return (
+    <StyledTable>
+      <header>
+        <input type="search" placeholder="Search..." />
+      </header>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th className="is-hidden-mobile">Labels</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>eks-stg-cluster</td>
+            <td className="is-hidden-mobile">
+              <span className="label">renv: stg2</span>
+              <span className="label">region: us-west-2</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>eks-prod-cluster</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env:prod</span>
+              <span className="label">region:us-east-2</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>galactus</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env:prod</span>
+              <span className="label">microservice:entropy-service</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>eks-dev-cluster</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env:stg</span>
+              <span className="label">region:us-east-2</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>galaxy</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env:prod</span>
+              <span className="label">microservice:entropy-service</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </StyledTable>
+  );
+}
 
 // K8S TABLE
 function K8s() {
