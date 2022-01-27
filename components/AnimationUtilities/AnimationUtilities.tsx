@@ -167,12 +167,13 @@ export const StyledPrompt = () => (
 
 export const AnimatedResetButton = styled(Button)(
   css({
+    background: "rgba(255, 255, 255, .56)",
     opacity: 0,
     zIndex: 1,
     height: "32px",
     width: "160px",
-    color: "gray",
-    borderColor: "light-gray",
+    color: "darkest",
+    borderColor: "darkest",
     fontWeight: "regular",
     fontSize: "14px",
   }),
