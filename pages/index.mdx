@@ -4,6 +4,11 @@ description: The open-source Teleport Access Plane consolidates connectivity, au
 h1: TODO
 hideWave: true
 border: none
+reviews:
+  - airSlate3
+  - nasdaq
+  - roadie2
+  - sumologic
 ---
 
 import AccessPlane from "components/AccessPlane";
@@ -11,6 +16,8 @@ import AnimationHeader from "components/AnimationHeader";
 import ApplicationShell from "components/HeroAnimation2022";
 import AnnouncementBar from "components/AnnouncementBar";
 import Flex from "components/Flex";
+import EasyStart from "components/EasyStart";
+import Box from "components/Box"
 import ForkRibbon from "components/ForkRibbon";
 import { NewHomepage } from "components/AnnouncementBar/data";
 import NewsItem from "components/NewsItem";
@@ -19,8 +26,11 @@ import Section from "components/Section";
 import PamAnimation from "components/PamAnimation";
 import Button from "components/Button";
 import SectionVisuals from "components/SectionVisuals";
+import Terminal from "components/Terminal";
 import TerminalAnimation from "components/TerminalAnimation";
 import TryTeleport from "components/TryTeleport";
+import Feedback from "components/Feedback";
+import WorksWith from "components/WorksWith";
 
 <Section>
   <AnimationHeader
@@ -29,7 +39,9 @@ import TryTeleport from "components/TryTeleport";
   >
     <ApplicationShell/>
   </AnimationHeader>
-  <AnnouncementBar inLivingColor rows={NewHomepage} type="newHomepage" />
+  <Box  mb={[0, 6]}>
+    <AnnouncementBar inLivingColor rows={NewHomepage} type="newHomepage" />
+  </Box>
 </Section>
 
 <AccessPlane />
@@ -52,7 +64,9 @@ import TryTeleport from "components/TryTeleport";
     <TerminalAnimation text="homepage" />
   </AnimationHeader>
 </Section>
+
 <ProductSection />
+
 <Section bg="flatWhite" pb={[4, 0]}>
   <SectionVisuals
     contentWidth="480px"
@@ -94,5 +108,37 @@ This is why the fastest growing, most innovative companies choose Teleport.
     <PamAnimation millesecondDelay={300} />
   </SectionVisuals>
 </Section>
+
+<Section bg="purple">
+  <Feedback reviews={meta.reviews} dark />
+</Section>
+
+<WorksWith title="Works with everything you have">
+  Teleport Server Access is open source and relies on open standards such as
+  X.509 certificates, HTTPS, SAML, OpenID connect and others. Deployed as a
+  single binary, it seamlessly integrates with the rest of your stack.
+</WorksWith>
+
+<EasyStart
+  description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
+  listDescription="Teleport consists of just two binaries."
+  listItems={[
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certificates.</>,
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
+  ]}
+>
+<Terminal>
+```
+# on a client
+$ tsh login --proxy=example.com
+
+# on a server
+$ apt install teleport
+
+# in a Kubernetes cluster
+$ helm install
+```
+</Terminal>
+</EasyStart>
 
 <TryTeleport />

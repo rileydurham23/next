@@ -91,27 +91,29 @@ const Orbit = styled(Flex)<OrbitProps>`
   animation-timing-function: linear;
   border: 1px solid #d2dbdf;
   border-radius: 50%;
-  bottom: ${({ distance }) => `${distance * 6}%`};
+  bottom: ${({ distance }) => `${distance * 4.8}%`};
   justify-content: space-between;
-  left: ${({ distance }) => `${distance * 6}%`};
+  left: ${({ distance }) => `${distance * 4.8}%`};
   position: absolute;
-  right: ${({ distance }) => `${distance * 6}%`};
-  top: ${({ distance }) => `${distance * 6}%`};
+  right: ${({ distance }) => `${distance * 4.8}%`};
+  top: ${({ distance }) => `${distance * 4.8}%`};
 `;
 
 const Planet = styled(Box)(
   css({
-    border: "0.4rem solid #D2DBDF",
     borderRadius: "circle",
+    background: "#CCD7DC",
+    height: "6px",
+    width: "6px",
   })
 );
 
 const PlanetContainer = styled(Flex)(
   css({
     justifyContent: "space-between",
-    marginTop: "-3.6rem",
-    marginRight: "-0.2rem",
-    marginLeft: "-0.2rem",
-    width: "calc(100% + 1.8rem)",
+    marginTop: "-2.5rem",
+    marginRight: "-0.1rem",
+    marginLeft: "-0.1rem",
+    width: "calc(100% + 1.6rem)",
   })
 );
