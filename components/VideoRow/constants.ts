@@ -355,4 +355,12 @@ export const Videos: Array<VideoItem> = [
     ],
     videoId: "fvm2MIK1ZmE",
   },
+  {
+    author: "Jonathon Canada",
+    href: "https://goteleport.com/resources/videos/secure-RBAC-SSO-for-kubernetes/",
+    title: "Secure RBAC/SSO for Kubernetes with Teleport",
+    date: "2021-01-19",
+    labels: ["teleport", "rbac", "sso", "github", "kubernetes", "access plane"],
+    videoId: "NgGFDpnuxUc",
+  },
 ];
