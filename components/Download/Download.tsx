@@ -13,32 +13,8 @@ import { Star } from "react-github-buttons";
 
 import { DownloadTable } from "components/Download";
 
-// import Section from "components/Section";
-
-// const gravity =
-//   "https://dashboard.gravitational.com/webapi/releases-oss?product=gravity&page=0";
 const teleport =
   "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
-
-// const fetchDownloads = (): Promise<unknown> => {
-//   const url =
-//     "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
-
-//   return fetch(url).then((response) => response.json());
-// };
-
-// interface ReturnObject {
-//   props: any;
-// }
-
-// const getServerSideProps = (context): Promise<ReturnObject> => {
-//   return fetchDownloads().then((response) => {
-//     // console.log(response);
-//     return {
-//       props: {},
-//     };
-//   });
-// };
 
 interface Download {
   displaySize: string;
@@ -78,12 +54,14 @@ const groupByMajorVersions = (allReleases, product): Array<Version> => {
 };
 
 export const Download = (product: "teleport" | "gravity") => {
-  const [downloads, setDownloads] = useState([]);
+  const [initialDownloads, setInitialDownloads] = useState([]);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showNotes, setShowNotes] = useState(false);
   const url =
     "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
+
+  console.log(initialDownloads);
 
   const renderGithubStars = () => {
     return <Star owner="gravitational" repo="teleport" />;
@@ -109,7 +87,7 @@ export const Download = (product: "teleport" | "gravity") => {
       .then((response) => response.json())
       .then((data) => {
         const majorVersions = groupByMajorVersions(data.items, data.product);
-        setDownloads(majorVersions);
+        setInitialDownloads(majorVersions);
       })
       .catch((error) => {
         setError(false);
@@ -117,15 +95,58 @@ export const Download = (product: "teleport" | "gravity") => {
       });
   }, [url]);
 
-  console.log("!!!!", downloads);
+  const renderErrorMessage = () => {
+    let errMessage = null;
+
+    if (error) {
+      errMessage = (
+        <>
+          <Flex>
+            We&apos;re sorry there was an error retreiving the latest build.
+          </Flex>
+          <Flex>
+            Please try again later. If the problem persists contact
+            <a href="mailto:support@goteleport.com">support@goteleport.com</a>
+          </Flex>
+        </>
+      );
+    }
+
+    return errMessage;
+  };
+
+  // const renderTables = () => {
+  //   if (!initialDownloads.length) {
+  //     return null;
+  //   }
+
+  //   const allTables = initialDownloads.map((majorVersion, index) => (
+  //     return (
+  //       <DownloadTable
+  //         // showNotes={showNotes}
+  //         key={index}
+  //         // data={majorVersion}
+  //         // product={product}
+  //         initialDownloads={initialDownloads}
+  //       />
+  //     )
+  //   ));
+
+  //   return (
+  //     <div>
+  //       <Top mb={4}>
+  //         {renderNotesToggle()}
+  //         {renderGithubStars()}
+  //       </Top>
+  //       {/* {allTables} */}
+  //     </div>
+  //   );
+  // };
 
   return (
     <Container>
-      <Top>
-        {renderNotesToggle()}
-        {renderGithubStars()}
-      </Top>
-      <DownloadTable />
+      {/* {renderTables()} */}
+      <h1>!!</h1>
     </Container>
   );
 };

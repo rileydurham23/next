@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const DownloadTable = () => {
+export const DownloadTable = ({ initialDownload }) => {
   const [os, setOs] = useState("os");
   const [showNotes, setShowNOtes] = useState(false);
   const [firstShowNotes, setFirstShowNotes] = useState(true);
