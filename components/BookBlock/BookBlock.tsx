@@ -14,6 +14,7 @@ export interface BookBlockProps {
   emailNotRequiredForDownload: boolean;
   src: string;
   title: string;
+  photoShape: "default" | "circular";
 }
 
 export const BookBlock = ({
@@ -23,6 +24,7 @@ export const BookBlock = ({
   title,
   src,
   formId,
+  photoShape = "default",
 }: BookBlockProps) => {
   return (
     <Flex
@@ -81,7 +83,9 @@ export const BookBlock = ({
             src={src}
             width="344px"
             height="auto"
-            boxShadow="0 4px 16px rgba(0, 0, 0, 0.24)"
+            boxShadow={
+              photoShape === "default" ? "0 4px 16px rgba(0, 0, 0, 0.24)" : null
+            }
             position="relative"
             zIndex={2}
             alt=""
