@@ -22,17 +22,13 @@ import SectionVisuals from "components/SectionVisuals";
 import TerminalAnimation from "components/TerminalAnimation";
 import TryTeleport from "components/TryTeleport"
 
-<Section bg="white">
-    <AnimationHeader
+<Section>
+  <AnimationHeader
     title="The easiest, most secure way to access all your infrastructure."
     subtitle="The Teleport Platform"
-    description={
-      <>
-        Only the open-source Teleport Access Plane consolidates connectivity, authentication, authorization, and audit into a single platform to improve security & agility.
-      </>
-    }
+    description="Only the open-source Teleport Access Plane consolidates connectivity, authentication, authorization, and audit into a single platform to improve security & agility."
   >
-  <ApplicationShell/>
+    <ApplicationShell/>
   </AnimationHeader>
   <AnnouncementBar inLivingColor rows={NewHomepage} type="newHomepage" />
 </Section>
@@ -40,7 +36,7 @@ import TryTeleport from "components/TryTeleport"
 <AccessPlane />
 
 <ForkRibbon backgroundColor="#a70000"/>
-<Section bg="midnight">
+<Section bg="code" p={[0, 8]} py={[4, 8]}>
     <AnimationHeader
     variant="builtForEngineers"
     title="Built for Engineers"
