@@ -64,8 +64,8 @@ export const AnimationHeader = ({
           <Button
             as={Link}
             variant="primary"
-            mt={[3, 0]}
-            mr={[0, 3]}
+            mt={[6, 0]}
+            mr={[0, 4]}
             shape="lg"
             fontWeight={400}
             width={["100%", "auto"]}
@@ -79,11 +79,11 @@ export const AnimationHeader = ({
               shape="outline"
               variant="secondary-gray"
               fontWeight={400}
-              mt={[3, 0]}
+              mt={[6, 0]}
               width={["100%", "auto"]}
-              href="NEED AN HREF HERE" //need the href ******************************
+              href="https://play.instruqt.com/embed/teleport/tracks/teleport-demo?icp_user_id=homepage&show_challenges=true"
             >
-              INTERACTIVE TUTORIAL
+              Interactive Tutorial
             </Button>
           )}
         </Flex>

@@ -13,7 +13,7 @@ export interface HeaderEntry {
 const AccessPlane = () => {
   const [currentId, setCurrentId] = useState<ContentKey>("default");
   const contentEntry = content[currentId];
-  const subtitle = "Teleport Access Features";
+  const subtitle = "Features & Benefits";
 
   const handleChange = (id: ContentKey) => {
     setCurrentId(id);

@@ -21,14 +21,14 @@ export type ContentKey = keyof Content;
 
 export const content: Content = {
   default: {
-    title: "Teleport Access Plane Overall",
+    title: "The Teleport Access Plane",
     description:
-      "Teleport is the easiest, most secure way to access all your infrastructure. The open-source Teleport Access Plane consolidates connectivity, authentication, authorization, and audit into a single platform. By consolidating all aspects of infrastructure access, Teleport reduces attack surface area, cuts operational overhead, easily enforces compliance, and improves engineering productivity",
+      "By consolidating all aspects of infrastructure access into a single platform, Teleport reduces attack surface area, cuts operational overhead, easily enforces compliance, and improves productivity. The Teleport Access Plane replaces VPNs, shared credentials, and legacy privileged access management technologies, improving security and engineering productivity.",
     details: [
       {
         title: "Teleport Connect",
         description:
-          "Securely connect your global infrastructure regardless of network boundaries",
+          "Securely connect to your global infrastructure regardless of network boundaries",
       },
       {
         title: "Teleport Authenticate",
@@ -76,81 +76,81 @@ export const content: Content = {
   authenticate: {
     title: "Teleport Authenticate",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "Teleport Authenticate integrates with your corporate identity provider to deliver instant identity-based access to all your infrastructure making onboarding and offboarding simple. Get seamless access to infrastructure using short-lived certificates for all protocols instead of relying on static credentials.",
     details: [
       {
-        title: "Title 1",
+        title: "Enterprise SSO Integration",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Leverage the roles provided by your enterprise SSO for your infrastructure to ease onboarding/offboarding while getting rid of static credentials.",
       },
       {
-        title: "Title 2",
+        title: "Passwordless access",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Static credentials like passwords or keys are insecure and inconvenient. Biometric authentication is more secure and easier to use.",
       },
       {
-        title: "Title 3",
+        title: "Per-Session Multi-Factor Authentication",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Easily implement Multi-Factor Authentication across your organization. Teleport MFA is designed for distributed teams and comes with a self-enrollment MFA portal.",
       },
       {
-        title: "Title 4",
+        title: "Certificates for everything",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Short-lived certificates make it easy to synchronize access across elastic cloud environments and protocols, reduce operational overhead, and make it easy to meet complex compliance requirements.",
       },
     ],
   },
   authorize: {
     title: "Teleport Authorize",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+      "Teleport Authorize gives a unique identity to all your employees and machines. This identity is  synchronized across your entire infrastructure footprint for fine-grained, role-based access controls that are automatically applied to your Linux and Windows servers, Kubernetes clusters, databases, and internal applications like CI/CD, version control, and monitoring dashboards. With Teleport, exceeding the most stringent compliance objectives is a breeze.",
     details: [
       {
-        title: "Title 1",
+        title: "Role-based access controls",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Easily enforce concepts such as “interns should never be able to access production data” across all protocols such as SSH, RDP, Kubernetes, or databases running on elastic infrastructure. Rules are synchronized across your entire infrastructure.",
       },
       {
-        title: "Title 2",
+        title: "Access Requests",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Approve or deny privilege escalation requests. No more bottlenecks with admins acting as gatekeepers approving things manually. Access can be approved or denied via ChatOps, Slack, PagerDuty, or customized via the programmable API.",
       },
       {
-        title: "Title 3",
+        title: "Dual Authorization",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Easily meet advanced compliance requirements by requiring multiple people to authorize highly privileged operations.",
       },
       {
-        title: "Title 4",
+        title: "Protocol-aware authorization",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Simplify policy enforcement by defining privileged operations across all resources in one place. Linux sudo commands, privileged SQL statements or Kubernetes operations, and other protocol-specific operations are tied to roles and identities.",
       },
     ],
   },
   audit: {
     title: "Teleport Audit",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+      "Observe every online resource, every connection, every interactive session, in real time. Teleport Audit records interactive sessions, filesystem changes, data transfers, command executions and other security events across all environments into a structured audit log, making it easy to see what’s happening and who is responsible.",
     details: [
       {
-        title: "Title 1",
+        title: "Unified Resource Catalog",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "There is no need to maintain inventories. Enjoy the live view of all servers, Kubernetes clusters, internal applications, databases, and live sessions across all environments.",
       },
       {
-        title: "Title 2",
+        title: "Audit Log",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Teleport streams security events to a centralized destination of choice such as SIEM solutions to help integrate access events into a single source of truth.",
       },
       {
-        title: "Title 3",
+        title: "Live Session View",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Teleport maintains a list of live sessions across all protocols and environments, providing a picture of what’s happening. Each session is recorded and tied to identities of humans and machines involved.",
       },
       {
-        title: "Title 4",
+        title: "Session Recording",
         description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+          "Interactive sessions across your entire infrastructure are recorded and stored in a storage solution of your choice.  Session recording can be useful for forensic or educational purposes.",
       },
     ],
   },
