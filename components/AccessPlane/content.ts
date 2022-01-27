@@ -28,7 +28,7 @@ export const content: Content = {
       {
         title: "Teleport Connect",
         description:
-          "Securely connect your global infrastructure regardless of network boundaries",
+          "Securely connect to your global infrastructure regardless of network boundaries",
       },
       {
         title: "Teleport Authenticate",

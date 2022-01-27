@@ -1,6 +1,7 @@
 import NextImage from "next/image";
 import Box from "components/Box";
-import { useWindowScroll } from "react-use";
+import { Waypoint } from "react-waypoint";
+import { useState } from "react";
 
 import styled, { css as styledCss, keyframes } from "styled-components";
 import { css } from "components/system";
@@ -20,7 +21,7 @@ import PamNoHand from "./assets/pam-no-hand.svg";
 //data for six small screen animations
 const screens = [
   {
-    animationDelay: "1500",
+    animationDelay: 400,
     top: 34,
     left: 35,
     height: 65,
@@ -30,7 +31,7 @@ const screens = [
     alt: "shield screen",
   },
   {
-    animationDelay: "2300",
+    animationDelay: 1200,
     top: 95,
     left: 15,
     height: 98,
@@ -40,7 +41,7 @@ const screens = [
     alt: "code screen",
   },
   {
-    animationDelay: "3200",
+    animationDelay: 2100,
     top: 50,
     left: 482,
     height: 128,
@@ -50,7 +51,7 @@ const screens = [
     alt: "statistics screen",
   },
   {
-    animationDelay: "2800",
+    animationDelay: 1700,
     top: 46,
     left: 539,
     height: 98,
@@ -60,7 +61,7 @@ const screens = [
     alt: "password screen",
   },
   {
-    animationDelay: "3400",
+    animationDelay: 2300,
     top: 129,
     left: 480,
     height: 115,
@@ -70,7 +71,7 @@ const screens = [
     alt: "graph screen",
   },
   {
-    animationDelay: "3900",
+    animationDelay: 2800,
     top: 121,
     left: 477,
     height: 63,
@@ -124,12 +125,16 @@ const AnimatedImageContainer = ({
   );
 };
 
-const AnimationSequence = () => {
+export type AnimationSequenceProps = {
+  delay?: number;
+};
+
+const AnimationSequence = ({ delay = 0 }: AnimationSequenceProps) => {
   return (
     <>
       {/*White Button */}
       <FadeInWrapper
-        animationDelay="1300"
+        animationDelay={`${delay + 200}`}
         top={["45px", "72px", "90px"]}
         left={["119px", "190px", "238px"]}
         height={["38px", "61px", "76px"]}
@@ -149,7 +154,7 @@ const AnimationSequence = () => {
 
       {/*hand - final position*/}
       <ArmWrapper
-        animationDelay="1100"
+        animationDelay={`${delay}`}
         top={["62px", "99px", "124px"]}
         left={["99px", "159px", "199px"]}
         height={["49px", "78px", "98px"]}
@@ -168,7 +173,7 @@ const AnimationSequence = () => {
       {/* six small screens */}
       {screens.map((screen, idx) => (
         <AnimatedImageContainer
-          animationDelay={screen.animationDelay}
+          animationDelay={`${screen.animationDelay + delay}`}
           top={screen.top}
           left={screen.left}
           height={screen.height}
@@ -183,8 +188,12 @@ const AnimationSequence = () => {
   );
 };
 
-const PamAnimation = () => {
-  const { y } = useWindowScroll();
+export type PamAnimationProps = {
+  millesecondDelay?: number;
+};
+
+const PamAnimation = ({ millesecondDelay = 0 }: PamAnimationProps) => {
+  const [startAnimation, setStartAnimation] = useState(false);
 
   return (
     <StyledImageBox mr={[0, 6, 4]} ml={[0, 0]} boxSizing="border-box">
@@ -207,11 +216,8 @@ const PamAnimation = () => {
           />
         </Box>
       </Box>
-
-      {/* animation runs immediately if component is in viewport on page load */}
-      {y === 0 && <AnimationSequence />}
-      {/* animation runs when component scrolls into view */}
-      {!!y && <AnimationSequence />}
+      {startAnimation && <AnimationSequence delay={millesecondDelay} />}
+      <Waypoint onEnter={() => setStartAnimation(true)} />
     </StyledImageBox>
   );
 };
