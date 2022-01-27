@@ -82,6 +82,8 @@ export const Download = (product: "teleport" | "gravity") => {
     setShowNotes(!showNotes);
   };
 
+  // getserversideprops instead of useEffect
+
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
@@ -115,40 +117,35 @@ export const Download = (product: "teleport" | "gravity") => {
     return errMessage;
   };
 
-  // const renderTables = () => {
-  //   if (!initialDownloads.length) {
-  //     return null;
-  //   }
+  const renderTables = () => {
+    if (!initialDownloads.length) {
+      return null;
+    }
 
-  //   const allTables = initialDownloads.map((majorVersion, index) => (
-  //     return (
-  //       <DownloadTable
-  //         // showNotes={showNotes}
-  //         key={index}
-  //         // data={majorVersion}
-  //         // product={product}
-  //         initialDownloads={initialDownloads}
-  //       />
-  //     )
-  //   ));
+    const allTables = initialDownloads.map((majorVersion, index) => {
+      return (
+        <DownloadTable
+          showNotes={showNotes}
+          key={index}
+          data={majorVersion}
+          product={product}
+          initialDownloads={initialDownloads}
+        />
+      );
+    });
 
-  //   return (
-  //     <div>
-  //       <Top mb={4}>
-  //         {renderNotesToggle()}
-  //         {renderGithubStars()}
-  //       </Top>
-  //       {/* {allTables} */}
-  //     </div>
-  //   );
-  // };
+    return (
+      <Flex alignItems="center" flexDirection="column">
+        <Top mb={4}>
+          {renderNotesToggle()}
+          {renderGithubStars()}
+        </Top>
+        {allTables}
+      </Flex>
+    );
+  };
 
-  return (
-    <Container>
-      {/* {renderTables()} */}
-      <h1>!!</h1>
-    </Container>
-  );
+  return <>{renderTables()}</>;
 };
 
 const Top = styled(Flex)(

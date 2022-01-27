@@ -1,42 +1,44 @@
-const isAMD64 = (name) => {
+import _ from "lodash";
+
+function isAMD64(name) {
   return name.indexOf("x86_64") !== -1 || name.indexOf("amd64") !== -1;
-};
+}
 
-const isi386 = (name) => {
+function isi386(name) {
   return name.indexOf("386") !== -1;
-};
+}
 
-const isCentos6FIPS = (name) => {
+function isCentos6FIPS(name) {
   return name.indexOf("-centos6-fips") !== -1;
-};
+}
 
-const isCentos6 = (name) => {
+function isCentos6(name) {
   return name.indexOf("-centos6") !== -1;
-};
+}
 
-const isCentos7FIPS = (name) => {
+function isCentos7FIPS(name) {
   return name.indexOf("-centos7-fips") !== -1;
-};
+}
 
-const isCentos7 = (name) => {
+function isCentos7(name) {
   return name.indexOf("-centos7") !== -1;
-};
+}
 
-const isFIPS = (name) => {
+function isFIPS(name) {
   return name.indexOf("-fips") !== -1;
-};
+}
 
-const isGo197 = (name) => {
+function isGo197(name) {
   return name.indexOf("-go1.9.7") !== -1;
-};
+}
 
-const isRPM = (name) => {
+function isRPM(name) {
   return name.indexOf(".rpm") !== -1;
-};
+}
 
-const isDEB = (name) => {
+function isDEB(name) {
   return name.indexOf(".deb") !== -1;
-};
+}
 
 // Use more explicit string matches here to avoid matching 'arm64'
 const isARM = (name) => {
@@ -45,18 +47,6 @@ const isARM = (name) => {
     name.indexOf(".arm.") !== -1 ||
     name.indexOf("_arm.") !== -1
   );
-};
-
-const isARM64 = (name) => {
-  return name.indexOf("arm64") !== -1;
-};
-
-const isTeleportPKG = (name) => {
-  return name.indexOf("teleport") !== -1 && name.indexOf(".pkg") !== -1;
-};
-
-const isTshPKG = (name) => {
-  return name.indexOf("tsh") !== -1 && name.indexOf(".pkg") !== -1;
 };
 
 export const getDownloadInfo = (name) => {
