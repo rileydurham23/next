@@ -21,7 +21,7 @@ import PamNoHand from "./assets/pam-no-hand.svg";
 //data for six small screen animations
 const screens = [
   {
-    animationDelay: 400,
+    animationDelay: 2300,
     top: 34,
     left: 35,
     height: 65,
@@ -31,7 +31,7 @@ const screens = [
     alt: "shield screen",
   },
   {
-    animationDelay: 1200,
+    animationDelay: 2800,
     top: 95,
     left: 15,
     height: 98,
@@ -41,7 +41,7 @@ const screens = [
     alt: "code screen",
   },
   {
-    animationDelay: 2100,
+    animationDelay: 1200,
     top: 50,
     left: 482,
     height: 128,
@@ -51,7 +51,7 @@ const screens = [
     alt: "statistics screen",
   },
   {
-    animationDelay: 1700,
+    animationDelay: 400,
     top: 46,
     left: 539,
     height: 98,
@@ -61,7 +61,7 @@ const screens = [
     alt: "password screen",
   },
   {
-    animationDelay: 2300,
+    animationDelay: 1700,
     top: 129,
     left: 480,
     height: 115,
@@ -71,7 +71,7 @@ const screens = [
     alt: "graph screen",
   },
   {
-    animationDelay: 2800,
+    animationDelay: 2100,
     top: 121,
     left: 477,
     height: 63,
@@ -134,7 +134,7 @@ const AnimationSequence = ({ delay = 0 }: AnimationSequenceProps) => {
     <>
       {/*White Button */}
       <FadeInWrapper
-        animationDelay={`${delay + 200}`}
+        animationDelay={`${delay + 500}`}
         top={["45px", "72px", "90px"]}
         left={["119px", "190px", "238px"]}
         height={["38px", "61px", "76px"]}
@@ -154,7 +154,7 @@ const AnimationSequence = ({ delay = 0 }: AnimationSequenceProps) => {
 
       {/*hand - final position*/}
       <ArmWrapper
-        animationDelay={`${delay}`}
+        animationDelay={`${delay - 25}`}
         top={["62px", "99px", "124px"]}
         left={["99px", "159px", "199px"]}
         height={["49px", "78px", "98px"]}
