@@ -5,7 +5,6 @@
 import { writeFileSync } from "fs";
 import { format } from "date-fns";
 
-const host = process.env.NEXT_PUBLIC_HOST as string;
 const defaultLastmod = format(new Date(), "yyyy-MM-dd");
 
 interface SitemapPage {
@@ -22,15 +21,13 @@ interface SitemapPage {
   priority?: number;
 }
 
-const generateSitemapPage = ({
-  loc,
-  lastmod = defaultLastmod,
-  changefreq = "daily",
-  priority,
-}: SitemapPage) => {
+const generateSitemapPage = (
+  root: string,
+  { loc, lastmod = defaultLastmod, changefreq = "daily", priority }: SitemapPage
+) => {
   return (
     "  <url>\n" +
-    `    <loc>${host}${loc}</loc>\n` +
+    `    <loc>${root}${loc}</loc>\n` +
     `    <lastmod>${lastmod}</lastmod>\n` +
     `    <changefreq>${changefreq}</changefreq>\n` +
     (priority ? `    <priority>${priority}</priority>\n` : "") +
@@ -41,13 +38,14 @@ const generateSitemapPage = ({
 interface Sitemap {
   pages: SitemapPage[];
   path: string;
+  root: string;
 }
 
-export const generateSitemap = ({ pages, path }: Sitemap) => {
+export const generateSitemap = ({ pages, path, root }: Sitemap) => {
   const sourcemap =
     '<?xml version="1.0" encoding="UTF-8"?>\n' +
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    pages.map(generateSitemapPage).join("") +
+    pages.map((page) => generateSitemapPage(root, page)).join("") +
     "</urlset>";
 
   writeFileSync(path, sourcemap);

@@ -35,9 +35,5 @@ export const useNormalizedHref = (href: string) => {
   const currentHref = normalizePath(asPath);
   let fullHref = resolve(splitPath(currentHref).path, href);
 
-  if (fullHref.startsWith("/docs/")) {
-    fullHref = updateScopeInUrl(fullHref, scope);
-  }
-
-  return fullHref;
+  return updateScopeInUrl(fullHref, scope);
 };

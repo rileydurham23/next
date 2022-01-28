@@ -11,15 +11,19 @@ const { latest } = loadConfig();
 
 export default withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  basePath: "/docs",
   rewrites: async () => [
+    // This redirect will make root pages URIs redirected to the current version
+    // Because existing pages take precendence redirects, it will ignore paths for other versions
     {
-      source: "/docs/:path*",
-      destination: `/docs/ver/${latest}/:path*`,
+      source: "/:path*",
+      destination: `/ver/${latest}/:path*`,
     },
   ],
   redirects: async () => getRedirects(),
   images: {
     disableStaticImages: true,
+    domains: ["github.blog"],
   },
   trailingSlash: true,
   env: {

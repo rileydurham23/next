@@ -10,6 +10,7 @@ import Search from "components/Search";
 import Icon from "components/Icon";
 import Link, { useCurrentHref } from "components/Link";
 import { NavigationItem, NavigationCategory } from "./types";
+
 interface DocsNavigationItemsProps {
   entries: NavigationItem[];
   onClick: () => void;

@@ -4,7 +4,8 @@
 
 import Ajv from "ajv";
 import { validateConfig } from "./config-common";
-import configFile from "../config";
+import { resolve } from "path";
+import { loadJson } from "./json";
 
 interface Config {
   versions: {
@@ -21,7 +22,7 @@ interface NormalizedConfig {
 }
 
 export const load = () => {
-  return configFile as Config;
+  return loadJson(resolve("config.json")) as Config;
 };
 
 /*

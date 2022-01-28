@@ -9,7 +9,7 @@ import { loadConfig } from "../.build/server/config-site.mjs";
 
 const { versions } = loadConfig();
 
-const docsPagesRoot = "pages/docs/ver";
+const docsPagesRoot = "pages/ver";
 
 if (existsSync(docsPagesRoot)) {
   rmdirSync(docsPagesRoot, { recursive: true });
@@ -20,7 +20,9 @@ versions.forEach((version) => {
   const source = resolve("content", version, "docs/pages");
   const destination = resolve(docsPagesRoot, version);
 
-  const paths = glob.sync(resolve(source, "**/*.mdx")).filter(path => !path.includes("/includes/"));
+  const paths = glob
+    .sync(resolve(source, "**/*.mdx"))
+    .filter((path) => !path.includes("/includes/")); // Files in `/includes/` folders are not actual pages
 
   paths.forEach((oldPath) => {
     const newPath = oldPath.replace(source, destination);

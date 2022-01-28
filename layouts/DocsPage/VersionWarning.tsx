@@ -15,7 +15,7 @@ export const VersionWarning = (props: BoxProps) => {
       Cloud is not available for Teleport v{current}.
       <br />
       Please use the{" "}
-      <Link href="/docs/" scheme="docs">
+      <Link href="/" scheme="docs">
         latest version of Teleport Enterprise documentation
       </Link>
       .

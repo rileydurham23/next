@@ -66,8 +66,8 @@ interface DocsContextProviderProps {
 
 export const DocsContextProvider = ({ children }: DocsContextProviderProps) => {
   const router = useRouter();
-  const current = router.asPath.startsWith("/docs/ver/")
-    ? router.asPath.split("/")[3]
+  const current = router.asPath.startsWith("/ver/")
+    ? router.asPath.split("/")[2]
     : "";
 
   const urlScope = getScopeFromUrl(router.asPath);
@@ -85,7 +85,7 @@ export const DocsContextProvider = ({ children }: DocsContextProviderProps) => {
       setReady(true);
     } else {
       if (scope === "cloud" && versions.current !== versions.latest) {
-        router.replace("/docs/?scope=cloud");
+        router.replace("/?scope=cloud");
       } else if (scope !== urlScope) {
         router.replace(
           updateScopeInUrl(router.asPath, scope),

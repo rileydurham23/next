@@ -10,11 +10,9 @@
 # production
 /.build
 /public/static/assets
-/public/next_sitemap.xml
-/public/algolia_searchmap.xml
-/public/storybook
-/public/podcast-data.json
-/pages/docs/ver/*
+/public/docs_sitemap.xml
+/public/algolia_sitemap.xml
+/pages/ver/*
 
 # misc
 .DS_Store

@@ -136,8 +136,7 @@ const normalizeDocsUrl = (version: string, url: string, raw?: boolean) => {
   }
 
   const addVersion = raw || latest !== version;
-  const root = process.env.NEXT_PUBLIC_DOCS_DIR;
-  const prefix = `${root}${addVersion ? `/ver/${version}` : ""}`;
+  const prefix = `${addVersion ? `/ver/${version}` : ""}`;
 
   return prefix + url;
 };

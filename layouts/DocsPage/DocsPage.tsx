@@ -111,7 +111,7 @@ const DocsPage = ({
                       <>
                         This chapter covers an upcoming release:{" "}
                         {versions.current}. We recommend the{" "}
-                        <Link href="/docs/">latest</Link> version instead.
+                        <Link href="/">latest</Link> version instead.
                       </>
                     )}
                   </Notice>

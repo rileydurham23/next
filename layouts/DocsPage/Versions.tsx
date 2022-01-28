@@ -4,8 +4,6 @@ import Box, { BoxProps } from "components/Box";
 import { Dropdown } from "components/Dropdown";
 import type { VersionsInfo } from "./types";
 
-const root = process.env.NEXT_PUBLIC_DOCS_DIR;
-
 const renderVersion = (version: string) => `Version ${version}`;
 
 const Versions = ({
@@ -23,7 +21,7 @@ const Versions = ({
   const navigateToVersion = useCallback(
     (version: string) => {
       const isLatest = version === latest;
-      const href = `${root}/${isLatest ? "" : `ver/${version}`}`;
+      const href = `${isLatest ? "/" : `/ver/${version}`}`;
 
       setCurrentItem(version);
       router.push(href);

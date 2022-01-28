@@ -7,8 +7,6 @@ import { getPageInfo } from "./pages-helpers";
 
 const { latest, versions } = loadSiteConfig();
 
-const NEXT_PUBLIC_DOCS_DIR = process.env.NEXT_PUBLIC_DOCS_DIR as string;
-
 /*
  * Excludes mdx pages with "noindex" in frontmatter from sitemap
  */
@@ -38,6 +36,7 @@ const getSlugsForVersion = (version: string) => {
   return glob
     .sync(join(path, "**/*.mdx"))
     .filter(filterNoIndexPage)
+    .filter((path) => !path.includes("/includes/"))
     .map((filename) =>
       filename.replace(/\/?(index)?.mdx?$/, "/").replace(path, root)
     );
@@ -50,10 +49,7 @@ const getSlugsForVersion = (version: string) => {
 const normalizeDocSlug = (slug: string, version: string) => {
   const isLatest = version === latest;
 
-  return (
-    NEXT_PUBLIC_DOCS_DIR +
-    (isLatest ? slug.replace(`/ver/${latest}`, "") : slug)
-  );
+  return isLatest ? slug.replace(`/ver/${latest}`, "") : slug;
 };
 
 /*
@@ -61,7 +57,7 @@ const normalizeDocSlug = (slug: string, version: string) => {
  * Only have paths for current version of docs.
  */
 
-export const generateSitemap = () => {
+export const generateSitemap = (root: string) => {
   const currentDocPages = getSlugsForVersion(latest).map((slug) => ({
     loc: normalizeDocSlug(slug, latest),
   }));
@@ -69,6 +65,7 @@ export const generateSitemap = () => {
   sitemapGenerator({
     pages: [...currentDocPages],
     path: resolve("public", "docs_sitemap.xml"),
+    root,
   });
 };
 
@@ -77,7 +74,7 @@ export const generateSitemap = () => {
  * Have paths for all versions of docs and no other pages.
  */
 
-export const generateFullSitemap = () => {
+export const generateFullSitemap = (root: string) => {
   const docPages = [];
 
   versions.forEach((version) => {
@@ -91,6 +88,7 @@ export const generateFullSitemap = () => {
   sitemapGenerator({
     pages: docPages,
     path: resolve("public", "algolia_sitemap.xml"),
+    root,
   });
 };
 

@@ -6,6 +6,7 @@ import Icon, { IconName } from "components/Icon";
 import Section from "components/Section";
 import { Scopes } from "./Scopes";
 import Versions from "./Versions";
+import NextImage from "next/image";
 import { VersionsInfo } from "./types";
 import { DocsContext } from "./context";
 
@@ -30,7 +31,7 @@ const DocHeader = ({
     <Section bg="purple">
       <Flex position="relative" minHeight="168px" alignItems="stretch">
         <Box as="a" href={GITHUB_DOCS} position="absolute" top="0" right="0">
-          <img
+          <NextImage
             width="112"
             height="112"
             src="https://github.blog/wp-content/uploads/2008/12/forkme_right_white_ffffff.png?resize=149%2C149"
