@@ -586,6 +586,7 @@ const StyledTable = styled("div")`
       border-radius: 100px;
       border: none;
       box-sizing: border-box;
+      font-size: 11px;
       color: #aab8c1;
       line-height: 24px;
       outline: none;
@@ -616,13 +617,16 @@ const StyledTable = styled("div")`
     border-collapse: collapse;
     width: 100%;
 
+    tr:last-child {
+      td,
+      th {
+        border-bottom: none;
+      }
+    }
+
     td,
     th {
       border-bottom: 1px solid #f5f5f6;
-
-      &:last-child {
-        border: none;
-      }
     }
 
     th {

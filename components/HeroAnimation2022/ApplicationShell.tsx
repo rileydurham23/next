@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import styled from "styled-components";
 import Flex from "components/Flex";
 import Logo from "components/Logo";
 import NextImage from "next/image";
@@ -7,6 +7,17 @@ import Icon, { IconName } from "components/Icon";
 import avatar from "./assets/avatar.png";
 import AnimationScreens from "./AnimationScreens";
 import { items } from "./constants";
+
+// DATA THAT POPULATES TOPBAR
+const sectionData = [
+  { title: "Servers", subtitle: "1250 total", cta: "Add Server" },
+  { title: "Databases", subtitle: "500 total", cta: "Add Database" },
+  { title: "Kubernetes", subtitle: "15 total", cta: "" },
+  { title: "Applications", subtitle: "110 total", cta: "Add Application" },
+  { title: "Desktops", subtitle: "20 total", cta: "Add Desktop" },
+  { title: "Activity", subtitle: "300 total", cta: "" },
+  { title: "Team", subtitle: "5 total", cta: "Add User" },
+];
 
 const ApplicationShell = () => {
   const [currentItem, setCurrentItem] = useState(0);
@@ -30,29 +41,37 @@ const ApplicationShell = () => {
       clearInterval(interval);
     };
   }, [currentItem, animationPaused]);
+
   return (
     <Flex
       height={400}
       width={700}
-      borderRadius="md"
+      borderRadius="8px"
       bg="#F1F3F5"
       ml={[0, 3]}
       overflow="hidden"
-      boxShadow="0px 0px 24px rgba(0, 0, 0, 0.24)"
+      position="relative"
+      boxShadow="0px 8px 32px rgba(0, 0, 0, 0.24)"
       mt={[5, 0]}
+      pt={[6, 0]}
     >
       {/* SideBar */}
-      <Flex
-        flexDirection="column"
-        bg="white"
-        height="100%"
-        width={168}
-        borderRadius="4px 0 0 4px"
-      >
-        <Flex mt={3} mb={3} color="dark-purple" justifyContent="center">
-          <Logo width={["86px", "100px"]} height={["20px", "24px"]} />
+      <StyledSidebar>
+        <Flex
+          mt={[2, 3]}
+          mb={[2, 3]}
+          ml={[4, 0]}
+          color="dark-purple"
+          justifyContent="center"
+        >
+          <Logo width={"100px"} height={"24px"} />
         </Flex>
-        <Flex flexDirection="column" alignItems="flex-start" color="gray">
+        <Flex
+          className="clusters"
+          flexDirection="column"
+          alignItems="flex-start"
+          color="gray"
+        >
           <Flex fontSize="8px" ml={2}>
             CLUSTERS
           </Flex>
@@ -72,31 +91,35 @@ const ApplicationShell = () => {
             <Icon size="xs" name="arrow" ml={2} />
           </Flex>
         </Flex>
-        {items.map((item, i) => {
-          return (
-            <Flex
-              height={[34, 40]}
-              key={item.name}
-              //pauses and restarts animation on hover
-              onMouseEnter={() => setAnimationPaused(true)}
-              onMouseLeave={() => setAnimationPaused(false)}
-              //sets this item as "current"
-              onClick={() => setCurrentItem(i)}
-            >
-              <SidebarItem
-                id={i}
-                src={item.name as IconName}
-                infra={item.infra as infraType}
-                selected={currentItem === i}
-              />
-            </Flex>
-          );
-        })}
-      </Flex>
+        <div className="sidenav-buttons">
+          {items.map((item, i) => {
+            return (
+              <Flex
+                height={[34, 40]}
+                key={item.name}
+                onClick={() => {
+                  // SELECT NAV ITEM
+                  setCurrentItem(i);
+
+                  // PAUSE ANIMATION
+                  setAnimationPaused(true);
+                }}
+              >
+                <SidebarItem
+                  id={i}
+                  src={item.name as IconName}
+                  infra={item.infra as infraType}
+                  selected={currentItem === i}
+                />
+              </Flex>
+            );
+          })}
+        </div>
+      </StyledSidebar>
       {/* Main Window */}
       <Flex flexDirection="column" width="100%">
         {/* TopBar */}
-        <TopBar application="Application" applicationNumber="1250" />
+        <TopBar currentItem={currentItem} />
         {/* Central Screen */}
         {/* Sets the central screen to the index of the current item */}
         {AnimationScreens[currentItem]}
@@ -108,13 +131,39 @@ const ApplicationShell = () => {
 export default ApplicationShell;
 
 interface TopBarProps {
-  application: string;
-  applicationNumber: string;
+  currentItem: number;
 }
 
-const TopBar = ({ application, applicationNumber }: TopBarProps) => {
+const TopBar = ({ currentItem }: TopBarProps) => {
+  let ctaButton = null;
+
+  // ADD BUTTON IF THERE IS A CALL TO ACTION (CTA)
+  if (sectionData[currentItem].cta) {
+    ctaButton = (
+      <Flex alignItems="center" justifyContent="center">
+        <Flex
+          borderRadius="4px"
+          border="1px solid #512FC9"
+          p={2}
+          color="dark-purple"
+          height="24px"
+          fontSize="10px"
+          alignItems="center"
+          lineHeight="24px"
+        >
+          {sectionData[currentItem].cta}
+        </Flex>
+      </Flex>
+    );
+  }
+
   return (
-    <Flex height={60} mx={[4, 4]} borderBottom="1px solid #DBE2E6">
+    <Flex
+      height={60}
+      mx={[4, 4]}
+      borderBottom="1px solid #DBE2E6"
+      justifyContent="space-between"
+    >
       <Flex
         flexDirection="column"
         justifyContent="center"
@@ -122,40 +171,21 @@ const TopBar = ({ application, applicationNumber }: TopBarProps) => {
         width={["28%", "40%"]}
       >
         <Flex
-          fontSize={["text-md", "text-lg"]}
-          pt={1}
-          lineHeight="md"
-          fontWeight="bold"
+          fontFamily="Ubuntu"
+          fontSize="16px"
+          lineHeight="24px"
+          color="#37474F"
         >
-          {application + "s"}
+          {sectionData[currentItem].title}
         </Flex>
-        <Flex fontSize="text-sm" lineHeight="sm" color="gray">
-          {applicationNumber + " total"}
-        </Flex>
-      </Flex>
-      <Flex alignItems="center" justifyContent="center">
-        <Flex
-          width={["80%", "auto"]}
-          borderRadius="sm"
-          border="1px solid #512FC9"
-          p={2}
-          color="dark-purple"
-          height="auto"
-          fontSize="text-sm"
-          fontWeight="bold"
-          alignContent="center"
-          lineHeight="14px"
-          mx={2}
-        >
-          Add {application}
+        <Flex fontSize="11px" lineHeight="16px" color="#ADBCC4">
+          {sectionData[currentItem].subtitle}
         </Flex>
       </Flex>
 
-      <Flex alignItems="center" justifyContent="center" mx={[2, 3]}>
-        <Icon name="bell" size="md" color="dark-gray" />
-      </Flex>
-
-      <Flex alignItems="center" justifyContent="center" mr={[3, 0]}>
+      <Flex alignItems="center" justifyContent="right">
+        {ctaButton}
+        <Icon name="bell" width="16px" color="gray" mx={[3, 3]} />
         <NextImage src={avatar} alt="avatar" height={28} width={28} />
       </Flex>
     </Flex>
@@ -194,10 +224,32 @@ function SidebarItem({ src, infra, selected }: SidebarItemProps) {
         visibility={selected ? "inherit" : "hidden"}
         mr={2}
       />
-      <Icon name={src} size="sm" color={selected ? "code" : "#D2DBDF"} />
+      <Icon name={src} width="18px" color={selected ? "code" : "#D2DBDF"} />
       <Flex ml="12px" fontSize="text-sm">
         {infra}
       </Flex>
     </Flex>
   );
 }
+
+const StyledSidebar = styled(Flex)`
+  flex-direction: column;
+  background: white;
+  height: auto;
+  width: 168px;
+  borderradius: 4px 0 0 4px;
+
+  // SIDE NAV GOT TO TOP ON MOBILE
+  @media (max-width: 800px) {
+    position: absolute;
+    top: 0;
+    flex-direction: unset;
+    height: auto;
+    width: 100%;
+
+    .clusters,
+    .sidenav-buttons {
+      display: none;
+    }
+  }
+`;
