@@ -10,6 +10,7 @@ import Authorize from "./assets/authorize.svg?react";
 import Audit from "./assets/audit.svg?react";
 import Authenticate from "./assets/authenticate.svg?react";
 
+// each pie slice needed its own transform_origin depending on where they were located
 const determineTransformOrigin = (id) => {
   switch (id) {
     case "default":

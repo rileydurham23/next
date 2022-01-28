@@ -22,8 +22,8 @@ export default AccessAnimation;
 
 const AnimationContainer = styled(Flex)(
   css({
-    height: "400px",
+    height: ["340px", "400px"],
     position: "relative",
-    width: "400px",
+    width: ["340px", "400px"],
   })
 );

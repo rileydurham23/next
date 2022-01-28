@@ -142,18 +142,17 @@ const Top = styled(Flex)(
 
 const Bottom = styled(Box)(
   css({
-    pt: [1, 11],
+    pt: [1, 6],
     width: "100%",
   })
 );
 
 const StyledCentrator = styled(Centrator)(
   css({
-    alignItems: ["center", "flex-start"],
     flexDirection: "column",
-    px: 2,
     py: [1, 9],
     textAlign: "left",
+    flex: "0 0 auto",
   })
 );
 

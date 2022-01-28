@@ -15,29 +15,29 @@ interface OrbitProps {
   timeOffset: string;
 }
 
-export const BackgroundAnimation = () => {
-  return (
-    <BackgroundAnimationContainer>
-      <Container>
-        {[1, 2, 3, 4].map((n) => (
-          <Orbit
-            direction={n % 2 === 0 ? "clockwise" : "counter-clockwise"}
-            distance={n + 1}
-            key={n}
-            speed={n * 0.2}
-            timeOffset={`${n * -13}s`}
-          >
-            <PlanetContainer>
-              <Planet />
-              <Planet />
-            </PlanetContainer>
-          </Orbit>
-        ))}
-      </Container>
-    </BackgroundAnimationContainer>
-  );
-};
+export const BackgroundAnimation = () => (
+  <BackgroundAnimationContainer>
+    <Container>
+      {[1, 2, 3, 4].map((n) => (
+        <Orbit
+          direction={n % 2 === 0 ? "clockwise" : "counter-clockwise"}
+          distance={n + 1}
+          key={n}
+          speed={n * 0.2}
+          // timeOffset was used to allow for the planets to be staggered on their orbits
+          timeOffset={`${n * -13}s`}
+        >
+          <PlanetContainer>
+            <Planet />
+            <Planet />
+          </PlanetContainer>
+        </Orbit>
+      ))}
+    </Container>
+  </BackgroundAnimationContainer>
+);
 
+// width and height are set at 100% so the component can be rendered at any arbitrary size
 const BackgroundAnimationContainer = styled(Box)(
   css({
     backgroundColor: "white",
