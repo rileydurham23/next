@@ -61,30 +61,48 @@ export const AnimationHeader = ({
           {description}
         </Box>
         <Flex flexDirection={["column", "row"]}>
-          <Button
-            as={Link}
-            variant="primary"
-            mt={[6, 0]}
-            mr={[0, 4]}
-            shape="lg"
-            fontWeight={400}
-            width={["100%", "auto"]}
-            href="https://goteleport.com/pricing"
-          >
-            {DATA[variant].buttonText}
-          </Button>
-          {variant === "builtForEngineers" && (
+          {variant != "builtForEngineers" && (
             <Button
               as={Link}
-              shape="outline"
-              variant="secondary-gray"
-              fontWeight={400}
+              variant="primary"
               mt={[6, 0]}
+              mr={[0, 4]}
+              shape="lg"
+              fontWeight={400}
               width={["100%", "auto"]}
-              href="https://play.instruqt.com/embed/teleport/tracks/teleport-demo?icp_user_id=homepage&show_challenges=true"
+              href="/pricing/"
             >
-              Interactive Tutorial
+              {DATA[variant].buttonText}
             </Button>
+          )}
+
+          {variant === "builtForEngineers" && (
+            // Only display this for Engieers section
+            <div>
+              <Button
+                as={Link}
+                variant="primary"
+                mt={[6, 0]}
+                mr={[0, 4]}
+                shape="lg"
+                fontWeight={400}
+                width={["100%", "auto"]}
+                href="/docs/"
+              >
+                View Developer Docs
+              </Button>
+              <Button
+                as={Link}
+                shape="outline"
+                variant="secondary-gray"
+                fontWeight={400}
+                mt={[6, 0]}
+                width={["100%", "auto"]}
+                href="https://play.instruqt.com/embed/teleport/tracks/teleport-demo?icp_user_id=homepage&show_challenges=true"
+              >
+                Interactive Tutorial
+              </Button>
+            </div>
           )}
         </Flex>
       </Box>
