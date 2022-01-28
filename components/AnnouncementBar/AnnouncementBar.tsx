@@ -219,7 +219,7 @@ const StyledImage = styled("img")<{ variant: AnnouncementBarType }>(
         maxHeight: "80%",
       },
       newHomepage: {
-        maxWidth: [120, 160],
+        maxWidth: [110, 160],
         minWidth: [null, 80],
         maxHeight: "100%",
         marginRight: [0, 5],
