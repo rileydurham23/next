@@ -42,6 +42,12 @@ export default withBundleAnalyzer({
       generateSitemap();
       generateFullSitemap();
     }
+
+    // silencing warnings until https://github.com/vercel/next.js/issues/33693 is resolved
+    config.infrastructureLogging = {
+      level: "error",
+    }
+
     config.output.assetModuleFilename = "static/media/[hash][ext]";
 
     config.module.rules.push({
