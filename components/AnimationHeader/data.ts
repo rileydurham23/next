@@ -12,7 +12,7 @@ export const DATA = {
     subtitleColor: "white",
     titleColor: "white",
     descriptionColor: "white",
-    buttonText: "VIEW DEVELOPER DOCS",
+    buttonText: "View Developer Docs",
     buttonLink: "https://goteleport.com/docs/",
   },
 };

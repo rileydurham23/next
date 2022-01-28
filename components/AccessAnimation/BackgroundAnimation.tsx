@@ -79,8 +79,6 @@ const Container = styled(Flex)(
   })
 );
 
-const SPACE_BETWEEN_ORBITS = 6;
-
 const Orbit = styled(Flex)<OrbitProps>`
   align-items: center;
   animation-delay: ${({ timeOffset }) => timeOffset};
@@ -93,31 +91,29 @@ const Orbit = styled(Flex)<OrbitProps>`
   animation-timing-function: linear;
   border: 1px solid #d2dbdf;
   border-radius: 50%;
-  bottom: ${({ distance }) => `${distance * SPACE_BETWEEN_ORBITS}%`};
+  bottom: ${({ distance }) => `${distance * 4.8}%`};
   justify-content: space-between;
-  left: ${({ distance }) => `${distance * SPACE_BETWEEN_ORBITS}%`};
+  left: ${({ distance }) => `${distance * 4.8}%`};
   position: absolute;
-  right: ${({ distance }) => `${distance * SPACE_BETWEEN_ORBITS}%`};
-  top: ${({ distance }) => `${distance * SPACE_BETWEEN_ORBITS}%`};
+  right: ${({ distance }) => `${distance * 4.8}%`};
+  top: ${({ distance }) => `${distance * 4.8}%`};
 `;
-
-const PLANET_SIZE = 12;
 
 const Planet = styled(Box)(
   css({
-    width: `${PLANET_SIZE}px`,
-    backgroundColor: "#D2DBDF",
-    height: `${PLANET_SIZE}px`,
     borderRadius: "circle",
+    background: "#CCD7DC",
+    height: "6px",
+    width: "6px",
   })
 );
 
 const PlanetContainer = styled(Flex)(
   css({
     justifyContent: "space-between",
-    marginTop: "-3.6rem",
-    marginRight: "-0.2rem",
-    marginLeft: "-0.2rem",
-    width: "calc(100% + 1.8rem)",
+    marginTop: "-2.5rem",
+    marginRight: "-0.1rem",
+    marginLeft: "-0.1rem",
+    width: "calc(100% + 1.6rem)",
   })
 );

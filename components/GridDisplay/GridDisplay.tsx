@@ -145,6 +145,7 @@ function GridDisplay({
 
         {/** Card display logic using Grid*/}
         <Grid
+          justifyContent={NewProductCard ? "center" : null}
           justifyItems="center"
           mt={centralHeading ? [3, 2] : productCard ? 3 : 7}
           mb={6}

@@ -139,6 +139,7 @@ const StyledWrapper = styled(Box)(
     borderRadius: "md",
     boxShadow: "0px 2px 8px rgba(12, 12, 14, 0.24)",
     height: "320px",
+    width: "100%",
     maxWidth: "394px",
     transition: ".3s all",
     "&:hover": {

@@ -5,35 +5,36 @@ import Section from "components/Section";
 const productCards = [
   {
     title: "Server Access",
-    description: "For SSH servers behind NAT in multiple environments.",
+    description: "For SSH servers in multiple environments.",
     image: "server",
     href: "/ssh-server-access/",
     cardBG: "purple",
   },
   {
     title: "Kubernetes Access",
-    description: "For Kubernetes clusters behind NAT in multiple environments.",
+    description: "For Kubernetes clusters in multiple environments.",
     image: "kubernetes",
     href: "/kubernetes-access/",
     cardBG: "blue",
   },
   {
     title: "Application Access",
-    description: "For web applications behind NAT in multiple environments.",
+    description:
+      "For your DevOps toolkit including AWS Console, CI/CD, version control, and monitoring.",
     image: "application",
     href: "/application-access/",
     cardBG: "lightPurple",
   },
   {
     title: "Database Access",
-    description: "For databases behind NAT in multiple environments.",
+    description: "For SQL and NoSQL databases in multiple environments.",
     image: "db",
     href: "/database-access/",
     cardBG: "lightBlue",
   },
   {
     title: "Desktop Access",
-    description: "For Windows servers & desktops in multiple environments.",
+    description: "For Windows Servers & desktops in multiple environments.",
     image: "desktop",
     href: "/desktop-access/",
     cardBG: "purpleBlue",
@@ -51,11 +52,7 @@ const ProductSection = () => {
         bg="flatWhite"
         bigLeftHeading={true}
         title="Teleport Products"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
-        ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam."
+        description="The Teleport Access Plane consists of five products to deliver protocol-aware capabilities deep into your infrastrucure."
       >
         {productCards.map((card, index) => (
           <NewProductCard
