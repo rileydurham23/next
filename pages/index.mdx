@@ -31,6 +31,8 @@ import TerminalAnimation from "components/TerminalAnimation";
 import TryTeleport from "components/TryTeleport";
 import Feedback from "components/Feedback";
 import WorksWith from "components/WorksWith";
+import Link from "components/Link";
+
 
 <Section>
   <AnimationHeader
@@ -56,8 +58,6 @@ import WorksWith from "components/WorksWith";
       <>
         Open source Teleport was designed to provide access to the infrastructure you need without slowing you down. 
         With a single tool, engineers and security professionals get unified access to Linux and Windows servers, Kubernetes clusters, databases and DevOps applications like CI/CD, version control, and monitoring dashboards across all environments.
-        
-        
       </>
     }
   >
@@ -79,26 +79,21 @@ import WorksWith from "components/WorksWith";
     description={
       <>
         <p>
-
-Security-software done right gets out of the way, improving productivity while protecting critical infrastructure. 
-
-The key is simplicity. 
-
-Easy-to-use software is essential to first-class security because it reduces the risk of a human error.  
-
-Teleport embodies the principle of simplicity in everything that we do. 
-
-This is why the fastest growing, most innovative companies choose Teleport.
-
-
-
+        Security-software done right gets out of the way, improving productivity while protecting critical infrastructure. 
+        The key is simplicity. 
+        </p>
+        <p>
+        Easy-to-use software is essential to first-class security because it reduces the risk of a human error.  
+        Teleport embodies the principle of simplicity in everything that we do. 
+        This is why the fastest growing, most innovative companies choose Teleport.
         </p>
         <Button
+          as={Link}
+          href="/about/"
           variant="secondary"
           shape="lg"
           mt={[2, 2, 3]}
           width={["100%", "auto"]}
-          textTransform="uppercase"
         >
           Learn about us
         </Button>
