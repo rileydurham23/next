@@ -24,11 +24,11 @@
  */
 
 import type { Transformer } from "unified";
-import type { Code as MdastCode, Paragraph as MdastParagraph } from "mdast";
+import type { Code as MdastCode } from "mdast";
 import type {
   MdxastNode,
+  MdxJsxAttribute,
   MdxJsxFlowElement,
-  MdxJsxTextElement,
 } from "./types-unist";
 
 import { visit } from "unist-util-visit";
@@ -44,8 +44,8 @@ const getCommandNode = (content: string, prefix = "$"): MdxJsxFlowElement => ({
   attributes: [],
   children: [
     {
-      type: "mdxJsxTextElement",
-      name: "span",
+      type: "mdxJsxFlowElement",
+      name: "CommandLine",
       attributes: [
         {
           type: "mdxJsxAttribute",
@@ -63,9 +63,9 @@ const getCommandNode = (content: string, prefix = "$"): MdxJsxFlowElement => ({
   ],
 });
 
-const getSpanNode = (content: string, attributes = []): MdxJsxTextElement => ({
-  type: "mdxJsxTextElement",
-  name: "span",
+const getLineNode = (content: string, attributes = []): MdxJsxFlowElement => ({
+  type: "mdxJsxFlowElement",
+  name: "CommandLine",
   attributes,
   children: [
     {
@@ -75,8 +75,13 @@ const getSpanNode = (content: string, attributes = []): MdxJsxTextElement => ({
   ],
 });
 
-const getPNode = (content: string): MdastParagraph => ({
-  type: "paragraph",
+const getCommentNode = (
+  content: string,
+  attributes: MdxJsxAttribute[] = []
+): MdxJsxFlowElement => ({
+  type: "mdxJsxFlowElement",
+  name: "CommandComment",
+  attributes,
   children: [
     {
       type: "text",
@@ -126,7 +131,7 @@ export default function remarkCodeSnippet(
             }
 
             while (codeLines[i] && codeLines[i] !== heredocMark) {
-              commandArrayElem.push(getSpanNode(codeLines[i + 1]));
+              commandArrayElem.push(getLineNode(codeLines[i + 1]));
 
               i++;
             }
@@ -145,7 +150,7 @@ export default function remarkCodeSnippet(
           let hasNextLine = codeLines[i]?.[codeLines[i]?.length - 1] === "\\";
 
           while (hasNextLine) {
-            commandArrayElem.push(getSpanNode(codeLines[i + 1]));
+            commandArrayElem.push(getLineNode(codeLines[i + 1]));
 
             i++;
             hasNextLine =
@@ -168,23 +173,20 @@ export default function remarkCodeSnippet(
           children.push(getCommandNode(commandText, ghostText));
         } else if (hasGrate) {
           if (codeLines[i][1] === "#") {
-            children.push(getPNode(codeLines[i].slice(1)));
+            children.push(getCommentNode(codeLines[i].slice(1)));
           } else {
-            children.push({
-              type: "paragraph",
-              children: [
-                getSpanNode(trimmedValue, [
-                  {
-                    type: "mdxJsxAttribute",
-                    name: "data-type",
-                    value: "descr",
-                  },
-                ]),
-              ],
-            });
+            children.push(
+              getCommentNode(trimmedValue, [
+                {
+                  type: "mdxJsxAttribute",
+                  name: "data-type",
+                  value: "descr",
+                },
+              ])
+            );
           }
         } else {
-          children.push(getPNode(codeLines[i]));
+          children.push(getCommentNode(codeLines[i]));
         }
       }
 

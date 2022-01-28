@@ -1,49 +1,89 @@
 ## Header
 
 <Snippet>
-  <span data-type="descr">Copy and Paste the below and run on the Teleport Auth server.</span>
+  <CommandComment data-type="descr">
+    Copy and Paste the below and run on the Teleport Auth server.
+  </CommandComment>
 
   <Command>
-    <span data-content="$ ">cat > api-role.yaml <<ENDOFMESSAGE</span>
+    <CommandLine data-content="$ ">
+      cat > api-role.yaml <<ENDOFMESSAGE
+    </CommandLine>
 
-    <span>kind: role</span>
+    <CommandLine>
+      kind: role
+    </CommandLine>
 
-    <span>metadata:</span>
+    <CommandLine>
+      metadata:
+    </CommandLine>
 
-    <span>  name: api-role</span>
+    <CommandLine>
+        name: api-role
+    </CommandLine>
 
-    <span>spec:</span>
+    <CommandLine>
+      spec:
+    </CommandLine>
 
-    <span>  allow:</span>
+    <CommandLine>
+        allow:
+    </CommandLine>
 
-    <span>    rules:</span>
+    <CommandLine>
+          rules:
+    </CommandLine>
 
-    <span>      - resources: ['role']</span>
+    <CommandLine>
+            \- resources: ['role']
+    </CommandLine>
 
-    <span>        verbs: ['read']</span>
+    <CommandLine>
+              verbs: ['read']
+    </CommandLine>
 
-    <span>  deny:</span>
+    <CommandLine>
+        deny:
+    </CommandLine>
 
-    <span>    node_labels:</span>
+    <CommandLine>
+          node_labels:
+    </CommandLine>
 
-    <span>      '*': '*'</span>
+    <CommandLine>
+            '*': '*'
+    </CommandLine>
 
-    <span>version: v3</span>
+    <CommandLine>
+      version: v3
+    </CommandLine>
 
-    <span>ENDOFMESSAGE</span>
+    <CommandLine>
+      ENDOFMESSAGE
+    </CommandLine>
   </Command>
 
+  <CommandComment>
 
+  </CommandComment>
 
-  <span data-type="descr">Create role</span>
+  <CommandComment data-type="descr">
+    Create role
+  </CommandComment>
 
   <Command>
-    <span data-content="$ ">tctl create -f api-role.yaml</span>
+    <CommandLine data-content="$ ">
+      tctl create -f api-role.yaml
+    </CommandLine>
   </Command>
 
-  <span data-type="descr">Add user and login via web proxy</span>
+  <CommandComment data-type="descr">
+    Add user and login via web proxy
+  </CommandComment>
 
   <Command>
-    <span data-content="$ ">tctl users add api-user --roles=api-role</span>
+    <CommandLine data-content="$ ">
+      tctl users add api-user --roles=api-role
+    </CommandLine>
   </Command>
 </Snippet>

@@ -61,9 +61,11 @@ export const getAllResourcesData = () => {
   const mappedInformation = allPagesInformation.map(({ data }) =>
     addResourceKind(data)
   );
-  return mappedInformation.sort((a, b) =>
-    a.frontmatter.publicationDate < b.frontmatter.publicationDate ? 1 : -1
-  );
+  return mappedInformation
+    .filter((episode) => episode.frontmatter.description !== "On demand")
+    .sort((a, b) =>
+      a.frontmatter.publicationDate < b.frontmatter.publicationDate ? 1 : -1
+    );
 };
 
 export const getResourcesData = (type: string) => {
@@ -112,12 +114,14 @@ export const getResourcesData = (type: string) => {
         }
       );
     } else if (type === "videos") {
-      resourcesPageInfo = resourcesPageInfo.sort((a: Webinar, b: Webinar) => {
-        return (
-          new Date(b.frontmatter.publicationDate).getTime() -
-          new Date(a.frontmatter.publicationDate).getTime()
-        );
-      });
+      resourcesPageInfo = resourcesPageInfo
+        .filter((episode) => episode.frontmatter.description !== "On demand")
+        .sort((a: Webinar, b: Webinar) => {
+          return (
+            new Date(b.frontmatter.publicationDate).getTime() -
+            new Date(a.frontmatter.publicationDate).getTime()
+          );
+        });
     }
   } catch (e) {
     console.error(e);

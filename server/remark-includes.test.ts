@@ -15,12 +15,13 @@ const transformer = (
 ) => {
   const file = new VFile(vfileOptions);
 
-  file.data.docsRoot = resolve("server/fixtures/includes/");
-
   return remark()
     .use(remarkMdx)
     .use(remarkGFM)
-    .use(remarkIncludes, pluginOptions)
+    .use(remarkIncludes, {
+      rootDir: "server/fixtures/includes/",
+      ...pluginOptions,
+    })
     .processSync(file);
 };
 

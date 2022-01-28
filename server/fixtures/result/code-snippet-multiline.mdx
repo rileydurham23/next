@@ -2,14 +2,24 @@
 
 <Snippet>
   <Command>
-    <span data-content="$ ">curl \\</span>
+    <CommandLine data-content="$ ">
+      curl \
+    </CommandLine>
 
-    <span>  --cacert /Users/alice/.tsh/keys/teleport.example.com/certs.pem \\</span>
+    <CommandLine>
+        \--cacert /Users/alice/.tsh/keys/teleport.example.com/certs.pem \
+    </CommandLine>
 
-    <span>  --cert /Users/alice/.tsh/keys/teleport.example.com/alice-app/cluster-name/grafana-x509.pem \\</span>
+    <CommandLine>
+        \--cert /Users/alice/.tsh/keys/teleport.example.com/alice-app/cluster-name/grafana-x509.pem \
+    </CommandLine>
 
-    <span>  --key /Users/alice/.tsh/keys/teleport.example.com/alice \\</span>
+    <CommandLine>
+        \--key /Users/alice/.tsh/keys/teleport.example.com/alice \
+    </CommandLine>
 
-    <span>  https://grafana.teleport.example.com:3080</span>
+    <CommandLine>
+        https://grafana.teleport.example.com:3080
+    </CommandLine>
   </Command>
 </Snippet>

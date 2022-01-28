@@ -4,7 +4,7 @@ import rehypeHighlight from "rehype-highlight";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkLayout from "./remark-layout";
-import remarkNonExplicitTags from "./remark-non-explicit-tags";
+import remarkMdxDisableExplicitJsx from "remark-mdx-disable-explicit-jsx";
 import remarkImportFiles from "./remark-import-files";
 
 interface MdxConfig {
@@ -16,7 +16,7 @@ interface MdxConfig {
 const config: MdxConfig = {
   providerImportSource: "@mdx-js/react",
   remarkPlugins: [
-    remarkNonExplicitTags, // Enables styling of html tags in HTML, like `<li>`
+    remarkMdxDisableExplicitJsx, // Enables styling of html tags in HTML, like `<li>`
     remarkFrontmatter, // Converts frontmatter to remark node, used by remark-layout
     [
       remarkLayout,

@@ -13,13 +13,14 @@ import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGFM from "remark-gfm";
 import remarkIncludes from "./remark-includes";
-import remarkDocs from "./remark-docs";
 import remarkLayout from "./remark-layout";
 import remarkLinks from "./remark-links";
 import remarkVariables from "./remark-variables";
-import remarkNonExplicitTags from "./remark-non-explicit-tags";
+import remarkMdxDisableExplicitJsx from "remark-mdx-disable-explicit-jsx";
 import remarkCodeSnippet from "./remark-code-snippet";
 import remarkImportFiles from "./remark-import-files";
+import { getVersion, getVersionRootPath } from "./docs-helpers";
+import { loadConfig } from "./config-docs";
 import { fetchVideoMeta } from "./youtube-meta";
 import { getPageMeta } from "./docs-helpers";
 
@@ -28,11 +29,11 @@ import { getPageMeta } from "./docs-helpers";
  * It is added by rehype-headers after we finish inserting layout.
  */
 
-const defaultExportTemplate = () => `
+const defaultExportTemplate = (metaKey: string) => `
 export default function Wrapper (props) {
   return (<Layout
     {...props}
-    meta={meta}
+    ${metaKey}={${metaKey}}
     tableOfConents={tableOfConents}
   />);
 };
@@ -46,8 +47,7 @@ interface MdxConfig {
 const config: MdxConfig = {
   providerImportSource: "@mdx-js/react",
   remarkPlugins: [
-    remarkNonExplicitTags, // Enables styling of html tags in HTML, like `<li>`
-    remarkDocs, // Adds docs-related vars to vfile.data for other plugins to use
+    remarkMdxDisableExplicitJsx, // Enables styling of html tags in HTML, like `<li>`
     remarkFrontmatter, // Converts frontmatter to remark node, used by remark-layout
     [
       remarkLayout,
@@ -75,8 +75,20 @@ const config: MdxConfig = {
       },
     ],
     remarkCodeSnippet, // Plugin for custom code snippets with multiple copy buttons
-    remarkIncludes, // Resolves (!include.ext!) syntax
-    remarkVariables, // Resolves (=variable=) syntax
+    [
+      remarkIncludes, // Resolves (!include.ext!) syntax
+      {
+        rootDir: (vfile: VFile) => getVersionRootPath(vfile.path),
+      },
+    ],
+    [
+      remarkVariables, // Resolves (=variable=) syntax
+      {
+        variables: (vfile: VFile) => {
+          return loadConfig(getVersion(vfile.path)).variables || {};
+        },
+      },
+    ],
     remarkGFM, // Adds tables
     remarkImportFiles, // Replaces paths to files with imports
     remarkLinks, // Make links in docs absolute with /ver/X.X included

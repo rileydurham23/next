@@ -67,21 +67,24 @@ const isInclude = (node: Code | Text): node is Code | Text =>
   typeof node.value === "string" && includeRegexp.test(node.value);
 
 export interface RemarkIncludesOptions {
+  rootDir?: string | ((vfile: VFile) => string);
   lint?: boolean;
   resolve?: boolean;
 }
 
-export default function remarkIncludes(
-  { lint, resolve }: RemarkIncludesOptions = { resolve: true }
-) {
+export default function remarkIncludes({
+  rootDir = "",
+  lint,
+  resolve = true,
+}: RemarkIncludesOptions = {}) {
   return (root: Content, vfile: VFile) => {
-    if (!vfile.data.docsRoot) {
-      throw new Error(
-        'Please add "remark-docs" to mdx remarkPlugins before "remark-icludes"'
-      );
-    }
+    let resolvedRootDir: string;
 
-    const rootDir = vfile.data.docsRoot as string;
+    if (typeof rootDir === "function") {
+      resolvedRootDir = rootDir(vfile);
+    } else {
+      resolvedRootDir = rootDir;
+    }
 
     const lastErrorIndex = vfile.messages.length;
 
@@ -92,7 +95,7 @@ export default function remarkIncludes(
           const { result, error } = resolveIncludes({
             value: node.value,
             filePath: vfile.path,
-            rootDir,
+            rootDir: resolvedRootDir,
           });
 
           if (resolve) {
@@ -112,7 +115,7 @@ export default function remarkIncludes(
               const { result, error } = resolveIncludes({
                 value: node.value,
                 filePath: vfile.path,
-                rootDir,
+                rootDir: resolvedRootDir,
               });
 
               const path = node.value.match(exactIncludeRegexp)[1];

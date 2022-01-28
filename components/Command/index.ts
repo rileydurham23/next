@@ -1,1 +1,1 @@
-export { default } from "./Command";
+export { default, CommandLine, CommandComment } from "./Command";
