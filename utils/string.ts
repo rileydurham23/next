@@ -21,12 +21,3 @@ export function camelCaseToDash(str: string): string {
 
   return result.toLowerCase().trim();
 }
-
-export const toSnakeCase = (str: string): string =>
-  str.toLowerCase().replace(/\s/g, "_");
-
-export const truncate = (text: string, length: number): string => {
-  return typeof text === "string" && text.length >= length
-    ? `${text.substr(0, length)}...`
-    : text;
-};

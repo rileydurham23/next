@@ -7,7 +7,7 @@
 import type { Redirect } from "next/dist/lib/load-custom-routes";
 
 import Ajv from "ajv";
-import { validateConfig, redirectsSchemaFragment } from "./config-common";
+import { validateConfig } from "./config-common";
 import { resolve } from "path";
 import { existsSync, readFileSync } from "fs";
 import { isExternalLink, isHash, splitPath } from "../utils/url";
@@ -85,7 +85,32 @@ const validator = ajv.compile({
       minItems: 1,
       uniqueItems: true,
     },
-    redirects: redirectsSchemaFragment,
+    redirects: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          source: { type: "string" },
+          destination: { type: "string" },
+          boolean: { type: "boolean", nullable: true },
+          basePath: { type: "boolean", nullable: true },
+          statusCode: { type: "number", nullable: true },
+          permanent: { type: "boolean", nullable: true },
+          has: {
+            type: "object",
+            properties: {
+              type: { type: "string" },
+              key: { type: "string", nullable: true },
+              value: { type: "string", nullable: true },
+            },
+            nullable: true,
+            additionalProperties: false,
+          },
+        },
+        required: ["source", "destination"],
+        additionalProperties: false,
+      },
+    },
   },
   required: ["navigation"],
   additionalProperties: false,

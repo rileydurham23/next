@@ -1,1 +1,0 @@
-export { HintIcon } from "./HintIcon";

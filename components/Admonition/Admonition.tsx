@@ -1,8 +1,10 @@
 import css from "@styled-system/css";
-import capitalize from "utils/capitalize";
 import Box from "components/Box";
 
 const types = ["warning", "tip", "note", "danger"] as const;
+
+const capitalize = (text: string): string =>
+  text.replace(/^\w/, (c) => c.toUpperCase());
 
 export interface AdmonitionProps {
   type: typeof types[number];

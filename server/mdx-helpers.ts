@@ -46,13 +46,6 @@ export const createMdxJsxAttribute = (
   value,
 });
 
-export const createMdxjsEsmExportNode = (
-  name: string,
-  data: unknown
-): EsmNode => {
-  return createMdxjsEsmNode(`export const ${name} = ${stringifyObject(data)};`);
-};
-
 export const createMdxjsEsmImportNode = (
   name: string,
   path: string

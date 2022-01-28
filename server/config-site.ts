@@ -2,10 +2,8 @@
  * this is the main config loading and normalization logic.
  */
 
-import type { Redirect } from "next/dist/lib/load-custom-routes";
-
 import Ajv from "ajv";
-import { validateConfig, redirectsSchemaFragment } from "./config-common";
+import { validateConfig } from "./config-common";
 import configFile from "../config";
 
 interface Config {
@@ -14,16 +12,12 @@ interface Config {
     branch: string;
     latest?: true;
   }[];
-  redirects?: Redirect[];
-  allowedMarketoIds: number[];
 }
 
 interface NormalizedConfig {
   latest: string;
   versions: string[];
   branches: Record<string, string>;
-  redirects?: Redirect[];
-  allowedMarketoIds: number[];
 }
 
 export const load = () => {
@@ -56,15 +50,8 @@ const validator = ajv.compile({
       minItems: 1,
       uniqueItems: true,
     },
-    redirects: redirectsSchemaFragment,
-    allowedMarketoIds: {
-      type: "array",
-      items: {
-        type: "number",
-      },
-    },
   },
-  required: ["versions", "allowedMarketoIds"],
+  required: ["versions"],
 });
 
 /*
@@ -73,11 +60,7 @@ const validator = ajv.compile({
  * "latest", "versions" and "branches" fileds are easier, so we transform them here.
  */
 
-export const normalize = ({
-  versions,
-  allowedMarketoIds,
-  redirects,
-}: Config): NormalizedConfig => {
+export const normalize = ({ versions }: Config): NormalizedConfig => {
   const result: NormalizedConfig = {
     latest: (
       versions.find(({ latest }) => latest === true) ||
@@ -87,12 +70,7 @@ export const normalize = ({
     branches: versions.reduce((result, { name, branch }) => {
       return { ...result, [name]: branch };
     }, {}),
-    allowedMarketoIds,
   };
-
-  if (redirects) {
-    result.redirects = redirects;
-  }
 
   return result;
 };

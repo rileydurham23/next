@@ -4,11 +4,9 @@
 
 import type { MDXPage, MDXPageData, MDXPageFrontmatter } from "./types-unist";
 
-import glob from "glob";
-import { resolve, join } from "path";
+import { resolve } from "path";
 import { readSync } from "to-vfile";
 import matter from "gray-matter";
-import { sorter } from "../utils/sorter";
 
 export const extensions = ["md", "mdx", "ts", "tsx", "js", "jsx"];
 
@@ -57,46 +55,4 @@ export const getPageInfo = <T = MDXPageFrontmatter>(
   }
 
   return result;
-};
-
-interface GetPagesInfoOptions<T = MDXPageFrontmatter> {
-  sort?: string | ((frontmatter: T) => unknown);
-  order?: "ASC" | "DESC";
-  filter?: (frontmatter: T) => boolean;
-  limit?: number;
-}
-
-/*
- * Returns filtered, sorted and limited to a number of entries array of page info objects.
- */
-
-export const getPagesInfo = <T = MDXPageFrontmatter>(
-  pagesGlob: string,
-  { sort, order = "ASC", filter, limit }: GetPagesInfoOptions<T> = {}
-): MDXPage<T>[] => {
-  let pages = glob
-    .sync(join(pagesRoot, pagesGlob))
-    .map((path) => getPageInfo<T>(path));
-
-  if (filter) {
-    pages = pages.filter(({ data: { frontmatter } }) => filter(frontmatter));
-  }
-
-  if (sort) {
-    pages = pages.sort((A, B) => {
-      const sortFunc =
-        typeof sort === "string" ? (frontmatter: T) => frontmatter[sort] : sort;
-
-      const valueA = sortFunc(A.data.frontmatter);
-      const valueB = sortFunc(B.data.frontmatter);
-
-      return sorter(valueA, valueB, order);
-    });
-  }
-
-  if (limit) {
-    pages = pages.slice(0, limit);
-  }
-
-  return pages;
 };

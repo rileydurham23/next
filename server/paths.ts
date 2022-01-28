@@ -3,14 +3,9 @@ import { resolve, join } from "path";
 import { loadConfig as loadDocsConfig } from "./config-docs";
 import { loadConfig as loadSiteConfig } from "./config-site";
 import { generateSitemap as sitemapGenerator } from "./sitemap";
-import {
-  getPageInfo,
-  extensions,
-  getURIFromPath,
-  pagesRoot,
-} from "./pages-helpers";
+import { getPageInfo } from "./pages-helpers";
 
-const { latest, versions, redirects } = loadSiteConfig();
+const { latest, versions } = loadSiteConfig();
 
 const NEXT_PUBLIC_DOCS_DIR = process.env.NEXT_PUBLIC_DOCS_DIR as string;
 
@@ -30,32 +25,6 @@ const filterNoIndexPage = (path: string) => {
   const { frontmatter } = data;
 
   return !frontmatter.noindex;
-};
-
-/*
- * Filenames inside "pages" folder to exclude from sitemsp.
- * Docs pages are also filtered here and are added separately later
- * to filter only the current version.
- */
-
-const nextPages = [
-  new RegExp(`^${pagesRoot}/api/.*$`),
-  new RegExp(`^${pagesRoot}/_app.(${extensions.join("|")})$`),
-  new RegExp(`^${pagesRoot}/_document.(${extensions.join("|")})$`),
-  new RegExp(`^${pagesRoot}${NEXT_PUBLIC_DOCS_DIR}/.*`),
-];
-
-/*
- * We generate nonDocs and docs path separately because different sitempast require
- * different sets of docs names.
- */
-
-const getNonDocsPaths = () => {
-  return glob
-    .sync(join(pagesRoot, `**/*.{${extensions.join()}}`))
-    .filter((path) => !nextPages.some((regexp) => regexp.test(path)))
-    .filter(filterNoIndexPage)
-    .map((path) => getURIFromPath(path));
 };
 
 /*
@@ -93,14 +62,13 @@ const normalizeDocSlug = (slug: string, version: string) => {
  */
 
 export const generateSitemap = () => {
-  const sitePages = getNonDocsPaths().map((loc) => ({ loc }));
   const currentDocPages = getSlugsForVersion(latest).map((slug) => ({
     loc: normalizeDocSlug(slug, latest),
   }));
 
   sitemapGenerator({
-    pages: [...sitePages, ...currentDocPages],
-    path: resolve("public", "next_sitemap.xml"),
+    pages: [...currentDocPages],
+    path: resolve("public", "docs_sitemap.xml"),
   });
 };
 
@@ -122,7 +90,7 @@ export const generateFullSitemap = () => {
 
   sitemapGenerator({
     pages: docPages,
-    path: resolve("public", "algolia_searchmap.xml"),
+    path: resolve("public", "algolia_sitemap.xml"),
   });
 };
 
@@ -137,10 +105,6 @@ export const getRedirects = () => {
 
     return config.redirects ? config.redirects : [];
   });
-
-  if (redirects) {
-    result.push(...redirects);
-  }
 
   return result;
 };
