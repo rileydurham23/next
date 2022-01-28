@@ -79,7 +79,6 @@ export { default as intenthq } from "./logos/logo-intenthq.svg";
 export { default as intility } from "./logos/logo-intility.svg";
 export { default as j2global } from "./logos/logo-j2global.svg";
 export { default as japand2 } from "./logos/logo-japand2.svg";
-export { default as jumptrading } from "./logos/logo-jumptrading.svg";
 export { default as lacework } from "./logos/logo-lacework.svg";
 export { default as linxo } from "./logos/logo-linxo.svg";
 export { default as linxo1 } from "./logos/logo-linxo.svg";
