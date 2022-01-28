@@ -222,7 +222,7 @@ const StyledImage = styled("img")<{ variant: AnnouncementBarType }>(
         maxWidth: [120, 160],
         minWidth: [null, 80],
         maxHeight: "100%",
-        marginRight: 5,
+        marginRight: [0, 5],
       },
     },
   })
