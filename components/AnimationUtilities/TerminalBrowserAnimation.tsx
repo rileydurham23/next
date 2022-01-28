@@ -23,10 +23,11 @@ export const TerminalBrowser = () => {
   const [inputState, setInputState] = useState("");
 
   //sets the timing for the simulated password entry animation
-  const enterPassword = () => {
-    setTimeout(() => {
+  useEffect(() => {
+    let kennyLogin;
+    const timeout = setTimeout(() => {
       let password = "";
-      const kennyLogin = setInterval(() => {
+      kennyLogin = setInterval(() => {
         if (password.length < 8) {
           password += "•";
           setInputState(password);
@@ -35,10 +36,10 @@ export const TerminalBrowser = () => {
         }
       }, 60);
     }, 4200);
-  };
-
-  useEffect(() => {
-    enterPassword();
+    return () => {
+      clearInterval(kennyLogin);
+      clearTimeout(timeout);
+    };
   }, []);
 
   return (

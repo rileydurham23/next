@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import Flex from "components/Flex";
 import {
   AnimatedResetButton,
@@ -47,21 +47,27 @@ export const TerminalAnimation = ({
   const [termText, setTermText] = useState(StepOne);
   const [containerState, setContainerState] = useState(0);
 
-  //this function sets the animation cadence
-  const textAnimate = () => {
-    setTimeout(() => {
+  const textAnimate = useCallback(() => {
+    const timeout1 = setTimeout(() => {
       setTermText(StepTwo);
     }, 2200);
-    setTimeout(() => {
+    const timeout2 = setTimeout(() => {
       setTermText(StepThree);
     }, 10500);
-  };
+
+    return [timeout1, timeout2];
+  }, [StepTwo, StepThree]);
 
   //the animation is kicked off in this hook after the DOM is painted
   useEffect(() => {
-    textAnimate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const timeouts = textAnimate();
+
+    return () => {
+      timeouts.forEach((timeout) => {
+        clearTimeout(timeout);
+      });
+    };
+  }, [textAnimate]);
 
   //sets the text animation state to the beginning
   const reset = () => setTermText(StepOne);

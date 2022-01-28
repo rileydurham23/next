@@ -37,10 +37,11 @@ export const ApplicationBrowser = ({ animationType }: AnimationProps) => {
   };
 
   //sets the timing for the simulated password entry animation
-  const enterPassword = () => {
-    setTimeout(() => {
+  useEffect(() => {
+    let kennyLogin;
+    const timeout = setTimeout(() => {
       let password = "";
-      const kennyLogin = setInterval(() => {
+      kennyLogin = setInterval(() => {
         if (password.length < 8) {
           password += "•";
           setInputState(password);
@@ -49,10 +50,10 @@ export const ApplicationBrowser = ({ animationType }: AnimationProps) => {
         }
       }, 60);
     }, 1500);
-  };
-
-  useEffect(() => {
-    enterPassword();
+    return () => {
+      clearInterval(kennyLogin);
+      clearTimeout(timeout);
+    };
   }, []);
 
   return (
