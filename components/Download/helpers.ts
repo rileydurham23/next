@@ -1,44 +1,45 @@
+import { quartersInYear } from "date-fns";
 import _ from "lodash";
 
-function isAMD64(name) {
+const isAMD64 = (name) => {
   return name.indexOf("x86_64") !== -1 || name.indexOf("amd64") !== -1;
-}
+};
 
-function isi386(name) {
+const isi386 = (name) => {
   return name.indexOf("386") !== -1;
-}
+};
 
-function isCentos6FIPS(name) {
+const isCentos6FIPS = (name) => {
   return name.indexOf("-centos6-fips") !== -1;
-}
+};
 
-function isCentos6(name) {
+const isCentos6 = (name) => {
   return name.indexOf("-centos6") !== -1;
-}
+};
 
-function isCentos7FIPS(name) {
+const isCentos7FIPS = (name) => {
   return name.indexOf("-centos7-fips") !== -1;
-}
+};
 
-function isCentos7(name) {
+const isCentos7 = (name) => {
   return name.indexOf("-centos7") !== -1;
-}
+};
 
-function isFIPS(name) {
+const isFIPS = (name) => {
   return name.indexOf("-fips") !== -1;
-}
+};
 
-function isGo197(name) {
+const isGo197 = (name) => {
   return name.indexOf("-go1.9.7") !== -1;
-}
+};
 
-function isRPM(name) {
+const isRPM = (name) => {
   return name.indexOf(".rpm") !== -1;
-}
+};
 
-function isDEB(name) {
+const isDEB = (name) => {
   return name.indexOf(".deb") !== -1;
-}
+};
 
 // Use more explicit string matches here to avoid matching 'arm64'
 const isARM = (name) => {
@@ -49,7 +50,19 @@ const isARM = (name) => {
   );
 };
 
-export const getDownloadInfo = (name) => {
+const isARM64 = (name) => {
+  return name.indexOf("arm64") !== -1;
+};
+
+const isTeleportPKG = (name) => {
+  return name.indexOf("teleport") !== -1 && name.indexOf(".pkg") !== -1;
+};
+
+const isTshPKG = (name) => {
+  return name.indexOf("tsh") !== -1 && name.indexOf(".pkg") !== -1;
+};
+
+const getDownloadInfo = (name) => {
   let data = { icon: "", name: "", meta: "" };
 
   if (isARM64(name)) {
@@ -153,17 +166,15 @@ export const getDownloadInfo = (name) => {
   return data;
 };
 
-// export const copyToClipboard = (event) => {
-//   stop(event);
-//   const input = event.target.parentElement.querySelector("input");
-//   const button = event.target.parentElement.querySelector("button");
-//   copy(input.value);
-//   input.focus();
-//   input.setSelectionRange(0, input.value.length);
-//   button.textContent = "Copied!";
-// };
+/*
+  Is OS Methods
 
-export const isMacOs = (name) => {
+  @type const
+  @description These helper methods determine what Operating System is being use
+  @returns {boolean}
+*/
+
+const isMacOs = (name) => {
   let isMac = false;
 
   if (
@@ -177,7 +188,7 @@ export const isMacOs = (name) => {
   return isMac;
 };
 
-export const isWindows = (name) => {
+const isWindows = (name) => {
   let isWin = false;
 
   if (name.indexOf("-windows-") !== -1) {
@@ -187,7 +198,7 @@ export const isWindows = (name) => {
   return isWin;
 };
 
-export const isLinux = (name) => {
+const isLinux = (name) => {
   let isLnx = false;
 
   if (!isMacOs(name) && !isWindows(name)) {
@@ -197,7 +208,48 @@ export const isLinux = (name) => {
   return isLnx;
 };
 
-export const groupByOS = (downloads) => {
+/*
+  Group by Major Versions Method
+
+  @type const
+  @description This method takes the array of all releases and groups them into collections by major versions.
+  @returns {array} Returns an array with a collection of arrays grouped by major version (ex. 4.3, 4.2, 3.2, etc.)
+*/
+
+const groupByMajorVersions = (allReleases, product) => {
+  const versions = {};
+
+  allReleases.forEach((release) => {
+    const majorVersion =
+      product === "teleport"
+        ? release.version.slice(1, 4)
+        : release.version.slice(0, 3);
+
+    if (versions[majorVersion]) {
+      versions[majorVersion].push(release);
+    } else {
+      versions[majorVersion] = [release];
+    }
+  });
+
+  // SORT OBJECT BY KEYS IN ORDER OF VERSION
+  const sortedVersions = _(versions).toPairs().sortBy(0).fromPairs().value();
+
+  // TRANSFORM TO ARRAY THEN REVERSE ORDER (HIGHEST RELEASE FIRST)
+  const versionsArray = _.values(sortedVersions).reverse();
+
+  return versionsArray;
+};
+
+/*
+  Group by Operating System
+
+  @type const
+  @description This method takes the array of all downloads for a release and groups them into collections by OS.
+  @returns {array} Returns an array with a collection of arrays grouped by OS (ex. Linux, Windows, Mac)
+*/
+
+const groupByOS = (downloads) => {
   const sortedDownloads = {
     mac: [],
     windows: [],
@@ -216,4 +268,33 @@ export const groupByOS = (downloads) => {
   });
 
   return sortedDownloads;
+};
+
+type OsParameter = "windows" | "mac" | "linux";
+
+const osParameterSet = new Set<OsParameter>(["windows", "mac", "linux"]);
+
+// type predicate function. more refined type of boolean
+const isOsParameter = (input: string | null): input is OsParameter =>
+  Set.prototype.has.call(osParameterSet, input);
+
+const getOsParameter = (url: Location): OsParameter | void => {
+  const searchParams = new URLSearchParams(url.search);
+  const rawParameter = searchParams.get("os");
+  if (isOsParameter(rawParameter)) {
+    return rawParameter;
+  }
+
+  return null;
+};
+
+export {
+  getDownloadInfo,
+  getOsParameter,
+  groupByMajorVersions,
+  groupByOS,
+  isLinux,
+  isWindows,
+  isMacOs,
+  OsParameter,
 };

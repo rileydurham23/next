@@ -4,6 +4,7 @@ import styled from "styled-components";
 import _ from "lodash";
 
 import Flex from "components/Flex";
+import { getOsParameter, groupByOS, OsParameter } from "./helpers";
 
 interface DownloadTableProps {
   showNotes: boolean;
@@ -19,10 +20,12 @@ export const DownloadTable = ({
   data,
   product,
 }: DownloadTableProps) => {
-  const [os, setOs] = useState("linux");
+  // lazy state initialization done so function is only called on first render to set the value of 'os'
+  const [os, setOs] = useState<OsParameter>(
+    () => getOsParameter(window.location) || "linux"
+  );
   const [firstShowNotes, setFirstShowNotes] = useState(true);
   const [release, setLatestRelease] = useState("latest release");
-  // const [downloads, setDownloads] = useState("downloads");
 
   let latestRelease = _.find(data, { prerelease: false });
 
@@ -31,18 +34,6 @@ export const DownloadTable = ({
     latestRelease = _.find(data, "publishedAt");
   }
   const downloads = groupByOS(latestRelease.downloads);
-
-  // SET DEFAULT OS TO DISPLAY BASED ON URL
-  const urlParams = getUrlParams(window.location.href);
-
-  if (urlParams && urlParams.os) {
-    if (urlParams.os === "windows") {
-      setOs("windows");
-    }
-    if (urlParams.os === "mac") {
-      setOs("mac");
-    }
-  }
 
   return (
     <OuterContainer>
