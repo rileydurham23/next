@@ -1,35 +1,68 @@
-import { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import Flex from "components/Flex";
 import Logo from "components/Logo";
 import NextImage from "next/image";
 import Icon, { IconName } from "components/Icon";
 import avatar from "./assets/avatar.png";
 import AnimationScreens from "./AnimationScreens";
+import { items, infraType } from "./constants";
+
+const intervalTime = 2000;
 
 const ApplicationShell = () => {
+  const [currentItem, setCurrentItem] = useState(0);
+  const [animationPaused, setAnimationPaused] = useState(false);
+
+  useEffect(() => {
+    //current and currentItem values that are array indices
+    let current = currentItem;
+
+    const interval = setInterval(() => {
+      if (animationPaused) return;
+
+      //are we at the end of the array? then start over at 0.
+      const next = current < items.length - 1 ? current + 1 : 0;
+
+      setCurrentItem(next);
+      current = next;
+    }, intervalTime);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentItem, animationPaused]);
+
   return (
     <Flex
       height={400}
       width={700}
-      borderRadius="md"
+      borderRadius="8px"
       bg="#F1F3F5"
       ml={[0, 3]}
-      boxShadow="0px 0px 24px rgba(0, 0, 0, 0.24)"
+      overflow="hidden"
+      position="relative"
+      boxShadow="0px 8px 32px rgba(0, 0, 0, 0.24)"
       mt={[5, 0]}
+      pt={[6, 0]}
     >
       {/* SideBar */}
-      <Flex
-        flexDirection="column"
-        bg="white"
-        height="100%"
-        width={168}
-        borderRadius="4px 0 0 4px"
-      >
-        <Flex mt={3} mb={3} color="dark-purple" justifyContent="center">
-          <Logo width={["86px", "100px"]} height={["20px", "24px"]} />
+      <StyledSidebar>
+        <Flex
+          mt={[2, 3]}
+          mb={[2, 3]}
+          ml={[4, 0]}
+          color="dark-purple"
+          justifyContent="center"
+        >
+          <Logo width={"100px"} height={"24px"} />
         </Flex>
-        <Flex flexDirection="column" alignItems="flex-start" color="gray">
+        <Flex
+          className="clusters"
+          flexDirection="column"
+          alignItems="flex-start"
+          color="gray"
+        >
           <Flex fontSize="8px" ml={2}>
             CLUSTERS
           </Flex>
@@ -49,125 +82,216 @@ const ApplicationShell = () => {
             <Icon size="xs" name="arrow" ml={2} />
           </Flex>
         </Flex>
-        <SidebarItem src="server" infra="Servers" />
-        <SidebarItem src="database" infra="Databases" />
-        <SidebarItem src="kubernetes" infra="Kubernetes" />
-        <SidebarItem src="window" infra="Applications" />
-        <SidebarItem src="desktop" infra="Desktops" />
-        <SidebarItem src="bell" infra="Activity" />
-        <SidebarItem src="team" infra="Team" />
-      </Flex>
+        <div className="sidenav-buttons">
+          {items.map((item, i) => {
+            return (
+              <Flex
+                height={[34, 40]}
+                key={item.name}
+                onClick={() => {
+                  // SELECT NAV ITEM
+                  setCurrentItem(i);
+
+                  // PAUSE ANIMATION
+                  setAnimationPaused(true);
+                }}
+              >
+                <SidebarItem
+                  src={item.name as IconName}
+                  infra={item.infra as infraType}
+                  selected={currentItem === i}
+                />
+              </Flex>
+            );
+          })}
+        </div>
+      </StyledSidebar>
       {/* Main Window */}
       <Flex flexDirection="column" width="100%">
         {/* TopBar */}
-        <TopBar application="Application" applicationNumber="1250" />
+        <TopBar currentItem={currentItem} />
         {/* Central Screen */}
-        <AnimationScreens screen1="servers" />
+        {/* Sets the central screen to the index of the current item */}
+        <ScreenShell selected={currentItem === 0}>
+          {AnimationScreens[0]}
+        </ScreenShell>
+        <ScreenShell selected={currentItem === 1}>
+          {AnimationScreens[1]}
+        </ScreenShell>
+        <ScreenShell selected={currentItem === 2}>
+          {AnimationScreens[2]}
+        </ScreenShell>
+        <ScreenShell selected={currentItem === 3}>
+          {AnimationScreens[3]}
+        </ScreenShell>
+        <ScreenShell selected={currentItem === 4}>
+          {AnimationScreens[4]}
+        </ScreenShell>
+        <ScreenShell selected={currentItem === 5}>
+          {AnimationScreens[5]}
+        </ScreenShell>
+        <ScreenShell selected={currentItem === 6}>
+          {AnimationScreens[6]}
+        </ScreenShell>
       </Flex>
     </Flex>
   );
 };
 
+interface ScreenShellProps {
+  selected: boolean;
+  children: React.ReactNode;
+}
+
+function ScreenShell({ selected, children }: ScreenShellProps) {
+  return (
+    <AnimatedScreenContainer
+      height="auto"
+      position="absolute"
+      top={[100, 58]}
+      display="block"
+      opacity={selected ? 1 : 0}
+      visibility={selected ? "inherit" : "hidden"}
+    >
+      {children}
+    </AnimatedScreenContainer>
+  );
+}
+
+const AnimatedScreenContainer = styled(Flex)`
+  transition: opacity 800ms;
+`;
+
 export default ApplicationShell;
 
 interface TopBarProps {
-  application: string;
-  applicationNumber: string;
+  currentItem: number;
 }
 
-const TopBar = ({ application, applicationNumber }: TopBarProps) => {
+const TopBar = ({ currentItem }: TopBarProps) => {
+  let ctaButton = null;
+
+  // ADD BUTTON IF THERE IS A CALL TO ACTION (CTA)
+  if (items[currentItem].cta) {
+    ctaButton = (
+      <Flex alignItems="center" justifyContent="center">
+        <Flex
+          borderRadius="4px"
+          border="1px solid #512FC9"
+          p={2}
+          color="dark-purple"
+          height="24px"
+          fontSize="10px"
+          alignItems="center"
+          lineHeight="24px"
+        >
+          {items[currentItem].cta}
+        </Flex>
+      </Flex>
+    );
+  }
+
   return (
-    <Flex width="100%" height={60} borderBottom="1px solid #DBE2E6">
+    <Flex
+      height={60}
+      mx={[4, 4]}
+      borderBottom="1px solid #DBE2E6"
+      justifyContent="space-between"
+    >
       <Flex
         flexDirection="column"
         justifyContent="center"
         alignItems="flex-start"
         width={["28%", "40%"]}
-        ml={[3, 4]}
-        mr={[3, 0]}
       >
         <Flex
-          fontSize={["text-md", "text-lg"]}
-          pt={1}
-          lineHeight="md"
-          fontWeight="bold"
+          fontFamily="Ubuntu"
+          fontSize="16px"
+          lineHeight="24px"
+          color="#37474F"
         >
-          {application + "s"}
+          {items[currentItem].infra}
         </Flex>
-        <Flex fontSize="text-sm" lineHeight="sm" color="gray">
-          {applicationNumber + " total"}
-        </Flex>
-      </Flex>
-      <Flex alignItems="center" justifyContent="center">
-        <Flex
-          width={["80%", "auto"]}
-          borderRadius="sm"
-          border="1px solid #512FC9"
-          p={2}
-          color="dark-purple"
-          height="auto"
-          fontSize="text-sm"
-          fontWeight="bold"
-          alignContent="center"
-          lineHeight="14px"
-          mx={2}
-        >
-          Add {application}
+        <Flex fontSize="11px" lineHeight="16px" color="#ADBCC4">
+          {items[currentItem].subtitle}
         </Flex>
       </Flex>
-      <Flex alignItems="center" justifyContent="center" mx={[2, 3]}>
-        <Icon name="bell" size="md" color="dark-gray" />
-      </Flex>
-      <Flex alignItems="center" justifyContent="center" mr={[3, 0]}>
+
+      <Flex alignItems="center" justifyContent="right">
+        {ctaButton}
+        <Icon name="bell" width="16px" color="gray" mx={[3, 3]} />
         <NextImage src={avatar} alt="avatar" height={28} width={28} />
       </Flex>
     </Flex>
   );
 };
 
-type infraType =
-  | "Servers"
-  | "Databases"
-  | "Kubernetes"
-  | "Applications"
-  | "Desktops"
-  | "Activity"
-  | "Team";
-
 interface SidebarItemProps {
   src: IconName;
   infra: infraType;
+  selected: boolean;
 }
 
-const SidebarItem = ({ src, infra }: SidebarItemProps) => {
-  const [selected, setSelected] = useState(false);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    setSelected(!selected);
-  };
-
+function SidebarItem({ src, infra, selected }: SidebarItemProps) {
   return (
-    <Flex
+    <AnimatedItemContainer
       width="100%"
-      height={[34, 40]}
       justifyContent="flex-start"
       alignItems="center"
-      color={selected ? "code" : "#607D8B"}
-      bg={selected ? "#fbfbfc" : "white"}
-      onClick={handleClick}
+      color={selected ? "code" : "gray"}
+      backgroundColor={selected ? "#fbfbfc" : "white"}
     >
-      <Flex
-        bg="dark-purple"
+      {/* The purple "selected" flag on left hand side of item */}
+      <PurpleFlag
         height="100%"
         width="4px"
-        visibility={selected ? "inherit" : "hidden"}
+        bg="dark-purple"
         mr={2}
+        opacity={selected ? 1 : 0}
+        visibility={selected ? "inherit" : "hidden"}
       />
-      <Icon name={src} width="18px" color={selected ? "code" : "#D2DBDF"} />
-      <Flex marginLeft="12px" fontSize="text-sm" fontWeight="300">
+      <AnimatedIcon
+        name={src}
+        width="18px"
+        color={selected ? "code" : "lighter-gray"}
+      />
+      <Flex ml="12px" fontSize="text-sm">
         {infra}
       </Flex>
-    </Flex>
+    </AnimatedItemContainer>
   );
-};
+}
+
+const PurpleFlag = styled(Flex)`
+  transition: opacity 1400ms;
+`;
+
+const AnimatedItemContainer = styled(Flex)`
+  transition: all 800ms;
+`;
+
+const AnimatedIcon = styled(Icon)`
+  transition: all 800ms;
+`;
+
+const StyledSidebar = styled(Flex)`
+  flex-direction: column;
+  background: white;
+  height: auto;
+  width: 168px;
+  borderradius: 4px 0 0 4px;
+
+  // SIDE NAV GOT TO TOP ON MOBILE
+  @media (max-width: 800px) {
+    position: absolute;
+    top: 0;
+    flex-direction: unset;
+    height: auto;
+    width: 100%;
+
+    .clusters,
+    .sidenav-buttons {
+      display: none;
+    }
+  }
+`;

@@ -1,35 +1,333 @@
-import Flex from "components/Flex";
 import styled from "styled-components";
 
-type infra =
-  | "servers"
-  | "databases"
-  | "kubernetes"
-  | "applications"
-  | "desktops"
-  | "activity"
-  | "teams";
+const AnimationScreens = [
+  <Servers key={"Servers"} />,
+  <Databases key={"Databases"} />,
+  <K8s key={"K8s"} />,
+  <Applications key={"Applications"} />,
+  <Desktops key={"Desktops"} />,
+  <Activity key={"Activity"} />,
+  <Team key={"Team"} />,
+];
 
-interface AnimationScreensProps {
-  screen1: infra;
+// TEAM TABLE
+function Activity() {
+  return (
+    <StyledTable>
+      <header>
+        <input type="search" placeholder="Search..." />
+      </header>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Node</th>
+            <th>User(s)</th>
+            <th className="is-hidden-mobile">Duration</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>ip-10-0-0-51</td>
+            <td>jsmith</td>
+            <td className="is-hidden-mobile">5 mins</td>
+            <td>
+              <button className="play">Play</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>ip-10-0-0-120</td>
+            <td>jdoe</td>
+            <td className="is-hidden-mobile">7 mins</td>
+            <td>
+              <button className="play">Play</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>ip-10-0-0-51</td>
+            <td>awolfe</td>
+            <td className="is-hidden-mobile">10 mins</td>
+            <td>
+              <button className="play">Play</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>ip-10-0-0-22</td>
+            <td>barent</td>
+            <td className="is-hidden-mobile">5 mins</td>
+            <td>
+              <button className="play">Play</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>ip-10-0-0-120</td>
+            <td>coles</td>
+            <td className="is-hidden-mobile">7 mins</td>
+            <td>
+              <button className="play">Play</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </StyledTable>
+  );
 }
 
-const AnimationScreens = ({ screen1 }: AnimationScreensProps) => {
-  const screen = {
-    servers: <Servers />,
-    databases: <Databases />,
-    kubernetes: <K8s />,
-    applications: <Flex height={320} width={440} bg="light-gray" />,
-    desktops: <Flex height={320} width={440} bg="light-gray" />,
-    activity: <Flex height={320} width={440} bg="light-gray" />,
-    teams: <Flex height={320} width={440} bg="light-gray" />,
-  };
+// TEAM TABLE
+function Team() {
+  return (
+    <StyledTable>
+      <header>
+        <input type="search" placeholder="Search..." />
+      </header>
 
-  return screen[screen1];
-};
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Roles</th>
+            <th className="is-hidden-mobile">Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>jsmith</td>
+            <td>
+              <span className="label">access</span>
+            </td>
+            <td className="is-hidden-mobile">
+              <span className="label">Github</span>
+            </td>
+            <td>
+              <button>Options</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>jdoe</td>
+            <td>
+              <span className="label">access</span>
+            </td>
+            <td className="is-hidden-mobile">
+              <span className="label">Github</span>
+            </td>
+            <td>
+              <button>Options</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>terraform</td>
+            <td>
+              <span className="label">terraform</span>
+            </td>
+            <td className="is-hidden-mobile">
+              <span className="label">Local User</span>
+            </td>
+            <td>
+              <button>Options</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>slack-plugin</td>
+            <td>
+              <span className="label">slack</span>
+            </td>
+            <td className="is-hidden-mobile">
+              <span className="label">Local User</span>
+            </td>
+            <td>
+              <button>Options</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>admin</td>
+            <td>
+              <span className="label">access</span>
+            </td>
+            <td className="is-hidden-mobile">
+              <span className="label">Local User</span>
+            </td>
+            <td>
+              <button>Options</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </StyledTable>
+  );
+}
+
+// APPLICATIONS TABLE
+function Applications() {
+  return (
+    <StyledTable>
+      <header>
+        <input type="search" placeholder="Search..." />
+      </header>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th className="is-hidden-mobile">Labels</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>dev-rel</td>
+            <td>https://dev.teleport-8.earth</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env: dev</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>grafana</td>
+            <td>https://grafana.teleport-8.earth</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env: work</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>jenkinsl</td>
+            <td>https://jenkins.teleport-8.earth</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env: work</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>wiki</td>
+            <td>https://wiki.teleport-8.earth</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env: dev</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>gitlab</td>
+            <td>https://gitlab.teleport-8.earth</td>
+            <td className="is-hidden-mobile">
+              <span className="label">env: dev</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </StyledTable>
+  );
+}
+
+// DESKTOPS TABLE
+function Desktops() {
+  return (
+    <StyledTable>
+      <header>
+        <input type="search" placeholder="Search..." />
+      </header>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>Name</th>
+            <th className="is-hidden-mobile">Labels</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>10.0.0.10</td>
+            <td>Windows</td>
+            <td className="is-hidden-mobile">
+              <span className="label">name: Base</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>10.0.0.10</td>
+            <td>Windows Prod</td>
+            <td className="is-hidden-mobile">
+              <span className="label">name: Prod</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>10.0.32.10</td>
+            <td>Windows Dev</td>
+            <td className="is-hidden-mobile">
+              <span className="label">name: Dev</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>10.0.130.2</td>
+            <td>Windows Bizops</td>
+            <td className="is-hidden-mobile">
+              <span className="label">name: Biz</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>10.0.157.72</td>
+            <td>Windows Sys</td>
+            <td className="is-hidden-mobile">
+              <span className="label">name: Sys</span>
+            </td>
+            <td>
+              <button>Connect</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </StyledTable>
+  );
+}
 
 // K8S TABLE
-const K8s = () => {
+function K8s() {
   return (
     <StyledTable>
       <header>
@@ -104,10 +402,10 @@ const K8s = () => {
       </table>
     </StyledTable>
   );
-};
+}
 
 // DATABASE TABLE
-const Databases = () => {
+function Databases() {
   return (
     <StyledTable>
       <header>
@@ -188,10 +486,10 @@ const Databases = () => {
       </table>
     </StyledTable>
   );
-};
+}
 
 // SERVER TABLE
-const Servers = () => {
+function Servers() {
   return (
     <StyledTable>
       <header>
@@ -263,7 +561,7 @@ const Servers = () => {
       </table>
     </StyledTable>
   );
-};
+}
 
 const StyledTable = styled("div")`
   background: #fff;
@@ -288,6 +586,7 @@ const StyledTable = styled("div")`
       border-radius: 100px;
       border: none;
       box-sizing: border-box;
+      font-size: 11px;
       color: #aab8c1;
       line-height: 24px;
       outline: none;
@@ -318,13 +617,16 @@ const StyledTable = styled("div")`
     border-collapse: collapse;
     width: 100%;
 
+    tr:last-child {
+      td,
+      th {
+        border-bottom: none;
+      }
+    }
+
     td,
     th {
       border-bottom: 1px solid #f5f5f6;
-
-      &:last-child {
-        border: none;
-      }
     }
 
     th {
