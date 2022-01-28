@@ -1,0 +1,31 @@
+---
+title: Securing a World of Physically Capable Computers
+description: "Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data authentication and integrity will become more important than confidentiality. And second, our largely regulation-free Internet will become a thing of the past. Soon we will no longer have a choice between government regulation and no government regulation. Our choice is between smart government regulation and stupid government regulation. Given this future, it's vital that we look back at what we've learned from past attempts to secure these systems, and forward at what technologies, laws, regulations, economic incentives, and social norms we need to secure them in the future."
+brief: Securing a World of Physically Capable Computers with Bruce Schneier
+publicationDate: "2022-01-19"
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+---
+
+import BookBlock from "components/BookBlock";
+import ClientsList from "components/ClientsList";
+
+<BookBlock
+  title={meta.title}
+  src="./assets/bruce@2x.png"
+  formId="1247"
+  photoShape="circular"
+>
+  {meta.description}
+</BookBlock>
+
+<ClientsList clients={meta.clients} contrasted />
