@@ -62,7 +62,7 @@ const isTshPKG = (name) => {
   return name.indexOf("tsh") !== -1 && name.indexOf(".pkg") !== -1;
 };
 
-const getDownloadInfo = (name) => {
+export const getDownloadInfo = (name) => {
   let data = { icon: "", name: "", meta: "" };
 
   if (isARM64(name)) {
@@ -174,7 +174,7 @@ const getDownloadInfo = (name) => {
   @returns {boolean}
 */
 
-const isMacOs = (name) => {
+export const isMacOs = (name) => {
   let isMac = false;
 
   if (
@@ -188,7 +188,7 @@ const isMacOs = (name) => {
   return isMac;
 };
 
-const isWindows = (name) => {
+export const isWindows = (name) => {
   let isWin = false;
 
   if (name.indexOf("-windows-") !== -1) {
@@ -198,7 +198,7 @@ const isWindows = (name) => {
   return isWin;
 };
 
-const isLinux = (name) => {
+export const isLinux = (name) => {
   let isLnx = false;
 
   if (!isMacOs(name) && !isWindows(name)) {
@@ -216,7 +216,7 @@ const isLinux = (name) => {
   @returns {array} Returns an array with a collection of arrays grouped by major version (ex. 4.3, 4.2, 3.2, etc.)
 */
 
-const groupByMajorVersions = (allReleases, product) => {
+export const groupByMajorVersions = (allReleases, product) => {
   const versions = {};
 
   allReleases.forEach((release) => {
@@ -249,7 +249,7 @@ const groupByMajorVersions = (allReleases, product) => {
   @returns {array} Returns an array with a collection of arrays grouped by OS (ex. Linux, Windows, Mac)
 */
 
-const groupByOS = (downloads) => {
+export const groupByOS = (downloads) => {
   const sortedDownloads = {
     mac: [],
     windows: [],
@@ -270,7 +270,7 @@ const groupByOS = (downloads) => {
   return sortedDownloads;
 };
 
-type OsParameter = "windows" | "mac" | "linux";
+export type OsParameter = "windows" | "mac" | "linux";
 
 const osParameterSet = new Set<OsParameter>(["windows", "mac", "linux"]);
 
@@ -278,7 +278,7 @@ const osParameterSet = new Set<OsParameter>(["windows", "mac", "linux"]);
 const isOsParameter = (input: string | null): input is OsParameter =>
   Set.prototype.has.call(osParameterSet, input);
 
-const getOsParameter = (url: Location): OsParameter | void => {
+export const getOsParameter = (url: Location): OsParameter | void => {
   const searchParams = new URLSearchParams(url.search);
   const rawParameter = searchParams.get("os");
   if (isOsParameter(rawParameter)) {
@@ -286,15 +286,4 @@ const getOsParameter = (url: Location): OsParameter | void => {
   }
 
   return null;
-};
-
-export {
-  getDownloadInfo,
-  getOsParameter,
-  groupByMajorVersions,
-  groupByOS,
-  isLinux,
-  isWindows,
-  isMacOs,
-  OsParameter,
 };
