@@ -7,14 +7,16 @@ import Icon, { IconName } from "components/Icon";
 import avatar from "./assets/avatar.png";
 import AnimationScreens from "./AnimationScreens";
 import { items, infraType } from "./constants";
+import { Thumbprint } from "./Thumbprint";
 
 const intervalTime = 2000;
 
-const ApplicationShell = () => {
+export const ApplicationShell = () => {
   const [currentItem, setCurrentItem] = useState(0);
-  const [animationPaused, setAnimationPaused] = useState(false);
+  const [animationPaused, setAnimationPaused] = useState(true);
 
   useEffect(() => {
+    const start = setTimeout(() => setAnimationPaused(false), 3000);
     //current and currentItem values that are array indices
     let current = currentItem;
 
@@ -31,6 +33,7 @@ const ApplicationShell = () => {
     return () => {
       clearInterval(interval);
     };
+    return () => clearTimeout(start);
   }, [currentItem, animationPaused]);
 
   return (
@@ -42,10 +45,12 @@ const ApplicationShell = () => {
       ml={[0, 3]}
       overflow="hidden"
       position="relative"
+      zIndex={0}
       boxShadow="0px 8px 32px rgba(0, 0, 0, 0.24)"
       mt={[5, 0]}
       pt={[6, 0]}
     >
+      <Thumbprint />
       {/* SideBar */}
       <StyledSidebar>
         <Flex
@@ -161,8 +166,6 @@ function ScreenShell({ selected, children }: ScreenShellProps) {
 const AnimatedScreenContainer = styled(Flex)`
   transition: opacity 800ms;
 `;
-
-export default ApplicationShell;
 
 interface TopBarProps {
   currentItem: number;
