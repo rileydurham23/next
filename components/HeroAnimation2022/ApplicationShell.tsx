@@ -14,9 +14,14 @@ const intervalTime = 5000;
 export const ApplicationShell = () => {
   const [currentItem, setCurrentItem] = useState(0);
   const [animationPaused, setAnimationPaused] = useState(true);
+  const [showThumbprint, setThumbprintAnimation] = useState(true);
 
   useEffect(() => {
     const start = setTimeout(() => setAnimationPaused(false), 3000);
+
+    // HIDE THUMBNAIL COMPONENT AFTER X SECONDS TO ENABLE CLICKS OF BUTTONS
+    setTimeout(() => setThumbprintAnimation(false), 5000);
+
     //current and currentItem values that are array indices
     let current = currentItem;
 
@@ -50,7 +55,7 @@ export const ApplicationShell = () => {
       mt={[5, 0]}
       pt={[6, 0]}
     >
-      <Thumbprint />
+      {showThumbprint && <Thumbprint />}
       {/* SideBar */}
       <StyledSidebar>
         <Flex
