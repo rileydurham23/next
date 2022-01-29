@@ -55,7 +55,7 @@ const ApplicationShell = () => {
           color="dark-purple"
           justifyContent="center"
         >
-          <Logo width={"100px"} height={"24px"} />
+          <Logo width={"100px"} height={"24px"} marginBottom="2px" />
         </Flex>
         <Flex
           className="clusters"
@@ -75,7 +75,7 @@ const ApplicationShell = () => {
             boxSizing="border-box"
             px={2}
             mx={2}
-            mb={3}
+            mb={2}
             alignItems="center"
           >
             teleport-asteroid
@@ -107,7 +107,7 @@ const ApplicationShell = () => {
         </div>
       </StyledSidebar>
       {/* Main Window */}
-      <Flex flexDirection="column" width="100%">
+      <Flex flexDirection="column" width="100%" position="relative">
         {/* TopBar */}
         <TopBar currentItem={currentItem} />
         {/* Central Screen */}
@@ -148,10 +148,13 @@ function ScreenShell({ selected, children }: ScreenShellProps) {
     <AnimatedScreenContainer
       height="auto"
       position="absolute"
-      top={[100, 58]}
+      top={[56, 58]}
       display="block"
       opacity={selected ? 1 : 0}
       visibility={selected ? "inherit" : "hidden"}
+      right="0"
+      left="0"
+      bottom="0"
     >
       {children}
     </AnimatedScreenContainer>
@@ -204,12 +207,7 @@ const TopBar = ({ currentItem }: TopBarProps) => {
         alignItems="flex-start"
         width={["28%", "40%"]}
       >
-        <Flex
-          fontFamily="Ubuntu"
-          fontSize="16px"
-          lineHeight="24px"
-          color="#37474F"
-        >
+        <Flex fontSize="16px" lineHeight="24px" color="#37474F">
           {items[currentItem].infra}
         </Flex>
         <Flex fontSize="11px" lineHeight="16px" color="#ADBCC4">
