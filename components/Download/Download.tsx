@@ -12,56 +12,24 @@ import { Star } from "react-github-buttons";
 // import DownloadRow from "./DownloadRow";
 
 import { DownloadTable } from "components/Download";
+import { OsParameter } from "./helpers";
+import type { MajorVersionCollection } from "./types";
 
 const teleport =
   "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
 
-interface Download {
-  displaySize: string;
-  name: string;
-  sha: string;
-  url: string;
+interface DownloadProps {
+  initialDownloads: Array<MajorVersionCollection>;
+  initialOs: OsParameter;
 }
 
-interface Version {
-  downloads: Array<Download>;
-  descriptionMarkdown: string;
-  id: string;
-  prerelease: boolean;
-  publishedAt: string;
-  version: string;
-}
-
-const groupByMajorVersions = (allReleases, product): Array<Version> => {
-  const versions = {};
-
-  allReleases.forEach((release) => {
-    const majorVersion =
-      product === "teleport"
-        ? release.version.slice(1, 4)
-        : release.version.slice(0, 3);
-
-    if (versions[majorVersion]) {
-      versions[majorVersion].push(release);
-    } else {
-      versions[majorVersion] = [release];
-    }
-  });
-
-  const sortedVersions = _(versions).toPairs().sortBy(0).fromPairs().value();
-  const versionsArray = _.values(sortedVersions).reverse();
-  return versionsArray;
-};
-
-export const Download = (product: "teleport" | "gravity") => {
-  const [initialDownloads, setInitialDownloads] = useState([]);
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+export const Download: React.FC<DownloadProps> = ({
+  initialDownloads,
+  initialOs,
+}) => {
   const [showNotes, setShowNotes] = useState(false);
   const url =
     "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
-
-  console.log(initialDownloads);
 
   const renderGithubStars = () => {
     return <Star owner="gravitational" repo="teleport" />;
@@ -82,54 +50,34 @@ export const Download = (product: "teleport" | "gravity") => {
     setShowNotes(!showNotes);
   };
 
-  // getserversideprops instead of useEffect
+  // const renderErrorMessage = () => {
+  //   let errMessage = null;
 
-  useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        const majorVersions = groupByMajorVersions(data.items, data.product);
-        setInitialDownloads(majorVersions);
-      })
-      .catch((error) => {
-        setError(false);
-        setErrorMessage(error);
-      });
-  }, [url]);
+  //   if (error) {
+  //     errMessage = (
+  //       <>
+  //         <Flex>
+  //           We&apos;re sorry there was an error retreiving the latest build.
+  //         </Flex>
+  //         <Flex>
+  //           Please try again later. If the problem persists contact
+  //           <a href="mailto:support@goteleport.com">support@goteleport.com</a>
+  //         </Flex>
+  //       </>
+  //     );
+  //   }
 
-  const renderErrorMessage = () => {
-    let errMessage = null;
-
-    if (error) {
-      errMessage = (
-        <>
-          <Flex>
-            We&apos;re sorry there was an error retreiving the latest build.
-          </Flex>
-          <Flex>
-            Please try again later. If the problem persists contact
-            <a href="mailto:support@goteleport.com">support@goteleport.com</a>
-          </Flex>
-        </>
-      );
-    }
-
-    return errMessage;
-  };
+  //   return errMessage;
+  // };
 
   const renderTables = () => {
-    if (!initialDownloads.length) {
-      return null;
-    }
-
-    const allTables = initialDownloads.map((majorVersion, index) => {
+    const allTables = initialDownloads.map((majorVersionCollection) => {
       return (
         <DownloadTable
           showNotes={showNotes}
-          key={index}
-          data={majorVersion}
-          product={product}
-          initialDownloads={initialDownloads}
+          key={majorVersionCollection.majorVersion}
+          data={majorVersionCollection}
+          initialOs={initialOs}
         />
       );
     });

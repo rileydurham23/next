@@ -216,31 +216,6 @@ export const isLinux = (name) => {
   @returns {array} Returns an array with a collection of arrays grouped by major version (ex. 4.3, 4.2, 3.2, etc.)
 */
 
-export const groupByMajorVersions = (allReleases, product) => {
-  const versions = {};
-
-  allReleases.forEach((release) => {
-    const majorVersion =
-      product === "teleport"
-        ? release.version.slice(1, 4)
-        : release.version.slice(0, 3);
-
-    if (versions[majorVersion]) {
-      versions[majorVersion].push(release);
-    } else {
-      versions[majorVersion] = [release];
-    }
-  });
-
-  // SORT OBJECT BY KEYS IN ORDER OF VERSION
-  const sortedVersions = _(versions).toPairs().sortBy(0).fromPairs().value();
-
-  // TRANSFORM TO ARRAY THEN REVERSE ORDER (HIGHEST RELEASE FIRST)
-  const versionsArray = _.values(sortedVersions).reverse();
-
-  return versionsArray;
-};
-
 /*
   Group by Operating System
 
@@ -278,12 +253,11 @@ const osParameterSet = new Set<OsParameter>(["windows", "mac", "linux"]);
 const isOsParameter = (input: string | null): input is OsParameter =>
   Set.prototype.has.call(osParameterSet, input);
 
-export const getOsParameter = (url: Location): OsParameter | void => {
-  const searchParams = new URLSearchParams(url.search);
-  const rawParameter = searchParams.get("os");
-  if (isOsParameter(rawParameter)) {
-    return rawParameter;
+export const getOsParameter = (url: string): OsParameter | void => {
+  if (isOsParameter(url)) {
+    return url;
   }
 
-  return null;
+  // default assignment is handled at the component layer so this needs to be undefined
+  return undefined;
 };
