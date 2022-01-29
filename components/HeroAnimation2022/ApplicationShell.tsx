@@ -9,7 +9,7 @@ import AnimationScreens from "./AnimationScreens";
 import { items, infraType } from "./constants";
 import { Thumbprint } from "./Thumbprint";
 
-const intervalTime = 2000;
+const intervalTime = 5000;
 
 export const ApplicationShell = () => {
   const [currentItem, setCurrentItem] = useState(0);

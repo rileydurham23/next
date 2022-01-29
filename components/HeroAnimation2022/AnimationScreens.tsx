@@ -627,6 +627,11 @@ const StyledTable = styled("div")`
     td,
     th {
       border-bottom: 1px solid #f5f5f6;
+
+      &:last-child {
+        text-align: right;
+        width: 80px;
+      }
     }
 
     th {
@@ -646,7 +651,7 @@ const StyledTable = styled("div")`
     td {
       color: #adbcc4;
       font-size: 9px;
-      padding: 8px 16px;
+      padding: 10px 16px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
