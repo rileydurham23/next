@@ -28,6 +28,8 @@ export const verify = async (token?: string) => {
 
   const { score } = JSON.parse(response.body);
 
+  console.log({ token, reCaptcha: JSON.parse(response.body) });
+
   // Default recaptcha scores are 0.1, 0.3, 0.7 and 0.9, we only want 2 last ones
   return score >= 0.7;
 };
