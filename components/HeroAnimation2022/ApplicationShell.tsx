@@ -7,20 +7,20 @@ import Icon, { IconName } from "components/Icon";
 import avatar from "./assets/avatar.png";
 import AnimationScreens from "./AnimationScreens";
 import { items, infraType } from "./constants";
-import { Thumbprint } from "./Thumbprint";
+import { MFA } from "./MFA";
 
 const intervalTime = 5000;
 
 export const ApplicationShell = () => {
   const [currentItem, setCurrentItem] = useState(0);
   const [animationPaused, setAnimationPaused] = useState(true);
-  const [showThumbprint, setThumbprintAnimation] = useState(true);
+  const [showMFA, setMFAAnimation] = useState(true);
 
   useEffect(() => {
-    const start = setTimeout(() => setAnimationPaused(false), 3000);
+    const start = setTimeout(() => setAnimationPaused(false), 3200);
 
     // HIDE THUMBNAIL COMPONENT AFTER X SECONDS TO ENABLE CLICKS OF BUTTONS
-    setTimeout(() => setThumbprintAnimation(false), 5000);
+    const hide = setTimeout(() => setMFAAnimation(false), 5000);
 
     //current and currentItem values that are array indices
     let current = currentItem;
@@ -37,8 +37,9 @@ export const ApplicationShell = () => {
 
     return () => {
       clearInterval(interval);
+      clearTimeout(start);
+      clearTimeout(hide);
     };
-    return () => clearTimeout(start);
   }, [currentItem, animationPaused]);
 
   return (
@@ -55,7 +56,7 @@ export const ApplicationShell = () => {
       mt={[5, 0]}
       pt={[6, 0]}
     >
-      {showThumbprint && <Thumbprint />}
+      {showMFA && <MFA />}
       {/* SideBar */}
       <StyledSidebar>
         <Flex
@@ -287,7 +288,7 @@ const StyledSidebar = styled(Flex)`
   width: 168px;
   borderradius: 4px 0 0 4px;
 
-  // SIDE NAV GOT TO TOP ON MOBILE
+  // SIDE NAV MOVES TO TOP ON MOBILE
   @media (max-width: 800px) {
     position: absolute;
     top: 0;
