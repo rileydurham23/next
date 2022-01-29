@@ -89,7 +89,7 @@ export const AnimationHeader = ({
                 width={["100%", "auto"]}
                 href="/docs/"
               >
-                View Developer Docs
+                View Docs
               </Button>
               <Button
                 as={Link}
