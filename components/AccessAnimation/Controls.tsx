@@ -81,6 +81,15 @@ const PieSliceButton = styled.button`
     width: 100%;
     height: 100%;
 
+    // CONTAINER SHAPE
+    .connect_svg__cls-1,
+    .audit_svg__cls-1,
+    .authorize_svg__cls-1,
+    .authenticate_svg__cls-1 {
+      fill: #fff;
+      filter: drop-shadow(0 1px 3px rgba(101, 31, 255, 0.24));
+    }
+
     // BORDER, TEXT, LOGO
     .connect_svg__cls-2,
     .connect_svg__cls-3,

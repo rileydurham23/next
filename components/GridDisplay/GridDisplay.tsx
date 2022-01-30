@@ -115,6 +115,7 @@ function GridDisplay({
                 />
                 {description && (
                   <Box
+                    as="p"
                     color="darkest"
                     fontSize={
                       bigLeftHeading ? "text-lg" : ["text-lg", "text-xl"]

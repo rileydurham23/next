@@ -85,7 +85,7 @@ const StyledBox = styled(Box)<{ variant: BoxStyleVariant }>(
         boxSizing: "border-box",
         width: ["95vw", "100%", "480px"],
         mx: "auto",
-        mt: [4, 4, 7],
+        mt: [4, 4, 4],
         p: {
           fontSize: ["text-lg", "text-xl"],
           fontFamily: "body",

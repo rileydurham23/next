@@ -55,6 +55,7 @@ const TopText = ({ description, subtitle, title }) => {
       pl={[1, 6]}
     >
       <Box
+        as="h3"
         color="dark-purple"
         fontSize={["text-lg", "text-xl"]}
         fontWeight="bold"
@@ -73,6 +74,7 @@ const TopText = ({ description, subtitle, title }) => {
         {title}
       </Box>
       <Box
+        as="p"
         color="darkest"
         fontSize="text-xl"
         lineHeight="lg"
@@ -110,6 +112,7 @@ const ProductBannerV2Item = ({ description, title }) => {
       width="100%"
     >
       <Box
+        as="h4"
         fontSize={["text-lg", "text-md"]}
         fontWeight="bold"
         lineHeight="lg"
@@ -118,6 +121,7 @@ const ProductBannerV2Item = ({ description, title }) => {
         {title}
       </Box>
       <Box
+        as="p"
         alignItems="flex-start"
         color="darkest"
         fontSize={["text-lg", "text-md"]}

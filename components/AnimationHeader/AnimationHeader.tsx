@@ -20,6 +20,8 @@ export const AnimationHeader = ({
   description,
   children,
 }: AnimationHeaderProps) => {
+  const titleElement = variant === "default" ? "h1" : "h2";
+
   return (
     <Centrator
       justifyContent="center"
@@ -30,6 +32,7 @@ export const AnimationHeader = ({
         <Flex flexDirection="column" alignItems="flexStart">
           {subtitle && (
             <Box
+              as="h3"
               mb={title ? "3" : 0}
               color={DATA[variant].subtitleColor}
               fontWeight="bold"
@@ -41,7 +44,7 @@ export const AnimationHeader = ({
           )}
           {title && (
             <Box
-              as="h1"
+              as={titleElement}
               color={DATA[variant].titleColor}
               fontSize={["header-1", "hero-header"]}
               lineHeight={["xl", "hero-header"]}
@@ -54,6 +57,7 @@ export const AnimationHeader = ({
         </Flex>
         <Box
           my={[3, 5]}
+          as="p"
           fontSize="header-4"
           lineHeight="lg"
           color={DATA[variant].descriptionColor}

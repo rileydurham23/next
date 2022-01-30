@@ -2,9 +2,6 @@
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 201 201">
     <defs>
-        <style>
-        .cls-1{fill:#fff;}
-        </style>
         <linearGradient id="linear-gradient" x1="186.25" y1="99.8" x2="15.36" y2="99.8" gradientUnits="userSpaceOnUse">
             <stop offset="0" stop-color="#6e17f4"/>
             <stop offset="1" stop-color="#572dcf"/>

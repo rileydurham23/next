@@ -106,7 +106,7 @@ const Button = styled("button")<ButtonProps>(
         height: "48px",
         px: 7,
         fontSize: "text-lg",
-        borderWidth: "2px",
+        borderWidth: "1px",
       },
       outline: {
         height: "48px",

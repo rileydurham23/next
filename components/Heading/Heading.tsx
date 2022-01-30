@@ -32,6 +32,7 @@ export default function Heading({
     <Flex flexDirection="column" alignItems={toFlexAlign(align)} {...props}>
       {subtitle && (
         <Box
+          as="h3"
           mb={title ? "3" : 0}
           color={dark ? "white" : "dark-purple"}
           fontWeight="bold"
