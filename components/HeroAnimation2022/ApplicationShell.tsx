@@ -20,7 +20,7 @@ export const ApplicationShell = () => {
     const start = setTimeout(() => setAnimationPaused(false), 3200);
 
     // HIDE THUMBNAIL COMPONENT AFTER X SECONDS TO ENABLE CLICKS OF BUTTONS
-    const hide = setTimeout(() => setMFAAnimation(false), 5000);
+    const hide = setTimeout(() => setMFAAnimation(false), 3000);
 
     //current and currentItem values that are array indices
     let current = currentItem;
@@ -67,6 +67,9 @@ export const ApplicationShell = () => {
           justifyContent="center"
         >
           <Logo width={"100px"} height={"24px"} marginBottom="2px" />
+          <span className="mobile-menu">
+            <Icon name="hamburger" size="md" color="light-gray" mx={[3, 3]} />
+          </span>
         </Flex>
         <Flex
           className="clusters"
@@ -247,6 +250,7 @@ function SidebarItem({ src, infra, selected }: SidebarItemProps) {
       alignItems="center"
       color={selected ? "code" : "gray"}
       backgroundColor={selected ? "#fbfbfc" : "white"}
+      cursor="pointer"
     >
       {/* The purple "selected" flag on left hand side of item */}
       <PurpleFlag
@@ -288,17 +292,30 @@ const StyledSidebar = styled(Flex)`
   width: 168px;
   borderradius: 4px 0 0 4px;
 
+  .mobile-menu {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 8px;
+    z-index: 1;
+  }
+
   // SIDE NAV MOVES TO TOP ON MOBILE
   @media (max-width: 800px) {
     position: absolute;
     top: 0;
     flex-direction: unset;
+    justify-content: space-between;
     height: auto;
     width: 100%;
 
     .clusters,
     .sidenav-buttons {
       display: none;
+    }
+
+    .mobile-menu {
+      display: block;
     }
   }
 `;

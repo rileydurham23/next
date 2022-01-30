@@ -1,4 +1,18 @@
 import styled from "styled-components";
+import rdsImg from "./assets/logos/aws-rds.svg";
+import mongoImg from "./assets/logos/mongodb.svg";
+import gcpImg from "./assets/logos/gcp.svg";
+import cockroachImg from "./assets/logos/cockroachdb.svg";
+import mysqlImg from "./assets/logos/mysql.svg";
+import grafanaImg from "./assets/logos/grafana.svg";
+import jenkinsImg from "./assets/logos/jenkins.svg";
+import gitlabImg from "./assets/logos/gitlab.svg";
+import awsImg from "./assets/logos/aws.svg";
+import metabaseImg from "./assets/logos/metabase.svg";
+import windowsImg from "./assets/logos/windows.svg";
+import k8sImg from "./assets/logos/k8s.svg";
+import Flex from "components/Flex";
+import Icon from "components/Icon";
 
 const AnimationScreens = [
   <Servers key={"Servers"} />,
@@ -30,7 +44,11 @@ function Activity() {
 
         <tbody>
           <tr>
-            <td>ip-10-0-0-51</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="window" size="sm" mr={2} /> ip-10-0-0-51
+              </Flex>
+            </td>
             <td>jsmith</td>
             <td className="is-hidden-mobile">5 mins</td>
             <td>
@@ -39,7 +57,11 @@ function Activity() {
           </tr>
 
           <tr>
-            <td>ip-10-0-0-120</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="window" size="sm" mr={2} /> ip-10-0-0-120
+              </Flex>
+            </td>
             <td>jdoe</td>
             <td className="is-hidden-mobile">7 mins</td>
             <td>
@@ -48,7 +70,11 @@ function Activity() {
           </tr>
 
           <tr>
-            <td>ip-10-0-0-51</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="window" size="sm" mr={2} /> ip-10-0-0-51
+              </Flex>
+            </td>
             <td>awolfe</td>
             <td className="is-hidden-mobile">10 mins</td>
             <td>
@@ -57,7 +83,11 @@ function Activity() {
           </tr>
 
           <tr>
-            <td>ip-10-0-0-22</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="window" size="sm" mr={2} /> ip-10-0-0-22
+              </Flex>
+            </td>
             <td>barent</td>
             <td className="is-hidden-mobile">5 mins</td>
             <td>
@@ -66,7 +96,11 @@ function Activity() {
           </tr>
 
           <tr>
-            <td>ip-10-0-0-120</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="window" size="sm" mr={2} /> ip-10-0-0-120
+              </Flex>
+            </td>
             <td>coles</td>
             <td className="is-hidden-mobile">7 mins</td>
             <td>
@@ -99,7 +133,11 @@ function Team() {
 
         <tbody>
           <tr>
-            <td>jsmith</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="team" size="sm" mr={2} /> jsmith
+              </Flex>
+            </td>
             <td>
               <span className="label">access</span>
             </td>
@@ -112,7 +150,11 @@ function Team() {
           </tr>
 
           <tr>
-            <td>jdoe</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="team" size="sm" mr={2} /> jdoe
+              </Flex>
+            </td>
             <td>
               <span className="label">access</span>
             </td>
@@ -125,7 +167,11 @@ function Team() {
           </tr>
 
           <tr>
-            <td>terraform</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="team" size="sm" mr={2} /> terraform
+              </Flex>
+            </td>
             <td>
               <span className="label">terraform</span>
             </td>
@@ -138,7 +184,11 @@ function Team() {
           </tr>
 
           <tr>
-            <td>slack-plugin</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="team" size="sm" mr={2} /> slack-plugin
+              </Flex>
+            </td>
             <td>
               <span className="label">slack</span>
             </td>
@@ -151,7 +201,11 @@ function Team() {
           </tr>
 
           <tr>
-            <td>admin</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="team" size="sm" mr={2} /> admin
+              </Flex>
+            </td>
             <td>
               <span className="label">access</span>
             </td>
@@ -188,7 +242,11 @@ function Applications() {
 
         <tbody>
           <tr>
-            <td>dev-rel</td>
+            <td>
+              <Flex alignItems="center">
+                <img width="20" src={awsImg} alt="aws" /> aws
+              </Flex>
+            </td>
             <td>https://dev.teleport-8.earth</td>
             <td className="is-hidden-mobile">
               <span className="label">env: dev</span>
@@ -199,7 +257,11 @@ function Applications() {
           </tr>
 
           <tr>
-            <td>grafana</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="18" src={grafanaImg} alt="grafana" /> grafana
+              </Flex>
+            </td>
             <td>https://grafana.teleport-8.earth</td>
             <td className="is-hidden-mobile">
               <span className="label">env: work</span>
@@ -210,7 +272,11 @@ function Applications() {
           </tr>
 
           <tr>
-            <td>jenkinsl</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="20" src={jenkinsImg} alt="RDS" /> jenkins
+              </Flex>
+            </td>
             <td>https://jenkins.teleport-8.earth</td>
             <td className="is-hidden-mobile">
               <span className="label">env: work</span>
@@ -221,8 +287,12 @@ function Applications() {
           </tr>
 
           <tr>
-            <td>wiki</td>
-            <td>https://wiki.teleport-8.earth</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="20" src={metabaseImg} alt="metabase" /> metabase
+              </Flex>
+            </td>
+            <td>https://meta.teleport-8.earth</td>
             <td className="is-hidden-mobile">
               <span className="label">env: dev</span>
             </td>
@@ -232,7 +302,11 @@ function Applications() {
           </tr>
 
           <tr>
-            <td>gitlab</td>
+            <td>
+              <Flex alignItems="center">
+                <img width="20" src={gitlabImg} alt="gitlab" /> gitlab
+              </Flex>
+            </td>
             <td>https://gitlab.teleport-8.earth</td>
             <td className="is-hidden-mobile">
               <span className="label">env: dev</span>
@@ -267,7 +341,11 @@ function Desktops() {
 
         <tbody>
           <tr>
-            <td>10.0.0.10</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="16" src={windowsImg} alt="windows" /> 10.0.0.10
+              </Flex>
+            </td>
             <td>Windows</td>
             <td className="is-hidden-mobile">
               <span className="label">name: Base</span>
@@ -278,7 +356,11 @@ function Desktops() {
           </tr>
 
           <tr>
-            <td>10.0.0.10</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="16" src={windowsImg} alt="windows" /> 10.0.0.10
+              </Flex>
+            </td>
             <td>Windows Prod</td>
             <td className="is-hidden-mobile">
               <span className="label">name: Prod</span>
@@ -289,7 +371,11 @@ function Desktops() {
           </tr>
 
           <tr>
-            <td>10.0.32.10</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="16" src={windowsImg} alt="windows" /> 10.0.32.10
+              </Flex>
+            </td>
             <td>Windows Dev</td>
             <td className="is-hidden-mobile">
               <span className="label">name: Dev</span>
@@ -300,7 +386,11 @@ function Desktops() {
           </tr>
 
           <tr>
-            <td>10.0.130.2</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="16" src={windowsImg} alt="windows" /> 10.0.130.2
+              </Flex>
+            </td>
             <td>Windows Bizops</td>
             <td className="is-hidden-mobile">
               <span className="label">name: Biz</span>
@@ -311,7 +401,11 @@ function Desktops() {
           </tr>
 
           <tr>
-            <td>10.0.157.72</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="16" src={windowsImg} alt="windows" /> 10.0.157.72
+              </Flex>
+            </td>
             <td>Windows Sys</td>
             <td className="is-hidden-mobile">
               <span className="label">name: Sys</span>
@@ -345,7 +439,12 @@ function K8s() {
 
         <tbody>
           <tr>
-            <td>eks-stg-cluster</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="18" src={k8sImg} alt="Kubernetes" />{" "}
+                eks-stg-cluster
+              </Flex>
+            </td>
             <td className="is-hidden-mobile">
               <span className="label">renv: stg2</span>
               <span className="label">region: us-west-2</span>
@@ -356,7 +455,12 @@ function K8s() {
           </tr>
 
           <tr>
-            <td>eks-prod-cluster</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="18" src={k8sImg} alt="Kubernetes" />{" "}
+                eks-prod-cluster
+              </Flex>
+            </td>
             <td className="is-hidden-mobile">
               <span className="label">env:prod</span>
               <span className="label">region:us-east-2</span>
@@ -367,7 +471,11 @@ function K8s() {
           </tr>
 
           <tr>
-            <td>galactus</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="18" src={k8sImg} alt="Kubernetes" /> galactus
+              </Flex>
+            </td>
             <td className="is-hidden-mobile">
               <span className="label">env:prod</span>
               <span className="label">microservice:entropy-service</span>
@@ -378,7 +486,12 @@ function K8s() {
           </tr>
 
           <tr>
-            <td>eks-dev-cluster</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="18" src={k8sImg} alt="Kubernetes" />{" "}
+                eks-dev-cluster
+              </Flex>
+            </td>
             <td className="is-hidden-mobile">
               <span className="label">env:stg</span>
               <span className="label">region:us-east-2</span>
@@ -389,7 +502,11 @@ function K8s() {
           </tr>
 
           <tr>
-            <td>galaxy</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="18" src={k8sImg} alt="Kubernetes" /> galaxy
+              </Flex>
+            </td>
             <td className="is-hidden-mobile">
               <span className="label">env:prod</span>
               <span className="label">microservice:entropy-service</span>
@@ -424,7 +541,11 @@ function Databases() {
 
         <tbody>
           <tr>
-            <td>aurora</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="18" src={rdsImg} alt="RDS" /> aurora
+              </Flex>
+            </td>
             <td>RDS PostgreSQL</td>
             <td className="is-hidden-mobile">
               <span className="label">env: dev</span>
@@ -436,7 +557,11 @@ function Databases() {
           </tr>
 
           <tr>
-            <td>mogodb</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="24" src={mongoImg} alt="Mongodb" /> mogodb
+              </Flex>
+            </td>
             <td>Self-hosted MongoDB</td>
             <td className="is-hidden-mobile">
               <span className="label">env: dev-1</span>
@@ -448,7 +573,12 @@ function Databases() {
           </tr>
 
           <tr>
-            <td>webapp</td>
+            <td>
+              <Flex alignItems="center">
+                <img width="20" src={gcpImg} alt="Google Cloud" />
+                webapp
+              </Flex>
+            </td>
             <td>GCP SQL Postgres</td>
             <td className="is-hidden-mobile">
               <span className="label">env: prod</span>
@@ -460,8 +590,13 @@ function Databases() {
           </tr>
 
           <tr>
-            <td>bizops</td>
-            <td>RDS MySQL</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="20" src={cockroachImg} alt="Cockroachdb" />{" "}
+                Cockroach
+              </Flex>
+            </td>
+            <td>Self-hosted CockroachDB</td>
             <td className="is-hidden-mobile">
               <span className="label">env: prod</span>
               <span className="label">mysql</span>
@@ -472,8 +607,12 @@ function Databases() {
           </tr>
 
           <tr>
-            <td>mongodb-atlas</td>
-            <td>Self-hosted MongoDB</td>
+            <td>
+              <Flex alignItems="center">
+                <img height="20" src={mysqlImg} alt="MySQL" /> mysql
+              </Flex>
+            </td>
+            <td>Self-hosted Mysql</td>
             <td className="is-hidden-mobile">
               <span className="label">env: dev-2</span>
               <span className="label">mongodb</span>
@@ -508,7 +647,11 @@ function Servers() {
 
         <tbody>
           <tr>
-            <td>ip-10-0-0-115</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+              </Flex>
+            </td>
             <td>127.0.0.2:3022</td>
             <td className="is-hidden-mobile">
               <span className="label">hostname: us-west-2</span>
@@ -518,7 +661,11 @@ function Servers() {
             </td>
           </tr>
           <tr>
-            <td>ip-10-0-0-115</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+              </Flex>
+            </td>
             <td>127.0.0.2:3022</td>
             <td className="is-hidden-mobile">
               <span className="label">hostname: us-west-2</span>
@@ -528,7 +675,11 @@ function Servers() {
             </td>
           </tr>
           <tr>
-            <td>ip-10-0-0-115</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+              </Flex>
+            </td>
             <td>127.0.0.2:3022</td>
             <td className="is-hidden-mobile">
               <span className="label">hostname: us-west-2</span>
@@ -538,7 +689,11 @@ function Servers() {
             </td>
           </tr>
           <tr>
-            <td>ip-10-0-0-115</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+              </Flex>
+            </td>
             <td>127.0.0.2:3022</td>
             <td className="is-hidden-mobile">
               <span className="label">hostname: us-west-2</span>
@@ -548,7 +703,11 @@ function Servers() {
             </td>
           </tr>
           <tr>
-            <td>ip-10-0-0-115</td>
+            <td>
+              <Flex alignItems="center">
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+              </Flex>
+            </td>
             <td>127.0.0.2:3022</td>
             <td className="is-hidden-mobile">
               <span className="label">hostname: us-west-2</span>
@@ -627,6 +786,7 @@ const StyledTable = styled("div")`
     td,
     th {
       border-bottom: 1px solid #f5f5f6;
+      vertical-align: middle;
 
       &:last-child {
         text-align: right;
@@ -655,6 +815,10 @@ const StyledTable = styled("div")`
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      img {
+        margin-right: 8px;
+      }
 
       @media (max-width: 1080px) {
         padding: 16px 8px;
