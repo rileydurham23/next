@@ -71,7 +71,7 @@ export const ApplicationShell = () => {
             <Icon name="hamburger" size="md" color="light-gray" mx={[3, 3]} />
           </span>
         </Flex>
-        <Flex
+        {/* <Flex
           className="clusters"
           flexDirection="column"
           alignItems="flex-start"
@@ -95,7 +95,7 @@ export const ApplicationShell = () => {
             teleport-asteroid
             <Icon size="xs" name="arrow" ml={2} />
           </Flex>
-        </Flex>
+        </Flex> */}
         <div className="sidenav-buttons">
           {items.map((item, i) => {
             return (
@@ -298,6 +298,10 @@ const StyledSidebar = styled(Flex)`
     right: 0px;
     top: 8px;
     z-index: 1;
+  }
+
+  .sidenav-buttons {
+    margin-top: 1px;
   }
 
   // SIDE NAV MOVES TO TOP ON MOBILE
