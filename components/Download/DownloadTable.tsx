@@ -4,6 +4,7 @@ import styled from "styled-components";
 import _ from "lodash";
 
 import Flex from "components/Flex";
+import Link from "components/Link";
 import { getOsParameter, groupByOS, OsParameter } from "./helpers";
 import type { MajorVersionCollection } from "./types";
 
@@ -32,16 +33,6 @@ export const DownloadTable = ({
   const selectedVersion = data.versions.find(
     (version) => version.version === selectedVersionTag
   );
-  // let latestRelease = _.find(data, { prerelease: false });
-
-  // const downloads = groupByOS(latestRelease.downloads);
-  // const [tableDownloads, setTableDownloads] = useState(downloads);
-  // const [TableShowNotes, setTableShowNotes] = useState(showNotes);
-
-  // IF NOT STABLE RELEASES PICK THE NEWEST ONE
-  // if (!latestRelease) {
-  //   latestRelease = _.find(data, "publishedAt");
-  // }
 
   // const toggleReleaseNotes = (event) => {
   //   event.preventDefault();
@@ -80,6 +71,24 @@ export const DownloadTable = ({
   //   setOs(os);
   // };
 
+  // const renderHeader = () => {
+  //   return (
+  //     <th>
+  //       <Flex justifyContent="space-between">
+  //         <Flex layout="flex" align="center">
+  //           {renderTitle()}
+  //           {renderVersionSelector()}
+  //           {renderNotesLabel()}
+  //         </Flex>
+
+  //         <Flex justifyContent="right">{renderOsMenu()}</Flex>
+  //       </Flex>
+
+  //       {renderNotes()}
+  //     </th>
+  //   );
+  // };
+
   const renderTitle = () => {
     return "Teleport " + data.majorVersion;
   };
@@ -90,14 +99,16 @@ export const DownloadTable = ({
 
   return (
     <OuterContainer>
-      <h1>{renderTitle()}</h1>
-      <select onChange={handleSelectChange} value={selectedVersion.version}>
-        {data.versions.map((version) => (
-          <option key={version.id} value={version.version}>
-            {version.version}
-          </option>
-        ))}
-      </select>
+      <HeaderContainer>
+        <h1>{renderTitle()}</h1>
+        <select onChange={handleSelectChange} value={selectedVersion.version}>
+          {data.versions.map((version) => (
+            <option key={version.id} value={version.version}>
+              {version.version}
+            </option>
+          ))}
+        </select>
+      </HeaderContainer>
       <table>
         <thead>
           <tr>
@@ -111,9 +122,11 @@ export const DownloadTable = ({
           {selectedVersion.downloads.map((download) => (
             <tr key={download.sha256}>
               <td>{download.name}</td>
-              <td>{download.name}</td>
-              <td>{download.name}</td>
-              <td>{download.name}</td>
+              <td>{download.sha256}</td>
+              <td>{download.displaySize}</td>
+              <td>
+                <Link href={download.url}>{download.name}</Link>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -121,6 +134,8 @@ export const DownloadTable = ({
     </OuterContainer>
   );
 };
+
+const HeaderContainer = styled(Flex)(css({}));
 
 const OuterContainer = styled(Flex)(
   css({
