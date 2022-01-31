@@ -305,7 +305,7 @@ const StyledSidebar = styled(Flex)`
   }
 
   // SIDE NAV MOVES TO TOP ON MOBILE
-  @media (max-width: 800px) {
+  @media (max-width: 900px) {
     position: absolute;
     top: 0;
     flex-direction: unset;
