@@ -28,16 +28,17 @@ export const content: Content = {
       {
         title: "Teleport Connect",
         description:
-          "Securely connect to your global infrastructure regardless of network boundaries",
+          "Securely connect to your global infrastructure regardless of network boundaries.",
       },
       {
         title: "Teleport Authenticate",
-        description: "Identity-based access for humans, machines, and services",
+        description:
+          "Identity-based access for humans, machines, and services.",
       },
       {
         title: "Teleport Authorize",
         description:
-          "Implement fine-grained access controls for every employee and service accessing your infrastructure",
+          "Implement fine-grained access controls for every employee and service accessing your infrastructure.",
       },
       {
         title: "Teleport Audit",

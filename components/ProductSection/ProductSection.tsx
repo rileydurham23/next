@@ -51,7 +51,7 @@ const ProductSection = () => {
         cardStyle="newProductCard"
         bg="flatWhite"
         bigLeftHeading={true}
-        title="Teleport Products"
+        title="Teleport products"
         description="The Teleport Access Plane consists of five products to deliver protocol-aware capabilities deep into your infrastrucure."
       >
         {productCards.map((card, index) => (
