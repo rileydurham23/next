@@ -113,7 +113,7 @@ export const AnimationHeader = ({
       {/* Animation Side */}
       <Flex
         flex="1 1 auto"
-        justifyContent="flex-start"
+        justifyContent="center"
         alignItems="center"
         maxWidth="100%"
       >
