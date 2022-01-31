@@ -1,4 +1,5 @@
 export { default as arrow } from "./svg/arrow.svg?react";
+export { default as bell } from "./svg/bell.svg?react";
 export { default as bolt } from "./svg/bolt.svg?react";
 export { default as book } from "./svg/book.svg?react";
 export { default as building } from "./svg/building.svg?react";
@@ -41,6 +42,7 @@ export { default as shieldCheck } from "./svg/shield-check.svg?react";
 export { default as spreading } from "./svg/spreading.svg?react";
 export { default as stack } from "./svg/stack.svg?react";
 export { default as success } from "./svg/success.svg?react";
+export { default as team } from "./svg/team.svg?react";
 export { default as wand } from "./svg/magic-wand.svg?react";
 export { default as warning } from "./svg/warning.svg?react";
 export { default as window } from "./svg/window.svg?react";

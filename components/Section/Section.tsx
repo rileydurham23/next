@@ -1,13 +1,15 @@
 import Box, { BoxProps } from "components/Box";
 import squaresBG from "./assets/squares.svg";
 import waveGrayBG from "./assets/waveGray.png";
-import waveWhiteBG from "./assets/waveWhite.png";
 import wavePurpleBG from "./assets/wavePurple.png";
 import doubleWave from "./assets/wave-double.png";
 import wavelight from "./assets/wave-light.png";
 import stars from "./assets/stars.png";
+import lines from "./assets/lines.png";
+import edge from "./assets/edge-color.svg";
 
 export type BGColor =
+  | "code"
   | "squares"
   | "wavelight"
   | "grayGradient"
@@ -17,10 +19,21 @@ export type BGColor =
   | "purpleStars"
   | "flatGray"
   | "flatWhite"
-  | "double";
+  | "double"
+  | "lines"
+  | "midnight";
 
 const getBG = (color: BGColor) => {
   switch (color) {
+    case "code":
+      return {
+        background: `linear-gradient(125deg ,#222E41,#192638)`,
+        backgroundColor: "#222E41",
+        backgroundImage: `url(${edge})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "bottom left",
+        backgroundSize: "cover",
+      };
     case "double":
       return {
         backgroundImage: `url(${doubleWave})`,
@@ -47,6 +60,8 @@ const getBG = (color: BGColor) => {
         backgroundPosition: "center center",
         backgroundSize: "cover",
       };
+    case "midnight":
+      return { backgroundColor: "#01172C" };
     case "purple":
       return {
         backgroundImage: `url(${wavePurpleBG}), linear-gradient(125deg,#512fc9,#651fff)`,
@@ -75,13 +90,14 @@ const getBG = (color: BGColor) => {
         backgroundPosition: "center center",
         backgroundSize: "cover",
       };
+    case "lines":
+      return {
+        backgroundColor: "#FBFBFC",
+        backgroundImage: `url(${lines})`,
+      };
     default:
       return {
         backgroundColor: "white",
-        backgroundImage: `url(${waveWhiteBG})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center center",
-        backgroundSize: "cover",
       };
   }
 };

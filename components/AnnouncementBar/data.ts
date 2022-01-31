@@ -100,6 +100,27 @@ export const Internet: LogoRow[] = expandConfig([
   ],
 ]);
 
+// New home page
+
+export const NewHomepage: LogoRow[] = expandConfig([
+  [
+    "colorNasdaq",
+    "colorCarta",
+    "colorDoorDash",
+    "colorElastic",
+    "colorSnowflake",
+    "colorVmware",
+  ],
+  [
+    "colorWish",
+    "colorCoupang",
+    "colorTokopedia",
+    "colorBigCommerce",
+    "colorThredUp",
+    "colorShadeStore",
+  ],
+]);
+
 // CompactClientsList
 // When determining order, make sure logos with case-study urls always appear in the first 3 positions
 // otherwise they are not displayed on mobile

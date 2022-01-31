@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import Flex from "components/Flex";
 import {
   AnimatedResetButton,
@@ -11,6 +11,7 @@ import {
   ServerText,
 } from "./TerminalText";
 import { TerminalBrowser } from "../AnimationUtilities/TerminalBrowserAnimation";
+import { Waypoint } from "react-waypoint";
 
 /**
  * This component handles the text animation in the terminal window.
@@ -58,8 +59,8 @@ export const TerminalAnimation = ({
     return [timeout1, timeout2];
   }, [StepTwo, StepThree]);
 
-  //the animation is kicked off in this hook after the DOM is painted
-  useEffect(() => {
+  // CALLED ONLY WHEN ELEMENT IS VISIBLE ON SCREEN
+  const animateText = () => {
     const timeouts = textAnimate();
 
     return () => {
@@ -67,10 +68,11 @@ export const TerminalAnimation = ({
         clearTimeout(timeout);
       });
     };
-  }, [textAnimate]);
+  };
 
   //sets the text animation state to the beginning
   const reset = () => setTermText(StepOne);
+  const [startAnimation, setStartAnimation] = useState(false);
 
   return (
     <Flex
@@ -84,31 +86,42 @@ export const TerminalAnimation = ({
       my={[1, 2]}
       pt={[8, 5]}
     >
-      <AnimatedResetButton
-        position="absolute"
-        top={["30px", "35px"]}
-        variant="secondary"
-        shape="outline"
-        onClick={() => {
-          reset(), textAnimate(), setContainerState(Math.random());
+      {startAnimation && (
+        <>
+          <AnimatedResetButton
+            position="absolute"
+            top={["30px", "35px"]}
+            variant="secondary"
+            shape="outline"
+            onClick={() => {
+              reset(), textAnimate(), setContainerState(Math.random());
+            }}
+          >
+            Replay Animation
+          </AnimatedResetButton>
+          <Flex
+            flexDirection="column"
+            justifyContent="flex-end"
+            alignItems="center"
+            height={410}
+            overflowY="hidden"
+            position="relative"
+            width="100%"
+            maxWidth="588px"
+            borderRadius="0 0 8px 8px"
+          >
+            <AnimatedTerminal rise={text}>{termText}</AnimatedTerminal>
+            <TerminalBrowser />
+          </Flex>
+        </>
+      )}
+
+      <Waypoint
+        onEnter={() => {
+          setStartAnimation(true);
+          animateText();
         }}
-      >
-        Replay Animation
-      </AnimatedResetButton>
-      <Flex
-        flexDirection="column"
-        justifyContent="flex-end"
-        alignItems="center"
-        height={410}
-        overflowY="hidden"
-        position="relative"
-        width="100%"
-        maxWidth="588px"
-        borderRadius="0 0 8px 8px"
-      >
-        <AnimatedTerminal rise={text}>{termText}</AnimatedTerminal>
-        <TerminalBrowser />
-      </Flex>
+      />
     </Flex>
   );
 };
