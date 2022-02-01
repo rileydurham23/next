@@ -18,13 +18,13 @@ export const items: itemsProps[] = [
   {
     name: "server",
     infra: "Servers",
-    subtitle: "1250 total",
+    subtitle: "600 total",
     cta: "Add Server",
   },
   {
     name: "database",
     infra: "Databases",
-    subtitle: "500 total",
+    subtitle: "125 total",
     cta: "Add Database",
   },
   {
@@ -52,7 +52,7 @@ export const items: itemsProps[] = [
   {
     name: "team",
     infra: "Team",
-    subtitle: "5 total",
+    subtitle: "150 total",
     cta: "Add User",
   },
 ];

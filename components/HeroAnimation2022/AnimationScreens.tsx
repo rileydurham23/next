@@ -49,7 +49,7 @@ function Activity() {
                 <Icon name="window" size="sm" mr={2} /> ip-10-0-0-51
               </Flex>
             </td>
-            <td>jsmith</td>
+            <td>alice</td>
             <td className="is-hidden-mobile">5 mins</td>
             <td>
               <button className="play">Play</button>
@@ -62,7 +62,7 @@ function Activity() {
                 <Icon name="window" size="sm" mr={2} /> ip-10-0-0-120
               </Flex>
             </td>
-            <td>jdoe</td>
+            <td>bob</td>
             <td className="is-hidden-mobile">7 mins</td>
             <td>
               <button className="play">Play</button>
@@ -75,7 +75,7 @@ function Activity() {
                 <Icon name="window" size="sm" mr={2} /> ip-10-0-0-51
               </Flex>
             </td>
-            <td>awolfe</td>
+            <td>slack-plugin</td>
             <td className="is-hidden-mobile">10 mins</td>
             <td>
               <button className="play">Play</button>
@@ -88,7 +88,7 @@ function Activity() {
                 <Icon name="window" size="sm" mr={2} /> ip-10-0-0-22
               </Flex>
             </td>
-            <td>barent</td>
+            <td>terraform</td>
             <td className="is-hidden-mobile">5 mins</td>
             <td>
               <button className="play">Play</button>
@@ -101,7 +101,7 @@ function Activity() {
                 <Icon name="window" size="sm" mr={2} /> ip-10-0-0-120
               </Flex>
             </td>
-            <td>coles</td>
+            <td>eve</td>
             <td className="is-hidden-mobile">7 mins</td>
             <td>
               <button className="play">Play</button>
@@ -135,7 +135,7 @@ function Team() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <Icon name="team" size="sm" mr={2} /> jsmith
+                <Icon name="team" size="sm" mr={2} /> alice
               </Flex>
             </td>
             <td>
@@ -152,7 +152,7 @@ function Team() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <Icon name="team" size="sm" mr={2} /> jdoe
+                <Icon name="team" size="sm" mr={2} /> bob
               </Flex>
             </td>
             <td>
@@ -203,7 +203,7 @@ function Team() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <Icon name="team" size="sm" mr={2} /> admin
+                <Icon name="team" size="sm" mr={2} /> eve
               </Flex>
             </td>
             <td>
@@ -358,7 +358,7 @@ function Desktops() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <img height="16" src={windowsImg} alt="windows" /> 10.0.0.10
+                <img height="16" src={windowsImg} alt="windows" /> 10.0.40.10
               </Flex>
             </td>
             <td>Windows Prod</td>
@@ -446,7 +446,7 @@ function K8s() {
               </Flex>
             </td>
             <td className="is-hidden-mobile">
-              <span className="label">renv: stg2</span>
+              <span className="label">env: stg2</span>
               <span className="label">region: us-west-2</span>
             </td>
             <td>
@@ -478,7 +478,7 @@ function K8s() {
             </td>
             <td className="is-hidden-mobile">
               <span className="label">env:prod</span>
-              <span className="label">microservice:entropy-service</span>
+              <span className="label">entropy-service</span>
             </td>
             <td>
               <button>Connect</button>
@@ -508,8 +508,8 @@ function K8s() {
               </Flex>
             </td>
             <td className="is-hidden-mobile">
-              <span className="label">env:prod</span>
-              <span className="label">microservice:entropy-service</span>
+              <span className="label">env:stg</span>
+              <span className="label">EKS</span>
             </td>
             <td>
               <button>Connect</button>
@@ -559,7 +559,7 @@ function Databases() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <img height="24" src={mongoImg} alt="Mongodb" /> mogodb
+                <img height="24" src={mongoImg} alt="Mongodb" /> mongodb
               </Flex>
             </td>
             <td>Self-hosted MongoDB</td>
@@ -576,7 +576,7 @@ function Databases() {
             <td>
               <Flex alignItems="center">
                 <img width="20" src={gcpImg} alt="Google Cloud" />
-                webapp
+                gcloud
               </Flex>
             </td>
             <td>GCP SQL Postgres</td>
@@ -599,7 +599,7 @@ function Databases() {
             <td>Self-hosted CockroachDB</td>
             <td className="is-hidden-mobile">
               <span className="label">env: prod</span>
-              <span className="label">mysql</span>
+              <span className="label">crdb</span>
             </td>
             <td>
               <button>Connect</button>
@@ -615,7 +615,7 @@ function Databases() {
             <td>Self-hosted Mysql</td>
             <td className="is-hidden-mobile">
               <span className="label">env: dev-2</span>
-              <span className="label">mongodb</span>
+              <span className="label">mysql</span>
             </td>
             <td>
               <button>Connect</button>
@@ -652,9 +652,9 @@ function Servers() {
                 <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
               </Flex>
             </td>
-            <td>127.0.0.2:3022</td>
+            <td>⟵ tunnel</td>
             <td className="is-hidden-mobile">
-              <span className="label">hostname: us-west-2</span>
+              <span className="label">region: us-west-1</span>
             </td>
             <td>
               <button>Connect</button>
@@ -663,12 +663,12 @@ function Servers() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-20
               </Flex>
             </td>
-            <td>127.0.0.2:3022</td>
+            <td>⟵ tunnel</td>
             <td className="is-hidden-mobile">
-              <span className="label">hostname: us-west-2</span>
+              <span className="label">region: sa-east-1</span>
             </td>
             <td>
               <button>Connect</button>
@@ -677,12 +677,12 @@ function Servers() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-60
               </Flex>
             </td>
-            <td>127.0.0.2:3022</td>
+            <td>⟵ tunnel</td>
             <td className="is-hidden-mobile">
-              <span className="label">hostname: us-west-2</span>
+              <span className="label">region: us-west-2</span>
             </td>
             <td>
               <button>Connect</button>
@@ -691,12 +691,12 @@ function Servers() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-85
               </Flex>
             </td>
-            <td>127.0.0.2:3022</td>
+            <td>⟵ tunnel</td>
             <td className="is-hidden-mobile">
-              <span className="label">hostname: us-west-2</span>
+              <span className="label">region: eu-west-1</span>
             </td>
             <td>
               <button>Connect</button>
@@ -705,12 +705,12 @@ function Servers() {
           <tr>
             <td>
               <Flex alignItems="center">
-                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-115
+                <Icon name="server" size="sm" mr={2} /> ip-10-0-0-90
               </Flex>
             </td>
-            <td>127.0.0.2:3022</td>
+            <td>⟵ tunnel</td>
             <td className="is-hidden-mobile">
-              <span className="label">hostname: us-west-2</span>
+              <span className="label">region: us-east-1</span>
             </td>
             <td>
               <button>Connect</button>

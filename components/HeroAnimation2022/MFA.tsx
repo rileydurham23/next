@@ -23,7 +23,7 @@ export const MFA = () => {
         <Fingerprint alt="fingerprint" src={fingerprint} />
         <SpinCircle />
 
-        <Message>Mutli Factor Authentication</Message>
+        <Message>Biometric Authentication</Message>
       </FingerprintContainer>
     </AnimatedContainer>
   );
