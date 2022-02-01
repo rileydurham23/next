@@ -34,7 +34,7 @@ The current state of user-facing side of `goteleport.com` is as follows:
 
 The intention at present is for `gravitational/web` to be deprecated entirely and for the routing functionality currently in `gravitational/web/deploy/nginx.*` to be ported to Vercel and/or `gravitational/next`.
 
-However discussions are now underway concerning the **possible** separation of the three main parts of `goteleport.com`: the main website (hereafter the "marketing site"), the blog, and the docs would each live in separate repos and potentially leverage separate site generation technologies, e.g. Next, Gatsby, or combination with headless CMS.
+However separation of the three main parts of `goteleport.com` is now underway: the main website (hereafter the "marketing site"), the blog, and the docs will each live in separate repos. Furthermore, the new home of the blog, `gravitational/blog` will shortly be connected to a CMS (probably Contentful).
 
 For SEO purposes, subdomains, e.g. `docs.goteleport.com` will not be used.
 
@@ -66,9 +66,18 @@ A system whereby non-techincal users could trigger a deploy to staging from GitH
 
 Vercel _probably_ provides an out-of-the-box solution for some of the above requirements, but the purpose of this RFD is to explore that and other options. 
 
+Some of this functionality is available within the codebase in `vercel.json` and some of it lives in the project dashboard at `vercel.com`.
+
+According to @iadramelk, Vercel should:
+- redirect within the same domain
+- redirect across domains (although possibly limited?)
+- proxy requests from one url/domain to another without visibly changing the url (except possibly for non-existent subdomains)
+- add _some_ security headers
+
+Nginx already provides all of the above. What are some of the downsides of nginx? (TBC)
+
 ## Further considerations from @wadells up for discussion (to be incorporated above)
 
 - Will there be a cache/CDN/DDOS protection? What provides that?
 - Can we use vercel's routing, or will we stick with an nginx reverse proxy? If nginx, where will it be hosted, and how will we deploy?
-- If we split the site up, what versions of the different components will be deployed? E.g. consider a blog post. When its preview is generated, what version of the marketing site and docs will be used in that preview, if any? Will we support a way to preview changes to more than one (or all) component sites at the same time (e.g. a redesign that includes marketing, docs, and blog edits in one go)?
 - What are the build/deploy time and determinism consequences of our plan? Are those acceptable to the team?
