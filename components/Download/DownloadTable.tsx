@@ -101,6 +101,7 @@ export const DownloadTable = ({
     <OuterContainer>
       <HeaderContainer>
         <h1>{renderTitle()}</h1>
+        <h1>Release:</h1>
         <select onChange={handleSelectChange} value={selectedVersion.version}>
           {data.versions.map((version) => (
             <option key={version.id} value={version.version}>
@@ -111,23 +112,25 @@ export const DownloadTable = ({
       </HeaderContainer>
       <table>
         <thead>
-          <tr>
+          <TableHeader>
             <th>Operating system</th>
             <th>Checksum</th>
             <th>Size</th>
             <th>Download link</th>
-          </tr>
+          </TableHeader>
         </thead>
-        <tbody>
+        <tbody style={{ width: "90%" }}>
           {selectedVersion.downloads.map((download) => (
-            <tr key={download.sha256}>
+            <BodyRow key={download.sha256}>
               <td>{download.name}</td>
-              <td>{download.sha256}</td>
+              <td>
+                <Link href={download.sha256}>SHA256</Link>
+              </td>
               <td>{download.displaySize}</td>
               <td>
                 <Link href={download.url}>{download.name}</Link>
               </td>
-            </tr>
+            </BodyRow>
           ))}
         </tbody>
       </table>
@@ -141,5 +144,19 @@ const OuterContainer = styled(Flex)(
   css({
     border: "1px solid blue",
     flexDirection: "column",
+    margin: "20px",
+  })
+);
+
+const TableHeader = styled("tr")(
+  css({
+    textTransform: "uppercase",
+  })
+);
+
+const BodyRow = styled("tr")(
+  css({
+    margin: "20px",
+    padding: "20px",
   })
 );

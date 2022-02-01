@@ -4,14 +4,13 @@ import Link from "components/Link";
 import Section from "components/Section";
 import SectionHeader from "components/SectionHeader";
 import _ from "lodash";
-import allDone from "../assets/all-done.png";
-import Image from "next/image";
 
 import { getOsParameter } from "components/Download/helpers";
 import type {
   Version,
   MajorVersionCollection,
 } from "components/Download/types";
+import { useEffect } from "react";
 
 interface PaginatedResponse {
   next: number;
@@ -87,14 +86,14 @@ const DownloadPage: React.FC<DownloadPageProps> = ({
   return (
     <>
       <SectionHeader
-        title="title"
-        subtitle="subtitle"
-        description="Desc"
+        title="Download Teleport"
+        subtitle="Community Edition"
+        description="Teleport provides simple secure access to SSH servers, Kubernetes clusters, PostgreSQL databases and web apps behind NAT, in any environment. It's a certificate authority with an integrated identity-aware proxy."
         descriptionTextWidth="1000px"
         bg="wave-on-gray"
       >
         <Flex flexDirection="column">
-          Additional ways to install teleport
+          Additional ways to install Teleport
           <ul>
             <li>
               <Link href="https://goteleport.com/docs/getting-started/">
