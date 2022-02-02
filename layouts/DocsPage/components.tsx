@@ -1,6 +1,5 @@
 import Admonition from "components/Admonition";
 import Command, { CommandLine, CommandComment } from "components/Command";
-import BaseLink from "components/Link";
 import Notice from "components/Notice";
 import Snippet from "components/Snippet";
 import { Tabs, TabItem } from "components/Tabs";
@@ -23,9 +22,9 @@ import {
   UL,
   OL,
   LI,
+  Link,
   Table,
   THead,
-  TBody,
   TR,
   TH,
   TD,
@@ -37,9 +36,7 @@ import {
 } from "components/MDX";
 
 export const components = {
-  a: function Link(props) {
-    return <BaseLink {...props} scheme="docs" />;
-  },
+  a: Link,
   code: Code,
   inlineCode: Code,
   img: Image,
@@ -56,7 +53,6 @@ export const components = {
   li: LI,
   table: Table,
   thead: THead,
-  tbody: TBody,
   tr: TR,
   th: TH,
   td: TD,

@@ -19,6 +19,8 @@ export interface VersionsInfo {
   current: string;
   latest: string;
   available: string[];
+  disabled?: boolean;
+  className?: string;
 }
 
 export type LayoutName = "doc" | "section" | "tocless-doc";
