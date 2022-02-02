@@ -729,7 +729,7 @@ const StyledTable = styled("div")`
   margin: 24px;
   overflow: hidden;
 
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     margin: 16px;
 
     .is-hidden-mobile {
@@ -811,7 +811,7 @@ const StyledTable = styled("div")`
     td {
       color: #adbcc4;
       font-size: 9px;
-      padding: 10px 16px;
+      padding: 10px 8px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -820,8 +820,8 @@ const StyledTable = styled("div")`
         margin-right: 8px;
       }
 
-      @media (max-width: 1080px) {
-        padding: 16px 8px;
+      @media (max-width: 1140px) {
+        padding: 10px 8px;
       }
 
       @media (max-width: 800px) {
