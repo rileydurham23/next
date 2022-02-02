@@ -14,7 +14,7 @@ import {
   audit,
   article,
 } from "./assets";
-
+import { variant } from "components/system";
 /**
  * Component for use in a GridDisplay.
  *
@@ -31,17 +31,21 @@ import {
  * contents, and an optional title above the card (outside its borders)
  */
 
+export type TileTypeVariant = "default" | "securityVisionary";
 export interface GridTileProps {
   children: React.ReactNode;
   title: string;
   href: string;
   cardBG: string;
+  speaker?: string;
+  speakerDetails?: string;
   src?: string;
   smallIcon?: boolean;
   caption?: string;
   cardBC?: string;
   bhColor?: string;
   needDescriptionMargin?: boolean;
+  tileType?: TileTypeVariant;
 }
 
 const cardBackgrounds = {
@@ -55,6 +59,10 @@ const cardBackgrounds = {
   article,
 };
 
+export const TopHalf = ({}) => {
+  return <div>Top Half</div>;
+};
+
 export const GridTile = ({
   children,
   src,
@@ -66,52 +74,71 @@ export const GridTile = ({
   cardBC,
   bhColor,
   needDescriptionMargin = Boolean(href) && Boolean(src),
+  tileType = "default",
+  speakerDetails = "",
+  speaker = "",
   ...props
 }: GridTileProps & BoxProps) => {
   //add additional backgrounds to cardBackgrounds
   const backgroundImage = cardBackgrounds[cardBG];
   const isArticle = cardBG === "article";
+  const isSecVis = tileType === "securityVisionary";
 
   return (
     <StyledWrapper href={href} {...props}>
       {/* top half */}
-      <Flex
-        flexDirection="row"
-        pt={src ? 3 : "120px"}
-        pb={3}
-        px={4}
-        backgroundImage={`url("${backgroundImage}")`}
-        backgroundPosition="center"
-        backgroundSize={isArticle ? "auto 100%" : "cover"}
-        backgroundRepeat="no-repeat"
-        borderRadius="8px 8px 0 0"
-        backgroundColor={cardBC}
-      >
-        {src &&
-          (!smallIcon ? (
-            <NextImage src={src} alt={title} height={193} width={282} />
-          ) : (
-            <Flex
-              flexDirection="row"
-              alignItems="center"
-              height={140}
-              justifyContent="flex-start"
-            >
-              <NextImage src={src} alt={title} height={32} width={32} />
-              {caption && (
-                <Box
-                  as="p"
-                  color="white"
-                  fontWeight="bold"
-                  fontSize="header-3"
-                  pl={2}
-                >
-                  {caption}
-                </Box>
-              )}
-            </Flex>
-          ))}
-      </Flex>
+      {isSecVis ? (
+        <>
+          <Flex flexDirection="column" position="relative">
+            <TopFlex
+              backgroundImage={`url("${backgroundImage}")`}
+              backgroundSize={isArticle ? "auto 100%" : "cover"}
+              backgroundColor={cardBC}
+              height="112px"
+            ></TopFlex>
+            <StyledBox px={4} maxWidth="224px">
+              <h3>{speaker}</h3>
+              <p>{speakerDetails}</p>
+            </StyledBox>
+            <Box position="absolute" top="52px" right="16px">
+              <NextImage src={src} alt={speaker} height={120} width={120} />
+            </Box>
+          </Flex>
+        </>
+      ) : (
+        <TopFlex
+          pt={src ? 3 : "120px"}
+          backgroundImage={`url("${backgroundImage}")`}
+          backgroundSize={isArticle ? "auto 100%" : "cover"}
+          backgroundColor={cardBC}
+          // flexDirection="row"
+        >
+          {src &&
+            (!smallIcon ? (
+              <NextImage src={src} alt={title} height={193} width={282} />
+            ) : (
+              <Flex
+                flexDirection="row"
+                alignItems="center"
+                height={140}
+                justifyContent="flex-start"
+              >
+                <NextImage src={src} alt={title} height={32} width={32} />
+                {caption && (
+                  <Box
+                    as="p"
+                    color="white"
+                    fontWeight="bold"
+                    fontSize="header-3"
+                    pl={2}
+                  >
+                    {caption}
+                  </Box>
+                )}
+              </Flex>
+            ))}
+        </TopFlex>
+      )}
 
       {/* bottom half */}
       <Flex
@@ -124,7 +151,7 @@ export const GridTile = ({
         borderRadius="0 0 8px 8px"
         backgroundColor={bhColor}
       >
-        <Box
+        {/* <Box
           as="p"
           fontSize="text-md"
           lineHeight="md"
@@ -132,7 +159,10 @@ export const GridTile = ({
           fontWeight="bold"
         >
           {title}
-        </Box>
+        </Box> */}
+        <StyledTitleBox fontStyle={tileType} as="p">
+          {title}
+        </StyledTitleBox>
         <Box
           fontSize="13px"
           lineHeight="md"
@@ -161,4 +191,54 @@ const StyledWrapper = styled(Link)(
     },
   }),
   all
+);
+
+const TopFlex = styled(Flex)(
+  css({
+    flexDirection: "row",
+    pb: 3,
+    px: 4,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    borderRadius: "8px 8px 0 0",
+  })
+);
+
+const StyledBox = styled(Box)(
+  css({
+    fontFamily: "body",
+    fontStyle: "normal",
+    fontSize: "text-sm",
+    lineHeight: "sm",
+    letterSpacing: "0em",
+    h3: {
+      mb: 1,
+      color: "dark-purple",
+      fontWeight: "bold",
+    },
+    p: {
+      mt: 1,
+      color: "gray",
+      fontWeight: "normal",
+    },
+  })
+);
+
+const StyledTitleBox = styled(Box)(
+  css({
+    lineHeight: "md",
+    color: "black",
+    fontWeight: "bold",
+  }),
+  variant({
+    prop: "fontStyle",
+    variants: {
+      default: {
+        fontSize: "text-md",
+      },
+      securityVisionary: {
+        fontSize: "text-lg",
+      },
+    },
+  })
 );
