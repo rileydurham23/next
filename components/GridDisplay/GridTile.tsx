@@ -4,7 +4,6 @@ import NextImage from "next/image";
 import Link from "components/Link";
 import Box, { BoxProps } from "components/Box";
 import Flex from "components/Flex";
-import Button from "components/Button";
 import {
   core,
   enterprise,
@@ -15,7 +14,7 @@ import {
   audit,
   article,
 } from "./assets";
-import { variant } from "components/system";
+
 /**
  * Component for use in a GridDisplay.
  *
@@ -32,21 +31,17 @@ import { variant } from "components/system";
  * contents, and an optional title above the card (outside its borders)
  */
 
-export type TileTypeVariant = "default" | "pastEvent";
 export interface GridTileProps {
   children: React.ReactNode;
   title: string;
   href: string;
   cardBG: string;
-  speaker?: string;
-  speakerDetails?: string;
   src?: string;
   smallIcon?: boolean;
   caption?: string;
   cardBC?: string;
   bhColor?: string;
   needDescriptionMargin?: boolean;
-  tileType?: TileTypeVariant;
 }
 
 const cardBackgrounds = {
@@ -71,68 +66,52 @@ export const GridTile = ({
   cardBC,
   bhColor,
   needDescriptionMargin = Boolean(href) && Boolean(src),
-  tileType = "default",
-  speakerDetails,
-  speaker,
   ...props
 }: GridTileProps & BoxProps) => {
   //add additional backgrounds to cardBackgrounds
   const backgroundImage = cardBackgrounds[cardBG];
   const isArticle = cardBG === "article";
-  const isPastEvent = tileType === "pastEvent";
 
   return (
     <StyledWrapper href={href} {...props}>
       {/* top half */}
-      {isPastEvent ? (
-        <Flex flexDirection="column" position="relative">
-          <TopFlex
-            backgroundImage={`url("${backgroundImage}")`}
-            backgroundSize={isArticle ? "auto 100%" : "cover"}
-            backgroundColor={cardBC}
-            height="112px"
-          />
-          <StyledBox
-            px={4}
-            mt={1}
-            maxWidth="224px"
-            fontStyle={tileType}
-            lineHeight="sm"
-          >
-            <h3>{speaker}</h3>
-            <p>{speakerDetails}</p>
-          </StyledBox>
-          <Box position="absolute" top="52px" right="16px">
-            <NextImage src={src} alt={speaker} height={120} width={120} />
-          </Box>
-        </Flex>
-      ) : (
-        <TopFlex
-          pt={src ? 3 : "120px"}
-          backgroundImage={`url("${backgroundImage}")`}
-          backgroundSize={isArticle ? "auto 100%" : "cover"}
-          backgroundColor={cardBC}
-        >
-          {src &&
-            (!smallIcon ? (
-              <NextImage src={src} alt={title} height={193} width={282} />
-            ) : (
-              <Flex
-                flexDirection="row"
-                alignItems="center"
-                height={140}
-                justifyContent="flex-start"
-              >
-                <NextImage src={src} alt={title} height={32} width={32} />
-                {caption && (
-                  <StyledBox as="p" fontStyle="caption">
-                    {caption}
-                  </StyledBox>
-                )}
-              </Flex>
-            ))}
-        </TopFlex>
-      )}
+      <Flex
+        flexDirection="row"
+        pt={src ? 3 : "120px"}
+        pb={3}
+        px={4}
+        backgroundImage={`url("${backgroundImage}")`}
+        backgroundPosition="center"
+        backgroundSize={isArticle ? "auto 100%" : "cover"}
+        backgroundRepeat="no-repeat"
+        borderRadius="8px 8px 0 0"
+        backgroundColor={cardBC}
+      >
+        {src &&
+          (!smallIcon ? (
+            <NextImage src={src} alt={title} height={193} width={282} />
+          ) : (
+            <Flex
+              flexDirection="row"
+              alignItems="center"
+              height={140}
+              justifyContent="flex-start"
+            >
+              <NextImage src={src} alt={title} height={32} width={32} />
+              {caption && (
+                <Box
+                  as="p"
+                  color="white"
+                  fontWeight="bold"
+                  fontSize="header-3"
+                  pl={2}
+                >
+                  {caption}
+                </Box>
+              )}
+            </Flex>
+          ))}
+      </Flex>
 
       {/* bottom half */}
       <Flex
@@ -145,21 +124,23 @@ export const GridTile = ({
         borderRadius="0 0 8px 8px"
         backgroundColor={bhColor}
       >
-        <StyledTitleBox fontStyle={tileType} as="p">
-          {title}
-        </StyledTitleBox>
-        <StyledBox
-          pb={needDescriptionMargin ? 3 : 0}
+        <Box
+          as="p"
+          fontSize="text-md"
           lineHeight="md"
-          fontStyle={tileType}
+          color="black"
+          fontWeight="bold"
+        >
+          {title}
+        </Box>
+        <Box
+          fontSize="13px"
+          lineHeight="md"
+          color="gray"
+          pb={needDescriptionMargin ? 3 : 0}
         >
           {children}
-        </StyledBox>
-        {isPastEvent && (
-          <Button shape="lg" mx="auto" width={["100%", "70%"]} mt={3}>
-            Watch Recording
-          </Button>
-        )}
+        </Box>
       </Flex>
     </StyledWrapper>
   );
@@ -180,79 +161,4 @@ const StyledWrapper = styled(Link)(
     },
   }),
   all
-);
-
-const TopFlex = styled(Flex)(
-  css({
-    flexDirection: "row",
-    pb: 3,
-    px: 4,
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    borderRadius: "8px 8px 0 0",
-  })
-);
-
-const StyledBox = styled(Box)(
-  css({
-    fontFamily: "body",
-    fontStyle: "normal",
-    letterSpacing: "0em",
-  }),
-  variant({
-    prop: "fontStyle",
-    variants: {
-      default: {
-        p: {
-          fontSize: "13px",
-          lineHeight: "md",
-          color: "gray",
-        },
-      },
-      pastEvent: {
-        display: "flex",
-        flexDirection: "column",
-        textAlign: "left",
-        p: {
-          fontSize: "text-sm",
-          mt: 1,
-          color: "gray",
-          fontWeight: "normal",
-        },
-        h3: {
-          mb: 1,
-          color: "dark-purple",
-          fontWeight: "bold",
-          fontSize: "text-sm",
-          lineHeight: "sm",
-        },
-      },
-      caption: {
-        color: "white",
-        fontWeight: "bold",
-        fontSize: "header-3",
-        pl: 2,
-      },
-    },
-  })
-);
-
-const StyledTitleBox = styled(Box)(
-  css({
-    lineHeight: "md",
-    color: "black",
-    fontWeight: "bold",
-  }),
-  variant({
-    prop: "fontStyle",
-    variants: {
-      default: {
-        fontSize: "text-md",
-      },
-      pastEvent: {
-        my: 1,
-        fontSize: "text-lg",
-      },
-    },
-  })
 );
