@@ -90,7 +90,7 @@ export const WorksWith = ({
   title,
   children,
 }: WorksWithProps) => {
-  const { logos } = DATA[variant];
+  const logos = DATA[variant];
 
   return (
     <StyledBG as="section" px={[0, 3]}>
