@@ -18,17 +18,9 @@ import {
 /**
  * Component for use in a GridDisplay.
  *
- * GridTiles are clickable, have hover functionality, and no "Learn More" button.
- * The href prop will be passed to the Link wrapper.
+ * SecurityCards are not clickable or hoverable. The href prop will be passed
+ * to the "Watch Recording" button.
  *
- * GridCards are not clickable or hoverable. The optional href prop
- * will be passed to a "Learn More" button.
- *
- * ProductCards exist just below the Hero on the homepage. They have no border,
- * no hover, just an icon, title/text and Learn More button.
- *
- * BenefitCards are similar to GridCards but with a different display logic,
- * contents, and an optional title above the card (outside its borders)
  */
 
 export interface SecurityCardProps {
@@ -80,13 +72,7 @@ export const SecurityCard = ({
           backgroundColor={cardBC}
           height="112px"
         />
-        <StyledBox
-          px={4}
-          mt={1}
-          maxWidth="190px"
-          lineHeight="sm"
-          height="100px"
-        >
+        <StyledBox px={4} mt={1} maxWidth="190px" lineHeight="sm">
           <h3>{speaker}</h3>
           <p>{speakerDetails}</p>
         </StyledBox>
@@ -99,7 +85,7 @@ export const SecurityCard = ({
       <Flex
         flexDirection="column"
         flexGrow={1}
-        alignItems="stretch"
+        justifyContent="space-between"
         pb={4}
         pt={3}
         px={4}
@@ -107,7 +93,7 @@ export const SecurityCard = ({
         backgroundColor={bhColor}
       >
         <StyledTitleBox as="p">{title}</StyledTitleBox>
-        <StyledBox lineHeight="md" pb={3} height="150px">
+        <StyledBox lineHeight="md" pb={3}>
           {children}
         </StyledBox>
         <Button
@@ -117,6 +103,7 @@ export const SecurityCard = ({
           width={["100%", "70%"]}
           mt={3}
           href={href}
+          // alignItem="end"
         >
           Watch Recording
         </Button>
