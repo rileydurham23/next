@@ -80,7 +80,13 @@ export const SecurityCard = ({
           backgroundColor={cardBC}
           height="112px"
         />
-        <StyledBox px={4} mt={1} maxWidth="224px" lineHeight="sm">
+        <StyledBox
+          px={4}
+          mt={1}
+          maxWidth="190px"
+          lineHeight="sm"
+          height="100px"
+        >
           <h3>{speaker}</h3>
           <p>{speakerDetails}</p>
         </StyledBox>
@@ -101,7 +107,9 @@ export const SecurityCard = ({
         backgroundColor={bhColor}
       >
         <StyledTitleBox as="p">{title}</StyledTitleBox>
-        <StyledBox lineHeight="md">{children}</StyledBox>
+        <StyledBox lineHeight="md" pb={3} height="150px">
+          {children}
+        </StyledBox>
         <Button
           shape="lg"
           mx="auto"

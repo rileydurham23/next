@@ -24,7 +24,7 @@ export interface GridDisplayProps {
     | "benefitCard"
     | "default"
     | "newProductCard"
-    | "pastEventCard";
+    | "securityCard";
   productCard?: boolean;
   bg?: BGColor;
   centralHeading?: boolean;
@@ -62,11 +62,7 @@ const GTC = {
     "repeat(3, minmax(140px, 270px))",
     "repeat(4, minmax(140px, 270px))",
   ],
-  pastEventCard: [
-    "minmax(340px, 560px)",
-    "repeat(2, minmax(140px, 1fr)",
-    "repeat(3, minmax(140px, 1fr)",
-  ],
+  securityCard: ["repeat(auto-fill, minmax(280px, 1fr) )"],
 };
 
 //grid gaps
@@ -75,7 +71,7 @@ const GG = {
   benefitCard: [3, 6],
   newProductCard: [3, 7],
   default: [3, 3],
-  pastEventCard: [3, 7],
+  securityCard: [3, 5],
 };
 
 function GridDisplay({
