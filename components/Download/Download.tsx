@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import css from "@styled-system/css";
 import styled from "styled-components";
 
-import * as _ from "lodash";
 import Box from "components/Box";
 import Centrator from "components/Centrator";
 import Flex from "components/Flex";
@@ -104,7 +103,8 @@ const DownloadContainer = styled("div")(
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: "1200px",
+    maxWidth: ["100%", "90%"],
+    // width: "1200px",
   })
 );
 
@@ -130,13 +130,5 @@ const StyledNotesButton = styled("button")(
     margin: "0 32px 0 0",
     display: "inline-block",
     padding: "0 24px",
-  })
-);
-
-const Container = styled(Flex)(
-  css({
-    flexDirection: "column",
-    px: 11,
-    pt: 5,
   })
 );

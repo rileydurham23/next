@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 const isAMD64 = (name) => {
   return name.indexOf("x86_64") !== -1 || name.indexOf("amd64") !== -1;
 };

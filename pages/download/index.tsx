@@ -3,7 +3,6 @@ import Flex from "components/Flex";
 import Link from "components/Link";
 import Section from "components/Section";
 import SectionHeader from "components/SectionHeader";
-import _ from "lodash";
 
 import { getOsParameter } from "components/Download/helpers";
 import type {

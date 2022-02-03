@@ -126,8 +126,10 @@ const StyledTd = styled("td", {
 });
 
 const StyledTable = styled("table", {
-  borderSpacing: "10px 5px",
-  borderCollapse: "separate",
+  // borderSpacing: "10px 5px",
+  borderCollapse: "collapse",
+  margin: 0,
+  width: "100%",
 });
 
 const StyledSelect = styled("select", {
@@ -144,14 +146,13 @@ const HeaderContainer = styled("div", {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  padding: "5px 30px",
 });
 
 const OuterContainer = styled("div", {
   border: "1px solid blue",
   flexDirection: "column",
-  padding: "10px",
   marginBottom: "20px",
-  // width: "100%",
 });
 
 const TableHeader = styled("tr", {
@@ -159,5 +160,6 @@ const TableHeader = styled("tr", {
 });
 
 const BodyRow = styled("tr", {
-  border: "1px solid green",
+  // border: "1px solid #F0F2F4",
+  border: "1px solid #D2DBDF",
 });
