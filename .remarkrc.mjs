@@ -1,6 +1,11 @@
 import remarkVariables from "./.build/server/remark-variables.mjs";
 import remarkIncludes from "./.build/server/remark-includes.mjs";
 import remarkCodeSnippet from "./.build/server/remark-code-snippet.mjs";
+import {
+  getVersion,
+  getVersionRootPath,
+} from "./.build/server/docs-helpers.mjs";
+import { loadConfig } from "./.build/server/config-docs.mjs";
 
 const configFix = {
   settings: {
@@ -22,9 +27,6 @@ const configLint = {
   plugins: [
     "frontmatter",
     "mdx",
-    [remarkVariables, { resolve: true, lint: true }],
-    [remarkIncludes, { lint: true }],
-    [remarkCodeSnippet, { lint: true }],
     "preset-lint-markdown-style-guide",
     ["lint-table-pipe-alignment", false],
     ["lint-table-cell-padding", false],
@@ -40,6 +42,23 @@ const configLint = {
     "lint-ordered-list-marker-value",
     ["lint-maximum-heading-length", false],
     ["lint-no-shortcut-reference-link", false],
+    [
+      remarkIncludes, // Resolves (!include.ext!) syntax
+      {
+        lint: true,
+        rootDir: (vfile) => getVersionRootPath(vfile.path),
+      },
+    ],
+    [
+      remarkVariables, // Resolves (=variable=) syntax
+      {
+        lint: true,
+        variables: (vfile) => {
+          return loadConfig(getVersion(vfile.path)).variables || {};
+        },
+      },
+    ],
+    [remarkCodeSnippet, { lint: true }],
     ["validate-links", { repository: false }],
   ],
 };
@@ -54,7 +73,11 @@ if (process.env.WITH_EXTERNAL_LINKS) {
         "http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname",
         "https://github.com/gravitational/teleport/blob/v{{teleport_version}}/examples/chart/teleport-cluster/templates/clusterrole.yaml",
         "https://linuxize.com/post/linux-chown-command/",
+        /https:\/\/github\.com\/gravitational\/teleport\/(pull|issues|milestone)\/\d+/,
       ],
+      gotOptions: {
+        concurrency: 1,
+      },
     },
   ]);
 }

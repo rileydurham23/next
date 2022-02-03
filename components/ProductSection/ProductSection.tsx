@@ -20,7 +20,7 @@ const productCards = [
   {
     title: "Application Access",
     description:
-      "For your DevOps toolkit including AWS Console, CI/CD, version control, and monitoring.",
+      "For DevOps including AWS Console, CI/CD, version control, and monitoring.",
     image: "application",
     href: "/application-access/",
     cardBG: "lightPurple",

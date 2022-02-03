@@ -14,35 +14,35 @@ const menu: MenuCategoryProps[] = [
     children: [
       {
         image: serverSvgPath,
-        title: "Teleport Server Access",
+        title: "Server Access",
         description:
           "SSH securely into Linux servers and smart devices with a complete audit trail",
         href: "/ssh-server-access/",
       },
       {
         image: kubernetesSvgPath,
-        title: "Teleport Kubernetes Access",
+        title: "Kubernetes Access",
         description:
           "Access Kubernetes clusters securely with complete visibility to access and behavior",
         href: "/kubernetes-access/",
       },
       {
         image: applicationSvgPath,
-        title: "Teleport Application Access",
+        title: "Application Access",
         description:
           "Access web applications running behind NAT and firewalls with security and compliance",
         href: "/application-access/",
       },
       {
         image: databaseSvgPath,
-        title: "Teleport Database Access",
+        title: "Database Access",
         description:
           "For PostgreSQL and MySQL databases behind NAT in multiple environments",
         href: "/database-access/",
       },
       {
         image: desktopSvgPath,
-        title: "Teleport Desktop Access",
+        title: "Desktop Access",
         description:
           "Securely access Windows servers and desktops in multiple environments.",
         href: "/desktop-access/",

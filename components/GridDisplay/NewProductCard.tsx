@@ -69,6 +69,7 @@ export const NewProductCard = ({
             <BottomHalf>
               <TitleBox>{title}</TitleBox>
               <DescriptionBox>{description}</DescriptionBox>
+              <CTA href={href}>Explore {title}</CTA>
             </BottomHalf>
           </StyledLink>
         </StyledWrapper>
@@ -80,6 +81,7 @@ export const NewProductCard = ({
 const BackgroundLayer = styled(Box)(
   css({
     backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
     borderTopLeftRadius: "md",
     borderTopRightRadius: "md",
     height: "150px",
@@ -89,6 +91,16 @@ const BackgroundLayer = styled(Box)(
 const BottomHalf = styled(Flex)(
   css({
     flexDirection: "column",
+  })
+);
+
+const CTA = styled(Link)(
+  css({
+    color: "gray",
+    fontSize: "text-md",
+    lineHeight: "md",
+    pt: 2,
+    px: 5,
   })
 );
 

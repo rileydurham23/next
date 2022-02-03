@@ -5,7 +5,7 @@ headerBehaviour: floating
 headerMode: full
 border: none
 hideWave: true
-description: "How to install Teleport Community Edition: Implement industry-best practices for SSH and Kubernetes access, meet compliance requirements"
+description: "How to build Teleport Community Edition from source. The easiest, most secure way to access all your infrastructure."
 ---
 
 import styled from "styled-components";
@@ -30,6 +30,23 @@ import Terminal from "components/Terminal";
   <Box>
     <h3>Additional ways to install Teleport</h3>
     <ul>
+      <li>
+          <Link
+            href="https://goteleport.com/docs/installation/"
+            color="light-purple"
+          >
+            Teleport Pre-built Binaries
+          </Link>
+        </li>
+          <li>
+          <Link
+            href="https://charts.releases.teleport.dev/"
+            color="light-purple"
+          >
+            Teleport Helm Charts
+          </Link>
+        </li>
+
       <li>
         <Link
           href="https://goteleport.com/docs/getting-started/"
@@ -62,7 +79,7 @@ import Terminal from "components/Terminal";
 <Centrator>
   <Section bg="flatWhite" pt={5} css={css({ p: { fontSize: "text-xl" } })}>
 
-Make sure you have Golang `v1.14` or newer, then run:
+Make sure you have Golang `v1.17` or newer, then run:
 
       <Terminal mb={4}>
         ```bash
