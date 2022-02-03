@@ -62,6 +62,11 @@ const GTC = {
     "repeat(3, minmax(140px, 270px))",
     "repeat(4, minmax(140px, 270px))",
   ],
+  pastEventCard: [
+    "minmax(340px, 560px)",
+    "repeat(2, minmax(140px, 1fr)",
+    "repeat(3, minmax(140px, 1fr)",
+  ],
 };
 
 //grid gaps
@@ -152,7 +157,6 @@ function GridDisplay({
 
         {/** Card display logic using Grid*/}
         <Grid
-          border="1px solid black"
           justifyContent={NewProductCard ? "center" : null}
           justifyItems="center"
           mt={centralHeading ? [3, 2] : productCard ? 3 : 7}
