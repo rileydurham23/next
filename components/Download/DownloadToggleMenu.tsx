@@ -6,19 +6,19 @@ import { styled } from "@stitches/react";
 const ToggleMenu = ({ buttons, onChange, selectedDefault }) => {
   const [selected, setSelected] = useState(selectedDefault);
 
-  console.log("selected", selected);
+  // console.log("selected", selected);
 
   const handleClick = (event) => {
     const os = event.target.value;
     setSelected(os);
     onChange(os);
-    console.log("handle click", os);
+    // console.log("handle click", os);
   };
 
   const toggleButtons = buttons.map((button) => {
     const isSelected = selected === button.value ? true : false;
 
-    console.log(`${button.value} `, isSelected);
+    // console.log(`${button.value} `, isSelected);
 
     return (
       <StyledButton

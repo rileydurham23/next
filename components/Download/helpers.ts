@@ -205,22 +205,6 @@ export const isLinux = (name) => {
   return isLnx;
 };
 
-/*
-  Group by Major Versions Method
-
-  @type const
-  @description This method takes the array of all releases and groups them into collections by major versions.
-  @returns {array} Returns an array with a collection of arrays grouped by major version (ex. 4.3, 4.2, 3.2, etc.)
-*/
-
-/*
-  Group by Operating System
-
-  @type const
-  @description This method takes the array of all downloads for a release and groups them into collections by OS.
-  @returns {array} Returns an array with a collection of arrays grouped by OS (ex. Linux, Windows, Mac)
-*/
-
 export const groupByOS = (downloads) => {
   const sortedDownloads = {
     mac: [],
@@ -228,7 +212,7 @@ export const groupByOS = (downloads) => {
     linux: [],
   };
 
-  console.log("$$$$$", downloads);
+  // console.log("$$$$$", downloads);
 
   downloads.forEach((release) => {
     const name = release.name;
@@ -253,6 +237,7 @@ const isOsParameter = (input: string | null): input is OsParameter =>
   Set.prototype.has.call(osParameterSet, input);
 
 export const getOsParameter = (url: string): OsParameter | void => {
+  console.log("????????? url", url);
   if (isOsParameter(url)) {
     return url;
   }

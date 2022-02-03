@@ -35,7 +35,7 @@ export const DownloadTable = ({
   );
 
   const handleChange = (os) => {
-    console.log("%%%%%");
+    // console.log("%%%%%");
     setOs(os);
   };
 
@@ -63,7 +63,7 @@ export const DownloadTable = ({
     setSelectedVersionTag(event.target.value);
   };
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <OuterContainer>
