@@ -96,7 +96,12 @@ export const GridTile = ({
               backgroundColor={cardBC}
               height="112px"
             ></TopFlex>
-            <StyledBox px={4} maxWidth="224px">
+            <StyledBox
+              px={4}
+              maxWidth="224px"
+              fontStyle={tileType}
+              lineHeight="sm"
+            >
               <h3>{speaker}</h3>
               <p>{speakerDetails}</p>
             </StyledBox>
@@ -111,7 +116,6 @@ export const GridTile = ({
           backgroundImage={`url("${backgroundImage}")`}
           backgroundSize={isArticle ? "auto 100%" : "cover"}
           backgroundColor={cardBC}
-          // flexDirection="row"
         >
           {src &&
             (!smallIcon ? (
@@ -151,26 +155,16 @@ export const GridTile = ({
         borderRadius="0 0 8px 8px"
         backgroundColor={bhColor}
       >
-        {/* <Box
-          as="p"
-          fontSize="text-md"
-          lineHeight="md"
-          color="black"
-          fontWeight="bold"
-        >
-          {title}
-        </Box> */}
         <StyledTitleBox fontStyle={tileType} as="p">
           {title}
         </StyledTitleBox>
-        <Box
-          fontSize="13px"
-          lineHeight="md"
-          color="gray"
+        <StyledBox
           pb={needDescriptionMargin ? 3 : 0}
+          lineHeight="md"
+          fontStyle={tileType}
         >
           {children}
-        </Box>
+        </StyledBox>
       </Flex>
     </StyledWrapper>
   );
@@ -208,18 +202,30 @@ const StyledBox = styled(Box)(
   css({
     fontFamily: "body",
     fontStyle: "normal",
-    fontSize: "text-sm",
-    lineHeight: "sm",
     letterSpacing: "0em",
-    h3: {
-      mb: 1,
-      color: "dark-purple",
-      fontWeight: "bold",
-    },
-    p: {
-      mt: 1,
-      color: "gray",
-      fontWeight: "normal",
+  }),
+  variant({
+    prop: "fontStyle",
+    variants: {
+      default: {
+        fontSize: "13px",
+        lineHeight: "md",
+      },
+      securityVisionary: {
+        p: {
+          fontSize: "text-sm",
+          mt: 1,
+          color: "gray",
+          fontWeight: "normal",
+        },
+        h3: {
+          mb: 1,
+          color: "dark-purple",
+          fontWeight: "bold",
+          fontSize: "text-sm",
+          lineHeight: "sm",
+        },
+      },
     },
   })
 );

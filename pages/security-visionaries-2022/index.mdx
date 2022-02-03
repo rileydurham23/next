@@ -7,10 +7,14 @@ previewImage: "security-visionaries.png"
 headerDescription: Come hear what some of the world’s foremost security researchers, practitioners and thinkers see on the security horizon for 2022.
 ---
 import styled from "styled-components";
+import bruceImage from "./assets/bruce@2x.png";
 import Link from "components/Link";
 import List from "components/List";
+import Button from "components/Button";
 import SignupDescription from "components/SignupDescription";
 import { StyledMarketoBrowserForm } from "components/MarketoForm";
+import GridDisplay, { GridTile, ProductCard, BenefitCard, NewProductCard } from "components/GridDisplay";
+import { GridCard } from "components/GridDisplay/GridCard";
 
 <List
   title={meta.title}
@@ -98,3 +102,59 @@ import { StyledMarketoBrowserForm } from "components/MarketoForm";
   </List.AvatarItem>
 
 </List>
+
+<GridDisplay cardStyle="newProductCard">
+  <GridTile
+    title="Securing a World of Physically Capable Computers"
+    href="/"
+    cardBG="podcast"
+    src={bruceImage}
+    tileType="securityVisionary"
+    speaker="Bruce Schneier"
+    speakerDetails="Security Technologist &amp; Guru"
+  >
+    <>
+       <p>
+        Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
+      </p>
+      <Button>Watch Recording</Button>
+    </>
+  </GridTile>
+
+  <GridTile
+    title="Lessons From Billions of Breached Records"
+    href="/"
+    cardBG="podcast"
+    src={bruceImage}
+    tileType="securityVisionary"
+    speaker="Bruce Schneier"
+    speakerDetails="Information Security Author &amp; Instructor at Pluralsight, Founder of Have I Been Pwned"
+  >
+    <>
+       <p>
+        Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
+      </p>
+      <Button>Watch Recording</Button>
+    </>
+  </GridTile>
+
+
+  <GridTile
+    cardBG="podcast"
+    speaker="Michael Coates"
+    speakerDetails="Cybersecurity Keynote Speaker. Former CISO at Twitter"
+    cardBC="#7553fa"
+    href="/"
+    needDescriptionMargin={false}
+    smallIcon={true}
+    src={bruceImage}
+    tileType="securityVisionary"
+    title="Balancing Security and Agility While Scaling Your Company"
+    width="auto"
+  >
+    <p>
+      Fast-growth companies are some of the richest targets for hackers because that’s where the user data is. How do you balance the security you need to protect your customers/users with the agility you need to build a business?...
+    </p>
+    <Button>Watch Recording</Button>
+  </GridTile>
+</GridDisplay>
