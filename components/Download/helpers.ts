@@ -228,6 +228,8 @@ export const groupByOS = (downloads) => {
     linux: [],
   };
 
+  console.log("$$$$$", downloads);
+
   downloads.forEach((release) => {
     const name = release.name;
     if (isWindows(name)) {

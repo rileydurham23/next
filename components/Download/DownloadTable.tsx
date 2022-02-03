@@ -6,6 +6,7 @@ import Link from "components/Link";
 import { getOsParameter, groupByOS, OsParameter } from "./helpers";
 import type { MajorVersionCollection } from "./types";
 import DownloadToggleMenu from "./DownloadToggleMenu";
+import DownloadRow from "./DownloadRow";
 
 interface DownloadTableProps {
   showNotes: boolean;
@@ -62,7 +63,7 @@ export const DownloadTable = ({
     setSelectedVersionTag(event.target.value);
   };
 
-  console.log(data.versions);
+  console.log(data);
 
   return (
     <OuterContainer>
@@ -94,16 +95,13 @@ export const DownloadTable = ({
         </thead>
         <tbody style={{ width: "90%" }}>
           {selectedVersion.downloads.map((download) => (
-            <BodyRow key={download.sha256}>
-              <StyledTd>{download.name}</StyledTd>
-              <StyledTd>
-                <Link href={download.sha256}>SHA256</Link>
-              </StyledTd>
-              <StyledTd>{download.displaySize}</StyledTd>
-              <StyledTd>
-                <Link href={download.url}>{download.name}</Link>
-              </StyledTd>
-            </BodyRow>
+            <DownloadRow
+              key={download.sha256}
+              name={download.name}
+              url={download.url}
+              displaySize={download.displaySize}
+              sha256={download.sha256}
+            />
           ))}
         </tbody>
       </StyledTable>
@@ -119,10 +117,6 @@ const Left = styled("div", {
 const Right = styled("div", {
   display: "flex",
   flexDirection: "row",
-});
-
-const StyledTd = styled("td", {
-  padding: "5px 30px",
 });
 
 const StyledTable = styled("table", {
@@ -157,9 +151,4 @@ const OuterContainer = styled("div", {
 
 const TableHeader = styled("tr", {
   textTransform: "uppercase",
-});
-
-const BodyRow = styled("tr", {
-  // border: "1px solid #F0F2F4",
-  border: "1px solid #D2DBDF",
 });

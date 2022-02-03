@@ -14,9 +14,6 @@ import { DownloadTable } from "components/Download";
 import { OsParameter } from "./helpers";
 import type { MajorVersionCollection } from "./types";
 
-const teleport =
-  "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
-
 interface DownloadProps {
   initialDownloads: Array<MajorVersionCollection>;
   initialOs: OsParameter;
@@ -27,10 +24,6 @@ export const Download: React.FC<DownloadProps> = ({
   initialOs,
 }) => {
   const [showNotes, setShowNotes] = useState(false);
-
-  console.log("show notes", showNotes);
-  const url =
-    "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
 
   const renderGithubStars = () => {
     return <Star owner="gravitational" repo="teleport" />;
@@ -50,26 +43,6 @@ export const Download: React.FC<DownloadProps> = ({
   const toggleReleaseNotes = () => {
     setShowNotes(!showNotes);
   };
-
-  // const renderErrorMessage = () => {
-  //   let errMessage = null;
-
-  //   if (error) {
-  //     errMessage = (
-  //       <>
-  //         <Flex>
-  //           We&apos;re sorry there was an error retreiving the latest build.
-  //         </Flex>
-  //         <Flex>
-  //           Please try again later. If the problem persists contact
-  //           <a href="mailto:support@goteleport.com">support@goteleport.com</a>
-  //         </Flex>
-  //       </>
-  //     );
-  //   }
-
-  //   return errMessage;
-  // };
 
   const renderTables = () => {
     const allTables = initialDownloads.map((majorVersionCollection) => {
@@ -104,7 +77,6 @@ const DownloadContainer = styled("div")(
     justifyContent: "center",
     alignItems: "center",
     maxWidth: ["100%", "90%"],
-    // width: "1200px",
   })
 );
 
