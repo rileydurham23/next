@@ -19,7 +19,12 @@ import { NewProductCard } from "./NewProductCard";
 
 export interface GridDisplayProps {
   children: React.ReactNode;
-  cardStyle?: "productCard" | "benefitCard" | "default" | "newProductCard";
+  cardStyle?:
+    | "productCard"
+    | "benefitCard"
+    | "default"
+    | "newProductCard"
+    | "pastEventCard";
   productCard?: boolean;
   bg?: BGColor;
   centralHeading?: boolean;
@@ -65,6 +70,7 @@ const GG = {
   benefitCard: [3, 6],
   newProductCard: [3, 7],
   default: [3, 3],
+  pastEventCard: [3, 7],
 };
 
 function GridDisplay({
@@ -146,6 +152,7 @@ function GridDisplay({
 
         {/** Card display logic using Grid*/}
         <Grid
+          border="1px solid black"
           justifyContent={NewProductCard ? "center" : null}
           justifyItems="center"
           mt={centralHeading ? [3, 2] : productCard ? 3 : 7}

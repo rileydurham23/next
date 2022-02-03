@@ -10,11 +10,11 @@ import styled from "styled-components";
 import bruceImage from "./assets/bruce@2x.png";
 import Link from "components/Link";
 import List from "components/List";
-import Button from "components/Button";
 import SignupDescription from "components/SignupDescription";
 import { StyledMarketoBrowserForm } from "components/MarketoForm";
-import GridDisplay, { GridTile, ProductCard, BenefitCard, NewProductCard } from "components/GridDisplay";
-import { GridCard } from "components/GridDisplay/GridCard";
+import GridDisplay, { GridTile } from "components/GridDisplay";
+import Centrator from "components/Centrator";
+import Section from "components/Section";
 
 <List
   title={meta.title}
@@ -119,24 +119,44 @@ import { GridCard } from "components/GridDisplay/GridCard";
       Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
     </>
   </GridTile>
+</GridDisplay>
 
-<GridTile
-    cardBG="webinar"
-    speaker="Michael Coates"
-    speakerDetails="Cybersecurity Keynote Speaker. Former CISO at Twitter"
-    cardBC="#7553fa"
+<GridDisplay cardStyle="newProductCard">
+  <GridTile
+    title="Securing a World of Physically Capable Computers"
     href="/"
-    needDescriptionMargin={false}
-    smallIcon={true}
+    cardBG="podcast"
     src={bruceImage}
     tileType="pastEvent"
-    title="Balancing Security and Agility While Scaling Your Company"
+    speaker="Bruce Schneier"
+    speakerDetails="Security Technologist &amp; Guru"
     width="auto"
+    needDescriptionMargin
   >
-    Fast-growth companies are some of the richest targets for hackers because that’s where the user data is. How do you balance the security you need to protect your customers/users with the agility you need to build a business?...
+    <>
+      Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
+    </>
   </GridTile>
-
   <GridTile
+    title="Securing a World of Physically Capable Computers"
+    href="/"
+    cardBG="podcast"
+    src={bruceImage}
+    tileType="pastEvent"
+    speaker="Bruce Schneier"
+    speakerDetails="Security Technologist &amp; Guru"
+    width="auto"
+    needDescriptionMargin
+  >
+    <>
+      Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
+    </>
+  </GridTile>
+</GridDisplay>
+
+
+<GridDisplay cardStyle="newProductCard">
+    <GridTile
     title="Lessons From Billions of Breached Records"
     href="/"
     cardBG="podcast"
@@ -150,7 +170,34 @@ import { GridCard } from "components/GridDisplay/GridCard";
       Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
     </>
   </GridTile>
-
-
-
+  <GridTile
+    cardBG="podcast"
+    speaker="Michael Coates"
+    speakerDetails="Cybersecurity Keynote Speaker. Former CISO at Twitter"
+    cardBC="#7553fa"
+    href="/"
+    needDescriptionMargin={false}
+    smallIcon={true}
+    src={bruceImage}
+    tileType="pastEvent"
+    title="Balancing Security and Agility While Scaling Your Company"
+    width="auto"
+  >
+    Fast-growth companies are some of the richest targets for hackers because that’s where the user data is. How do you balance the security you need to protect your customers/users with the agility you need to build a business?...
+  </GridTile>
+  <GridTile
+    title="Securing a World of Physically Capable Computers"
+    href="/"
+    cardBG="podcast"
+    src={bruceImage}
+    tileType="pastEvent"
+    speaker="Bruce Schneier"
+    speakerDetails="Security Technologist &amp; Guru"
+    width="auto"
+    needDescriptionMargin
+  >
+    <>
+      Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
+    </>
+  </GridTile>
 </GridDisplay>
