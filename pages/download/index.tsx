@@ -10,7 +10,6 @@ import type {
   Version,
   MajorVersionCollection,
 } from "components/Download/types";
-import { useEffect } from "react";
 
 interface PaginatedResponse {
   next: number;
@@ -73,6 +72,7 @@ const DownloadPage: React.FC<DownloadPageProps> = ({
   os = "linux",
   initialDownloads,
 }) => {
+  console.log("??????", os);
   // return (
   //   <div style={{ height: "100vh", width: "100vw" }}>
   //     <iframe
@@ -113,7 +113,7 @@ const DownloadPage: React.FC<DownloadPageProps> = ({
           </ul>
         </Flex>
       </SectionHeader>
-      <Section bg="flatWhite">
+      <Section bg="flatWhite" display="flex" justifyContent="center">
         <Download initialDownloads={initialDownloads} initialOs={os} />
       </Section>
     </>

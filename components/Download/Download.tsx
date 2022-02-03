@@ -28,6 +28,8 @@ export const Download: React.FC<DownloadProps> = ({
   initialOs,
 }) => {
   const [showNotes, setShowNotes] = useState(false);
+
+  console.log("show notes", showNotes);
   const url =
     "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0";
 
@@ -83,23 +85,35 @@ export const Download: React.FC<DownloadProps> = ({
     });
 
     return (
-      <Flex alignItems="center" flexDirection="column">
+      <DownloadContainer>
         <Top mb={4}>
           {renderNotesToggle()}
           {renderGithubStars()}
         </Top>
         {allTables}
-      </Flex>
+      </DownloadContainer>
     );
   };
 
   return <>{renderTables()}</>;
 };
 
+const DownloadContainer = styled("div")(
+  css({
+    display: "inline-block",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "1200px",
+  })
+);
+
 const Top = styled(Flex)(
   css({
     alignItems: "left",
     justifyContent: "left",
+    border: "1px solid green",
+    flexGrow: 1,
   })
 );
 

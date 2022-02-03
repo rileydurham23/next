@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import css from "@styled-system/css";
-import styled from "styled-components";
-import _ from "lodash";
 
-import Flex from "components/Flex";
+import { styled } from "@stitches/react";
+
 import Link from "components/Link";
 import { getOsParameter, groupByOS, OsParameter } from "./helpers";
 import type { MajorVersionCollection } from "./types";
+import DownloadToggleMenu from "./DownloadToggleMenu";
 
 interface DownloadTableProps {
   showNotes: boolean;
@@ -20,7 +19,7 @@ export const DownloadTable = ({
   initialOs,
 }: DownloadTableProps) => {
   // lazy state initialization done so function is only called on first render to set the value of 'os'
-  const [os, setOs] = useState<OsParameter>(initialOs);
+  const [os, setOs] = useState<OsParameter>("linux");
   const [firstShowNotes, setFirstShowNotes] = useState(true);
   const [selectedVersionTag, setSelectedVersionTag] = useState(() => {
     const latestVersion = data.versions.find(
@@ -34,60 +33,26 @@ export const DownloadTable = ({
     (version) => version.version === selectedVersionTag
   );
 
-  // const toggleReleaseNotes = (event) => {
-  //   event.preventDefault();
+  const handleChange = (os) => {
+    console.log("%%%%%");
+    setOs(os);
+  };
 
-  //   if (showNotes && firstShowNotes) {
-  //     setTableShowNotes(false);
-  //     setFirstShowNotes(false);
-  //   } else if (showNotes) {
-  //     setTableShowNotes(false);
-  //     setFirstShowNotes(false);
-  //   } else {
-  //     setTableShowNotes(true);
-  //     setFirstShowNotes(false);
-  //   }
-  // };
+  const renderOsMenu = () => {
+    const buttons = [
+      { value: "linux", name: "Linux", icon: "linux" },
+      { value: "mac", name: "MacOS", icon: "apple" },
+      { value: "windows", name: "Windows", icon: "windows" },
+    ];
 
-  // const shouldShowNotes = () => {
-  //   if (showNotes && firstShowNotes) {
-  //     setTableShowNotes(true);
-  //   } else if (showNotes) {
-  //     setTableShowNotes(true);
-  //   }
-
-  //   return showNotes;
-  // };
-
-  // const selectVersion = (event) => {
-  //   const version = event.target.value;
-  //   const release = _.find(data, { version: version });
-  //   const downloads = groupByOS(release.downloads);
-
-  //   setTableDownloads(downloads);
-  // };
-
-  // const selectOS = (os) => {
-  //   setOs(os);
-  // };
-
-  // const renderHeader = () => {
-  //   return (
-  //     <th>
-  //       <Flex justifyContent="space-between">
-  //         <Flex layout="flex" align="center">
-  //           {renderTitle()}
-  //           {renderVersionSelector()}
-  //           {renderNotesLabel()}
-  //         </Flex>
-
-  //         <Flex justifyContent="right">{renderOsMenu()}</Flex>
-  //       </Flex>
-
-  //       {renderNotes()}
-  //     </th>
-  //   );
-  // };
+    return (
+      <DownloadToggleMenu
+        selectedDefault={os}
+        buttons={buttons}
+        onChange={handleChange}
+      />
+    );
+  };
 
   const renderTitle = () => {
     return "Teleport " + data.majorVersion;
@@ -97,20 +62,28 @@ export const DownloadTable = ({
     setSelectedVersionTag(event.target.value);
   };
 
+  console.log(data.versions);
+
   return (
     <OuterContainer>
       <HeaderContainer>
-        <h1>{renderTitle()}</h1>
-        <h1>Release:</h1>
-        <select onChange={handleSelectChange} value={selectedVersion.version}>
-          {data.versions.map((version) => (
-            <option key={version.id} value={version.version}>
-              {version.version}
-            </option>
-          ))}
-        </select>
+        <Left>
+          <HeaderH1>{renderTitle()}</HeaderH1>
+          <p>Release:</p>
+          <StyledSelect
+            onChange={handleSelectChange}
+            value={selectedVersion.version}
+          >
+            {data.versions.map((version) => (
+              <option key={version.id} value={version.version}>
+                {version.version}
+              </option>
+            ))}
+          </StyledSelect>
+        </Left>
+        <Right>{renderOsMenu()}</Right>
       </HeaderContainer>
-      <table>
+      <StyledTable>
         <thead>
           <TableHeader>
             <th>Operating system</th>
@@ -122,41 +95,69 @@ export const DownloadTable = ({
         <tbody style={{ width: "90%" }}>
           {selectedVersion.downloads.map((download) => (
             <BodyRow key={download.sha256}>
-              <td>{download.name}</td>
-              <td>
+              <StyledTd>{download.name}</StyledTd>
+              <StyledTd>
                 <Link href={download.sha256}>SHA256</Link>
-              </td>
-              <td>{download.displaySize}</td>
-              <td>
+              </StyledTd>
+              <StyledTd>{download.displaySize}</StyledTd>
+              <StyledTd>
                 <Link href={download.url}>{download.name}</Link>
-              </td>
+              </StyledTd>
             </BodyRow>
           ))}
         </tbody>
-      </table>
+      </StyledTable>
     </OuterContainer>
   );
 };
 
-const HeaderContainer = styled(Flex)(css({}));
+const Left = styled("div", {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+});
+const Right = styled("div", {
+  display: "flex",
+  flexDirection: "row",
+});
 
-const OuterContainer = styled(Flex)(
-  css({
-    border: "1px solid blue",
-    flexDirection: "column",
-    margin: "20px",
-  })
-);
+const StyledTd = styled("td", {
+  padding: "5px 30px",
+});
 
-const TableHeader = styled("tr")(
-  css({
-    textTransform: "uppercase",
-  })
-);
+const StyledTable = styled("table", {
+  borderSpacing: "10px 5px",
+  borderCollapse: "separate",
+});
 
-const BodyRow = styled("tr")(
-  css({
-    margin: "20px",
-    padding: "20px",
-  })
-);
+const StyledSelect = styled("select", {
+  width: "60%",
+  // height: "70%",
+});
+
+const HeaderH1 = styled("h1", {
+  marginRight: "20px",
+  width: "400px",
+});
+
+const HeaderContainer = styled("div", {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+const OuterContainer = styled("div", {
+  border: "1px solid blue",
+  flexDirection: "column",
+  padding: "10px",
+  marginBottom: "20px",
+  // width: "100%",
+});
+
+const TableHeader = styled("tr", {
+  textTransform: "uppercase",
+});
+
+const BodyRow = styled("tr", {
+  border: "1px solid green",
+});
