@@ -127,15 +127,9 @@ export const GridTile = ({
               >
                 <NextImage src={src} alt={title} height={32} width={32} />
                 {caption && (
-                  <Box
-                    as="p"
-                    color="white"
-                    fontWeight="bold"
-                    fontSize="header-3"
-                    pl={2}
-                  >
+                  <StyledBox as="p" fontStyle="caption">
                     {caption}
-                  </Box>
+                  </StyledBox>
                 )}
               </Flex>
             ))}
@@ -229,6 +223,12 @@ const StyledBox = styled(Box)(
           fontSize: "text-sm",
           lineHeight: "sm",
         },
+      },
+      caption: {
+        color: "white",
+        fontWeight: "bold",
+        fontSize: "header-3",
+        pl: 2,
       },
     },
   })
