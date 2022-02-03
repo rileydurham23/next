@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { all, css } from "components/system";
 import NextImage from "next/image";
-import Link from "components/Link";
 import Box, { BoxProps } from "components/Box";
 import Flex from "components/Flex";
 import Button from "components/Button";
@@ -42,7 +41,6 @@ export interface SecurityCardProps {
   src?: string;
   cardBC?: string;
   bhColor?: string;
-  needDescriptionMargin?: boolean;
 }
 
 const cardBackgrounds = {
@@ -64,7 +62,6 @@ export const SecurityCard = ({
   href,
   cardBC,
   bhColor,
-  needDescriptionMargin = Boolean(href) && Boolean(src),
   speakerDetails,
   speaker,
   ...props
@@ -104,10 +101,15 @@ export const SecurityCard = ({
         backgroundColor={bhColor}
       >
         <StyledTitleBox as="p">{title}</StyledTitleBox>
-        <StyledBox pb={needDescriptionMargin ? 3 : 0} lineHeight="md">
-          {children}
-        </StyledBox>
-        <Button shape="lg" mx="auto" width={["100%", "70%"]} mt={3}>
+        <StyledBox lineHeight="md">{children}</StyledBox>
+        <Button
+          shape="lg"
+          mx="auto"
+          as="a"
+          width={["100%", "70%"]}
+          mt={3}
+          href={href}
+        >
           Watch Recording
         </Button>
       </Flex>
@@ -115,7 +117,7 @@ export const SecurityCard = ({
   );
 };
 
-const StyledWrapper = styled(Link)(
+const StyledWrapper = styled(Flex)(
   css({
     width: ["340px", "auto", "auto"],
     flexDirection: "column",
@@ -123,11 +125,6 @@ const StyledWrapper = styled(Link)(
     textDecoration: "none",
     boxShadow: "0 1px 4px rgba(0, 0, 0, 0.24)",
     bg: "white",
-    transition: ".3s all",
-    "&:hover": {
-      transform: "translateY(-2px)",
-      boxShadow: "0 8px 32px rgba(0, 0, 0, .24)",
-    },
   }),
   all
 );
