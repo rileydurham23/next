@@ -88,28 +88,26 @@ export const GridTile = ({
     <StyledWrapper href={href} {...props}>
       {/* top half */}
       {isSecVis ? (
-        <>
-          <Flex flexDirection="column" position="relative">
-            <TopFlex
-              backgroundImage={`url("${backgroundImage}")`}
-              backgroundSize={isArticle ? "auto 100%" : "cover"}
-              backgroundColor={cardBC}
-              height="112px"
-            ></TopFlex>
-            <StyledBox
-              px={4}
-              maxWidth="224px"
-              fontStyle={tileType}
-              lineHeight="sm"
-            >
-              <h3>{speaker}</h3>
-              <p>{speakerDetails}</p>
-            </StyledBox>
-            <Box position="absolute" top="52px" right="16px">
-              <NextImage src={src} alt={speaker} height={120} width={120} />
-            </Box>
-          </Flex>
-        </>
+        <Flex flexDirection="column" position="relative">
+          <TopFlex
+            backgroundImage={`url("${backgroundImage}")`}
+            backgroundSize={isArticle ? "auto 100%" : "cover"}
+            backgroundColor={cardBC}
+            height="112px"
+          />
+          <StyledBox
+            px={4}
+            maxWidth="224px"
+            fontStyle={tileType}
+            lineHeight="sm"
+          >
+            <h3>{speaker}</h3>
+            <p>{speakerDetails}</p>
+          </StyledBox>
+          <Box position="absolute" top="52px" right="16px">
+            <NextImage src={src} alt={speaker} height={120} width={120} />
+          </Box>
+        </Flex>
       ) : (
         <TopFlex
           pt={src ? 3 : "120px"}
