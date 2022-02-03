@@ -4,6 +4,7 @@ import NextImage from "next/image";
 import Link from "components/Link";
 import Box, { BoxProps } from "components/Box";
 import Flex from "components/Flex";
+import Button from "components/Button";
 import {
   core,
   enterprise,
@@ -59,10 +60,6 @@ const cardBackgrounds = {
   article,
 };
 
-export const TopHalf = ({}) => {
-  return <div>Top Half</div>;
-};
-
 export const GridTile = ({
   children,
   src,
@@ -97,6 +94,7 @@ export const GridTile = ({
           />
           <StyledBox
             px={4}
+            mt={1}
             maxWidth="224px"
             fontStyle={tileType}
             lineHeight="sm"
@@ -157,6 +155,11 @@ export const GridTile = ({
         >
           {children}
         </StyledBox>
+        {isPastEvent && (
+          <Button shape="lg" mx="auto" width={["100%", "70%"]} mt={3}>
+            Watch Recording
+          </Button>
+        )}
       </Flex>
     </StyledWrapper>
   );
@@ -247,6 +250,7 @@ const StyledTitleBox = styled(Box)(
         fontSize: "text-md",
       },
       pastEvent: {
+        my: 1,
         fontSize: "text-lg",
       },
     },
