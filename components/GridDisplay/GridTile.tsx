@@ -31,7 +31,7 @@ import { variant } from "components/system";
  * contents, and an optional title above the card (outside its borders)
  */
 
-export type TileTypeVariant = "default" | "securityVisionary";
+export type TileTypeVariant = "default" | "pastEvent";
 export interface GridTileProps {
   children: React.ReactNode;
   title: string;
@@ -75,19 +75,19 @@ export const GridTile = ({
   bhColor,
   needDescriptionMargin = Boolean(href) && Boolean(src),
   tileType = "default",
-  speakerDetails = "",
-  speaker = "",
+  speakerDetails,
+  speaker,
   ...props
 }: GridTileProps & BoxProps) => {
   //add additional backgrounds to cardBackgrounds
   const backgroundImage = cardBackgrounds[cardBG];
   const isArticle = cardBG === "article";
-  const isSecVis = tileType === "securityVisionary";
+  const isPastEvent = tileType === "pastEvent";
 
   return (
     <StyledWrapper href={href} {...props}>
       {/* top half */}
-      {isSecVis ? (
+      {isPastEvent ? (
         <Flex flexDirection="column" position="relative">
           <TopFlex
             backgroundImage={`url("${backgroundImage}")`}
@@ -206,10 +206,16 @@ const StyledBox = styled(Box)(
     prop: "fontStyle",
     variants: {
       default: {
-        fontSize: "13px",
-        lineHeight: "md",
+        p: {
+          fontSize: "13px",
+          lineHeight: "md",
+          color: "gray",
+        },
       },
-      securityVisionary: {
+      pastEvent: {
+        display: "flex",
+        flexDirection: "column",
+        textAlign: "left",
         p: {
           fontSize: "text-sm",
           mt: 1,
@@ -240,7 +246,7 @@ const StyledTitleBox = styled(Box)(
       default: {
         fontSize: "text-md",
       },
-      securityVisionary: {
+      pastEvent: {
         fontSize: "text-lg",
       },
     },
