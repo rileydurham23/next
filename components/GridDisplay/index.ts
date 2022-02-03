@@ -3,3 +3,4 @@ export { GridTile } from "./GridTile";
 export { ProductCard } from "./ProductCard";
 export { BenefitCard } from "./BenefitCard";
 export { NewProductCard } from "./NewProductCard";
+export { SecurityCard } from "./SecurityCard";

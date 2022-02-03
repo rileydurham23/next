@@ -12,7 +12,7 @@ import Link from "components/Link";
 import List from "components/List";
 import SignupDescription from "components/SignupDescription";
 import { StyledMarketoBrowserForm } from "components/MarketoForm";
-import GridDisplay, { GridTile } from "components/GridDisplay";
+import GridDisplay, { GridTile, SecurityCard } from "components/GridDisplay";
 import Centrator from "components/Centrator";
 import Section from "components/Section";
 
@@ -104,12 +104,11 @@ import Section from "components/Section";
 </List>
 
 <GridDisplay cardStyle="newProductCard">
-  <GridTile
+  <SecurityCard
     title="Securing a World of Physically Capable Computers"
     href="/"
     cardBG="podcast"
     src={bruceImage}
-    tileType="pastEvent"
     speaker="Bruce Schneier"
     speakerDetails="Security Technologist &amp; Guru"
     width="auto"
@@ -118,16 +117,15 @@ import Section from "components/Section";
     <>
       Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
     </>
-  </GridTile>
+  </SecurityCard>
 </GridDisplay>
 
 <GridDisplay cardStyle="newProductCard">
-  <GridTile
+  <SecurityCard
     title="Securing a World of Physically Capable Computers"
     href="/"
     cardBG="podcast"
     src={bruceImage}
-    tileType="pastEvent"
     speaker="Bruce Schneier"
     speakerDetails="Security Technologist &amp; Guru"
     width="auto"
@@ -136,13 +134,12 @@ import Section from "components/Section";
     <>
       Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
     </>
-  </GridTile>
-  <GridTile
+  </SecurityCard>
+  <SecurityCard
     title="Securing a World of Physically Capable Computers"
     href="/"
     cardBG="podcast"
     src={bruceImage}
-    tileType="pastEvent"
     speaker="Bruce Schneier"
     speakerDetails="Security Technologist &amp; Guru"
     width="auto"
@@ -151,17 +148,16 @@ import Section from "components/Section";
     <>
       Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
     </>
-  </GridTile>
+  </SecurityCard>
 </GridDisplay>
 
 
 <GridDisplay cardStyle="newProductCard">
-    <GridTile
+    <SecurityCard
     title="Lessons From Billions of Breached Records"
     href="/"
     cardBG="podcast"
     src={bruceImage}
-    tileType="pastEvent"
     speaker="Bruce Schneier"
     speakerDetails="Information Security Author &amp; Instructor at Pluralsight, Founder of Have I Been Pwned"
     width="auto"
@@ -169,8 +165,8 @@ import Section from "components/Section";
     <>
       Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
     </>
-  </GridTile>
-  <GridTile
+  </SecurityCard>
+  <SecurityCard
     cardBG="podcast"
     speaker="Michael Coates"
     speakerDetails="Cybersecurity Keynote Speaker. Former CISO at Twitter"
@@ -179,18 +175,16 @@ import Section from "components/Section";
     needDescriptionMargin={false}
     smallIcon={true}
     src={bruceImage}
-    tileType="pastEvent"
     title="Balancing Security and Agility While Scaling Your Company"
     width="auto"
   >
     Fast-growth companies are some of the richest targets for hackers because that’s where the user data is. How do you balance the security you need to protect your customers/users with the agility you need to build a business?...
-  </GridTile>
-  <GridTile
+  </SecurityCard>
+  <SecurityCard
     title="Securing a World of Physically Capable Computers"
     href="/"
     cardBG="podcast"
     src={bruceImage}
-    tileType="pastEvent"
     speaker="Bruce Schneier"
     speakerDetails="Security Technologist &amp; Guru"
     width="auto"
@@ -199,5 +193,5 @@ import Section from "components/Section";
     <>
       Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
     </>
-  </GridTile>
+  </SecurityCard>
 </GridDisplay>
