@@ -4,8 +4,7 @@ import css from "@styled-system/css";
 import styled from "styled-components";
 
 import Flex from "components/Flex";
-
-import { Star } from "react-github-buttons";
+import GitHubButton from "react-github-btn";
 
 import { DownloadTable } from "components/Download";
 import { OsParameter } from "./helpers";
@@ -20,32 +19,47 @@ export const Download: React.FC<DownloadProps> = ({
   initialDownloads,
   initialOs,
 }) => {
-  const [showNotes, setShowNotes] = useState(false);
+  const [showAllNotes, setShowAllNotes] = useState(false);
+  // const [showAllNotes, setShowNotes] = useState(false);
+
+  console.log(showAllNotes);
 
   const renderGithubStars = () => {
-    return <Star owner="gravitational" repo="teleport" />;
-  };
-
-  const renderNotesToggle = () => {
-    const label = showNotes
-      ? "Hide All Release Notes"
-      : "Show All Release Notes";
     return (
-      <StyledNotesButton onClick={toggleReleaseNotes}>
-        {label}
-      </StyledNotesButton>
+      <GitHubButton
+        href="https://github.com/gravitational/teleport"
+        data-icon="octicon-star"
+        data-size="large"
+        data-show-count="true"
+        aria-label="Star repo on GitHub"
+      >
+        Star
+      </GitHubButton>
     );
   };
 
-  const toggleReleaseNotes = () => {
-    setShowNotes(!showNotes);
+  const renderAllNotesToggle = () => {
+    const label = showAllNotes
+      ? "Hide All Release Notes"
+      : "Show All Release Notes";
+    return (
+      <StyledNotesButton onClick={toggleAllNotes}>{label}</StyledNotesButton>
+    );
   };
+
+  const toggleAllNotes = () => {
+    setShowAllNotes(!showAllNotes);
+  };
+
+  // const togglelIndividualNotes = () => {
+
+  // }
 
   const renderTables = () => {
     const allTables = initialDownloads.map((majorVersionCollection) => {
       return (
         <DownloadTable
-          showNotes={showNotes}
+          showAllNotes={showAllNotes}
           key={majorVersionCollection.majorVersion}
           data={majorVersionCollection}
           initialOs={initialOs}
@@ -56,7 +70,7 @@ export const Download: React.FC<DownloadProps> = ({
     return (
       <DownloadContainer>
         <Top mb={4}>
-          {renderNotesToggle()}
+          {renderAllNotesToggle()}
           {renderGithubStars()}
         </Top>
         {allTables}

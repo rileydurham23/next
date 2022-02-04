@@ -9,19 +9,18 @@ import DownloadToggleMenu from "./DownloadToggleMenu";
 import DownloadRow from "./DownloadRow";
 
 interface DownloadTableProps {
-  showNotes: boolean;
+  showAllNotes: boolean;
   data: MajorVersionCollection;
   initialOs: OsParameter;
 }
 
 export const DownloadTable = ({
-  showNotes,
+  showAllNotes,
   data,
   initialOs,
 }: DownloadTableProps) => {
   // lazy state initialization done so function is only called on first render to set the value of 'os'
   const [os, setOs] = useState<OsParameter>("linux");
-  const [firstShowNotes, setFirstShowNotes] = useState(true);
   const [selectedVersionTag, setSelectedVersionTag] = useState(() => {
     const latestVersion = data.versions.find(
       (version) => version.prerelease === false
@@ -62,26 +61,18 @@ export const DownloadTable = ({
     setSelectedVersionTag(event.target.value);
   };
 
-  const renderNotes = () => {
-    return (
-      <>
-        {data.versions.map((version) => (
-          <>
-            <ReactMarkdown>{version.descriptionMarkdown}</ReactMarkdown>
-          </>
-        ))}
-      </>
-    );
-    // const description =
-    //   descriptionMarkdown || "No release notes for this build";
-    // let showNotes = shouldShowNotes();
-    // let notes = null;
-
-    // if (showNotes) {
-    //   notes = <StyledMarkdown source={description} linkTarget="_blank" />;
-    // }
-
-    // return notes;
+  const renderAllNotes = () => {
+    if (showAllNotes) {
+      return (
+        <>
+          {data.versions.map((version) => (
+            <StyledMarkdown key={version.version}>
+              {version.descriptionMarkdown}
+            </StyledMarkdown>
+          ))}
+        </>
+      );
+    }
   };
 
   const renderHeaders = () => {
@@ -102,7 +93,9 @@ export const DownloadTable = ({
               ))}
             </StyledSelect>
           </ReleaseDropdownContainer>
-          <ReleaseATag href="#">Show Release Notes</ReleaseATag>
+          <ReleaseATag onClick={() => !showAllNotes}>
+            Show Release Notes
+          </ReleaseATag>
         </Left>
         <Right>{renderOsMenu()}</Right>
       </HeaderContainer>
@@ -111,8 +104,10 @@ export const DownloadTable = ({
 
   return (
     <OuterContainer>
-      {renderHeaders()}
-      {renderNotes()}
+      <>
+        {renderHeaders()}
+        {renderAllNotes()}
+      </>
       <StyledTable>
         <thead>
           <TableHeader>
@@ -137,6 +132,20 @@ export const DownloadTable = ({
     </OuterContainer>
   );
 };
+
+const StyledMarkdown = styled(ReactMarkdown, {
+  fontSize: "14px",
+  lineHeight: "24px",
+  color: "#607D8B",
+  padding: "20px",
+
+  a: {
+    color: "#651fff !important",
+  },
+  h1: {
+    fontSize: "14px",
+  },
+});
 
 const ReleaseDropdownContainer = styled("div", {
   marginRight: "48px",

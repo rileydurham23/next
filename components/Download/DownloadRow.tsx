@@ -23,7 +23,8 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
       <BodyRow key={sha256}>
         <StyledTd>{operatingSystemInfo.name}</StyledTd>
         <StyledTd>
-          {/* <ChecksumButton href={sha256}>SHA256</ChecksumButton> */}
+          {/* @ts-expect-error placeholder, add button interface */}
+          <ChecksumButton href={sha256}>SHA256</ChecksumButton>
         </StyledTd>
         <StyledTd>{displaySize}</StyledTd>
         <StyledTd>
