@@ -36,7 +36,7 @@ The intention at present is for `gravitational/web` to be deprecated entirely an
 
 However separation of the three main parts of `goteleport.com` is now underway: the main website (hereafter the "marketing site"), the blog, and the docs will each live in separate repos. Furthermore, the new home of the blog, `gravitational/blog` will shortly be connected to a CMS (probably Contentful).
 
-For SEO purposes, subdomains, e.g. `docs.goteleport.com` will not be used.
+For SEO purposes, subdomains (such as `docs.goteleport.com` or `blog.goteleport.com`) will 301 redirect to paths under the main site (e.g. `goteleport.com/docs` or `goteleport.com/blog`).
 
 ## Desired Functionality of the new Staging Environment and Deploy Pipeline
 
