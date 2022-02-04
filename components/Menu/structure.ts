@@ -36,8 +36,7 @@ const menu: MenuCategoryProps[] = [
       {
         image: databaseSvgPath,
         title: "Database Access",
-        description:
-          "For PostgreSQL and MySQL databases behind NAT in multiple environments",
+        description: "For SQL and NoSQL databases across multi-environments",
         href: "/database-access/",
       },
       {

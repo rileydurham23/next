@@ -42,7 +42,6 @@ const configLint = {
     "lint-ordered-list-marker-value",
     ["lint-maximum-heading-length", false],
     ["lint-no-shortcut-reference-link", false],
-    ["validate-links", { repository: false }],
     [
       remarkIncludes, // Resolves (!include.ext!) syntax
       {
@@ -60,6 +59,7 @@ const configLint = {
       },
     ],
     [remarkCodeSnippet, { lint: true }],
+    ["validate-links", { repository: false }],
   ],
 };
 
@@ -73,7 +73,11 @@ if (process.env.WITH_EXTERNAL_LINKS) {
         "http://schemas.microsoft.com/ws/2008/06/identity/claims/windowsaccountname",
         "https://github.com/gravitational/teleport/blob/v{{teleport_version}}/examples/chart/teleport-cluster/templates/clusterrole.yaml",
         "https://linuxize.com/post/linux-chown-command/",
+        /https:\/\/github\.com\/gravitational\/teleport\/(pull|issues|milestone)\/\d+/,
       ],
+      gotOptions: {
+        concurrency: 1,
+      },
     },
   ]);
 }
