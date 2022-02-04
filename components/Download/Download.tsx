@@ -1,14 +1,11 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import css from "@styled-system/css";
 import styled from "styled-components";
 
-import Box from "components/Box";
-import Centrator from "components/Centrator";
 import Flex from "components/Flex";
 
 import { Star } from "react-github-buttons";
-// import DownloadRow from "./DownloadRow";
 
 import { DownloadTable } from "components/Download";
 import { OsParameter } from "./helpers";
