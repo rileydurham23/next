@@ -62,7 +62,11 @@ const GTC = {
     "repeat(3, minmax(140px, 270px))",
     "repeat(4, minmax(140px, 270px))",
   ],
-  securityCard: ["repeat(auto-fill, minmax(280px, 1fr) )"],
+  securityCard: [
+    "minmax(140px, 370px)",
+    "repeat(2, minmax(140px, 370px))",
+    "repeat(4, minmax(140px, 370px))",
+  ],
 };
 
 //grid gaps
