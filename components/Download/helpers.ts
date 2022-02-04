@@ -212,8 +212,6 @@ export const groupByOS = (downloads) => {
     linux: [],
   };
 
-  // console.log("$$$$$", downloads);
-
   downloads.forEach((release) => {
     const name = release.name;
     if (isWindows(name)) {
@@ -237,7 +235,6 @@ const isOsParameter = (input: string | null): input is OsParameter =>
   Set.prototype.has.call(osParameterSet, input);
 
 export const getOsParameter = (url: string): OsParameter | void => {
-  console.log("????????? url", url);
   if (isOsParameter(url)) {
     return url;
   }

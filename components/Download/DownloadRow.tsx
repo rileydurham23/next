@@ -11,36 +11,19 @@ interface DownloadProps {
   sha256: string;
 }
 
-const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
-  // const info = getDownloadInfo(name);
-  // const [popover, togglePopover] = useState(false);
-  // let popoverInfo = null;
+interface ChecksumButtonProps {
+  href: string;
+}
 
-  // if (popover) {
-  //   popoverInfo = (
-  //     <Popover placement="top" title="SHA256 Checksum" onClose={togglePopover}>
-  //       <StyledField type="text" value={sha256} readOnly />
-  //       <Button size="small" kind="secondary" onClick={copyToClipboard}>
-  //         Copy
-  //       </Button>
-  //       <Button
-  //         size="small"
-  //         kind="outline"
-  //         space="left"
-  //         onClick={() => togglePopover(false)}
-  //       >
-  //         Close
-  //       </Button>
-  //     </Popover>
-  //   );
-  // }
+const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
+  const operatingSystemInfo = getDownloadInfo(name);
 
   return (
     <>
       <BodyRow key={sha256}>
-        <StyledTd>{name}</StyledTd>
+        <StyledTd>{operatingSystemInfo.name}</StyledTd>
         <StyledTd>
-          <Link href={sha256}>SHA256</Link>
+          {/* <ChecksumButton href={sha256}>SHA256</ChecksumButton> */}
         </StyledTd>
         <StyledTd>{displaySize}</StyledTd>
         <StyledTd>
@@ -53,9 +36,29 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
 
 export default DownloadRow;
 
+const ChecksumButton = styled("button", {
+  cursor: "pointer",
+  borderRadius: "4px",
+  backgroundColor: "transparent",
+  border: "1px solid rgb(189, 202, 208)",
+  color: "rgb(96, 125, 139)",
+  transition: "all 0.3s",
+  fontSize: "10px",
+  padding: "0px 8px",
+  height: "24px",
+  "&:hover": {
+    border: "1px solid rgb(0, 145, 234)",
+  },
+});
+
 const BodyRow = styled("tr", {
-  // border: "1px solid #F0F2F4",
-  border: "1px solid #D2DBDF",
+  borderTop: "1px solid #F0F2F4",
+  borderBottom: "1px solid #F0F2F4",
+  // fontSize: "10px",
+  lineHeight: "24px",
+  "&:last-child": {
+    border: "none",
+  },
 });
 
 const StyledTd = styled("td", {

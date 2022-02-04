@@ -43,29 +43,19 @@ const StyledButton = styled("button", {
   border: " 1px solid grey",
   cursor: "pointer",
   fontSize: "13px",
-  // box-shadow: ${(props) =>
-  //   props.selected ? "inset 0 1px 4px rgba(0, 0, 0, .24)" : "none"},
   fontWeight: `${({ selected }) => (selected ? 600 : 300)}`,
   alignItems: "center",
   display: "flex",
   height: "40px",
   padding: "20px",
 
-  // ${SelectedState}
+  "&:first-child": {
+    borderRadius: "4px 0px 0px 4px",
+    borderRight: "none",
+  },
 
-  // span {
-  //   color: ${(props) =>
-  //     props.selected ? colors.purpleDark : colors.greyLight},
-  //   margin-right: 8px,
-  // }
-
-  // &:first-child {
-  //   border-radius: 4px 0 0 4px,
-  //   border-right: 0,
-  // }
-
-  // &:last-child {
-  //   border-radius: 0 4px 4px 0,
-  //   border-left: 0,
-  // }
+  "&:last-child": {
+    borderRadius: "0px 4px 4px 0px",
+    borderLeft: "none",
+  },
 });

@@ -76,7 +76,8 @@ const DownloadContainer = styled("div")(
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    maxWidth: ["100%", "90%"],
+    width: ["100%", "90%"],
+    pt: "32px",
   })
 );
 
@@ -84,7 +85,6 @@ const Top = styled(Flex)(
   css({
     alignItems: "left",
     justifyContent: "left",
-    border: "1px solid green",
     flexGrow: 1,
   })
 );
@@ -92,9 +92,9 @@ const Top = styled(Flex)(
 const StyledNotesButton = styled("button")(
   css({
     background: "white",
-    border: "1px solid grey",
+    border: "1px solid rgb(189, 202, 208)",
     borderRadius: "4px",
-    color: "blue",
+    color: "rgb(0, 145, 234)",
     fontSize: "12px",
     height: "32px",
     cursor: "pointer",

@@ -49,7 +49,6 @@ const groupByMajorVersions = (
 export const getServerSideProps = (context) => {
   // handle reading query parameter of url done on the server
   const os = getOsParameter(context.query.os);
-  console.log("!!!!!! i'm in getserversideprops", os);
 
   return fetch(
     "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0"
@@ -57,7 +56,7 @@ export const getServerSideProps = (context) => {
     .then((response) => response.json())
     .then((data) => ({
       props: {
-        os: null,
+        os: os || "linux",
         initialDownloads: groupByMajorVersions(data),
       },
     }));
@@ -72,7 +71,6 @@ const DownloadPage: React.FC<DownloadPageProps> = ({
   os = "linux",
   initialDownloads,
 }) => {
-  console.log("OS:", os);
   return (
     <>
       <SectionHeader
@@ -103,7 +101,13 @@ const DownloadPage: React.FC<DownloadPageProps> = ({
           </ul>
         </Flex>
       </SectionHeader>
-      <Section bg="flatWhite" display="flex" justifyContent="center">
+      <Section
+        bg="flatWhite"
+        display="flex"
+        justifyContent="center"
+        padding="0"
+        margin="0"
+      >
         <Download initialDownloads={initialDownloads} initialOs={os} />
       </Section>
     </>
