@@ -4,16 +4,7 @@ import NextImage from "next/image";
 import Box, { BoxProps } from "components/Box";
 import Flex from "components/Flex";
 import Button from "components/Button";
-import {
-  core,
-  enterprise,
-  whitepaper,
-  tutorial,
-  webinar,
-  podcast,
-  audit,
-  article,
-} from "./assets";
+import { podcast } from "./assets";
 
 /**
  * Component for use in a GridDisplay.
@@ -27,51 +18,25 @@ export interface SecurityCardProps {
   children: React.ReactNode;
   title: string;
   href: string;
-  cardBG: string;
-  speaker?: string;
-  speakerDetails?: string;
-  src?: string;
-  cardBC?: string;
-  bhColor?: string;
+  speaker: string;
+  speakerDetails: string;
+  src: string;
 }
-
-const cardBackgrounds = {
-  enterprise,
-  core,
-  whitepaper,
-  tutorial,
-  webinar,
-  podcast,
-  audit,
-  article,
-};
 
 export const SecurityCard = ({
   children,
   src,
   title,
-  cardBG,
   href,
-  cardBC,
-  bhColor,
   speakerDetails,
   speaker,
   ...props
 }: SecurityCardProps & BoxProps) => {
-  //add additional backgrounds to cardBackgrounds
-  const backgroundImage = cardBackgrounds[cardBG];
-
   return (
     <StyledWrapper href={href} {...props}>
       {/* top half */}
-
       <Flex flexDirection="column" position="relative">
-        <TopFlex
-          backgroundImage={`url("${backgroundImage}")`}
-          backgroundSize="cover"
-          backgroundColor={cardBC}
-          height="112px"
-        />
+        <BackgroundImageBox />
         <StyledBox px={4} mt={1} maxWidth="190px" lineHeight="sm">
           <h3>{speaker}</h3>
           <p>{speakerDetails}</p>
@@ -90,21 +55,13 @@ export const SecurityCard = ({
         pt={3}
         px={4}
         borderRadius="0 0 8px 8px"
-        backgroundColor={bhColor}
+        // backgroundColor={bhColor}
       >
         <StyledTitleBox as="p">{title}</StyledTitleBox>
         <StyledBox lineHeight="md" pb={3}>
           {children}
         </StyledBox>
-        <Button
-          shape="lg"
-          mx="auto"
-          as="a"
-          width="100%"
-          mt={3}
-          href={href}
-          // alignItem="end"
-        >
+        <Button shape="lg" mx="auto" as="a" width="100%" mt={3} href={href}>
           Watch Recording
         </Button>
       </Flex>
@@ -124,7 +81,7 @@ const StyledWrapper = styled(Flex)(
   all
 );
 
-const TopFlex = styled(Flex)(
+const BackgroundImageBox = styled(Box)(
   css({
     flexDirection: "row",
     pb: 3,
@@ -132,6 +89,9 @@ const TopFlex = styled(Flex)(
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     borderRadius: "8px 8px 0 0",
+    backgroundImage: `url("${podcast}")`,
+    backgroundSize: "cover",
+    height: "112px",
   })
 );
 
