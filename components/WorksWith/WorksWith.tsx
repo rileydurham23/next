@@ -60,13 +60,15 @@ const LogoBoxImage = ({ name, comingSoon, children }: LogoBoxImageProps) => {
   );
 };
 
-const ComingSoon = styled("p")`
-  position: absolute;
-  bottom: 8px;
-  color: gray;
-  font-size: 9px;
-  text-transform: uppercase;
-`;
+const ComingSoon = styled("p")(
+  css({
+    position: "absolute",
+    bottom: "8px",
+    color: "gray",
+    fontSize: "9px",
+    textTransform: "uppercase",
+  })
+);
 
 interface LogoBoxRowProps {
   children: React.ReactNode;
@@ -101,6 +103,7 @@ export const WorksWith = ({
   children,
 }: WorksWithProps) => {
   const logos = DATA[variant];
+  const rows = [logos.slice(0, 4), logos.slice(4, 8), logos.slice(8, 12)];
 
   return (
     <StyledBG as="section" px={[0, 3]}>
@@ -133,48 +136,23 @@ export const WorksWith = ({
         </Flex>
         {/* Graphic component */}
         <Flex flexDirection="column" width={["auto", "100%"]}>
-          <LogoBoxRow>
-            <LogoBoxImage comingSoon={logos[0][2]} name={logos[0][0]}>
-              {logos[0][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[1][2]} name={logos[1][0]}>
-              {logos[1][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[2][2]} name={logos[2][0]}>
-              {logos[2][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[3][2]} name={logos[3][0]}>
-              {logos[3][1]}
-            </LogoBoxImage>
-          </LogoBoxRow>
-          <LogoBoxRow>
-            <LogoBoxImage comingSoon={logos[4][2]} name={logos[4][0]}>
-              {logos[4][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[5][2]} name={logos[5][0]}>
-              {logos[5][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[6][2]} name={logos[6][0]}>
-              {logos[6][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[7][2]} name={logos[7][0]}>
-              {logos[7][1]}
-            </LogoBoxImage>
-          </LogoBoxRow>
-          <LogoBoxRow>
-            <LogoBoxImage comingSoon={logos[8][2]} name={logos[8][0]}>
-              {logos[8][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[9][2]} name={logos[9][0]}>
-              {logos[9][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[10][2]} name={logos[10][0]}>
-              {logos[10][1]}
-            </LogoBoxImage>
-            <LogoBoxImage comingSoon={logos[11][2]} name={logos[11][0]}>
-              {logos[11][1]}
-            </LogoBoxImage>
-          </LogoBoxRow>
+          {rows.map((row, ix) => {
+            return (
+              <LogoBoxRow key={ix}>
+                {row.map((_, i) => {
+                  return (
+                    <LogoBoxImage
+                      key={i}
+                      comingSoon={row[i][2]}
+                      name={row[i][0]}
+                    >
+                      {row[i][1]}
+                    </LogoBoxImage>
+                  );
+                })}
+              </LogoBoxRow>
+            );
+          })}
         </Flex>
       </Flex>
     </StyledBG>
