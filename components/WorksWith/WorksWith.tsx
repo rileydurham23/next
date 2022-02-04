@@ -19,10 +19,11 @@ const StyledBG = styled(Box)(
 
 interface LogoBoxImageProps {
   name: string;
+  comingSoon?: boolean;
   children: React.ReactNode;
 }
 
-const LogoBoxImage = ({ name, children }: LogoBoxImageProps) => {
+const LogoBoxImage = ({ name, comingSoon, children }: LogoBoxImageProps) => {
   return (
     <Flex
       borderTopStyle={["none", "dashed"]}
@@ -54,9 +55,18 @@ const LogoBoxImage = ({ name, children }: LogoBoxImageProps) => {
         <NextImage src={logos[name]} alt={name} width="55px" height="55px" />
       </Flex>
       {children}
+      {comingSoon && <ComingSoon>coming soon</ComingSoon>}
     </Flex>
   );
 };
+
+const ComingSoon = styled("p")`
+  position: absolute;
+  bottom: 8px;
+  color: gray;
+  font-size: 9px;
+  text-transform: uppercase;
+`;
 
 interface LogoBoxRowProps {
   children: React.ReactNode;
@@ -124,22 +134,46 @@ export const WorksWith = ({
         {/* Graphic component */}
         <Flex flexDirection="column" width={["auto", "100%"]}>
           <LogoBoxRow>
-            <LogoBoxImage name={logos[0][0]}>{logos[0][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[1][0]}>{logos[1][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[2][0]}>{logos[2][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[3][0]}>{logos[3][1]}</LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[0][2]} name={logos[0][0]}>
+              {logos[0][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[1][2]} name={logos[1][0]}>
+              {logos[1][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[2][2]} name={logos[2][0]}>
+              {logos[2][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[3][2]} name={logos[3][0]}>
+              {logos[3][1]}
+            </LogoBoxImage>
           </LogoBoxRow>
           <LogoBoxRow>
-            <LogoBoxImage name={logos[4][0]}>{logos[4][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[5][0]}>{logos[5][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[6][0]}>{logos[6][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[7][0]}>{logos[7][1]}</LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[4][2]} name={logos[4][0]}>
+              {logos[4][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[5][2]} name={logos[5][0]}>
+              {logos[5][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[6][2]} name={logos[6][0]}>
+              {logos[6][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[7][2]} name={logos[7][0]}>
+              {logos[7][1]}
+            </LogoBoxImage>
           </LogoBoxRow>
           <LogoBoxRow>
-            <LogoBoxImage name={logos[8][0]}>{logos[8][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[9][0]}>{logos[9][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[10][0]}>{logos[10][1]}</LogoBoxImage>
-            <LogoBoxImage name={logos[11][0]}>{logos[11][1]}</LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[8][2]} name={logos[8][0]}>
+              {logos[8][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[9][2]} name={logos[9][0]}>
+              {logos[9][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[10][2]} name={logos[10][0]}>
+              {logos[10][1]}
+            </LogoBoxImage>
+            <LogoBoxImage comingSoon={logos[11][2]} name={logos[11][0]}>
+              {logos[11][1]}
+            </LogoBoxImage>
           </LogoBoxRow>
         </Flex>
       </Flex>

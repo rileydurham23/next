@@ -1,5 +1,9 @@
 export type DataEntry = "default" | "aws" | "database";
-type LogoArray = string[][];
+
+//the third element is an optional boolean that will render a small
+//"COMING SOON" under the logo name
+type LogoArray = [string, string, boolean?][];
+
 type LogoEntry = Record<DataEntry, LogoArray>;
 
 export const DATA: LogoEntry = {
@@ -41,8 +45,8 @@ export const DATA: LogoEntry = {
     ["redshift", "AWS Redshift"],
     ["mongodb", "MongoDB"],
     ["mongodb", "MongoDB Atlas"],
-    ["oracledb", "Oracle DB"],
-    ["msSQL", "MS SQL"],
-    ["redis", "Redis"],
+    ["oracledb", "Oracle DB", true],
+    ["msSQL", "MS SQL", true],
+    ["redis", "Redis", true],
   ],
 };
