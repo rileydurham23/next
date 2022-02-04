@@ -4,12 +4,7 @@ import NextImage from "next/image";
 import Flex from "components/Flex";
 import Box from "components/Box";
 import * as logos from "./logos";
-
-export interface WorksWithProps {
-  AWS?: boolean;
-  title: string;
-  children: React.ReactNode;
-}
+import { DATA, DataEntry } from "./DATA";
 
 const StyledBG = styled(Box)(
   css({
@@ -24,10 +19,11 @@ const StyledBG = styled(Box)(
 
 interface LogoBoxImageProps {
   name: string;
+  comingSoon?: boolean;
   children: React.ReactNode;
 }
 
-const LogoBoxImage = ({ name, children }: LogoBoxImageProps) => {
+const LogoBoxImage = ({ name, comingSoon, children }: LogoBoxImageProps) => {
   return (
     <Flex
       borderTopStyle={["none", "dashed"]}
@@ -59,9 +55,20 @@ const LogoBoxImage = ({ name, children }: LogoBoxImageProps) => {
         <NextImage src={logos[name]} alt={name} width="55px" height="55px" />
       </Flex>
       {children}
+      {comingSoon && <ComingSoon>coming soon</ComingSoon>}
     </Flex>
   );
 };
+
+const ComingSoon = styled("p")(
+  css({
+    position: "absolute",
+    bottom: "8px",
+    color: "gray",
+    fontSize: "9px",
+    textTransform: "uppercase",
+  })
+);
 
 interface LogoBoxRowProps {
   children: React.ReactNode;
@@ -84,54 +91,20 @@ const LogoBoxRow = ({ children }: LogoBoxRowProps) => {
   );
 };
 
-//should be refactored ASAP
-const WWDefault = (
-  <>
-    <LogoBoxRow>
-      <LogoBoxImage name="aws">Amazon</LogoBoxImage>
-      <LogoBoxImage name="gcloud">Google Cloud</LogoBoxImage>
-      <LogoBoxImage name="azure">Azure</LogoBoxImage>
-      <LogoBoxImage name="linux">Linux</LogoBoxImage>
-    </LogoBoxRow>
-    <LogoBoxRow>
-      <LogoBoxImage name="windows2021">Windows</LogoBoxImage>
-      <LogoBoxImage name="chef">Chef</LogoBoxImage>
-      <LogoBoxImage name="okta">Okta</LogoBoxImage>
-      <LogoBoxImage name="windows">Active Directory</LogoBoxImage>
-    </LogoBoxRow>
-    <LogoBoxRow>
-      <LogoBoxImage name="puppet">Puppet</LogoBoxImage>
-      <LogoBoxImage name="oneLogin">One Login</LogoBoxImage>
-      <LogoBoxImage name="k8s">Kubernetes</LogoBoxImage>
-      <LogoBoxImage name="ansible">Ansible</LogoBoxImage>
-    </LogoBoxRow>
-  </>
-);
+export interface WorksWithProps {
+  variant: DataEntry;
+  title: string;
+  children: React.ReactNode;
+}
 
-const AWSDisplay = (
-  <>
-    <LogoBoxRow>
-      <LogoBoxImage name="aws">Amazon</LogoBoxImage>
-      <LogoBoxImage name="cloudtrail">AWS CloudTrail</LogoBoxImage>
-      <LogoBoxImage name="marketplace">AWS Marketplace</LogoBoxImage>
-      <LogoBoxImage name="aurora">AWS Aurora</LogoBoxImage>
-    </LogoBoxRow>
-    <LogoBoxRow>
-      <LogoBoxImage name="cli">AWS CLI</LogoBoxImage>
-      <LogoBoxImage name="hsm">AWS CloudHSM</LogoBoxImage>
-      <LogoBoxImage name="ec2">AWS EC2</LogoBoxImage>
-      <LogoBoxImage name="eks">AWS EKS</LogoBoxImage>
-    </LogoBoxRow>
-    <LogoBoxRow>
-      <LogoBoxImage name="management">AWS Management Console</LogoBoxImage>
-      <LogoBoxImage name="rdc">AWS RDC</LogoBoxImage>
-      <LogoBoxImage name="windows">Active Directory</LogoBoxImage>
-      <LogoBoxImage name="k8s">Kubernetes</LogoBoxImage>
-    </LogoBoxRow>
-  </>
-);
+export const WorksWith = ({
+  variant = "default",
+  title,
+  children,
+}: WorksWithProps) => {
+  const logos = DATA[variant];
+  const rows = [logos.slice(0, 4), logos.slice(4, 8), logos.slice(8, 12)];
 
-export const WorksWith = ({ AWS = false, title, children }: WorksWithProps) => {
   return (
     <StyledBG as="section" px={[0, 3]}>
       <Flex
@@ -163,7 +136,23 @@ export const WorksWith = ({ AWS = false, title, children }: WorksWithProps) => {
         </Flex>
         {/* Graphic component */}
         <Flex flexDirection="column" width={["auto", "100%"]}>
-          {AWS ? AWSDisplay : WWDefault}
+          {rows.map((row, ix) => {
+            return (
+              <LogoBoxRow key={ix}>
+                {row.map((_, i) => {
+                  return (
+                    <LogoBoxImage
+                      key={i}
+                      comingSoon={row[i][2]}
+                      name={row[i][0]}
+                    >
+                      {row[i][1]}
+                    </LogoBoxImage>
+                  );
+                })}
+              </LogoBoxRow>
+            );
+          })}
         </Flex>
       </Flex>
     </StyledBG>
