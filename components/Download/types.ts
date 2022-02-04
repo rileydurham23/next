@@ -18,3 +18,5 @@ export interface MajorVersionCollection {
   majorVersion: string;
   versions: Version[];
 }
+
+export type OS = "mac" | "windows" | "linux";

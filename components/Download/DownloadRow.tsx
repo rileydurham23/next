@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { styled } from "@stitches/react";
 
 import { getDownloadInfo } from "./helpers";
@@ -11,10 +10,6 @@ interface DownloadProps {
   sha256: string;
 }
 
-interface ChecksumButtonProps {
-  href: string;
-}
-
 const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
   const operatingSystemInfo = getDownloadInfo(name);
 
@@ -23,7 +18,7 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
       <BodyRow key={sha256}>
         <StyledTd>{operatingSystemInfo.name}</StyledTd>
         <StyledTd>
-          {/* @ts-expect-error placeholder, add button interface */}
+          {/* @ts-expect-error placeholder, issue with passing props to stitches */}
           <ChecksumButton href={sha256}>SHA256</ChecksumButton>
         </StyledTd>
         <StyledTd>{displaySize}</StyledTd>
@@ -55,7 +50,7 @@ const ChecksumButton = styled("button", {
 const BodyRow = styled("tr", {
   borderTop: "1px solid #F0F2F4",
   borderBottom: "1px solid #F0F2F4",
-  // fontSize: "10px",
+  // fontSize: "1 px",
   lineHeight: "24px",
   "&:last-child": {
     border: "none",

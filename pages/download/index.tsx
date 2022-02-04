@@ -8,6 +8,7 @@ import { getOsParameter } from "components/Download/helpers";
 import type {
   Version,
   MajorVersionCollection,
+  OS,
 } from "components/Download/types";
 
 interface PaginatedResponse {
@@ -64,7 +65,7 @@ export const getServerSideProps = (context) => {
 
 interface DownloadPageProps {
   initialDownloads: Array<MajorVersionCollection>;
-  os?: "linux" | "mac" | "windows";
+  os?: OS;
 }
 
 const DownloadPage: React.FC<DownloadPageProps> = ({

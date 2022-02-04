@@ -1,3 +1,5 @@
+import type { OS } from "./types";
+
 const isAMD64 = (name) => {
   return name.indexOf("x86_64") !== -1 || name.indexOf("amd64") !== -1;
 };
@@ -59,8 +61,22 @@ const isTshPKG = (name) => {
   return name.indexOf("tsh") !== -1 && name.indexOf(".pkg") !== -1;
 };
 
-export const getDownloadInfo = (name) => {
-  let data = { icon: "", name: "", meta: "" };
+interface DefaultDownloadInfo {
+  os: "";
+  name: "";
+}
+
+interface DownloadInfo {
+  os: OS;
+  name: string;
+}
+
+const defaultDownloadInfo: DefaultDownloadInfo = { os: "", name: "" };
+
+export const getDownloadInfo = (
+  name: string
+): DownloadInfo | DefaultDownloadInfo => {
+  let data: DefaultDownloadInfo | DownloadInfo = defaultDownloadInfo;
 
   if (isARM64(name)) {
     let downloadName = "Linux ARM64/ARMv8 (64-bit)";
@@ -71,7 +87,7 @@ export const getDownloadInfo = (name) => {
       downloadName = "Linux ARM64/ARMv8 DEB (64-bit)";
     }
 
-    data = { icon: "linux", name: downloadName, meta: "" };
+    data = { os: "linux", name: downloadName };
   }
 
   if (isARM(name)) {
@@ -83,7 +99,7 @@ export const getDownloadInfo = (name) => {
       downloadName = "Linux ARMv7 DEB (32-bit)";
     }
 
-    data = { icon: "linux", name: downloadName, meta: "" };
+    data = { os: "linux", name: downloadName };
   }
 
   if (isAMD64(name)) {
@@ -121,7 +137,7 @@ export const getDownloadInfo = (name) => {
       }
     }
 
-    data = { icon: "linux", name: downloadName, meta: "" };
+    data = { os: "linux", name: downloadName };
   }
 
   if (isi386(name)) {
@@ -133,30 +149,28 @@ export const getDownloadInfo = (name) => {
       downloadName = "Linux 32-bit DEB";
     }
 
-    data = { icon: "linux", name: downloadName, meta: "" };
+    data = { os: "linux", name: downloadName };
   }
 
   if (name.indexOf("-darwin-") !== -1) {
-    data = { icon: "apple", name: "MacOS", meta: "" };
+    data = { os: "mac", name: "MacOS" };
   }
 
   if (isTeleportPKG(name)) {
-    data = { icon: "apple", name: "MacOS .pkg installer", meta: "" };
+    data = { os: "mac", name: "MacOS .pkg installer" };
   }
 
   if (isTshPKG(name)) {
     data = {
-      icon: "apple",
+      os: "mac",
       name: "MacOS .pkg installer (tsh client only, signed)",
-      meta: "",
     };
   }
 
   if (name.indexOf("-windows-") !== -1) {
     data = {
-      icon: "windows",
+      os: "windows",
       name: "Windows (64-bit, tsh client only)",
-      meta: "",
     };
   }
 
@@ -226,15 +240,13 @@ export const groupByOS = (downloads) => {
   return sortedDownloads;
 };
 
-export type OsParameter = "windows" | "mac" | "linux";
-
-const osParameterSet = new Set<OsParameter>(["windows", "mac", "linux"]);
+const osParameterSet = new Set<OS>(["windows", "mac", "linux"]);
 
 // type predicate function. more refined type of boolean
-const isOsParameter = (input: string | null): input is OsParameter =>
+const isOsParameter = (input: string | null): input is OS =>
   Set.prototype.has.call(osParameterSet, input);
 
-export const getOsParameter = (url: string): OsParameter | void => {
+export const getOsParameter = (url: string): OS | void => {
   if (isOsParameter(url)) {
     return url;
   }

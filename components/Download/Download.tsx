@@ -1,18 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import css from "@styled-system/css";
-import styled from "styled-components";
 
-import Flex from "components/Flex";
-import GitHubButton from "react-github-btn";
+import { styled } from "@stitches/react";
 
+import { Star } from "react-github-buttons";
 import { DownloadTable } from "components/Download";
-import { OsParameter } from "./helpers";
-import type { MajorVersionCollection } from "./types";
+import type { MajorVersionCollection, OS } from "./types";
 
 interface DownloadProps {
   initialDownloads: Array<MajorVersionCollection>;
-  initialOs: OsParameter;
+  initialOs: OS;
 }
 
 export const Download: React.FC<DownloadProps> = ({
@@ -20,21 +17,10 @@ export const Download: React.FC<DownloadProps> = ({
   initialOs,
 }) => {
   const [showAllNotes, setShowAllNotes] = useState(false);
-  // const [showAllNotes, setShowNotes] = useState(false);
-
-  console.log(showAllNotes);
 
   const renderGithubStars = () => {
     return (
-      <GitHubButton
-        href="https://github.com/gravitational/teleport"
-        data-icon="octicon-star"
-        data-size="large"
-        data-show-count="true"
-        aria-label="Star repo on GitHub"
-      >
-        Star
-      </GitHubButton>
+      <Star owner="gravitational" repo="teleport" css={{ color: "red" }} />
     );
   };
 
@@ -69,7 +55,7 @@ export const Download: React.FC<DownloadProps> = ({
 
     return (
       <DownloadContainer>
-        <Top mb={4}>
+        <Top>
           {renderAllNotesToggle()}
           {renderGithubStars()}
         </Top>
@@ -81,37 +67,36 @@ export const Download: React.FC<DownloadProps> = ({
   return <>{renderTables()}</>;
 };
 
-const DownloadContainer = styled("div")(
-  css({
-    display: "inline-block",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    width: ["100%", "90%"],
-    pt: "32px",
-  })
-);
+const StyledGithubStarButton = styled(Star, {
+  fontFamily: "helvetica",
+  color: "red",
+});
 
-const Top = styled(Flex)(
-  css({
-    alignItems: "left",
-    justifyContent: "left",
-    flexGrow: 1,
-  })
-);
+const DownloadContainer = styled("div", {
+  display: "inline-block",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  pt: "32px",
+});
 
-const StyledNotesButton = styled("button")(
-  css({
-    background: "white",
-    border: "1px solid rgb(189, 202, 208)",
-    borderRadius: "4px",
-    color: "rgb(0, 145, 234)",
-    fontSize: "12px",
-    height: "32px",
-    cursor: "pointer",
-    outline: "none",
-    margin: "0 32px 0 0",
-    display: "inline-block",
-    padding: "0 24px",
-  })
-);
+const Top = styled("div", {
+  display: "flex",
+  justifyContent: "left",
+  marginBottom: "32px",
+  marginTop: "32px",
+});
+
+const StyledNotesButton = styled("button", {
+  background: "white",
+  border: "1px solid rgb(189, 202, 208)",
+  borderRadius: "4px",
+  color: "rgb(0, 145, 234)",
+  fontSize: "12px",
+  height: "32px",
+  cursor: "pointer",
+  outline: "none",
+  margin: "0 32px 0 0",
+  display: "inline-block",
+  padding: "0 24px",
+});

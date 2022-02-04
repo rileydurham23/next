@@ -3,15 +3,17 @@ import { useState } from "react";
 import { styled } from "@stitches/react";
 import ReactMarkdown from "react-markdown";
 
-import { OsParameter } from "./helpers";
-import type { MajorVersionCollection } from "./types";
 import DownloadToggleMenu from "./DownloadToggleMenu";
 import DownloadRow from "./DownloadRow";
+import type { OS } from "./types";
+import type { MajorVersionCollection } from "./types";
+
+import { getDownloadInfo } from "./helpers";
 
 interface DownloadTableProps {
   showAllNotes: boolean;
   data: MajorVersionCollection;
-  initialOs: OsParameter;
+  initialOs: OS;
 }
 
 export const DownloadTable = ({
@@ -20,7 +22,7 @@ export const DownloadTable = ({
   initialOs,
 }: DownloadTableProps) => {
   // lazy state initialization done so function is only called on first render to set the value of 'os'
-  const [os, setOs] = useState<OsParameter>("linux");
+  const [os, setOs] = useState<OS>("linux");
   const [selectedVersionTag, setSelectedVersionTag] = useState(() => {
     const latestVersion = data.versions.find(
       (version) => version.prerelease === false
@@ -38,19 +40,7 @@ export const DownloadTable = ({
   };
 
   const renderOsMenu = () => {
-    const buttons = [
-      { value: "linux", name: "Linux", icon: "linux" },
-      { value: "mac", name: "MacOS", icon: "apple" },
-      { value: "windows", name: "Windows", icon: "windows" },
-    ];
-
-    return (
-      <DownloadToggleMenu
-        selectedDefault={os}
-        buttons={buttons}
-        onChange={handleChange}
-      />
-    );
+    return <DownloadToggleMenu selectedDefault={os} onChange={handleChange} />;
   };
 
   const renderTitle = () => {
@@ -118,15 +108,20 @@ export const DownloadTable = ({
           </TableHeader>
         </thead>
         <tbody style={{ width: "90%" }}>
-          {selectedVersion.downloads.map((download) => (
-            <DownloadRow
-              key={download.sha256}
-              name={download.name}
-              url={download.url}
-              displaySize={download.displaySize}
-              sha256={download.sha256}
-            />
-          ))}
+          {selectedVersion.downloads
+            .filter((download) => {
+              const downloadInformation = getDownloadInfo(download.name);
+              return downloadInformation.os === os;
+            })
+            .map((download) => (
+              <DownloadRow
+                key={download.sha256}
+                name={download.name}
+                url={download.url}
+                displaySize={download.displaySize}
+                sha256={download.sha256}
+              />
+            ))}
         </tbody>
       </StyledTable>
     </OuterContainer>
@@ -142,7 +137,11 @@ const StyledMarkdown = styled(ReactMarkdown, {
   a: {
     color: "#651fff !important",
   },
-  h1: {
+  h2: {
+    fontSize: "14px",
+  },
+  h3: {
+    textTransform: "uppercase",
     fontSize: "14px",
   },
 });
