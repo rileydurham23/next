@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { styled } from "@stitches/react";
+import ReactMarkdown from "react-markdown";
 
 import { OsParameter } from "./helpers";
 import type { MajorVersionCollection } from "./types";
@@ -61,8 +62,30 @@ export const DownloadTable = ({
     setSelectedVersionTag(event.target.value);
   };
 
-  return (
-    <OuterContainer>
+  const renderNotes = () => {
+    return (
+      <>
+        {data.versions.map((version) => (
+          <>
+            <ReactMarkdown>{version.descriptionMarkdown}</ReactMarkdown>
+          </>
+        ))}
+      </>
+    );
+    // const description =
+    //   descriptionMarkdown || "No release notes for this build";
+    // let showNotes = shouldShowNotes();
+    // let notes = null;
+
+    // if (showNotes) {
+    //   notes = <StyledMarkdown source={description} linkTarget="_blank" />;
+    // }
+
+    // return notes;
+  };
+
+  const renderHeaders = () => {
+    return (
       <HeaderContainer>
         <Left>
           <HeaderH1>{renderTitle()}</HeaderH1>
@@ -83,6 +106,13 @@ export const DownloadTable = ({
         </Left>
         <Right>{renderOsMenu()}</Right>
       </HeaderContainer>
+    );
+  };
+
+  return (
+    <OuterContainer>
+      {renderHeaders()}
+      {renderNotes()}
       <StyledTable>
         <thead>
           <TableHeader>
