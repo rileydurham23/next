@@ -64,8 +64,8 @@ const GTC = {
   ],
   securityCard: [
     "minmax(140px, 370px)",
-    "repeat(2, minmax(140px, 370px))",
-    "repeat(4, minmax(140px, 370px))",
+    "repeat(2, minmax(120px, 370px))",
+    "repeat(4, minmax(120px, 370px))",
   ],
 };
 

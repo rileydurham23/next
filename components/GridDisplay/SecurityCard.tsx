@@ -55,7 +55,6 @@ export const SecurityCard = ({
         pt={3}
         px={4}
         borderRadius="0 0 8px 8px"
-        // backgroundColor={bhColor}
       >
         <StyledTitleBox as="p">{title}</StyledTitleBox>
         <StyledBox lineHeight="md" pb={3}>
@@ -83,7 +82,6 @@ const StyledWrapper = styled(Flex)(
 
 const BackgroundImageBox = styled(Box)(
   css({
-    flexDirection: "row",
     pb: 3,
     px: 4,
     backgroundPosition: "center",
