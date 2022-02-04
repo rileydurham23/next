@@ -67,16 +67,19 @@ const DownloadToggleMenu: React.FC<ToggleMenuProps> = ({
 export default DownloadToggleMenu;
 
 const StyledButton = styled("button", {
-  backgroundColor: "white",
-  border: " 1px solid grey",
   cursor: "pointer",
-  color: "red",
+  backgroundColor: "transparent",
+  width: "100px",
+  // border: "1px solid rgb(189, 202, 208)",
+  color: "rgb(96, 125, 139)",
+  transition: "all 0.3s",
   fontSize: "13px",
-  fontWeight: `${({ selected }) => (selected ? 600 : 300)}`,
-  alignItems: "center",
-  display: "flex",
+  padding: "0px 8px",
   height: "40px",
-  padding: "20px",
+  border: " 1px solid grey",
+  fontWeight: "300",
+  // fontWeight: `${({ selected }) => (selected ? 600 : 300)}`,
+  // padding: "20px",
 
   "&:first-child": {
     borderRadius: "4px 0px 0px 4px",
@@ -86,5 +89,19 @@ const StyledButton = styled("button", {
   "&:last-child": {
     borderRadius: "0px 4px 4px 0px",
     borderLeft: "none",
+  },
+
+  "&:active": {
+    color: "rgb(101, 31, 255)",
+    borderBottom: "1px solid #651fff",
+    fontWeight: "600",
+    boxShadow: "rgb(0 0 0 / 24%) 0px 1px 4px inset",
+  },
+
+  "&:focus": {
+    color: "rgb(101, 31, 255)",
+    borderBottom: "3px solid #651fff",
+    fontWeight: "600",
+    boxShadow: "rgb(0 0 0 / 24%) 0px 1px 4px inset",
   },
 });
