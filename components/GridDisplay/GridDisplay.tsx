@@ -19,7 +19,12 @@ import { NewProductCard } from "./NewProductCard";
 
 export interface GridDisplayProps {
   children: React.ReactNode;
-  cardStyle?: "productCard" | "benefitCard" | "default" | "newProductCard";
+  cardStyle?:
+    | "productCard"
+    | "benefitCard"
+    | "default"
+    | "newProductCard"
+    | "securityCard";
   productCard?: boolean;
   bg?: BGColor;
   centralHeading?: boolean;
@@ -57,6 +62,11 @@ const GTC = {
     "repeat(3, minmax(140px, 270px))",
     "repeat(4, minmax(140px, 270px))",
   ],
+  securityCard: [
+    "minmax(140px, 370px)",
+    "repeat(2, minmax(120px, 370px))",
+    "repeat(4, minmax(120px, 370px))",
+  ],
 };
 
 //grid gaps
@@ -65,6 +75,7 @@ const GG = {
   benefitCard: [3, 6],
   newProductCard: [3, 7],
   default: [3, 3],
+  securityCard: [3, 5],
 };
 
 function GridDisplay({

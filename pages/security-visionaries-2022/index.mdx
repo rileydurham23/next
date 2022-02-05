@@ -7,10 +7,14 @@ previewImage: "security-visionaries.png"
 headerDescription: Come hear what some of the world’s foremost security researchers, practitioners and thinkers see on the security horizon for 2022.
 ---
 import styled from "styled-components";
+import bruceImage from "./assets/bruce@2x.png";
 import Link from "components/Link";
 import List from "components/List";
 import SignupDescription from "components/SignupDescription";
 import { StyledMarketoBrowserForm } from "components/MarketoForm";
+import GridDisplay, { SecurityCard } from "components/GridDisplay";
+import Centrator from "components/Centrator";
+import Section from "components/Section";
 
 <List
   title={meta.title}
@@ -30,26 +34,6 @@ import { StyledMarketoBrowserForm } from "components/MarketoForm";
     </SignupDescription>
   }
 >
-  <List.AvatarItem
-    src="./assets/bruce@2x.png"
-    title="Securing a World of Physically Capable Computers"
-    speaker={<Link scheme="site" href="https://www.schneier.com/">Bruce Schneier – Security Technologist &amp; Guru</Link>}
-    date= "Jan 18, 11am PT"
-    brief="Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data..."
-    style={{ marginRight: [0, "65px"]}}
-  >
-    Computer security is no longer about data; it's about life and property. This
-    change makes an enormous difference, and will shake up our industry in many ways.
-    First, data authentication and integrity will become more important than confidentiality.
-    And second, our largely regulation-free Internet will become a thing of the past.
-
-    Soon we will no longer have a choice between government regulation and no government regulation.
-    Our choice is between smart government regulation and stupid government regulation. Given this future,
-    it's vital that we look back at what we've learned from past attempts to secure these systems, and
-    forward at what technologies, laws, regulations, economic incentives, and social norms we need to
-    secure them in the future.
-
-  </List.AvatarItem>
   <List.AvatarItem
     src="./assets/troy@2x.png"
     title="Lessons From Billions of Breached Records"
@@ -98,3 +82,18 @@ import { StyledMarketoBrowserForm } from "components/MarketoForm";
   </List.AvatarItem>
 
 </List>
+
+<GridDisplay cardStyle="securityCard" title="Past Events" bigLeftHeading>
+  <SecurityCard
+    title="Securing a World of Physically Capable Computers"
+    href="/resources/white-papers/2021-infrastructure-access-report/"
+    cardBG="podcast"
+    src={bruceImage}
+    speaker="Bruce Schneier"
+    speakerDetails="Security Technologist &amp; Guru"
+  >
+    <>
+      Computer security is no longer about data; it's about life and property. This change makes an enormous difference, and will shake up our industry in many ways. First, data...
+    </>
+  </SecurityCard>
+</GridDisplay>
