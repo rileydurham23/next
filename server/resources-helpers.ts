@@ -3,6 +3,7 @@
  */
 
 import type {
+  AnalystReport,
   AuditReport,
   EpisodeKind,
   PodcastEpisode,
@@ -30,6 +31,7 @@ const episodeKindUriMap: EpisodeKindUriMap = {
   auditReport: "audits",
   techPaper: "white-papers",
   webinar: "videos",
+  analystReport: "analyst-reports",
 };
 
 export const addResourceKind = (
@@ -68,7 +70,16 @@ export const getAllResourcesData = () => {
     );
 };
 
-export const getResourcesData = (type: string) => {
+type ResourceType =
+  | "all"
+  | "podcast"
+  | "white-papers"
+  | "guides"
+  | "audits"
+  | "videos"
+  | "analyst-report";
+
+export const getResourcesData = (type: ResourceType) => {
   let resourcesPageInfo = [];
 
   try {
@@ -122,6 +133,15 @@ export const getResourcesData = (type: string) => {
             new Date(a.frontmatter.publicationDate).getTime()
           );
         });
+    } else if (type === "analyst-report") {
+      resourcesPageInfo = resourcesPageInfo.sort(
+        (a: AnalystReport, b: AnalystReport) => {
+          return (
+            new Date(b.frontmatter.publicationDate).getTime() -
+            new Date(a.frontmatter.publicationDate).getTime()
+          );
+        }
+      );
     }
   } catch (e) {
     console.error(e);

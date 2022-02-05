@@ -32,7 +32,8 @@ export type EpisodeKind =
   | "techPaper"
   | "tutorial"
   | "auditReport"
-  | "webinar";
+  | "webinar"
+  | "analystReport";
 
 export interface ResourceItem {
   id: string;
@@ -71,6 +72,15 @@ export interface Webinar {
     publicationDate: string;
     title: string;
     videoId: string;
+  };
+  uri: string;
+}
+
+export interface AnalystReport {
+  frontmatter: {
+    description: string;
+    publicationDate: string;
+    title: string;
   };
   uri: string;
 }

@@ -1,0 +1,47 @@
+---
+title: "451research: Teleport ‘shifts left’ with cloud-native PAM platform"
+description: "‘Shifting left’ has become a thing in security circles, and addressing the needs of developers is no less true in the privileged access management market. Teleport’s Access Plane combines connectivity, authentication, authorization and auditing functionality into a single PAM platform that could rightly be viewed as ‘Okta for infrastructure.'"
+brief: Shifting left’ has become a thing in security circles, and addressing..
+publicationDate: "2022-02-03"
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+---
+
+import BookBlock from "components/BookBlock";
+import ClientsList from "components/ClientsList";
+import PromoPointsBlock from "components/PromoPointsBlock";
+
+<BookBlock
+  title={meta.title}
+  src="./assets/cover-photo.png"
+  emailNotRequiredForDownload
+  display="flex"
+  flexDirection="column"
+  pdfSource="https://goteleport.com/static/resources/analyst-reports/451_Reprint_Teleport_28JAN2022.pdf"
+>
+  {meta.description}
+</BookBlock>
+<PromoPointsBlock
+  title="Download the PDF to learn:"
+  src="../assets/engineers.svg"
+>
+  <PromoPointsBlock.Item icon="bolt">
+    Market overview for modern PAM solutions
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="card">
+    Requirements for a modern PAM solution
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="shieldCheck">
+    How the Teleport Access Plane delivers PAM for cloud-native apps
+  </PromoPointsBlock.Item>
+</PromoPointsBlock>
+<ClientsList clients={meta.clients} contrasted />

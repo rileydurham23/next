@@ -4,6 +4,7 @@ import Flex from "components/Flex";
 import Box from "components/Box";
 import { CARD_DATA } from "./constants";
 import type {
+  AnalystReport,
   PodcastEpisode,
   EpisodeKind,
   TechPaperBook,
@@ -15,6 +16,7 @@ import { ResourcesDropdown } from "./ResourcesDropdown";
 
 export interface EpisodesListProps {
   episodes:
+    | AnalystReport[]
     | AuditReport[]
     | PodcastEpisode[]
     | TechPaperBook[]

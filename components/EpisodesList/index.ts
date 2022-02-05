@@ -1,2 +1,9 @@
 export { default } from "./EpisodesList";
-export type { AuditReport, PodcastEpisode, Tutorial, Webinar } from "./types";
+
+export type {
+  AnalystReport,
+  AuditReport,
+  PodcastEpisode,
+  Tutorial,
+  Webinar,
+} from "./types";

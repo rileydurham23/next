@@ -1,0 +1,26 @@
+---
+title: Analyst Reports
+description: A collection of analyst reports about Teleport
+bgWave: wave-on-gray
+border: none
+layout: content
+logo:
+  image: ../assets/resources.svg
+  alt: videos title image
+needWrapper: true
+subtitle: Teleport Access Plane
+tryTeleport: true
+---
+
+import EpisodesList from "components/EpisodesList";
+import { getResourcesData } from "server/resources-helpers";
+
+<EpisodesList
+  id="analyst-reports"
+  episodes={props.episodes}
+  kind="analyst-reports"
+/>
+
+export async function getStaticProps(context) {
+  return { props: { episodes: getResourcesData("analyst-reports") } };
+}

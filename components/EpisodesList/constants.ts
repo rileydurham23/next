@@ -36,6 +36,12 @@ export const CARD_DATA: Record<EpisodeKind, CardParams> = {
     src: webinarIcon,
     caption: "WEBINAR",
   },
+  analystReport: {
+    cardBG: "whitepaper",
+    cardBC: "#59a4ec",
+    src: techPaperIcon,
+    caption: "ANALYST REPORT",
+  },
 };
 
 export const RESOURCES = [
@@ -68,5 +74,10 @@ export const RESOURCES = [
     id: "podcast",
     title: "Podcast",
     href: "/resources/podcast/",
+  },
+  {
+    id: "analyst-reports",
+    title: "Analyst Report",
+    href: "/resources/analyst-reports/",
   },
 ];
