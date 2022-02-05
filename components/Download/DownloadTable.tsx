@@ -94,10 +94,10 @@ export const DownloadTable = ({
 
   return (
     <OuterContainer>
-      <>
+      <TopHalf>
         {renderHeaders()}
         {renderAllNotes()}
-      </>
+      </TopHalf>
       <StyledTable>
         <thead>
           <TableHeader>
@@ -127,6 +127,10 @@ export const DownloadTable = ({
     </OuterContainer>
   );
 };
+
+const TopHalf = styled("div", {
+  maxWidth: "800px",
+});
 
 const StyledMarkdown = styled(ReactMarkdown, {
   fontSize: "14px",
@@ -214,8 +218,8 @@ const OuterContainer = styled("div", {
 
 const TableHeader = styled("tr", {
   textTransform: "uppercase",
-  // fontSize: "10px",
-  // color: "rgb(189, 202, 208)",
+  fontSize: "10px",
+  color: "rgb(189, 202, 208)",
   margin: "8px",
   borderTop: "1px solid #F0F2F4",
   lineHeight: "40px",

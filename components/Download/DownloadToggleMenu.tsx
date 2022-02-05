@@ -54,7 +54,7 @@ const DownloadToggleMenu: React.FC<ToggleMenuProps> = ({
         key={button.value}
         onClick={handleClick}
         value={button.value}
-        // selected={isSelected}
+        aria-pressed={isSelected}
       >
         {button.name}
       </StyledButton>
@@ -70,16 +70,13 @@ const StyledButton = styled("button", {
   cursor: "pointer",
   backgroundColor: "transparent",
   width: "100px",
-  // border: "1px solid rgb(189, 202, 208)",
   color: "rgb(96, 125, 139)",
   transition: "all 0.3s",
   fontSize: "13px",
   padding: "0px 8px",
   height: "40px",
-  border: " 1px solid grey",
+  border: " 1px solid #bdcad0",
   fontWeight: "300",
-  // fontWeight: `${({ selected }) => (selected ? 600 : 300)}`,
-  // padding: "20px",
 
   "&:first-child": {
     borderRadius: "4px 0px 0px 4px",
@@ -91,17 +88,9 @@ const StyledButton = styled("button", {
     borderLeft: "none",
   },
 
-  "&:active": {
-    color: "rgb(101, 31, 255)",
-    borderBottom: "1px solid #651fff",
-    fontWeight: "600",
-    boxShadow: "rgb(0 0 0 / 24%) 0px 1px 4px inset",
-  },
-
-  "&:focus": {
+  "&[aria-pressed='true']": {
     color: "rgb(101, 31, 255)",
     borderBottom: "3px solid #651fff",
-    fontWeight: "600",
     boxShadow: "rgb(0 0 0 / 24%) 0px 1px 4px inset",
   },
 });

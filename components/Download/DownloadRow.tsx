@@ -1,7 +1,6 @@
 import { styled } from "@stitches/react";
 
 import { getDownloadInfo } from "./helpers";
-import Link from "components/Link";
 
 interface DownloadProps {
   name: string;
@@ -21,9 +20,9 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
           {/* @ts-expect-error placeholder, issue with passing props to stitches */}
           <ChecksumButton href={sha256}>SHA256</ChecksumButton>
         </StyledTd>
-        <StyledTd>{displaySize}</StyledTd>
+        <StyledSizeTd>{displaySize}</StyledSizeTd>
         <StyledTd>
-          <Link href={url}>{name}</Link>
+          <StyledLink href={url}>{name}</StyledLink>
         </StyledTd>
       </BodyRow>
     </>
@@ -31,6 +30,16 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
 };
 
 export default DownloadRow;
+
+const StyledSizeTd = styled("td", {
+  color: "#607d8b",
+});
+
+const StyledLink = styled("a", {
+  fontSize: "14px",
+  color: "#0091ea",
+  fontWeight: "normal",
+});
 
 const ChecksumButton = styled("button", {
   cursor: "pointer",
@@ -50,7 +59,7 @@ const ChecksumButton = styled("button", {
 const BodyRow = styled("tr", {
   borderTop: "1px solid #F0F2F4",
   borderBottom: "1px solid #F0F2F4",
-  // fontSize: "1 px",
+  fontSize: "11px",
   lineHeight: "24px",
   "&:last-child": {
     border: "none",
@@ -59,4 +68,5 @@ const BodyRow = styled("tr", {
 
 const StyledTd = styled("td", {
   padding: "5px 30px",
+  fontWeight: "bold",
 });

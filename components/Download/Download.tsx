@@ -67,11 +67,6 @@ export const Download: React.FC<DownloadProps> = ({
   return <>{renderTables()}</>;
 };
 
-const StyledGithubStarButton = styled(Star, {
-  fontFamily: "helvetica",
-  color: "red",
-});
-
 const DownloadContainer = styled("div", {
   display: "inline-block",
   flexDirection: "column",
