@@ -61,10 +61,18 @@ const DownloadToggleMenu: React.FC<ToggleMenuProps> = ({
     );
   });
 
-  return <>{toggleButtons}</>;
+  return (
+    <ToggleContainer role="group" aria-label="Choose operating system">
+      {toggleButtons}
+    </ToggleContainer>
+  );
 };
 
 export default DownloadToggleMenu;
+
+const ToggleContainer = styled("div", {
+  display: "flex",
+});
 
 const StyledButton = styled("button", {
   cursor: "pointer",

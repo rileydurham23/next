@@ -129,7 +129,7 @@ export const DownloadTable = ({
 };
 
 const TopHalf = styled("div", {
-  maxWidth: "800px",
+  // maxWidth: "800px",
 });
 
 const StyledMarkdown = styled(ReactMarkdown, {

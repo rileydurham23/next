@@ -73,6 +73,7 @@ const DownloadContainer = styled("div", {
   justifyContent: "center",
   alignItems: "center",
   pt: "32px",
+  width: "70%",
 });
 
 const Top = styled("div", {
