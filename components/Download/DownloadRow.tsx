@@ -69,4 +69,5 @@ const BodyRow = styled("tr", {
 const StyledTd = styled("td", {
   padding: "5px 30px",
   fontWeight: "bold",
+  maxWidth: "200px",
 });

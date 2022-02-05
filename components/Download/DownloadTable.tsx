@@ -13,14 +13,9 @@ import { getDownloadInfo } from "./helpers";
 interface DownloadTableProps {
   showAllNotes: boolean;
   data: MajorVersionCollection;
-  initialOs: OS;
 }
 
-export const DownloadTable = ({
-  showAllNotes,
-  data,
-  initialOs,
-}: DownloadTableProps) => {
+export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
   // lazy state initialization done so function is only called on first render to set the value of 'os'
   const [os, setOs] = useState<OS>("linux");
   const [selectedVersionTag, setSelectedVersionTag] = useState(() => {
@@ -35,7 +30,7 @@ export const DownloadTable = ({
     (version) => version.version === selectedVersionTag
   );
 
-  const handleChange = (os) => {
+  const handleChange = (os: OS) => {
     setOs(os);
   };
 
@@ -47,7 +42,7 @@ export const DownloadTable = ({
     return "Teleport " + data.majorVersion;
   };
 
-  const handleSelectChange = (event) => {
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedVersionTag(event.target.value);
   };
 
@@ -128,9 +123,7 @@ export const DownloadTable = ({
   );
 };
 
-const TopHalf = styled("div", {
-  // maxWidth: "800px",
-});
+const TopHalf = styled("div", {});
 
 const StyledMarkdown = styled(ReactMarkdown, {
   fontSize: "14px",

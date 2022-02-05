@@ -54,6 +54,7 @@ const DownloadToggleMenu: React.FC<ToggleMenuProps> = ({
         key={button.value}
         onClick={handleClick}
         value={button.value}
+        // ensures screen readers can tab through OS options
         aria-pressed={isSelected}
       >
         {button.name}

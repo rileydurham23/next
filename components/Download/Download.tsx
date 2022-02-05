@@ -5,17 +5,13 @@ import { styled } from "@stitches/react";
 
 import { Star } from "react-github-buttons";
 import { DownloadTable } from "components/Download";
-import type { MajorVersionCollection, OS } from "./types";
+import type { MajorVersionCollection } from "./types";
 
 interface DownloadProps {
   initialDownloads: Array<MajorVersionCollection>;
-  initialOs: OS;
 }
 
-export const Download: React.FC<DownloadProps> = ({
-  initialDownloads,
-  initialOs,
-}) => {
+export const Download: React.FC<DownloadProps> = ({ initialDownloads }) => {
   const [showAllNotes, setShowAllNotes] = useState(false);
 
   const renderGithubStars = () => {
@@ -37,10 +33,6 @@ export const Download: React.FC<DownloadProps> = ({
     setShowAllNotes(!showAllNotes);
   };
 
-  // const togglelIndividualNotes = () => {
-
-  // }
-
   const renderTables = () => {
     const allTables = initialDownloads.map((majorVersionCollection) => {
       return (
@@ -48,7 +40,6 @@ export const Download: React.FC<DownloadProps> = ({
           showAllNotes={showAllNotes}
           key={majorVersionCollection.majorVersion}
           data={majorVersionCollection}
-          initialOs={initialOs}
         />
       );
     });
@@ -73,7 +64,8 @@ const DownloadContainer = styled("div", {
   justifyContent: "center",
   alignItems: "center",
   pt: "32px",
-  width: "70%",
+  width: "80%",
+  maxWidth: "1240px",
 });
 
 const Top = styled("div", {

@@ -68,10 +68,7 @@ interface DownloadPageProps {
   os?: OS;
 }
 
-const DownloadPage: React.FC<DownloadPageProps> = ({
-  os = "linux",
-  initialDownloads,
-}) => {
+const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
   return (
     <>
       <SectionHeader
@@ -109,7 +106,7 @@ const DownloadPage: React.FC<DownloadPageProps> = ({
         padding="0"
         margin="0"
       >
-        <Download initialDownloads={initialDownloads} initialOs={os} />
+        <Download initialDownloads={initialDownloads} />
       </Section>
     </>
   );
