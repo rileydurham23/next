@@ -34,23 +34,14 @@ const ToolTipModal = ({ children, setShowModal, showModal }) => {
 };
 
 const ModalContainer = styled("div", {
+  position: "absolute",
   backgroundColor: "white",
   borderRadius: "8px",
   padding: "16px",
-  left: "45%",
-  top: "50%",
-  marginLeft: "-266px",
-  marginTop: "20px",
-  zIndex: 100,
-  position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "left",
-  justifyContent: "left",
-  width: "500px",
-
-  // backgroundColor: "rgba(1, 1, 1, 0.2)",
-  boxShadow: "rgb(0 0 0 / 24%) 0px 16px 64px !important",
+  zIndex: 50,
+  border: "1px solid black",
+  marginTop: "8px",
+  left: "-150px",
 });
 
 // const StyledArrow = styled("div", {
@@ -77,9 +68,11 @@ const CodeBlock = styled("div", {
   color: "white",
   marginBottom: "24px",
   paddingLeft: "10px",
+  paddingRight: "10px",
   height: "40px",
   borderRadius: "5px",
   alignItems: "center",
+  display: "flex",
 });
 
 const CloseButton = styled("button", {
