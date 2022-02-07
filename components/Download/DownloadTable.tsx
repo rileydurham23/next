@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { styled } from "@stitches/react";
 import ReactMarkdown from "react-markdown";
@@ -18,6 +18,8 @@ interface DownloadTableProps {
 export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
   // lazy state initialization done so function is only called on first render to set the value of 'os'
   const [os, setOs] = useState<OS>("linux");
+  const [showIndividualNote, setShowIndividualNote] = useState(false);
+
   const [selectedVersionTag, setSelectedVersionTag] = useState(() => {
     const latestVersion = data.versions.find(
       (version) => version.prerelease === false
@@ -25,7 +27,6 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
 
     return latestVersion.version;
   });
-  const [showIndividualNote, setShowIndividualNote] = useState(false);
 
   console.log("show individual", showIndividualNote);
 
@@ -53,8 +54,26 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     ? "Hide Release Notes"
     : "Show Release Notes";
 
+  // we need to trigger an effect ONLY if when showAllNotes changes
+  // to synchronize local state with global state. ref is used here so
+  // that we can reference the local state without having to put it in the
+  // effect dependency array. the useLayoutEffect below keeps the ref state
+  // up to date with whatever is in actual state
+  const showIndividualNoteRef = useRef(showIndividualNote);
+
+  // useLayoutEffect is used to avoid flash of unwanted content and a second render
+  useLayoutEffect(() => {
+    showIndividualNoteRef.current = showIndividualNote;
+  }, [showIndividualNote]);
+
+  useLayoutEffect(() => {
+    if (showAllNotes !== showIndividualNoteRef.current) {
+      setShowIndividualNote(showAllNotes);
+    }
+  }, [showAllNotes]);
+
   const renderNotes = () => {
-    if (showAllNotes || showIndividualNote) {
+    if (showIndividualNote) {
       return (
         <>
           {data.versions

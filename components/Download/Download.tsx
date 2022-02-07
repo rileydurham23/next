@@ -13,6 +13,7 @@ interface DownloadProps {
 
 export const Download: React.FC<DownloadProps> = ({ initialDownloads }) => {
   const [showAllNotes, setShowAllNotes] = useState(false);
+  // const [showIndividualNote, setShowIndividualNote] = useState(false);
 
   const renderGithubStars = () => {
     return (
