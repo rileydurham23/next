@@ -31,6 +31,7 @@ import Terminal from "components/Terminal";
 import TerminalAnimation from "components/TerminalAnimation";
 import TryTeleport from "components/TryTeleport";
 import Feedback from "components/Feedback";
+import VideoBanner from "components/VideoBanner";
 import WorksWith from "components/WorksWith";
 import Link from "components/Link";
 
@@ -56,14 +57,14 @@ import Link from "components/Link";
       subtitle="Open source"
       description={
         <>
-          Open source Teleport was designed to provide access to the infrastructure you need without slowing you down. 
+          Open source Teleport was designed to provide access to the infrastructure you need without slowing you down.
           With a single tool, engineers and security professionals get unified access to Linux and Windows servers, Kubernetes clusters, databases and DevOps applications like CI/CD, version control, and monitoring dashboards across all environments.
         </>
       }
     >
     <TerminalAnimation text="homepage" />
   </AnimationHeader>
-</Section> 
+</Section>
 
 <ProductSection />
 
@@ -79,12 +80,12 @@ import Link from "components/Link";
     description={
       <>
         <p>
-        Security software done right gets out of the way, improving productivity while protecting critical infrastructure. 
-        The key is simplicity. 
+        Security software done right gets out of the way, improving productivity while protecting critical infrastructure.
+        The key is simplicity.
         </p>
         <p>
-        Easy-to-use software is essential to first-class security because it reduces the risk of a human error.  
-        Teleport embodies the principle of simplicity in everything that we do. 
+        Easy-to-use software is essential to first-class security because it reduces the risk of a human error.
+        Teleport embodies the principle of simplicity in everything that we do.
         This is why the fastest growing, most innovative companies choose Teleport.
         </p>
         <Button
@@ -107,6 +108,8 @@ import Link from "components/Link";
 <Section bg="purple">
   <Feedback reviews={meta.reviews} dark />
 </Section>
+
+<VideoBanner title="Demo Video" videoId="8dDRW37fsy4" bg="flatWhite" />
 
 <WorksWith title="Works with everything you have">
   Teleport Server Access is open source and relies on open standards such as
