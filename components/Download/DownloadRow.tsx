@@ -15,6 +15,7 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
   const operatingSystemInfo = getDownloadInfo(name);
   const [showModal, setShowModal] = useState(false);
 
+  console.log(showModal);
   const handleModalToggle = () => {
     setShowModal(!showModal);
   };
@@ -28,7 +29,9 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
           <ChecksumButton href={sha256} onClick={handleModalToggle}>
             SHA256
           </ChecksumButton>
-          {/* <ToolTipModal showModal={showModal}>I'm in the modal</ToolTipModal> */}
+          <ToolTipModal showModal={showModal} setShowModal={setShowModal}>
+            {sha256}
+          </ToolTipModal>
         </StyledTd>
         <StyledSizeTd>{displaySize}</StyledSizeTd>
         <StyledTd>
