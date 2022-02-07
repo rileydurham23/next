@@ -17,7 +17,7 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
       <BodyRow key={sha256}>
         <StyledTd>{operatingSystemInfo.name}</StyledTd>
         <StyledTd>
-          {/* @ts-expect-error placeholder, issue with passing props to stitches */}
+          {/* @ts-expect-error issue passing props to stitches */}
           <ChecksumButton href={sha256}>SHA256</ChecksumButton>
         </StyledTd>
         <StyledSizeTd>{displaySize}</StyledSizeTd>

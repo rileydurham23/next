@@ -1,47 +1,47 @@
 import type { OS } from "./types";
 
-const isAMD64 = (name) => {
+const isAMD64 = (name: string) => {
   return name.indexOf("x86_64") !== -1 || name.indexOf("amd64") !== -1;
 };
 
-const isi386 = (name) => {
+const isi386 = (name: string) => {
   return name.indexOf("386") !== -1;
 };
 
-const isCentos6FIPS = (name) => {
+const isCentos6FIPS = (name: string) => {
   return name.indexOf("-centos6-fips") !== -1;
 };
 
-const isCentos6 = (name) => {
+const isCentos6 = (name: string) => {
   return name.indexOf("-centos6") !== -1;
 };
 
-const isCentos7FIPS = (name) => {
+const isCentos7FIPS = (name: string) => {
   return name.indexOf("-centos7-fips") !== -1;
 };
 
-const isCentos7 = (name) => {
+const isCentos7 = (name: string) => {
   return name.indexOf("-centos7") !== -1;
 };
 
-const isFIPS = (name) => {
+const isFIPS = (name: string) => {
   return name.indexOf("-fips") !== -1;
 };
 
-const isGo197 = (name) => {
+const isGo197 = (name: string) => {
   return name.indexOf("-go1.9.7") !== -1;
 };
 
-const isRPM = (name) => {
+const isRPM = (name: string) => {
   return name.indexOf(".rpm") !== -1;
 };
 
-const isDEB = (name) => {
+const isDEB = (name: string) => {
   return name.indexOf(".deb") !== -1;
 };
 
 // Use more explicit string matches here to avoid matching 'arm64'
-const isARM = (name) => {
+const isARM = (name: string) => {
   return (
     name.indexOf("-arm-") !== -1 ||
     name.indexOf(".arm.") !== -1 ||
@@ -49,15 +49,15 @@ const isARM = (name) => {
   );
 };
 
-const isARM64 = (name) => {
+const isARM64 = (name: string) => {
   return name.indexOf("arm64") !== -1;
 };
 
-const isTeleportPKG = (name) => {
+const isTeleportPKG = (name: string) => {
   return name.indexOf("teleport") !== -1 && name.indexOf(".pkg") !== -1;
 };
 
-const isTshPKG = (name) => {
+const isTshPKG = (name: string) => {
   return name.indexOf("tsh") !== -1 && name.indexOf(".pkg") !== -1;
 };
 
@@ -177,15 +177,7 @@ export const getDownloadInfo = (
   return data;
 };
 
-/*
-  Is OS Methods
-
-  @type const
-  @description These helper methods determine what Operating System is being use
-  @returns {boolean}
-*/
-
-export const isMacOs = (name) => {
+export const isMacOs = (name: string): boolean => {
   let isMac = false;
 
   if (
@@ -199,7 +191,7 @@ export const isMacOs = (name) => {
   return isMac;
 };
 
-export const isWindows = (name) => {
+export const isWindows = (name: string): boolean => {
   let isWin = false;
 
   if (name.indexOf("-windows-") !== -1) {
@@ -209,7 +201,7 @@ export const isWindows = (name) => {
   return isWin;
 };
 
-export const isLinux = (name) => {
+export const isLinux = (name: string): boolean => {
   let isLnx = false;
 
   if (!isMacOs(name) && !isWindows(name)) {
@@ -219,26 +211,26 @@ export const isLinux = (name) => {
   return isLnx;
 };
 
-export const groupByOS = (downloads) => {
-  const sortedDownloads = {
-    mac: [],
-    windows: [],
-    linux: [],
-  };
+// export const groupByOS = (downloads) => {
+//   const sortedDownloads = {
+//     mac: [],
+//     windows: [],
+//     linux: [],
+//   };
 
-  downloads.forEach((release) => {
-    const name = release.name;
-    if (isWindows(name)) {
-      sortedDownloads.windows.push(release);
-    } else if (isMacOs(name)) {
-      sortedDownloads.mac.push(release);
-    } else {
-      sortedDownloads.linux.push(release);
-    }
-  });
+//   downloads.forEach((release) => {
+//     const name = release.name;
+//     if (isWindows(name)) {
+//       sortedDownloads.windows.push(release);
+//     } else if (isMacOs(name)) {
+//       sortedDownloads.mac.push(release);
+//     } else {
+//       sortedDownloads.linux.push(release);
+//     }
+//   });
 
-  return sortedDownloads;
-};
+//   return sortedDownloads;
+// };
 
 const osParameterSet = new Set<OS>(["windows", "mac", "linux"]);
 

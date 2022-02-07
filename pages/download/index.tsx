@@ -1,8 +1,10 @@
 import Download from "components/Download";
-import Flex from "components/Flex";
-import Link from "components/Link";
-import Section from "components/Section";
+
 import SectionHeader from "components/SectionHeader";
+
+import DownloadPageHeader from "components/Download";
+
+import { styled } from "@stitches/react";
 
 import { getOsParameter } from "components/Download/helpers";
 import type {
@@ -78,38 +80,44 @@ const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
         descriptionTextWidth="1000px"
         bg="wave-on-gray"
       >
-        <Flex flexDirection="column">
+        <InstallColumnContainer>
           Additional ways to install Teleport
           <ul>
             <li>
-              <Link href="https://goteleport.com/docs/getting-started/">
+              <a href="https://goteleport.com/docs/getting-started/">
                 Teleport Quickstart Guide
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="https://goteleport.com/installing/">
+              <a href="https://goteleport.com/installing/">
                 Install from Source
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="https://quay.io/repository/gravitational/teleport?tab=tags">
+              <a href="https://quay.io/repository/gravitational/teleport?tab=tags">
                 Install using Docker
-              </Link>
+              </a>
             </li>
           </ul>
-        </Flex>
+        </InstallColumnContainer>
       </SectionHeader>
-      <Section
-        bg="flatWhite"
-        display="flex"
-        justifyContent="center"
-        padding="0"
-        margin="0"
-      >
+      <ContentContainer>
         <Download initialDownloads={initialDownloads} />
-      </Section>
+      </ContentContainer>
     </>
   );
 };
 
 export default DownloadPage;
+
+const InstallColumnContainer = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+});
+
+const ContentContainer = styled("div", {
+  display: "flex",
+  justifyContent: "center",
+  padding: 0,
+  margin: 0,
+});

@@ -50,11 +50,16 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     if (showAllNotes) {
       return (
         <>
-          {data.versions.map((version) => (
-            <StyledMarkdown key={version.version}>
-              {version.descriptionMarkdown}
-            </StyledMarkdown>
-          ))}
+          {data.versions
+            .filter((version) => {
+              const versionId = version.version;
+              return versionId === selectedVersion.version;
+            })
+            .map((version) => (
+              <StyledMarkdown key={version.version}>
+                {version.descriptionMarkdown}
+              </StyledMarkdown>
+            ))}
         </>
       );
     }
@@ -96,10 +101,10 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
       <StyledTable>
         <thead>
           <TableHeader>
-            <th>Operating system</th>
-            <th>Checksum</th>
-            <th>Size</th>
-            <th>Download link</th>
+            <StyledTh>Operating system</StyledTh>
+            <StyledTh>Checksum</StyledTh>
+            <StyledSizeTh>Size</StyledSizeTh>
+            <StyledTh>Download link</StyledTh>
           </TableHeader>
         </thead>
         <tbody style={{ width: "90%" }}>
@@ -122,6 +127,16 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     </OuterContainer>
   );
 };
+
+const StyledSizeTh = styled("th", {
+  textAlign: "left",
+  paddingLeft: "0px",
+});
+
+const StyledTh = styled("th", {
+  textAlign: "left",
+  paddingLeft: "30px",
+});
 
 const TopHalf = styled("div", {});
 
@@ -197,6 +212,8 @@ const HeaderH1 = styled("h1", {
 
 const HeaderContainer = styled("div", {
   display: "flex",
+  // TODO deal with mobile styling issues
+  // flexDirection: ["column", "row"],
   justifyContent: "space-between",
   alignItems: "center",
   padding: "5px 30px",
