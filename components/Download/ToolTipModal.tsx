@@ -37,22 +37,33 @@ const ModalContainer = styled("div", {
   backgroundColor: "white",
   borderRadius: "8px",
   padding: "16px",
-  left: "50%",
+  left: "45%",
+  top: "50%",
   marginLeft: "-266px",
-  top: "32px",
+  marginTop: "20px",
   zIndex: 100,
   position: "absolute",
-  // top: 0,
   display: "flex",
   flexDirection: "column",
   alignItems: "left",
   justifyContent: "left",
   width: "500px",
-  // margin: "10px",
 
   // backgroundColor: "rgba(1, 1, 1, 0.2)",
   boxShadow: "rgb(0 0 0 / 24%) 0px 16px 64px !important",
 });
+
+// const StyledArrow = styled("div", {
+//   width: 0,
+//   height: 0,
+//   borderLeft: "8px solid transparent",
+//   borderRight: "8px solid transparent",
+//   borderBottom: "8px solid transparent",
+//   left: "50%",
+//   top: "-8px",
+//   marginLeft: "-8px",
+//   position: "absolute",
+// });
 
 export default ToolTipModal;
 
