@@ -49,6 +49,10 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     setSelectedVersionTag(event.target.value);
   };
 
+  const label = showIndividualNote
+    ? "Hide Release Notes"
+    : "Show Release Notes";
+
   const renderNotes = () => {
     if (showAllNotes || showIndividualNote) {
       return (
@@ -89,7 +93,7 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
           <ReleaseATag
             onClick={() => setShowIndividualNote(!showIndividualNote)}
           >
-            Show Release Notes
+            {label}
           </ReleaseATag>
         </Left>
         <Right>{renderOsMenu()}</Right>
