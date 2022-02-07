@@ -1,6 +1,8 @@
 import { styled } from "@stitches/react";
+import { useState } from "react";
 
 import { getDownloadInfo } from "./helpers";
+import ToolTipModal from "./ToolTipModal";
 
 interface DownloadProps {
   name: string;
@@ -11,6 +13,11 @@ interface DownloadProps {
 
 const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
   const operatingSystemInfo = getDownloadInfo(name);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalToggle = () => {
+    setShowModal(!showModal);
+  };
 
   return (
     <>
@@ -18,7 +25,10 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
         <StyledTd>{operatingSystemInfo.name}</StyledTd>
         <StyledTd>
           {/* @ts-expect-error issue passing props to stitches */}
-          <ChecksumButton href={sha256}>SHA256</ChecksumButton>
+          <ChecksumButton href={sha256} onClick={handleModalToggle}>
+            SHA256
+          </ChecksumButton>
+          {/* <ToolTipModal showModal={showModal}>I'm in the modal</ToolTipModal> */}
         </StyledTd>
         <StyledSizeTd>{displaySize}</StyledSizeTd>
         <StyledTd>

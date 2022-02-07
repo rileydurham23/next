@@ -28,8 +28,6 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     return latestVersion.version;
   });
 
-  console.log("show individual", showIndividualNote);
-
   const selectedVersion = data.versions.find(
     (version) => version.version === selectedVersionTag
   );
