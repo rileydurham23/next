@@ -25,6 +25,9 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
 
     return latestVersion.version;
   });
+  const [showIndividualNote, setShowIndividualNote] = useState(false);
+
+  console.log("show individual", showIndividualNote);
 
   const selectedVersion = data.versions.find(
     (version) => version.version === selectedVersionTag
@@ -46,8 +49,8 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     setSelectedVersionTag(event.target.value);
   };
 
-  const renderAllNotes = () => {
-    if (showAllNotes) {
+  const renderNotes = () => {
+    if (showAllNotes || showIndividualNote) {
       return (
         <>
           {data.versions
@@ -83,7 +86,9 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
               ))}
             </StyledSelect>
           </ReleaseDropdownContainer>
-          <ReleaseATag onClick={() => !showAllNotes}>
+          <ReleaseATag
+            onClick={() => setShowIndividualNote(!showIndividualNote)}
+          >
             Show Release Notes
           </ReleaseATag>
         </Left>
@@ -96,7 +101,7 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     <OuterContainer>
       <TopHalf>
         {renderHeaders()}
-        {renderAllNotes()}
+        {renderNotes()}
       </TopHalf>
       <StyledTable>
         <thead>
