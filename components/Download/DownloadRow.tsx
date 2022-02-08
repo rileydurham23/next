@@ -1,5 +1,5 @@
 import { styled } from "@stitches/react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import { getDownloadInfo } from "./helpers";
 import ToolTipModal from "./ToolTipModal";

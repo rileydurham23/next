@@ -1,12 +1,12 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import { styled } from "@stitches/react";
 import ReactMarkdown from "react-markdown";
 
-import DownloadToggleMenu from "./DownloadToggleMenu";
 import DownloadRow from "./DownloadRow";
-import type { OS } from "./types";
+import DownloadToggleMenu from "./DownloadToggleMenu";
 import type { MajorVersionCollection } from "./types";
+import type { OS } from "./types";
 
 import { getDownloadInfo } from "./helpers";
 
@@ -15,8 +15,9 @@ interface DownloadTableProps {
   data: MajorVersionCollection;
 }
 
-export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
+export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
   // lazy state initialization done so function is only called on first render to set the value of 'os'
+
   const [os, setOs] = useState<OS>("linux");
   const [showIndividualNote, setShowIndividualNote] = useState(false);
 
@@ -28,20 +29,8 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     return latestVersion.version;
   });
 
-  const selectedVersion = data.versions.find(
-    (version) => version.version === selectedVersionTag
-  );
-
   const handleChange = (os: OS) => {
     setOs(os);
-  };
-
-  const renderOsMenu = () => {
-    return <DownloadToggleMenu selectedDefault={os} onChange={handleChange} />;
-  };
-
-  const renderTitle = () => {
-    return "Teleport " + data.majorVersion;
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -51,6 +40,14 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
   const label = showIndividualNote
     ? "Hide Release Notes"
     : "Show Release Notes";
+
+  const renderOsMenu = () => {
+    return <DownloadToggleMenu selectedDefault={os} onChange={handleChange} />;
+  };
+
+  const selectedVersion = data.versions.find(
+    (version) => version.version === selectedVersionTag
+  );
 
   // we need to trigger an effect ONLY if when showAllNotes changes
   // to synchronize local state with global state. ref is used here so
@@ -93,7 +90,7 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
     return (
       <HeaderContainer>
         <Left>
-          <HeaderH1>{renderTitle()}</HeaderH1>
+          <HeaderH1>{"Teleport " + data.majorVersion}</HeaderH1>
           <ReleaseDropdownContainer>
             <p>Release:</p>
             <StyledSelect
@@ -119,11 +116,10 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
   };
 
   return (
-    <OuterContainer>
-      <TopHalf>
-        {renderHeaders()}
-        {renderNotes()}
-      </TopHalf>
+    <DownloadTableContainer>
+      {renderHeaders()}
+      {renderNotes()}
+
       <StyledTable>
         <thead>
           <TableHeader>
@@ -133,7 +129,7 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
             <StyledTh>Download link</StyledTh>
           </TableHeader>
         </thead>
-        <tbody style={{ width: "90%" }}>
+        <StyledTBody>
           {selectedVersion.downloads
             .filter((download) => {
               const downloadInformation = getDownloadInfo(download.name);
@@ -141,35 +137,76 @@ export const DownloadTable = ({ showAllNotes, data }: DownloadTableProps) => {
             })
             .map((download) => (
               <DownloadRow
+                displaySize={download.displaySize}
                 key={download.sha256}
                 name={download.name}
-                url={download.url}
-                displaySize={download.displaySize}
                 sha256={download.sha256}
+                url={download.url}
               />
             ))}
-        </tbody>
+        </StyledTBody>
       </StyledTable>
-    </OuterContainer>
+    </DownloadTableContainer>
   );
 };
 
-const StyledSizeTh = styled("th", {
-  textAlign: "left",
-  paddingLeft: "0px",
+const DownloadTableContainer = styled("div", {
+  borderRadius: "16px",
+  boxShadow: "rgb(0 0 0 / 12%) 0px 1px 4px",
+  flexDirection: "column",
+  marginBottom: "48px",
 });
 
-const StyledTh = styled("th", {
-  textAlign: "left",
-  paddingLeft: "30px",
+const HeaderContainer = styled("div", {
+  alignItems: "center",
+  display: "flex",
+  // TODO deal with mobile styling issues
+  // flexDirection: ["column", "row"],
+  justifyContent: "space-between",
+  padding: "5px 30px",
 });
 
-const TopHalf = styled("div", {});
+const HeaderH1 = styled("h1", {
+  color: "#512fc9",
+  fontSize: "20px",
+  fontWeight: "600",
+  lineHeight: "32px",
+  width: "150px",
+});
 
-const StyledMarkdown = styled(ReactMarkdown, {
+const Left = styled("div", {
+  alignItems: "center",
+  display: "flex",
+  flexDirection: "row",
+});
+
+const ReleaseATag = styled("a", {
+  backgroundColor: "transparent",
+  color: "rgb(0, 145, 234)",
+  cursor: "pointer",
   fontSize: "14px",
   lineHeight: "24px",
+  width: "30%",
+});
+
+const ReleaseDropdownContainer = styled("div", {
+  alignItems: "center",
+  color: "rgb(96, 125, 139)",
+  display: "flex",
+  fontSize: "12px",
+  lineHeight: "24px",
+  marginRight: "48px",
+});
+
+const Right = styled("div", {
+  display: "flex",
+  flexDirection: "row",
+});
+
+const StyledMarkdown = styled(ReactMarkdown, {
   color: "#607D8B",
+  fontSize: "14px",
+  lineHeight: "24px",
   padding: "20px",
 
   a: {
@@ -184,33 +221,27 @@ const StyledMarkdown = styled(ReactMarkdown, {
   },
 });
 
-const ReleaseDropdownContainer = styled("div", {
-  marginRight: "48px",
-  display: "flex",
-  fontSize: "12px",
-  lineHeight: "24px",
-  color: "rgb(96, 125, 139)",
-  alignItems: "center",
-});
-
-const ReleaseATag = styled("a", {
-  backgroundColor: "transparent",
-  cursor: "pointer",
+const StyledSelect = styled("select", {
+  border: "1px solid rgb(189, 202, 208)",
   color: "rgb(0, 145, 234)",
-  fontSize: "14px",
-  lineHeight: "24px",
-  width: "30%",
+  fontSize: "12px",
+  height: "17px",
+  marginLeft: "4px",
+  padding: "0px 33px",
 });
 
-const Left = styled("div", {
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
+const StyledTBody = styled("tbody", {
+  width: "90%",
 });
 
-const Right = styled("div", {
-  display: "flex",
-  flexDirection: "row",
+const StyledSizeTh = styled("th", {
+  paddingLeft: "0px",
+  textAlign: "left",
+});
+
+const StyledTh = styled("th", {
+  paddingLeft: "30px",
+  textAlign: "left",
 });
 
 const StyledTable = styled("table", {
@@ -219,44 +250,11 @@ const StyledTable = styled("table", {
   width: "100%",
 });
 
-const StyledSelect = styled("select", {
-  border: "1px solid rgb(189, 202, 208)",
-  color: "rgb(0, 145, 234)",
-  fontSize: "12px",
-  marginLeft: "4px",
-  padding: "0px 33px",
-  height: "17px",
-});
-
-const HeaderH1 = styled("h1", {
-  width: "150px",
-  color: "rgb(81, 47, 201)",
-  fontSize: "20px",
-  lineHeight: "32px",
-  fontWeight: "600",
-});
-
-const HeaderContainer = styled("div", {
-  display: "flex",
-  // TODO deal with mobile styling issues
-  // flexDirection: ["column", "row"],
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "5px 30px",
-});
-
-const OuterContainer = styled("div", {
-  flexDirection: "column",
-  marginBottom: "48px",
-  borderRadius: "16px",
-  boxShadow: "rgb(0 0 0 / 12%) 0px 1px 4px",
-});
-
 const TableHeader = styled("tr", {
-  textTransform: "uppercase",
-  fontSize: "10px",
-  color: "rgb(189, 202, 208)",
-  margin: "8px",
   borderTop: "1px solid #F0F2F4",
+  color: "rgb(189, 202, 208)",
+  fontSize: "10px",
   lineHeight: "40px",
+  margin: "8px",
+  textTransform: "uppercase",
 });

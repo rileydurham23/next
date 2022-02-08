@@ -1,11 +1,10 @@
 import React from "react";
 import { useState } from "react";
-
 import { styled } from "@stitches/react";
 
-import { Star } from "react-github-buttons";
 import { DownloadTable } from "components/Download";
 import type { MajorVersionCollection } from "./types";
+import { Star } from "react-github-buttons";
 
 interface DownloadProps {
   initialDownloads: Array<MajorVersionCollection>;
@@ -13,21 +12,12 @@ interface DownloadProps {
 
 export const Download: React.FC<DownloadProps> = ({ initialDownloads }) => {
   const [showAllNotes, setShowAllNotes] = useState(false);
-  // const [showIndividualNote, setShowIndividualNote] = useState(false);
+  const notesLabel = showAllNotes
+    ? "Hide All Release Notes"
+    : "Show All Release Notes";
 
   const renderGithubStars = () => {
-    return (
-      <Star owner="gravitational" repo="teleport" css={{ color: "red" }} />
-    );
-  };
-
-  const renderAllNotesToggle = () => {
-    const label = showAllNotes
-      ? "Hide All Release Notes"
-      : "Show All Release Notes";
-    return (
-      <StyledNotesButton onClick={toggleAllNotes}>{label}</StyledNotesButton>
-    );
+    return <Star owner="gravitational" repo="teleport" />;
   };
 
   const toggleAllNotes = () => {
@@ -48,7 +38,9 @@ export const Download: React.FC<DownloadProps> = ({ initialDownloads }) => {
     return (
       <DownloadContainer>
         <Top>
-          {renderAllNotesToggle()}
+          <StyledNotesButton onClick={toggleAllNotes}>
+            {notesLabel}
+          </StyledNotesButton>
           {renderGithubStars()}
         </Top>
         {allTables}

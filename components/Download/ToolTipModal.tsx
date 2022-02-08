@@ -65,11 +65,12 @@ const ToolTipModal = ({ children, onClose }) => {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, []);
+  }, [onClose]);
 
   return (
-    <Outside role="tooltip">
+    <ToolTipModalContainer role="tooltip">
       <ArrowUp />
+      {/* @ts-expect-error issue passing props to stitches */}
       <ModalContainer ref={modalRef}>
         <Title>
           SHA256 Checksum
@@ -85,11 +86,11 @@ const ToolTipModal = ({ children, onClose }) => {
           </StyledButton>
         </Bottom>
       </ModalContainer>
-    </Outside>
+    </ToolTipModalContainer>
   );
 };
 
-const Outside = styled("div", {
+const ToolTipModalContainer = styled("div", {
   position: "absolute",
   filter: "drop-shadow(#D2DBDF 0px 8px 32px)",
   zIndex: 100,
