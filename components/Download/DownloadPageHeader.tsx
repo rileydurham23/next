@@ -1,168 +1,69 @@
-import Centrator from "components/Centrator";
-import Box from "components/Box";
-import Flex from "components/Flex";
-import wave from "../SectionHeader/fixtures/wave.svg";
-import wavelight from "../SectionHeader/fixtures/wave-light.png";
-import Button, { ButtonVariant, ButtonShape } from "components/Button";
+import { styled } from "@stitches/react";
 
-export type BGColor =
-  | "wave"
-  | "white"
-  | "gray"
-  | "wavelight"
-  | "wave-on-gray"
-  | "transparent";
+import wave from "./assets/wave.svg";
 
-type LinkProps = {
-  href: string;
-  text: string;
-  variant?: ButtonVariant;
-  shape?: ButtonShape;
-};
-export interface DownloadPageHeaderProps {
-  title: string;
-  description?: React.ReactNode;
-  descriptionTextWidth?: string;
-  subtitle?: React.ReactNode;
-  children?: React.ReactNode;
-  mode?: string;
-  bg?: BGColor;
-  link?: LinkProps;
-  kind?: "column" | "row" | "default";
-}
-
-const getBG = (color: BGColor) => {
-  switch (color) {
-    case "gray":
-      return { backgroundImage: "linear-gradient(125deg ,#F0F2F4,#fff)" };
-    case "white":
-      return { backgroundImage: "white" };
-    case "wave":
-      return {
-        backgroundColor: "linear-gradient(134deg, #ffffff 0%, #f0f2f4 100%)",
-        backgroundImage: `url(${wave})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "5% 42%",
-        backgroundSize: "160%",
-      };
-    case "wavelight":
-      return {
-        backgroundColor: "linear-gradient(134deg, #ffffff 0%, #f0f2f4 100%)",
-        backgroundImage: `url(${wavelight})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "100%",
-      };
-    case "wave-on-gray":
-      return {
-        backgroundImage: `url(${wave}), linear-gradient(125deg ,#F0F2F4,#fff)`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "100%",
-      };
-    case "transparent":
-      return {
-        background: "inherit",
-      };
-    default:
-      return {
-        backgroundImage: "linear-gradient(180deg, #ffffff 0%, #f0f2f4 100%)",
-      };
-  }
-};
 export const DownloadPageHeader = ({
-  mode,
-  children,
-  descriptionTextWidth = "600px",
-  subtitle,
   title,
+  subtitle,
   description,
-  bg,
-  link,
-  kind = "default",
-}: DownloadPageHeaderProps) => {
-  const titleInColumn = kind === "column" ? "column" : ["column", "row"];
-  const leftGap = kind === "column" ? 0 : [0, 11];
-  const titleBottomGap =
-    kind === "column" ? [0, 5] : mode === "none" ? [4, 9] : [4, 11];
-  const headerBottomGap = kind === "column" ? [3, 5] : 0;
-  const sectionTopGap =
-    kind === "column" ? [11, 9] : mode === "none" ? [4, 9] : [4, 11];
+  children,
+}) => {
   return (
-    <Flex
-      pt={mode === "none" ? [3, 5] : [7, 11]}
-      pb={headerBottomGap}
-      {...getBG(bg)}
-    >
-      <Centrator
-        justifyContent={["auto", "space-between"]}
-        alignItems="stretch"
-        flexDirection={titleInColumn}
-      >
-        <Box
-          flex="1 1 auto"
-          pt={sectionTopGap}
-          pb={titleBottomGap}
-          order={kind === "default" ? [1, 0] : 0}
-        >
-          <Flex flexDirection="column" alignItems="flexStart">
-            <Box
-              mb={title ? 3 : 0}
-              color="dark-purple"
-              fontWeight="bold"
-              fontSize="text-xl"
-              lineHeight="md"
-            >
-              {subtitle}
-            </Box>
+    <OutsideContainer>
+      <LeftSide>
+        <SubtitleContainer>{subtitle}</SubtitleContainer>
+        <TitleContainer>{title}</TitleContainer>
+        <DescriptionContainer>{description}</DescriptionContainer>
+      </LeftSide>
 
-            <Box
-              as="h1"
-              color="black"
-              fontSize={["header-1", "54px"]}
-              lineHeight={["xl", "72px"]}
-              fontWeight="black"
-              textAlign="left"
-            >
-              {title}
-            </Box>
-          </Flex>
-          {description && (
-            <Box
-              mt={[3, 4]}
-              fontSize="text-xl"
-              lineHeight="lg"
-              color="darkest"
-              maxWidth={descriptionTextWidth}
-            >
-              {description}
-            </Box>
-          )}
-          {link && (
-            <Button
-              mt={6}
-              as="a"
-              href={link.href}
-              shape={link.shape}
-              variant={link.variant}
-            >
-              {link.text}
-            </Button>
-          )}
-        </Box>
-        <Flex
-          flex="0 0 auto"
-          justifyContent={kind === "row" ? ["left", "center"] : "baseline"}
-          alignItems="center"
-          ml={leftGap}
-          pt={kind === "row" ? [0, 2] : [3, 2]}
-          pb={[0, 2]}
-          px={kind === "default" ? [3, 0] : 0}
-          maxWidth="100%"
-        >
-          {children}
-        </Flex>
-      </Centrator>
-    </Flex>
+      <RightSide>{children}</RightSide>
+    </OutsideContainer>
   );
 };
+
+const LeftSide = styled("div", {
+  display: "flex",
+  flexDirection: "column",
+  maxWidth: "66.6%",
+});
+
+const RightSide = styled("div", {
+  flex: "0 0 auto",
+  alignItems: "center",
+  paddingTop: "60px",
+  paddingLeft: "50px",
+});
+
+const SubtitleContainer = styled("div", {
+  fontWeight: "700",
+  lineHeight: "24px",
+  fontSize: "18px",
+  color: "#512fc9",
+  marginBottom: "16px",
+});
+
+const DescriptionContainer = styled("div", {
+  lineHeight: "32px",
+  maxWidth: "1000px",
+  marginTop: "24px",
+  fontSize: "18px",
+  color: "#37474F",
+});
+
+const TitleContainer = styled("div", {
+  color: "black",
+  fontSize: "54px",
+  lineHeight: "72px",
+  textAlign: "left",
+  fontWeight: "900",
+});
+
+const OutsideContainer = styled("div", {
+  padding: "80px",
+  display: "flex",
+  backgroundColor: "#F9F8F6",
+  backgroundImage: `url(${wave}), linear-gradient(125deg ,#F0F2F4,#fff)`,
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
+  backgroundSize: "100%",
+});

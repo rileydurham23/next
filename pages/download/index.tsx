@@ -1,12 +1,10 @@
-import Download from "components/Download";
-
-import SectionHeader from "components/SectionHeader";
-
-import DownloadPageHeader from "components/Download";
-
 import { styled } from "@stitches/react";
 
+import Download from "components/Download";
+import { DownloadPageHeader } from "components/Download";
 import { getOsParameter } from "components/Download/helpers";
+import SectionHeader from "components/SectionHeader";
+
 import type {
   Version,
   MajorVersionCollection,
@@ -88,24 +86,22 @@ const headerLinks = [
 const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
   return (
     <>
-      <SectionHeader
+      <DownloadPageHeader
         title="Download Teleport"
         subtitle="Community Edition"
         description="Teleport provides simple secure access to SSH servers, Kubernetes clusters, PostgreSQL databases and web apps behind NAT, in any environment. It's a certificate authority with an integrated identity-aware proxy."
-        descriptionTextWidth="1000px"
-        bg="wave-on-gray"
       >
         <InstallColumnContainer>
           Additional ways to install Teleport
           {headerLinks.map((link) => (
-            <ul key={link.href}>
+            <StyledUl key={link.href}>
               <li>
-                <a href={link.href}>{link.name}</a>
+                <StyledLink href={link.href}>{link.name}</StyledLink>
               </li>
-            </ul>
+            </StyledUl>
           ))}
         </InstallColumnContainer>
-      </SectionHeader>
+      </DownloadPageHeader>
       <ContentContainer>
         <Download initialDownloads={initialDownloads} />
       </ContentContainer>
@@ -115,9 +111,15 @@ const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
 
 export default DownloadPage;
 
-const InstallColumnContainer = styled("div", {
-  display: "flex",
-  flexDirection: "column",
+const StyledUl = styled("ul", {
+  margin: "8px 0 8px 18px",
+  padding: 0,
+});
+
+const StyledLink = styled("a", {
+  color: "#651FFF",
+  margin: 0,
+  padding: 0,
 });
 
 const ContentContainer = styled("div", {
@@ -125,4 +127,9 @@ const ContentContainer = styled("div", {
   justifyContent: "center",
   padding: 0,
   margin: 0,
+});
+
+const InstallColumnContainer = styled("div", {
+  display: "flex",
+  flexDirection: "column",
 });
