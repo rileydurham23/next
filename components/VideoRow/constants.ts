@@ -347,4 +347,19 @@ export const Videos: Array<VideoItem> = [
     labels: ["teleport", "rbac", "sso", "github", "kubernetes", "access plane"],
     videoId: "b1WHFW0NIoM",
   },
+  {
+    author: "Gus Luxton, Lucy Marcum",
+    href: "https://goteleport.com/resources/videos/compliant-and-secure-cloud-infrastructure/",
+    title: "Keep Cloud Infrastructure Secure & Compliant",
+    date: "2022-01-27",
+    labels: [
+      "security",
+      "teleport",
+      "SSH",
+      "access plane",
+      "infrastructure",
+      "cloud",
+    ],
+    videoId: "0iqKTRD09H4",
+  },
 ];
