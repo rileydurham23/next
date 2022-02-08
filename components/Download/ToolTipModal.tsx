@@ -8,16 +8,42 @@ import { styled } from "@stitches/react";
 //   showModal: boolean;
 // }
 
-const ToolTipModal = ({ children, setShowModal, showModal }) => {
-  // const modalRef = useRef();
+// const useModalClickoutStatus = ({ setShowModal, showModal }) => {
+//   const modalRef = useRef();
+
+//   useEffect(() => {
+//     const checkIfClickedOutside = (event) => {
+//       if (
+//         showModal &&
+//         modalRef.current &&
+//         !modalRef.current.contains(event.target)
+//       ) {
+//         setShowModal(false);
+//       }
+//     };
+
+//     document.addEventListener("click", checkIfClickedOutside);
+
+//     // cleanup event listener
+//     return () => {
+//       document.removeEventListener("click", checkIfClickedOutside);
+//     };
+//   }, [setShowModal, showModal]);
+// };
+
+const ToolTipModal = ({ children, onClose }) => {
+  const [isCopied, setIsCopied] = useState(false);
+  const copyButtonText = isCopied ? "Copied!" : "Copy";
+  const modalRef = useRef<HTMLLinkElement>(null);
+
   const handleCloseClick = () => {
-    setShowModal(!showModal);
+    onClose(false);
   };
 
-  const copyToClipboard = (str) => {
+  const copyToClipboard = (sha: string) => {
     if (navigator && navigator.clipboard && navigator.clipboard.writeText)
-      return navigator.clipboard.writeText(str);
-    return Promise.reject("The Clipboard API is not available.");
+      setIsCopied(true);
+    return navigator.clipboard.writeText(sha);
   };
 
   const handleCopyClick = () => {
@@ -25,48 +51,41 @@ const ToolTipModal = ({ children, setShowModal, showModal }) => {
     copyToClipboard(sha);
   };
 
-  // useEffect(() => {
-  //   const checkIfClickedOutside = (event) => {
-  //     if (
-  //       showModal &&
-  //       modalRef.current &&
-  //       !modalRef.current.contains(event.target)
-  //     ) {
-  //       setShowModal(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const handleClick = (event) => {
+      const { target } = event;
 
-  //   document.addEventListener("click", checkIfClickedOutside);
+      if (!modalRef.current?.contains(target)) {
+        onClose();
+      }
+    };
 
-  //   // cleanup event listener
-  //   return () => {
-  //     document.removeEventListener("click", checkIfClickedOutside);
-  //   };
-  // }, [showModal]);
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   return (
-    <>
-      {showModal && (
-        <Outside role="tooltip">
-          <ArrowUp />
-          <ModalContainer>
-            <Title>
-              SHA256 Checksum
-              <CloseButton onClick={handleCloseClick}>x</CloseButton>
-            </Title>
-            <CodeBlock>{children}</CodeBlock>
-            <Bottom>
-              <StyledButton onClick={handleCopyClick} type="primary">
-                Copy
-              </StyledButton>
-              <StyledButton onClick={handleCloseClick} type="secondary">
-                Close
-              </StyledButton>
-            </Bottom>
-          </ModalContainer>
-        </Outside>
-      )}
-    </>
+    <Outside role="tooltip">
+      <ArrowUp />
+      <ModalContainer ref={modalRef}>
+        <Title>
+          SHA256 Checksum
+          <CloseButton onClick={handleCloseClick}>x</CloseButton>
+        </Title>
+        <CodeBlock>{children}</CodeBlock>
+        <Bottom>
+          <StyledButton onClick={handleCopyClick} type="primary">
+            {copyButtonText}
+          </StyledButton>
+          <StyledButton onClick={handleCloseClick} type="secondary">
+            Close
+          </StyledButton>
+        </Bottom>
+      </ModalContainer>
+    </Outside>
   );
 };
 
@@ -119,13 +138,14 @@ const CloseButton = styled("button", {
   borderRadius: "1000px",
   cursor: "pointer",
   fontSize: "16px",
-  height: "25px",
-  width: "25px",
+  height: "30px",
+  width: "30px",
   color: "rgb(96, 125, 139)",
   transition: "all .3s",
+  backgroundColor: "transparent",
 
   "&:hover": {
-    backgroundColor: "rgb(189, 202, 208)",
+    backgroundColor: "rgb(240, 242, 244)",
   },
 });
 

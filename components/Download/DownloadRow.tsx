@@ -16,8 +16,10 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleModalToggle = () => {
-    setShowModal(!showModal);
+    setShowModal((previousState) => !previousState);
   };
+
+  const handleClose = () => setShowModal(false);
 
   return (
     <>
@@ -28,14 +30,9 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
           <ChecksumButton href={sha256} onClick={handleModalToggle}>
             SHA256
           </ChecksumButton>
-          <ToolTipModal
-            showModal={showModal}
-            setShowModal={setShowModal}
-            // ref={modalRef}
-            // onClick={setShowModal(!showModal)}
-          >
-            {sha256}
-          </ToolTipModal>
+          {showModal && (
+            <ToolTipModal onClose={handleClose}>{sha256}</ToolTipModal>
+          )}
         </StyledTd>
         <StyledSizeTd>{displaySize}</StyledSizeTd>
         <StyledTd>
