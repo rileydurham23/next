@@ -1,5 +1,5 @@
 import { styled } from "@stitches/react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { getDownloadInfo } from "./helpers";
 import ToolTipModal from "./ToolTipModal";
@@ -15,14 +15,8 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
   const operatingSystemInfo = getDownloadInfo(name);
   const [showModal, setShowModal] = useState(false);
 
-  const handleModalToggle = (event) => {
-    const currentTarget = event.target;
+  const handleModalToggle = () => {
     setShowModal(!showModal);
-
-    console.log("offset top:", currentTarget.offsetTop);
-    console.log("height of el:", currentTarget.clientHeight);
-    console.log("distance from left:", currentTarget.offsetLeft);
-    console.log("width of el:", currentTarget.clientWidth);
   };
 
   return (
@@ -34,7 +28,12 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
           <ChecksumButton href={sha256} onClick={handleModalToggle}>
             SHA256
           </ChecksumButton>
-          <ToolTipModal showModal={showModal} setShowModal={setShowModal}>
+          <ToolTipModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            // ref={modalRef}
+            // onClick={setShowModal(!showModal)}
+          >
             {sha256}
           </ToolTipModal>
         </StyledTd>

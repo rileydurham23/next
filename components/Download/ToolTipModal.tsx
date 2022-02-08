@@ -1,18 +1,52 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { styled } from "@stitches/react";
 
+// interface ToolTipModalProps {
+//   children: React.ReactNode;
+//   setShowModal: () => void;
+//   showModal: boolean;
+// }
+
 const ToolTipModal = ({ children, setShowModal, showModal }) => {
+  // const modalRef = useRef();
   const handleCloseClick = () => {
     setShowModal(!showModal);
   };
 
-  const handleCopyClick = () => {
-    return "copied";
+  const copyToClipboard = (str) => {
+    if (navigator && navigator.clipboard && navigator.clipboard.writeText)
+      return navigator.clipboard.writeText(str);
+    return Promise.reject("The Clipboard API is not available.");
   };
+
+  const handleCopyClick = () => {
+    const sha = children;
+    copyToClipboard(sha);
+  };
+
+  // useEffect(() => {
+  //   const checkIfClickedOutside = (event) => {
+  //     if (
+  //       showModal &&
+  //       modalRef.current &&
+  //       !modalRef.current.contains(event.target)
+  //     ) {
+  //       setShowModal(false);
+  //     }
+  //   };
+
+  //   document.addEventListener("click", checkIfClickedOutside);
+
+  //   // cleanup event listener
+  //   return () => {
+  //     document.removeEventListener("click", checkIfClickedOutside);
+  //   };
+  // }, [showModal]);
+
   return (
     <>
-      {showModal ? (
+      {showModal && (
         <Outside role="tooltip">
           <ArrowUp />
           <ModalContainer>
@@ -31,41 +65,10 @@ const ToolTipModal = ({ children, setShowModal, showModal }) => {
             </Bottom>
           </ModalContainer>
         </Outside>
-      ) : null}
+      )}
     </>
   );
 };
-
-// const Outside = styled("div", {
-//   height: "200px",
-//   width: "300px",
-//   position: "absolute",
-//   top: " 50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   background: "white",
-// });
-
-// const ArrowUp = styled("div", {
-//   width: "50px",
-//   height: "25px",
-//   position: "absolute",
-//   left: "50%",
-//   transform: "translateX(-50%)",
-//   overflow: "hidden",
-
-//   "&::after": {
-//     content: "",
-//     position: "absolute",
-//     width: "20px",
-//     height: "20px",
-//     background: "white",
-//     transform: "translateX(-50%) translateY(-50%) rotate(45deg)",
-//     top: 0,
-//     left: "50%",
-//     boxShadow: "1px 1px 20px 0px rgba(0,0,0,0.6)",
-//   },
-// });
 
 const Outside = styled("div", {
   position: "absolute",
