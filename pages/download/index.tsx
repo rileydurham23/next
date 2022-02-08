@@ -70,6 +70,21 @@ interface DownloadPageProps {
   os?: OS;
 }
 
+const headerLinks = [
+  {
+    href: "https://goteleport.com/docs/getting-started/",
+    name: "Teleport Quickstart Guide",
+  },
+  {
+    href: "https://goteleport.com/installing",
+    name: "Install from Source",
+  },
+  {
+    href: "https://quay.io/repository/gravitational/teleport?tab=tags",
+    name: "Install using Docker",
+  },
+];
+
 const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
   return (
     <>
@@ -82,23 +97,13 @@ const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
       >
         <InstallColumnContainer>
           Additional ways to install Teleport
-          <ul>
-            <li>
-              <a href="https://goteleport.com/docs/getting-started/">
-                Teleport Quickstart Guide
-              </a>
-            </li>
-            <li>
-              <a href="https://goteleport.com/installing/">
-                Install from Source
-              </a>
-            </li>
-            <li>
-              <a href="https://quay.io/repository/gravitational/teleport?tab=tags">
-                Install using Docker
-              </a>
-            </li>
-          </ul>
+          {headerLinks.map((link) => (
+            <ul key={link.href}>
+              <li>
+                <a href={link.href}>{link.name}</a>
+              </li>
+            </ul>
+          ))}
         </InstallColumnContainer>
       </SectionHeader>
       <ContentContainer>
