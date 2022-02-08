@@ -13,25 +13,74 @@ const ToolTipModal = ({ children, setShowModal, showModal }) => {
   return (
     <>
       {showModal ? (
-        <ModalContainer>
-          <Title>
-            SHA256 Checksum
-            <CloseButton onClick={handleCloseClick}>x</CloseButton>
-          </Title>
-          <CodeBlock>{children}</CodeBlock>
-          <Bottom>
-            <StyledButton onClick={handleCopyClick} type="primary">
-              Copy
-            </StyledButton>
-            <StyledButton onClick={handleCloseClick} type="secondary">
-              Close
-            </StyledButton>
-          </Bottom>
-        </ModalContainer>
+        <Outside role="tooltip">
+          <ArrowUp />
+          <ModalContainer>
+            <Title>
+              SHA256 Checksum
+              <CloseButton onClick={handleCloseClick}>x</CloseButton>
+            </Title>
+            <CodeBlock>{children}</CodeBlock>
+            <Bottom>
+              <StyledButton onClick={handleCopyClick} type="primary">
+                Copy
+              </StyledButton>
+              <StyledButton onClick={handleCloseClick} type="secondary">
+                Close
+              </StyledButton>
+            </Bottom>
+          </ModalContainer>
+        </Outside>
       ) : null}
     </>
   );
 };
+
+// const Outside = styled("div", {
+//   height: "200px",
+//   width: "300px",
+//   position: "absolute",
+//   top: " 50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   background: "white",
+// });
+
+// const ArrowUp = styled("div", {
+//   width: "50px",
+//   height: "25px",
+//   position: "absolute",
+//   left: "50%",
+//   transform: "translateX(-50%)",
+//   overflow: "hidden",
+
+//   "&::after": {
+//     content: "",
+//     position: "absolute",
+//     width: "20px",
+//     height: "20px",
+//     background: "white",
+//     transform: "translateX(-50%) translateY(-50%) rotate(45deg)",
+//     top: 0,
+//     left: "50%",
+//     boxShadow: "1px 1px 20px 0px rgba(0,0,0,0.6)",
+//   },
+// });
+
+const Outside = styled("div", {
+  position: "absolute",
+  filter: "drop-shadow(#D2DBDF 0px 8px 32px)",
+  zIndex: 100,
+});
+
+const ArrowUp = styled("div", {
+  width: 0,
+  height: 0,
+  borderLeft: "10px solid transparent",
+  borderRight: "10px solid transparent",
+  borderBottom: "10px solid #fff",
+  marginLeft: "18px",
+});
 
 const ModalContainer = styled("div", {
   position: "absolute",
@@ -39,22 +88,9 @@ const ModalContainer = styled("div", {
   borderRadius: "8px",
   padding: "16px",
   zIndex: 50,
-  border: "1px solid black",
-  marginTop: "8px",
-  left: "-150px",
+  marginTop: "0px",
+  left: "-190px",
 });
-
-// const StyledArrow = styled("div", {
-//   width: 0,
-//   height: 0,
-//   borderLeft: "8px solid transparent",
-//   borderRight: "8px solid transparent",
-//   borderBottom: "8px solid transparent",
-//   left: "50%",
-//   top: "-8px",
-//   marginLeft: "-8px",
-//   position: "absolute",
-// });
 
 export default ToolTipModal;
 
@@ -78,11 +114,16 @@ const CodeBlock = styled("div", {
 const CloseButton = styled("button", {
   border: "none",
   borderRadius: "1000px",
-  color: "#607d8b",
   cursor: "pointer",
   fontSize: "16px",
-  height: "16px",
-  width: "16px",
+  height: "25px",
+  width: "25px",
+  color: "rgb(96, 125, 139)",
+  transition: "all .3s",
+
+  "&:hover": {
+    backgroundColor: "rgb(189, 202, 208)",
+  },
 });
 
 const StyledButton = styled("button", {

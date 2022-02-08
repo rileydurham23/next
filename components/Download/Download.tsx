@@ -67,6 +67,7 @@ const DownloadContainer = styled("div", {
   pt: "32px",
   width: "90%",
   maxWidth: "1240px",
+  overflow: "scroll",
 });
 
 const Top = styled("div", {
