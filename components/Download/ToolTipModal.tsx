@@ -1,35 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import { styled } from "@stitches/react";
 
-// interface ToolTipModalProps {
-//   children: React.ReactNode;
-//   setShowModal: () => void;
-//   showModal: boolean;
-// }
-
-// const useModalClickoutStatus = ({ setShowModal, showModal }) => {
-//   const modalRef = useRef();
-
-//   useEffect(() => {
-//     const checkIfClickedOutside = (event) => {
-//       if (
-//         showModal &&
-//         modalRef.current &&
-//         !modalRef.current.contains(event.target)
-//       ) {
-//         setShowModal(false);
-//       }
-//     };
-
-//     document.addEventListener("click", checkIfClickedOutside);
-
-//     // cleanup event listener
-//     return () => {
-//       document.removeEventListener("click", checkIfClickedOutside);
-//     };
-//   }, [setShowModal, showModal]);
-// };
+import { Box } from "./components/Box";
+import { Flex } from "./components/Flex";
 
 const ToolTipModal = ({ children, onClose }) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -77,61 +50,24 @@ const ToolTipModal = ({ children, onClose }) => {
           <CloseButton onClick={handleCloseClick}>x</CloseButton>
         </Title>
         <CodeBlock>{children}</CodeBlock>
-        <Bottom>
+        <Flex>
           <StyledButton onClick={handleCopyClick} type="primary">
             {copyButtonText}
           </StyledButton>
           <StyledButton onClick={handleCloseClick} type="secondary">
             Close
           </StyledButton>
-        </Bottom>
+        </Flex>
       </ModalContainer>
     </ToolTipModalContainer>
   );
 };
 
-const ToolTipModalContainer = styled("div", {
-  position: "absolute",
-  filter: "drop-shadow(#D2DBDF 0px 8px 32px)",
-  zIndex: 100,
-});
-
-const ArrowUp = styled("div", {
-  width: 0,
-  height: 0,
+const ArrowUp = styled(Box, {
   borderLeft: "10px solid transparent",
   borderRight: "10px solid transparent",
   borderBottom: "10px solid #fff",
   marginLeft: "18px",
-});
-
-const ModalContainer = styled("div", {
-  position: "absolute",
-  backgroundColor: "white",
-  borderRadius: "8px",
-  padding: "16px",
-  zIndex: 50,
-  marginTop: "0px",
-  left: "-190px",
-});
-
-export default ToolTipModal;
-
-const Bottom = styled("div", {
-  display: "flex",
-  flexDirection: "row",
-});
-
-const CodeBlock = styled("div", {
-  backgroundColor: "black",
-  color: "white",
-  marginBottom: "24px",
-  paddingLeft: "10px",
-  paddingRight: "10px",
-  height: "40px",
-  borderRadius: "5px",
-  alignItems: "center",
-  display: "flex",
 });
 
 const CloseButton = styled("button", {
@@ -141,13 +77,33 @@ const CloseButton = styled("button", {
   fontSize: "16px",
   height: "30px",
   width: "30px",
-  color: "rgb(96, 125, 139)",
+  color: "#607d8b",
   transition: "all .3s",
   backgroundColor: "transparent",
 
   "&:hover": {
-    backgroundColor: "rgb(240, 242, 244)",
+    backgroundColor: "#f0f2f4",
   },
+});
+
+const CodeBlock = styled(Flex, {
+  backgroundColor: "black",
+  color: "white",
+  marginBottom: "24px",
+  paddingLeft: "10px",
+  paddingRight: "10px",
+  height: "40px",
+  borderRadius: "5px",
+  alignItems: "center",
+});
+
+const ModalContainer = styled(Box, {
+  position: "absolute",
+  backgroundColor: "white",
+  borderRadius: "8px",
+  padding: "16px",
+  zIndex: 50,
+  left: "-190px",
 });
 
 const StyledButton = styled("button", {
@@ -173,7 +129,7 @@ const StyledButton = styled("button", {
       },
       secondary: {
         backgroundColor: "white",
-        border: "2px solid rgb(189, 202, 208)",
+        border: "2px solid #bdcad0",
         color: "#bdcad0",
         marginLeft: "8px",
       },
@@ -181,11 +137,16 @@ const StyledButton = styled("button", {
   },
 });
 
-const Title = styled("div", {
+const Title = styled(Flex, {
   fontSize: "14px",
-  fontWeight: 600,
-  display: "flex",
-  flexDirection: "row",
   justifyContent: "space-between",
   marginBottom: "10px",
 });
+
+const ToolTipModalContainer = styled(Box, {
+  filter: "drop-shadow(#D2DBDF 0px 8px 32px)",
+  position: "absolute",
+  zIndex: 100,
+});
+
+export default ToolTipModal;

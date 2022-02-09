@@ -8,6 +8,9 @@ import DownloadToggleMenu from "./DownloadToggleMenu";
 import type { MajorVersionCollection } from "./types";
 import type { OS } from "./types";
 
+import { Box } from "./components/Box";
+import { Flex } from "./components/Flex";
+
 import { getDownloadInfo } from "./helpers";
 
 interface DownloadTableProps {
@@ -110,7 +113,7 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
             {label}
           </ReleaseATag>
         </Left>
-        <Right>{renderOsMenu()}</Right>
+        <Flex>{renderOsMenu()}</Flex>
       </HeaderContainer>
     );
   };
@@ -129,7 +132,7 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
             <StyledTh>Download link</StyledTh>
           </TableHeader>
         </thead>
-        <StyledTBody>
+        <tbody>
           {selectedVersion.downloads
             .filter((download) => {
               const downloadInformation = getDownloadInfo(download.name);
@@ -144,22 +147,20 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
                 url={download.url}
               />
             ))}
-        </StyledTBody>
+        </tbody>
       </StyledTable>
     </DownloadTableContainer>
   );
 };
 
-const DownloadTableContainer = styled("div", {
+const DownloadTableContainer = styled(Box, {
   borderRadius: "16px",
   boxShadow: "rgb(0 0 0 / 12%) 0px 1px 4px",
-  flexDirection: "column",
   marginBottom: "48px",
 });
 
-const HeaderContainer = styled("div", {
+const HeaderContainer = styled(Flex, {
   alignItems: "center",
-  display: "flex",
   // TODO deal with mobile styling issues
   // flexDirection: ["column", "row"],
   justifyContent: "space-between",
@@ -174,33 +175,23 @@ const HeaderH1 = styled("h1", {
   width: "150px",
 });
 
-const Left = styled("div", {
+const Left = styled(Flex, {
   alignItems: "center",
-  display: "flex",
-  flexDirection: "row",
 });
 
 const ReleaseATag = styled("a", {
-  backgroundColor: "transparent",
-  color: "rgb(0, 145, 234)",
+  color: "#0091ea",
   cursor: "pointer",
   fontSize: "14px",
   lineHeight: "24px",
   width: "30%",
 });
 
-const ReleaseDropdownContainer = styled("div", {
+const ReleaseDropdownContainer = styled(Flex, {
   alignItems: "center",
-  color: "rgb(96, 125, 139)",
-  display: "flex",
+  color: "#607d8b",
   fontSize: "12px",
-  lineHeight: "24px",
   marginRight: "48px",
-});
-
-const Right = styled("div", {
-  display: "flex",
-  flexDirection: "row",
 });
 
 const StyledMarkdown = styled(ReactMarkdown, {
@@ -222,20 +213,15 @@ const StyledMarkdown = styled(ReactMarkdown, {
 });
 
 const StyledSelect = styled("select", {
-  border: "1px solid rgb(189, 202, 208)",
-  color: "rgb(0, 145, 234)",
+  border: "1px solid #bdcad0",
+  color: "#0091ea",
   fontSize: "12px",
   height: "17px",
   marginLeft: "4px",
   padding: "0px 33px",
 });
 
-const StyledTBody = styled("tbody", {
-  width: "90%",
-});
-
 const StyledSizeTh = styled("th", {
-  paddingLeft: "0px",
   textAlign: "left",
 });
 
@@ -246,15 +232,13 @@ const StyledTh = styled("th", {
 
 const StyledTable = styled("table", {
   borderCollapse: "collapse",
-  margin: 0,
   width: "100%",
 });
 
 const TableHeader = styled("tr", {
   borderTop: "1px solid #F0F2F4",
-  color: "rgb(189, 202, 208)",
+  color: "#bdcad0",
   fontSize: "10px",
   lineHeight: "40px",
-  margin: "8px",
   textTransform: "uppercase",
 });

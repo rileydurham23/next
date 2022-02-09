@@ -59,14 +59,14 @@ const ChecksumButton = styled("button", {
   cursor: "pointer",
   borderRadius: "4px",
   backgroundColor: "transparent",
-  border: "1px solid rgb(189, 202, 208)",
-  color: "rgb(96, 125, 139)",
+  border: "1px solid #bdcad0",
+  color: "#607d8b",
   transition: "all 0.3s",
   fontSize: "10px",
   padding: "0px 8px",
   height: "24px",
   "&:hover": {
-    border: "1px solid rgb(0, 145, 234)",
+    border: "1px solid #0091ea",
   },
 });
 

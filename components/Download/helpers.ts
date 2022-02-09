@@ -211,27 +211,6 @@ export const isLinux = (name: string): boolean => {
   return isLnx;
 };
 
-// export const groupByOS = (downloads) => {
-//   const sortedDownloads = {
-//     mac: [],
-//     windows: [],
-//     linux: [],
-//   };
-
-//   downloads.forEach((release) => {
-//     const name = release.name;
-//     if (isWindows(name)) {
-//       sortedDownloads.windows.push(release);
-//     } else if (isMacOs(name)) {
-//       sortedDownloads.mac.push(release);
-//     } else {
-//       sortedDownloads.linux.push(release);
-//     }
-//   });
-
-//   return sortedDownloads;
-// };
-
 const osParameterSet = new Set<OS>(["windows", "mac", "linux"]);
 
 // type predicate function. more refined type of boolean

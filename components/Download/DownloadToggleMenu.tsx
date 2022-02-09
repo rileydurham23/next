@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { styled } from "@stitches/react";
 
+import { Flex } from "./components/Flex";
+
 import type { OS } from "./types";
 
 interface ButtonNameMap {
@@ -62,29 +64,23 @@ const DownloadToggleMenu: React.FC<ToggleMenuProps> = ({
   });
 
   return (
-    <ToggleContainer role="group" aria-label="Choose operating system">
+    <Flex role="group" aria-label="Choose operating system">
       {toggleButtons}
-    </ToggleContainer>
+    </Flex>
   );
 };
 
 export default DownloadToggleMenu;
 
-const ToggleContainer = styled("div", {
-  display: "flex",
-});
-
 const StyledButton = styled("button", {
   cursor: "pointer",
   backgroundColor: "transparent",
   width: "100px",
-  color: "rgb(96, 125, 139)",
+  color: "#607d8b",
   transition: "all 0.3s",
   fontSize: "13px",
-  padding: "0px 8px",
   height: "40px",
   border: " 1px solid #bdcad0",
-  fontWeight: "300",
 
   "&:first-child": {
     borderRadius: "4px 0px 0px 4px",
