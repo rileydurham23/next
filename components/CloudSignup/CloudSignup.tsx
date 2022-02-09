@@ -3,13 +3,21 @@ import styled from "styled-components";
 import { all, css, StyledSystemProps } from "components/system";
 import { BoxProps } from "components/Box";
 import { renderSignupRequestForm } from "utils/cloud-signup";
+import { GTMEvent } from "utils/gtm";
 
 export default function CloudSignup(props: BoxProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_TELEPORT_API_URL;
+
     if (ref) {
-      renderSignupRequestForm(ref.current);
+      renderSignupRequestForm(ref.current, {
+        apiUrl: API_URL,
+        onSuccess: () => {
+          GTMEvent("formSubmit", { formType: "Teleport Pro Signup" });
+        },
+      });
     }
   }, [ref]);
 

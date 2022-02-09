@@ -25,14 +25,21 @@ function loadLib(): Promise<typeof window.teleport> {
   });
 }
 
-export async function renderSignupRequestForm(element: Element): Promise<void> {
+interface optionsInt {
+  apiUrl: string;
+  onSuccess: () => void;
+}
+
+export async function renderSignupRequestForm(
+  //element is a container element for the form, not the form itself.
+  element: Element,
+  options: optionsInt
+): Promise<void> {
   try {
     const lib = await loadLib();
     await loadRecaptcha();
 
-    return lib.renderSignupRequestForm(element, {
-      apiUrl: API_URL,
-    });
+    return lib.renderSignupRequestForm(element, options);
   } catch (e) {
     console.error(e);
   }
