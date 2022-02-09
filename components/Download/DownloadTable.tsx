@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useEffect, useRef, useState } from "react";
 
 import { styled } from "@stitches/react";
 import ReactMarkdown from "react-markdown";
@@ -60,11 +60,11 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
   const showIndividualNoteRef = useRef(showIndividualNote);
 
   // useLayoutEffect is used to avoid flash of unwanted content and a second render
-  useLayoutEffect(() => {
+  useEffect(() => {
     showIndividualNoteRef.current = showIndividualNote;
   }, [showIndividualNote]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (showAllNotes !== showIndividualNoteRef.current) {
       setShowIndividualNote(showAllNotes);
     }
