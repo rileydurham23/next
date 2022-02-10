@@ -15,7 +15,7 @@ export default function CloudSignup(props: BoxProps) {
       renderSignupRequestForm(ref.current, {
         apiUrl: API_URL,
         onSuccess: () => {
-          GTMEvent("formSubmit", { formType: "Teleport Pro Signup" });
+          GTMEvent("formSubmit", { formType: "Free Trial Signup" });
         },
       });
     }
