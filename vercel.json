@@ -10,5 +10,17 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "docs.teleport.com"
+        }
+      ],
+      "destination": "/docs/:path*"
+    }
   ]
 }
