@@ -49,8 +49,8 @@ const HeaderCTA = () => {
           >
             Sign In
           </StyledCTA>
+          buttonHasBeenToggled && (
           <Box
-            display={isSignInVisible ? "block" : "none"}
             right={[0, 3]}
             position={["relative", "absolute"]}
             width={["100%", "auto"]}
@@ -73,6 +73,7 @@ const HeaderCTA = () => {
               />
             </DropdownMenu>
           </Box>
+          )
         </Box>
         <StyledCTA as="a" href="/pricing/">
           Get Started

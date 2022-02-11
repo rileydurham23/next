@@ -1,15 +1,13 @@
 import { useState, useCallback, useRef, MouseEvent } from "react";
 import { useClickAway } from "react-use";
 import { css, media } from "components/system";
-import styled from "styled-components";
+// import styled from "styled-components";
 import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuOverlay,
-} from "../DropdownMenu";
+import { DropdownMenu, DropdownMenuItem } from "../DropdownMenu";
+
+import { styled } from "@stitches/react";
 
 export const NavBarCTA = () => {
   const ref = useRef(null);
@@ -41,14 +39,13 @@ export const NavBarCTA = () => {
         width={["100%", "auto"]}
       >
         <Box position="relative" width={["100%", "auto"]} ref={ref}>
-          <StyledCTA
-            as="a"
+          {/* <StyledCTA
             href="https://teleport.sh/"
             onClick={toggleSignIn}
             variant="secondary"
           >
             Sign In
-          </StyledCTA>
+          </StyledCTA> */}
           <Box
             display={isSignInVisible ? "block" : "none"}
             right={[0, 3]}
@@ -82,15 +79,25 @@ export const NavBarCTA = () => {
   );
 };
 
-const StyledCTA = styled(Button)(
-  css({
-    mt: [2, 0],
-    mr: [0, 3],
-    flexShrink: 0,
-  }),
-  media("sm", {
-    fontSize: "text-lg",
-    height: "56px",
-    width: "100%",
-  })
-);
+const DropdownMenuOverlay = styled("div", {
+  // display: {["none", "block"]},
+  // position: "fixed",
+  // top: "80px",
+  // right: 0,
+  // bottom: 0,
+  // left: 0,
+  // zIndex: 1000,
+  // background: "blur(60px)",
+});
+
+const StyledCTA = styled("button", {
+  mt: [2, 0],
+  mr: [0, 3],
+  flexShrink: 0,
+  border: "1px solid blue",
+  fontWeight: 600,
+  whiteSpace: "nowrap",
+
+  // margin: "20px",
+  padding: "20px",
+});

@@ -2,10 +2,9 @@ import { useState, useCallback } from "react";
 
 import { styled } from "@stitches/react";
 
-import Flex from "./components/Flex";
 import Logo from "components/Logo";
 import Menu from "components/Menu";
-import HeadlessButton from "components/HeadlessButton";
+// import HeadlessButton from "components/HeadlessButton";
 import blockBodyScroll from "utils/block-body-scroll";
 import { NavBarCTA } from "./NavBarCTA";
 
