@@ -86,7 +86,7 @@ const headerLinks = [
 const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
   return (
     <>
-      <DownloadPageHeader
+      <SectionHeader
         title="Download Teleport"
         subtitle="Community Edition"
         description="Teleport provides simple secure access to SSH servers, Kubernetes clusters, PostgreSQL databases and web apps behind NAT, in any environment. It's a certificate authority with an integrated identity-aware proxy."
@@ -101,7 +101,7 @@ const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
             </StyledUl>
           ))}
         </InstallColumnContainer>
-      </DownloadPageHeader>
+      </SectionHeader>
       <ContentContainer>
         <Download initialDownloads={initialDownloads} />
       </ContentContainer>

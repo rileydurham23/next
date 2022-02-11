@@ -65,4 +65,5 @@ const OutsideContainer = styled(Box, {
   backgroundSize: "100%",
   display: "flex",
   padding: "80px",
+  paddingTop: "80px",
 });
