@@ -7,7 +7,7 @@ import Logo from "components/Logo";
 import Menu from "components/Menu";
 import HeadlessButton from "components/HeadlessButton";
 import blockBodyScroll from "utils/block-body-scroll";
-// import NavBarCTA from "./NavBarCTA";
+import { NavBarCTA } from "./NavBarCTA";
 
 const StyledLogoLink = styled("a", {
   color: "dark-purple",
@@ -42,7 +42,7 @@ export const NavBar = ({}) => {
           <Icon name={isNavigationVisible ? "close" : "hamburger"} size="md" />
         </StyledHamburger> */}
       <Menu />
-      {/* <NavBarCTA /> */}
+      <NavBarCTA />
     </OuterContainer>
   );
 };
@@ -52,27 +52,27 @@ const OuterContainer = styled("header", {
   display: "flex",
 });
 
-const StyledNavBar = styled(Flex, {
-  alignItems: "center",
-  height: "80px",
-  left: 0,
-  position: "absolute",
-  right: 0,
-  top: 0,
-  zIndex: 2000,
+// const StyledNavBar = styled(Flex, {
+//   alignItems: "center",
+//   height: "80px",
+//   left: 0,
+//   position: "absolute",
+//   right: 0,
+//   top: 0,
+//   zIndex: 2000,
 
-  // media("sm", {
-  //   background: "white",
-  //   boxShadow: "0 1px 4px rgba(0, 0, 0, 0.24)",
-  //   height: "48px",
-  //   position: "fixed",
-  // })
-});
+//   // media("sm", {
+//   //   background: "white",
+//   //   boxShadow: "0 1px 4px rgba(0, 0, 0, 0.24)",
+//   //   height: "48px",
+//   //   position: "fixed",
+//   // })
+// });
 
-const StyledContentWrapper = styled(Flex, {
-  width: "100%",
-  alignItems: "center",
-});
+// const StyledContentWrapper = styled(Flex, {
+//   width: "100%",
+//   alignItems: "center",
+// });
 
 const StyledHamburger = styled("button", {
   cursor: "pointer",
