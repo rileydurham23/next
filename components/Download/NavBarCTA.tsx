@@ -39,13 +39,13 @@ export const NavBarCTA = () => {
         width={["100%", "auto"]}
       >
         <Box position="relative" width={["100%", "auto"]} ref={ref}>
-          {/* <StyledCTA
+          <StyledCTA
             href="https://teleport.sh/"
             onClick={toggleSignIn}
             variant="secondary"
           >
             Sign In
-          </StyledCTA> */}
+          </StyledCTA>
           <Box
             display={isSignInVisible ? "block" : "none"}
             right={[0, 3]}
