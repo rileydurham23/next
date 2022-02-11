@@ -29,8 +29,8 @@ const LeftSide = styled(Flex, {
 });
 
 const RightSide = styled(Box, {
-  paddingTop: "60px",
-  paddingLeft: "50px",
+  marginLeft: "80px",
+  marginTop: "64px",
 });
 
 const SubtitleContainer = styled(Box, {
@@ -64,6 +64,8 @@ const OutsideContainer = styled(Box, {
   backgroundPosition: "center",
   backgroundSize: "100%",
   display: "flex",
-  padding: "80px",
-  paddingTop: "80px",
+  paddingLeft: "80px",
+  paddingRight: "80px",
+  paddingTop: "160px",
+  paddingBottom: "80px",
 });
