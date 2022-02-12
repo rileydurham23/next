@@ -3,9 +3,9 @@ import { styled } from "@stitches/react";
 import Download from "components/Download";
 import { DownloadPageHeader } from "components/Download";
 import { getOsParameter } from "components/Download/helpers";
-import SectionHeader from "components/SectionHeader";
+// import SectionHeader from "components/SectionHeader";
 import { NavBar } from "components/Download";
-import Header from "components/Header";
+// import Header from "components/Header";
 
 import type {
   Version,

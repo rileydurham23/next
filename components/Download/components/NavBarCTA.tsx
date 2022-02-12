@@ -1,13 +1,13 @@
 import { useState, useCallback, useRef, MouseEvent } from "react";
 import { useClickAway } from "react-use";
 import { css, media } from "components/system";
-// import styled from "styled-components";
+import styled from "styled-components";
 import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
-import { DropdownMenu, DropdownMenuItem } from "../DropdownMenu";
-
-import { styled } from "@stitches/react";
+import { DropdownMenu } from "./DropdownMenu";
+import { DropdownMenuItem } from "./DropdownMenuItem";
+import { DropdownMenuOverlay } from "./DropdownMenuOverlay";
 
 export const NavBarCTA = () => {
   const ref = useRef(null);
@@ -40,6 +40,7 @@ export const NavBarCTA = () => {
       >
         <Box position="relative" width={["100%", "auto"]} ref={ref}>
           <StyledCTA
+            as="a"
             href="https://teleport.sh/"
             onClick={toggleSignIn}
             variant="secondary"
@@ -58,13 +59,13 @@ export const NavBarCTA = () => {
             <DropdownMenu title="Sign in to Teleport">
               <DropdownMenuItem
                 href="https://teleport.sh/"
-                icon="clouds"
+                src="../assets/clouds"
                 title="Teleport Cloud Login"
                 description="Login to your Teleport Account"
               />
               <DropdownMenuItem
                 href="https://dashboard.gravitational.com/web/login"
-                icon="download"
+                src="../assets/download"
                 title="Dashboard Login"
                 description="Legacy Login &amp; Teleport Enterprise Downloads"
               />
@@ -79,25 +80,15 @@ export const NavBarCTA = () => {
   );
 };
 
-const DropdownMenuOverlay = styled("div", {
-  // display: {["none", "block"]},
-  // position: "fixed",
-  // top: "80px",
-  // right: 0,
-  // bottom: 0,
-  // left: 0,
-  // zIndex: 1000,
-  // background: "blur(60px)",
-});
-
-const StyledCTA = styled("button", {
-  mt: [2, 0],
-  mr: [0, 3],
-  flexShrink: 0,
-  border: "1px solid blue",
-  fontWeight: 600,
-  whiteSpace: "nowrap",
-
-  // margin: "20px",
-  padding: "20px",
-});
+const StyledCTA = styled(Button)(
+  css({
+    mt: [2, 0],
+    mr: [0, 3],
+    flexShrink: 0,
+  }),
+  media("sm", {
+    fontSize: "text-lg",
+    height: "56px",
+    width: "100%",
+  })
+);
