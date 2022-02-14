@@ -362,4 +362,12 @@ export const Videos: Array<VideoItem> = [
     ],
     videoId: "0iqKTRD09H4",
   },
+  {
+    author: "Allen Vailliencourt, Vance McCarthy",
+    href: "https://goteleport.com/resources/videos/protect-your-ci-cd-pipeline/",
+    title: "How to Protect Your CI/CD Pipeline",
+    date: "2022-02-04",
+    labels: ["security", "teleport", "SSH", "access plane", "pipeline"],
+    videoId: "fMNfJRySHe8",
+  },
 ];
