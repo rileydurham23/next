@@ -16,9 +16,10 @@ export interface IconProps
   extends Omit<ComponentProps<typeof Box>, "name" | "size"> {
   name: IconName;
   size?: keyof typeof sizes;
+  src: string;
 }
 
-export const Icon = ({ name, size = "md", ...props }: IconProps) => {
+export const Icon = ({ name, size = "md", src, ...props }: IconProps) => {
   const IconSVG = icons[name];
 
   console.log(IconSVG);

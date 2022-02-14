@@ -1,8 +1,8 @@
 import { styled } from "@stitches/react";
 
-import Icon, { IconName } from "components/Icon";
+// import Icon, { IconName } from "components/Icon";
 
-// import { Icon } from "./Icon";
+import { Icon } from "./Icon";
 
 import { Box } from "./Box";
 
@@ -10,7 +10,8 @@ export interface MenuItemProps {
   title: string;
   description: string;
   src: string;
-  icon?: IconName;
+  icon?: string;
+  href?: string;
 }
 
 export const DropdownMenuItem = ({
@@ -18,10 +19,11 @@ export const DropdownMenuItem = ({
   title,
   description,
   src,
+  href,
 }: MenuItemProps) => {
   return (
-    <StyledLink src={src}>
-      <Icon name={icon} color="dark-purple" mt={1} mr={2} float="left" />
+    <StyledLink href={href}>
+      {/* <Icon src={icon} color="dark-purple" mt={1} mr={2} float="left" /> */}
       <TitleContainer>{title}</TitleContainer>
       <DescriptionSpan>{description}</DescriptionSpan>
     </StyledLink>
