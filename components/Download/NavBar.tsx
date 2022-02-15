@@ -90,6 +90,8 @@ const StyledContentWrapper = styled(Flex)(
     }),
     media("sm", {
       flexDirection: "column",
+      border: "1px solid purple",
+
       position: "fixed",
       zIndex: 2000,
       top: "48px",
