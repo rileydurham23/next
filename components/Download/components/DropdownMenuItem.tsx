@@ -1,9 +1,7 @@
 import { styled } from "@stitches/react";
 
-// import Icon, { IconName } from "components/Icon";
-
-import { Icon } from "./Icon";
-
+import clouds from "../assets/clouds.svg?react";
+import Download from "../assets/download.svg?react";
 import { Box } from "./Box";
 
 export interface MenuItemProps {
@@ -12,23 +10,42 @@ export interface MenuItemProps {
   src: string;
   icon?: string;
   href?: string;
+  name?: "clouds" | "download";
 }
 
 export const DropdownMenuItem = ({
-  icon,
   title,
   description,
-  src,
   href,
+  name,
 }: MenuItemProps) => {
+  const iconToRender =
+    name === "clouds" ? <StyledClouds /> : <StyledDownload />;
+
   return (
     <StyledLink href={href}>
-      {/* <Icon src={icon} color="dark-purple" mt={1} mr={2} float="left" /> */}
+      {iconToRender}
       <TitleContainer>{title}</TitleContainer>
       <DescriptionSpan>{description}</DescriptionSpan>
     </StyledLink>
   );
 };
+
+const StyledDownload = styled(Download, {
+  color: "#512fc9",
+  margin: "4px 8px 0px 0px",
+  float: "left",
+  width: "24px",
+  height: "24px",
+});
+
+const StyledClouds = styled(clouds, {
+  color: "#512fc9",
+  margin: "4px 8px 0px 0px",
+  float: "left",
+  width: "24px",
+  height: "24px",
+});
 
 const StyledLink = styled("a", {
   display: "block",

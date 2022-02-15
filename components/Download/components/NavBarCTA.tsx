@@ -25,6 +25,8 @@ export const NavBarCTA = () => {
     }
   });
 
+  console.log();
+
   return (
     <>
       {isSignInVisible && <DropdownMenuOverlay />}
@@ -59,15 +61,17 @@ export const NavBarCTA = () => {
             <DropdownMenu title="Sign in to Teleport">
               <DropdownMenuItem
                 href="https://teleport.sh/"
-                src="../assets/clouds"
+                src="../assets/cloud.svg"
                 title="Teleport Cloud Login"
                 description="Login to your Teleport Account"
+                name="clouds"
               />
               <DropdownMenuItem
                 href="https://dashboard.gravitational.com/web/login"
-                src="../assets/download"
+                src="../assets/download.svg"
                 title="Dashboard Login"
                 description="Legacy Login &amp; Teleport Enterprise Downloads"
+                name="download"
               />
             </DropdownMenu>
           </Box>
