@@ -64,7 +64,7 @@ launchpad:
       - title: General inquiries
         url: /contact-us/
       - title: Customer support
-        url: https://gravitational.zendesk.com/hc/en-us
+        url: https://support.goteleport.com/hc/en-us
       - title: Connect
         items:
           - title: Community forum
