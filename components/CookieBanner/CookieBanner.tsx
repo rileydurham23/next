@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { setCookie } from "nookies";
+import { useState } from "react";
 
 import css from "@styled-system/css";
 import styled from "styled-components";
@@ -8,6 +7,7 @@ import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
 import Link from "components/Link";
+import { useEffect } from "react";
 
 const googleAnalyticsRegions = [
   "BE",
@@ -41,10 +41,16 @@ const googleAnalyticsRegions = [
 ];
 
 const CookieBanner = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const hasCookieStored =
+    typeof window !== "undefined" &&
+    localStorage.getItem("hasApprovedCookies") === "true";
 
   const handleAcceptClick = () => {
-    setIsVisible(false);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("hasApprovedCookies", "true");
+      console.log("set cookie");
+      console.log("getting cookie", localStorage.getItem("hasApprovedCookies"));
+    }
 
     //updates permissions for gtag to function
     //this code needs to be tested with a VPN - Cole
@@ -56,21 +62,27 @@ const CookieBanner = () => {
     // });
   };
 
+  console.log("hasCookieStored:", hasCookieStored);
+
   return (
-    <OuterContainer>
-      <CookieMessage>
-        <TextContainer>
-          Our sites uses cookies to provide you with a great user experience. By
-          using this website, you accept our&nbsp;
-          <Link href="https://goteleport.com/privacy/" color="white">
-            Cookie Policy.
-          </Link>
-        </TextContainer>
-      </CookieMessage>
-      <Button onClick={handleAcceptClick} variant="secondary">
-        Okay!
-      </Button>
-    </OuterContainer>
+    <>
+      {!hasCookieStored && (
+        <OuterContainer>
+          <CookieMessage>
+            <TextContainer>
+              Our sites uses cookies to provide you with a great user
+              experience. By using this website, you accept our&nbsp;
+              <Link href="https://goteleport.com/privacy/" color="white">
+                Cookie Policy.
+              </Link>
+            </TextContainer>
+          </CookieMessage>
+          <Button onClick={handleAcceptClick} variant="secondary">
+            Okay!
+          </Button>
+        </OuterContainer>
+      )}
+    </>
   );
 };
 
@@ -109,5 +121,6 @@ const OuterContainer = styled(Flex)(
     boxShadow: " 0px 2px 10px #455A64",
     // fontSize: "text-lg",
     transition: "all 0.3s ease",
+    // display:
   })
 );
