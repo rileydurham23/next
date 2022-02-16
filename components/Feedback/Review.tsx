@@ -90,7 +90,7 @@ const StyledWrapper = styled("blockquote")(
     backgroundColor: "white",
     backgroundSize: "80px 100px, 80px 100px",
     boxShadow: ["none", "0 1px 4px rgba(0, 0, 0, 0.24)"],
-    px: 9,
+    px: [3, 9],
     py: 5,
   }),
   all
