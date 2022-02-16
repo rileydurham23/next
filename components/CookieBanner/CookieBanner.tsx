@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { setCookie } from "nookies";
 
 import css from "@styled-system/css";
 import styled from "styled-components";
@@ -8,11 +9,51 @@ import Button from "components/Button";
 import Flex from "components/Flex";
 import Link from "components/Link";
 
+const googleAnalyticsRegions = [
+  "BE",
+  "BG",
+  "CZ",
+  "DK",
+  "DE",
+  "EE",
+  "IE",
+  "GR",
+  "ES",
+  "FR",
+  "HR",
+  "IT",
+  "CY",
+  "LV",
+  "LT",
+  "LU",
+  "HU",
+  "MT",
+  "NL",
+  "AT",
+  "PL",
+  "PT",
+  "RO",
+  "SI",
+  "SK",
+  "FI",
+  "SE",
+  "US-CA",
+];
+
 const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleAcceptClick = () => {
     setIsVisible(false);
+
+    //updates permissions for gtag to function
+    //this code needs to be tested with a VPN - Cole
+    //eslint-disable-next-line
+    // gtag("consent", "update", {
+    //   ad_storage: "granted",
+    //   analytics_storage: "granted",
+    //   region: googleAnalyticsRegions,
+    // });
   };
 
   return (
