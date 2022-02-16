@@ -1,8 +1,8 @@
 import { MDXProvider } from "@mdx-js/react";
+import CookieBanner from "components/CookieBanner";
 import Drift from "components/Drift";
 import Layout from "components/Layout";
 import Footer from "components/Footer";
-import CookieBanner from "components/CookieBanner";
 import Head from "components/Head";
 import Box from "components/Box";
 import { HeaderMode, HeaderBehaviour } from "components/Header";

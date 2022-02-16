@@ -7,6 +7,7 @@ import SectionHeader from "components/SectionHeader";
 import Head from "components/Head";
 import Layout from "components/Layout";
 import Button from "components/Button";
+import CookieBanner from "components/CookieBanner";
 import Footer from "components/Footer";
 import OurOffices from "components/OurOffices";
 import Section from "components/Section";
@@ -102,6 +103,7 @@ export const PressPage = ({
         <OurOffices />
         <TryTeleport />
       </Layout>
+      <CookieBanner />
       <Footer />
       <Drift />
     </>

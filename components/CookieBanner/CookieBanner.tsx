@@ -8,7 +8,7 @@ import Button from "components/Button";
 import Flex from "components/Flex";
 import Link from "components/Link";
 
-const GDPRBanner = () => {
+const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleAcceptClick = () => {
@@ -33,7 +33,7 @@ const GDPRBanner = () => {
   );
 };
 
-export default GDPRBanner;
+export default CookieBanner;
 
 const TextContainer = styled(Box)(
   css({
@@ -49,6 +49,7 @@ const CookieMessage = styled(Flex)(
     marginBottom: [2, 0],
     margin: 1,
     maxWidth: "900px",
+    lineHeight: "md",
   })
 );
 

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Box from "components/Flex";
 import { components as baseComponents } from "layouts/SitePage";
 import Centrator from "components/Centrator";
+import CookieBanner from "components/CookieBanner";
 import Flex from "components/Flex";
 import Head from "components/Head";
 import JoinTheCommunity from "components/JoinTheCommunity";
@@ -95,6 +96,7 @@ export const TutorialPage = ({
             </Centrator>
           </Section>
         </Flex>
+        <CookieBanner />
         <TryTeleport />
       </Layout>
     </>

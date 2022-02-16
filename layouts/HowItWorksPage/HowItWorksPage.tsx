@@ -1,4 +1,5 @@
 import { MDXProvider } from "@mdx-js/react";
+import CookieBanner from "components/CookieBanner";
 import Drift from "components/Drift";
 import Layout from "components/Layout";
 import { HIWHeader } from "./HIWHeader";
@@ -65,6 +66,7 @@ export default function HowItWorksPage({ meta, children }: Props) {
 
         <TryTeleport />
       </Layout>
+      <CookieBanner />
       <Footer short={Boolean(meta.shortFooter)} />
       <Drift />
     </>
