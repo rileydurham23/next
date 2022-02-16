@@ -33,7 +33,7 @@ launchpad:
       - title: Documentation home
         url: /docs/
       - title: How Teleport works
-        url: /teleport/how-it-works/
+        url: /how-it-works/
       - title: GitHub repository
         url: https://github.com/gravitational/teleport
 
@@ -53,7 +53,7 @@ launchpad:
       - title: About us
         url: /about/
       - title: Careers
-        url: /careers
+        url: /careers/
       - title: News
         url: /about/press/
 
@@ -70,7 +70,7 @@ launchpad:
           - title: Community forum
             url: https://github.com/gravitational/teleport/discussions
           - title: Slack
-            url: /slack
+            url: /slack/
           - title: Github
             url: https://github.com/gravitational
           - title: Twitter
