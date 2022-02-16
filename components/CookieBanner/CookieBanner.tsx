@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import css from "@styled-system/css";
 import styled from "styled-components";
@@ -41,20 +41,20 @@ const googleAnalyticsRegions = [
 ];
 
 const CookieBanner = () => {
+  const cookieBanner = useRef<HTMLDivElement>(null);
+
   const hasCookieStored =
     typeof window !== "undefined" &&
-    localStorage.getItem("hasApprovedCookies") === "true";
+    localStorage.getItem("hasCookie") === "true";
 
   const handleAcceptClick = () => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("hasApprovedCookies", "true");
-      console.log("set cookie");
-      console.log("getting cookie", localStorage.getItem("hasApprovedCookies"));
+      localStorage.setItem("hasCookie", "true");
     }
 
     //updates permissions for gtag to function
     //this code needs to be tested with a VPN - Cole
-    //eslint-disable-next-line
+    // eslint-disable-next-line
     // gtag("consent", "update", {
     //   ad_storage: "granted",
     //   analytics_storage: "granted",
@@ -67,7 +67,7 @@ const CookieBanner = () => {
   return (
     <>
       {!hasCookieStored && (
-        <OuterContainer>
+        <OuterContainer ref={cookieBanner}>
           <CookieMessage>
             <TextContainer>
               Our sites uses cookies to provide you with a great user
