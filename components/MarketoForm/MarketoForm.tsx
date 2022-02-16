@@ -44,20 +44,7 @@ const getFieldComponent = (type: MarketoDataType) => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type FormValues = Record<string, any>;
-
-export interface MarketoFormProps {
-  uid: string;
-  buttonLabel: string;
-  waitingLabel: string;
-  fields: MarketoField[];
-  error?: string;
-  initialValues: FormValues;
-  onSubmit: (values: FormValues) => void;
-}
-
-export const RecaptchaTOC = () => {
+export const RecaptchaDisclaimer = () => {
   return (
     <>
       This site is protected by reCAPTCHA and the Google{" "}
@@ -83,6 +70,19 @@ export const RecaptchaTOC = () => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type FormValues = Record<string, any>;
+
+export interface MarketoFormProps {
+  uid: string;
+  buttonLabel: string;
+  waitingLabel: string;
+  fields: MarketoField[];
+  error?: string;
+  initialValues: FormValues;
+  onSubmit: (values: FormValues) => void;
+}
+
 /*
  * This should be a base for the future form constructor,
  * then we move from Marketo config format to our own one.
@@ -104,10 +104,11 @@ export const MarketoForm = ({
       render={({ handleSubmit, submitting }) => {
         return (
           <Box as="form" onSubmit={handleSubmit} width="100%">
+            {/* fields are passed in as data.fields from the useMarketoForm function via the MarketoBrowserForm wrapper*/}
             {fields.map((field) => {
-              const FiledComponent = getFieldComponent(field.dataType);
+              const FieldComponent = getFieldComponent(field.dataType);
               return (
-                <FiledComponent
+                <FieldComponent
                   key={field.id}
                   formId={uid}
                   disabled={submitting}
@@ -138,7 +139,7 @@ export const MarketoForm = ({
               color="gray"
               maxWidth="300px"
             >
-              <RecaptchaTOC />
+              <RecaptchaDisclaimer />
             </Box>
           </Box>
         );

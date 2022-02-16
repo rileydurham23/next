@@ -1,5 +1,6 @@
 /*
- * Recaptcha loading logic and React hook for Recaptcha validation.
+ * reCAPTCHA loading logic and React hook for reCAPTCHA validation.
+ * we use the Enterprise version of reCAPTCHA
  */
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -8,6 +9,7 @@ const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 let loaded = false;
 
+//loads the reCAPTCHA script asynchronously
 export const load = (): Promise<void> => {
   return new Promise((resolve) => {
     if (loaded) {
@@ -32,15 +34,15 @@ interface CleanupOptions {
   callbackFNName: string;
 }
 
-// Recaptcha unmount function
-
+// reCAPTCHA unmount function
 const cleanup = ({ ID, containerID, callbackFNName }: CleanupOptions) => {
   const el = document.getElementById(containerID);
 
-  // reCaptcha will leave some DOM elements inside tagert node even after reset,
-  // so we need to remove them manually. If we don't remove them, we will have
-  // an "reCAPTCHA has already been rendered in this element" error next time we try
-  // to mount the recaptcha in this node, e.g. when we unmount/mount the component.
+  /**  reCAPTCHA will leave some DOM elements inside target node even after reset,
+  so we need to remove them manually. If we don't, we will have
+  a "reCAPTCHA has already been rendered in this element" error next time we try
+  to mount the reCAPTCHA in this node, e.g. when we unmount/mount the component.
+  */
   if (el && el.childNodes.length) {
     el.innerHTML = "";
   }
@@ -80,15 +82,20 @@ export const useRecaptcha = (UID: string) => {
       return;
     }
 
-    // Because load and init are async we can end in the state where
-    // a component is unmounted before it is finished;
-    // "isMounted" is a flag that helps us check it
+    /** 
+    Because load and init are async we can end in the state where
+    a component is unmounted before it is finished;
+    "isMounted" is a flag that helps us check it
+    ***should this line be moved outside useEffect?*** - Cole
+    */
     let isMounted = true;
     // We need to access id outside the `load` call to correctly reset reCaptcha on unmount
     let ID: number;
 
+    //the reCAPTCHA script is not loaded until after the page renders
     load().then(() => {
       window["grecaptcha"].enterprise.ready(() => {
+        //this conditional will always evaluate to false if ln 90
         if (!isMounted) {
           // This cleanup is called after the unmount to remove mounting artifacts
           cleanup({ ID, containerID: UID, callbackFNName });
@@ -122,6 +129,10 @@ export const useRecaptcha = (UID: string) => {
     };
   }, [UID, callbackFNName]);
 
+  /**
+   * This is the memoized return value of useRecaptcha and is destructured
+   * in useMarketoForm
+   */
   return useMemo(
     () => ({
       disabled: !SITE_KEY,

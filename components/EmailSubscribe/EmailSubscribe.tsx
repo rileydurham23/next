@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { css, transition } from "components/system";
 import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
-import { RecaptchaTOC } from "components/MarketoForm";
+import { RecaptchaDisclaimer } from "components/MarketoForm";
 import { useNewsletter } from "./useNewsletter";
 
 const labelObject = {
@@ -85,7 +85,7 @@ const SubscriptionForm = ({
             visibility={value.length > 0 ? "visible" : "hidden"}
             textAlign={isViolet ? "left" : "center"}
           >
-            <RecaptchaTOC />
+            <RecaptchaDisclaimer />
           </Box>
         )}
         {!!submitted && <Box color="green">Submitted successfully!</Box>}

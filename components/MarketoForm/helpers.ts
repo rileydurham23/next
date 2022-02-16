@@ -15,6 +15,10 @@ const getDefaultFieldValue = (autoFill: MarketoFieldAutoFill) => {
     return "";
   }
 
+  /**
+   * this section checks the cookies to see if any match the default
+   * keys; if so cookie values replace default values
+   */
   const cookie = parseCookies();
 
   const { value: defaultValue = "", parameterName } = autoFill;
@@ -40,6 +44,8 @@ export const useDefaultFormValues = (fields: MarketoField[]) => {
 };
 
 /*
+  Validates user-inputed field values for value existence and max length
+
   Example config:
 
   {
@@ -66,6 +72,9 @@ export const useValidate = ({
   );
 };
 
+/**
+ * passes the values to the "back end" along with the reCAPTCHA token
+ */
 export const submitForm = async (
   id: string,
   fields: Record<string, string>,
@@ -94,6 +103,9 @@ interface UseMarketoFormProps {
   fallbackData?: MarketoFormDataAPIResponse;
 }
 
+/**
+ * returns memoized values/functions needed by the actual form component;
+ */
 export const useMarketoForm = (
   id: string,
   options: UseMarketoFormProps = {}
@@ -109,7 +121,7 @@ export const useMarketoForm = (
   } = useRecaptcha(UID);
 
   /*
-   * I use swr here instead of simple fetch for built-in request cache
+   * SWR is used here instead of simple fetch for built-in request cache
    * to preserve data on page navigation for newsletter and other common forms.
    */
   const { data, error: fieldsError } =
@@ -162,6 +174,10 @@ export const useMarketoForm = (
     [id, setError, thankYou, getToken]
   );
 
+  /**
+   * Runs after form submission and clears the "Submitted" message after 5 seconds.
+   * Does not affect ability to submit form.
+   */
   useEffect(() => {
     if (!submitted) {
       return;

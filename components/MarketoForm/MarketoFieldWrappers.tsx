@@ -6,6 +6,11 @@ import FieldSet from "components/FieldSet";
 import TextArea from "components/TextArea";
 import { useValidate } from "./helpers";
 
+/**
+ * Collection of React components that are used on the actual form;
+ *
+ */
+
 const makeId = (formId: string, fieldId: string) => `${formId}_${fieldId}`;
 
 /*

@@ -16,6 +16,11 @@ export default async function handler(
   try {
     const data = await getFormData(formId);
 
+    /**
+     * returns json with meta (button label and redirect and waiting label) and fields properties;
+     * fields prop contains info for all fields to be displayed, consumed by getFieldComponent function
+     * in MarketoForm.tsx
+     */
     res.status(200).json(data);
   } catch (e) {
     res.status(500).json({ errors: ["Marketo API request error."] });
