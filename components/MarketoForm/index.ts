@@ -2,7 +2,7 @@ export {
   MarketoForm as default,
   MarketoBrowserForm,
   StyledMarketoBrowserForm,
-  RecaptchaTOC,
+  RecaptchaDisclaimer,
 } from "./MarketoForm";
 export {
   useMarketoForm,

@@ -69,7 +69,7 @@ export const NewProductCard = ({
             <BottomHalf>
               <TitleBox>{title}</TitleBox>
               <DescriptionBox>{description}</DescriptionBox>
-              <CTA href={href}>Explore {title}</CTA>
+              <CTA>Explore {title}</CTA>
             </BottomHalf>
           </StyledLink>
         </StyledWrapper>
@@ -94,13 +94,15 @@ const BottomHalf = styled(Flex)(
   })
 );
 
-const CTA = styled(Link)(
+const CTA = styled("p")(
   css({
     color: "gray",
     fontSize: "text-md",
     lineHeight: "md",
     pt: 2,
     px: 5,
+    textDecoration: "underline",
+    margin: 0,
   })
 );
 
