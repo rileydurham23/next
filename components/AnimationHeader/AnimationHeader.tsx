@@ -28,7 +28,7 @@ export const AnimationHeader = ({
       alignItems="stretch"
       flexDirection={["column", "row"]}
     >
-      <Box maxWidth={["100%", "45%"]} pt={[4, 5]} pb={[0, 5]}>
+      <Box maxWidth={["100%", "48%"]} pt={[4, 5]} pb={[0, 5]}>
         <Flex flexDirection="column" alignItems="flexStart">
           {subtitle && (
             <Box
@@ -100,7 +100,7 @@ export const AnimationHeader = ({
                 shape="outline"
                 variant="secondary-gray"
                 fontWeight={400}
-                mt={[6, 0]}
+                mt={[6, 3, 0]}
                 width={["100%", "auto"]}
                 href="https://play.instruqt.com/embed/teleport/tracks/teleport-demo?icp_user_id=homepage&show_challenges=true"
               >
