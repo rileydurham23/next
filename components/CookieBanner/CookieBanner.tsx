@@ -105,29 +105,29 @@ const TextContainer = styled(Box)(
 
 const CookieMessage = styled(Flex)(
   css({
-    marginRight: 5,
     flexDirection: ["column"],
-    marginBottom: [2, 0],
-    margin: 1,
-    maxWidth: "900px",
-    lineHeight: "md",
     fontSize: ["14px", "16px"],
+    lineHeight: "md",
+    margin: 1,
+    marginBottom: [2, 0],
+    marginRight: 5,
+    maxWidth: "900px",
   })
 );
 
 const OuterContainer = styled(Flex)(
   css({
-    backgroundColor: "dark-purple",
-    color: "white",
     alignItems: ["left", "center"],
+    backgroundColor: "dark-purple",
+    bottom: 0,
+    boxShadow: " 0px 2px 10px #455A64",
+    color: "white",
     flexDirection: ["column", "row"],
     justifyContent: "space-around",
-    position: "fixed",
-    bottom: 0,
-    width: "100%",
     padding: [2, 3],
-    zIndex: "999999",
-    boxShadow: " 0px 2px 10px #455A64",
+    position: "fixed",
     transition: "all 0.3s ease",
+    width: "100%",
+    zIndex: "999999",
   })
 );
