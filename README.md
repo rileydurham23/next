@@ -38,7 +38,89 @@ Install dependencies with:
 yarn
 ```
 
-## Running docs
+To ensure consistency with the repo's Node version, either:
+
+- Update your `.zshrc` (see below for instructions)
+- Run `nvm use` each time before running `yarn dev`
+
+## How to update your .zshrc
+
+nvm is a version manager for [node.js](https://nodejs.org/en/) that works on [unix, macOS, and windows WSL](https://github.com/nvm-sh/nvm#important-notes). It is used to ensure all contributors to the repository are using the same version of node.js. For help troubleshooting nvm installation, please refer to nvm's [documentation](https://github.com/nvm-sh/nvm#troubleshooting-on-linux) per operating system.
+
+1. Install [nvm](https://github.com/nvm-sh/nvm) by running the following command in Terminal:
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+
+2. Ensure you have the same version of Node specified in the `.nvmrc` installed:
+
+```
+nvm install "$(cat .nvmrc)"
+```
+
+3. In Terminal , open your `.zshrc` file:
+
+```bash
+code ~/.zshrc
+```
+
+or
+
+```bash
+open ~/.zshrc
+```
+
+If you do not have a `.zshrc file, run:
+
+```
+touch ~/.zshrc
+```
+
+4. Scroll down in the `.zshrc` file until you see:
+
+```export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+```
+
+If you do not see this in your file, copy and paste it into your `.zshrc` and put it at the bottom of the file.
+
+5. Copy and paste this code block immediately after that:
+
+```
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+```
+
+6. Save the file and run this to re-initialize your `.zshrc` profile:
+
+```
+source ~/.zshrc
+```
+
+7. To check it works, run `node -v` in the `/next` repository. The node version should match what's specified in the `.nvmrc`.
+
+## Running doc
 
 Now run one of the following commands:
 
@@ -272,10 +354,10 @@ git push origin nico/events
 
    **IMPORTANT!**
 
-   -  spacing and indentation matter. Make sure your event entry matches the indentation of the events already on the page.
+   - spacing and indentation matter. Make sure your event entry matches the indentation of the events already on the page.
    - `link` must be a url link in quotation marks.
    - `start` and `end` are in YYYY-MM-DD format.
-   -  If event is just one day, only provide `start` date. Remove `end` from your entry.
+   - If event is just one day, only provide `start` date. Remove `end` from your entry.
 
 ```
  - title: Example Event
