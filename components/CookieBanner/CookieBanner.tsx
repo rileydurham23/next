@@ -41,6 +41,7 @@ const googleAnalyticsRegions = [
 
 const CookieBanner = () => {
   // lazy state initialization used in order to not lock the browser on localStorage look up
+  // this also avoids hasCookieStored from being computer on every render
   const [showBanner, setShowBanner] = useState(() => {
     // in some cases, localStorage access will throw an error depending
     // on the user's browser. wrapping it in a trycatch avoids white screening in case of error
@@ -51,6 +52,7 @@ const CookieBanner = () => {
 
       return !hasCookieStored;
     } catch (e) {
+      // the default state if there's an error is to show the banner
       return true;
     }
   });
