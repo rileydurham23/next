@@ -43,7 +43,7 @@ const CookieBanner = () => {
   // lazy state initialization used in order to not lock the browser on localStorage look up
   const [showBanner, setShowBanner] = useState(() => {
     // in some cases, localStorage access will throw an error depending
-    // on the user's browser. this avoids white screening in case of error
+    // on the user's browser. wrapping it in a trycatch avoids white screening in case of error
     try {
       const hasCookieStored =
         typeof window !== "undefined" &&
