@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import css from "@styled-system/css";
 import styled from "styled-components";
@@ -7,7 +7,6 @@ import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
 import Link from "components/Link";
-import { useEffect } from "react";
 
 const googleAnalyticsRegions = [
   "BE",
@@ -41,19 +40,22 @@ const googleAnalyticsRegions = [
 ];
 
 const CookieBanner = () => {
-  const cookieBanner = useRef<HTMLDivElement>(null);
+  // lazy state initialization used in order to not lock the browser on localStorage look up
+  const [showBanner, setShowBanner] = useState(() => {
+    const hasCookieStored =
+      typeof window !== "undefined" &&
+      localStorage.getItem("hasCookie") === "true";
 
-  const hasCookieStored =
-    typeof window !== "undefined" &&
-    localStorage.getItem("hasCookie") === "true";
+    return !hasCookieStored;
+  });
 
   const handleAcceptClick = () => {
     if (typeof window !== "undefined") {
       localStorage.setItem("hasCookie", "true");
+      setShowBanner(false);
     }
 
     //updates permissions for gtag to function
-    //this code needs to be tested with a VPN - Cole
     // eslint-disable-next-line
     // gtag("consent", "update", {
     //   ad_storage: "granted",
@@ -62,12 +64,10 @@ const CookieBanner = () => {
     // });
   };
 
-  console.log("hasCookieStored:", hasCookieStored);
-
   return (
     <>
-      {!hasCookieStored && (
-        <OuterContainer ref={cookieBanner}>
+      {showBanner && (
+        <OuterContainer>
           <CookieMessage>
             <TextContainer>
               Our sites uses cookies to provide you with a great user
@@ -103,6 +103,7 @@ const CookieMessage = styled(Flex)(
     margin: 1,
     maxWidth: "900px",
     lineHeight: "md",
+    fontSize: ["14px", "16px"],
   })
 );
 
@@ -116,11 +117,9 @@ const OuterContainer = styled(Flex)(
     position: "fixed",
     bottom: 0,
     width: "100%",
-    padding: 3,
+    padding: [2, 3],
     zIndex: "999999",
     boxShadow: " 0px 2px 10px #455A64",
-    // fontSize: "text-lg",
     transition: "all 0.3s ease",
-    // display:
   })
 );
