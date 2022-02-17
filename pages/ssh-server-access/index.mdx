@@ -14,6 +14,7 @@ import Feedback from "components/Feedback";
 import GridDisplay from "components/GridDisplay";
 import ProductBanner from "components/ProductBanner";
 import Section from "components/Section";
+import SessionRecordingOutput from "../assets/session-recording-output.mp4";
 import Terminal from "components/Terminal";
 import TerminalAnimation from "components/TerminalAnimation";
 import TryTeleport from "components/TryTeleport";
@@ -102,7 +103,7 @@ import WorksWith from "components/WorksWith";
     imgPosition="left"
     title="Complete visibility into access and behavior"
     subtitle="For security professionals"
-    src="../assets/session-replay.gif"
+    videoSource={SessionRecordingOutput}
     alt="session replay with Teleport"
     description="Teleport provides a live view and an audit log for server sessions, filesystem changes, data transfers, command executions, and other security events making it easy to see what’s happening and who is responsible."
   >

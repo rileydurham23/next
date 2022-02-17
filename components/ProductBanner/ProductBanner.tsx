@@ -4,6 +4,8 @@ import Flex from "components/Flex";
 import Box from "components/Box";
 import Badge, { IconSize } from "components/Badge";
 import Icon, { IconName } from "components/Icon";
+import Video from "components/Video";
+
 interface ProductBannerItemProps {
   title: string;
   src?: string;
@@ -12,6 +14,7 @@ interface ProductBannerItemProps {
   badgeName?: IconName;
   size?: IconSize;
   shadow?: boolean;
+  videoSource?: string;
 }
 
 const imageSizes = {
@@ -103,10 +106,11 @@ export interface ProductBannerProps {
   title: string;
   description: React.ReactNode;
   children: React.ReactNode;
-  src: string;
+  src?: string;
   alt: string;
   imgPosition: "left" | "right";
   logoSrc?: string;
+  videoSource?: string;
 }
 
 export const ProductBanner = ({
@@ -118,6 +122,7 @@ export const ProductBanner = ({
   src,
   alt,
   logoSrc,
+  videoSource,
 }: ProductBannerProps) => {
   return (
     <Flex flexDirection="column" alignItems="center" py={[5, 11]}>
@@ -166,32 +171,50 @@ export const ProductBanner = ({
               {description}
             </Box>
           </Flex>
-          {/* Image Element */}
-          <Flex
-            flexDirection="column"
-            minWidth={
-              imgPosition === "right" ? ["auto", "60%"] : ["auto", "66.6%"]
-            }
-          >
-            <Box minHeight={["330px", "400px"]} position="relative">
-              <NextImage
-                layout="fill"
-                objectFit="contain"
-                src={src}
-                alt={alt}
+          {videoSource ? (
+            // Video Element
+            <Flex
+              flexDirection="column"
+              alignItems={["center", "flex-start"]}
+              minWidth={
+                imgPosition === "right" ? ["auto", "60%"] : ["auto", "66.6%"]
+              }
+            >
+              <Video
+                src={videoSource}
+                borderRadius="none"
+                videoType="looping"
+                ml={[0, 4]}
               />
-            </Box>
-            {logoSrc && (
-              <Box position="relative" height={72}>
+            </Flex>
+          ) : (
+            // Image Element
+            <Flex
+              flexDirection="column"
+              minWidth={
+                imgPosition === "right" ? ["auto", "60%"] : ["auto", "66.6%"]
+              }
+            >
+              <Box minHeight={["330px", "400px"]} position="relative">
                 <NextImage
                   layout="fill"
                   objectFit="contain"
-                  src={logoSrc}
-                  alt="company logos"
+                  src={src}
+                  alt={alt}
                 />
               </Box>
-            )}
-          </Flex>
+              {logoSrc && (
+                <Box position="relative" height={72}>
+                  <NextImage
+                    layout="fill"
+                    objectFit="contain"
+                    src={logoSrc}
+                    alt="company logos"
+                  />
+                </Box>
+              )}
+            </Flex>
+          )}
         </Flex>
 
         {/* Container for the sub-elements */}
