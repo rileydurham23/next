@@ -87,9 +87,10 @@ import SectionHeader from "components/SectionHeader";
     listHeading="Need help from a Teleport expert?"
     subtitle="Need help from a Teleport expert?"
     title="Contact Support"
+    boder="1px solid black"
     content={
-      <>
-        <Flex flexDirection="column" mr={7}>
+      <Flex flexDirection={["column", "row"]}>
+        <Flex flexDirection="column" mr={7} mb={[4, 0]}>
           <p>Submit an Issue</p>
           <ul>
             <li>
@@ -125,7 +126,7 @@ import SectionHeader from "components/SectionHeader";
             </li>
           </ul>
         </Flex>
-      </>
+      </Flex>
     }
   >
     <NextImage src="./assets/ticket.png" width={250} height={250} />

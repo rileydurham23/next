@@ -14,6 +14,7 @@ reviews:
 import NextImage from "next/image";
 import Feedback from "components/Feedback";
 import Sidebar from "components/Sidebar";
+import { CaseStudyTable } from "components/StyledTable";
 
 ## What is SOC2?
 
@@ -48,13 +49,9 @@ satisfy them.
 
 &NewLine;  
 &NewLine;  
-<table>
+<CaseStudyTable>
   <thead>
-    <tr >
-      <th style={{width: "30%"}}>Principle Criteria</th>
-      <th style={{width: "35%"}}>Point of Focus</th>
-      <th style={{width: "35%"}}>Teleport Features</th>
-    </tr>
+    <tr ><th style={{width: "30%"}}>Principle Criteria</th><th style={{width: "35%"}}>Point of Focus</th><th style={{width: "35%"}}>Teleport Features</th></tr>
   </thead>
   <tbody>
         <tr>
@@ -67,9 +64,9 @@ satisfy them.
             <td>
                 <p>Teleport Enterprise supports robust Role-based Access Controls (RBAC) to:</p>
                 <ul>
-                    <li>Control which SSH nodes a user can or cannot access.</li>
-                    <li>Control cluster level configuration (session recording, configuration, etc.)</li>
-                    <li>Control which UNIX logins a user is allowed to use when logging into a server.</li>
+                    <li style={{fontSize: "14px"}}>Control which SSH nodes a user can or cannot access.</li>
+                    <li style={{fontSize: "14px"}}>Control cluster level configuration (session recording, configuration, etc.)</li>
+                    <li style={{fontSize: "14px"}}>Control which UNIX logins a user is allowed to use when logging into a server.</li>
                 </ul>
             </td>
         </tr>
@@ -435,7 +432,7 @@ satisfy them.
             </td>
         </tr>
   </tbody>
-</table>
+</CaseStudyTable>
 
 &nbsp;  
 Teleport helps achieve all these controls with minimal configuration and enforces them continuously which is important for SOC2 Type 2 reports which requires regular audits to ensure adherence to controls.

@@ -22,7 +22,7 @@ const StyledTable = styled("table")(
       },
       th: {
         py: 2,
-        px: [1, 3],
+        px: [2, 3],
         fontSize: "text-sm",
         textTransform: "uppercase",
         whiteSpace: ["auto", "nowrap"],
@@ -39,12 +39,15 @@ const StyledTable = styled("table")(
         px: [1, 3],
         fontSize: ["text-sm", "text-md"],
         verticalAlign: "top",
-        overflowWrap: "break-word",
       },
       "ul > li": {
         fontSize: ["text-sm", "text-md"],
         px: [0, "auto"],
         listStylePosition: "outside",
+        wordBreak: "break-word",
+      },
+      "& p": {
+        fontSize: "text-md",
       },
     },
   })
