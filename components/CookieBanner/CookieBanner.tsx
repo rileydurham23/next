@@ -3,8 +3,6 @@ import { useState } from "react";
 import css from "@styled-system/css";
 import styled from "styled-components";
 
-import localforage from "localforage";
-
 import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
