@@ -8,37 +8,6 @@ import Button from "components/Button";
 import Flex from "components/Flex";
 import Link from "components/Link";
 
-const googleAnalyticsRegions = [
-  "BE",
-  "BG",
-  "CZ",
-  "DK",
-  "DE",
-  "EE",
-  "IE",
-  "GR",
-  "ES",
-  "FR",
-  "HR",
-  "IT",
-  "CY",
-  "LV",
-  "LT",
-  "LU",
-  "HU",
-  "MT",
-  "NL",
-  "AT",
-  "PL",
-  "PT",
-  "RO",
-  "SI",
-  "SK",
-  "FI",
-  "SE",
-  "US-CA",
-];
-
 const CookieBanner = () => {
   // lazy state initialization used in order to not lock the browser on localStorage look up
   const [showBanner, setShowBanner] = useState(() => {
@@ -55,18 +24,50 @@ const CookieBanner = () => {
     }
   });
 
+  console.log("show banner", showBanner);
+
   const handleAcceptClick = () => {
     if (typeof window !== "undefined") {
       localStorage.setItem("hasCookie", "true");
       setShowBanner(false);
-    }
 
-    // eslint-disable-next-line
-    // window.gtag("consent", "update", {
-    //   ad_storage: "granted",
-    //   analytics_storage: "granted",
-    //   region: googleAnalyticsRegions,
-    // });
+      if (window && window.gtag) {
+        window.gtag("consent", "update", {
+          ad_storage: "granted",
+          analytics_storage: "granted",
+          region: [
+            "BE",
+            "BG",
+            "CZ",
+            "DK",
+            "DE",
+            "EE",
+            "IE",
+            "GR",
+            "ES",
+            "FR",
+            "HR",
+            "IT",
+            "CY",
+            "LV",
+            "LT",
+            "LU",
+            "HU",
+            "MT",
+            "NL",
+            "AT",
+            "PL",
+            "PT",
+            "RO",
+            "SI",
+            "SK",
+            "FI",
+            "SE",
+            "US-CA",
+          ],
+        });
+      }
+    }
   };
 
   return (
