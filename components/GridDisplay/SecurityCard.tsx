@@ -37,7 +37,7 @@ export const SecurityCard = ({
       {/* top half */}
       <Flex flexDirection="column" position="relative">
         <BackgroundImageBox />
-        <StyledBox px={4} mt={1} maxWidth="190px" lineHeight="sm">
+        <StyledBox px={[4, 3]} mt={1} maxWidth="175px" lineHeight="sm">
           <h3>{speaker}</h3>
           <p>{speakerDetails}</p>
         </StyledBox>
@@ -53,7 +53,7 @@ export const SecurityCard = ({
         justifyContent="space-between"
         pb={4}
         pt={3}
-        px={4}
+        px={[4, 3]}
         borderRadius="0 0 8px 8px"
       >
         <StyledTitleBox as="p">{title}</StyledTitleBox>
