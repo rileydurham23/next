@@ -24,14 +24,12 @@ const CookieBanner = () => {
     }
   });
 
-  console.log("show banner", showBanner);
-
   const handleAcceptClick = () => {
     if (typeof window !== "undefined") {
       localStorage.setItem("hasCookie", "true");
       setShowBanner(false);
 
-      if (window && window.gtag) {
+      if (window.gtag) {
         window.gtag("consent", "update", {
           ad_storage: "granted",
           analytics_storage: "granted",
