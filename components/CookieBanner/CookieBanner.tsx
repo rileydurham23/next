@@ -3,6 +3,8 @@ import { useState } from "react";
 import css from "@styled-system/css";
 import styled from "styled-components";
 
+import localforage from "localforage";
+
 import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
@@ -41,10 +43,9 @@ const googleAnalyticsRegions = [
 
 const CookieBanner = () => {
   // lazy state initialization used in order to not lock the browser on localStorage look up
-  // this also avoids hasCookieStored from being computer on every render
   const [showBanner, setShowBanner] = useState(() => {
     // in some cases, localStorage access will throw an error depending
-    // on the user's browser. wrapping it in a trycatch avoids white screening in case of error
+    // on the user's browser. this avoids white screening in case of error
     try {
       const hasCookieStored =
         typeof window !== "undefined" &&
@@ -52,7 +53,6 @@ const CookieBanner = () => {
 
       return !hasCookieStored;
     } catch (e) {
-      // the default state if there's an error is to show the banner
       return true;
     }
   });
@@ -63,9 +63,8 @@ const CookieBanner = () => {
       setShowBanner(false);
     }
 
-    //updates permissions for gtag to function
     // eslint-disable-next-line
-    // gtag("consent", "update", {
+    // window.gtag("consent", "update", {
     //   ad_storage: "granted",
     //   analytics_storage: "granted",
     //   region: googleAnalyticsRegions,
@@ -96,22 +95,11 @@ const CookieBanner = () => {
 
 export default CookieBanner;
 
-const TextContainer = styled(Box)(
-  css({
-    display: "inline-block",
-    padding: [2, 0],
-  })
-);
-
 const CookieMessage = styled(Flex)(
   css({
-    flexDirection: ["column"],
-    fontSize: ["14px", "16px"],
+    fontSize: ["text-md", "text-lg"],
     lineHeight: "md",
-    margin: 1,
     marginBottom: [2, 0],
-    marginRight: 5,
-    maxWidth: "900px",
   })
 );
 
@@ -120,14 +108,20 @@ const OuterContainer = styled(Flex)(
     alignItems: ["left", "center"],
     backgroundColor: "dark-purple",
     bottom: 0,
-    boxShadow: " 0px 2px 10px #455A64",
+    boxShadow: "0px 2px 10px #455A64",
     color: "white",
     flexDirection: ["column", "row"],
     justifyContent: "space-around",
     padding: [2, 3],
     position: "fixed",
-    transition: "all 0.3s ease",
     width: "100%",
     zIndex: "999999",
+  })
+);
+
+const TextContainer = styled(Box)(
+  css({
+    display: "inline-block",
+    padding: [2, 0],
   })
 );
