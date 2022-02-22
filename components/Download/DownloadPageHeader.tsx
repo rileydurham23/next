@@ -1,4 +1,4 @@
-import { styled } from "@stitches/react";
+import { styled } from "./stitches.config";
 
 import wave from "./assets/wave.svg";
 import { Flex } from "./components/Flex";
@@ -29,43 +29,41 @@ const LeftSide = styled(Flex, {
 });
 
 const RightSide = styled(Box, {
-  marginLeft: "80px",
-  marginTop: "64px",
+  marginLeft: "$11",
+  marginTop: "$9",
 });
 
 const SubtitleContainer = styled(Box, {
-  fontWeight: "700",
-  lineHeight: "24px",
-  fontSize: "18px",
-  color: "#512fc9",
-  marginBottom: "16px",
+  fontWeight: "$bold",
+  lineHeight: "$md",
+  fontSize: "$text-xl",
+  color: "$dark-purple",
+  marginBottom: "$3",
 });
 
 const DescriptionContainer = styled(Box, {
-  lineHeight: "32px",
+  lineHeight: "$lg",
   maxWidth: "1000px",
-  marginTop: "24px",
-  fontSize: "18px",
-  color: "#37474F",
+  marginTop: "$4",
+  fontSize: "$text-xl",
+  color: "$darkest",
 });
 
 const TitleContainer = styled(Box, {
   color: "black",
   fontSize: "54px",
-  fontWeight: "900",
+  fontWeight: "$black",
   lineHeight: "72px",
   textAlign: "left",
 });
 
-const OutsideContainer = styled(Box, {
-  backgroundColor: "#F9F8F6",
+const OutsideContainer = styled(Flex, {
   backgroundImage: `url(${wave}), linear-gradient(125deg ,#F0F2F4,#fff)`,
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
   backgroundSize: "100%",
-  display: "flex",
-  paddingLeft: "80px",
-  paddingRight: "80px",
+  paddingLeft: "$11",
+  paddingRight: "$11",
   paddingTop: "160px",
-  paddingBottom: "80px",
+  paddingBottom: "$11",
 });

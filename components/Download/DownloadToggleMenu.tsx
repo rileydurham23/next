@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { styled } from "@stitches/react";
+import { styled } from "./stitches.config";
 
 import { Flex } from "./components/Flex";
 
@@ -52,11 +52,11 @@ const DownloadToggleMenu: React.FC<ToggleMenuProps> = ({
 
     return (
       <StyledButton
+        // ensures screen readers can tab through and select OS options
+        aria-pressed={isSelected}
         key={button.value}
         onClick={handleClick}
         value={button.value}
-        // ensures screen readers can tab through and select OS options
-        aria-pressed={isSelected}
       >
         {button.name}
       </StyledButton>
@@ -73,14 +73,14 @@ const DownloadToggleMenu: React.FC<ToggleMenuProps> = ({
 export default DownloadToggleMenu;
 
 const StyledButton = styled("button", {
-  cursor: "pointer",
   backgroundColor: "transparent",
-  width: "100px",
-  color: "#607d8b",
+  border: " 1px solid $blue-gray",
+  color: "$gray",
+  cursor: "pointer",
+  fontSize: "$text-sm",
+  height: "40px", // theming
   transition: "all 0.3s",
-  fontSize: "13px",
-  height: "40px",
-  border: " 1px solid #bdcad0",
+  width: "100px",
 
   "&:first-child": {
     borderRadius: "4px 0px 0px 4px",
@@ -88,13 +88,13 @@ const StyledButton = styled("button", {
   },
 
   "&:last-child": {
-    borderRadius: "0px 4px 4px 0px",
     borderLeft: "none",
+    borderRadius: "0px 4px 4px 0px",
   },
 
   "&[aria-pressed='true']": {
-    color: "rgb(101, 31, 255)",
     borderBottom: "3px solid #651fff",
     boxShadow: "rgb(0 0 0 / 24%) 0px 1px 4px inset",
+    color: "rgb(101, 31, 255)",
   },
 });

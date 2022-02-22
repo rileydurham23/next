@@ -5,9 +5,9 @@ import styled from "styled-components";
 import Box from "components/Box";
 import Button from "components/Button";
 import Flex from "components/Flex";
-import { DropdownMenu } from "./DropdownMenu";
-import { DropdownMenuItem } from "./DropdownMenuItem";
-import { DropdownMenuOverlay } from "./DropdownMenuOverlay";
+import { DropdownMenu } from "./DropdownMenu/DropdownMenu";
+import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
+import { DropdownMenuOverlay } from "./DropdownMenu/DropdownMenuOverlay";
 
 export const NavBarCTA = () => {
   const ref = useRef(null);

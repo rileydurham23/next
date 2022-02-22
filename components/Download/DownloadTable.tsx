@@ -1,6 +1,6 @@
 import { useLayoutEffect, useEffect, useRef, useState } from "react";
 
-import { styled } from "@stitches/react";
+import { styled } from "./stitches.config";
 import ReactMarkdown from "react-markdown";
 
 import DownloadRow from "./DownloadRow";
@@ -154,9 +154,9 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
 };
 
 const DownloadTableContainer = styled(Box, {
-  borderRadius: "16px",
+  borderRadius: "$lg",
   boxShadow: "rgb(0 0 0 / 12%) 0px 1px 4px",
-  marginBottom: "48px",
+  marginBottom: "$7",
 });
 
 const HeaderContainer = styled(Flex, {
@@ -165,13 +165,16 @@ const HeaderContainer = styled(Flex, {
   // flexDirection: ["column", "row"],
   justifyContent: "space-between",
   padding: "5px 30px",
+  "@bp1": {
+    backgroundColor: "red",
+  },
 });
 
 const HeaderH1 = styled("h1", {
-  color: "#512fc9",
-  fontSize: "20px",
-  fontWeight: "600",
-  lineHeight: "32px",
+  color: "$dark-purple",
+  fontSize: "$header-4",
+  fontWeight: "$bold",
+  lineHeight: "$lg",
   width: "150px",
 });
 
@@ -180,44 +183,45 @@ const Left = styled(Flex, {
 });
 
 const ReleaseATag = styled("a", {
-  color: "#0091ea",
+  color: "$light-blue",
   cursor: "pointer",
-  fontSize: "14px",
-  lineHeight: "24px",
+  fontSize: "$text-sm",
+  lineHeight: "$lg",
   width: "30%",
+  textDecoration: "underline",
 });
 
 const ReleaseDropdownContainer = styled(Flex, {
   alignItems: "center",
-  color: "#607d8b",
-  fontSize: "12px",
-  marginRight: "48px",
+  color: "$gray",
+  fontSize: "$text-sm",
+  marginRight: "$7",
 });
 
 const StyledMarkdown = styled(ReactMarkdown, {
-  color: "#607D8B",
-  fontSize: "14px",
-  lineHeight: "24px",
+  color: "$gray",
+  fontSize: "$text-md",
+  lineHeight: "$lg",
   padding: "20px",
 
   a: {
-    color: "#651fff !important",
+    color: "$light-purple",
   },
   h2: {
-    fontSize: "14px",
+    fontSize: "$text-md",
   },
   h3: {
     textTransform: "uppercase",
-    fontSize: "14px",
+    fontSize: "$text-md",
   },
 });
 
 const StyledSelect = styled("select", {
-  border: "1px solid #bdcad0",
-  color: "#0091ea",
-  fontSize: "12px",
+  border: "1px solid $blue-gray",
+  color: "$light-blue",
+  fontSize: "$text-sm",
   height: "17px",
-  marginLeft: "4px",
+  marginLeft: "$1",
   padding: "0px 33px",
 });
 
@@ -236,9 +240,9 @@ const StyledTable = styled("table", {
 });
 
 const TableHeader = styled("tr", {
-  borderTop: "1px solid #F0F2F4",
-  color: "#bdcad0",
-  fontSize: "10px",
-  lineHeight: "40px",
+  borderTop: "1px solid $lightest-gray",
+  color: "$blue-gray",
+  fontSize: "$text-xs",
+  lineHeight: "$xl",
   textTransform: "uppercase",
 });

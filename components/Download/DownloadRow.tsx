@@ -1,8 +1,8 @@
-import { styled } from "@stitches/react";
+import { styled } from "./stitches.config";
 import { useState } from "react";
 
 import { getDownloadInfo } from "./helpers";
-import ToolTipModal from "./ToolTipModal";
+import ToolTipModal from "./components/ToolTipModal";
 
 interface DownloadProps {
   name: string;
@@ -46,35 +46,35 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
 export default DownloadRow;
 
 const StyledSizeTd = styled("td", {
-  color: "#607d8b",
+  color: "$gray",
 });
 
 const StyledLink = styled("a", {
-  fontSize: "14px",
-  color: "#0091ea",
+  fontSize: "$text-md",
+  color: "$light-blue",
   fontWeight: "normal",
 });
 
 const ChecksumButton = styled("button", {
   cursor: "pointer",
-  borderRadius: "4px",
+  borderRadius: "$default",
   backgroundColor: "transparent",
-  border: "1px solid #bdcad0",
-  color: "#607d8b",
+  border: "1px solid $blue-gray",
+  color: "$gray",
   transition: "all 0.3s",
-  fontSize: "10px",
+  fontSize: "$text-xs",
   padding: "0px 8px",
-  height: "24px",
+  height: "24px", // theming not working
   "&:hover": {
-    border: "1px solid #0091ea",
+    border: "1px solid $light-blue",
   },
 });
 
 const BodyRow = styled("tr", {
-  borderTop: "1px solid #F0F2F4",
-  borderBottom: "1px solid #F0F2F4",
-  fontSize: "11px",
-  lineHeight: "24px",
+  borderTop: "1px solid $lightest-gray",
+  borderBottom: "1px solid $lightest-gray",
+  fontSize: "$text-sm",
+  lineHeight: "$md",
   "&:last-child": {
     border: "none",
   },
@@ -82,6 +82,6 @@ const BodyRow = styled("tr", {
 
 const StyledTd = styled("td", {
   padding: "5px 30px",
-  fontWeight: "bold",
+  fontWeight: "$bold",
   maxWidth: "200px",
 });

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { styled } from "@stitches/react";
+import { styled } from "../stitches.config";
 
-import { Box } from "./components/Box";
-import { Flex } from "./components/Flex";
+import { Box } from "./Box";
+import { Flex } from "./Flex";
 
 const ToolTipModal = ({ children, onClose }) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -72,27 +72,27 @@ const ArrowUp = styled(Box, {
 
 const CloseButton = styled("button", {
   border: "none",
-  borderRadius: "1000px",
+  borderRadius: "$circle",
   cursor: "pointer",
-  fontSize: "16px",
+  fontSize: "$text-lg",
   height: "30px",
   width: "30px",
-  color: "#607d8b",
+  color: "$gray",
   transition: "all .3s",
   backgroundColor: "transparent",
 
   "&:hover": {
-    backgroundColor: "#f0f2f4",
+    backgroundColor: "$lightest-gray",
   },
 });
 
 const CodeBlock = styled(Flex, {
   backgroundColor: "black",
   color: "white",
-  marginBottom: "24px",
+  marginBottom: "$4",
   paddingLeft: "10px",
   paddingRight: "10px",
-  height: "40px",
+  height: "40px", // theming not working
   borderRadius: "5px",
   alignItems: "center",
 });
@@ -100,20 +100,20 @@ const CodeBlock = styled(Flex, {
 const ModalContainer = styled(Box, {
   position: "absolute",
   backgroundColor: "white",
-  borderRadius: "8px",
-  padding: "16px",
+  borderRadius: "8px", // fix theming
+  padding: "16px", // fix theming
   zIndex: 50,
   left: "-190px",
 });
 
 const StyledButton = styled("button", {
   border: 0,
-  borderRadius: "1000px",
+  borderRadius: "$circle",
   cursor: "pointer",
   fontWeight: 700,
   textTransform: "uppercase",
-  lineHeight: "24px",
-  fontSize: "10px",
+  lineHeight: "$md",
+  fontSize: "$text-xs",
   padding: "0px 24px",
   transition: "all 0.3s ease 0s",
   "&:hover": {
@@ -124,21 +124,21 @@ const StyledButton = styled("button", {
     type: {
       primary: {
         color: "white",
-        backgroundColor: "#651fff",
+        backgroundColor: "$light-purple",
         boxShadow: "rgb(0 0 0 / 24%) 0px 4px 16px",
       },
       secondary: {
         backgroundColor: "white",
-        border: "2px solid #bdcad0",
-        color: "#bdcad0",
-        marginLeft: "8px",
+        border: "2px solid $blue-gray",
+        color: "$blue-gray",
+        marginLeft: "$2",
       },
     },
   },
 });
 
 const Title = styled(Flex, {
-  fontSize: "14px",
+  fontSize: "$text-md",
   justifyContent: "space-between",
   marginBottom: "10px",
 });

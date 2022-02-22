@@ -1,8 +1,8 @@
 import { styled } from "@stitches/react";
 
-import clouds from "../assets/clouds.svg?react";
-import Download from "../assets/download.svg?react";
-import { Box } from "./Box";
+import clouds from "../../assets/clouds.svg?react";
+import Download from "../../assets/download.svg?react";
+import { Box } from "../Box";
 
 export interface MenuItemProps {
   title: string;

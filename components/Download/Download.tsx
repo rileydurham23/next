@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { styled } from "@stitches/react";
+import { styled } from "./stitches.config";
 
 import { Box } from "./components/Box";
 import { DownloadTable } from "components/Download";
@@ -66,17 +66,17 @@ const DownloadContainer = styled(Box, {
 });
 
 const Top = styled(Flex, {
-  marginBottom: "32px",
-  marginTop: "32px",
+  marginBottom: "$5",
+  marginTop: "$5",
 });
 
 const StyledNotesButton = styled("button", {
-  background: "white",
-  border: "1px solid #0091ea",
-  borderRadius: "4px",
-  color: "#0091ea",
-  fontSize: "12px",
-  height: "32px",
+  backgroundColor: "white",
+  border: "1px solid $blue-gray",
+  borderRadius: "$default",
+  color: "$light-blue",
+  fontSize: "$text-sm",
+  height: "32px", // theming not working
   cursor: "pointer",
   margin: "0 32px 0 0",
   padding: "0 24px",

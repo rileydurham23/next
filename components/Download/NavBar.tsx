@@ -38,7 +38,6 @@ export const NavBar = () => {
 const StyledNavBar = styled(Flex)(
   css({
     alignItems: "center",
-    borderBottom: "1px solid",
     borderColor: "lightest-gray",
     height: "80px",
     left: 0,
