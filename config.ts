@@ -31,6 +31,10 @@ export default {
     },
     {
       name: "9.0",
+      branch: "branch/v9",
+    },
+    {
+      name: "10.0",
       branch: "master",
     },
   ],
