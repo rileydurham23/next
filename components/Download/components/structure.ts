@@ -1,12 +1,12 @@
-import { MenuCategoryProps } from "./Category";
-import databaseSvgPath from "./assets/database.svg";
-import applicationSvgPath from "./assets/application.svg";
-import kubernetesSvgPath from "./assets/kubernetes.svg";
-import serverSvgPath from "./assets/server.svg";
-import desktopSvgPath from "./assets/desktop.svg";
-import featuresSvgPath from "./assets/features.svg";
+// import { MenuCategoryProps } from "./MenuCategory";
+import databaseSvgPath from "../assets/database.svg";
+import applicationSvgPath from "../assets/application.svg";
+import kubernetesSvgPath from "../assets/kubernetes.svg";
+import serverSvgPath from "../assets/server.svg";
+import desktopSvgPath from "../assets/desktop.svg";
+import featuresSvgPath from "../assets/features.svg";
 
-const menu: MenuCategoryProps[] = [
+const menu = [
   {
     title: "Products",
     description: "Teleport Products",

@@ -6,7 +6,7 @@ import { Flex } from "./components/Flex";
 import Icon from "components/Icon";
 import Link from "components/Link";
 import Logo from "components/Logo";
-import Menu from "components/Menu";
+import Menu from "./components/Menu";
 import HeadlessButton from "components/HeadlessButton";
 import blockBodyScroll from "utils/block-body-scroll";
 import { NavBarCTA } from "./components/NavBarCTA";

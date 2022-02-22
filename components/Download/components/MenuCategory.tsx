@@ -4,12 +4,11 @@ import { useCallback, useRef } from "react";
 import { css, media, transition } from "components/system";
 import Box from "components/Box";
 
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuOverlay,
-  MenuItemProps,
-} from "./DropdownMenu";
+import { DropdownMenu } from "./DropdownMenu/DropdownMenu";
+import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
+import { DropdownMenuOverlay } from "./DropdownMenu/DropdownMenuOverlay";
+
+import { MenuItemProps } from "./DropdownMenu/DropdownMenuItem";
 
 export interface MenuCategoryProps {
   title: string;
