@@ -29,6 +29,7 @@ export interface SectionHeaderProps {
   bg?: BGColor;
   link?: LinkProps;
   kind?: "column" | "row" | "default";
+  newsItem?: React.ReactNode;
 }
 
 const getBG = (color: BGColor) => {
@@ -80,6 +81,7 @@ export const SectionHeader = ({
   bg,
   link,
   kind = "default",
+  newsItem = null,
 }: SectionHeaderProps) => {
   const titleInColumn = kind === "column" ? "column" : ["column", "row"];
   const leftGap = kind === "column" ? 0 : [0, 11];
@@ -88,6 +90,7 @@ export const SectionHeader = ({
   const headerBottomGap = kind === "column" ? [3, 5] : 0;
   const sectionTopGap =
     kind === "column" ? [11, 9] : mode === "none" ? [4, 9] : [4, 11];
+
   return (
     <Flex
       pt={mode === "none" ? [3, 5] : [7, 11]}
@@ -104,6 +107,7 @@ export const SectionHeader = ({
           pt={sectionTopGap}
           pb={titleBottomGap}
           order={kind === "default" ? [1, 0] : 0}
+          overflow="visible"
         >
           <Flex flexDirection="column" alignItems="flexStart">
             {subtitle && (
@@ -141,16 +145,23 @@ export const SectionHeader = ({
               {description}
             </Box>
           )}
-          {link && (
-            <Button
-              mt={6}
-              as="a"
-              href={link.href}
-              shape={link.shape}
-              variant={link.variant}
-            >
-              {link.text}
-            </Button>
+          {(link || newsItem) && (
+            <Flex flexWrap="wrap" mt={6}>
+              {link && (
+                <Button
+                  as="a"
+                  href={link.href}
+                  shape={link.shape}
+                  variant={link.variant}
+                  width={["100%", "auto"]}
+                  mr={[0, 3]}
+                  mb={3}
+                >
+                  {link.text}
+                </Button>
+              )}
+              {newsItem && <Box minWidth="345px">{newsItem}</Box>}
+            </Flex>
           )}
         </Box>
         <Flex

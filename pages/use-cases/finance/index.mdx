@@ -34,6 +34,7 @@ import finserv from "./assets/for-finserv.svg";
     subtitle={meta.subtitle}
     description={meta.headerDescription}
     width="100%"
+    link={{href: "/pricing/", text: "Get Started", shape: "lg"}}
   >
     ![teleport powering the world](./assets/powering-the-world@2x.png)
   </SectionHeader>
@@ -48,7 +49,7 @@ import finserv from "./assets/for-finserv.svg";
     imgPosition="right"
     description={
       <>
-        Your customers trust you with their financial assets and health — that’s a big responsibility. As your infrastructure becomes spread across on-prem and cloud, you need to find new ways to meet strict compliance requirements &  protect your infrastructure from unauthorized access. VPNs and shared secrets alone won’t cut it. 
+        Your customers trust you with their financial assets and health — that’s a big responsibility. As your infrastructure becomes spread across on-prem and cloud, you need to find new ways to meet strict compliance requirements &  protect your infrastructure from unauthorized access. VPNs and shared secrets alone won’t cut it.
       </>
     }
 
@@ -66,9 +67,9 @@ import finserv from "./assets/for-finserv.svg";
   </ProductBanner>
 </Section>
 
-<CenterCard 
+<CenterCard
   name="shieldCheck"
-  title="Why financial service providers big and small trust Teleport" 
+  title="Why financial service providers big and small trust Teleport"
   text="Our unique approach is not only more secure &mdash; it actually improves developer productivity. By providing an identity-aware infrastructure access solution that developers love to use, you can easily implement security and compliance without worrying about backdoors that outmoded solutions encourage."
 />
 
@@ -86,23 +87,23 @@ import finserv from "./assets/for-finserv.svg";
     logoSrc={finserv}
     description={
       <>
-        Use Teleport to adopt industry best practices for access across all protocols 
-        and all environments with minimal configuration. Easily enforce MFA, RBAC, 
+        Use Teleport to adopt industry best practices for access across all protocols
+        and all environments with minimal configuration. Easily enforce MFA, RBAC,
         and SSO using identity-based, short-lived certificates.
       </>
     }
   >
     <ProductBanner.Item title="Access Controls">
-      Use flexible access controls to implement compliance standards such as SOC2, 
+      Use flexible access controls to implement compliance standards such as SOC2,
       PCI, and FedRAMP. Teleport can bring new and legacy resources into compliance.
     </ProductBanner.Item>
     <ProductBanner.Item title="Access Requests">
-      Approve or deny privilege escalation requests using flexible access requests. 
-      Access can be approved or denied via ChatOps, Slack, PagerDuty, or access 
+      Approve or deny privilege escalation requests using flexible access requests.
+      Access can be approved or denied via ChatOps, Slack, PagerDuty, or access
       approval can be customized via the programmable API.
     </ProductBanner.Item>
     <ProductBanner.Item title="Session Controls">
-      Define and enforce policy to handle idle sessions, concurrent sessions, and 
+      Define and enforce policy to handle idle sessions, concurrent sessions, and
       to share and record interactive sessions across all protocols and environments.
     </ProductBanner.Item>
   </ProductBanner>
@@ -118,26 +119,26 @@ import finserv from "./assets/for-finserv.svg";
     logoSrc={fintech}
     description={
       <>
-        A single sign-on allows discovery and instant access to all layers of 
-        the tech stack across clouds, data centers, or on the edge. There is 
-        no more juggling of shared secrets, SSH keys, or hopping between VPNs 
+        A single sign-on allows discovery and instant access to all layers of
+        the tech stack across clouds, data centers, or on the edge. There is
+        no more juggling of shared secrets, SSH keys, or hopping between VPNs
         and multiple access points.
       </>
     }
   >
     <ProductBanner.Item title="Unified Resource Catalog">
-      There is no need to maintain inventories. Enjoy the live view of all servers, 
-      Kubernetes clusters, internal applications, databases, and live sessions 
+      There is no need to maintain inventories. Enjoy the live view of all servers,
+      Kubernetes clusters, internal applications, databases, and live sessions
       across all environments.
     </ProductBanner.Item>
     <ProductBanner.Item title="Session Sharing and Recording">
-      Invite colleagues to collaborate in a shared session. Work together to 
-      troubleshoot a problem on a remote server or on each others’ laptops. Record 
+      Invite colleagues to collaborate in a shared session. Work together to
+      troubleshoot a problem on a remote server or on each others’ laptops. Record
       sessions for knowledge-sharing purposes.
     </ProductBanner.Item>
     <ProductBanner.Item title="Plugins and API">
-      Teleport provides ready to use auth for your internal web applications. 
-      Customize access requests and react to security events using favorite 
+      Teleport provides ready to use auth for your internal web applications.
+      Customize access requests and react to security events using favorite
       programming languages.
     </ProductBanner.Item>
   </ProductBanner>
@@ -153,18 +154,18 @@ import finserv from "./assets/for-finserv.svg";
     logoSrc={blockchain}
     description={
       <>
-        The future of finance needs the same security & compliance as 
-        traditional finance, but you can’t slow down to get it.  With 
+        The future of finance needs the same security & compliance as
+        traditional finance, but you can’t slow down to get it.  With
         Teleport, you don’t have to make that tradeoff.
       </>
     }
   >
     <ProductBanner.Item title="Industry Adoption">
-      3 of the Top 5 Crypto exchanges by trading volume leverage 
+      3 of the Top 5 Crypto exchanges by trading volume leverage
       Teleport to keep their critical resources secure.
     </ProductBanner.Item>
     <ProductBanner.Item title="Open-source">
-      Teleport is open-source which means it benefits from the 
+      Teleport is open-source which means it benefits from the
       wisdom of crowds, just like crypto. No fiat security software here.
     </ProductBanner.Item>
     <ProductBanner.Item title="High Security Standard">
@@ -185,7 +186,7 @@ import finserv from "./assets/for-finserv.svg";
   description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
   listDescription="Teleport consists of just two binaries."
   listItems={[
-    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certificates.</>, 
+    <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>tsh</span> client allows users to login to retrieve short-lived certificates.</>,
     <>The <span style={{color: "#512FC9", fontFamily: "Ubuntu Mono"}}>teleport</span> agent can be installed on any server or any Kubernetes cluster with a single command.</>
   ]}
 >
