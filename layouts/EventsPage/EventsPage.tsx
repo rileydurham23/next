@@ -9,7 +9,6 @@ import {
   startOfDay,
 } from "date-fns";
 import Centrator from "components/Centrator";
-import CookieBanner from "components/CookieBanner";
 import Drift from "components/Drift";
 import SectionHeader from "components/SectionHeader";
 import Head from "components/Head";
@@ -137,7 +136,6 @@ export const EventsPage = ({
         </GridDisplay>
         <Drift />
       </Layout>
-      <CookieBanner />
       <Footer />
     </>
   );

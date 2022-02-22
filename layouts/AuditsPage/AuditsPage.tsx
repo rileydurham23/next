@@ -1,7 +1,6 @@
 import Box from "components/Box";
 import Button from "components/Button";
 import Centrator from "components/Centrator";
-import CookieBanner from "components/CookieBanner";
 import dynamic from "next/dynamic";
 import Flex from "components/Flex";
 import Footer from "components/Footer";
@@ -162,7 +161,6 @@ export const AuditsPage = ({
         <Box mt={[5, 0]}>
           <TryTeleport />
         </Box>
-        <CookieBanner />
         <Footer />
       </Layout>
     </>

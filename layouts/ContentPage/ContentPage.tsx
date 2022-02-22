@@ -1,7 +1,6 @@
 import { Fragment, useMemo } from "react";
 import { MDXProvider } from "@mdx-js/react";
 import Centrator from "components/Centrator";
-import CookieBanner from "components/CookieBanner";
 import Drift from "components/Drift";
 import SectionHeader, { BGColor } from "components/SectionHeader";
 import Section from "components/Section";
@@ -129,7 +128,6 @@ export const ContentPage = ({
         )}
         {tryTeleport && <TryTeleport />}
       </Layout>
-      <CookieBanner />
       <Footer />
     </>
   );

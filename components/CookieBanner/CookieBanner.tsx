@@ -51,6 +51,7 @@ const CookieBanner = () => {
 
       return !hasCookieStored;
     } catch (e) {
+      console.log(e);
       return true;
     }
   });
@@ -62,6 +63,7 @@ const CookieBanner = () => {
 
       // window.gtag needs to be gated because in development, NEXT_PUBLIC_GTAG_ID is undefined which throws an error
       if (window.gtag) {
+        // updating consent to track in google analytics in states/countries that require consent to do so
         window.gtag("consent", "update", {
           ad_storage: "granted",
           analytics_storage: "granted",
@@ -77,15 +79,15 @@ const CookieBanner = () => {
         <OuterContainer>
           <CookieMessage>
             <TextContainer>
-              Our sites uses cookies to provide you with a great user
-              experience. By using this website, you accept our&nbsp;
+              This site uses cookies to improve service. By using this site, you
+              agree to our use of cookies.&nbsp;
               <Link href="https://goteleport.com/privacy/" color="white">
-                Cookie Policy.
+                More info.
               </Link>
             </TextContainer>
           </CookieMessage>
           <Button onClick={handleAcceptClick} variant="secondary">
-            Okay!
+            Ok, got it.
           </Button>
         </OuterContainer>
       )}

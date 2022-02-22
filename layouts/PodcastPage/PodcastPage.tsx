@@ -2,7 +2,6 @@ import { useRef, useEffect } from "react";
 import { MDXProvider } from "@mdx-js/react";
 import dynamic from "next/dynamic";
 import Centrator from "components/Centrator";
-import CookieBanner from "components/CookieBanner";
 import Layout from "components/Layout";
 import Drift from "components/Drift";
 import Section from "components/Section";
@@ -70,7 +69,6 @@ export const PodcastPage = ({
         </Centrator>
         <TryTeleport />
       </Layout>
-      <CookieBanner />
       <Footer />
       <Drift />
     </>

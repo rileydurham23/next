@@ -1,5 +1,4 @@
 import { MDXProvider } from "@mdx-js/react";
-import CookieBanner from "components/CookieBanner";
 import Drift from "components/Drift";
 import Layout from "components/Layout";
 import Footer from "components/Footer";
@@ -49,7 +48,6 @@ export default function SitePage({ meta, children }: Props) {
           <MDXProvider components={components}>{children}</MDXProvider>
         </Box>
       </Layout>
-      <CookieBanner />
       <Footer short={Boolean(meta.shortFooter)} />
       <Drift />
     </>

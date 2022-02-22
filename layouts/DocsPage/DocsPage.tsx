@@ -4,7 +4,6 @@ import { useContext, useEffect } from "react";
 import AnchorNavigation, { HeaderMeta } from "components/AnchorNavigation";
 import Box from "components/Box";
 import Button from "components/Button";
-import CookieBanner from "components/CookieBanner";
 import Flex from "components/Flex";
 import Head from "components/Head";
 import Layout from "components/Layout";
@@ -155,7 +154,6 @@ const DocsPage = ({
               </Button>
             </Footer>
           </Flex>
-          <CookieBanner />
         </Flex>
       </Layout>
     </>
