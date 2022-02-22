@@ -8,11 +8,42 @@ import Button from "components/Button";
 import Flex from "components/Flex";
 import Link from "components/Link";
 
+const gtagRegions = [
+  "BE",
+  "BG",
+  "CZ",
+  "DK",
+  "DE",
+  "EE",
+  "IE",
+  "GR",
+  "ES",
+  "FR",
+  "HR",
+  "IT",
+  "CY",
+  "LV",
+  "LT",
+  "LU",
+  "HU",
+  "MT",
+  "NL",
+  "AT",
+  "PL",
+  "PT",
+  "RO",
+  "SI",
+  "SK",
+  "FI",
+  "SE",
+  "US-CA",
+];
+
 const CookieBanner = () => {
   // lazy state initialization used in order to not lock the browser on localStorage look up
   const [showBanner, setShowBanner] = useState(() => {
     // in some cases, localStorage access will throw an error depending
-    // on the user's browser. this avoids white screening in case of error
+    // on the user's browser. wrapping in a try-catch avoids white screening in case of error
     try {
       const hasCookieStored =
         typeof window !== "undefined" &&
@@ -29,40 +60,12 @@ const CookieBanner = () => {
       localStorage.setItem("hasCookie", "true");
       setShowBanner(false);
 
+      // window.gtag needs to be gated because in development, NEXT_PUBLIC_GTAG_ID is undefined which throws an error
       if (window.gtag) {
         window.gtag("consent", "update", {
           ad_storage: "granted",
           analytics_storage: "granted",
-          region: [
-            "BE",
-            "BG",
-            "CZ",
-            "DK",
-            "DE",
-            "EE",
-            "IE",
-            "GR",
-            "ES",
-            "FR",
-            "HR",
-            "IT",
-            "CY",
-            "LV",
-            "LT",
-            "LU",
-            "HU",
-            "MT",
-            "NL",
-            "AT",
-            "PL",
-            "PT",
-            "RO",
-            "SI",
-            "SK",
-            "FI",
-            "SE",
-            "US-CA",
-          ],
+          region: gtagRegions,
         });
       }
     }
