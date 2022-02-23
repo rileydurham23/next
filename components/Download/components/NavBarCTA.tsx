@@ -25,8 +25,6 @@ export const NavBarCTA = () => {
     }
   });
 
-  console.log();
-
   return (
     <>
       {isSignInVisible && <DropdownMenuOverlay />}

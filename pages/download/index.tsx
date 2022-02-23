@@ -3,15 +3,18 @@ import { styled } from "@stitches/react";
 import Download from "components/Download";
 import { DownloadPageHeader } from "components/Download";
 import { getOsParameter } from "components/Download/helpers";
-// import SectionHeader from "components/SectionHeader";
 import { NavBar } from "components/Download";
-// import Header from "components/Header";
 
 import type {
   Version,
   MajorVersionCollection,
   OS,
 } from "components/Download/types";
+
+interface DownloadPageProps {
+  initialDownloads: Array<MajorVersionCollection>;
+  os?: OS;
+}
 
 interface PaginatedResponse {
   next: number;
@@ -22,57 +25,6 @@ interface PaginatedResponse {
 
 interface VersionApiResponse extends PaginatedResponse {
   items: Version[];
-}
-
-const groupByMajorVersions = (
-  versionApiResponse: VersionApiResponse
-): Array<MajorVersionCollection> => {
-  console.log("raw data", versionApiResponse);
-  const versionsByMajorVersion: { [key: string]: MajorVersionCollection } = {};
-
-  versionApiResponse.items.forEach((version) => {
-    const majorVersion = version.version.slice(1, 4);
-
-    if (versionsByMajorVersion[majorVersion]) {
-      versionsByMajorVersion[majorVersion].versions.push(version);
-    } else {
-      versionsByMajorVersion[majorVersion] = {
-        majorVersion,
-        versions: [version],
-      };
-    }
-  });
-
-  const x = Object.values(versionsByMajorVersion).sort(
-    (a, b) => Number(b.majorVersion) - Number(a.majorVersion)
-  );
-
-  console.log("data after mapping", x);
-
-  return x;
-};
-
-// avoid making network request. next invokes on server that must return promise
-// with props you want to pass to the component. used in place of fetch
-export const getServerSideProps = (context) => {
-  // handle reading query parameter of url done on the server
-  const os = getOsParameter(context.query.os);
-
-  return fetch(
-    "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0"
-  )
-    .then((response) => response.json())
-    .then((data) => ({
-      props: {
-        os: os || "linux",
-        initialDownloads: groupByMajorVersions(data),
-      },
-    }));
-};
-
-interface DownloadPageProps {
-  initialDownloads: Array<MajorVersionCollection>;
-  os?: OS;
 }
 
 const headerLinks = [
@@ -89,6 +41,49 @@ const headerLinks = [
     name: "Install using Docker",
   },
 ];
+
+const groupByMajorVersions = (
+  versionApiResponse: VersionApiResponse
+): Array<MajorVersionCollection> => {
+  const versionsByMajorVersion: { [key: string]: MajorVersionCollection } = {};
+
+  versionApiResponse.items.forEach((version) => {
+    const majorVersion = version.version.slice(1, 4);
+
+    if (versionsByMajorVersion[majorVersion]) {
+      versionsByMajorVersion[majorVersion].versions.push(version);
+    } else {
+      versionsByMajorVersion[majorVersion] = {
+        majorVersion,
+        versions: [version],
+      };
+    }
+  });
+
+  // returns versions sorted by how recently they were released
+  return Object.values(versionsByMajorVersion).sort(
+    (a, b) => Number(b.majorVersion) - Number(a.majorVersion)
+  );
+};
+
+// getServerSideProps avoids making a network request on each render. next invokes on server that must return promise
+// with props you want to pass to the component. this is used in place of fetch
+export const getServerSideProps = (context) => {
+  // handle reading query parameter of url done on the server
+  const os = getOsParameter(context.query.os);
+
+  return fetch(
+    "https://dashboard.gravitational.com/webapi/releases-oss?product=teleport&page=0"
+  )
+    .then((response) => response.json())
+    .then((data) => ({
+      // set the os based on the response. if no os stated, set it as 'linux'
+      props: {
+        os: os || "linux",
+        initialDownloads: groupByMajorVersions(data),
+      },
+    }));
+};
 
 const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
   return (
@@ -125,7 +120,7 @@ const StyledUl = styled("ul", {
 });
 
 const StyledLink = styled("a", {
-  color: "#651FFF",
+  color: "$light-purple",
   margin: 0,
   padding: 0,
 });
@@ -133,8 +128,8 @@ const StyledLink = styled("a", {
 const ContentContainer = styled("div", {
   display: "flex",
   justifyContent: "center",
-  padding: 0,
-  margin: 0,
+  // padding: 0,
+  // margin: 0,
 });
 
 const InstallColumnContainer = styled("div", {

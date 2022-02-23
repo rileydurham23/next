@@ -10,17 +10,17 @@ export interface DropdownMenuProps {
 export const DropdownMenu = ({ title, children }: DropdownMenuProps) => {
   return (
     <OutsideContainer>
-      <TitleContainer>{title}</TitleContainer>
+      <StyledTitle>{title}</StyledTitle>
       <ChildrenContainer>{children}</ChildrenContainer>
     </OutsideContainer>
   );
 };
 
 const ChildrenContainer = styled(Box, {
-  paddingLeft: "24px",
-  paddingRight: "24px",
-  paddingTop: "8px",
-  paddingBottom: "8px",
+  paddingLeft: "$4",
+  paddingRight: "$4",
+  paddingTop: "$2",
+  paddingBottom: "$2",
 });
 
 const OutsideContainer = styled(Box, {
@@ -34,7 +34,7 @@ const OutsideContainer = styled(Box, {
   width: "auto",
 });
 
-const TitleContainer = styled("h3", {
+const StyledTitle = styled("h3", {
   display: "block",
   padding: 0,
   alignItems: "center",

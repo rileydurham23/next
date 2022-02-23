@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import { styled } from "./stitches.config";
 import ReactMarkdown from "react-markdown";
@@ -15,8 +15,8 @@ import { getDownloadInfo } from "./helpers";
 import type { Version } from "./types";
 
 interface DownloadTableProps {
-  showAllNotes: boolean;
   data: MajorVersionCollection;
+  showAllNotes: boolean;
 }
 
 export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
@@ -34,10 +34,8 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
       return latestVersion.version;
     }
 
-    // if there is no latestVersion (i.e. pre-release)
-    // comparing every item with every item - n2 quadratic time
-    // sorting - linearhythmic time
-    // pointer - constant time
+    // if there is no latestVersion (i.e. pre-release), then return the most recent version based off
+    // its publicationDate
 
     let mostRecentVersionItem: Version | null = null;
 
@@ -55,10 +53,12 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
     return mostRecentVersionItem.version;
   });
 
+  // reset the OS based off clicking 'linux, max, windows' buttons
   const handleChange = (os: OS) => {
     setOs(os);
   };
 
+  // change the selected version of a release
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedVersionTag(event.target.value);
   };
@@ -83,11 +83,11 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
   const showIndividualNoteRef = useRef(showIndividualNote);
 
   // useLayoutEffect is used to avoid flash of unwanted content and a second render
-  useEffect(() => {
+  useLayoutEffect(() => {
     showIndividualNoteRef.current = showIndividualNote;
   }, [showIndividualNote]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (showAllNotes !== showIndividualNoteRef.current) {
       setShowIndividualNote(showAllNotes);
     }
@@ -165,6 +165,7 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
         <tbody>
           {selectedVersion.downloads
             .filter((download) => {
+              // return only the release notes for a selected version
               const downloadInformation = getDownloadInfo(download.name);
               return downloadInformation.os === os;
             })

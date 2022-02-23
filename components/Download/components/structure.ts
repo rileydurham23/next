@@ -1,10 +1,20 @@
-// import { MenuCategoryProps } from "./MenuCategory";
-import databaseSvgPath from "../assets/database.svg";
-import applicationSvgPath from "../assets/application.svg";
-import kubernetesSvgPath from "../assets/kubernetes.svg";
-import serverSvgPath from "../assets/server.svg";
-import desktopSvgPath from "../assets/desktop.svg";
-import featuresSvgPath from "../assets/features.svg";
+// import Application from "../assets/application.svg?react";
+// import Building from "../assets/building.svg?react";
+// import Calendar from "../assets/calendar.svg?react";
+// import Code from "../assets/code.svg?react";
+// import Database from "../assets/database.svg?react";
+// import desktop from "../assets/desktop.svg?react";
+// import earth from "../assets/earth.svg?react";
+// import features from "../assets/features.svg?react";
+// import flag from "../assets/flag.svg?react";
+// import gamepad from "../assets/gamepad.svg?react";
+// import kubernetes from "../assets/kubernetes.svg?react";
+// import note from "../assets/note.svg?react";
+// import presentation from "../assets/presentation.svg?react";
+// import question from "../assets/question.svg?react";
+// import server from "../assets/server.svg?react";
+// import stack from "../assets/stack.svg?react";
+// import window from "../assets/window.svg?react";
 
 const menu = [
   {
@@ -13,41 +23,41 @@ const menu = [
     href: "/teleport/",
     items: [
       {
-        image: serverSvgPath,
+        image: "Server",
         title: "Server Access",
         description:
           "SSH securely into Linux servers and smart devices with a complete audit trail",
         href: "/ssh-server-access/",
       },
       {
-        image: kubernetesSvgPath,
+        image: "kubernetes",
         title: "Kubernetes Access",
         description:
           "Access Kubernetes clusters securely with complete visibility to access and behavior",
         href: "/kubernetes-access/",
       },
       {
-        image: applicationSvgPath,
+        image: "application",
         title: "Application Access",
         description:
           "Access web applications running behind NAT and firewalls with security and compliance",
         href: "/application-access/",
       },
       {
-        image: databaseSvgPath,
+        image: "database",
         title: "Database Access",
         description: "For SQL and NoSQL databases across multi-environments",
         href: "/database-access/",
       },
       {
-        image: desktopSvgPath,
+        image: "desktop",
         title: "Desktop Access",
         description:
           "Securely access Windows servers and desktops in multiple environments.",
         href: "/desktop-access/",
       },
       {
-        image: featuresSvgPath,
+        image: "features",
         title: "Teleport Features",
         description:
           "An overview of Teleport Access Plane features, capabilities and more...",

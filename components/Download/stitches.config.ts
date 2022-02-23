@@ -3,14 +3,14 @@ import { createStitches } from "@stitches/react";
 export const { styled, css } = createStitches({
   theme: {
     colors: {
-      "light-blue": "#0091EA",
-      "lightest-gray": "#F0F2F4",
+      "blue-gray": "#BDCAD0",
+      darkest: "#37474F",
       "dark-purple": "#512FC9",
       gray: "#607D8B",
-      "light-purple": "#651FFF",
-      "blue-gray": "#BDCAD0",
+      "light-blue": "#0091EA",
       "lighter-gray": "#D2DBDF",
-      darkest: "#37474F",
+      "lightest-gray": "#F0F2F4",
+      "light-purple": "#651FFF",
       "page-bg": "#f6f8f9",
     },
     space: {
@@ -54,10 +54,6 @@ export const { styled, css } = createStitches({
       xl: "40px",
       xxl: "48px",
     },
-    letterSpacings: {},
-    sizes: {},
-    borderWidths: {},
-    borderStyles: {},
     radii: {
       sm: "2px",
       md: "8px",
@@ -65,9 +61,6 @@ export const { styled, css } = createStitches({
       default: "4px",
       circle: "99999px",
     },
-    shadows: {},
-    zIndices: {},
-    transitions: {},
   },
   media: {
     initial: "1200px",
