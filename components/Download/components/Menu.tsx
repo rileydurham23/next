@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Flex } from "./Flex";
-import MenuCategory from "./MenuCategory";
+import NavBarLinkRow from "./NavBarLinkRow";
 import structure from "./structure";
 
 const Menu = () => {
@@ -13,7 +13,7 @@ const Menu = () => {
     // width={["100%", "auto"]}
     >
       {structure.map((props, id) => (
-        <MenuCategory
+        <NavBarLinkRow
           key={id}
           id={id}
           opened={id === openedCategoryId}

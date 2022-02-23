@@ -10,20 +10,20 @@ import { DropdownMenuOverlay } from "./DropdownMenu/DropdownMenuOverlay";
 
 import { MenuItemProps } from "./DropdownMenu/DropdownMenuItem";
 
-export interface MenuCategoryProps {
+export interface NavBarLinkRowProps {
   title: string;
   description: string;
   href: string;
   items: MenuItemProps[];
 }
 
-interface MenuCategoryComponentProps extends MenuCategoryProps {
+interface NavBarLinkRowComponentProps extends NavBarLinkRowProps {
   id: number;
   opened: boolean;
   onToggleOpened: (id: number | null) => void;
 }
 
-const MenuCategory = ({
+const NavBarLinkRow = ({
   id,
   opened,
   title,
@@ -31,7 +31,7 @@ const MenuCategory = ({
   items,
   href,
   onToggleOpened,
-}: MenuCategoryComponentProps) => {
+}: NavBarLinkRowComponentProps) => {
   const ref = useRef(null);
 
   useClickAway(ref, () => {
@@ -54,7 +54,7 @@ const MenuCategory = ({
   return (
     <>
       {opened && <DropdownMenuOverlay />}
-      <Box position="relative" ref={ref}>
+      <Box position="relative" ref={ref} border="5px solid red">
         <MainLink href={href} onClick={toggleOpened} active={opened}>
           {title}
         </MainLink>
@@ -116,4 +116,4 @@ const MainLink = styled("a")(({ active }: { active: boolean }) => [
   }),
 ]);
 
-export default MenuCategory;
+export default NavBarLinkRow;
