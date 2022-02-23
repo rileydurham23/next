@@ -12,6 +12,7 @@ import { Box } from "./components/Box";
 import { Flex } from "./components/Flex";
 
 import { getDownloadInfo } from "./helpers";
+import type { Version } from "./types";
 
 interface DownloadTableProps {
   showAllNotes: boolean;
@@ -29,7 +30,29 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
       (version) => version.prerelease === false
     );
 
-    return latestVersion.version;
+    if (latestVersion) {
+      return latestVersion.version;
+    }
+
+    // if there is no latestVersion (i.e. pre-release)
+    // comparing every item with every item - n2 quadratic time
+    // sorting - linearhythmic time
+    // pointer - constant time
+
+    let mostRecentVersionItem: Version | null = null;
+
+    data.versions.forEach((version) => {
+      const publishedDate = version.publishedAt;
+
+      if (
+        !mostRecentVersionItem ||
+        publishedDate > mostRecentVersionItem.publishedAt
+      ) {
+        mostRecentVersionItem = version;
+      }
+    });
+
+    return mostRecentVersionItem.version;
   });
 
   const handleChange = (os: OS) => {
@@ -122,6 +145,13 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
     <DownloadTableContainer>
       {renderHeaders()}
       {renderNotes()}
+
+      {selectedVersion.prerelease ? (
+        <PrereleaseWarning>
+          This version is a pre-release and is not recommended for production
+          usage.
+        </PrereleaseWarning>
+      ) : null}
 
       <StyledTable>
         <thead>
@@ -245,4 +275,14 @@ const TableHeader = styled("tr", {
   fontSize: "$text-xs",
   lineHeight: "$xl",
   textTransform: "uppercase",
+});
+
+const PrereleaseWarning = styled(Box, {
+  backgroundColor: "#f50057",
+  color: "white",
+  fontSize: "$text-md",
+  textAlign: "center",
+  lineHeight: "$lg",
+  padding: "0px 16px",
+  fontWeight: "$bold",
 });

@@ -1,16 +1,16 @@
 import { useState } from "react";
-import Flex from "components/Flex";
+import { Flex } from "./Flex";
 import MenuCategory from "./MenuCategory";
 import structure from "./structure";
 
 const Menu = () => {
   const [openedCategoryId, setOpenedCategoryId] = useState<number>(null);
+
   return (
     <Flex
-      as="nav"
-      flexDirection={["column", "row"]}
-      marginRight="10px"
-      width={["100%", "auto"]}
+    // flexDirection={["column", "row"]}
+    // marginRight="10px"
+    // width={["100%", "auto"]}
     >
       {structure.map((props, id) => (
         <MenuCategory
@@ -18,7 +18,10 @@ const Menu = () => {
           id={id}
           opened={id === openedCategoryId}
           onToggleOpened={setOpenedCategoryId}
-          {...props}
+          title={props.title}
+          description={props.description}
+          href={props.href}
+          items={props.items}
         />
       ))}
     </Flex>

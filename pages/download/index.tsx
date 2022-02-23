@@ -27,6 +27,7 @@ interface VersionApiResponse extends PaginatedResponse {
 const groupByMajorVersions = (
   versionApiResponse: VersionApiResponse
 ): Array<MajorVersionCollection> => {
+  console.log("raw data", versionApiResponse);
   const versionsByMajorVersion: { [key: string]: MajorVersionCollection } = {};
 
   versionApiResponse.items.forEach((version) => {
@@ -42,9 +43,13 @@ const groupByMajorVersions = (
     }
   });
 
-  return Object.values(versionsByMajorVersion).sort(
+  const x = Object.values(versionsByMajorVersion).sort(
     (a, b) => Number(b.majorVersion) - Number(a.majorVersion)
   );
+
+  console.log("data after mapping", x);
+
+  return x;
 };
 
 // avoid making network request. next invokes on server that must return promise

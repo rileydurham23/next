@@ -11,7 +11,7 @@ const menu = [
     title: "Products",
     description: "Teleport Products",
     href: "/teleport/",
-    children: [
+    items: [
       {
         image: serverSvgPath,
         title: "Server Access",
@@ -59,7 +59,7 @@ const menu = [
     title: "Use Cases",
     description: "Teleport Use Cases",
     href: "/",
-    children: [
+    items: [
       {
         icon: "building",
         title: "Financial Services",
@@ -92,7 +92,7 @@ const menu = [
     title: "Documentation",
     description: "Teleport documentation",
     href: "/docs/",
-    children: [
+    items: [
       {
         icon: "stack",
         title: "Documentation",
@@ -130,7 +130,7 @@ const menu = [
     title: "Learn",
     description: "Learn more about teleport",
     href: "/resources/",
-    children: [
+    items: [
       {
         icon: "note",
         title: "The blog",
@@ -168,7 +168,7 @@ const menu = [
     title: "Company",
     description: "Company",
     href: "/about/",
-    children: [
+    items: [
       {
         icon: "building",
         title: "About us",

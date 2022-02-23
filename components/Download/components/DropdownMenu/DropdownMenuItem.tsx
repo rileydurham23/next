@@ -7,10 +7,10 @@ import { Box } from "../Box";
 export interface MenuItemProps {
   title: string;
   description: string;
-  src: string;
   icon?: string;
   href?: string;
   name?: "clouds" | "download";
+  src?: string;
 }
 
 export const DropdownMenuItem = ({
