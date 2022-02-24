@@ -135,7 +135,7 @@ Now run one of the following commands:
 - `yarn lint` – checks JS and TS files for errors and automatically fixes them.
 - `yarn lint-check` – checks JS and TS files for errors, but doesn't fix them. Checked in CI and on commit.
 - `yarn typecheck` – validates TypeScript type-related errors. Used on CI.
-- `yarn git-update` – shortcut for submodule update, also used as part of `yarn update-and-build`.
+- `yarn git-update` – shortcut for submodule update, also used as part of `yarn update-and-build`. Run this command after pulling down doc submodule updates.
 - `yarn build-node` – builds configs and plugins for mdx.
 - `yarn add-symlinks` – creates symlinks from different versions of docs to `pages` directory.
 - `yarn markdown-lint` – lints `*.mdx` files inside `content/**/docs/pages/` folders for syntax errors.
