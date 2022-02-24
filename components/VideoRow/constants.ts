@@ -370,4 +370,12 @@ export const Videos: Array<VideoItem> = [
     labels: ["security", "teleport", "SSH", "access plane", "pipeline"],
     videoId: "fMNfJRySHe8",
   },
+  {
+    author: "Stephen Faig, Steven Martin",
+    href: "https://goteleport.com/resources/videos/enable-compliance-for-database-access/",
+    title: "How to Enable Compliance for Database Access",
+    date: "2022-01-26",
+    labels: ["security", "teleport", "database", "access plane", "compliance"],
+    videoId: "mQVE-FQKJv4",
+  },
 ];
