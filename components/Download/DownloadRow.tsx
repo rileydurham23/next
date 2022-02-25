@@ -1,4 +1,4 @@
-import { styled } from "./stitches.config";
+import { styled } from "@stitches/react";
 import { useState } from "react";
 
 import { getDownloadInfo } from "./helpers";

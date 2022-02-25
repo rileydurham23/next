@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { styled } from "./stitches.config";
+import { styled } from "@stitches/react";
 
 import { Box } from "./components/Box";
 import { DownloadTable } from "components/Download";
@@ -51,7 +51,7 @@ export const Download: React.FC<DownloadProps> = ({ initialDownloads }) => {
           </StyledNotesButton>
           {renderGithubStars()}
         </Top>
-        {allTables}
+        {/* {allTables} */}
       </DownloadContainer>
     );
   };

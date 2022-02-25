@@ -1,9 +1,9 @@
 import { useState, useCallback, useRef, MouseEvent } from "react";
 import { useClickAway } from "react-use";
 import { css, media } from "components/system";
-import styled from "styled-components";
+import { styled } from "@stitches/react";
 import Box from "components/Box";
-import Button from "components/Button";
+// import Button from "components/Button";
 import Flex from "components/Flex";
 import { DropdownMenu } from "./DropdownMenu/DropdownMenu";
 import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
@@ -38,15 +38,14 @@ export const NavBarCTA = () => {
         ml={[0, "auto"]}
         width={["100%", "auto"]}
       >
-        <Box position="relative" width={["100%", "auto"]} ref={ref}>
-          <StyledCTA
-            as="a"
+        <RowContainer ref={ref}>
+          <StyledButton
             href="https://teleport.sh/"
             onClick={toggleSignIn}
             variant="secondary"
           >
             Sign In
-          </StyledCTA>
+          </StyledButton>
           <Box
             display={isSignInVisible ? "block" : "none"}
             right={[0, 3]}
@@ -73,7 +72,7 @@ export const NavBarCTA = () => {
               />
             </DropdownMenu>
           </Box>
-        </Box>
+        </RowContainer>
         <StyledCTA as="a" href="/pricing/">
           Get Started
         </StyledCTA>
@@ -82,15 +81,37 @@ export const NavBarCTA = () => {
   );
 };
 
-const StyledCTA = styled(Button)(
-  css({
-    mt: [2, 0],
-    mr: [0, 3],
-    flexShrink: 0,
-  }),
-  media("sm", {
-    fontSize: "text-lg",
-    height: "56px",
-    width: "100%",
-  })
-);
+const RowContainer = styled("div", {
+  position: "relative",
+  width: "auto",
+});
+
+const StyledCTA = styled("button", {
+  marginTop: 0,
+  marginRight: 3,
+  flexShrink: 0,
+});
+
+const StyledButton = styled("button", {
+  backgroundColor: "white",
+  borderColor: "$dark-purple",
+  color: "$dark-purple",
+  "&:focus, &:hover": {
+    backgroundColor: "white",
+    borderColor: "$light-purple",
+    color: "$light-purple",
+  },
+});
+
+// const StyledCTA = styled(Button)(
+//   css({
+//     mt: [2, 0],
+//     mr: [0, 3],
+//     flexShrink: 0,
+//   }),
+//   media("sm", {
+//     fontSize: "text-lg",
+//     height: "56px",
+//     width: "100%",
+//   })
+// );

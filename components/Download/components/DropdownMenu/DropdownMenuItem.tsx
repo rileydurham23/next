@@ -1,7 +1,7 @@
 import { styled } from "@stitches/react";
 
 import { Box } from "../Box";
-import Icon from "../Icon";
+// import Icon from "../Icon";
 
 import Clouds from "../../assets/clouds.svg?react";
 
@@ -65,13 +65,13 @@ const Top = styled("div", {
   color: "$dark-purple",
 });
 
-const StyledIcon = styled(Icon, {
-  color: "$dark-purple",
-  float: "left",
-  height: "24px",
-  margin: "4px 8px 0px 0px",
-  width: "24px",
-});
+// const StyledIcon = styled(Icon, {
+//   color: "$dark-purple",
+//   float: "left",
+//   height: "24px",
+//   margin: "4px 8px 0px 0px",
+//   width: "24px",
+// });
 
 const StyledLink = styled("a", {
   // border={["1px solid", "none"]}

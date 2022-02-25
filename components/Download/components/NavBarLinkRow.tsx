@@ -54,7 +54,7 @@ const NavBarLinkRow = ({
   return (
     <>
       {opened && <DropdownMenuOverlay />}
-      <Box position="relative" ref={ref} border="5px solid red">
+      <Box position="relative" ref={ref}>
         <MainLink href={href} onClick={toggleOpened} active={opened}>
           {title}
         </MainLink>

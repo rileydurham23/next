@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-import { styled } from "./stitches.config";
+import { styled } from "@stitches/react";
 import ReactMarkdown from "react-markdown";
 
 import DownloadRow from "./DownloadRow";

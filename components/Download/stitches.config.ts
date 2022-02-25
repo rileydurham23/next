@@ -63,7 +63,7 @@ export const { styled, css } = createStitches({
     },
   },
   media: {
-    initial: "1200px",
-    bp1: "900px",
+    initial: "(max-width: 1200px)",
+    bp1: "(max-width: 900px)",
   },
 });

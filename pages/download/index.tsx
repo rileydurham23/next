@@ -95,7 +95,7 @@ const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
         description="Teleport provides simple secure access to SSH servers, Kubernetes clusters, PostgreSQL databases and web apps behind NAT, in any environment. It's a certificate authority with an integrated identity-aware proxy."
       >
         <InstallColumnContainer>
-          Additional ways to install Teleport
+          <InstallText>Additional ways to install Teleport</InstallText>
           {headerLinks.map((link) => (
             <StyledUl key={link.href}>
               <li>
@@ -113,6 +113,11 @@ const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
 };
 
 export default DownloadPage;
+
+const InstallText = styled("p", {
+  marginBottom: "$2",
+  fontWeight: "$bold",
+});
 
 const StyledUl = styled("ul", {
   margin: "8px 0 8px 18px",

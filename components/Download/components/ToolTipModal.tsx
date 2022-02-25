@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { styled } from "../stitches.config";
+import { styled } from "@stitches/react";
 
 import { Box } from "./Box";
 import { Flex } from "./Flex";
