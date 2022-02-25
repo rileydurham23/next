@@ -23,6 +23,7 @@ interface PodcastPageProps {
     title: string;
     description: string;
     podcastName: string;
+    previewImage?: string;
     noindex?: boolean;
     publicationDate: string;
   };
@@ -31,7 +32,7 @@ interface PodcastPageProps {
 
 export const PodcastPage = ({
   children,
-  meta: { title, description, noindex, podcastName },
+  meta: { title, description, previewImage, noindex, podcastName },
 }: PodcastPageProps) => {
   const podcast = useRef<HTMLDivElement>();
   useEffect(() => {
@@ -50,7 +51,12 @@ export const PodcastPage = ({
   }, [podcastName]);
   return (
     <>
-      <Head title={title} description={description} noIndex={noindex} />
+      <Head
+        image={previewImage}
+        title={title}
+        description={description}
+        noIndex={noindex}
+      />
       <Layout
         border="none"
         behaviour="floating"
