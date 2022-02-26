@@ -13,7 +13,7 @@ export default Logo;
 
 const LogoContainer = styled(Flex, {
   lineHeight: 0,
-  width: "121px",
-  height: "24px",
+  width: "128px",
+  height: "27px",
   color: "$dark-purple",
 });

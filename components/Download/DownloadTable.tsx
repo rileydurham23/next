@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-import { styled } from "@stitches/react";
+import { styled } from "./stitches.config";
 import ReactMarkdown from "react-markdown";
 
 import DownloadRow from "./DownloadRow";
@@ -188,16 +188,17 @@ const DownloadTableContainer = styled(Box, {
   borderRadius: "$lg",
   boxShadow: "rgb(0 0 0 / 12%) 0px 1px 4px",
   marginBottom: "$7",
+  "@bp1": {
+    overflow: "scroll",
+  },
 });
 
 const HeaderContainer = styled(Flex, {
   alignItems: "center",
-  // TODO deal with mobile styling issues
-  // flexDirection: ["column", "row"],
   justifyContent: "space-between",
   padding: "5px 30px",
   "@bp1": {
-    backgroundColor: "red",
+    flexDirection: "column",
   },
 });
 
@@ -211,6 +212,9 @@ const HeaderH1 = styled("h1", {
 
 const Left = styled(Flex, {
   alignItems: "center",
+  "@bp1": {
+    flexDirection: "column",
+  },
 });
 
 const ReleaseATag = styled("a", {
@@ -263,6 +267,9 @@ const StyledSizeTh = styled("th", {
 const StyledTh = styled("th", {
   paddingLeft: "30px",
   textAlign: "left",
+  "@bp1": {
+    paddingLeft: "10px",
+  },
 });
 
 const StyledTable = styled("table", {

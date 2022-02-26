@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { styled } from "@stitches/react";
+import { styled } from "./stitches.config";
 
 import { css, media, transition } from "components/system";
 import { Flex } from "./components/Flex";
@@ -21,9 +21,9 @@ export const NavBar = () => {
 
   return (
     <NavBarContainer>
-      <StyledLogoLink href="/">
+      <LogoLink href="/">
         <Logo />
-      </StyledLogoLink>
+      </LogoLink>
       {/* <StyledHamburger onClick={toggleNavigaton}>
         <Icon name={isNavigationVisible ? "close" : "hamburger"} size="md" />
       </StyledHamburger> */}
@@ -48,6 +48,10 @@ const NavBarContainer = styled(Flex, {
   zIndex: 2000,
   backgroundColor: "transparent",
   width: "100%",
+  "@bp1": {
+    backgroundColor: "white",
+    boxShadow: "0 1px 4px rgb(0 0 0 / 24%)",
+  },
 });
 
 // const StyledNavBar = styled(Flex)(
@@ -70,13 +74,13 @@ const NavBarContainer = styled(Flex, {
 //   })
 // );
 
-const StyledLogoLink = styled("a", {
-  paddingLeft: "32px",
-  paddingRight: "32px",
+const LogoLink = styled("a", {
+  padding: "0 32px",
   transition: "all .3s",
   height: "80px",
   display: "flex",
   alignItems: "center",
+  lineHeight: "80px",
 
   "&:hover": {
     backgroundColor: "#f1f3f4",

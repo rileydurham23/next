@@ -51,7 +51,7 @@ export const Download: React.FC<DownloadProps> = ({ initialDownloads }) => {
           </StyledNotesButton>
           {renderGithubStars()}
         </Top>
-        {/* {allTables} */}
+        {allTables}
       </DownloadContainer>
     );
   };

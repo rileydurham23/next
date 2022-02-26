@@ -40,9 +40,9 @@ export const NavBarCTA = () => {
       >
         <RowContainer ref={ref}>
           <StyledButton
-            href="https://teleport.sh/"
-            onClick={toggleSignIn}
-            variant="secondary"
+          // href="https://teleport.sh/"
+          // onClick={toggleSignIn}
+          // variant="secondary"
           >
             Sign In
           </StyledButton>

@@ -1,4 +1,4 @@
-import { styled } from "@stitches/react";
+import { styled } from "./stitches.config";
 import { useState } from "react";
 
 import { getDownloadInfo } from "./helpers";
@@ -84,4 +84,7 @@ const StyledTd = styled("td", {
   padding: "5px 30px",
   fontWeight: "$bold",
   maxWidth: "200px",
+  "@bp1": {
+    padding: "$2",
+  },
 });
