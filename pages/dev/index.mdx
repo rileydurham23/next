@@ -1,0 +1,36 @@
+---
+title: Webinar Template Page
+description: This is the example description, it needs to be long enough to be of use but not so long that the form is depressed too far down the page. This is the example description, it needs to be long enough to be of use but not so long that the form is depressed too far down the page. This is the example description, it needs to be long enough to be of use but not so long that the form is depressed too far down the page.
+brief: The 2021 State of Infrastructure Access and Security Report seeks to better understand...
+publicationDate: "2021-12-14"
+emailSubscribe: false
+headerColor: white
+---
+
+import BookBlock from "components/BookBlock";
+import PromoPointsBlock from "components/PromoPointsBlock";
+
+<BookBlock
+  title={meta.title}
+  src="./assets/cover-infrastructure.png"
+  formId="1150"
+  display="flex"
+  flexDirection="column"
+  pdfSource="https://goteleport.com/static/resources/white-papers/state-of-infrastructure-access-2021.pdf"
+>
+  {meta.description}
+</BookBlock>
+<PromoPointsBlock
+  title="This is the title for this block"
+  src="./assets/engineers.svg"
+>
+  <PromoPointsBlock.Item icon="bolt">
+    Example point 1
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="card">
+    Example point 2
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="shieldCheck">
+    Example point 3
+  </PromoPointsBlock.Item>
+</PromoPointsBlock>
