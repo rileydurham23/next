@@ -1,4 +1,4 @@
-import { styled } from "@stitches/react";
+import { styled } from "../../stitches.config";
 
 import { Box } from "../Box";
 
@@ -24,14 +24,16 @@ const ChildrenContainer = styled(Box, {
 });
 
 const OutsideContainer = styled(Box, {
-  background: "white",
+  backgroundColor: "white",
   borderRadius: "default",
-  // boxShadow: {["none", "0 4px 40px rgba(0, 0, 0, 0.24)"]},
   boxShadow: "0 4px 40px rgba(0, 0, 0, 0.24)",
   color: "black",
   overflow: "hidden",
-  // width: {["100%", "auto"]},
   width: "auto",
+
+  "@bp1": {
+    width: "100%",
+  },
 });
 
 const StyledTitle = styled("h3", {

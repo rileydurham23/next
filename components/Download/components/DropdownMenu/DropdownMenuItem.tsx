@@ -1,4 +1,4 @@
-import { styled } from "@stitches/react";
+import { styled } from "../../stitches.config";
 
 import { Box } from "../Box";
 // import Icon from "../Icon";
@@ -42,7 +42,6 @@ export const DropdownMenuItem = ({
   //   name === "clouds" ? <StyledClouds /> : <StyledDownload />;
 
   // const IconSVG = name;
-  console.log(name);
 
   return (
     <StyledLink href={href}>

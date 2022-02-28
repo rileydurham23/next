@@ -2,16 +2,13 @@ import { useState } from "react";
 import { Flex } from "./Flex";
 import NavBarLinkRow from "./NavBarLinkRow";
 import structure from "./structure";
+import { styled } from "../stitches.config";
 
 const Menu = () => {
   const [openedCategoryId, setOpenedCategoryId] = useState<number>(null);
 
   return (
-    <Flex
-    // flexDirection={["column", "row"]}
-    // marginRight="10px"
-    // width={["100%", "auto"]}
-    >
+    <StyledMenuContainer>
       {structure.map((props, id) => (
         <NavBarLinkRow
           key={id}
@@ -24,8 +21,19 @@ const Menu = () => {
           items={props.items}
         />
       ))}
-    </Flex>
+    </StyledMenuContainer>
   );
 };
 
 export default Menu;
+
+const StyledMenuContainer = styled(Flex, {
+  flexDirection: "row",
+  marginRight: "10px",
+  width: "auto",
+
+  "@bp1": {
+    flexDirection: "column",
+    width: "100%",
+  },
+});

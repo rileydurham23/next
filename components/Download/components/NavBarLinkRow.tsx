@@ -1,7 +1,6 @@
-import styled from "styled-components";
+import { styled } from "../stitches.config";
 import { useClickAway } from "react-use";
 import { useCallback, useRef } from "react";
-import { css, media, transition } from "components/system";
 import Box from "components/Box";
 
 import { DropdownMenu } from "./DropdownMenu/DropdownMenu";
@@ -34,6 +33,8 @@ const NavBarLinkRow = ({
 }: NavBarLinkRowComponentProps) => {
   const ref = useRef(null);
 
+  console.log("opened", opened);
+
   useClickAway(ref, () => {
     if (opened) {
       onToggleOpened(null);
@@ -55,18 +56,14 @@ const NavBarLinkRow = ({
     <>
       {opened && <DropdownMenuOverlay />}
       <Box position="relative" ref={ref}>
-        <MainLink href={href} onClick={toggleOpened} active={opened}>
+        <MainLink
+          href={href}
+          onClick={toggleOpened}
+          activity={opened ? "active" : null}
+        >
           {title}
         </MainLink>
-        <Box
-          display={opened ? "block" : "none"}
-          left={0}
-          ml={0}
-          position={["relative", "absolute"]}
-          width={["100%", "auto"]}
-          minWidth={[0, "540px"]}
-          zIndex={3000}
-        >
+        <DropdownContainer>
           {items && (
             <DropdownMenu title={description}>
               {items.map((props) => (
@@ -74,46 +71,76 @@ const NavBarLinkRow = ({
               ))}
             </DropdownMenu>
           )}
-        </Box>
+        </DropdownContainer>
       </Box>
     </>
   );
 };
 
-const MainLink = styled("a")(({ active }: { active: boolean }) => [
-  css({
-    boxSizing: "border-box",
-    color: active ? "dark-purple" : "darkest",
-    cursor: "pointer",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: "15px",
-    bg: active ? "rgba(240, 242, 244, 0.56)" : "transparent",
-    fontWeight: 500,
-    height: "80px",
-    outline: "none",
-    padding: "0 16px",
+const DropdownContainer = styled("div", {
+  left: 0,
+  marginLeft: 0,
+  position: "absolute",
+  width: "auto",
+  minWidth: "540px",
+  zIndex: 3000,
+  display: "none",
+
+  "@bp1": {
     position: "relative",
-    textDecoration: "none",
-    transition: transition([["background", "interaction"]]),
-    "&:focus, &:hover": {
-      color: "dark-purple",
-      bg: "rgba(240, 242, 244, 0.56)",
+    width: "100%",
+    minWidth: 0,
+  },
+
+  variant: {
+    activity: {
+      active: {
+        display: "block",
+      },
     },
-  }),
-  media("sm", {
-    color: "darkest",
-    bg: "lightest-gray",
+  },
+});
+
+const MainLink = styled("a", {
+  boxSizing: "border-box",
+  color: "$darkest",
+  cursor: "pointer",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  fontSize: "15px",
+  bg: "transparent",
+  fontWeight: 500,
+  height: "80px",
+  outline: "none",
+  padding: "0 16px",
+  position: "relative",
+  textDecoration: "none",
+  transition: "all .3s",
+  "&:focus, &:hover": {
+    color: "$dark-purple",
+    background: "$lightest-gray",
+  },
+  "@bp1": {
+    color: "$darkest",
+    bg: "$lightest-gray",
     borderRadius: "default",
     float: "none",
-    fontSize: "text-lg",
+    fontSize: "$text-lg",
     mb: 2,
     lineHeight: "56px",
     textAlign: "left",
     width: "100%",
-  }),
-]);
+  },
+  variants: {
+    activity: {
+      active: {
+        backgroundColor: "$lightest-gray",
+        color: "$dark-purple",
+      },
+    },
+  },
+});
 
 export default NavBarLinkRow;
