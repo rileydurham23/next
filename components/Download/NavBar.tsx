@@ -40,7 +40,8 @@ export const NavBar = () => {
         <Icon name={isNavigationVisible ? "close" : "hamburger"} size="md" />
       </StyledHamburger>
       <StyledContentWrapper
-      // activity={isNavigationVisible ? "active" : "inactive"}
+        style={{ display: isNavigationVisible ? "none" : "inherit" }}
+        activity={isNavigationVisible ? "active" : null}
       >
         <Menu />
         <NavBarCTA />
@@ -57,33 +58,29 @@ interface StyledContentWrapperProps {
 const StyledContentWrapper = styled(Flex, {
   border: "1px solid orange",
   width: "100%",
-  variant: {
-    activity: {
-      active: {
-        width: "100%",
-        alignItems: "center",
-        backgroundColor: "orange",
-
-        // "@bp1": {
-        //   flexDirection: "column",
-        //   border: "10px solid green",
-        //   position: "fixed",
-        //   zIndex: 2000,
-        //   top: "48px",
-        //   right: 0,
-        //   bottom: 0,
-        //   left: 0,
-        //   display: "flex",
-        //   overflow: "auto",
-        //   width: "auto",
-        //   p: 2,
-        //   bg: "white",
-        // },
+  position: "relative",
+  "@bp1": {
+    flexDirection: "column",
+    border: "10px solid green",
+    position: "absolute",
+    zIndex: 2000,
+    top: "48px",
+    right: 0,
+    bottom: 0,
+    left: 0,
+    display: "flex",
+    overflow: "auto",
+    width: "auto",
+    p: 2,
+    bg: "white",
+    variant: {
+      activity: {
+        active: {
+          width: "100%",
+          alignItems: "center",
+          backgroundColor: "orange",
+        },
       },
-    },
-    inactive: {
-      display: "none",
-      backgroundColor: "green",
     },
   },
 });
