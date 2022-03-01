@@ -27,7 +27,7 @@ export default withBundleAnalyzer({
     },
     {
       source: '/blog/:path*',
-      destination: `https://teleport-blog-next.vercel.app/:path*`,
+      destination: `https://teleport-blog-next.vercel.app/blog/:path*`,
     },
   ],
   redirects: async () => getRedirects(),
