@@ -74,10 +74,25 @@ According to @iadramelk, Vercel should:
 - proxy requests from one url/domain to another without visibly changing the url (except possibly for non-existent subdomains)
 - add _some_ security headers
 
-Nginx already provides all of the above. What are some of the downsides of nginx? (TBC)
+## Current State of Play (after non-exhaustive testing)
+
+Functional redirect/rewrite testing has completed (for the time being). Results are [here](https://github.com/gravitational/web/issues/2634).  
+
+Summary: 
+Three test repos were created, which we'll call `marketing`, `blog`, and `docs`.
+- across domain redirects: content from `blog` and `docs` can be displayed at `marketing/blog` and `marketing/docs` respectively, using functionality from EITHER the Vercel dashboard or `next.config.js`.
+- rewrites and redirects within a domain are also possible within `next.config.js`
+- redirecting a subdomain to a subpath is NOT POSSIBLE in either Vercel or Next.js (Vercel has stated this may be possible in a future release). In order to redirect subdomains to subpaths, it will be necessary to retain nginx.
+
+In testing live redirects using a combination of nginx and `next.config.mjs` with the `gravitational/next`repo, the `gravitational/web` repo, and the new `gravitational/blog` repo, the following results were obtained: 
+- using nginx to proxy all paths with `/blog/` to `gravitational/next` and THEN
+- using `next.config.mjs` to rewrite `/blog/*` paths to `gravitational/blog` resulted in inconsistent performance; sometimes the blog pages loaded, always with broken images, sometimes a "too many redirects" error occurred. 
+
+- removing the rewrites from `next.config.mjs` and instead proxing `/blog/` hits directly to `gravitational/blog` resulted in the desired functionality.  
+
 
 ## Further considerations from @wadells up for discussion (to be incorporated above)
 
 - Will there be a cache/CDN/DDOS protection? What provides that?
-- Can we use vercel's routing, or will we stick with an nginx reverse proxy? If nginx, where will it be hosted, and how will we deploy?
+- Nginx will have to be regtained, where will it be hosted, and how will we deploy?
 - What are the build/deploy time and determinism consequences of our plan? Are those acceptable to the team?
