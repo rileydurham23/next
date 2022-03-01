@@ -102,7 +102,7 @@ export const AnimationHeader = ({
                 fontWeight={400}
                 mt={[6, 3, 0]}
                 width={["100%", "auto"]}
-                href="https://play.instruqt.com/embed/teleport/tracks/teleport-demo?icp_user_id=homepage&show_challenges=true"
+                href="https://play.instruqt.com/teleport"
               >
                 Interactive Tutorial
               </Button>
