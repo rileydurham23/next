@@ -20,16 +20,16 @@ const CONTENT_DIRECTORY = resolve("content");
 
 export default withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-  rewrites: async () => [
-    {
-      source: "/docs/:path*",
-      destination: `/docs/ver/${latest}/:path*`,
-    },
-    {
-      source: '/blog/:path*',
-      destination: `https://teleport-blog-next.vercel.app/blog/:path*`,
-    },
-  ],
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: "/docs/:path*",
+          destination: `/docs/ver/${latest}/:path*`,
+        },
+      ],
+    };
+  },
   redirects: async () => getRedirects(),
   outputFileTracing: false,
   images: {
@@ -50,7 +50,7 @@ export default withBundleAnalyzer({
     // silencing warnings until https://github.com/vercel/next.js/issues/33693 is resolved
     config.infrastructureLogging = {
       level: "error",
-    }
+    };
 
     config.output.assetModuleFilename = "static/media/[hash][ext]";
 
