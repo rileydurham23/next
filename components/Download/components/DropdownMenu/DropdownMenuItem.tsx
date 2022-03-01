@@ -29,11 +29,6 @@ export const DropdownMenuItem = ({
             <IconToRender width="100%" height="100%" display="block" />
           </IconContainer>
         )}
-
-        {/* <IconSvg /> */}
-        {/* <Icon name={icon} color="dark-purple" mt={1} mr={2} float="left" /> */}
-        {/* <StyledIcon name={name} /> */}
-        {/* // {IconToRender} */}
         <TitleContainer>{title}</TitleContainer>
       </Top>
       <DescriptionSpan>{description}</DescriptionSpan>

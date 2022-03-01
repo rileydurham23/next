@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Flex } from "./Flex";
-import NavBarLinkRow from "./NavBarLinkRow";
+import NavBarLinkRow from "./NavBar/NavBarLinkRow";
 import structure from "./structure";
 import { styled } from "../stitches.config";
 

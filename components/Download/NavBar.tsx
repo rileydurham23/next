@@ -1,12 +1,14 @@
 import { useState, useCallback } from "react";
 import { styled } from "./stitches.config";
 
+import { Box } from "./components/Box";
 import { Flex } from "./components/Flex";
-import Icon from "components/Icon";
 import Menu from "./components/Menu";
 import blockBodyScroll from "utils/block-body-scroll";
-import { NavBarCTA } from "./components/NavBarCTA";
+import { NavBarCTA } from "./components/NavBar/NavBarCTA";
 
+import Close from "./components/icons/close.svg?react";
+import Hamburger from "./components/icons/hamburger.svg?react";
 import LogoSvg from "./assets/logo.svg?react";
 
 const Logo = () => (
@@ -23,37 +25,46 @@ const LogoContainer = styled(Flex, {
 });
 
 export const NavBar = () => {
-  const [isNavigationVisible, setIsNavigationVisible] =
-    useState<boolean>(false);
+  const [isPageMobileSize, setIsPageMobileSize] = useState<boolean>(false);
   const toggleNavigaton = useCallback(() => {
-    setIsNavigationVisible((value) => !value);
-    blockBodyScroll(isNavigationVisible);
-  }, [isNavigationVisible]);
+    setIsPageMobileSize((value) => !value);
+    blockBodyScroll(isPageMobileSize);
+  }, [isPageMobileSize]);
 
-  console.log("isNavigationVisible", isNavigationVisible);
   return (
     <NavBarContainer>
       <LogoLink href="/">
         <Logo />
       </LogoLink>
-      <StyledHamburger onClick={toggleNavigaton}>
-        <Icon name={isNavigationVisible ? "close" : "hamburger"} size="md" />
-      </StyledHamburger>
-      <StyledContentWrapper
-        style={{ display: isNavigationVisible ? "none" : "inherit" }}
-        // activity={isNavigationVisible ? "active" : null}
-      >
-        <Menu />
-        <NavBarCTA />
-      </StyledContentWrapper>
+
+      {isPageMobileSize ? (
+        <StyledHamburgerButton onClick={toggleNavigaton}>
+          <StyledIconWrapper>
+            <Close width="100%" height="100%" display="block" />
+          </StyledIconWrapper>
+        </StyledHamburgerButton>
+      ) : (
+        <>
+          <StyledHamburgerButton onClick={toggleNavigaton}>
+            <StyledIconWrapper>
+              <Hamburger width="100%" height="100%" display="block" />
+            </StyledIconWrapper>
+          </StyledHamburgerButton>
+
+          <StyledContentWrapper>
+            <Menu />
+            <NavBarCTA />
+          </StyledContentWrapper>
+        </>
+      )}
     </NavBarContainer>
   );
 };
 
-interface StyledContentWrapperProps {
-  activity: "active" | "inactive";
-  children: React.ReactNode;
-}
+const StyledIconWrapper = styled("div", {
+  width: "24px",
+  height: "24px",
+});
 
 const StyledContentWrapper = styled(Flex, {
   border: "1px solid orange",
@@ -126,7 +137,7 @@ const LogoLink = styled("a", {
   },
 });
 
-const StyledHamburger = styled("button", {
+const StyledHamburgerButton = styled("button", {
   appearance: "none",
   boxSizing: "border-box",
   minWidth: 0,
@@ -141,6 +152,7 @@ const StyledHamburger = styled("button", {
   outline: "none",
   padding: "12px 16px",
   position: "absolute",
+  width: "48px",
   right: 0,
   top: 0,
   "@bp1": {

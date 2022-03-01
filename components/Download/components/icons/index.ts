@@ -1,5 +1,6 @@
 export { default as building } from "./building.svg?react";
 export { default as calendar } from "./calendar.svg?react";
+export { default as close } from "./close.svg?react";
 export { default as clouds } from "./clouds.svg?react";
 export { default as code } from "./code.svg?react";
 export { default as database } from "./database.svg?react";
@@ -8,6 +9,7 @@ export { default as download } from "./download.svg?react";
 export { default as earth } from "./earth.svg?react";
 export { default as flag } from "./flag.svg?react";
 export { default as gamepad } from "./gamepad.svg?react";
+export { default as hamburger } from "./hamburger.svg?react";
 export { default as note } from "./note.svg?react";
 export { default as presentation } from "./presentation.svg?react";
 export { default as question } from "./question.svg?react";

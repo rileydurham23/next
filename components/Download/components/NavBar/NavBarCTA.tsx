@@ -1,9 +1,9 @@
 import { useState, useCallback, useRef, MouseEvent } from "react";
 import { useClickAway } from "react-use";
-import { styled } from "../stitches.config";
-import { Flex } from "./Flex";
-import { DropdownMenu } from "./DropdownMenu/DropdownMenu";
-import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
+import { styled } from "../../stitches.config";
+import { Flex } from "../Flex";
+import { DropdownMenu } from "../DropdownMenu/DropdownMenu";
+import { DropdownMenuItem } from "../DropdownMenu/DropdownMenuItem";
 // import { DropdownMenuOverlay } from "./DropdownMenu/DropdownMenuOverlay";
 
 export const NavBarCTA = () => {

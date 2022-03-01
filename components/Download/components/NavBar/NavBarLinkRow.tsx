@@ -1,13 +1,13 @@
-import { styled } from "../stitches.config";
+import { styled } from "../../stitches.config";
 import { useClickAway } from "react-use";
 import { useCallback, useRef } from "react";
 import Box from "components/Box";
 
-import { DropdownMenu } from "./DropdownMenu/DropdownMenu";
-import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
-import { DropdownMenuOverlay } from "./DropdownMenu/DropdownMenuOverlay";
+import { DropdownMenu } from "../DropdownMenu/DropdownMenu";
+import { DropdownMenuItem } from "../DropdownMenu/DropdownMenuItem";
+import { DropdownMenuOverlay } from "../DropdownMenu/DropdownMenuOverlay";
 
-import { MenuItemProps } from "./DropdownMenu/DropdownMenuItem";
+import { MenuItemProps } from "../DropdownMenu/DropdownMenuItem";
 
 export interface NavBarLinkRowProps {
   title: string;
