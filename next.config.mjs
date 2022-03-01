@@ -25,6 +25,10 @@ export default withBundleAnalyzer({
       source: "/docs/:path*",
       destination: `/docs/ver/${latest}/:path*`,
     },
+    {
+      source: '/blog/:path*',
+      destination: `https://teleport-blog-next.vercel.app/:path*`,
+    },
   ],
   redirects: async () => getRedirects(),
   outputFileTracing: false,

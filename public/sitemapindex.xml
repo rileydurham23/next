@@ -10,6 +10,12 @@
 
    <sitemap>
 
+      <loc>https://goteleport.com/blog/sitemap.xml</loc>
+
+   </sitemap>
+
+   <sitemap>
+
       <loc>https://goteleport.com/sitemap.xml</loc>
 
    </sitemap>
