@@ -7,7 +7,7 @@ import Menu from "./components/Menu";
 import blockBodyScroll from "utils/block-body-scroll";
 import { NavBarCTA } from "./components/NavBarCTA";
 
-import LogoSvg from "./components/assets/logo.svg?react";
+import LogoSvg from "./assets/logo.svg?react";
 
 const Logo = () => (
   <LogoContainer>
@@ -41,7 +41,7 @@ export const NavBar = () => {
       </StyledHamburger>
       <StyledContentWrapper
         style={{ display: isNavigationVisible ? "none" : "inherit" }}
-        activity={isNavigationVisible ? "active" : null}
+        // activity={isNavigationVisible ? "active" : null}
       >
         <Menu />
         <NavBarCTA />

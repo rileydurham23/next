@@ -1,27 +1,8 @@
 import { styled } from "../../stitches.config";
 
 import { Box } from "../Box";
-// import Icon from "../Icon";
 
-import Clouds from "../../assets/clouds.svg?react";
-
-import Application from "../../assets/application.svg?react";
-import Building from "../../assets/building.svg?react";
-import Calendar from "../../assets/calendar.svg?react";
-import Code from "../../assets/code.svg?react";
-import Database from "../../assets/database.svg?react";
-import Desktop from "../../assets/desktop.svg?react";
-import Earth from "../../assets/earth.svg?react";
-import Features from "../../assets/features.svg?react";
-import Flag from "../../assets/flag.svg?react";
-import Gamepad from "../../assets/gamepad.svg?react";
-import Kubernetes from "../../assets/kubernetes.svg?react";
-import Note from "../../assets/note.svg?react";
-import Presentation from "../../assets/presentation.svg?react";
-import Question from "../../assets/question.svg?react";
-import Server from "../../assets/server.svg?react";
-import Stack from "../../assets/stack.svg?react";
-import Window from "../../assets/window.svg?react";
+import * as icons from "../icons";
 
 export interface MenuItemProps {
   description: string;
@@ -38,24 +19,33 @@ export const DropdownMenuItem = ({
   name,
   title,
 }: MenuItemProps) => {
-  // const iconToRender =
-  //   name === "clouds" ? <StyledClouds /> : <StyledDownload />;
-
-  // const IconSVG = name;
+  const IconToRender = icons[name];
 
   return (
     <StyledLink href={href}>
       <Top>
+        {IconToRender && (
+          <IconContainer>
+            <IconToRender width="100%" height="100%" display="block" />
+          </IconContainer>
+        )}
+
         {/* <IconSvg /> */}
         {/* <Icon name={icon} color="dark-purple" mt={1} mr={2} float="left" /> */}
         {/* <StyledIcon name={name} /> */}
-        {/* // {iconToRender} */}
+        {/* // {IconToRender} */}
         <TitleContainer>{title}</TitleContainer>
       </Top>
       <DescriptionSpan>{description}</DescriptionSpan>
     </StyledLink>
   );
 };
+
+const IconContainer = styled("div", {
+  width: "24px",
+  height: "24px",
+  margin: "4px 8px 0px 0px",
+});
 
 const Top = styled("div", {
   alignItems: "center",

@@ -25,7 +25,7 @@ const ChildrenContainer = styled(Box, {
 
 const OutsideContainer = styled(Box, {
   backgroundColor: "white",
-  borderRadius: "default",
+  borderRadius: "4px",
   boxShadow: "0 4px 40px rgba(0, 0, 0, 0.24)",
   color: "black",
   overflow: "hidden",

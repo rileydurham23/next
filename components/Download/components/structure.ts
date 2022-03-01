@@ -12,7 +12,7 @@
 // import note from "../assets/note.svg?react";
 // import presentation from "../assets/presentation.svg?react";
 // import question from "../assets/question.svg?react";
-// import server from "../assets/server.svg?react";
+import Server from "../assets/server.svg?react";
 // import stack from "../assets/stack.svg?react";
 // import window from "../assets/window.svg?react";
 
@@ -23,7 +23,7 @@ const menu = [
     href: "/teleport/",
     items: [
       {
-        image: "Server",
+        image: Server,
         title: "Server Access",
         description:
           "SSH securely into Linux servers and smart devices with a complete audit trail",
