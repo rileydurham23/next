@@ -3,7 +3,7 @@ import { styled } from "./stitches.config";
 
 import { Box } from "./components/Box";
 import { Flex } from "./components/Flex";
-import Menu from "./components/Menu";
+import NavBarMenu from "./components/NavBar/NavBarMenu";
 import blockBodyScroll from "utils/block-body-scroll";
 import { NavBarCTA } from "./components/NavBar/NavBarCTA";
 
@@ -52,7 +52,7 @@ export const NavBar = () => {
           </StyledHamburgerButton>
 
           <StyledContentWrapper>
-            <Menu />
+            <NavBarMenu />
             <NavBarCTA />
           </StyledContentWrapper>
         </>

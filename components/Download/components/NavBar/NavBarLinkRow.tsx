@@ -33,7 +33,8 @@ const NavBarLinkRow = ({
 }: NavBarLinkRowComponentProps) => {
   const ref = useRef(null);
 
-  console.log("opened", opened);
+  console.log("opened, id", opened, id);
+  console.log("========================");
 
   useClickAway(ref, () => {
     if (opened) {
@@ -54,7 +55,8 @@ const NavBarLinkRow = ({
 
   return (
     <>
-      {opened && <DropdownMenuOverlay />}
+      {opened ? <h4>opened</h4> : <h4>closed</h4>}
+      {/* {opened && <DropdownMenuOverlay />} */}
       <Box position="relative" ref={ref}>
         <MainLink
           href={href}

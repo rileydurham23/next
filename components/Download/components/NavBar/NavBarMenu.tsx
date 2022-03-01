@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Flex } from "./Flex";
-import NavBarLinkRow from "./NavBar/NavBarLinkRow";
-import structure from "./structure";
-import { styled } from "../stitches.config";
+import { Flex } from "../Flex";
+import NavBarLinkRow from "./NavBarLinkRow";
+import structure from "../structure";
+import { styled } from "../../stitches.config";
 
 const Menu = () => {
   const [openedCategoryId, setOpenedCategoryId] = useState<number>(null);
