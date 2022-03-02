@@ -22,7 +22,6 @@ export const NavBarCTA = () => {
     }
   });
 
-  console.log("isSignInVisible", isSignInVisible);
   return (
     <>
       <OuterContainer>
