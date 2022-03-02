@@ -47,6 +47,8 @@ launchpad:
         url: /resources/
       - title: Events
         url: /about/events/
+      - title: What is SSH?
+        url: /ssh/
 
   - title: Company
     items:
@@ -75,3 +77,5 @@ launchpad:
             url: https://github.com/gravitational
           - title: Twitter
             url: https://twitter.com/goteleport
+          - title: YouTube
+            url: https://www.youtube.com/channel/UCmtTJaeEKYxCjfNGiijOyJw
