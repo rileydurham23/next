@@ -1,4 +1,3 @@
-import Box, { BoxProps } from "components/Box";
 import squaresBG from "./assets/squares.svg";
 import waveGrayBG from "./assets/waveGray.png";
 import wavePurpleBG from "./assets/wavePurple.png";
@@ -8,8 +7,6 @@ import stars from "./assets/stars.png";
 import lines from "./assets/lines.png";
 import edge from "./assets/edge-color.svg";
 import styled from "styled-components";
-import { all, StyledSystemProps } from "components/system";
-import css from "@styled-system/css";
 
 export type BGColor =
   | "code"
@@ -112,7 +109,7 @@ export interface SectionProps {
 
 const SectionSimple = ({ bg, children, ...props }) => {
   return (
-    <StyledWrapper {...props}>
+    <StyledWrapper {...props} {...getBG(bg)}>
       <StyledSection {...props}>
         <StyledInner>{children}</StyledInner>
       </StyledSection>
