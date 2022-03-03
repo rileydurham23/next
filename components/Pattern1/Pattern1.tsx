@@ -54,7 +54,7 @@ export const Pattern1 = ({
         {/* Footer: hidden on mobile */}
         <Box as="footer" mb={9} textAlign="center" fontSize="text-sm">
           <Box display={["none", "block"]} {...copyColor}>
-            © 2021 GRAVITATIONAL, INC. ALL RIGHTS RESERVED
+            © 2022 GRAVITATIONAL, INC. ALL RIGHTS RESERVED
           </Box>
           <Box
             display={["none", "flex"]}
