@@ -94,5 +94,5 @@ In testing live redirects using a combination of nginx and `next.config.mjs` wit
 ## Further considerations from @wadells up for discussion (to be incorporated above)
 
 - Will there be a cache/CDN/DDOS protection? What provides that?
-- Nginx will have to be regtained, where will it be hosted, and how will we deploy?
+- Nginx will have to be retained, where will it be hosted, and how will we deploy?
 - What are the build/deploy time and determinism consequences of our plan? Are those acceptable to the team?
