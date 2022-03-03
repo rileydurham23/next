@@ -7,7 +7,6 @@ import download from "./fixtures/download.json";
 const onSubmit = () =>
   new Promise((resolve) => setTimeout(() => resolve({}), 1000));
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const StoryComponent = ({ config }: any) => {
   const initialValues = useDefaultFormValues(config.fields);
 

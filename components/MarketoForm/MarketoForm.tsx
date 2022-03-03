@@ -70,7 +70,6 @@ export const RecaptchaDisclaimer = () => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FormValues = Record<string, any>;
 
 export interface MarketoFormProps {

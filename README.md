@@ -124,80 +124,18 @@ source ~/.zshrc
 
 Now run one of the following commands:
 
-- `yarn dev` - will run development server for docs at `localhost:3000/docs` that will autorefresh pages in real time when you edit markdown documents.
+- `yarn dev` - will run development server for docs at `localhost:3000` that will autorefresh pages in real time when you edit markdown documents.
 - `yarn build` - will build static production version.
 - `yarn start` - will display documentation built with `npm run build` at `localhost:3000`.
-- `yarn update-and-build` - shortcut for submodule update and build (this command is used on deploy to Vercel). Do not use this command if you plan to edit docs locally - on `run` it will switch your branch to the latest commit in `master` that can cause conflicts with your locally edited files.
-
 ## Development-related commands
 
 - `yarn test` – runs tests. Used on CI.
 - `yarn lint` – checks JS and TS files for errors and automatically fixes them.
 - `yarn lint-check` – checks JS and TS files for errors, but doesn't fix them. Checked in CI and on commit.
 - `yarn typecheck` – validates TypeScript type-related errors. Used on CI.
-- `yarn git-update` – shortcut for submodule update, also used as part of `yarn update-and-build`. Run this command after pulling down doc submodule updates.
 - `yarn build-node` – builds configs and plugins for mdx.
-- `yarn add-symlinks` – creates symlinks from different versions of docs to `pages` directory.
-- `yarn markdown-lint` – lints `*.mdx` files inside `content/**/docs/pages/` folders for syntax errors.
-- `yarn markdown-lint-external-links` – same as `yarn markdown-lint` but checks that external links work. Separate command because of slowness.
-- `yarn markdown-fix` – fixes syntax automatically in `*.mdx` files inside `content/**/docs/pages/`.
 - `yarn storybook` – runs [Storybook](https://storybook.js.org/) instance at the `6006` port. You can check existing components here and try different options.
 - `yarn build-storybook` – builds static version of Storybook.
-
-### Previewing changes locally with Docker
-
-To preview local changes you've made to `teleport/docs` with Docker, you can run
-
-```bash
-NEXT_PATH=/abs/path/to/next
-TELEPORT_PATH=/abs/path/to/teleport
-SEM_VER=9.0 # Change this to whatever the latest version is
-
-docker run --rm -ti -v $NEXT_PATH:/src -v $TELEPORT_PATH:/src/content/$SEM_VER -w /src -p 3000:3000 node:12-slim yarn dev
-```
-
-## `config.json`
-
-File that configures build options:
-
-- `versions` - array of the available options, should match the names of the folders inside `content` dir. Will be shown in the version select in inverted order.
-- `redirects` - optional array of redirects. Uses [Next.js syntax](https://nextjs.org/docs/api-reference/next.config.js/redirects) inside.
-
-Format of version entry:
-
-- `name` - required. Name of the folder in `content` and name of branch in version's dropdown on the site.
-- `branch` - required. Name of branch for this version. Will be used for `edit` links on the docs pages.
-- `latest` - not required. First entry with this field will be current version. If no entries have this field, then the last version in array will be considered the latest.
-
-## Working with docs files
-
-### Docs folder structure
-
-`content/*.*/docs` - is a docs folder. Inside of it we have docs for different Teleport versions with the following structure:
-
-- `img/` - folder for images used inside the pages.
-- `pages/` - `.md` or `.mdx` files with actual page content. Every file in this folder will be rendered as a page.
-- `config.json` - docs version config.
-
-### Adding new docs version
-
-- Add new submodule: `git submodule add -b branch/*.* https://github.com/gravitational/teleport/ content/*.*` where `branch/*.*` is the name of the branch in the main Teleport repo and `content/*.*` is the name of the subfolder in the `content` folder where the docs will be stored. Name of the folder inside `content` should match the name of the version in the config. Folder name itself can contain any characters allowed in the URL. E.g. `6.0-rc`.
-- Add new entry to the `versions` array in `config.json` with name and branch field.
-- Change `latest` field to the new value if you want to make it the default.
-
-### Changing the branch that the docs version is pointing to
-
-- Open `.gitmodules` file.
-- Find corresponding record. For example, for version `4.4` it will look like this:
-  ```bash
-  [submodule "content/4.4"]
-    path = content/4.4
-    url = https://github.com/gravitational/teleport/
-    branch = branch/4.4
-  ```
-- Change `branch` field to the new branch name.
-- Run `yarn git-update` – this will update all submodules to the HEAD commits
-  of the corresponding branches.
 
 ### Removing existing docs version
 

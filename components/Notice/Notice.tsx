@@ -1,10 +1,8 @@
-import { useMemo, useContext } from "react";
 import styled from "styled-components";
 import Box from "components/Box";
 import Flex, { FlexProps } from "components/Flex";
 import Icon from "components/Icon";
 import { variant, css } from "components/system";
-import { DocsContext, ScopesType, getScopes } from "layouts/DocsPage/context";
 
 const types = ["warning", "tip", "note", "danger"] as const;
 
@@ -21,7 +19,6 @@ export interface NoticeProps {
   type: NoticeType;
   children: React.ReactNode;
   icon?: boolean;
-  scope?: ScopesType;
 }
 
 const Notice = ({
@@ -33,13 +30,9 @@ const Notice = ({
 }: NoticeProps & FlexProps) => {
   const type = baseType && types.includes(baseType) ? baseType : "tip";
   const iconName = typeIcons[type];
-  const { scope: currentScope } = useContext(DocsContext);
-  const scopes = useMemo(() => getScopes(scope), [scope]);
-
-  const isHidden = scope && !scopes.includes(currentScope);
 
   return (
-    <StyledWrapper type={type} {...props} display={isHidden ? "none" : "flex"}>
+    <StyledWrapper type={type} {...props}>
       {icon && <Icon name={iconName} mr={2} color={type} flexShrink="0" />}
       <Box fontSize="text-lg" lineHeight="md">
         {children}

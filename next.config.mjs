@@ -1,32 +1,26 @@
 /* eslint-env node */
-import { resolve } from "path";
 import bundleAnalyzer from "@next/bundle-analyzer";
-import mdxSiteOptions from "./.build/server/mdx-config-site.mjs";
-import mdxDocsOptions from "./.build/server/mdx-config-docs.mjs";
-import { loadConfig } from "./.build/server/config-site.mjs";
-import {
-  getRedirects,
-  generateSitemap,
-  generateFullSitemap,
-} from "./.build/server/paths.mjs";
+import mdxOptions from "./.build/server/mdx-config.mjs";
+import { generateSitemap } from "./.build/server/paths.mjs";
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-const { latest } = loadConfig();
-const PAGES_DIRECTORY = resolve("pages");
-const CONTENT_DIRECTORY = resolve("content");
-
 export default withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-  rewrites: async () => [
+  redirects: [
     {
-      source: "/docs/:path*",
-      destination: `/docs/ver/${latest}/:path*`,
+      source: "/enterprise-trial/",
+      destination: "/teleport-demo/",
+      permanent: true,
+    },
+    {
+      source: "/login/",
+      destination: "https://teleport.sh",
+      permanent: true,
     },
   ],
-  redirects: async () => getRedirects(),
   outputFileTracing: false,
   images: {
     path: "/_next/image",
@@ -34,19 +28,15 @@ export default withBundleAnalyzer({
     domains: ["i.ytimg.com"],
   },
   trailingSlash: true,
-  env: {
-    DOCS_LATEST_VERSION: latest,
-  },
   webpack: (config, options) => {
     if (!options.dev) {
       generateSitemap();
-      generateFullSitemap();
     }
 
     // silencing warnings until https://github.com/vercel/next.js/issues/33693 is resolved
     config.infrastructureLogging = {
       level: "error",
-    }
+    };
 
     config.output.assetModuleFilename = "static/media/[hash][ext]";
 
@@ -70,25 +60,12 @@ export default withBundleAnalyzer({
     });
 
     config.module.rules.push({
-      test: /\.(md|mdx)$/,
-      include: CONTENT_DIRECTORY,
+      test: /\.mdx$/,
       use: [
         options.defaultLoaders.babel,
         {
           loader: "@mdx-js/loader",
-          options: mdxDocsOptions,
-        },
-      ],
-    });
-    config.module.rules.push({
-      test: /\.(md|mdx)$/,
-      include: PAGES_DIRECTORY,
-      exclude: CONTENT_DIRECTORY,
-      use: [
-        options.defaultLoaders.babel,
-        {
-          loader: "@mdx-js/loader",
-          options: mdxSiteOptions,
+          options: mdxOptions,
         },
       ],
     });

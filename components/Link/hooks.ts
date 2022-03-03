@@ -1,6 +1,5 @@
 import { resolve } from "url";
 import { useRouter } from "next/router";
-import { useContext } from "react";
 import {
   normalizePath,
   splitPath,
@@ -8,7 +7,6 @@ import {
   isExternalLink,
   isLocalAssetFile,
 } from "utils/url";
-import { DocsContext, updateScopeInUrl } from "layouts/DocsPage/context";
 
 /*
  * This hook should return current href with resolved rewrites
@@ -26,7 +24,6 @@ export const useCurrentHref = () => {
 
 export const useNormalizedHref = (href: string) => {
   const { asPath } = useRouter();
-  const { scope } = useContext(DocsContext);
 
   if (isHash(href) || isExternalLink(href) || isLocalAssetFile(href)) {
     return href;
@@ -34,10 +31,6 @@ export const useNormalizedHref = (href: string) => {
 
   const currentHref = normalizePath(asPath);
   let fullHref = resolve(splitPath(currentHref).path, href);
-
-  if (fullHref.startsWith("/docs/")) {
-    fullHref = updateScopeInUrl(fullHref, scope);
-  }
 
   return fullHref;
 };

@@ -1,8 +1,11 @@
 import got from "got";
 import NodeCache from "node-cache";
-import { loadConfig } from "./config-site";
 
-const { allowedMarketoIds } = loadConfig();
+const ALLOWED_MARKETO_IDS = [
+  1, 1021, 1027, 1028, 1039, 1101, 1103, 1126, 1133, 1139, 1146, 1150, 1151,
+  1160, 1162, 1165, 1167, 1172, 1175, 1177, 1179, 1185, 1189, 1192, 1227, 1247,
+  2341,
+];
 
 const { MARKETO_ENDPOINT_URL, MARKETO_CLIENT_ID, MARKETO_CLIENT_SECRET } =
   process.env;
@@ -10,7 +13,7 @@ const { MARKETO_ENDPOINT_URL, MARKETO_CLIENT_ID, MARKETO_CLIENT_SECRET } =
 export const isAllowedFormId = (stringId: string) => {
   const id = parseInt(stringId);
 
-  return allowedMarketoIds.includes(id);
+  return ALLOWED_MARKETO_IDS.includes(id);
 };
 
 const getTokenUrl = `${MARKETO_ENDPOINT_URL}/identity/oauth/token?grant_type=client_credentials&client_id=${MARKETO_CLIENT_ID}&client_secret=${MARKETO_CLIENT_SECRET}`;

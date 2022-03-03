@@ -4,7 +4,6 @@ import { ThemeProvider } from "styled-components";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { parseCookies, setCookie } from "nookies";
-import { DocsContextProvider } from "layouts/DocsPage/context";
 import theme from "components/theme";
 import { GTMPageView } from "utils/gtm";
 import { utmValidator, gValidator } from "utils/utm-cookies";
@@ -102,33 +101,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     return cleanup;
   }, [router.events, router.query]);
 
-  if (router.route.startsWith("/docs/")) {
-    return (
-      <>
-        <Analytics />
-        <DocsContextProvider>
-          <ThemeProvider theme={theme}>
-            <Lato />
-            <UbuntuMono />
-            <GlobalStyles />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </DocsContextProvider>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <Analytics />
-        <ThemeProvider theme={theme}>
-          <Lato />
-          <UbuntuMono />
-          <GlobalStyles />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </>
-    );
-  }
+  return (
+    <>
+      <Analytics />
+      <ThemeProvider theme={theme}>
+        <Lato />
+        <UbuntuMono />
+        <GlobalStyles />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </>
+  );
 };
 
 export default MyApp;
