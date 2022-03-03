@@ -31,6 +31,7 @@ export const NavBar = () => {
     blockBodyScroll(isPageMobileSize);
   }, [isPageMobileSize]);
 
+  console.log(isPageMobileSize);
   return (
     <NavBarContainer>
       <LogoLink href="/">
