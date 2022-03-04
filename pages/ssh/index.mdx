@@ -200,7 +200,55 @@ import TryTeleport from 'components/TryTeleport'
     [certificate-based authentication is also considered the best method](https://goteleport.com/blog/comparing-passwordless-ssh-authentication-methods/) among password-based, key-based and host-based authentication. 
   </Section>
 </Centrator>
+<GridDisplay
+  centralHeading={true}
+  title="Learn more about SSH"
+  subtitle="Explore SSH Tutorials"
+  titleFontSize="header-1"
+  titleFontWeight="black"
 
+  >
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="Practical Guide to Secure SSH Access"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="WHITE PAPER"
+    href="/resources/white-papers/practical-guide-to-secure-ssh-access/"
+  >
+    Nearly all Teleport features are available in the open source package.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="tutorial"
+    title="SSH Access - Industry Best Practices"
+    src="../assets/tutorial.svg"
+    smallIcon={true}
+    caption="DOCS"
+    href="/resources/videos/ssh-industry-best-practice/"
+  >
+    Industy best practices for securing SSH access.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="whitepaper"
+    title="SSH Bastion Host Best Practices"
+    src="../assets/tech-paper.svg"
+    smallIcon={true}
+    caption="BLOG"
+    href="/blog/security-hardening-ssh-bastion-best-practices/"
+  >
+    Best pratices for securing SSH bastion hosts.
+  </GridDisplay.Tile>
+  <GridDisplay.Tile
+    cardBG="tutorial"
+    title="How to Use Teleport with OpenSSH"
+    src="../assets/tutorial.svg"
+    smallIcon={true}
+    caption="DEMO"
+    href="/resources/guides/using-teleport-with-openssh//"
+  >
+    How to use Teleport with OpenSSH.
+  </GridDisplay.Tile>
+</GridDisplay>
 <EasyStart
   description="Teleport is easy to deploy and use. We believe that simplicity and good user experience are key to first-class security."
   listDescription="Teleport consists of just two binaries."
