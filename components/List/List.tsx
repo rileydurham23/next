@@ -9,7 +9,7 @@ import Icon, { IconName } from "components/Icon";
 import Centrator from "components/Centrator";
 import terminalUrl from "./assets/terminal.png";
 import waveUrl from "./assets/wave.png";
-import AvatarItem from "./AvatarItem";
+import AvatarItem from "./AvatarListItem";
 
 const fourUpBg = "transparent";
 const waveBg = `url(${waveUrl}) -477px 73px no-repeat`;
