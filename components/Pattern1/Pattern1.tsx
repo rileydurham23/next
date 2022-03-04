@@ -12,6 +12,8 @@ import { IdiomClass, IDIOM } from "./constants";
  * ***Not intended to be used within an MDX file.***
  */
 
+const currentYear = new Date().getFullYear();
+
 export interface Pattern1Props {
   headTitle: string;
   headDescription: string;
@@ -43,8 +45,14 @@ export const Pattern1 = ({
         px={[2, 4]}
         {...background}
       >
-        <Box as="header" mt={[5, 9]} mb={[5, 5]} {...logoColor}>
-          <Logo width={["120px", "180px"]} height={["24px", "38px"]} />
+        <Box as="header" mt={[5, 9]} mb={[5, 5]}>
+          <Link href="/">
+            <Logo
+              color={logoColor}
+              width={["120px", "180px"]}
+              height={["24px", "38px"]}
+            />
+          </Link>
         </Box>
 
         <StyledCard maxWidth={cardMaxWidth} as="section">
@@ -54,7 +62,7 @@ export const Pattern1 = ({
         {/* Footer: hidden on mobile */}
         <Box as="footer" mb={9} textAlign="center" fontSize="text-sm">
           <Box display={["none", "block"]} {...copyColor}>
-            © 2022 GRAVITATIONAL, INC. ALL RIGHTS RESERVED
+            © {currentYear} GRAVITATIONAL, INC. ALL RIGHTS RESERVED
           </Box>
           <Box
             display={["none", "flex"]}
