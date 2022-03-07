@@ -378,4 +378,12 @@ export const Videos: Array<VideoItem> = [
     labels: ["security", "teleport", "database", "access plane", "compliance"],
     videoId: "mQVE-FQKJv4",
   },
+  {
+    author: "Ben Arent, Donnie Hasseltine",
+    href: "https://goteleport.com/resources/videos/secure-world/",
+    title: "Securing the Supply Chain",
+    date: "2022-02-07",
+    labels: ["security", "teleport", "access plane", "supply chain"],
+    videoId: "QrXxWKtfopE",
+  },
 ];
