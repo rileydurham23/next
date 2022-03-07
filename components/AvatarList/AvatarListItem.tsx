@@ -5,17 +5,23 @@ import Flex from "components/Flex";
 import Box from "components/Box";
 import AvatarDropdown from "./AvatarDropdown";
 
+interface SpeakerNode extends HTMLElement {
+  props?: {
+    children?: string;
+  };
+}
+
 type AvatarItemProps = {
   children: React.ReactNode;
   brief?: string;
   imgSize?: number;
   src: string;
   title: string;
-  speaker?: React.ReactNode;
+  speaker?: SpeakerNode;
   date?: string;
 };
 
-function AvatarItem({
+function AvatarListItem({
   children,
   brief,
   src,
@@ -35,7 +41,7 @@ function AvatarItem({
         mb={[3, 0]}
       >
         <NextImage
-          alt="portrait of the speaker"
+          alt={speaker.props.children}
           objectFit="contain"
           layout="fill"
           src={src}
@@ -45,12 +51,13 @@ function AvatarItem({
         <StyledItemText fontSize="header-4" pt={1}>
           {title}
         </StyledItemText>
-        <StyledItemText fontSize="text-lg" pt={1} pb={1}>
+        <StyledItemText pt={1} pb={1}>
           {speaker}
         </StyledItemText>
-        <StyledItemText fontSize="text-lg" pt={1} pb={1}>
+        <StyledItemText pt={1} pb={1}>
           {date}
         </StyledItemText>
+        {/* the description, in a preview box */}
         <AvatarDropdown brief={brief}>{children}</AvatarDropdown>
       </Flex>
     </StyledItem>
@@ -59,8 +66,6 @@ function AvatarItem({
 
 const StyledItem = styled("li")(
   css({
-    position: "relative",
-    boxSizing: "border-box",
     display: "flex",
     flexDirection: ["column", "row"],
     alignItems: ["center", "flex-start"],
@@ -72,8 +77,7 @@ const StyledItemText = styled(Box)(
   css({
     fontWeight: "bold",
     lineHeight: "lg",
-    mt: 0,
   })
 );
 
-export default AvatarItem;
+export default AvatarListItem;

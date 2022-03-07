@@ -17,8 +17,8 @@ import { BGColor } from "components/Section";
  */
 
 export interface EasyStartProps {
-  bg: BGColor;
-  mode: "terminal" | "bigImage";
+  bg?: BGColor;
+  mode?: "terminal" | "bigImage";
   description: string;
   listDescription: string;
   listItems: string[] | React.ReactNode[];
@@ -138,6 +138,7 @@ const StyledOL = styled("ol")(
     pl: 4,
     li: {
       mb: 2,
+      lineHeight: "md",
     },
     code: {
       color: "dark-purple",

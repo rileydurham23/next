@@ -1,59 +1,116 @@
 ---
 title: SSH
 description: SSH is a cryptographic network protocol for operating network services securely over an unsecured network. Deep dive into what you can do with SSH.
+headerDescription: SSH is a cryptographic network protocol for operating network services securely over an unsecured network. This post is a deep dive into what you can do with SSH.
 hideWave: true
+subtitle: "What is SSH?"
+headerTitle: "What is SSH (Secure Shell Protocol)?"
+isSSH: true
+layout: howItWorks
 ---
 
 import Box from "components/Box"
-import Centrator from "components/Centrator"
-import EasyStart from 'components/EasyStart'
 import Flex from 'components/Flex'
-import { H2, H3 } from "components/Text"
-import { HIWHeader } from "layouts/HowItWorksPage/HIWHeader";
+import { H2 } from "components/Text"
 import Image from "components/Image"
 import GridDisplay from "components/GridDisplay";
 import Section from "components/Section"
-import SectionHeader from "components/SectionHeader"
-import Terminal from 'components/Terminal'
-import TryTeleport from 'components/TryTeleport'
 
 
-<HIWHeader title={meta.title} subtitle="SSH" description={meta.description}  />
+<Section pb={[2, 11]}>
+  <H2 id="what-is-ssh" color="black" pt={4}>What is SSH (Secure Shell Protocol)?</H2>
 
-<Centrator>
-  <Section pb={[2, 11]}>
-    <H2 color="black" pt={4}>What is SSH (Secure Shell Protocol)?</H2>
+  SSH is a cryptographic protocol for connecting to network services over an unsecured network. Common applications for SSH are remote login
+  and remotely executing commands on hosts, but that only scratches the surface of what you can do with SSH.
 
-    SSH is a cryptographic protocol for connecting to network services over an unsecured network. Common applications for SSH are remote login
-    and remotely executing commands on hosts, but that only scratches the surface of what you can do with SSH.
+  A key benefit of SSH is its near ubiquity. With OpenSSH having been released back in 1999, SSH can be found on nearly every Operating
+  System. SSH applications are based on a client-server architecture, with a SSH client connecting to a SSH Server. Let’s look at a simple
+  example: I’ve created a new server on a cloud provider. During setup, I had to provide my SSH keys, or more specifically my SSH Public Key.
+  When the server is booted, this key is added to the server, the server boots and the SSH Server process waits for a connection. I’m now able
+  to connect to the host using SSH, `ssh ubunutu@host`, almost transparently. My local terminal feels as if I was 
+  [plugged into the host with a monitor](https://goteleport.com/blog/ssh-handshake-explained/). 
 
-    A key benefit of SSH is its near ubiquity. With OpenSSH having been released back in 1999, SSH can be found on nearly every Operating
-    System. SSH applications are based on a client-server architecture, with a SSH client connecting to a SSH Server. Let’s look at a simple
-    example: I’ve created a new server on a cloud provider. During setup, I had to provide my SSH keys, or more specifically my SSH Public Key.
-    When the server is booted, this key is added to the server, the server boots and the SSH Server process waits for a connection. I’m now able
-    to connect to the host using SSH, `ssh ubunutu@host`, almost transparently. My local terminal feels as if I was 
-    [plugged into the host with a monitor](https://goteleport.com/blog/ssh-handshake-explained/). 
+  SSH is a protocol, not a product. The protocol covers 3 main areas.
 
-    SSH is a protocol, not a product. The protocol covers 3 main areas.
+  - Authentication
+      - Authentication involves proving a user or a machine’s identity; that is, who they claim to be. For SSH, this means confirming that
+        the user has the correct credentials to access the SSH Server. 
 
-    - Authentication
-        - Authentication involves proving a user or a machine’s identity; that is, who they claim to be. For SSH, this means confirming that
-          the user has the correct credentials to access the SSH Server. 
+  - Encryption
+      - SSH is an encrypted protocol, so the data is unintelligible except to the intended recipients. 
 
-    - Encryption
-        - SSH is an encrypted protocol, so the data is unintelligible except to the intended recipients. 
+  - Integrity
+      - SSH guarantees that the data traveling over the network arrives unaltered. If a third party was to modify traffic during transit, SSH
+        would detect this. 
 
-    - Integrity
-        - SSH guarantees that the data traveling over the network arrives unaltered. If a third party was to modify traffic during transit, SSH
-          would detect this. 
+  <Flex justifyContent="center">
+    <Image
+      alt="SSH Certificates"
+      maxWidth="1000px"
+      src="./assets/ssh-diagram.png"
+    />
+  </Flex>
 
-    <Flex justifyContent="center">
+  <H2 id="what-can-you-ssh-into" color="black" pt={4}>What can you SSH into?</H2>
+
+  SSH can be used to access any computer. While the primary use was to connect to servers, the definition of “compute” has become more
+  ubiquitous. For example, there are even very small SSH Servers, such as Dropbear SSH that only needs 110kb of space, designed for
+  “embedded”-type Unix systems such as routers and IoT devices. You can even [SSH into a self-driving vehicle](https://goteleport.com/blog/how-ssh-into-a-self-driving-vehicle/).
+
+  <H2 id="what-is-openssh" color="black" pt={4}>What is OpenSSH?</H2>
+
+  OpenSSH is an OpenBSD project — it was the [first fork](https://www.openssh.com/history.html/) of the original and now proprietary SSH program developed by Tatu Ylönen. SSH is a
+  generic term, and for the rest of the article when we say “SSH” we are referring to the protocol. referenced as the protocol. OpenSSH is
+  still [actively maintained](https://www.openssh.com/releasenotes.html/) and is included in most major UNIX distributions. If you type `ssh`, you’ll most likely be interacting with
+  OpenSSH. Try typing `ssh -V` to find your current version. 
+
+  OpenSSH is a powerful tool, but there are a lot of features that should be avoided — if you set it up incorrectly, bad things will happen.
+  This is why we recommend following these steps to make sure you are following [SSH best practices](https://goteleport.com/blog/how-to-ssh-properly/). There are other issues you might
+  encounter, such as the trust on first use (TOFU) problem or adding RBAC to connections. Using an open source product such as 
+  [Teleport](https://goteleport.com/blog/openssh-vs-teleport/) can help fill these gaps. 
+
+  <H2 id="ssh-public-private-keys" color="black" pt={4}>SSH public/private keys</H2>
+
+  By default SSH runs on port 22, and it’s common to open the port up to the whole internet. This means it’s a common target for hackers to
+  probe SSH. If you’re using a SSH password, there will be many brute-force attacks. This is why it’s recommended to use `ssh keygen` to
+  create strong authentication keys for SSH. Learn more about [how to set up SSH keys](https://goteleport.com/blog/how-to-set-up-ssh-keys/), and you might want to consider adding a 
+  [second factor to SSH authentication](https://goteleport.com/blog/ssh-2fa-tutorial/), in case someone gets a hold of your keys. If implementing passwordless SSH, it’s important to understand the 
+  [pros and cons of the options available to you](https://goteleport.com/blog/comparing-passwordless-ssh-authentication-methods/). 
+
+  When creating an SSH Key, there are a bunch of options. [Should you use RSA, DSA, ECDSA, or EdDSA?](https://goteleport.com/blog/comparing-ssh-keys/) For a while, it was a choice between RDA
+  2047/4096 and ED25519, but after [AWS started supporting ED25519 keys](https://aws.amazon.com/about-aws/whats-new/2021/08/amazon-ec2-customers-ed25519-keys-authentication/), this would be our recommendation. 
+  
+  <H2 id="ssh-client-configuration"color="black" pt={4}>SSH client configuration</H2>
+
+  The SSH Client is a tool used on your laptop, workstation or even mobile device. Depending on your OS, you’ll have SSH installed by default. If
+  using Windows, you’ll have to [pick a SSH client](https://goteleport.com/blog/choosing-ssh-client-windows/) if you’re not using WSL. After you’ve made your first few connections, you’ll quickly want
+  to edit your SSH configuration, to increase security and productivity. For example, creating an alias for ‘ssh dev’, that'll configure the
+  user and set up the correct agent forwarding. For a full list of the  SSH configuration, check out our [ssh_config guide](https://goteleport.com/blog/ssh-config/). 
+
+  <Flex flexDirection={["column", "row"]} mb={[0, 5]}>
+    <Box marginRight={[0, 5]} width={["100%", "50%"]}>
+      <H2 id="ssh-server" color="black" pt={4}>SSH Server</H2>
+
+      The SSH Server is the program that runs on the device you want to connect to. It could be a ‘server’ but can also be an embedded device.
+      Since SSH is a protocol, the program could be from a [range of different SSH Servers](https://en.wikipedia.org/wiki/Comparison_of_SSH_servers/), with most having some kind of interoperability. For
+      example, it’s possible to [Teleport with OpenSSH](https://goteleport.com/docs/server-access/guides/openssh/). 
+
+      Because the SSH server is the gateway to your machine, it’s worth double checking that all [SSH activity is audited](https://goteleport.com/blog/ssh-audit/) and that logs can’t be
+      manipulated. While /var/log/auth.log provides some basic information about a SSH session, it might miss on activity during the session; it's
+      worth setting up [SSH Session recording](https://goteleport.com/blog/how-to-record-ssh-sessions/). If you only have a couple of hosts, you 
+      might want to consider hardening [SSH to prevent brute-force attacks](https://goteleport.com/blog/ssh-hardening-to-prevent-brute-force-attacks/), 
+      or using [SSH port knocking](https://goteleport.com/blog/ssh-port-knocking/). 
+    </Box>
+
+    <Flex alignItems="center" justifyContent="center" mt={[5, 5]}>
       <Image
         alt="SSH Certificates"
-        maxWidth="1000px"
-        src="./assets/ssh-diagram.png"
+        maxHeight={300}
+        maxWidth={500}
+        src="./assets/ssh-certificates.png"
       />
     </Flex>
+  </Flex>
 
     <H2 color="black" pt={4}>How to SSH?</H2>
 
@@ -115,91 +172,89 @@ import TryTeleport from 'components/TryTeleport'
         />
       </Flex>
     </Flex>
+  <Flex flexDirection={["column", "row"]} mb={[0, 5]}>
+    <Box  width={["100%", "50%"]}>
+      <H2 id="ssh-certificates" color="black" pt={4}>SSH certificates</H2>
 
-    <Flex flexDirection={["column", "row"]} mb={[0, 5]}>
-      <Box  width={["100%", "50%"]}>
-        <H2 color="black" pt={4}>SSH certificates</H2>
+      The next level up from SSH keys is SSH certificates. OpenSSH has supported the use of certificates since 
+      [OpenSSH 5.4](https://www.openssh.com/txt/release-5.4/) which was released back in 2010.
 
-        The next level up from SSH keys is SSH certificates. OpenSSH has supported the use of certificates since 
-        [OpenSSH 5.4](https://www.openssh.com/txt/release-5.4/) which was released back in 2010.
+      With SSH certificates, you generate a certificate authority (CA) and then use this to issue and cryptographically sign certificates which
+      can authenticate users to hosts, or hosts to users. There are a few unique properties of certificates that greatly improve security. For
+      example, since [SSH certificates](https://goteleport.com/blog/ssh-certificates/) can be issued on-demand, this makes it easy to only provide a certificate for that period of time, and after
+      that, the certificate will automatically expire. When someone logs in for the day, they can get an 8-hour certificate. The next day they’ll
+      need to re-authenticate to get a new certificate. 
 
-        With SSH certificates, you generate a certificate authority (CA) and then use this to issue and cryptographically sign certificates which
-        can authenticate users to hosts, or hosts to users. There are a few unique properties of certificates that greatly improve security. For
-        example, since [SSH certificates](https://goteleport.com/blog/ssh-certificates/) can be issued on-demand, this makes it easy to only provide a certificate for that period of time, and after
-        that, the certificate will automatically expire. When someone logs in for the day, they can get an 8-hour certificate. The next day they’ll
-        need to re-authenticate to get a new certificate. 
-
-        The second benefit is the ability to link certificates to a user and [their identity](https://goteleport.com/blog/identity-based-access-for-ssh/). By linking a cert to a user, it becomes easy to figure
-        out who accessed which system and provide fine-grained RBAC for which systems they can access. 
-      </Box>
-      <Flex alignItems="center" justifyContent="center" marginLeft={[0, 5]} mt={[5, 5]}>
-        <Image
-          alt="SSH Agent"
-          maxHeight={300}
-          maxWidth={500}
-          src="./assets/ssh-agent.png"
-        />
-      </Flex>
+      The second benefit is the ability to link certificates to a user and [their identity](https://goteleport.com/blog/identity-based-access-for-ssh/). By linking a cert to a user, it becomes easy to figure
+      out who accessed which system and provide fine-grained RBAC for which systems they can access. 
+    </Box>
+    <Flex alignItems="center" justifyContent="center" marginLeft={[0, 5]} mt={[5, 5]}>
+      <Image
+        alt="SSH Agent"
+        maxHeight={300}
+        maxWidth={500}
+        src="./assets/ssh-agent.png"
+      />
     </Flex>
+  </Flex>
 
-    <Flex flexDirection={["column", "row"]} mb={[0, 5]}>
-      <Box marginRight={[0, 5]} width={["100%", "50%"]}>
-        <H2 color="black" pt={4}>SSH agent</H2>
-        
-        The SSH agent (ssh-agent) is a SSH key manager that stores the SSH key in a process memory so that users can log into SSH servers
-        without having to type the key’s passphrase every time they authenticate with the server. In addition to the key management feature, SSH
-        agent supports agent forwarding, which helps to authenticate with servers that sit behind a bastion or jump server. 
+  <Flex flexDirection={["column", "row"]} mb={[0, 5]}>
+    <Box marginRight={[0, 5]} width={["100%", "50%"]}>
+      <H2 id="ssh-agent" color="black" pt={4}>SSH agent</H2>
+      
+      The SSH agent (ssh-agent) is a SSH key manager that stores the SSH key in a process memory so that users can log into SSH servers
+      without having to type the key’s passphrase every time they authenticate with the server. In addition to the key management feature, SSH
+      agent supports agent forwarding, which helps to authenticate with servers that sit behind a bastion or jump server. 
 
-        There is a risk in using an SSH agent — you should never forward your SSH agent on a machine you do not trust. Although the private keys
-        never leave your machine when using the SSH agent, the agent itself is forwarded to the jump server in a forwarding mode. Thus, anyone with
-        root access to that jump server can communicate with the agent, impersonate you as an authentic user, and access any servers where the key
-        is authorized. 
+      There is a risk in using an SSH agent — you should never forward your SSH agent on a machine you do not trust. Although the private keys
+      never leave your machine when using the SSH agent, the agent itself is forwarded to the jump server in a forwarding mode. Thus, anyone with
+      root access to that jump server can communicate with the agent, impersonate you as an authentic user, and access any servers where the key
+      is authorized. 
 
-        We recommend taking a few steps to review how you use an SSH agent and make sure you’re [using it safely](https://goteleport.com/blog/how-to-use-ssh-agent-safely/). 
-      </Box>
-      <Flex alignItems="center" justifyContent="center" mt={[5, 5]}>
-        <Image
-          alt="SCP"
-          maxHeight={300}
-          maxWidth={500}
-          src="./assets/scp.png"
-        />
-      </Flex>
+      We recommend taking a few steps to review how you use an SSH agent and make sure you’re [using it safely](https://goteleport.com/blog/how-to-use-ssh-agent-safely/). 
+    </Box>
+    <Flex alignItems="center" justifyContent="center" mt={[5, 5]}>
+      <Image
+        alt="SCP"
+        maxHeight={300}
+        maxWidth={500}
+        src="./assets/scp.png"
+      />
     </Flex>
+  </Flex>
 
-    <H2 color="black" pt={4}>Secure Copy Protocol (SCP). Secure File Transfer</H2>
-    
-    SCP is a handy tool for transferring files over SSH, providing easy commands to transfer
-    files from and to hosts; for example, using `scp local_file.txt remote_host:/home`. While SCP is as ubiquitous as SSH, it has many security
-    and performance issues. We have a post that [deep dives into SCP and provides a few better and modern alternatives](https://goteleport.com/blog/scp-familiar-simple-insecure-slow/). 
+  <H2 id="secure-copy-protocol-scp-secure-file-transfer" color="black" pt={4}>Secure Copy Protocol (SCP). Secure File Transfer</H2>
+  
+  SCP is a handy tool for transferring files over SSH, providing easy commands to transfer
+  files from and to hosts; for example, using `scp local_file.txt remote_host:/home`. While SCP is as ubiquitous as SSH, it has many security
+  and performance issues. We have a post that [deep dives into SCP and provides a few better and modern alternatives](https://goteleport.com/blog/scp-familiar-simple-insecure-slow/). 
 
-    <Flex flexDirection={["column", "row"]} mb={[0, 5]}>
-      <Box  width={["100%", "50%"]}>
-        <H2 color="black" pt={4}>SSH tunnels</H2>
-        SSH tunnels let you proxy arbitrary traffic over SSH. With local port forwarding, SSH tunnels let us connect to insecure
-        protocols, securely access remote services, or even bypass content filters by using dynamic port forwarding. We have an in-depth 
-        [guide to SSH tunnels](https://goteleport.com/blog/ssh-tunneling-explained/), how they work and a few ideas for what to use them for. 
-      </Box>
-      <Flex alignItems="center" justifyContent="center" mt={[5, 5]}>
-        <Image 
-         marginLeft={[0, 5]}
-          alt="SSH tunnel"
-          maxHeight={300}
-          maxWidth={450}
-          src="./assets/ssh-tunnel.png"
-        />
-      </Flex>
+  <Flex flexDirection={["column", "row"]} mb={[0, 5]}>
+    <Box  width={["100%", "50%"]}>
+      <H2 id="ssh-tunnels" color="black" pt={4}>SSH tunnels</H2>
+      SSH tunnels let you proxy arbitrary traffic over SSH. With local port forwarding, SSH tunnels let us connect to insecure
+      protocols, securely access remote services, or even bypass content filters by using dynamic port forwarding. We have an in-depth 
+      [guide to SSH tunnels](https://goteleport.com/blog/ssh-tunneling-explained/), how they work and a few ideas for what to use them for. 
+    </Box>
+    <Flex alignItems="center" justifyContent="center" mt={[5, 5]}>
+      <Image 
+        marginLeft={[0, 5]}
+        alt="SSH tunnel"
+        maxHeight={300}
+        maxWidth={450}
+        src="./assets/ssh-tunnel.png"
+      />
     </Flex>
-     
-    <H2 color="black" pt={4}>SSH production best practices</H2>
-    
+  </Flex>
+
+  <H2 id="ssh-production-best-practices" color="black" pt={4}>SSH production best practices</H2>  
     It’s a best practice to not directly connect to machines, but instead access them through a bastion or 
     [jump server](https://goteleport.com/blog/ssh-jump-server/). Bastions can be hardened machines that can be placed on the internet and can become the gateway to accessing the rest of your fleet.
     If you are looking for a quick guide on creating an SSH bastion, read our post on [setting up an SSH Bastion](https://goteleport.com/blog/ssh-bastion-host/) or our in-depth post on 
     [SSH bastion host best practices](https://goteleport.com/blog/security-hardening-ssh-bastion-best-practices/). Implementing 
     [certificate-based authentication is also considered the best method](https://goteleport.com/blog/comparing-passwordless-ssh-authentication-methods/) among password-based, key-based and host-based authentication. 
-  </Section>
-</Centrator>
+</Section>
+
 <GridDisplay
   centralHeading={true}
   title="Learn more about SSH"
@@ -244,7 +299,7 @@ import TryTeleport from 'components/TryTeleport'
     src="../assets/tutorial.svg"
     smallIcon={true}
     caption="DEMO"
-    href="/resources/guides/using-teleport-with-openssh//"
+    href="/resources/guides/using-teleport-with-openssh/"
   >
     How to use Teleport with OpenSSH.
   </GridDisplay.Tile>
@@ -272,3 +327,4 @@ import TryTeleport from 'components/TryTeleport'
 </EasyStart>
 
 <TryTeleport />
+

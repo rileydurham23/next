@@ -1,6 +1,5 @@
 import NextHead from "next/head";
 import { useRouter } from "next/router";
-
 import { buildCanonicalUrl, host } from "utils/url";
 
 const formatTitle = (suffix: string, title?: string) => {

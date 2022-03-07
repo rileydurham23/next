@@ -6,60 +6,62 @@ shortFooter: true
 previewImage: "security-visionaries.png"
 headerDescription: Come hear what some of the world’s foremost security researchers, practitioners and thinkers see on the security horizon for 2022.
 ---
-import styled from "styled-components";
+import AvatarList, { AvatarListItem } from "components/AvatarList";
 import bruceImage from "./assets/bruce@2x.png";
-import troyImage from "./assets/troy@2x.png";
+import Box from "components/Box";
+import Centrator from "components/Centrator";
+import GridDisplay, { SecurityCard } from "components/GridDisplay";
 import Link from "components/Link";
 import List from "components/List";
-import SignupDescription from "components/SignupDescription";
-import { StyledMarketoBrowserForm } from "components/MarketoForm";
-import GridDisplay, { SecurityCard } from "components/GridDisplay";
-import Centrator from "components/Centrator";
+import { Marketo } from "components/MarketoForm";
 import Section from "components/Section";
+import Script from "next/script";
+import SignupDescription from "components/SignupDescription";
+import troyImage from "./assets/troy@2x.png"
 
-<List
-  title={meta.title}
-  hideImage
-  mt={[2, 6]}
-  grid="avatar"
-  description={
-    <SignupDescription description={meta.headerDescription} fontSize="text-xl" >
-        <StyledMarketoBrowserForm
-        id="1192"
-        p={4} mt={["auto", "auto", "125px"]}
-        mr={["auto", "auto", "-40px"]}
-        bg="white"
-        borderRadius="md"
-        boxShadow="0 0 64px rgba(0, 0, 0, 0.32)"
-       />
-    </SignupDescription>
-  }
->
-   <List.AvatarItem
-    src="./assets/coates.png"
-    title="Balancing Security and Agility While Scaling Your Company"
-    speaker={<Link scheme="site" href="https://www.michaelcoates.co/">Michael Coates – Cybersecurity Keynote Speaker. Former CISO at Twitter</Link>}
-
-    date="Mar 15, 10am PT"
-    brief="Fast-growth companies are some of the richest targets for hackers because that’s where the user data is. How do you balance the security you need to protect your customers/users with the agility you need to build a business?..."
-    style={{ marginRight: [0, "65px"]}}
+<Centrator>
+  <Box 
+    display="flex" 
+    flexDirection={["column", "column", "row"]} 
+    justifyContent={["flex-start", "flex-start", "space-between"]}
+    alignItems={["center", "center", "flex-start"]}
   >
-  Fast-growth companies are some of the richest targets for hackers because that’s where the user data is. How do you balance the security you need to protect your customers/users with the agility you need to build a business? This talk provides practical tips drawn from Michael Coates' experience as CISO of an iconic brand with hundreds of millions of users. The talk will also explore current threats, data breaches, and the new reality of risk to identify what security controls are actually needed for enterprises that are moving fast, leaning into new technology, and want effective security defenses.
-  </List.AvatarItem>
+    <AvatarList
+      order={[2, 2, 1]}
+      maxWidth={["100%", "90%", "66%"]}
+      title={meta.title}
+      mt={[8, 6]}
+      description={
+        <Box as="p" mt={3} fontSize="text-xl" color="darkest">
+          {meta.headerDescription}
+        </Box>
+      }
+    >
+      <AvatarListItem
+        src="./assets/coates.png"
+        title="Balancing Security and Agility While Scaling Your Company"
+        speaker={<Link scheme="site" href="https://www.michaelcoates.co/">Michael Coates – Cybersecurity Keynote Speaker. Former CISO at Twitter</Link>}
+        date="Mar 15, 10am PT"
+        brief="Fast-growth companies are some of the richest targets for hackers because that’s where the user data is. How do you balance the security you need..."
+      >
+      Fast-growth companies are some of the richest targets for hackers because that’s where the user data is. How do you balance the security you need to protect your customers/users with the agility you need to build a business? This talk provides practical tips drawn from Michael Coates' experience as CISO of an iconic brand with hundreds of millions of users. The talk will also explore current threats, data breaches, and the new reality of risk to identify what security controls are actually needed for enterprises that are moving fast, leaning into new technology, and want effective security defenses.
+      </AvatarListItem>
 
-  <List.AvatarItem
-    src="./assets/keren.png"
-    title="Innovation Lessons We Can Learn From Hackers"
-    speaker={<Link scheme="site" href="https://www.k3r3n3.com/">Keren Elazari – Cyber Security Analyst, Author, and Researcher</Link>}
-
-    date="Apr 20, 10am PT"
-    brief="In 2022, Cyber Security is no longer about protecting secrets. It is about our way of life that relies on digital technology everywhere: from clouds to smartphones, from medical facilities to stock markets..."
-    style={{ marginRight: [0, "65px"]}}
-  >
-  In 2022, Cyber Security is no longer about protecting secrets. It is about our way of life that relies on digital technology everywhere: from clouds to smartphones, from medical facilities to stock markets, and everything in between. In the past 2 years threat actors have innovated faster than ever before, even using “growth hacking” tricks to increase the impact of their criminal enterprises. At the same time, our own connected lifestyle and digital footprint keep changing at breakneck speeds. How can we prepare for what comes next? By learning from hackers! Keren Elazari — security researcher, TED speaker, and friendly hacker — joins us for a conversation on emerging security threats, new attack vectors and techniques, and innovation lessons we can learn from hackers.
-  </List.AvatarItem>
-
-</List>
+      <AvatarListItem
+        src="./assets/keren.png"
+        title="Innovation Lessons We Can Learn From Hackers"
+        speaker={<Link scheme="site" href="https://www.k3r3n3.com/">Keren Elazari – Cyber Security Analyst, Author, and Researcher</Link>}
+        date="Apr 20, 10am PT"
+        brief="In 2022, Cyber Security is no longer about protecting secrets. It is about our way of life that relies on digital technology everywhere: from clouds to smartphones, from medical facilities to stock markets..."
+      >
+      In 2022, Cyber Security is no longer about protecting secrets. It is about our way of life that relies on digital technology everywhere: from clouds to smartphones, from medical facilities to stock markets, and everything in between. In the past 2 years threat actors have innovated faster than ever before, even using “growth hacking” tricks to increase the impact of their criminal enterprises. At the same time, our own connected lifestyle and digital footprint keep changing at breakneck speeds. How can we prepare for what comes next? By learning from hackers! Keren Elazari — security researcher, TED speaker, and friendly hacker — joins us for a conversation on emerging security threats, new attack vectors and techniques, and innovation lessons we can learn from hackers.
+      </AvatarListItem>
+    </AvatarList>
+    <Box order={[1, 1, 2]} maxWidth={["100%", 360]} height="min-content" mt={[0, 20, 240]} bg="white" borderRadius="md" p={4} boxShadow="rgb(0 0 0 / 32%) 0px 0px 64px">
+      <Marketo id="1192"/>
+    </Box>
+  </Box>
+</Centrator>
 
 <GridDisplay cardStyle="securityCard" title="Past Events" bigLeftHeading>
   <SecurityCard

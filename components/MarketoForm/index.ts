@@ -10,3 +10,4 @@ export {
   useValidate,
   submitForm,
 } from "./helpers";
+export { Marketo } from "./EmbeddedMarketo";
