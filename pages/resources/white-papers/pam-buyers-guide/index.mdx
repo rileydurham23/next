@@ -1,0 +1,40 @@
+---
+title: Modern Privileged Access Management (PAM) Buyer’s Guide
+description: "This Modern PAM Buyer’s Guide details the questions to ask vendors when evaluating a PAM solution for modern, cloud-native applications. It is essential that a Modern PAM solution combine strong functionality for managing privileged accounts while enabling ease of use for developers and maintainability for ops teams. This guide will show you how to ensure it does."
+brief: This Modern PAM Buyer’s Guide details the questions to ask vendors when evaluating a PAM solution...
+publicationDate: "2022-03-07"
+clients:
+  - airtable
+  - auth0
+  - bigcommerce
+  - doordash
+  - elastic
+  - samsung
+  - sumologic
+  - swisscom
+  - threatstack
+  - twitch
+---
+
+import BookBlock from "components/BookBlock";
+import ClientsList from "components/ClientsList";
+import PromoPointsBlock from "components/PromoPointsBlock";
+
+<BookBlock title={meta.title} src="../assets/modern-pam-buyers-guide-cover.png" formId="1256">
+  {meta.description}
+</BookBlock>
+<PromoPointsBlock
+  title="Download the PDF to learn:"
+  src="../assets/engineers.svg"
+>
+  <PromoPointsBlock.Item icon="bolt" fontSize="15px">
+    Shortcomings of traditional PAM solutions for modern, cloud-native apps
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="card" fontSize="15px">
+    Requirements for a modern PAM solution
+  </PromoPointsBlock.Item>
+  <PromoPointsBlock.Item icon="shieldCheck" fontSize="15px">
+    Specific questions to ask vendors as you make your decision
+  </PromoPointsBlock.Item>
+</PromoPointsBlock>
+<ClientsList clients={meta.clients} contrasted />

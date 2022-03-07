@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
+import { all } from "components/system";
 import Box from "components/Box";
 import Flex from "components/Flex";
 import Icon, { IconName } from "components/Icon";
@@ -13,6 +14,7 @@ export interface PromoPointsBlockItemProps {
 const PromoPointsBlockItem = ({
   icon,
   children,
+  ...props
 }: PromoPointsBlockItemProps) => {
   return (
     <Flex css={css({ "& + &": { mt: [3, 6] } })}>
@@ -23,12 +25,20 @@ const PromoPointsBlockItem = ({
         mr={[3, 4]}
         my={[0, 1]}
       />
-      <Box fontSize={["text-lg", "header-3"]} lineHeight={["md", "xl"]}>
-        {children}
-      </Box>
+      <StyledBox {...props}>{children}</StyledBox>
     </Flex>
   );
 };
+
+const StyledBox = styled(Box)(
+  css({
+    "& p": {
+      fontSize: "inherit",
+      lineHeight: ["md", "xl"],
+    },
+    all,
+  })
+);
 
 export interface PromoPointsBlockProps {
   title: string;
