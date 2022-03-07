@@ -40,3 +40,51 @@ export const HowItWorksItems: Array<TOCItemList> = [
     url: "/how-it-works/hipaa-compliance/",
   },
 ];
+
+// in page TOC on /ssh/ page
+export const SSHItems: Array<TOCItemList> = [
+  {
+    item: "What is SSH (Secure Shell Protocol)?",
+    url: "/ssh/#what-is-ssh",
+  },
+  {
+    item: "What can you SSH into?",
+    url: "/ssh/#what-can-you-ssh-into",
+  },
+  {
+    item: "What is OpenSSH?",
+    url: "/ssh/#what-is-openssh",
+  },
+  {
+    item: "SSH public/private keys",
+    url: "/ssh/#ssh-public-private-keys",
+  },
+  {
+    item: "SSH client configuration",
+    url: "/ssh/#ssh-client-configuration",
+  },
+  {
+    item: "SSH Server",
+    url: "/ssh/#ssh-server",
+  },
+  {
+    item: "SSH certificates",
+    url: "/ssh/#ssh-certificates",
+  },
+  {
+    item: "SSH agent",
+    url: "/ssh/#ssh-agent",
+  },
+  {
+    item: "Secure Copy Protocol (SCP). Secure File Transfer",
+    url: "/ssh/#secure-copy-protocol-scp-secure-file-transfer",
+  },
+  {
+    item: "SSH tunnels",
+    url: "/ssh/#ssh-tunnels",
+  },
+  {
+    item: "SSH production best practices",
+    url: "/ssh/#ssh-production-best-practices",
+  },
+];
