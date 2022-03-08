@@ -210,7 +210,7 @@ const StyledImage = styled("img")<{ variant: AnnouncementBarType }>(
         opacity: "0.56",
       },
       big: {
-        maxWidth: [120, 160],
+        maxWidth: [110, 160],
         minWidth: [null, 80],
         maxHeight: "100%",
       },
