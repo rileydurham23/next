@@ -14,6 +14,7 @@ interface Props {
     description?: string;
     hideWave?: boolean;
     shortFooter?: boolean;
+    emailSubscribe?: boolean;
     headerMode?: HeaderMode;
     headerBehaviour?: HeaderBehaviour;
     headerColor?: string;
@@ -48,7 +49,10 @@ export default function SitePage({ meta, children }: Props) {
           <MDXProvider components={components}>{children}</MDXProvider>
         </Box>
       </Layout>
-      <Footer short={Boolean(meta.shortFooter)} />
+      <Footer
+        short={Boolean(meta.shortFooter)}
+        emailSubscribe={Boolean(meta.emailSubscribe)}
+      />
       <Drift />
     </>
   );

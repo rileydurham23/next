@@ -14,9 +14,10 @@ const background = [
 
 export interface Props {
   short?: boolean;
+  emailSubscribe?: boolean;
 }
 
-export default function Footer({ short }: Props) {
+export default function Footer({ short, emailSubscribe = true }: Props) {
   const copyrightProps: { pt?: number[] } = {};
 
   if (!short) {
@@ -32,7 +33,7 @@ export default function Footer({ short }: Props) {
       borderTop="1px solid"
       borderTopColor="lightest-gray"
     >
-      <EmailSubscribe px={[3, 9]} />
+      {emailSubscribe && <EmailSubscribe px={[3, 9]} />}
       <Box
         px={[3, 9]}
         borderTop="1px solid"
