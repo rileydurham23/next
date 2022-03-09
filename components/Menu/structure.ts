@@ -86,6 +86,13 @@ const menu: MenuCategoryProps[] = [
           "Easily control who can provision and access your critical AWS resources",
         href: "/use-cases/aws/",
       },
+      {
+        icon: "card",
+        title: "Privileged Access Management",
+        description:
+          "Secure your critical infrastructure without slowing developers down",
+        href: "/use-cases/privileged-access-management/",
+      },
     ],
   },
   {

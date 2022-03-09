@@ -14,6 +14,7 @@ export { default as code } from "./svg/code.svg?react";
 export { default as copy } from "./svg/copy.svg?react";
 export { default as database } from "./svg/database.svg?react";
 export { default as desktop } from "./svg/desktop.svg?react";
+export { default as developerWorkflow } from "./svg/developer-workflow.svg?react";
 export { default as download } from "./svg/download.svg?react";
 export { default as earth } from "./svg/earth.svg?react";
 export { default as ellipsis } from "./svg/ellipsis.svg?react";
