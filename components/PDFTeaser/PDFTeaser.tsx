@@ -8,6 +8,7 @@ import Image from "components/Image";
 import Link from "components/Link";
 import Section from "components/Section";
 import shadowBg from "./assets/shadow.png";
+import { BGColor } from "components/Section";
 
 /*
   This is the PDF download component found at the bottom of `/use-cases/privileged-access-management`
@@ -19,6 +20,7 @@ export interface PDFTeaserProps {
   src: string;
   title: string;
   alt: string;
+  bg?: BGColor;
 }
 
 const PDFTeaser = ({
@@ -27,16 +29,23 @@ const PDFTeaser = ({
   title,
   src,
   alt,
+  bg = "wavelight",
 }: PDFTeaserProps) => {
   return (
     <Section
-      bg="grayWave"
+      bg={bg}
       borderBottom="1px solid"
       borderColor="lightest-gray"
       overflow="hidden"
     >
-      <Centrator justifyContent="space-between">
-        <Box maxWidth={["100%", "66%", "70%"]} pt={[4, 5]} pb={4} mr={[0, 8]}>
+      <Centrator justifyContent="space-between" py={[3, 5]}>
+        <Box
+          maxWidth={["100%", "66%", "70%"]}
+          pt={[4, 5]}
+          pb={4}
+          mr={[0, 8]}
+          ml={[0, 3]}
+        >
           <Box
             as="h2"
             pt={[0, 2, 6]}
@@ -62,6 +71,7 @@ const PDFTeaser = ({
 
         <Flex
           py={6}
+          pr={3}
           display={["none", "flex"]}
           flexDirection="column"
           position="relative"
@@ -82,7 +92,7 @@ const PDFTeaser = ({
             backgroundSize="cover"
             position="absolute"
             zIndex={1}
-            bottom="-14px"
+            top="425px"
             left="-75px"
           />
         </Flex>

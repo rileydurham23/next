@@ -111,6 +111,7 @@ export interface ProductBannerProps {
   imgPosition: "left" | "right";
   logoSrc?: string;
   videoSource?: string;
+  addImageMargin?: boolean;
 }
 
 export const ProductBanner = ({
@@ -123,6 +124,7 @@ export const ProductBanner = ({
   alt,
   logoSrc,
   videoSource,
+  addImageMargin = false,
 }: ProductBannerProps) => {
   return (
     <Flex flexDirection="column" alignItems="center" py={[5, 11]}>
@@ -195,7 +197,11 @@ export const ProductBanner = ({
                 imgPosition === "right" ? ["auto", "60%"] : ["auto", "66.6%"]
               }
             >
-              <Box minHeight={["330px", "400px"]} position="relative">
+              <Box
+                minHeight={["330px", "400px"]}
+                position="relative"
+                mx={addImageMargin ? [2, 4] : 0}
+              >
                 <NextImage
                   layout="fill"
                   objectFit="contain"

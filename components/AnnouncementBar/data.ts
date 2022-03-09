@@ -121,6 +121,26 @@ export const NewHomepage: LogoRow[] = expandConfig([
   ],
 ]);
 
+// use-cases/privileged-access-management page
+export const ModernizePam: LogoRow[] = expandConfig([
+  [
+    "colorNasdaq",
+    "colorGoldman",
+    "colorObvioHealth",
+    "colorSnowflake",
+    "colorHealthTap",
+    "colorElastic",
+  ],
+  [
+    "colorVmware2",
+    "colorMoodys",
+    "colorSquare",
+    "colorDoorDash",
+    "colorSimplePractice",
+    "colorWise",
+  ],
+]);
+
 // CompactClientsList
 // When determining order, make sure logos with case-study urls always appear in the first 3 positions
 // otherwise they are not displayed on mobile
