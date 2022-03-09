@@ -184,7 +184,7 @@ export const ProductBanner = ({
                 src={videoSource}
                 borderRadius="none"
                 videoType="looping"
-                ml={[0, 4]}
+                ml={0}
               />
             </Flex>
           ) : (
