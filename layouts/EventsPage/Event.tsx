@@ -6,29 +6,34 @@ import Flex from "components/Flex";
 import Link from "components/Link";
 import Icon from "components/Icon";
 
-const formatDate = (start: Date, end?: Date): string => {
-  const parsedStart = new Date(start);
-  const resetStartDate = new Date(
-    parsedStart.setDate(parsedStart.getDate() + 1)
+// date needs to be adjusted to take into account time zone differences
+const getParsedDate = (date, dateFormat) => {
+  const adjustedDate = new Date(
+    // valueOf() returns number of milliseconds between 1 January 1970 00:00:00 UTC and the given date
+    date.valueOf() +
+      // getTimeZoneOffset returns the time zone difference, in minutes, from current locale to UTC
+      // multiplying by '60' gives us the difference in seconds
+      // multiplying by '1000' gives us the difference in milliseconds
+      date.getTimezoneOffset() * 60 * 1000
   );
+  return format(adjustedDate, dateFormat);
+};
 
-  const startString = format(resetStartDate, "yyyy, MMM d");
+const formatDate = (start: Date, end?: Date): string => {
+  const parsedStartDate = getParsedDate(start, "yyyy, MMM d");
 
   if (!end) {
-    return startString;
+    return parsedStartDate;
   }
 
-  const parsedEnd = new Date(end);
-  const resetEndDate = new Date(parsedEnd.setDate(parsedEnd.getDate() + 1));
-
-  const endString = format(resetEndDate, "yyyy, MMM d");
-  const otherEndStringFormat = format(resetEndDate, "d");
+  const parsedEndDate = getParsedDate(end, "yyyy, MMM d");
+  const shorterParsedEndDate = getParsedDate(end, "d");
 
   if (start.getMonth() === end.getMonth()) {
-    return `${startString}-${otherEndStringFormat}`;
+    return `${parsedStartDate}-${shorterParsedEndDate}`;
   }
 
-  return `${startString} - ${endString}`;
+  return `${parsedStartDate} - ${parsedEndDate}`;
 };
 
 export interface EventProps {
