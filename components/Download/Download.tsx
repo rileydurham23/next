@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { styled } from "@stitches/react";
+import styled from "styled-components";
+import css from "@styled-system/css";
 
-import { Box } from "./components/Box";
+import Box from "components/Box";
 import { DownloadTable } from "components/Download";
-import { Flex } from "./components/Flex";
+import Flex from "components/Flex";
 import type { MajorVersionCollection } from "./types";
 import { Star } from "react-github-buttons";
 
@@ -59,25 +60,30 @@ export const Download: React.FC<DownloadProps> = ({ initialDownloads }) => {
   return <>{renderTables()}</>;
 };
 
-const DownloadContainer = styled(Box, {
-  width: "90%",
-  maxWidth: "1240px",
-  // overflow: "scroll",
-});
+const DownloadContainer = styled(Box)(
+  css({
+    width: "90%",
+    maxWidth: "1240px",
+    // overflow: "scroll",
+  })
+);
 
-const Top = styled(Flex, {
-  marginBottom: "$5",
-  marginTop: "$5",
-});
+const Top = styled(Flex)(
+  css({
+    my: 5,
+  })
+);
 
-const StyledNotesButton = styled("button", {
-  backgroundColor: "white",
-  border: "1px solid $blue-gray",
-  borderRadius: "$default",
-  color: "$light-blue",
-  fontSize: "$text-sm",
-  height: "32px", // theming not working
-  cursor: "pointer",
-  margin: "0 32px 0 0",
-  padding: "0 24px",
-});
+const StyledNotesButton = styled("button")(
+  css({
+    backgroundColor: "white",
+    border: "1px solid #BDCAD0",
+    borderRadius: "default",
+    color: "light-blue",
+    fontSize: "text-sm",
+    height: "32px", // theming not working
+    cursor: "pointer",
+    mr: 5,
+    px: 4,
+  })
+);

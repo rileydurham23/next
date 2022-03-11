@@ -1,14 +1,16 @@
-import { styled } from "@stitches/react";
+import styled from "styled-components";
+import css from "@styled-system/css";
 
 import Download from "components/Download";
-import { DownloadPageHeader } from "components/Download";
 import { getOsParameter } from "components/Download/helpers";
-import { NavBar } from "components/Download";
+import Flex from "components/Flex";
+import Header from "components/Header";
+import SectionHeader from "components/SectionHeader";
 
 import type {
-  Version,
   MajorVersionCollection,
   OS,
+  Version,
 } from "components/Download/types";
 
 interface DownloadPageProps {
@@ -88,8 +90,8 @@ export const getServerSideProps = (context) => {
 const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
   return (
     <>
-      <NavBar />
-      <DownloadPageHeader
+      <Header mode="full" headerColor="transparent" border="none" />
+      <SectionHeader
         title="Download Teleport"
         subtitle="Community Edition"
         description="Teleport provides simple secure access to SSH servers, Kubernetes clusters, PostgreSQL databases and web apps behind NAT, in any environment. It's a certificate authority with an integrated identity-aware proxy."
@@ -104,7 +106,7 @@ const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
             </StyledUl>
           ))}
         </InstallColumnContainer>
-      </DownloadPageHeader>
+      </SectionHeader>
       <ContentContainer>
         <Download initialDownloads={initialDownloads} />
       </ContentContainer>
@@ -114,30 +116,38 @@ const DownloadPage: React.FC<DownloadPageProps> = ({ initialDownloads }) => {
 
 export default DownloadPage;
 
-const InstallText = styled("p", {
-  marginBottom: "$2",
-  fontWeight: "$bold",
-});
+const InstallText = styled("p")(
+  css({
+    marginBottom: 2,
+    fontWeight: "$bold",
+  })
+);
 
-const StyledUl = styled("ul", {
-  margin: "8px 0 8px 18px",
-  padding: 0,
-});
+const StyledUl = styled("ul")(
+  css({
+    margin: "8px 0 8px 18px",
+    padding: 0,
+  })
+);
 
-const StyledLink = styled("a", {
-  color: "$light-purple",
-  margin: 0,
-  padding: 0,
-});
+const StyledLink = styled("a")(
+  css({
+    color: "light-purple",
+    margin: 0,
+    padding: 0,
+  })
+);
 
-const ContentContainer = styled("div", {
-  display: "flex",
-  justifyContent: "center",
-  // padding: 0,
-  // margin: 0,
-});
+const ContentContainer = styled(Flex)(
+  css({
+    justifyContent: "center",
+    // padding: 0,
+    // margin: 0,
+  })
+);
 
-const InstallColumnContainer = styled("div", {
-  display: "flex",
-  flexDirection: "column",
-});
+const InstallColumnContainer = styled(Flex)(
+  css({
+    flexDirection: "column",
+  })
+);

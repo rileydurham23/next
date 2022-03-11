@@ -1,5 +1,7 @@
-import { styled } from "./stitches.config";
 import { useState } from "react";
+
+import styled from "styled-components";
+import css from "@styled-system/css";
 
 import { getDownloadInfo } from "./helpers";
 import ToolTipModal from "./components/ToolTipModal";
@@ -45,46 +47,53 @@ const DownloadRow = ({ name, url, displaySize, sha256 }: DownloadProps) => {
 
 export default DownloadRow;
 
-const StyledSizeTd = styled("td", {
-  color: "$gray",
-});
+const StyledSizeTd = styled("td")(
+  css({
+    color: "gray",
+  })
+);
 
-const StyledLink = styled("a", {
-  fontSize: "$text-md",
-  color: "$light-blue",
-  fontWeight: "normal",
-});
+const StyledLink = styled("a")(
+  css({
+    fontSize: "text-md",
+    color: "light-blue",
+    fontWeight: "normal",
+  })
+);
 
-const ChecksumButton = styled("button", {
-  cursor: "pointer",
-  borderRadius: "$default",
-  backgroundColor: "transparent",
-  border: "1px solid $blue-gray",
-  color: "$gray",
-  transition: "all 0.3s",
-  fontSize: "$text-xs",
-  padding: "0px 8px",
-  height: "24px", // theming not working
-  "&:hover": {
-    border: "1px solid $light-blue",
-  },
-});
+const ChecksumButton = styled("button")(
+  css({
+    cursor: "pointer",
+    borderRadius: "default",
+    backgroundColor: "transparent",
+    border: "1px solid #BDCAD0",
+    color: "gray",
+    transition: "all 0.3s",
+    fontSize: "text-xs",
+    padding: "0px 8px",
+    height: "24px", // theming not working
+    "&:hover": {
+      border: "1px solid light-blue",
+    },
+  })
+);
 
-const BodyRow = styled("tr", {
-  borderTop: "1px solid $lightest-gray",
-  borderBottom: "1px solid $lightest-gray",
-  fontSize: "$text-sm",
-  lineHeight: "$md",
-  "&:last-child": {
-    border: "none",
-  },
-});
+const BodyRow = styled("tr")(
+  css({
+    borderTop: "1px solid #F0F2F4",
+    borderBottom: "1px solid #F0F2F4",
+    fontSize: "text-sm",
+    lineHeight: "md",
+    "&:last-child": {
+      border: "none",
+    },
+  })
+);
 
-const StyledTd = styled("td", {
-  padding: "5px 30px",
-  fontWeight: "$bold",
-  maxWidth: "200px",
-  "@bp1": {
-    padding: "$2",
-  },
-});
+const StyledTd = styled("td")(
+  css({
+    padding: [2, "5px 30px"],
+    fontWeight: "bold",
+    maxWidth: "200px",
+  })
+);

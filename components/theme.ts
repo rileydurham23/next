@@ -23,6 +23,7 @@ const theme = {
     code: "#01172C",
     tip: "#00C7AE",
     note: "#009CF1",
+    "blue-gray": "#BDCAD0",
   },
   fonts: {
     body: "'Lato', sans-serif",

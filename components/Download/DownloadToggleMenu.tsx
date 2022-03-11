@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { styled } from "@stitches/react";
 
-import { Flex } from "./components/Flex";
+import styled from "styled-components";
+import css from "@styled-system/css";
 
+import Flex from "components/Flex";
 import type { OS } from "./types";
 
 interface ButtonNameMap {
@@ -72,29 +73,31 @@ const DownloadToggleMenu: React.FC<ToggleMenuProps> = ({
 
 export default DownloadToggleMenu;
 
-const StyledButton = styled("button", {
-  backgroundColor: "transparent",
-  border: " 1px solid $blue-gray",
-  color: "$gray",
-  cursor: "pointer",
-  fontSize: "$text-sm",
-  height: "40px", // theming
-  transition: "all 0.3s",
-  width: "100px",
+const StyledButton = styled("button")(
+  css({
+    backgroundColor: "transparent",
+    border: " 1px solid #BDCAD0",
+    color: "gray",
+    cursor: "pointer",
+    fontSize: "text-sm",
+    height: "40px",
+    transition: "all 0.3s",
+    width: "100px",
 
-  "&:first-child": {
-    borderRadius: "4px 0px 0px 4px",
-    borderRight: "none",
-  },
+    "&:first-child": {
+      borderRadius: "4px 0px 0px 4px",
+      borderRight: "none",
+    },
 
-  "&:last-child": {
-    borderLeft: "none",
-    borderRadius: "0px 4px 4px 0px",
-  },
+    "&:last-child": {
+      borderLeft: "none",
+      borderRadius: "0px 4px 4px 0px",
+    },
 
-  "&[aria-pressed='true']": {
-    borderBottom: "3px solid #651fff",
-    boxShadow: "rgb(0 0 0 / 24%) 0px 1px 4px inset",
-    color: "rgb(101, 31, 255)",
-  },
-});
+    "&[aria-pressed='true']": {
+      borderBottom: "3px solid #651fff",
+      boxShadow: "rgb(0 0 0 / 24%) 0px 1px 4px inset",
+      color: "rgb(101, 31, 255)",
+    },
+  })
+);

@@ -1,6 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-import { styled } from "./stitches.config";
+import styled from "styled-components";
+import css from "@styled-system/css";
+
 import ReactMarkdown from "react-markdown";
 
 import DownloadRow from "./DownloadRow";
@@ -8,8 +10,8 @@ import DownloadToggleMenu from "./DownloadToggleMenu";
 import type { MajorVersionCollection } from "./types";
 import type { OS } from "./types";
 
-import { Box } from "./components/Box";
-import { Flex } from "./components/Flex";
+import Box from "components/Box";
+import Flex from "components/Flex";
 
 import { getDownloadInfo } from "./helpers";
 import type { Version } from "./types";
@@ -184,113 +186,130 @@ export const DownloadTable = ({ data, showAllNotes }: DownloadTableProps) => {
   );
 };
 
-const DownloadTableContainer = styled(Box, {
-  borderRadius: "$lg",
-  boxShadow: "rgb(0 0 0 / 12%) 0px 1px 4px",
-  marginBottom: "$7",
-  "@bp1": {
-    overflow: "scroll",
-  },
-});
+const DownloadTableContainer = styled(Box)(
+  css({
+    borderRadius: "lg",
+    boxShadow: "rgb(0 0 0 / 12%) 0px 1px 4px",
+    marginBottom: 7,
+    overflow: ["scroll", null],
+  })
+);
 
-const HeaderContainer = styled(Flex, {
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "5px 30px",
-  "@bp1": {
-    flexDirection: "column",
-  },
-});
+const HeaderContainer = styled(Flex)(
+  css({
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "5px 30px",
+    flexDirection: ["column", "row"],
+  })
+);
 
-const HeaderH1 = styled("h1", {
-  color: "$dark-purple",
-  fontSize: "$header-4",
-  fontWeight: "$bold",
-  lineHeight: "$lg",
-  width: "150px",
-});
+const HeaderH1 = styled("h1")(
+  css({
+    color: "dark-purple",
+    fontSize: "header-4",
+    fontWeight: "bold",
+    lineHeight: "lg",
+    width: "150px",
+  })
+);
 
-const Left = styled(Flex, {
-  alignItems: "center",
-  "@bp1": {
-    flexDirection: "column",
-  },
-});
+const Left = styled(Flex)(
+  css({
+    alignItems: "center",
+    flexDirection: ["column", "row"],
+  })
+);
 
-const ReleaseATag = styled("a", {
-  color: "$light-blue",
-  cursor: "pointer",
-  fontSize: "$text-sm",
-  lineHeight: "$lg",
-  width: "30%",
-  textDecoration: "underline",
-});
+const ReleaseATag = styled("a")(
+  css({
+    color: "light-blue",
+    cursor: "pointer",
+    fontSize: "text-sm",
+    lineHeight: "lg",
+    width: "30%",
+    textDecoration: "underline",
+  })
+);
 
-const ReleaseDropdownContainer = styled(Flex, {
-  alignItems: "center",
-  color: "$gray",
-  fontSize: "$text-sm",
-  marginRight: "$7",
-});
+const ReleaseDropdownContainer = styled(Flex)(
+  css({
+    alignItems: "center",
+    color: "gray",
+    fontSize: "text-sm",
+    marginRight: 7,
+  })
+);
 
-const StyledMarkdown = styled(ReactMarkdown, {
-  color: "$gray",
-  fontSize: "$text-md",
-  lineHeight: "$lg",
-  padding: "20px",
+const StyledMarkdown = styled(ReactMarkdown)(
+  css({
+    color: "gray",
+    fontSize: "text-md",
+    lineHeight: "lg",
+    padding: "20px",
 
-  a: {
-    color: "$light-purple",
-  },
-  h2: {
-    fontSize: "$text-md",
-  },
-  h3: {
+    a: {
+      color: "light-purple",
+    },
+    h2: {
+      fontSize: "text-md",
+    },
+    h3: {
+      textTransform: "uppercase",
+      fontSize: "text-md",
+    },
+  })
+);
+
+const StyledSelect = styled("select")(
+  css({
+    border: "1px solid #BDCAD0",
+    color: "light-blue",
+    fontSize: "text-sm",
+    height: "17px",
+    marginLeft: 1,
+    px: 5,
+  })
+);
+
+const StyledSizeTh = styled("th")(
+  css({
+    // paddingLeft: "30px",
+  })
+);
+
+const StyledTh = styled("th")(
+  css({
+    paddingLeft: [5, 2],
+  })
+);
+
+const StyledTable = styled("table")(
+  css({
+    borderCollapse: "collapse",
+    width: "100%",
+  })
+);
+
+const TableHeader = styled("tr")(
+  css({
+    borderTop: "1px solid lightest-gray",
+    color: "blue-gray",
+    fontSize: "text-xs",
+    lineHeight: "xl",
     textTransform: "uppercase",
-    fontSize: "$text-md",
-  },
-});
+    textAlign: "left",
+  })
+);
 
-const StyledSelect = styled("select", {
-  border: "1px solid $blue-gray",
-  color: "$light-blue",
-  fontSize: "$text-sm",
-  height: "17px",
-  marginLeft: "$1",
-  padding: "0px 33px",
-});
-
-const StyledSizeTh = styled("th", {
-  textAlign: "left",
-});
-
-const StyledTh = styled("th", {
-  paddingLeft: "30px",
-  textAlign: "left",
-  "@bp1": {
-    paddingLeft: "10px",
-  },
-});
-
-const StyledTable = styled("table", {
-  borderCollapse: "collapse",
-  width: "100%",
-});
-
-const TableHeader = styled("tr", {
-  borderTop: "1px solid $lightest-gray",
-  color: "$blue-gray",
-  fontSize: "$text-xs",
-  lineHeight: "$xl",
-  textTransform: "uppercase",
-});
-
-const PrereleaseWarning = styled(Box, {
-  backgroundColor: "#f50057",
-  color: "white",
-  fontSize: "$text-md",
-  textAlign: "center",
-  lineHeight: "$lg",
-  padding: "0px 16px",
-  fontWeight: "$bold",
-});
+const PrereleaseWarning = styled(Box)(
+  css({
+    backgroundColor: "red",
+    color: "white",
+    fontSize: "text-md",
+    textAlign: "center",
+    lineHeight: "lg",
+    px: 3,
+    fontWeight: "bold",
+  })
+);
