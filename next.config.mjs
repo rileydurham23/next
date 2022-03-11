@@ -9,7 +9,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 export default withBundleAnalyzer({
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-  redirects: [
+  redirects: async () => [
     {
       source: "/enterprise-trial/",
       destination: "/teleport-demo/",
@@ -21,11 +21,22 @@ export default withBundleAnalyzer({
       permanent: true,
     },
   ],
-  outputFileTracing: false,
+  rewrites: async () => [
+    {
+      source: "/docs/:path*/",
+      destination: `${process.env.DOCS_DOMAIN}/docs/:path*/`,
+      basePath: false,
+    },
+    {
+      source: "/docs/:path*",
+      destination: `${process.env.DOCS_DOMAIN}/docs/:path*`,
+      basePath: false,
+    },
+  ],
   images: {
     path: "/_next/image",
     disableStaticImages: true,
-    domains: ["i.ytimg.com"],
+    domains: ["i.ytimg.com"], // Images for youtube preview
   },
   trailingSlash: true,
   webpack: (config, options) => {
