@@ -111,6 +111,7 @@ export interface ProductBannerProps {
   imgPosition: "left" | "right";
   logoSrc?: string;
   videoSource?: string;
+  label?: React.ReactNode;
   addImageMargin?: boolean;
 }
 
@@ -124,6 +125,7 @@ export const ProductBanner = ({
   alt,
   logoSrc,
   videoSource,
+  label,
   addImageMargin = false,
 }: ProductBannerProps) => {
   return (
@@ -196,19 +198,56 @@ export const ProductBanner = ({
               minWidth={
                 imgPosition === "right" ? ["auto", "60%"] : ["auto", "66.6%"]
               }
+              justifyContent="center"
             >
-              <Box
-                minHeight={["330px", "400px"]}
-                position="relative"
-                mx={addImageMargin ? [2, 4] : 0}
-              >
-                <NextImage
-                  layout="fill"
-                  objectFit="contain"
-                  src={src}
-                  alt={alt}
-                />
-              </Box>
+              {label ? (
+                /* image with label */
+                <>
+                  <Box
+                    maxHeight={[null, "400px"]}
+                    maxWidth={["899px", "744px"]}
+                    display="block"
+                    mx={addImageMargin ? [2, 4] : 0}
+                  >
+                    <NextImage
+                      layout="responsive"
+                      height="400px"
+                      width="744px"
+                      src={src}
+                      alt={alt}
+                    />
+                  </Box>
+                  {label && (
+                    <Box
+                      as="p"
+                      mb={2}
+                      mt={1}
+                      mx={addImageMargin ? [2, 4] : 0}
+                      fontWeight="bold"
+                      overflow-wrap="normal"
+                      textAlign="center"
+                      fontSize={["text-md", "text-lg"]}
+                    >
+                      {label}
+                    </Box>
+                  )}
+                </>
+              ) : (
+                /* no label */
+                <Box
+                  minHeight={["330px", "400px"]}
+                  position="relative"
+                  mx={addImageMargin ? [2, 4] : 0}
+                >
+                  <NextImage
+                    layout="fill"
+                    objectFit="contain"
+                    src={src}
+                    alt={alt}
+                  />
+                </Box>
+              )}
+
               {logoSrc && (
                 <Box position="relative" height={72}>
                   <NextImage
