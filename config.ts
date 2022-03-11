@@ -27,11 +27,11 @@ export default {
     {
       name: "8.0",
       branch: "branch/v8",
-      latest: true,
     },
     {
       name: "9.0",
       branch: "branch/v9",
+      latest: true,
     },
     {
       name: "10.0",
