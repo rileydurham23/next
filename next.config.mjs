@@ -21,18 +21,18 @@ export default withBundleAnalyzer({
       permanent: true,
     },
   ],
-  rewrites: async () => [
-    {
-      source: "/docs/:path*/",
-      destination: `${process.env.DOCS_DOMAIN}/docs/:path*/`,
-      basePath: false,
-    },
-    {
-      source: "/docs/:path*",
-      destination: `${process.env.DOCS_DOMAIN}/docs/:path*`,
-      basePath: false,
-    },
-  ],
+  // rewrites: async () => [
+  //   {
+  //     source: "/docs/:path*/",
+  //     destination: `${process.env.DOCS_DOMAIN}/docs/:path*/`,
+  //     basePath: false,
+  //   },
+  //   {
+  //     source: "/docs/:path*",
+  //     destination: `${process.env.DOCS_DOMAIN}/docs/:path*`,
+  //     basePath: false,
+  //   },
+  // ],
   images: {
     path: "/_next/image",
     disableStaticImages: true,
