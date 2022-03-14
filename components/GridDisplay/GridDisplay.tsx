@@ -147,7 +147,12 @@ function GridDisplay({
                     size={iconSize}
                   ></Icon>
                 )}
-                <Box fontSize="header-3" color="darkest" lineHeight="lg" pl={3}>
+                <Box
+                  fontSize={titleFontSize}
+                  color="darkest"
+                  lineHeight="lg"
+                  pl={3}
+                >
                   {title}
                 </Box>
               </Flex>

@@ -1,109 +1,24 @@
 ---
-title: About Us
-h1: Teleport
-subject: About Us
+title: Teleport lorem ipsum
+subtitle: About Us
 hideWave: true
-description: Teleport is a remote-first technology company with satellite offices in Oakland and Seattle. We enable engineers to quickly access any computing resource anywhere on the planet.
-clients:
-  - airtable
-  - auth0
-  - bigcommerce
-  - doordash
-  - elastic
-  - samsung
-  - sumologic
-  - swisscom
-  - threatstack
-  - twitch
+description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
 ---
 
-import History from "components/History";
-import ClientsList from "components/ClientsList";
-import Cover from "components/Cover";
-import List from "components/List";
 import Careers from "components/Careers";
-import Manifesto from "components/Manifesto";
+import AnnouncementBar from "components/AnnouncementBar"
+import GridDisplay from "components/GridDisplay"
+import LeadershipTeam from "components/LeadershipTeam"
+import { NewHomepage } from "components/AnnouncementBar/data";
+import SectionVisuals from "components/SectionVisuals"
+import SectionSimple from "components/Section"
+import SectionHeader from "components/SectionHeader"
 
-<Cover title={meta.h1} subtitle={meta.subject} description={meta.description} />
+<SectionHeader title={meta.title} subtitle={meta.subtitle} description={meta.description} />
+<AnnouncementBar inLivingColor rows={NewHomepage} type="newHomepage" />
 
-<History>
-  <History.Milestone icon="pc">
-    Teleport founders **fell in love** with **programming** by giving a computer
-    some instructions and watching the magic happen. The **close relationship**
-    between a programmer, a machine, and code felt special.
-  </History.Milestone>
-  <History.Milestone icon="graduate">
-    We **went to college** and **joined the workforce**. We even launched our
-    own startups and witnessed the transition of programming from one machine to
-    many and eventually to cloud computing. This brought enormous complexities
-    into our lives. Half of our effort now goes towards erecting and
-    continuously maintaining complex "**cloud environments**" for our programs.
-  </History.Milestone>
-  <History.Milestone icon="security">
-    Each environment consists of numerous layers of computing resources, each
-    with its own trust model, often separated by network boundaries and
-    overburdened with excessive configuration. Not only is this complexity
-    **slowing us down**, but it is also prone to human errors, resulting in
-    **poor security**.
-  </History.Milestone>
-  <History.Milestone icon="laptop">
-    We started the company because we found this **mess** with
-    environments…**unpleasant**. We liked the simplicity of giving instructions
-    to a computer better. Can we have that in **the modern era of cloud
-    computing**?
-  </History.Milestone>
-  <History.Milestone icon="jet">
-    We believe the **answer is yes**, but we have to let go of environments and
-    leap into **environment-free computing**, i.e. fully embrace the promise of
-    the cloud and treat the entire planet as a single, multi-tenant computer.
-    That computer needs a simple and secure **access plane**.
-  </History.Milestone>
-</History>
+<SectionSimple bg="white">
+  <SectionVisuals titleFontSize={["header-2", "header-1"]} imageLocation="right" subtitle="Our vision" title="Lorem Ipsum" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+</SectionSimple>
 
-<Manifesto>
-  Today's **computing environments** have too much complexity, too many network
-  boundaries, and too little trust. Complexity slows engineers down and leads to
-  human errors. Complex systems can’t be secure despite the red tape of
-  bureaucracy. We make trusted computing **simple**. This gives engineers
-  **freedom to move and freedom to build a better future**.
-</Manifesto>
-
-<List
-  pt={[5, 10]}
-  subtitle="Our Engineering Principles"
-  title="Product and Engineering Principles"
->
-  <List.Item
-    src="./assets/well-paid.svg"
-    title="We believe in being paid for quality work"
-  >
-    There's an incredible amount of software infrastructure that is under-funded
-    and ignored. We believe our software needs to generate revenue to employ the
-    best minds.
-  </List.Item>
-  <List.Item
-    src="./assets/hearth.svg"
-    title="We balance openness and transparency"
-  >
-    We work as much as we can in the open; our commits, designs, and comments
-    are largely in public repositories for anyone to use and observe. We strive
-    to find balance in open-core and community-friendly software versus
-    competing in a dynamic and evolving market segment. All our security
-    critical code is developed in the open. Our independent audits get
-    published, even the unflattering ones.
-  </List.Item>
-  <List.Item
-    src="./assets/puzzle.svg"
-    title="We want to tackle and solve the hard problems"
-  >
-    We want to minimize the theater in security products, and offer meaningful
-    improvements to security posture. We want to focus on the user, having a
-    product that users aren't trying to work around to get their jobs done. We
-    want to end passwords as a vehicle for trust, including passwords in
-    disguise such as tokens.
-  </List.Item>
-</List>
-
-<Careers />
-
-<ClientsList clients={meta.clients} />
+<LeadershipTeam />
