@@ -25,12 +25,13 @@ interface ContentPageProps {
     description?: string;
     noindex?: boolean;
     articles: PressListItemProps[];
+    textColor?: string;
   };
   children: React.ReactNode;
 }
 
 export const PressPage = ({
-  meta: { title, description, noindex, articles },
+  meta: { title, description, noindex, articles, textColor },
 }: ContentPageProps) => {
   return (
     <>
@@ -52,6 +53,7 @@ export const PressPage = ({
             </>
           }
           bg="wave"
+          textColor={textColor}
         />
         <Section bg="grayGradient">
           <Centrator py={[3, 11]}>

@@ -56,6 +56,7 @@ interface ContentPageProps {
     needWrapper?: boolean;
     topMargin?: number;
     headerColor?: string;
+    textColor?: string;
   };
   children: React.ReactNode;
 }
@@ -76,6 +77,7 @@ export const ContentPage = ({
     accessPlane,
     topMargin = 11,
     headerColor,
+    textColor,
   },
 }: ContentPageProps) => {
   const bg = bgWave ? { bg: bgWave } : {};
@@ -93,6 +95,7 @@ export const ContentPage = ({
           subtitle={subtitle}
           title={h1 ? h1 : title}
           description={articleDescription ? description : undefined}
+          textColor={textColor}
           {...bg}
         >
           {logo && <NextImage src={logo.image} alt={logo.alt} />}
@@ -116,6 +119,7 @@ export const ContentPage = ({
             description="Teleport provides an Access Plane that consolidates access controls and auditing across all environments - infrastructure, applications and data."
             bg="wave"
             link={ACCESS_LINK}
+            textColor={textColor}
           >
             <NextImage
               src={accessPlaneImg}

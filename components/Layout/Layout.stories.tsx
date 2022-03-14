@@ -23,6 +23,7 @@ Default.args = {
       subtitle="How Teleport Works"
       title="Certificate-Based Authentication"
       description="All forms of access based on shared secrets are insecure. Certificate-based access is the better option. This section explains how Teleport implements certificate-based authentication for SSH, Kubernetes and other supported protocols"
+      textColor="black"
     />
   ),
 };

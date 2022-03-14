@@ -56,6 +56,7 @@ interface ContentPageProps {
     noindex?: boolean;
     events: EventProps[];
     webinars: Webinar[];
+    textColor?: string;
   };
   children: React.ReactNode;
 }
@@ -68,6 +69,7 @@ export const EventsPage = ({
     noindex,
     events,
     webinars,
+    textColor,
   },
 }: ContentPageProps) => {
   const { current, upcoming } = sortEvents(events);
@@ -81,6 +83,7 @@ export const EventsPage = ({
           title={title}
           description={description}
           bg="wave"
+          textColor={textColor}
         />
         <Box
           borderTop="1px solid"

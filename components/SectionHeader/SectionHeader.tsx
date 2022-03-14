@@ -32,6 +32,7 @@ export interface SectionHeaderProps {
   link?: LinkProps;
   kind?: "column" | "row" | "default";
   newsItem?: React.ReactNode;
+  textColor: string;
 }
 
 const getBG = (color: BGColor) => {
@@ -92,6 +93,7 @@ export const SectionHeader = ({
   link,
   kind = "default",
   newsItem = null,
+  textColor,
 }: SectionHeaderProps) => {
   const titleInColumn = kind === "column" ? "column" : ["column", "row"];
   const leftGap = kind === "column" ? 0 : [0, 11];
@@ -123,7 +125,7 @@ export const SectionHeader = ({
             {subtitle && (
               <Box
                 mb={title ? 3 : 0}
-                color="dark-purple"
+                color={textColor || "dark-purple"}
                 fontWeight="bold"
                 fontSize="text-xl"
                 lineHeight="md"
@@ -134,7 +136,7 @@ export const SectionHeader = ({
             {title && (
               <Box
                 as="h1"
-                color="black"
+                color={textColor || "black"}
                 fontSize={["header-1", "54px"]}
                 lineHeight={["xl", "72px"]}
                 fontWeight="black"
@@ -149,7 +151,7 @@ export const SectionHeader = ({
               mt={[3, 4]}
               fontSize="text-xl"
               lineHeight="lg"
-              color="darkest"
+              color={textColor || "darkest"}
               maxWidth={descriptionTextWidth}
             >
               {description}

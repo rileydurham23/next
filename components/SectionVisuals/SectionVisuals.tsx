@@ -18,7 +18,7 @@ export interface SectionVisualsProps {
   flexStyle?: string | string[];
   imageLocation?: string;
   boxStyle?: BoxStyleVariant;
-  color?: string;
+  textColor?: string;
 }
 
 export const SectionVisuals = ({
@@ -31,8 +31,9 @@ export const SectionVisuals = ({
   flexStyle = ["column", "row"],
   imageLocation = "flex-start",
   boxStyle = "default",
-  color,
+  textColor,
 }: SectionVisualsProps) => {
+  console.log("????", textColor);
   return (
     <Centrator
       alignItems="stretch"
@@ -46,8 +47,9 @@ export const SectionVisuals = ({
           titleFontSize={titleFontSize}
           titleLineHeight={["xl", "xxl"]}
           titleFontWeight="black"
+          dark={textColor === "white" ? true : false}
         />
-        <StyledBox variant={boxStyle} color={color || "darkest"}>
+        <StyledBox variant={boxStyle} color={textColor || "darkest"}>
           {description}
         </StyledBox>
       </Box>
