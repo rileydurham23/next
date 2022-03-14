@@ -4,7 +4,7 @@ import css from "@styled-system/css";
 import Box from "components/Box";
 import Centrator from "components/Centrator";
 import type { BGColor } from "components/Section/Section";
-
+import { Grid, Col, Row } from "react-styled-flexboxgrid";
 import Flex from "components/Flex";
 import SimpleSection from "components/Section";
 
@@ -19,7 +19,7 @@ const NewGridDisplay = ({ bg, children, sectionTitle }) => {
     <SimpleSection bg={bg}>
       <Centrator flexDirection="column">
         <h1>{sectionTitle}</h1>
-        {children}
+        <Grid>{children}</Grid>
       </Centrator>
     </SimpleSection>
   );

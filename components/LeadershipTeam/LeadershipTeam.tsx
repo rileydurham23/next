@@ -13,10 +13,10 @@ const leadershipList = [
     name: "Taylor Wakefield",
     title: "Co-founder and COO",
   },
-  // {
-  //   name: "Michael Ferranti",
-  //   title: "CMO",
-  // },
+  {
+    name: "Michael Ferranti",
+    title: "CMO",
+  },
   // {
   //   name: "Hector Hernandez",
   //   title: "CRO",

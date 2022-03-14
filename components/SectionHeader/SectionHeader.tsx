@@ -4,6 +4,7 @@ import Flex from "components/Flex";
 import wave from "./fixtures/wave.svg";
 import wavelight from "./fixtures/wave-light.png";
 import Button, { ButtonVariant, ButtonShape } from "components/Button";
+import edge from "./fixtures/edge.svg";
 
 export type BGColor =
   | "wave"
@@ -11,7 +12,8 @@ export type BGColor =
   | "gray"
   | "wavelight"
   | "wave-on-gray"
-  | "transparent";
+  | "transparent"
+  | "code";
 
 type LinkProps = {
   href: string;
@@ -64,6 +66,14 @@ const getBG = (color: BGColor) => {
     case "transparent":
       return {
         background: "inherit",
+      };
+    case "code":
+      return {
+        backgroundColor: "#222E41",
+        backgroundImage: `url(${edge})`,
+        backgroundRepeat: "repeat-x",
+        backgroundPosition: "top left",
+        backgroundSize: "cover",
       };
     default:
       return {

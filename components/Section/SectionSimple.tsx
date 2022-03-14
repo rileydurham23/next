@@ -27,12 +27,12 @@ const getBG = (color: BGColor) => {
   switch (color) {
     case "code":
       return {
-        background: `linear-gradient(125deg ,#222E41,#192638)`,
-        backgroundColor: "#222E41",
-        backgroundImage: `url(${edge})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "bottom left",
-        backgroundSize: "cover",
+        // background: `linear-gradient(125deg ,#222E41,#192638)`,
+        // backgroundColor: "#222E41",
+        // backgroundImage: `url(${edge})`,
+        // backgroundRepeat: "no-repeat",
+        // backgroundPosition: "bottom left",
+        // backgroundSize: "cover",
       };
     case "double":
       return {
@@ -121,12 +121,12 @@ const changeBackground = (props) => {
   switch (props.background) {
     case "code":
       return {
-        background: `linear-gradient(125deg ,#222E41,#192638)`,
-        backgroundColor: "#222E41",
-        backgroundImage: `url(${edge})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "bottom right",
-        backgroundSize: "cover",
+        // background: `linear-gradient(125deg ,#222E41,#192638)`,
+        // backgroundColor: "#222E41",
+        // backgroundImage: `url(${edge})`,
+        // backgroundRepeat: "no-repeat",
+        // backgroundPosition: "bottom right",
+        // backgroundSize: "cover",
       };
     case "double":
       return {
@@ -150,10 +150,10 @@ const changeInnerBackground = (props) => {
   switch (props.background) {
     case "code":
       return {
-        backgroundImage: `url(${stars})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "bottom left",
-        backgroundSize: "cover",
+        // backgroundImage: `url(${stars})`,
+        // backgroundRepeat: "no-repeat",
+        // backgroundPosition: "bottom left",
+        // backgroundSize: "cover",
       };
     case "double":
       return {

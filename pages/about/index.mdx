@@ -1,24 +1,88 @@
 ---
 title: Teleport lorem ipsum
 subtitle: About Us
+border: none
 hideWave: true
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+bg: code
 ---
 
 import Careers from "components/Careers";
-import AnnouncementBar from "components/AnnouncementBar"
-import GridDisplay from "components/GridDisplay"
-import LeadershipTeam from "components/LeadershipTeam"
+import AnnouncementBar from "components/AnnouncementBar";
+import GridDisplay from "components/GridDisplay";
+import LeadershipTeam from "components/LeadershipTeam";
 import { NewHomepage } from "components/AnnouncementBar/data";
-import SectionVisuals from "components/SectionVisuals"
-import SectionSimple from "components/Section"
-import SectionHeader from "components/SectionHeader"
+import Image from "components/Image";
+import SectionVisuals from "components/SectionVisuals";
+import SectionSimple from "components/Section";
+import SectionHeader from "components/SectionHeader";
+import OurVision from "./assets/our-vision@2x.png";
 
-<SectionHeader title={meta.title} subtitle={meta.subtitle} description={meta.description} />
-<AnnouncementBar inLivingColor rows={NewHomepage} type="newHomepage" />
-
-<SectionSimple bg="white">
-  <SectionVisuals titleFontSize={["header-2", "header-1"]} imageLocation="right" subtitle="Our vision" title="Lorem Ipsum" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+<SectionSimple bg="code">
+  <SectionHeader
+    title={meta.title}
+    subtitle={meta.subtitle}
+    description={meta.description}
+    src="./benefits/assets/benefits@2x.png" maxWidth="664px"
+    bg="code"
+    >
+    <Image src="./assets/fingerprint.svg" width="500px" />
+  </SectionHeader>
 </SectionSimple>
 
-<LeadershipTeam />
+<AnnouncementBar inLivingColor rows={NewHomepage} type="newHomepage" />
+
+<SectionSimple>
+  <SectionVisuals
+    titleFontSize={["header-2", "header-1"]}
+    flexStyle={["column-reverse", "row-reverse"]}
+    imageLocation="center"
+    subtitle="Our vision"
+    src="./assets/our-vision@2x.png"
+    title="Lorem Ipsum"
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  >
+    <Image src={OurVision} maxWidth="664px" alt="our vision" />
+  </SectionVisuals>
+</SectionSimple>
+
+{/* <LeadershipTeam /> */}
+
+<SectionSimple>
+  <SectionVisuals
+    title="Title"
+    subtitle="Our Investors"
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  >
+    # hi
+  </SectionVisuals>
+</SectionSimple>
+
+<SectionSimple bg="purpleStars" style={{color: "white"}}>
+  <SectionVisuals
+    title="Title"
+    subtitle="Our Culture"
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  >
+    <Image src="./benefits/assets/benefits@2x.png" maxWidth="664px" />
+  </SectionVisuals>
+</SectionSimple>
+
+<SectionSimple bg="grayWave">
+  <SectionVisuals
+    title="Title"
+    subtitle="Our Culture 2"
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  >
+  </SectionVisuals>
+</SectionSimple>
+
+<SectionSimple>
+  <SectionVisuals
+    title="Title"
+    subtitle="Our Awards"
+    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  >
+    # hi
+  </SectionVisuals>
+</SectionSimple>

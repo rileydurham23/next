@@ -26,12 +26,13 @@ export const NewGridDisplayCard = ({
 
 const Container = styled(Flex)(
   css({
-    border: "1px solid red",
+    backgroundColor: "white",
+    border: "1px solid purple",
     borderRadius: "8px",
     flexDirection: "column",
     width: "230px",
     height: "304px",
-    mx: 5,
+    // mx: 5,
   })
 );
 
