@@ -7,6 +7,7 @@ import type { BGColor } from "components/Section/Section";
 import { Grid, Col, Row } from "react-styled-flexboxgrid";
 import Flex from "components/Flex";
 import SimpleSection from "components/Section";
+import { H1 } from "components/Text";
 
 interface NewGridDisplay {
   bg?: BGColor;
@@ -14,15 +15,25 @@ interface NewGridDisplay {
   title: string;
 }
 
-const NewGridDisplay = ({ bg, children, sectionTitle }) => {
+const NewGridDisplay = ({ children, sectionTitle }) => {
   return (
-    <SimpleSection bg={bg}>
-      <Centrator flexDirection="column">
-        <h1>{sectionTitle}</h1>
-        <Grid>{children}</Grid>
-      </Centrator>
-    </SimpleSection>
+    <Centrator flexDirection="column">
+      <StyledH1>{sectionTitle}</StyledH1>
+      <CardContainer>{children}</CardContainer>
+    </Centrator>
   );
 };
 
 export default NewGridDisplay;
+
+const StyledH1 = styled(H1)(
+  css({
+    fontSize: "32px",
+  })
+);
+
+const CardContainer = styled(Flex)(
+  css({
+    border: "2px solid green",
+  })
+);
