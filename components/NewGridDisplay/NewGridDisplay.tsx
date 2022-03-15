@@ -19,7 +19,7 @@ const NewGridDisplay = ({ children, sectionTitle }) => {
   return (
     <Centrator flexDirection="column">
       <StyledH1>{sectionTitle}</StyledH1>
-      <CardContainer>{children}</CardContainer>
+      {children}
     </Centrator>
   );
 };
@@ -34,6 +34,6 @@ const StyledH1 = styled(H1)(
 
 const CardContainer = styled(Flex)(
   css({
-    border: "2px solid green",
+    // border: "2px solid green",
   })
 );

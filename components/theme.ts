@@ -142,7 +142,7 @@ const theme = {
   flexboxgrid: {
     // Defaults
     gridSize: 12, // columns
-    gutterWidth: 1, // rem
+    gutterWidth: 3.5, // rem
     outerMargin: 2, // rem
     mediaQuery: "only screen",
     container: {
@@ -151,10 +151,10 @@ const theme = {
       lg: 76, // rem
     },
     breakpoints: {
-      xs: 0, // em
-      sm: 48, // em
-      md: 64, // em
-      lg: 75, // em
+      xs: 9, // em
+      sm: 30, // em
+      md: 20, // em
+      lg: 45, // em
     },
   },
 };

@@ -33,7 +33,6 @@ export const SectionVisuals = ({
   boxStyle = "default",
   textColor,
 }: SectionVisualsProps) => {
-  console.log("????", textColor);
   return (
     <Centrator
       alignItems="stretch"

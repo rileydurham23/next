@@ -48,22 +48,22 @@ const LeadershipRow3 = [
 ];
 
 const leadershipList = [
-  {
-    name: "Ev Kontsevoy",
-    title: "Co-founder and CEO",
-  },
-  {
-    name: "Alexander Klizentas",
-    title: "Co-founder and CTO",
-  },
-  {
-    name: "Taylor Wakefield",
-    title: "Co-founder and COO",
-  },
-  {
-    name: "Michael Ferranti",
-    title: "CMO",
-  },
+  // {
+  //   name: "Ev Kontsevoy",
+  //   title: "Co-founder and CEO",
+  // },
+  // {
+  //   name: "Alexander Klizentas",
+  //   title: "Co-founder and CTO",
+  // },
+  // {
+  //   name: "Taylor Wakefield",
+  //   title: "Co-founder and COO",
+  // },
+  // {
+  //   name: "Michael Ferranti",
+  //   title: "CMO",
+  // },
   // {
   //   name: "Hector Hernandez",
   //   title: "CRO",
@@ -86,20 +86,47 @@ const leadershipList = [
   // },
 ];
 
+const mockList = [
+  {
+    name: "1",
+    title: "one",
+  },
+  {
+    name: "2",
+    title: "two",
+  },
+  {
+    name: "3",
+    title: "three",
+  },
+  {
+    name: "4",
+    title: "four",
+  },
+  {
+    name: "5",
+    title: "five",
+  },
+];
+
 const LeadershipGrid = () => {
   return (
     <Section bg="lines">
-      <NewGridDisplay sectionTitle="Leadership Team">
-        {LeadershipRow1.map((item) => (
+      {/* <NewGridDisplay sectionTitle="Leadership Team"> */}
+      <Grid>
+        {mockList.map((item) => (
           <Row key={item.name}>
-            <NewGridDisplayCard
-              title={item.name}
-              description={item.title}
-              key={item.name}
-            />
+            <Col xs>
+              <NewGridDisplayCard
+                title={item.name}
+                description={item.title}
+                key={item.name}
+              />
+            </Col>
           </Row>
         ))}
-      </NewGridDisplay>
+      </Grid>
+      {/* </NewGridDisplay> */}
     </Section>
   );
 };

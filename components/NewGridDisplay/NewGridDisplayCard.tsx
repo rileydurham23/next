@@ -4,8 +4,6 @@ import css from "@styled-system/css";
 import Flex from "components/Flex";
 import Box from "components/Box";
 
-import { Grid, Col, Row } from "react-styled-flexboxgrid";
-
 interface NewGridDisplayCard {
   title: string;
   description: string;
@@ -16,7 +14,7 @@ export const NewGridDisplayCard = ({
   description,
 }: NewGridDisplayCard) => {
   return (
-    <Container xs={6} sm={6} md={3}>
+    <Container>
       <Top></Top>
       <Bottom>
         <h1>{title}</h1>
@@ -26,17 +24,16 @@ export const NewGridDisplayCard = ({
   );
 };
 
-const Container = styled(Col)(
+const Container = styled(Flex)(
   css({
     backgroundColor: "white",
     border: "2px solid purple",
     borderRadius: "8px",
     flexDirection: "row",
-    // flexDirection: "column",
     width: "230px",
     height: "304px",
     // mx: 5,
-    flexGrow: 1,
+    // flexGrow: 1,
   })
 );
 
