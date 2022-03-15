@@ -315,6 +315,11 @@
   caseStudy: /case-study/lacework-testimonial/
   industry:
     - Technology
+- id: lacework2
+  title: Lacework
+  caseStudy: /case-study/lacework-testimonial/
+  industry:
+    - Technology
 - id: linxo
   title: Linxo Group
   industry:
