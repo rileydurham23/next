@@ -8,19 +8,29 @@ import { Grid, Col, Row } from "react-styled-flexboxgrid";
 import Flex from "components/Flex";
 import SimpleSection from "components/Section";
 import { H1 } from "components/Text";
+import { NewGridDisplayCard } from "components/NewGridDisplay";
 
-interface NewGridDisplay {
-  bg?: BGColor;
-  description: string;
+interface NewGridItem {
   title: string;
+  description: string;
 }
 
-const NewGridDisplay = ({ children, sectionTitle }) => {
+interface NewGridDisplay {
+  items: Array<NewGridItem>;
+}
+
+const NewGridDisplay = ({ items }) => {
+  console.log("???", items);
   return (
-    <Centrator flexDirection="column">
-      <StyledH1>{sectionTitle}</StyledH1>
-      {children}
-    </Centrator>
+    <Grid>
+      <Row>
+        {items.map((item) => (
+          <Col key={item.name} xs>
+            <NewGridDisplayCard title={item.name} description={item.title} />
+          </Col>
+        ))}
+      </Row>
+    </Grid>
   );
 };
 

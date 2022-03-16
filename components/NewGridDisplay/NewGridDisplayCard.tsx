@@ -1,21 +1,18 @@
 import styled from "styled-components";
 import css from "@styled-system/css";
 
-import Flex from "components/Flex";
 import Box from "components/Box";
+import Flex from "components/Flex";
 
 interface NewGridDisplayCard {
   title: string;
   description: string;
 }
 
-export const NewGridDisplayCard = ({
-  title,
-  description,
-}: NewGridDisplayCard) => {
+export const NewGridDisplayCard = ({ title, description }) => {
   return (
     <Container>
-      <Top></Top>
+      <Top />
       <Bottom>
         <h1>{title}</h1>
         <h2>{description}</h2>
@@ -27,13 +24,14 @@ export const NewGridDisplayCard = ({
 const Container = styled(Flex)(
   css({
     backgroundColor: "white",
-    border: "2px solid purple",
+    border: "2px solid grey",
     borderRadius: "8px",
-    flexDirection: "row",
-    width: "230px",
+    flexDirection: "column",
+    minWidth: ["230px", null],
+    width: [null, "230px"],
     height: "304px",
-    // mx: 5,
-    // flexGrow: 1,
+    marginBottom: 5,
+    overflow: "hidden",
   })
 );
 
@@ -47,5 +45,6 @@ const Top = styled(Box)(
   css({
     backgroundColor: "black",
     height: "50%",
+    width: "100%",
   })
 );

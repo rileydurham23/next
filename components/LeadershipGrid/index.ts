@@ -1,1 +1,1 @@
-export { default } from "./LeadershipTeam";
+export { default } from "./LeadershipGrid";
