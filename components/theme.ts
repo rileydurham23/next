@@ -139,24 +139,6 @@ const theme = {
     default: 4,
     circle: 99999,
   },
-  flexboxgrid: {
-    // Defaults
-    gridSize: 12, // columns
-    gutterWidth: 3.5, // rem
-    outerMargin: 2, // rem
-    mediaQuery: "only screen",
-    container: {
-      sm: 46, // rem
-      md: 61, // rem
-      lg: 76, // rem
-    },
-    breakpoints: {
-      xs: 9, // em
-      sm: 30, // em
-      md: 20, // em
-      lg: 45, // em
-    },
-  },
 };
 
 export default theme;
