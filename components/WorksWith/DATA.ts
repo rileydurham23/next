@@ -45,8 +45,8 @@ export const DATA: LogoEntry = {
     ["redshift", "AWS Redshift"],
     ["mongodb", "MongoDB"],
     ["mongodb", "MongoDB Atlas"],
-    ["oracledb", "Oracle DB", true],
-    ["msSQL", "MS SQL", true],
-    ["redis", "Redis", true],
+    ["mariadb", "Maria DB"],
+    ["msSQL", "MS SQL"],
+    ["redis", "Redis"],
   ],
 };

@@ -15,6 +15,7 @@ export { default as chef } from "./assets/chef.svg";
 export { default as gcloud } from "./assets/gcloud.svg";
 export { default as k8s } from "./assets/k8s.svg";
 export { default as linux } from "./assets/linux.svg";
+export { default as mariadb } from "./assets/mariadb.svg";
 export { default as okta } from "./assets/okta.svg";
 export { default as oneLogin } from "./assets/oneLogin.svg";
 export { default as puppet } from "./assets/puppet.svg";
