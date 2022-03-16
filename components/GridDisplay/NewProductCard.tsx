@@ -2,6 +2,7 @@ import css from "@styled-system/css";
 import styled from "styled-components";
 
 import Box from "components/Box";
+import Button from "components/Button";
 import Flex from "components/Flex";
 import Link from "components/Link";
 import {
@@ -69,7 +70,9 @@ export const NewProductCard = ({
             <BottomHalf>
               <TitleBox>{title}</TitleBox>
               <DescriptionBox>{description}</DescriptionBox>
-              <CTA>Explore {title}</CTA>
+              <StyledButton as={Box} variant="secondary" shape="outline">
+                Learn More
+              </StyledButton>
             </BottomHalf>
           </StyledLink>
         </StyledWrapper>
@@ -91,18 +94,21 @@ const BackgroundLayer = styled(Box)(
 const BottomHalf = styled(Flex)(
   css({
     flexDirection: "column",
+    height: "58%",
   })
 );
 
-const CTA = styled("p")(
+const StyledLink = styled(Link)(
   css({
-    color: "gray",
-    fontSize: "text-md",
-    lineHeight: "md",
-    pt: 2,
-    px: 5,
-    textDecoration: "underline",
-    margin: 0,
+    color: "black",
+    textDecoration: "none",
+  })
+);
+
+const StyledButton = styled(Button)(
+  css({
+    mx: 4,
+    mt: 5,
   })
 );
 
@@ -121,8 +127,9 @@ const DescriptionBox = styled(Box)(
     color: "gray",
     fontSize: "text-md",
     lineHeight: "md",
-    pt: 2,
-    px: 5,
+    height: "50px",
+    py: 2,
+    px: 4,
   })
 );
 
@@ -130,7 +137,8 @@ const PamCardContainer = styled(Box)(
   css({
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
-    height: "320px",
+    height: "360px",
+    backgroundPosition: "center",
     display: ["none", "inherit"],
   })
 );
@@ -141,18 +149,11 @@ const PamWrapper = styled(Box)(
   })
 );
 
-const StyledLink = styled(Link)(
-  css({
-    color: "black",
-    textDecoration: "none",
-  })
-);
-
 const StyledWrapper = styled(Box)(
   css({
     borderRadius: "md",
     boxShadow: "0px 2px 8px rgba(12, 12, 14, 0.24)",
-    height: "320px",
+    height: "360px",
     width: "100%",
     maxWidth: "394px",
     transition: ".3s all",
@@ -169,12 +170,12 @@ const TitleBox = styled(Box)(
     fontWeight: "bold",
     lineHeight: "lg",
     pt: 4,
-    px: 5,
+    px: 4,
   })
 );
 
 const TopHalf = styled(Box)(
   css({
-    height: "50%",
+    height: "42%",
   })
 );
