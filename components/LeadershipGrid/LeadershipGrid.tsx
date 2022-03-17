@@ -4,85 +4,74 @@ import css from "@styled-system/css";
 import Box from "components/Box";
 import Centrator from "components/Centrator";
 import Flex from "components/Flex";
+import Image from "components/Image";
 import SectionSimple from "components/Section";
 import { H1 } from "components/Text";
 import { Grid, Col, Row } from "react-styled-flexboxgrid";
 
-const leadershipList = [
-  // {
-  //   name: "Ev Kontsevoy",
-  //   title: "Co-founder and CEO",
-  // },
-  // {
-  //   name: "Alexander Klizentas",
-  //   title: "Co-founder and CTO",
-  // },
-  // {
-  //   name: "Taylor Wakefield",
-  //   title: "Co-founder and COO",
-  // },
-  // {
-  //   name: "Michael Ferranti",
-  //   title: "CMO",
-  // },
-  // {
-  //   name: "Hector Hernandez",
-  //   title: "CRO",
-  // },
-  // {
-  //   name: "Xin Ding",
-  //   title: "VP Products",
-  // },
-  // {
-  //   name: "Bardia Shahali",
-  //   title: "VP Sales",
-  // },
-  // {
-  //   name: "Phil Simpson",
-  //   title: "VP Alliances",
-  // },
-  // {
-  //   name: "Reed Lodan",
-  //   title: "VP Security",
-  // },
-];
+import BardiaShahali from "./assets/bardia-shahali.jpg";
+import EvKontsevoy from "./assets/ev-kontsevoy.jpg";
+import SashaKlizentas from "./assets/sasha-klizentas.jpg";
+import MichaelFerranti from "./assets/michael-ferranti.jpg";
+import HectorHernandez from "./assets/hector-hernandez.png";
+import XinDing from "./assets/xin-ding.png";
+import PhilSimpson from "./assets/phil-simpson.png";
+import ReedLodan from "./assets/reed-lodan.png";
+import TaylorWakefield from "./assets/taylor-wakefield.jpg";
 
-const mockList = [
+import NextImage from "next/image";
+
+interface LeaderEntry {
+  name: string;
+  title: string;
+  source: string;
+}
+
+const leadershipList: Array<LeaderEntry> = [
   {
-    name: "1",
-    title: "one",
+    name: "Ev Kontsevoy",
+    title: "Co-founder and CEO",
+    source: EvKontsevoy,
   },
   {
-    name: "2",
-    title: "two",
+    name: "Alexander Klizentas",
+    title: "Co-founder and CTO",
+    source: SashaKlizentas,
   },
   {
-    name: "3",
-    title: "three",
+    name: "Taylor Wakefield",
+    title: "Co-founder and COO",
+    source: TaylorWakefield,
   },
   {
-    name: "4",
-    title: "four",
+    name: "Michael Ferranti",
+    title: "CMO",
+    source: MichaelFerranti,
   },
   {
-    name: "5",
-    title: "five",
+    name: "Hector Hernandez",
+    title: "CRO",
+    source: HectorHernandez,
   },
   {
-    name: "6",
-    title: "Six",
+    name: "Xin Ding",
+    title: "VP Products",
+    source: XinDing,
   },
   {
-    name: "7",
-    title: "Seven",
+    name: "Bardia Shahali",
+    title: "VP Sales",
+    source: BardiaShahali,
   },
   {
-    name: "8",
-    title: "Eight",
+    name: "Phil Simpson",
+    title: "VP Alliances",
+    source: PhilSimpson,
   },
   {
-    name: "9",
-    title: "Nine",
+    name: "Reed Lodan",
+    title: "VP Security",
+    source: ReedLodan,
   },
 ];
 
@@ -107,13 +96,19 @@ const theme = {
   },
 };
 
-export const LeadershipCard = ({ title, description }) => {
+interface LeadershipCard {
+  name: string;
+  title: string;
+  source: string;
+}
+
+export const LeadershipCard = ({ source, title, description }) => {
   return (
     <LeadershipCardContainer>
-      <Top />
+      <Top>{/* <StyledImage src={source} alt={title} /> */}</Top>
       <Bottom>
-        <h1>{title}</h1>
-        <h2>{description}</h2>
+        <NameH1>{title}</NameH1>
+        <Description>{description}</Description>
       </Bottom>
     </LeadershipCardContainer>
   );
@@ -130,11 +125,12 @@ const LeadershipGrid = () => {
           <ThemeProvider theme={theme}>
             <Grid>
               <StyledRow>
-                {mockList.map((item) => (
+                {leadershipList.map((item) => (
                   <Col key={item.name}>
                     <LeadershipCard
                       title={item.name}
                       description={item.title}
+                      source={item.source}
                     />
                   </Col>
                 ))}
@@ -149,6 +145,47 @@ const LeadershipGrid = () => {
 };
 
 export default LeadershipGrid;
+
+const Bottom = styled(Flex)(
+  css({
+    flexDirection: "column",
+    my: "24px",
+    mx: 3,
+    zIndex: "9999",
+  })
+);
+
+const Top = styled(Box)(
+  css({
+    backgroundColor: "black",
+    height: "50%",
+    width: "100%",
+    border: "5px solid green",
+    zIndex: "50",
+  })
+);
+
+const StyledImage = styled(Image)(
+  css({
+    zIndex: -50,
+  })
+);
+
+const Description = styled("p")(
+  css({
+    fontSize: "16px",
+    lineHeight: "32px",
+    color: "#455a64",
+  })
+);
+
+const NameH1 = styled(H1)(
+  css({
+    fontSize: "18px",
+    lineHeight: "32px",
+    fontWeight: "700",
+  })
+);
 
 const BlankCard = styled(Box)(
   css({
@@ -195,19 +232,5 @@ const LeadershipCardContainer = styled(Flex)(
     marginBottom: 5,
     overflow: "hidden",
     boxShadow: "0px 0px 8px rgba(12, 12, 14, 0.24)",
-  })
-);
-
-const Bottom = styled(Flex)(
-  css({
-    flexDirection: "column",
-  })
-);
-
-const Top = styled(Box)(
-  css({
-    backgroundColor: "black",
-    height: "50%",
-    width: "100%",
   })
 );

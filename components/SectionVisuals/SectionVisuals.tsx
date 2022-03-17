@@ -6,7 +6,7 @@ import Heading from "components/Heading";
 import { P } from "components/MDX";
 import { variant } from "components/system";
 
-export type BoxStyleVariant = "default" | "secondary";
+export type BoxStyleVariant = "default" | "secondary" | "dark-background";
 
 export interface SectionVisualsProps {
   subtitle?: string;
@@ -56,9 +56,7 @@ export const SectionVisuals = ({
           titleFontWeight="black"
           dark={textColor === "white" ? true : false}
         />
-        <StyledBox variant={boxStyle} color={textColor || "darkest"}>
-          {description}
-        </StyledBox>
+        <StyledBox variant={boxStyle}>{description}</StyledBox>
       </Box>
       <Flex
         flex="0 0 auto"
@@ -107,6 +105,21 @@ const StyledBox = styled(Box)<{ variant: BoxStyleVariant }>(
           lineHeight: "lg",
           textAlign: "left",
           color: "darkest",
+        },
+      },
+      darkBackground: {
+        lineHeight: ["md", "lg"],
+        fontSize: ["text-md", "text-xl"],
+        mt: [3, 4],
+        color: "white",
+        [`& > ${P}`]: {
+          fontSize: "inherit",
+          lineHeight: "inherit",
+        },
+        li: {
+          color: "black",
+          fontSize: "text-md",
+          lineHeight: "md",
         },
       },
     },

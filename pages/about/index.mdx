@@ -1,13 +1,14 @@
 ---
-title: Teleport lorem ipsum
+title: Helping leading companies stay secure while moving fast
 subtitle: About Us
 border: none
 hideWave: true
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+description: Teleport is trusted by the world’s most innovative companies who refuse to trade agility for security. By consolidating all aspects of infrastructure access into a single platform, Teleport reduces attack surface area, cuts operational overhead, easily enforces compliance, and improves productivity.   
 bg: code
 ---
 
 import Careers from "components/Careers";
+import CareersGrid from "components/CareersGrid";
 import CultureGrid from "components/CultureGrid";
 import AnnouncementBar from "components/AnnouncementBar";
 import Flex from "components/Flex";
@@ -27,11 +28,11 @@ import OurVision from "./assets/our-vision@2x.png";
     title={meta.title}
     subtitle={meta.subtitle}
     description={meta.description}
-    src="./benefits/assets/benefits@2x.png" maxWidth="664px"
+    src="./benefits/assets/benefits@2x.png"
     bg="code"
     textColor="white"
     >
-    <Image src="./assets/fingerprint.svg" width="500px" />
+    <Image src="./assets/fingerprint.svg" width="400px" />
   </SectionHeader>
 </SectionSimple>
 
@@ -44,8 +45,8 @@ import OurVision from "./assets/our-vision@2x.png";
     imageLocation="center"
     subtitle="Our Vision"
     src="./assets/our-vision@2x.png"
-    title="Lorem Ipsum"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    title="Today's computing environments have too much complexity, too many network boundaries, and too little trust. Complexity slows engineers down and leads to human errors. Complex systems can’t be secure despite the red tape of bureaucracy. We make trusted computing simple. This gives engineers freedom to move and freedom to build a better future."
+    description=""
   >
     <Image src={OurVision} maxWidth="664px" alt="our vision" />
   </SectionVisuals>
@@ -55,10 +56,10 @@ import OurVision from "./assets/our-vision@2x.png";
 
 <SectionSimple>
   <SectionVisuals
-    minimumContentWidth="400px"
-    title="Title"
+    minimumContentWidth="500px"
+    title="Backed by leading investors"
     subtitle="Our Investors"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    description=""
   >
     <LogosGrid />
   </SectionVisuals>
@@ -66,32 +67,34 @@ import OurVision from "./assets/our-vision@2x.png";
 
 <SectionSimple bg="purpleStars" >
   <SectionVisuals
-    title="Title"
+    title="How we behave"
     subtitle="Our Culture"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    description="Company values are great, but behavior is what we all live every day. If you join us as an employee, or trust us as a customer, these are the behaviors you can expect to see from us.  Every time."
     textColor="white"
+    minimumContentWidth="500px"
+    boxStyle="darkBackground"
   >
-    <Image src="./benefits/assets/benefits@2x.png" maxWidth="664px" />
+    <Image src="./benefits/assets/benefits@2x.png" width="226px" height="290px" />
   </SectionVisuals>
   <CultureGrid />
 </SectionSimple>
 
 <SectionSimple bg="grayWave">
   <SectionVisuals
-    title="Title"
-    subtitle="Our Culture 2"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    title="Your career is ready to blast off."
+    subtitle="Working at Teleport"
+    description="Teleport is growing fast and we need people like you to join us. If you are inspired by our vision and see yourself in our behaviors, we encourage you to explore our careers page. Here are some of the reasons to join us."
   >
-    <Image src="./benefits/assets/benefits@2x.png" maxWidth="664px" />
+    <Image src="./benefits/assets/benefits@2x.png" width="226px" height="290px" />
   </SectionVisuals>
-  <CultureGrid />
+  <CareersGrid />
 </SectionSimple>
 
 <SectionSimple>
   <SectionVisuals
-    title="Title"
+    title="And the winner is…"
     subtitle="Our Awards"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    description="From leading analyst firms to top workplace awards, Teleport is recognized as a leader. It’s just one more reason why we are trusted by many of the world’s largest, most security-conscious organizations."
   >
   <Flex flexDirection="column" alignItems="center">
     <Flex >
@@ -103,3 +106,5 @@ import OurVision from "./assets/our-vision@2x.png";
   </Flex>
   </SectionVisuals>
 </SectionSimple>
+
+<Careers />

@@ -10,7 +10,6 @@ import Bessemer from "./assets/bessemer.png";
 import Capital from "./assets/capital.png";
 import Insight from "./assets/insight.png";
 import KleinerPerkins from "./assets/kleiner-perkins.png";
-import YCombinator from "./assets/y-combinator.png";
 
 interface Logo {
   source: string;
@@ -18,24 +17,23 @@ interface Logo {
 }
 
 const logos: Array<Logo> = [
-  { source: YCombinator, alt: "bessemer logo" },
-  { source: KleinerPerkins, alt: "bessemesr logo" },
-  { source: Bessemer, alt: "capital logo" },
-  { source: Insight, alt: "bessemer logo" },
+  { source: KleinerPerkins, alt: "kleiner-perkins logo" },
   { source: Bessemer, alt: "bessemer logo" },
+  { source: Insight, alt: "insight logo" },
+  { source: Capital, alt: "capital logo" },
 ];
 
 const theme = {
   flexboxgrid: {
     // Defaults
-    gridSize: 4, // column
+    gridSize: 12, // column
     gutterWidth: 1, // how much space between cards (32px)
     outerMargin: 0, // rem
     container: {
       // default if not fluid
       sm: 20, // rem
       md: 40, // rem
-      lg: 60, // rem
+      lg: 50, // rem
     },
     breakpoints: {
       xs: 0, // em

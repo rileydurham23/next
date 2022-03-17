@@ -39,39 +39,37 @@ const items = [
       "Writing things down helps to preserve and share our thoughts leads to smarter work and more scalable growth.",
   },
   {
-    title: "We Write It Down",
+    title: "We are professionals",
     description:
-      "Writing things down helps to preserve and share our thoughts leads to smarter work and more scalable growth.",
+      "We treat each other the same way we treat our customers: with respect.",
   },
   {
-    title: "We Write It Down",
+    title: "We think slow",
     description:
-      "Writing things down helps to preserve and share our thoughts leads to smarter work and more scalable growth.",
+      "Slow, academic, logical, calculating, conscious, even “boring” contemplation leads to better decisions.",
   },
   {
-    title: "We Write It Down",
-    description:
-      "Writing things down helps to preserve and share our thoughts leads to smarter work and more scalable growth.",
+    title: "We are drivers, not passengers",
+    description: "Drivers take control, responsibility and influence outcomes.",
   },
   {
-    title: "We Write It Down",
+    title: "We are builders",
     description:
-      "Writing things down helps to preserve and share our thoughts leads to smarter work and more scalable growth.",
+      "Ideas themselves are useless. Building something new starts with unglamorous, tedious work that sets the foundation for scale later.",
   },
   {
-    title: "We Write It Down",
-    description:
-      "Writing things down helps to preserve and share our thoughts leads to smarter work and more scalable growth.",
+    title: "We lift each other up",
+    description: "We never elevate ourselves at someone’s expense.",
   },
   {
-    title: "We Write It Down",
+    title: "We assume the principle of charity",
     description:
-      "Writing things down helps to preserve and share our thoughts leads to smarter work and more scalable growth.",
+      "When communication is brief and something is unclear, we assume that the other person is just as smart as we are, and is acting in good faith.",
   },
   {
-    title: "We Write It Down",
+    title: "We value each other’s time",
     description:
-      "Writing things down helps to preserve and share our thoughts leads to smarter work and more scalable growth.",
+      "We put the extra effort into making it easy for others to work with us. We respect being “in the zone” and understand the cost of context shifting.",
   },
 ];
 
@@ -134,6 +132,7 @@ const StyledH3 = styled(H3)(
 const Container = styled(Flex)(
   css({
     flexDirection: "column",
+    mb: 9,
   })
 );
 
@@ -152,15 +151,16 @@ const Top = styled(Box)(
 
 const CultureCardContainer = styled(Flex)(
   css({
-    border: "1px solid green",
+    // border: "1px solid green",
     flexDirection: "column",
     fontSize: "12px",
     fontWeight: "regular",
-    marginBottom: 3,
+    marginBottom: 7,
     color: "white",
     minWidth: ["284px", "100%"],
     maxWidth: "284px",
     width: ["100%", "284px"],
     padding: 0,
+    pr: 7,
   })
 );
