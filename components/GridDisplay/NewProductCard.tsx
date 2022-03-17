@@ -119,6 +119,7 @@ const CoverPhotoLayer = styled(Box)(
     backgroundPosition: "right",
     position: "relative",
     top: "-150px",
+    borderTopRightRadius: "md",
   })
 );
 
