@@ -10,8 +10,11 @@ bg: code
 import Careers from "components/Careers";
 import CultureGrid from "components/CultureGrid";
 import AnnouncementBar from "components/AnnouncementBar";
+import Flex from "components/Flex";
+
 import GridDisplay from "components/GridDisplay";
 import LeadershipGrid from "components/LeadershipGrid";
+import LogosGrid from "components/LogosGrid"
 import { NewHomepage } from "components/AnnouncementBar/data";
 import Image from "components/Image";
 import SectionVisuals from "components/SectionVisuals";
@@ -52,11 +55,12 @@ import OurVision from "./assets/our-vision@2x.png";
 
 <SectionSimple>
   <SectionVisuals
+    minimumContentWidth="400px"
     title="Title"
     subtitle="Our Investors"
     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   >
-    # hi
+    <LogosGrid />
   </SectionVisuals>
 </SectionSimple>
 
@@ -78,7 +82,9 @@ import OurVision from "./assets/our-vision@2x.png";
     subtitle="Our Culture 2"
     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   >
+    <Image src="./benefits/assets/benefits@2x.png" maxWidth="664px" />
   </SectionVisuals>
+  <CultureGrid />
 </SectionSimple>
 
 <SectionSimple>
@@ -87,6 +93,13 @@ import OurVision from "./assets/our-vision@2x.png";
     subtitle="Our Awards"
     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   >
-    # hi
+  <Flex flexDirection="column" alignItems="center">
+    <Flex >
+      <Image src="./assets/awards/gartner.png" width="214px" height="194px" marginRight={6} />
+      <Image src="./assets/awards/perks.svg" width="200px"  marginRight={6} />
+      <Image src="./assets/awards/great-place.png" width="146px" height="208px"  marginRight={6} />
+    </Flex>
+    <Image src="./assets/logos/y-combinator.png" width="298px" height="86px" />
+  </Flex>
   </SectionVisuals>
 </SectionSimple>

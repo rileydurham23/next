@@ -19,12 +19,14 @@ export interface SectionVisualsProps {
   imageLocation?: string;
   boxStyle?: BoxStyleVariant;
   textColor?: string;
+  minimumContentWidth?: string;
 }
 
 export const SectionVisuals = ({
   children,
   subtitle,
   title,
+  minimumContentWidth,
   contentWidth = "600px",
   description,
   titleFontSize = ["header-1", "48px"],
@@ -39,7 +41,13 @@ export const SectionVisuals = ({
       justifyContent="space-between"
       flexDirection={flexStyle}
     >
-      <Box flex="1 1 auto" maxWidth={contentWidth} pt={[4, 11]} pb={[0, 11]}>
+      <Box
+        flex="1 1 auto"
+        maxWidth={contentWidth}
+        minWidth={minimumContentWidth}
+        pt={[4, 11]}
+        pb={[0, 11]}
+      >
         <Heading
           title={title}
           subtitle={subtitle}

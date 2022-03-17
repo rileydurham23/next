@@ -159,7 +159,7 @@ const BlankCard = styled(Box)(
 const OuterContainer = styled(Box)(
   css({
     pt: [2, 11],
-    pb: [2, 7],
+    pb: [2, 8],
   })
 );
 
